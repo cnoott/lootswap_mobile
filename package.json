@@ -14,6 +14,7 @@
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.0",
     "@react-navigation/stack": "^6.3.2",
+    "email-validator": "^2.0.4",
     "expo": "~46.0.13",
     "expo-env-info": "^1.0.5",
     "expo-font": "~10.2.0",

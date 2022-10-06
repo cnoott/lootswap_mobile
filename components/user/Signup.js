@@ -3,12 +3,17 @@ import { Text, View, Button, TextInput, StyleSheet, Pressable, Image } from 'rea
 import { SvgUri } from 'react-native-svg';
 import * as ImagePicker from 'expo-image-picker';
 import { getSignedRequest, uploadFile } from '../../api/image_upload';
+import Error from '../../shared/Error';
+import { signUp, authenticate } from '../../api/auth';
+import { useUserUpdate } from '../../shared/UserContext';
+import EmailValidator from 'email-validator';
 
 //TODO:
-// - File upload for profile picture
+// - File upload for profile picture DONE
 // - place holder styling
 // - limit file types 
-// - image upload loading state
+// - image upload loading state DONE
+// - request permissions correctly
 
 const Signup = ({ navigation }) => {
     const [values, setValues] = useState({
@@ -17,9 +22,13 @@ const Signup = ({ navigation }) => {
         profile_picture: '',
         password: '',
         confirm_password: '',
-        error: ''
+        error: '',
     });
     const { name, email, profile_picture, password, confirm_password, error } = values;
+
+    const updateUser = useUserUpdate();
+
+    const [imageLoading, setImageLoading] = useState(false);
 
     
     const init = async () => {
@@ -90,26 +99,31 @@ const Signup = ({ navigation }) => {
     };
 
     const pickImage = async () => {
+        setImageLoading(true)
         let result =  await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All, //only accept jpg, png, gif, webp,
+            mediaTypes: ImagePicker.MediaTypeOptions.Images, //only accept jpg, png, gif, webp,
             allowsEditing: true,
             aspect: [1, 1],
             quality: 1,
         });
 
+
         getSignedRequest(result).then(response => {
             if (response.error) {
                 console.log(res.error); //SET ERROR HERE
+                setImageLoading(false);
             }
             else {
                 uploadFile(result, response.signedRequest, response.url).then(imgUrl => {
                     setValues({...values, 'profile_picture': imgUrl});
                 });
+                setImageLoading(false);
             }
         });
 
         if (!result.canceled) {
             setValues({...values, profile_picture: result.uri});
+            setImageLoading(false);
         }
     };
 
@@ -119,11 +133,39 @@ const Signup = ({ navigation }) => {
         setValues({...values, profile_picture: url})
     }; 
 
+    const clickSubmit = () => {
+        if (!handleValidation()) {
+            return
+        }
+
+        setValues({...values, error: ''});
+        signUp({name, email, profile_picture, password, fromMobile: true}).then(signUpRes => {
+            if(signUpRes.error) {
+                if (signUpRes.error.includes('email')) {
+                    setValues({...values, error: 'Account with this email already exists'});
+                }
+                else if (signUpRes.error.includes('name')) {
+                    setValues({...values, error: 'Username already taken' });
+                }
+                else {
+                    setValues({...values, error: signUpRes.error});
+                }
+            }
+            else {
+                authenticate(signUpRes, () => {
+                    updateUser(signUpRes);
+                });
+            }
+        });
+    };
+
     return (
         <View style={styles.container}>
 
             <View style={styles.textContainer}>
                 <Text style={styles.title}> Create Account </Text>
+
+                {error && <Error errorText={error}/> }
 
                 <TextInput 
                     placeholder='Email'
@@ -168,8 +210,10 @@ const Signup = ({ navigation }) => {
                     />
                 </View>
 
-                <Pressable style={{ justifyContent: 'center' }} onPress={pickImage}>
-                    <Text> Upload Image </Text>
+                <Pressable style={styles.uploadButton} onPress={pickImage}>
+                    <Text style={styles.uploadButtonText}> 
+                        {imageLoading ? 'Loading...' : 'Upload Image' }
+                    </Text>
                 </Pressable>
 
             </View>
@@ -177,10 +221,9 @@ const Signup = ({ navigation }) => {
                 <Text style={{ color: 'blue', marginLeft: 37}}> Random </Text>
             </Pressable>
 
-            <Text> Agree to TOS </Text>
 
             <View style={styles.bottom}>
-                <Pressable style={styles.signupButton}>
+                <Pressable style={styles.signupButton} onPress={clickSubmit}>
                     <Text style={{ color: 'white', fontSize: 20 }}> Create Account </Text>
                 </Pressable>
             </View>
@@ -234,6 +277,7 @@ const styles = StyleSheet.create({
     },
 
     pfp: {
+        marginTop:5,
         borderRadius: 40,
         borderWidth: 1,
         overflow: 'hidden'
@@ -244,6 +288,19 @@ const styles = StyleSheet.create({
         marginLeft: '10%',
         fontSize: 15,
         fontWeight: '100'
+    },
+
+    uploadButton: {
+        justifyContent: 'center',
+        marginLeft: 8,
+    },
+
+    uploadButtonText: {
+        backgroundColor: 'whitesmoke',
+        paddingVertical: 10,
+        paddingHorizontal: 10,
+        borderRadius: 8,
+        borderWidth: 1,
     },
 });
 

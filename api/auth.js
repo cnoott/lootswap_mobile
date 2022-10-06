@@ -57,3 +57,20 @@ export const signOut = async () => {
         return false;
     }
 };
+
+export const signUp = async (user) => {
+    return fetch(`${API}/signup`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+        .then(response => {
+            return response.json()
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
