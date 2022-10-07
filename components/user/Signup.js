@@ -9,10 +9,6 @@ import { useUserUpdate } from '../../shared/UserContext';
 import EmailValidator from 'email-validator';
 
 //TODO:
-// - File upload for profile picture DONE
-// - place holder styling
-// - limit file types 
-// - image upload loading state DONE
 // - request permissions correctly
 
 const Signup = ({ navigation }) => {
@@ -23,8 +19,9 @@ const Signup = ({ navigation }) => {
         password: '',
         confirm_password: '',
         error: '',
+        loading: false,
     });
-    const { name, email, profile_picture, password, confirm_password, error } = values;
+    const { name, email, profile_picture, password, confirm_password, error, loading } = values;
 
     const updateUser = useUserUpdate();
 
@@ -99,6 +96,7 @@ const Signup = ({ navigation }) => {
     };
 
     const pickImage = async () => {
+        //request permission for camera and library
         setImageLoading(true)
         let result =  await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images, //only accept jpg, png, gif, webp,
@@ -137,8 +135,7 @@ const Signup = ({ navigation }) => {
         if (!handleValidation()) {
             return
         }
-
-        setValues({...values, error: ''});
+        setValues({...values, 'name': name.toLowerCase(), 'email': email.toLowerCase(), error: '', loading: true});
         signUp({name, email, profile_picture, password, fromMobile: true}).then(signUpRes => {
             if(signUpRes.error) {
                 if (signUpRes.error.includes('email')) {
@@ -154,6 +151,7 @@ const Signup = ({ navigation }) => {
             else {
                 authenticate(signUpRes, () => {
                     updateUser(signUpRes);
+                    navigation.navigate('Home');
                 });
             }
         });
@@ -224,7 +222,9 @@ const Signup = ({ navigation }) => {
 
             <View style={styles.bottom}>
                 <Pressable style={styles.signupButton} onPress={clickSubmit}>
-                    <Text style={{ color: 'white', fontSize: 20 }}> Create Account </Text>
+                    <Text style={{ color: 'white', fontSize: 20 }}>
+                        { loading ? 'Loading...' : 'Create Account' }
+                    </Text>
                 </Pressable>
             </View>
         </View>
