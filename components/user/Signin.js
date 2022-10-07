@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useUserContext, useUserUpdate } from '../../shared/UserContext';
 import { Text, View, Button, TextInput, StyleSheet, Pressable } from 'react-native';
 import { signIn, authenticate, isAuthenticated } from '../../api/auth';
-
-//TODO: 
-// - make shared error component
-// - Make login screen a pop-up slide over
-// - redirect to home after login
+import Error from '../../shared/Error';
 
 const Signin = ({ navigation }) => { 
     const [signedIn, setSignedIn] = useState(false);
@@ -25,6 +21,7 @@ const Signin = ({ navigation }) => {
     };
 
     const handleSubmit = () => {
+        setError('');
         signIn(loginInfo).then(response => {
             if (response.error) {
                 setError(response.error)
@@ -32,10 +29,8 @@ const Signin = ({ navigation }) => {
             else {
                 authenticate(response, () => {
                     updateUser(response);
-                    //setSignedIn(true);
+                    navigation.navigate('Home');
                 });
-                console.log('response');
-                console.log(response);
             }
         });
     };
@@ -47,7 +42,7 @@ const Signin = ({ navigation }) => {
     const handleTest = async () => {
         const isAuth = await isAuthenticated();
         console.log(isAuth);
-    }
+    };
 
     useEffect(() => {
         init();
@@ -56,10 +51,10 @@ const Signin = ({ navigation }) => {
     return(
         <View style={styles.container}>
             <Text style={ styles.title }> Sign in </Text>
+            { error && (<Error errorText={error}/>) }
             <Pressable style={styles.createAcc} onPress={() => navigation.navigate('signup')}>
                 <Text style={{ color: 'blue' }}> or Create Account </Text>
             </Pressable>
-            { error && (<Text>{error}</Text>) }
             
             <TextInput 
                 placeholder='Email'
@@ -77,7 +72,7 @@ const Signin = ({ navigation }) => {
 
         
             <View style={styles.bottom}>
-                <Pressable style={styles.signupButton}>
+                <Pressable style={styles.signupButton} onPress={handleSubmit}>
                     <Text style={{ color: 'white', fontSize: 25 }}> Signin </Text>
                 </Pressable>
             </View>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Image, Text, View } from 'react-native';
-import HomeScreen from '../components/HomeScreen';
+import HomeScreen from '../components/home/HomeScreen';
 import Profile from '../components/user/Profile';
 import AddLoot from '../components/AddLoot';
 import Orders from '../components/Orders';
