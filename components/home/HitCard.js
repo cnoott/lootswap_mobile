@@ -1,7 +1,12 @@
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, Pressable } from 'react-native';
 
-const HitCard = ({hit}) => (
+const HitCard = ({hit, navigation}) => (
     <View style={styles.container}>
+    <Pressable 
+        onPress={() => navigation.navigate('ProductPage', {
+            productId: hit.objectID
+        })}
+    >
         <View style={styles.imageContainer}>
             <Image
                 source={{ uri: hit.primary_photo }}
@@ -18,6 +23,7 @@ const HitCard = ({hit}) => (
         <View style={styles.priceContainer}>
             <Text style={styles.price}> ${hit.price} </Text>
         </View>
+    </Pressable>
     </View>
 );
 

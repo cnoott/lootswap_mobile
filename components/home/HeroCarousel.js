@@ -68,7 +68,6 @@ const HeroCarousel = ({ navigation }) => {
                 autoPlayInterval={6000}
                 data={[...new Array(3).keys()]}
                 scrollAnimationDuration={1000}
-                onSnapToItem={(index) => console.log('current index:', index)}
                 renderItem={({ index }) => (<RenderItem index={index}/>)}
             />
         </View>

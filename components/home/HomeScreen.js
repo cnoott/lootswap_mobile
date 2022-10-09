@@ -1,17 +1,20 @@
-import React, { useRef, useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, Button, Dimensions, TextInput, FlatList } from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
+import { StyleSheet, Text, View, ScrollView, Button, Dimensions, TextInput, Pressable} from 'react-native';
 import HeroCarousel from './HeroCarousel';
 import HitCard from './HitCard';
 import { InstantSearch, useSearchBox, useInfiniteHits, } from 'react-instantsearch-hooks';
 import algoliasearch from 'algoliasearch/lite';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useUserContext, useUpdateIsHome } from '../../shared/UserContext';
 
 const appId = 'O616IHS8SQ';
 const apiKey = '1a61d9059fcc3f918576c7aa95279846';
 const ALGOLIA_INDEX_NAME = 'dev_lootswap';
 const searchClient = algoliasearch(appId, apiKey);
 
+
 const HomeScreen = ({ navigation }) => {
-    const width = Dimensions.get('window').width;
+    const width = Dimensions.get('window').width;    
 
     const SearchBox = (props) => {
         const { query, refine } = useSearchBox(props);
@@ -49,21 +52,23 @@ const HomeScreen = ({ navigation }) => {
         );
     };
 
-    const Hit = ({ hit }) => (
-        <Text> {hit.name}</Text>
-    );
-    const InfiniteHits = ({ hitComponent: Hit, ...props }) => {
+    const Hit = () => (<></>);
+    const InfiniteHits = ({ ...props }) => {
         const { hits, isLastPage, showMore } = useInfiniteHits(props);
 
         return (
             <View style={styles.productsContainer}>
             { hits.map((hit, i) => (
-                <HitCard hit={hit} key={i} style={styles.product}/>
+                <HitCard 
+                    hit={hit} 
+                    key={i} 
+                    style={styles.product} 
+                    navigation={navigation}
+                />
             ))}
             </View>
         );
     };
-
     return(
         <View style={{ backgroundColor: 'white' }}>
             <InstantSearch
@@ -73,12 +78,12 @@ const HomeScreen = ({ navigation }) => {
                 <ScrollView stickyHeaderIndices={[0]} >
                     <SearchBox/>
                     <HeroCarousel/>
-                    <InfiniteHits hitComponent={Hit}/>
+                    <InfiniteHits />
                 </ScrollView>
             </InstantSearch>
         </View>
-
     );
+    
 };
 
 const styles = StyleSheet.create({
