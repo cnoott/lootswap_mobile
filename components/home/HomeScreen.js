@@ -104,13 +104,13 @@ const styles = StyleSheet.create({
     },
     search: {
         backgroundColor: 'white',
-        height: 31,
+        height: 37,
         marginTop: 8,
         marginBottom: 8,
         width: '80%',
         borderWidth: 1,
         borderColor: 'darkgrey',
-        borderRadius: 8,
+        borderRadius: 20,
         padding: 4,
     },
 });

@@ -5,7 +5,7 @@ import { useRoute } from '@react-navigation/native';
 import { Image, Text, View, Pressable} from 'react-native';
 import HomeScreen from '../components/home/HomeScreen';
 import Profile from '../components/user/Profile';
-import AddLoot from '../components/AddLoot';
+import AddLoot from '../components/add_loot/AddLoot';
 import Orders from '../components/Orders';
 import Notifications from '../components/Notifications';
 import Logo from '../assets/logo.png';
@@ -153,7 +153,7 @@ const NavBar = () => {
                             <Tab.Screen 
                                 name='Add Loot' 
                                 component={AddLoot}
-                                options={{ tabBarIcon: () => <TabIcon source={AddLootIcon} /> }}
+                                options={{ tabBarIcon: () => <TabIcon source={AddLootIcon} />, headerShown: false }}
                             />
                             <Tab.Screen 
                                 name='Orders' 
