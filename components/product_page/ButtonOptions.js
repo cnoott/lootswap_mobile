@@ -6,7 +6,7 @@ const ButtonOptions = ({ product }) => {
     const TradeButton = () => (
         <View style={styles.containerTrade}>
             <Pressable style={styles.tradeButton}> 
-                <Text style={styles.tradeText}>Start Trade</Text>
+                <Text style={styles.tradeText}>Send Offer</Text>
             </Pressable>
         </View>
     );
@@ -34,8 +34,8 @@ const ButtonOptions = ({ product }) => {
 */
     return (
         <View>
-            <TradeButton/>
             <BuyButton/>
+            <TradeButton/>
         </View>
         
     );
@@ -45,12 +45,12 @@ const styles = StyleSheet.create({
     containerTrade: {
         flex: 1,
         alignItems: 'center',
-        marginTop: 20
+        marginTop: 10
     },
     containerBuy: {
         flex: 1,
         alignItems: 'center',
-        marginTop: 10
+        marginTop: 20
     },
     tradeButton: {
         paddingVertical: 15,

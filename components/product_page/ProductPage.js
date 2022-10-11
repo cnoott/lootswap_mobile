@@ -27,6 +27,8 @@ const BackIcon = () => {
 
 // TODO:
 // - Clickable user profile
+// - bubbles pagination
+// - put all itesm will be shipped by ups piority
 
 const ProductPage = ({ navigation, route }) => {
     const width = Dimensions.get('window').width;
