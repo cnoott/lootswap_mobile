@@ -1,79 +1,88 @@
 import React, {FC, useState} from 'react';
-import {INButton} from '../../components/button';
-import {InInput} from '../../components/input';
-import {LOGO} from '../../constants/constants';
+import {StyleSheet, TextInput} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {useDispatch} from 'react-redux';
+import {useTheme} from 'styled-components';
+import {scale, verticalScale} from 'react-native-size-matters';
 import {
   Container,
-  LogoImage,
-  LogoText,
-  BottomContainer,
-  ForgotContainer,
-  ForgotText,
+  HeaderContainer,
+  SignInText,
+  CreateAccountText,
+  EmptyView,
+  BottomButton,
+  ButtonText,
 } from './styles';
-import {reset} from '../../navigation/navigator';
-import {validatePassword} from '../../utility/utility';
-import {AUTH_DATA} from '../../constants/actions';
 
 export const AuthScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const dispatch = useDispatch();
+  const theme = useTheme();
+  const styles = makeStyles(theme);
 
-  /*
-   * Authentication method
-   */
-  const unlockPress = () => {
-    const validation = validatePassword(password); // Validating password
-    if (validation.length === 0) {
-      // Navigating and resetting to the bottom tabs screen and storing current login time to the redux state
-      reset(navigation, 'BottomTabs');
-      dispatch({
-        type: AUTH_DATA.UPDATE,
-        payload: {loginTime: new Date()},
-      });
-    } else {
-      setPasswordError(validation);
-    }
+  const renderBottomButton = () => {
+    return (
+      <BottomButton>
+        <ButtonText>Signin</ButtonText>
+      </BottomButton>
+    );
   };
 
-  /*
-   * Storing the password in the local state while user enter the password
-   */
-  const onChangeText = text => {
-    if (passwordError) {
-      setPasswordError('');
-    }
-    setPassword(text);
+  const renderBody = () => {
+    return (
+      <EmptyView>
+        <TextInput
+          style={styles.input}
+          onChangeText={setPassword}
+          value={password}
+          placeholder={'Email'}
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={setPassword}
+          value={password}
+          placeholder={'Password'}
+        />
+      </EmptyView>
+    );
+  };
+
+  const renderHeader = () => {
+    return (
+      <HeaderContainer>
+        <SignInText>Sign In</SignInText>
+        <CreateAccountText>or Create Account</CreateAccountText>
+      </HeaderContainer>
+    );
   };
 
   return (
     <Container>
-      <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'}>
-        <LogoImage source={LOGO} />
-        <LogoText>MARTIAN</LogoText>
-        <InInput
-          onChangeText={onChangeText}
-          secureTextEntry
-          error={passwordError}
-        />
-        <INButton
-          size={'lg'}
-          title={'UNLOCK'}
-          type={'primary'}
-          onPress={unlockPress}
-        />
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.Innercontainer}
+        keyboardShouldPersistTaps={'always'}>
+        {renderHeader()}
+        {renderBody()}
+        {renderBottomButton()}
       </KeyboardAwareScrollView>
-      <BottomContainer>
-        <ForgotContainer>
-          <ForgotText>FORGOT PASSWORD</ForgotText>
-        </ForgotContainer>
-      </BottomContainer>
     </Container>
   );
 };
+
+const makeStyles = (theme: any) =>
+  StyleSheet.create({
+    Innercontainer: {
+      flex: 1,
+      paddingHorizontal: scale(20),
+    },
+    input: {
+      alignSelf: 'stretch',
+      height: verticalScale(35),
+      borderWidth: 2,
+      borderColor: theme.colors.placeholder,
+      marginBottom: verticalScale(10),
+      paddingHorizontal: scale(10),
+    },
+  });
 
 export default AuthScreen;

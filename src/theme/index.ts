@@ -3,7 +3,7 @@ import { DefaultTheme } from 'styled-components/native';
 const theme: DefaultTheme = {
   borderRadius: '10px',
   colors: {
-    primary: '#000000',
+    primary: '#6267fe',
     secondary: '#FFFFFF',
     white: '#FFFFFF',
     black: '#000000',

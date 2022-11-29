@@ -54,7 +54,6 @@ export const Text = styled.Text.attrs((props) => ({
 }))`
   fontsize: ${(props) => moderateScale(props.fontSize)}px;
   margin-right: ${(props) => (props.marginRight ? moderateScale(props.marginRight) : 0)}px;
-  font-family: 'System85Pro-Medium';
   ${color}
   ${space}
   ${layout}
@@ -65,7 +64,6 @@ export const PriceText = styled.Text.attrs((props) => ({
   mt: moderateScale(14),
 }))`
   fontsize: ${moderateScale(48)}px;
-  font-family: 'System85Pro-Regular';
   ${color}
   ${space}
   ${layout}
