@@ -8,17 +8,12 @@ export const BLACKLOGO = require('../assets/images/logoblack.png');
 export const USDT_COIN = require('../assets/images/usdt_coin.png');
 export const USDC_COIN = require('../assets/images/usdc_coin.png');
 
-// Bottom tab screen icons
-export const WALLET = require('../assets/images/wallet.png');
-export const WALLET_ACTIVE = require('../assets/images/wallet_active.png');
-export const DASHBOARD = require('../assets/images/dashboard.png');
-export const DASHBOARD_ACTIVE = require('../assets/images/dashboard_active.jpeg');
-export const SWAP = require('../assets/images/swap.png');
-export const SWAP_ACTIVE = require('../assets/images/swap_active.png');
-export const TELESCOPE = require('../assets/images/telescope.png');
-export const TELESCOPE_ACTIVE = require('../assets/images/telescope_active.png');
-export const SETTINGS = require('../assets/images/settings.png');
-export const SETTINGS_ACTIVE = require('../assets/images/settings_active.png');
-
 // Wallet modal icons
 export const WALLET_ELLIPSE = require('../assets/images/wallet_ellipse.png');
+
+// Bottom Tab Icons
+export const HOME_BOTTOM_TAB = require('../assets/images/bottomTab/home.png');
+export const OFFERS_BOTTOM_TAB = require('../assets/images/bottomTab/offers.png');
+export const PROFILE_BOTTOM_TAB = require('../assets/images/bottomTab/profile.png');
+export const NOTIFICATIONS_BOTTOM_TAB = require('../assets/images/bottomTab/bell.png');
+export const ADD_LOOT_BOTTOM_TAB = require('../assets/images/bottomTab/add-loot.png');

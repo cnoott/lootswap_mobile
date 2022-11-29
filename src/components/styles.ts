@@ -15,12 +15,13 @@ export const Container = styled.View.attrs((props) => ({
   ${color}
 `;
 
-export const HeaderContainer = styled.View.attrs(() => ({
+export const HeaderContainer = styled.View.attrs((props) => ({
   height: scale(94),
   pt: moderateScale(34),
 }))`
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   ${color}
   ${space}
   ${layout}
@@ -31,12 +32,9 @@ export const Touchable = styled.TouchableOpacity.attrs((props) => ({
   ml: verticalScale(10),
 }))`
   padding: 5px;
-  border-radius: ${moderateScale(100)}px;
-  flex-direction: row;
-  align-items: center;
   ${color}
   ${space}
-    ${layout}
+  ${layout}
 `;
 
 export const HeaderText = styled.Text.attrs((props) => ({
@@ -45,19 +43,19 @@ export const HeaderText = styled.Text.attrs((props) => ({
   mr: moderateScale(2),
 }))`
   font-weight: 500;
-  font-family: 'System85Pro-Regular';
   ${color}
   ${space}
 `;
 
 export const LogoImage = styled.Image.attrs({
-  width: scale(27),
+  width: scale(160),
   height: scale(27),
   mr: moderateScale(10),
 })`
+  align-self: center;
   ${color}
   ${space}
-${layout}
+  ${layout}
 `;
 
 export const Block = styled.View.attrs({
@@ -78,16 +76,24 @@ ${layout}
 `;
 
 export const BellImage = styled.Image.attrs({
-  width: scale(34),
-  height: scale(34),
-  mr: moderateScale(10),
+  width: scale(22),
+  height: scale(20),
+  // mr: moderateScale(10),
 })`
   ${color}
   ${space}
 ${layout}
 `;
 
-export const BellTouchable = styled.TouchableOpacity.attrs(() => ({}))``;
+export const BellTouchable = styled.TouchableOpacity.attrs((props) => ({
+}))`
+  position: absolute;
+  right: 12px;
+  top: 65px;
+  ${color}
+  ${layout}
+  ${space}
+`;
 
 export const ButtonContainer = styled.TouchableOpacity.attrs((props) => ({
   width: props.width,
@@ -154,7 +160,6 @@ export const BText = styled.Text.attrs((props) => ({
   color: props.type === Type.Primary ? props.theme.colors.secondary : props.theme.colors.primary,
 }))`
   font-size: ${(props) => `${props.fontSize}px`};
-  font-family: 'System85Pro-Medium';
   ${color}
 `;
 
@@ -162,7 +167,6 @@ export const Text = styled.Text.attrs((props) => ({
   color: props.color,
 }))`
   font-size: ${(props) => `${props.fontSize}px`};
-  font-family: ${(props) => `${props.fontFamily || 'System85Pro-Regular'}`};
   ${color}
 `;
 
@@ -202,7 +206,6 @@ export const TextInput = styled.TextInput.attrs((props) => ({
   fontSize: 15,
   mb: scale(8),
 }))`
-  font-family: 'System85Pro-Regular';
   ${color}
   ${space}
   ${layout}

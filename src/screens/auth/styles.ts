@@ -5,9 +5,40 @@ import { scale, verticalScale } from 'react-native-size-matters';
 export const Container = styled.View.attrs({
   flex: 1,
 })`
-  ${color}
   ${space}
 `;
+
+export const HeaderContainer = styled.View.attrs({
+  mt: verticalScale(30),
+  mb: verticalScale(30),
+})`
+  align-self: stretch;
+  align-items: center;
+  ${space}
+`;
+
+export const SignInText = styled.Text.attrs((props) => ({
+  color: props.theme.colors.black,
+}))`
+  font-size: 26px;
+  font-family: 'Inter-Light';
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const CreateAccountText = styled.Text.attrs((props) => ({
+  color: props.theme.colors.primary,
+  mt: verticalScale(5),
+}))`
+  font-size: 14px;
+  font-family: 'Inter-Bold';
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const EmptyView = styled.View``;
 
 export const BottomContainer = styled.View.attrs(() => ({
   position: 'absolute',
@@ -23,20 +54,36 @@ export const BottomContainer = styled.View.attrs(() => ({
   ${border}
 `;
 
-export const ForgotContainer = styled.TouchableOpacity.attrs(() => ({}))`
+export const BottomButton = styled.TouchableOpacity.attrs((props) => ({
+  height: verticalScale(38),
+  width: scale(220),
+  borderRadius: scale(8),
+  bg: props.theme.colors.primary,
+}))`
   align-items: center;
   justify-content: center;
   align-self: center;
+  position: absolute;
+  bottom: 60px;
   ${layout}
   ${color}
   ${border}
+`;
+
+export const ButtonText = styled.Text.attrs((props) => ({
+  color: props.theme.colors.white,
+}))`
+  font-size: 22px;
+  font-family: 'Inter-Bold';
+  ${color}
+  ${space}
+  ${layout}
 `;
 
 export const ForgotText = styled.Text.attrs((props) => ({
   color: props.theme.colors.placeholder,
 }))`
   font-size: 15px;
-  font-family: 'System85Pro-Regular';
   ${color}
   ${space}
 ${layout}
@@ -59,8 +106,6 @@ export const LogoText = styled.Text.attrs({
 })`
   font-size: 40px;
   align-self: center;
-  font-family: 'Migra-Extrabold';
-
   ${color}
   ${space}
 ${layout}
