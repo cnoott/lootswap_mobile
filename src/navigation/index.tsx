@@ -25,7 +25,11 @@ const StackNavigator: FC<{}> = () => {
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="AuthScreen" component={AuthScreen} options={{ presentation: 'modal' }}/>
+        <Stack.Screen
+          name="AuthScreen"
+          component={AuthScreen}
+          options={{presentation: 'modal'}}
+        />
         <Stack.Screen name="BottomTabs" component={BottomTabs} />
         <Stack.Group screenOptions={{presentation: 'transparentModal'}}>
           <Stack.Screen name="ChainScreen" component={ChainScreen} />

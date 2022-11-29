@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
-import { color, space, layout, border } from 'styled-system';
-import { scale, verticalScale } from 'react-native-size-matters';
+import {color, space, layout, border} from 'styled-system';
+import {scale, verticalScale} from 'react-native-size-matters';
+import {StyleSheet} from 'react-native';
 
 export const Container = styled.View.attrs({
   flex: 1,
@@ -17,7 +18,7 @@ export const HeaderContainer = styled.View.attrs({
   ${space}
 `;
 
-export const SignInText = styled.Text.attrs((props) => ({
+export const SignInText = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
 }))`
   font-size: 26px;
@@ -27,7 +28,7 @@ export const SignInText = styled.Text.attrs((props) => ({
   ${layout}
 `;
 
-export const CreateAccountText = styled.Text.attrs((props) => ({
+export const CreateAccountText = styled.Text.attrs(props => ({
   color: props.theme.colors.primary,
   mt: verticalScale(5),
 }))`
@@ -54,7 +55,7 @@ export const BottomContainer = styled.View.attrs(() => ({
   ${border}
 `;
 
-export const BottomButton = styled.TouchableOpacity.attrs((props) => ({
+export const BottomButton = styled.TouchableOpacity.attrs(props => ({
   height: verticalScale(38),
   width: scale(220),
   borderRadius: scale(8),
@@ -70,7 +71,7 @@ export const BottomButton = styled.TouchableOpacity.attrs((props) => ({
   ${border}
 `;
 
-export const ButtonText = styled.Text.attrs((props) => ({
+export const ButtonText = styled.Text.attrs(props => ({
   color: props.theme.colors.white,
 }))`
   font-size: 22px;
@@ -80,7 +81,20 @@ export const ButtonText = styled.Text.attrs((props) => ({
   ${layout}
 `;
 
-export const ForgotText = styled.Text.attrs((props) => ({
+export const TextInput = styled.TextInput.attrs(props => ({
+  alignSelf: 'stretch',
+  height: verticalScale(35),
+  borderWidth: 2,
+  borderColor: props.theme.colors.placeholder,
+  marginBottom: verticalScale(10),
+  paddingHorizontal: scale(10),
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const ForgotText = styled.Text.attrs(props => ({
   color: props.theme.colors.placeholder,
 }))`
   font-size: 15px;
@@ -110,3 +124,8 @@ export const LogoText = styled.Text.attrs({
   ${space}
 ${layout}
 `;
+
+export const Innercontainer = {
+  flex: 1,
+  paddingHorizontal: scale(20),
+};
