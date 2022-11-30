@@ -1,17 +1,20 @@
-import { DefaultTheme } from 'styled-components/native';
+import {DefaultTheme} from 'styled-components/native';
 
 const theme: DefaultTheme = {
   borderRadius: '10px',
   colors: {
-    primary: '#6267fe',
+    primary: '#6267FE',
     secondary: '#FFFFFF',
     white: '#FFFFFF',
     black: '#000000',
+    lightGrey: '#757575',
     bg: '#FAFAFA',
     danger: '#FC0000',
     placeholder: '#818181',
+    text: '#101010',
     modalBg: 'rgba(0, 0, 0, 0.2)',
     cancel: '#838078',
+    inputBg: '#FAFAFA',
   },
   width: 50,
   height: 50,
