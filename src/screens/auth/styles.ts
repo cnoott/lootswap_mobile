@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 import {color, space, layout, border} from 'styled-system';
 import {scale, verticalScale} from 'react-native-size-matters';
-import {StyleSheet} from 'react-native';
 
 export const Container = styled.View.attrs({
   flex: 1,
