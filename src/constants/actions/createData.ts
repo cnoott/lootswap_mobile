@@ -11,6 +11,6 @@ export const AUTH_DATA = {
   ...createActionConst(actions.AUTH_DATA),
 };
 
-export const SIGN_IN_DATA = {
-  ...createActionConst(actions.SIGN_IN_DATA),
+export const SIGN_UP_DATA = {
+  ...createActionConst(actions.SIGN_UP_DATA),
 };

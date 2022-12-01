@@ -1,6 +1,6 @@
 // @flow
 
-import {AUTH_DATA} from '../../../constants/actions';
+import {AUTH_DATA, SIGN_UP_DATA} from '../../../constants/actions';
 
 export interface AuthProps {
   isLoading: boolean;
@@ -50,6 +50,30 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case AUTH_DATA.FAILURE: {
+      return {
+        ...state,
+        isLoading: false,
+        error: error,
+        data: null,
+      };
+    }
+
+    case SIGN_UP_DATA.REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    }
+    case SIGN_UP_DATA.SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        data: payload,
+        error: null,
+      };
+    }
+    case SIGN_UP_DATA.FAILURE: {
       return {
         ...state,
         isLoading: false,
