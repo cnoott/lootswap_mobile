@@ -5,10 +5,10 @@ import {
   ButtonInnerContainerThree,
   BText,
 } from './styles';
-import React, { FC } from 'react';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-import { Size } from '../enums';
-import { TouchableOpacityProps, Dimensions } from 'react-native';
+import React, {FC} from 'react';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
+import {Size} from '../enums';
+import {TouchableOpacityProps, Dimensions} from 'react-native';
 
 interface ButtonProps extends TouchableOpacityProps {
   title?: string;
@@ -18,8 +18,8 @@ interface ButtonProps extends TouchableOpacityProps {
 
 const windowWidth = Dimensions.get('window').width;
 
-export const INButton: FC<ButtonProps> = React.memo((props) => {
-  const { children, title, size, type } = props;
+export const INButton: FC<ButtonProps> = React.memo(props => {
+  const {children, title, size, type} = props;
   let width = scale(60);
   let height = verticalScale(26);
   let fontSize = scale(12);
@@ -46,7 +46,7 @@ export const INButton: FC<ButtonProps> = React.memo((props) => {
         break;
     }
 
-    return { width, height, fontSize };
+    return {width, height, fontSize};
   };
 
   return (

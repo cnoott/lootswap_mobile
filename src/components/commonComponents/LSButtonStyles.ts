@@ -14,7 +14,7 @@ export const ButtonContainer = styled.TouchableOpacity.attrs(props => ({
 }))`
   align-items: center;
   justify-content: center;
-  align-self: stretch;
+  align-self: center;
   width: full;
   ${layout}
   ${color}

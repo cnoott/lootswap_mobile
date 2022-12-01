@@ -1,12 +1,12 @@
 import styled from 'styled-components/native';
-import { color, border, layout, space } from 'styled-system';
-import { scale, moderateScale, verticalScale } from 'react-native-size-matters';
-import { Dimensions } from 'react-native';
-import { Size, Type } from '../enums';
+import {color, border, layout, space} from 'styled-system';
+import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
+import {Dimensions} from 'react-native';
+import {Size, Type} from '../enums';
 
 const windowWidth = Dimensions.get('window').width;
 
-export const Container = styled.View.attrs((props) => ({
+export const Container = styled.View.attrs(props => ({
   flex: 1,
   bg: props.theme.colors.bg,
 }))`
@@ -15,10 +15,10 @@ export const Container = styled.View.attrs((props) => ({
   ${color}
 `;
 
-export const HeaderContainer = styled.View.attrs((props) => ({
+export const HeaderContainer = styled.View.attrs({
   height: scale(94),
   pt: moderateScale(34),
-}))`
+})`
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -27,7 +27,7 @@ export const HeaderContainer = styled.View.attrs((props) => ({
   ${layout}
 `;
 
-export const Touchable = styled.TouchableOpacity.attrs((props) => ({
+export const Touchable = styled.TouchableOpacity.attrs(props => ({
   bg: props.theme.colors.bg,
   ml: verticalScale(10),
 }))`
@@ -37,7 +37,7 @@ export const Touchable = styled.TouchableOpacity.attrs((props) => ({
   ${layout}
 `;
 
-export const HeaderText = styled.Text.attrs((props) => ({
+export const HeaderText = styled.Text.attrs(props => ({
   color: props.theme.colors.primary,
   fontSize: moderateScale(14),
   mr: moderateScale(2),
@@ -85,8 +85,7 @@ export const BellImage = styled.Image.attrs({
 ${layout}
 `;
 
-export const BellTouchable = styled.TouchableOpacity.attrs((props) => ({
-}))`
+export const BellTouchable = styled.TouchableOpacity.attrs({})`
   position: absolute;
   right: 12px;
   top: 65px;
@@ -95,11 +94,14 @@ export const BellTouchable = styled.TouchableOpacity.attrs((props) => ({
   ${space}
 `;
 
-export const ButtonContainer = styled.TouchableOpacity.attrs((props) => ({
+export const ButtonContainer = styled.TouchableOpacity.attrs(props => ({
   width: props.width,
   height: props.height,
   borderWidth: props.size === Size.Medium ? 2 : 0,
-  bg: props.type === Type.Primary ? props.theme.colors.primary : props.theme.colors.secondary,
+  bg:
+    props.type === Type.Primary
+      ? props.theme.colors.primary
+      : props.theme.colors.secondary,
   borderRadius: props.theme.borderRadius,
 }))`
   align-items: center;
@@ -120,16 +122,23 @@ export const ButtonInnerContainerOne = styled.View.attrs(() => ({
   borderRadius: scale(2),
 }))`
   border-width: 2px;
-  border-color: ${(props) =>
-    `${props.type === Type.Primary ? props.theme.colors.secondary : props.theme.colors.primary}`};
+  border-color: ${props =>
+    `${
+      props.type === Type.Primary
+        ? props.theme.colors.secondary
+        : props.theme.colors.primary
+    }`};
   ${layout}
   ${color}
   ${border}
 `;
 
-export const ButtonInnerContainerTwo = styled.View.attrs((props) => ({
+export const ButtonInnerContainerTwo = styled.View.attrs(props => ({
   flex: 1,
-  bg: props.type === Type.Primary ? props.theme.colors.primary : props.theme.colors.secondary,
+  bg:
+    props.type === Type.Primary
+      ? props.theme.colors.primary
+      : props.theme.colors.secondary,
   left: 0,
   right: 0,
   bottom: 13,
@@ -141,9 +150,12 @@ export const ButtonInnerContainerTwo = styled.View.attrs((props) => ({
 ${border}
 `;
 
-export const ButtonInnerContainerThree = styled.View.attrs((props) => ({
+export const ButtonInnerContainerThree = styled.View.attrs(props => ({
   flex: 1,
-  bg: props.type === Type.Primary ? props.theme.colors.primary : props.theme.colors.secondary,
+  bg:
+    props.type === Type.Primary
+      ? props.theme.colors.primary
+      : props.theme.colors.secondary,
   left: 13,
   right: 13,
   bottom: 0,
@@ -156,17 +168,20 @@ export const ButtonInnerContainerThree = styled.View.attrs((props) => ({
 ${border}
 `;
 
-export const BText = styled.Text.attrs((props) => ({
-  color: props.type === Type.Primary ? props.theme.colors.secondary : props.theme.colors.primary,
+export const BText = styled.Text.attrs(props => ({
+  color:
+    props.type === Type.Primary
+      ? props.theme.colors.secondary
+      : props.theme.colors.primary,
 }))`
-  font-size: ${(props) => `${props.fontSize}px`};
+  font-size: ${props => `${props.fontSize}px`};
   ${color}
 `;
 
-export const Text = styled.Text.attrs((props) => ({
+export const Text = styled.Text.attrs(props => ({
   color: props.color,
 }))`
-  font-size: ${(props) => `${props.fontSize}px`};
+  font-size: ${props => `${props.fontSize}px`};
   ${color}
 `;
 
@@ -178,7 +193,7 @@ export const InputContainer = styled.View.attrs(() => ({
   ${color}
 `;
 
-export const ErrorText = styled.Text.attrs((props) => ({
+export const ErrorText = styled.Text.attrs(props => ({
   color: props.theme.colors.danger,
   mt: scale(2),
   mb: scale(10),
@@ -188,7 +203,7 @@ export const ErrorText = styled.Text.attrs((props) => ({
   ${space}
 `;
 
-export const TextInput = styled.TextInput.attrs((props) => ({
+export const TextInput = styled.TextInput.attrs(props => ({
   color: props.theme.colors.black,
   placeholderTextColor: props.theme.colors.placeholder,
   bg: props.theme.colors.white,
@@ -212,7 +227,7 @@ export const TextInput = styled.TextInput.attrs((props) => ({
   ${border}
 `;
 
-export const ItemContainer = styled.View.attrs((props) => ({
+export const ItemContainer = styled.View.attrs(props => ({
   height: moderateScale(58),
   marginTop: moderateScale(14),
   borderRadius: moderateScale(8),
@@ -237,7 +252,8 @@ ${border}
 `;
 
 export const RowContainer = styled.View.attrs(() => ({}))`
-  margin-top: ${(props) => (props.marginTop ? moderateScale(props.marginTop) : 0)}px;
+  margin-top: ${props =>
+    props.marginTop ? moderateScale(props.marginTop) : 0}px;
   flex-direction: row;
   align-items: center;
   ${color}
@@ -255,22 +271,22 @@ export const Image = styled.Image.attrs({
 `;
 
 export const MarginT = styled.View.attrs(() => ({}))`
-  margin-top: ${(props) => (props.mt ? moderateScale(props.mt) : 0)}px;
+  margin-top: ${props => (props.mt ? moderateScale(props.mt) : 0)}px;
 `;
 
 export const MarginL = styled.View.attrs(() => ({}))`
-  margin-left: ${(props) => (props.ml ? moderateScale(props.ml) : 0)}px;
+  margin-left: ${props => (props.ml ? moderateScale(props.ml) : 0)}px;
 `;
 
 export const MarginR = styled.View.attrs(() => ({}))`
-  margin-right: ${(props) => (props.mr ? moderateScale(props.mr) : 0)}px;
+  margin-right: ${props => (props.mr ? moderateScale(props.mr) : 0)}px;
 
   ${color}
   ${space}
     ${layout}
 `;
 
-export const Circle = styled.View.attrs((props) => ({
+export const Circle = styled.View.attrs(props => ({
   width: moderateScale(20.5),
   height: moderateScale(20.5),
   borderRadius: moderateScale(10.25),
@@ -284,7 +300,7 @@ export const Circle = styled.View.attrs((props) => ({
   ${layout}
 `;
 
-export const InnterCircle = styled.View.attrs((props) => ({
+export const InnterCircle = styled.View.attrs(props => ({
   width: moderateScale(14),
   height: moderateScale(14),
   borderRadius: moderateScale(7),
@@ -297,7 +313,7 @@ export const InnterCircle = styled.View.attrs((props) => ({
   ${layout}
 `;
 
-export const ModalItemContainer = styled.TouchableOpacity.attrs((props) => ({
+export const ModalItemContainer = styled.TouchableOpacity.attrs(props => ({
   height: moderateScale(47),
   padding: moderateScale(17),
   bg: props.theme.colors.white,

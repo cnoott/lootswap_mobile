@@ -1,6 +1,4 @@
-import {DefaultTheme} from 'styled-components/native';
-
-const theme: DefaultTheme = {
+const theme = {
   borderRadius: '10px',
   colors: {
     primary: '#6267FE',
@@ -18,6 +16,8 @@ const theme: DefaultTheme = {
   },
   width: 50,
   height: 50,
+  type: '',
+  size: '',
 };
 
 export default theme;
