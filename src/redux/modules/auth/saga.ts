@@ -7,6 +7,7 @@ import {
   signUpFailure,
 } from './actions';
 import {signIn, signUp} from '../../../services/apiEndpoints';
+import {Alert} from 'react-native';
 
 type APIResponseProps = {
   success: boolean;
@@ -19,6 +20,9 @@ export function* signInAPI(action: any) {
     if (response?.success) {
       yield put(signInSuccess(response.data));
     } else {
+      if (response?.error) {
+        Alert.alert(response?.error || 'Something went wrong');
+      }
       yield put(signInFailure(response.error));
     }
   } catch (e) {
@@ -32,6 +36,9 @@ export function* signUpAPI(action: any) {
     if (response?.success) {
       yield put(signUpSuccess(response.data));
     } else {
+      if (response?.error) {
+        Alert.alert(response?.error || 'Something went wrong');
+      }
       yield put(signUpFailure(response.error));
     }
   } catch (e) {
