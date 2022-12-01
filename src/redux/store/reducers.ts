@@ -2,12 +2,10 @@
 INSQUAD - ROOT REDUCER CLASS - This class I created just for the structure
 ***/
 
-import wallet from '../modules/wallet/reducer';
 import auth from '../modules/auth/reducer';
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 
 const appReducer = combineReducers({
-  wallet,
   auth,
 });
 

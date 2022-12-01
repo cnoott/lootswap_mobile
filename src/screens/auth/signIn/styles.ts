@@ -20,7 +20,7 @@ export const HeaderContainer = styled.View.attrs({
 
 export const HeaderLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  mb: verticalScale(56),
+  mb: verticalScale(46),
 }))`
   font-size: ${scale(25)}px;
   font-family: Inter-Bold;
@@ -37,6 +37,7 @@ export const Touchable = styled.TouchableOpacity.attrs({
 export const ForgotPassLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
   mb: verticalScale(20),
+  mt: verticalScale(20),
 }))`
   font-size: 16px;
   font-family: Inter-Bold;

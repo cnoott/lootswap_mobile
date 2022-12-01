@@ -1,6 +1,6 @@
 // @flow
 
-import {AUTH_DATA, SIGN_UP_DATA} from '../../../constants/actions';
+import {SIGN_IN_DATA, SIGN_UP_DATA} from '../../../constants/actions';
 
 export interface AuthProps {
   isLoading: boolean;
@@ -26,14 +26,14 @@ export default function auth(state = InitialState, action: ActionProps) {
   const {type, payload, error} = action;
 
   switch (type) {
-    case AUTH_DATA.REQUEST: {
+    case SIGN_IN_DATA.REQUEST: {
       return {
         ...state,
         isLoading: true,
         error: null,
       };
     }
-    case AUTH_DATA.SUCCESS: {
+    case SIGN_IN_DATA.SUCCESS: {
       return {
         ...state,
         isLoading: false,
@@ -41,7 +41,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         error: null,
       };
     }
-    case AUTH_DATA.UPDATE: {
+    case SIGN_IN_DATA.UPDATE: {
       return {
         ...state,
         isLoading: false,
@@ -49,7 +49,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         error: null,
       };
     }
-    case AUTH_DATA.FAILURE: {
+    case SIGN_IN_DATA.FAILURE: {
       return {
         ...state,
         isLoading: false,
