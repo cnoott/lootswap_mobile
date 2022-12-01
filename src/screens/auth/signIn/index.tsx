@@ -13,7 +13,7 @@ import {Formik} from 'formik';
 import * as yup from 'yup';
 import LSInput from '../../../components/commonComponents/LSInput';
 import LSButton from '../../../components/commonComponents/LSButton';
-import {authDataRequest} from '../../../redux/modules';
+import {signInRequest} from '../../../redux/modules';
 import {Size, Type} from '../../../enums';
 import {
   Container,
@@ -47,7 +47,7 @@ export const AuthScreen: FC<{}> = () => {
 
   const onSubmit = (values: FormProps) => {
     dispatch(
-      authDataRequest({
+      signInRequest({
         email: values?.emailUsername,
         password: values?.password,
       }),

@@ -8,9 +8,6 @@ export const BLACKLOGO = require('../assets/images/logoblack.png');
 export const USDT_COIN = require('../assets/images/usdt_coin.png');
 export const USDC_COIN = require('../assets/images/usdc_coin.png');
 
-// Wallet modal icons
-export const WALLET_ELLIPSE = require('../assets/images/wallet_ellipse.png');
-
 // Bottom Tab Icons
 export const HOME_BOTTOM_TAB = require('../assets/images/bottomTab/home.png');
 export const OFFERS_BOTTOM_TAB = require('../assets/images/bottomTab/offers.png');

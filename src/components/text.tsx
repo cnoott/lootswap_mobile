@@ -1,8 +1,8 @@
-import { Text } from './styles';
-import React, { FC } from 'react';
-import { TextProps } from 'react-native';
-import { useTheme } from 'styled-components';
-import { Type } from '../enums';
+import {Text} from './styles';
+import React, {FC} from 'react';
+import {TextProps} from 'react-native';
+import {useTheme} from 'styled-components';
+import {Type} from '../enums';
 
 interface InTextProps extends TextProps {
   fontSize?: number;
@@ -12,8 +12,8 @@ interface InTextProps extends TextProps {
   family?: string;
 }
 
-export const InText: FC<InTextProps> = React.memo((props) => {
-  const { fontSize, color, children, title, family } = props;
+export const InText: FC<InTextProps> = React.memo(props => {
+  const {fontSize, color, children, title, family} = props;
   return (
     <Text {...props} fontSize={fontSize} color={color} fontFamily={family}>
       {children || title}
@@ -35,32 +35,32 @@ const getColor = (type: any, theme: any) => {
   }
   return color;
 };
-export const TextS: FC<InTextProps> = React.memo((props) => {
-  const { type } = props;
+export const TextS: FC<InTextProps> = React.memo(props => {
+  const {type} = props;
   const theme = useTheme();
   return <InText {...props} fontSize={11} color={getColor(type, theme)} />;
 });
 
-export const TextL: FC<InTextProps> = React.memo((props) => {
-  const { type } = props;
+export const TextL: FC<InTextProps> = React.memo(props => {
+  const {type} = props;
   const theme = useTheme();
   return <InText {...props} fontSize={14} color={getColor(type, theme)} />;
 });
 
-export const TextXL: FC<InTextProps> = React.memo((props) => {
-  const { type } = props;
+export const TextXL: FC<InTextProps> = React.memo(props => {
+  const {type} = props;
   const theme = useTheme();
   return <InText {...props} fontSize={15} color={getColor(type, theme)} />;
 });
 
-export const TextXXXL: FC<InTextProps> = React.memo((props) => {
-  const { type } = props;
+export const TextXXXL: FC<InTextProps> = React.memo(props => {
+  const {type} = props;
   const theme = useTheme();
   return <InText {...props} fontSize={20} color={getColor(type, theme)} />;
 });
 
-export const TextLX: FC<InTextProps> = React.memo((props) => {
-  const { type } = props;
+export const TextLX: FC<InTextProps> = React.memo(props => {
+  const {type} = props;
   const theme = useTheme();
   return <InText {...props} fontSize={48} color={getColor(type, theme)} />;
 });

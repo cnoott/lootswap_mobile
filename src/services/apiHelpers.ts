@@ -1,0 +1,33 @@
+import axios from 'axios';
+import _ from 'lodash';
+import {API} from '@env';
+
+const TIME_OUT = 60000;
+export const createAxiosInstanceWithHeader = () => {
+  const api = axios.create({
+    timeout: TIME_OUT,
+    baseURL: API,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    validateStatus: status => status >= 200 && status <= 500,
+  });
+  return api;
+};
+
+export const retrieveErrorMessageFromResponse = (res: any) => {
+  return _.get(res, 'data.message');
+};
+
+export const retrieveDetailMessageFromResponse = (res: any) => {
+  const errors = _.get(res, 'data.errors');
+  if (!errors) {
+    return retrieveErrorMessageFromResponse(res);
+  }
+  let message = '';
+  Object.values(errors).map((element: any) => {
+    message += element[0] + '\n';
+  });
+  return message;
+};

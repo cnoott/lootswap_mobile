@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {SvgXml} from 'react-native-svg';
 import {
   LOOT_SWAP_LOGO,
@@ -19,6 +19,7 @@ import LSInput from '../../../components/commonComponents/LSInput';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {Size, Type} from '../../../enums';
 import {signUpRequest} from '../../../redux/modules';
+
 import {
   Container,
   HeaderContainer,

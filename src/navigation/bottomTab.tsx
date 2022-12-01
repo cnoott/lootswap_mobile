@@ -5,10 +5,7 @@ LootSwap - BOTTOM TABS SCREEN
 import React, {FC} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/home';
-import DashboardScreen from '../screens/dashboard';
-import ActivitiesScreen from '../screens/activities';
 import BrowseScreen from '../screens/browse';
-import Settingscreen from '../screens/settings';
 import {useTheme} from 'styled-components';
 import {
   Image,
@@ -24,7 +21,7 @@ import {
   OFFERS_BOTTOM_TAB,
   ADD_LOOT_BOTTOM_TAB,
   NOTIFICATIONS_BOTTOM_TAB,
-} from '../constants/constants';
+} from '../constants/imageConstants';
 import {verticalScale, moderateScale} from 'react-native-size-matters';
 
 const Tab = createBottomTabNavigator();
@@ -140,10 +137,10 @@ export const BottomTabs: FC<{}> = () => {
       }}
       tabBar={props => <MyCustomTabBar {...props} />}>
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Offers" component={DashboardScreen} />
-      <Tab.Screen name="Profile" component={ActivitiesScreen} />
+      <Tab.Screen name="Offers" component={BrowseScreen} />
+      <Tab.Screen name="Profile" component={BrowseScreen} />
       <Tab.Screen name="Notifications" component={BrowseScreen} />
-      <Tab.Screen name="Add loot" component={Settingscreen} />
+      <Tab.Screen name="Add loot" component={BrowseScreen} />
     </Tab.Navigator>
   );
 };

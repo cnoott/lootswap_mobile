@@ -3,7 +3,7 @@ import {color, border, layout, space} from 'styled-system';
 import {scale, moderateScale} from 'react-native-size-matters';
 
 export const InputContainer = styled.View.attrs(props => ({
-  marginBottom: moderateScale(15),
+  marginTop: moderateScale(15),
   mx: moderateScale(24),
   bg: props.theme.colors.inputBg,
   borderRadius: scale(8.5),
@@ -18,8 +18,9 @@ export const InputContainer = styled.View.attrs(props => ({
 
 export const ErrorText = styled.Text.attrs(props => ({
   color: props.theme.colors.danger,
-  mt: scale(2),
   mb: scale(10),
+  mt: scale(3),
+  mx: moderateScale(24),
 }))`
   font-size: ${moderateScale(12)}px;
   ${color}
