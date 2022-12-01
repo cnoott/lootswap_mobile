@@ -57,7 +57,7 @@ export const CreateAccountScreen: FC<{}> = () => {
           navigation.navigate('AuthScreen');
         }}>
         <ButtonText1>Already have an account?</ButtonText1>
-        <ButtonText2> Sign in</ButtonText2>
+        <ButtonText2> Sign In</ButtonText2>
       </BottomButton>
     );
   };

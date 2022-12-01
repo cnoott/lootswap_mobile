@@ -1,14 +1,12 @@
 import styled from 'styled-components/native';
 import {color, space, layout, border} from 'styled-system';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {ViewStyle} from 'react-native';
 
 export const Container = styled.View.attrs(props => ({
   flex: 1,
   bg: props.theme.colors.white,
 }))`
-  align-items: center;
-  ${space}
   ${color}
 `;
 
@@ -16,7 +14,6 @@ export const HeaderContainer = styled.View.attrs({
   mt: verticalScale(100),
   mb: verticalScale(46),
 })`
-  align-self: stretch;
   align-items: center;
   ${space}
 `;
@@ -25,8 +22,9 @@ export const HeaderLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
   mb: verticalScale(56),
 }))`
-  font-size: 32px;
-  font-family: 'Inter-Bold';
+  font-size: ${scale(25)}px;
+  font-family: Inter-Bold;
+  align-self: center;
   ${color}
   ${space}
   ${layout}
@@ -41,7 +39,7 @@ export const ForgotPassLabel = styled.Text.attrs(props => ({
   mb: verticalScale(20),
 }))`
   font-size: 16px;
-  font-family: 'Inter-Bold';
+  font-family: Inter-Bold;
   align-self: center;
   ${color}
   ${space}
@@ -51,10 +49,8 @@ export const ForgotPassLabel = styled.Text.attrs(props => ({
 export const EmptyView = styled.View``;
 
 export const FullView = styled.View.attrs({
-  width: '100%',
-})`
-  ${color}
-`;
+  flex: 1,
+})``;
 
 export const BottomButton = styled.TouchableOpacity.attrs(props => ({}))`
   align-items: center;
@@ -71,8 +67,8 @@ export const BottomButton = styled.TouchableOpacity.attrs(props => ({}))`
 export const ButtonText1 = styled.Text.attrs(props => ({
   color: props.theme.colors.lightGrey,
 }))`
-  font-size: 13px;
-  font-family: 'Inter-Bold';
+  font-size: ${moderateScale(13)}px;
+  font-family: 'Inter-Light';
   ${color}
   ${space}
   ${layout}
@@ -81,7 +77,7 @@ export const ButtonText1 = styled.Text.attrs(props => ({
 export const ButtonText2 = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
-  font-size: 16px;
+  font-size: ${moderateScale(13)}px;
   font-family: 'Inter-Bold';
   ${color}
   ${space}
@@ -90,6 +86,4 @@ export const ButtonText2 = styled.Text.attrs(props => ({
 
 export const Innercontainer: ViewStyle = {
   flex: 1,
-  paddingHorizontal: scale(20),
-  alignItems: 'center',
 };
