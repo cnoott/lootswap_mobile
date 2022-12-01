@@ -32,7 +32,13 @@ import {
   EditIconContainer,
   ProfileUploadView,
   ProfileContainerView,
+  Image,
 } from './styles';
+import {
+  getSignedRequest,
+  uploadFile,
+} from '../../../services/imageUploadService';
+import {Alert} from 'react-native';
 
 type FormProps = {
   email: string;
@@ -44,6 +50,7 @@ export const CreateAccountScreen: FC<{}> = () => {
   const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isPasswordHidden, setPasswordHidden] = useState(true);
+  const [profileUrl, setProfileUrl] = useState('');
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
@@ -54,15 +61,19 @@ export const CreateAccountScreen: FC<{}> = () => {
   });
 
   const onSubmit = (values: FormProps) => {
-    dispatch(
-      signUpRequest({
-        email: values?.email,
-        name: values?.username,
-        password: values?.password,
-        profile_picture: '',
-        fromMobile: true,
-      }),
-    );
+    if (profileUrl) {
+      dispatch(
+        signUpRequest({
+          email: values?.email,
+          name: values?.username,
+          password: values?.password,
+          profile_picture: profileUrl,
+          fromMobile: true,
+        }),
+      );
+    } else {
+      Alert.alert('Please select profile picture');
+    }
   };
 
   const onEditProfilePress = () => {
@@ -71,7 +82,21 @@ export const CreateAccountScreen: FC<{}> = () => {
       height: 400,
       cropping: false,
     }).then(image => {
-      console.log('onEditProfilePress ===', image);
+      const fileData = {
+        ...image,
+        type: image?.mime,
+      };
+      getSignedRequest(fileData)
+        .then(signedReqData => {
+          uploadFile(fileData, signedReqData?.signedRequest, signedReqData?.url)
+            .then(url => {
+              setProfileUrl(url);
+            })
+            .catch(error => {
+              console.log('error ====', error);
+            });
+        })
+        .catch(() => {});
     });
   };
 
@@ -90,12 +115,13 @@ export const CreateAccountScreen: FC<{}> = () => {
   const renderProfileUploadView = () => {
     return (
       <ProfileContainerView>
-        <ProfileUploadView>
+        <ProfileUploadView onPress={onEditProfilePress}>
           <SvgXml xml={PROFILE_PLACEHOLDER_ICON} />
+          <EditIconContainer onPress={onEditProfilePress}>
+            <SvgXml xml={EDIT_PROFILE_ICON} />
+          </EditIconContainer>
+          {profileUrl && <Image source={{uri: profileUrl}} />}
         </ProfileUploadView>
-        <EditIconContainer onPress={onEditProfilePress}>
-          <SvgXml xml={EDIT_PROFILE_ICON} />
-        </EditIconContainer>
       </ProfileContainerView>
     );
   };

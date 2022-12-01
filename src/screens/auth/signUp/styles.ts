@@ -56,7 +56,8 @@ export const FullView = styled.View.attrs({
 export const ProfileContainerView = styled.View.attrs({
   width: scale(70),
   height: scale(70),
-  mx: moderateScale(24),
+  ml: moderateScale(24),
+  my: verticalScale(5),
 })`
   align-items: center;
   justify-content: center;
@@ -64,18 +65,14 @@ export const ProfileContainerView = styled.View.attrs({
   ${color}
 `;
 
-export const ProfileUploadView = styled.View.attrs({
-  p: scale(10),
-  mb: verticalScale(10),
-})`
-  ${color}
-  ${space}
-`;
+export const ProfileUploadView = styled.TouchableOpacity``;
 
-export const EditIconContainer = styled.TouchableOpacity.attrs(props => ({}))`
+export const EditIconContainer = styled.TouchableOpacity.attrs(props => ({
+  zIndex: 1000,
+}))`
   position: absolute;
-  right: 10px;
-  bottom: 15px;
+  right: 0px;
+  bottom: 0px;
 `;
 
 export const BottomButton = styled.TouchableOpacity.attrs(props => ({
@@ -109,6 +106,18 @@ export const ButtonText2 = styled.Text.attrs(props => ({
   ${color}
   ${space}
   ${layout}
+`;
+
+export const Image = styled.Image.attrs({
+  width: scale(54),
+  height: scale(54),
+  borderRadius: scale(27),
+})`
+  position: absolute;
+  align-self: center;
+  ${color}
+  ${space}
+${layout}
 `;
 
 export const Innercontainer: ViewStyle = {

@@ -17,7 +17,7 @@ export const createAxiosInstanceWithHeader = () => {
 };
 
 export const retrieveErrorMessageFromResponse = (res: any) => {
-  return _.get(res, 'data.message');
+  return _.get(res, 'data.message') || _.get(res, 'data.error');
 };
 
 export const retrieveDetailMessageFromResponse = (res: any) => {
