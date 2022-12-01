@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import {color, space, layout, border} from 'styled-system';
 import {scale, verticalScale} from 'react-native-size-matters';
+import {ViewStyle} from 'react-native';
 
 export const Container = styled.View.attrs(props => ({
   flex: 1,
@@ -111,7 +112,7 @@ export const ButtonText2 = styled.Text.attrs(props => ({
   ${layout}
 `;
 
-export const Innercontainer = {
+export const Innercontainer: ViewStyle = {
   flex: 1,
   paddingHorizontal: scale(20),
   alignItems: 'center',
