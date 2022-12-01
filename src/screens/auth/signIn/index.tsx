@@ -1,6 +1,7 @@
 import React, {FC, useState} from 'react';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useDispatch, useSelector} from 'react-redux';
 import {SvgXml} from 'react-native-svg';
 import {
   LOOT_SWAP_LOGO,
@@ -12,6 +13,7 @@ import {Formik} from 'formik';
 import * as yup from 'yup';
 import LSInput from '../../../components/commonComponents/LSInput';
 import LSButton from '../../../components/commonComponents/LSButton';
+import {authDataRequest} from '../../../redux/modules';
 import {Size, Type} from '../../../enums';
 import {
   Container,
@@ -32,6 +34,7 @@ type FormProps = {
 };
 
 export const AuthScreen: FC<{}> = () => {
+  const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const loginValidationSchema = yup.object().shape({
@@ -42,7 +45,14 @@ export const AuthScreen: FC<{}> = () => {
     password: yup.string().required('Please enter valid password'),
   });
 
-  const onSubmit = (values: FormProps) => {};
+  const onSubmit = (values: FormProps) => {
+    dispatch(
+      authDataRequest({
+        email: values?.emailUsername,
+        password: values?.password,
+      }),
+    );
+  };
 
   const renderBottomView = () => {
     return (

@@ -6,7 +6,7 @@ import React, {FC} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AuthScreen from '../screens/auth/signIn';
-import CreateAccountScreen from '../screens/auth/signup';
+import CreateAccountScreen from '../screens/auth/signUp';
 import ChainScreen from '../screens/modal/chain';
 import WalletScreen from '../screens/modal/wallet';
 import BottomTabs from './bottomTab';

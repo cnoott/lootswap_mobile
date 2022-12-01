@@ -1,11 +1,12 @@
 // @flow
 
-import { AUTH_DATA } from '../../../constants/actions';
+import {AUTH_DATA} from '../../../constants/actions';
 
 export interface AuthProps {
   isLoading: boolean;
   error: any;
   data: any;
+  userData: any;
 }
 
 type ActionProps = {
@@ -18,10 +19,11 @@ export const InitialState: AuthProps = {
   isLoading: false,
   error: null,
   data: null,
+  userData: null,
 };
 
 export default function auth(state = InitialState, action: ActionProps) {
-  const { type, payload, error } = action;
+  const {type, payload, error} = action;
 
   switch (type) {
     case AUTH_DATA.REQUEST: {
@@ -52,7 +54,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         ...state,
         isLoading: false,
         error: error,
-        data: [],
+        data: null,
       };
     }
     default:

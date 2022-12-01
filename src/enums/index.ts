@@ -17,3 +17,9 @@ export enum FontFamily {
   Regular = 'System85Pro-Regular',
   Medium = 'System85Pro-Medium',
 }
+
+export enum API_METHOD {
+  Get = 'GET',
+  Post = 'POST',
+  Delete = 'DELETE',
+}

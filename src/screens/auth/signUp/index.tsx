@@ -13,6 +13,7 @@ import {
 } from 'localsvgimages';
 import {Formik} from 'formik';
 import * as yup from 'yup';
+import ImagePicker from 'react-native-image-crop-picker';
 import LSInput from '../../../components/commonComponents/LSInput';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {Size, Type} from '../../../enums';
@@ -50,6 +51,16 @@ export const CreateAccountScreen: FC<{}> = () => {
 
   const onSubmit = (values: FormProps) => {};
 
+  const onEditProfilePress = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: false,
+    }).then(image => {
+      console.log('onEditProfilePress ===', image);
+    });
+  };
+
   const renderBottomView = () => {
     return (
       <BottomButton
@@ -68,7 +79,7 @@ export const CreateAccountScreen: FC<{}> = () => {
         <ProfileUploadView>
           <SvgXml xml={PROFILE_PLACEHOLDER_ICON} />
         </ProfileUploadView>
-        <EditIconContainer>
+        <EditIconContainer onPress={onEditProfilePress}>
           <SvgXml xml={EDIT_PROFILE_ICON} />
         </EditIconContainer>
       </ProfileContainerView>
