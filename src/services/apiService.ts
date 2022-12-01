@@ -52,14 +52,16 @@ export async function CommonFetch(params: any, opt: any) {
               Response.status === 204
             ) {
               await Response.json().then((data: any) => {
-                result = {...data};
+                result = {...data, success: true};
                 return result;
               });
               return result;
             } else if (Response.status === 400 || Response.status === 404) {
               Response.json().then((res: any) => {
-                if (res?.message) {
-                  Alert.alert(res?.message);
+                if (res?.error) {
+                  Alert.alert(res?.error);
+                } else {
+                  Alert.alert('Something went wrong!');
                 }
               });
             } else {

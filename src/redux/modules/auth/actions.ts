@@ -1,4 +1,4 @@
-import {AUTH_DATA, SIGN_IN_DATA} from '../../../constants/actions';
+import {AUTH_DATA, SIGN_UP_DATA} from '../../../constants/actions';
 
 export const authDataRequest = (reqData: any) => {
   return {
@@ -28,22 +28,23 @@ export const authDataFailure = (error: any) => {
   };
 };
 
-export const signInRequest = () => {
+export const signUpRequest = (reqData: any) => {
   return {
-    type: SIGN_IN_DATA.REQUEST,
+    type: SIGN_UP_DATA.REQUEST,
+    reqData: reqData,
   };
 };
 
-export const signInSuccess = (payload: any) => {
+export const signUpSuccess = (payload: any) => {
   return {
-    type: SIGN_IN_DATA.SUCCESS,
+    type: SIGN_UP_DATA.SUCCESS,
     payload,
   };
 };
 
-export const signInFailure = (error: any) => {
+export const signUpFailure = (error: any) => {
   return {
-    type: SIGN_IN_DATA.FAILURE,
+    type: SIGN_UP_DATA.FAILURE,
     error,
   };
 };

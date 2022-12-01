@@ -1,6 +1,7 @@
 import React, {FC, useState} from 'react';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useDispatch, useSelector} from 'react-redux';
 import {SvgXml} from 'react-native-svg';
 import {
   LOOT_SWAP_LOGO,
@@ -17,6 +18,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import LSInput from '../../../components/commonComponents/LSInput';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {Size, Type} from '../../../enums';
+import {signUpRequest} from '../../../redux/modules';
 import {
   Container,
   HeaderContainer,
@@ -38,6 +40,7 @@ type FormProps = {
 };
 
 export const CreateAccountScreen: FC<{}> = () => {
+  const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const loginValidationSchema = yup.object().shape({
@@ -49,7 +52,17 @@ export const CreateAccountScreen: FC<{}> = () => {
     password: yup.string().required('Please enter valid password'),
   });
 
-  const onSubmit = (values: FormProps) => {};
+  const onSubmit = (values: FormProps) => {
+    dispatch(
+      signUpRequest({
+        email: values?.email,
+        name: values?.username,
+        password: values?.password,
+        profile_picture: '',
+        fromMobile: true,
+      }),
+    );
+  };
 
   const onEditProfilePress = () => {
     ImagePicker.openPicker({
