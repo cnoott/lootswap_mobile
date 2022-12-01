@@ -78,16 +78,17 @@ export const EditIconContainer = styled.TouchableOpacity.attrs(props => ({}))`
   bottom: 15px;
 `;
 
-export const BottomButton = styled.TouchableOpacity.attrs(props => ({}))`
+export const BottomButton = styled.TouchableOpacity.attrs(props => ({
+  mb: 60,
+}))`
   align-items: center;
   justify-content: center;
   align-self: center;
-  position: absolute;
-  bottom: 60px;
   flex-direction: row;
   ${layout}
   ${color}
   ${border}
+  ${space}
 `;
 
 export const ButtonText1 = styled.Text.attrs(props => ({
