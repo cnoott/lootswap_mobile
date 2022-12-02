@@ -7,63 +7,48 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/home';
 import BrowseScreen from '../screens/browse';
 import {useTheme} from 'styled-components';
-import {
-  Image,
-  StyleSheet,
-  Platform,
-  View,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
-import {
-  HOME_BOTTOM_TAB,
-  PROFILE_BOTTOM_TAB,
-  OFFERS_BOTTOM_TAB,
-  ADD_LOOT_BOTTOM_TAB,
-  NOTIFICATIONS_BOTTOM_TAB,
-} from '../constants/imageConstants';
+import {StyleSheet, Platform, View, TouchableOpacity, Text} from 'react-native';
 import {verticalScale, moderateScale} from 'react-native-size-matters';
+import {SvgXml} from 'react-native-svg';
+import {
+  BOTTOM_TAB_HOME,
+  BOTTOM_TAB_HOME_SELECTED,
+  BOTTOM_TAB_LOOT,
+  BOTTOM_TAB_LOOT_SELECTED,
+  BOTTOM_TAB_PROFILE,
+  BOTTOM_TAB_PROFILE_SELECTED,
+  BOTTOM_TAB_NOTIFICATION,
+  BOTTOM_TAB_NOTIFICATION_SELECTED,
+  BOTTOM_TAB_OFFERS,
+  BOTTOM_TAB_OFFERS_SELECTED,
+} from 'localsvgimages';
 
 const Tab = createBottomTabNavigator();
 
-const getTabBarIcon = (isFocused?: boolean, route?: string, styles?: any) => {
-  let _source = HOME_BOTTOM_TAB;
+const getTabBarIcon = (isFocused?: boolean, route?: string) => {
+  let _source = BOTTOM_TAB_HOME;
   switch (route) {
     case 'Home':
-      _source = HOME_BOTTOM_TAB;
+      _source = isFocused ? BOTTOM_TAB_HOME_SELECTED : BOTTOM_TAB_HOME;
       break;
     case 'Offers':
-      _source = OFFERS_BOTTOM_TAB;
+      _source = isFocused ? BOTTOM_TAB_OFFERS_SELECTED : BOTTOM_TAB_OFFERS;
       break;
     case 'Profile':
-      _source = PROFILE_BOTTOM_TAB;
+      _source = isFocused ? BOTTOM_TAB_PROFILE_SELECTED : BOTTOM_TAB_PROFILE;
       break;
     case 'Notifications':
-      _source = NOTIFICATIONS_BOTTOM_TAB;
+      _source = isFocused
+        ? BOTTOM_TAB_NOTIFICATION_SELECTED
+        : BOTTOM_TAB_NOTIFICATION;
       break;
     case 'Add loot':
-      _source = ADD_LOOT_BOTTOM_TAB;
+      _source = isFocused ? BOTTOM_TAB_LOOT_SELECTED : BOTTOM_TAB_LOOT;
       break;
     default:
       break;
   }
-  if (isFocused) {
-    return (
-      <Image
-        style={[styles.bottomBarImg, {tintColor: '#000'}]}
-        source={_source}
-        resizeMode={'contain'}
-      />
-    );
-  } else {
-    return (
-      <Image
-        style={[styles.bottomBarImg]}
-        source={_source}
-        resizeMode={'contain'}
-      />
-    );
-  }
+  return <SvgXml xml={_source} />;
 };
 
 export const BottomTabs: FC<{}> = () => {
@@ -90,7 +75,7 @@ export const BottomTabs: FC<{}> = () => {
             if (!isFocused && !event.defaultPrevented) {
               // The `merge: true` option makes sure that the params inside the tab screen are preserved
               if (index !== 0) {
-                navigation.navigate('AuthScreen');
+                navigation.navigate('SignInScreen');
               } else {
                 navigation.navigate({name: route.name, merge: true});
               }
@@ -115,7 +100,7 @@ export const BottomTabs: FC<{}> = () => {
               key={index}
               style={{flex: 1, alignItems: 'center'}}>
               <View style={[{alignItems: 'center', justifyContent: 'center'}]}>
-                {getTabBarIcon(isFocused, route.name, styles)}
+                {getTabBarIcon(isFocused, route.name)}
                 <Text
                   style={isFocused ? styles.tabLabelSelected : styles.tabLabel}>
                   {route.name}

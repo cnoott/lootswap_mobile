@@ -120,6 +120,17 @@ export const Image = styled.Image.attrs({
 ${layout}
 `;
 
+export const ImageUploadIndicator = styled.ActivityIndicator.attrs(props => ({
+  size: scale(25),
+  color: props.theme.colors.primary,
+}))`
+  position: absolute;
+  align-self: center;
+  ${color}
+  ${space}
+${layout}
+`;
+
 export const Innercontainer: ViewStyle = {
   flex: 1,
 };

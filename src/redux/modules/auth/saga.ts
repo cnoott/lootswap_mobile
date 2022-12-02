@@ -1,10 +1,12 @@
 import {takeLatest, call, put} from 'redux-saga/effects';
-import {SIGN_IN_DATA, SIGN_UP_DATA} from '../../../constants/actions';
+import {SIGN_IN_DATA, SIGN_OUT, SIGN_UP_DATA} from '../../../constants/actions';
 import {
   signInSuccess,
   signInFailure,
   signUpSuccess,
   signUpFailure,
+  signOutSuccess,
+  signOutFailure,
 } from './actions';
 import {signIn, signUp} from '../../../services/apiEndpoints';
 import {Alert} from 'react-native';
@@ -46,7 +48,23 @@ export function* signUpAPI(action: any) {
   }
 }
 
+export function* signOutAPI(action: any) {
+  try {
+    if (true) {
+      yield put(signOutSuccess());
+    } else {
+      if (response?.error) {
+        Alert.alert(response?.error || 'Something went wrong');
+      }
+      yield put(signOutFailure(response.error));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
+  yield takeLatest(SIGN_OUT.REQUEST, signOutAPI);
 }

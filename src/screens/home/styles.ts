@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
-import { color, layout, space } from 'styled-system';
-import { scale, moderateScale } from 'react-native-size-matters';
+import {color, layout, space} from 'styled-system';
+import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 
-export const Container = styled.View.attrs((props) => ({
+export const Container = styled.View.attrs(props => ({
   flex: 1,
   backgroundColor: props.theme.colors.secondary,
 }))`
@@ -11,86 +11,128 @@ export const Container = styled.View.attrs((props) => ({
 `;
 
 export const SubContainer = styled.View.attrs(() => ({
-  margin: moderateScale(22),
-  mt: moderateScale(52),
+  margin: moderateScale(15),
 }))`
   ${space}
   ${layout}
 `;
 
-export const SubHeaderContainer = styled.TouchableOpacity.attrs(() => ({}))`
-  margin-top: ${(props) => (props.marginTop ? moderateScale(props.marginTop) : 0)}px;
-  flex-direction: row;
-  align-items: center;
+export const FlatList = styled.FlatList.attrs(() => ({
+  numColumns: 2,
+  showVerticalScrollIndicator: false,
+}))`
+  margin-bottom: ${verticalScale(80)}px;
   ${color}
   ${space}
   ${layout}
 `;
 
-export const ButtonContainer = styled.View.attrs(() => ({}))`
-  margin-top: ${moderateScale(54)}px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  ${color}
+export const ItemContainer = styled.View.attrs(props => ({
+  margin: moderateScale(5),
+  pb: verticalScale(10),
+  width: '47%',
+}))`
   ${space}
-    ${layout}
+  ${layout}
+  ${color}
 `;
 
 export const Image = styled.Image.attrs({
-  width: scale(59),
-  height: scale(59),
-  mr: moderateScale(10),
+  height: scale(150),
 })`
   ${color}
   ${space}
 ${layout}
 `;
 
-export const Block = styled.View.attrs({})``;
-
-export const Text = styled.Text.attrs((props) => ({
-  color: props.color,
+export const FreeShipingContainer = styled.View.attrs(props => ({
+  p: moderateScale(5),
+  bg: props.theme.colors.white,
 }))`
-  fontsize: ${(props) => moderateScale(props.fontSize)}px;
-  margin-right: ${(props) => (props.marginRight ? moderateScale(props.marginRight) : 0)}px;
-  ${color}
+  position: absolute;
+  top: 10px;
+  left: 10px;
   ${space}
   ${layout}
+  ${color}
 `;
 
-export const PriceText = styled.Text.attrs((props) => ({
-  color: props.color,
-  mt: moderateScale(14),
+export const ShippingText = styled.Text.attrs(props => ({
+  color: props.theme.colors.primary,
 }))`
-  fontsize: ${moderateScale(48)}px;
+  fontsize: ${() => moderateScale(14)}px;
+  font-family: 'Inter-Bold';
   ${color}
   ${space}
   ${layout}
 `;
 
-export const FlatList = styled.FlatList.attrs(() => ({}))`
-  margin-top: ${moderateScale(20)}px;
-  margin-bottom: ${moderateScale(300)}px;
-  padding-vertical: ${moderateScale(5)}px;
+export const CellBottomView = styled.View.attrs(props => ({
+  mt: verticalScale(5),
+  px: scale(5),
+}))`
+  ${space}
+  ${layout}
+  ${color}
+`;
 
+export const BottomHeaderView = styled.View.attrs(props => ({
+  justifyContent: 'space-between',
+}))`
+  flex-direction: row ${space} ${layout} ${color};
+`;
+
+export const HeaderTextMain = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  my: scale(1),
+  maxWidth: '50%',
+  numberOfLines: 1,
+}))`
+  fontsize: ${() => moderateScale(14)}px;
+  font-family: 'Inter-Bold';
   ${color}
   ${space}
   ${layout}
 `;
 
-export const MarginR = styled.View.attrs(() => ({}))`
-  margin-right: ${moderateScale(6)}px;
-
+export const HeaderTextSub = styled.Text.attrs(props => ({
+  color: props.theme.colors.lightGrey,
+  my: scale(1),
+  maxWidth: '46%',
+  numberOfLines: 1,
+}))`
+  fontsize: ${() => moderateScale(14)}px;
+  font-family: 'Inter-Bold';
   ${color}
   ${space}
   ${layout}
 `;
 
-export const MarginT = styled.View.attrs(() => ({}))`
-  margin-top: ${(props) => (props.mt ? moderateScale(props.mt) : 0)}px;
-
+export const HeaderDes = styled.Text.attrs(props => ({
+  color: props.theme.colors.lightGrey,
+  my: scale(2),
+  maxWidth: '95%',
+  numberOfLines: 1,
+}))`
+  fontsize: ${() => moderateScale(14)}px;
+  font-family: 'Inter-Bold';
   ${color}
   ${space}
   ${layout}
+`;
+
+export const BarView = styled.View.attrs(props => ({
+  height: verticalScale(12),
+  width: scale(1),
+  mx: scale(5),
+  bg: props.theme.colors.text,
+}))`
+  ${space}
+  ${layout}
+  ${color}
+`;
+
+export const EmptyRowView = styled.View`
+  flex-direction: row;
+  align-items: center;
 `;

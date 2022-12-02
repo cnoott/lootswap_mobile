@@ -6,7 +6,7 @@ const TIME_OUT = 60000;
 export const createAxiosInstanceWithHeader = () => {
   const api = axios.create({
     timeout: TIME_OUT,
-    baseURL: API,
+    baseURL: 'http://192.168.0.105:8000/api',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',

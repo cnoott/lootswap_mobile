@@ -70,8 +70,8 @@ export const AuthScreen: FC<{}> = () => {
     return (
       <Formik
         initialValues={{
-          emailUsername: '',
-          password: '',
+          emailUsername: 'test01@mailinator.com',
+          password: '123456',
         }}
         validationSchema={loginValidationSchema}
         validateOnChange={false}

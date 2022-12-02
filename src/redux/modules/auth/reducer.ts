@@ -1,12 +1,13 @@
 // @flow
 
-import {SIGN_IN_DATA, SIGN_UP_DATA} from '../../../constants/actions';
+import {SIGN_IN_DATA, SIGN_UP_DATA, SIGN_OUT} from '../../../constants/actions';
 
 export interface AuthProps {
   isLoading: boolean;
   error: any;
   data: any;
   userData: any;
+  authToken: any;
 }
 
 type ActionProps = {
@@ -20,6 +21,7 @@ export const InitialState: AuthProps = {
   error: null,
   data: null,
   userData: null,
+  authToken: null,
 };
 
 export default function auth(state = InitialState, action: ActionProps) {
@@ -37,7 +39,8 @@ export default function auth(state = InitialState, action: ActionProps) {
       return {
         ...state,
         isLoading: false,
-        data: payload,
+        userData: payload?.user,
+        authToken: payload?.token,
         error: null,
       };
     }
@@ -45,7 +48,7 @@ export default function auth(state = InitialState, action: ActionProps) {
       return {
         ...state,
         isLoading: false,
-        data: payload,
+        userData: payload,
         error: null,
       };
     }
@@ -54,7 +57,8 @@ export default function auth(state = InitialState, action: ActionProps) {
         ...state,
         isLoading: false,
         error: error,
-        data: null,
+        userData: null,
+        authToken: null,
       };
     }
 
@@ -69,7 +73,7 @@ export default function auth(state = InitialState, action: ActionProps) {
       return {
         ...state,
         isLoading: false,
-        data: payload,
+        userData: payload,
         error: null,
       };
     }
@@ -78,7 +82,33 @@ export default function auth(state = InitialState, action: ActionProps) {
         ...state,
         isLoading: false,
         error: error,
+        userData: null,
+        authToken: null,
+      };
+    }
+    case SIGN_OUT.REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    }
+    case SIGN_OUT.SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        userData: null,
+        authToken: null,
+        error: null,
+      };
+    }
+    case SIGN_OUT.FAILURE: {
+      return {
+        ...state,
+        isLoading: false,
+        error: error,
         data: null,
+        authToken: null,
       };
     }
     default:

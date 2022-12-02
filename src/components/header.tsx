@@ -1,10 +1,11 @@
 import {HeaderContainer, LogoImage, BellImage, BellTouchable} from './styles';
 import React, {FC} from 'react';
+import {useDispatch} from 'react-redux';
 import {
   HEADERLOGO,
   NOTIFICATIONS_BOTTOM_TAB,
 } from '../constants/imageConstants';
-// import Icon from 'react-native-vector-icons/Feather';
+import {signOutRequest} from '../redux/modules';
 // import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 interface HeaderProps {
@@ -12,16 +13,21 @@ interface HeaderProps {
 }
 
 export const InHeader: FC<HeaderProps> = React.memo(props => {
+  const dispatch = useDispatch();
   // const {title} = props;
   // const navigation: NavigationProp<any, any> = useNavigation();
   // const onPress = () => {
   //   navigation.navigate('ChainScreen');
   // };
 
+  const onBellPress = () => {
+    dispatch(signOutRequest());
+  };
+
   return (
     <HeaderContainer>
       <LogoImage source={HEADERLOGO} />
-      <BellTouchable>
+      <BellTouchable onPress={onBellPress}>
         <BellImage source={NOTIFICATIONS_BOTTOM_TAB} />
       </BellTouchable>
     </HeaderContainer>

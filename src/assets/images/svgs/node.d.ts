@@ -6,4 +6,14 @@ declare module 'localsvgimages' {
   export const ADD_USER_ICON: any;
   export const PROFILE_PLACEHOLDER_ICON: any;
   export const EDIT_PROFILE_ICON: any;
+  export const BOTTOM_TAB_HOME: any;
+  export const BOTTOM_TAB_HOME_SELECTED: any;
+  export const BOTTOM_TAB_LOOT: any;
+  export const BOTTOM_TAB_LOOT_SELECTED: any;
+  export const BOTTOM_TAB_PROFILE: any;
+  export const BOTTOM_TAB_PROFILE_SELECTED: any;
+  export const BOTTOM_TAB_NOTIFICATION: any;
+  export const BOTTOM_TAB_NOTIFICATION_SELECTED: any;
+  export const BOTTOM_TAB_OFFERS: any;
+  export const BOTTOM_TAB_OFFERS_SELECTED: any;
 }
