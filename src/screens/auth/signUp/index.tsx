@@ -33,6 +33,7 @@ import {
   ProfileUploadView,
   ProfileContainerView,
   Image,
+  ImageUploadIndicator,
 } from './styles';
 import {
   getSignedRequest,
@@ -50,6 +51,7 @@ export const CreateAccountScreen: FC<{}> = () => {
   const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isPasswordHidden, setPasswordHidden] = useState(true);
+  const [isImageUploading, setImageUploading] = useState(false);
   const [profileUrl, setProfileUrl] = useState('');
   const loginValidationSchema = yup.object().shape({
     email: yup
@@ -82,6 +84,7 @@ export const CreateAccountScreen: FC<{}> = () => {
       height: 400,
       cropping: false,
     }).then(image => {
+      setImageUploading(true);
       const fileData = {
         ...image,
         type: image?.mime,
@@ -90,13 +93,17 @@ export const CreateAccountScreen: FC<{}> = () => {
         .then(signedReqData => {
           uploadFile(fileData, signedReqData?.signedRequest, signedReqData?.url)
             .then(url => {
+              setImageUploading(false);
               setProfileUrl(url);
             })
             .catch(error => {
+              setImageUploading(false);
               console.log('error ====', error);
             });
         })
-        .catch(() => {});
+        .catch(() => {
+          setImageUploading(false);
+        });
     });
   };
 
@@ -122,6 +129,7 @@ export const CreateAccountScreen: FC<{}> = () => {
           </EditIconContainer>
           {profileUrl && <Image source={{uri: profileUrl}} />}
         </ProfileUploadView>
+        {isImageUploading && <ImageUploadIndicator />}
       </ProfileContainerView>
     );
   };

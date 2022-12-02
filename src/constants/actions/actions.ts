@@ -11,4 +11,5 @@ export const createActionConst = (name: String) => {
 export const actions = {
   SIGN_IN_DATA: 'SIGN_IN_DATA',
   SIGN_UP_DATA: 'SIGN_UP_DATA',
+  SIGN_OUT: 'SIGN_OUT',
 };
