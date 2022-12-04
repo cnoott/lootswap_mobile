@@ -73,7 +73,8 @@ export default function auth(state = InitialState, action: ActionProps) {
       return {
         ...state,
         isLoading: false,
-        userData: payload,
+        userData: payload?.user,
+        authToken: payload?.token,
         error: null,
       };
     }

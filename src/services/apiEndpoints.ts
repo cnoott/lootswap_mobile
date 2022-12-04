@@ -46,12 +46,15 @@ export const signUp = (body: any) => {
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
-      console.log('Signup callqwqwqwqw ====');
       console.log('API Response: ', res);
 
       if (res.status === code) {
         return {status: res.status, success: true, data: res.data};
-      } else if (res.status === 422 || res.status === 400) {
+      } else if (
+        res.status === 422 ||
+        res.status === 400 ||
+        res.status === 409
+      ) {
         return {
           status: res.status,
           error: detailErrorMsg
@@ -76,7 +79,6 @@ const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
       };
     })
     .catch((error: any) => {
-      console.log('Error callqwqwqwqw ====');
       return {error};
     });
 };

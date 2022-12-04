@@ -1,4 +1,4 @@
-import {takeLatest, call, put} from 'redux-saga/effects';
+import {takeLatest, call, put, delay} from 'redux-saga/effects';
 import {SIGN_IN_DATA, SIGN_OUT, SIGN_UP_DATA} from '../../../constants/actions';
 import {
   signInSuccess,
@@ -51,6 +51,7 @@ export function* signUpAPI(action: any) {
 export function* signOutAPI(action: any) {
   try {
     if (true) {
+      yield delay(2000);
       yield put(signOutSuccess());
     } else {
       if (response?.error) {
