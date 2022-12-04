@@ -1,7 +1,8 @@
 import React, {FC, useState} from 'react';
+import {Platform} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {SvgXml} from 'react-native-svg';
 import {
   LOOT_SWAP_LOGO,
@@ -17,6 +18,7 @@ import * as yup from 'yup';
 import ImagePicker from 'react-native-image-crop-picker';
 import LSInput from '../../../components/commonComponents/LSInput';
 import LSButton from '../../../components/commonComponents/LSButton';
+import LSLoader from '../../../components/commonComponents/LSLoader';
 import {Size, Type} from '../../../enums';
 import {signUpRequest} from '../../../redux/modules';
 
@@ -49,6 +51,7 @@ type FormProps = {
 
 export const CreateAccountScreen: FC<{}> = () => {
   const dispatch = useDispatch();
+  const auth: AuthProps = useSelector(state => state.auth);
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const [isImageUploading, setImageUploading] = useState(false);
@@ -88,6 +91,10 @@ export const CreateAccountScreen: FC<{}> = () => {
       const fileData = {
         ...image,
         type: image?.mime,
+        uri:
+          Platform.OS === 'android'
+            ? image?.sourceURL
+            : image?.sourceURL?.replace('file://', ''),
       };
       getSignedRequest(fileData)
         .then(signedReqData => {
@@ -208,6 +215,7 @@ export const CreateAccountScreen: FC<{}> = () => {
         {renderBody()}
         {renderBottomView()}
       </KeyboardAwareScrollView>
+      {<LSLoader isVisible={auth?.isLoading} />}
     </Container>
   );
 };
