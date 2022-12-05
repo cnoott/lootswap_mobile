@@ -8,7 +8,6 @@ import {
   signOutSuccess,
 } from './actions';
 import {signIn, signUp} from '../../../services/apiEndpoints';
-import {Alert} from 'react-native';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 
 type APIResponseProps = {
@@ -24,9 +23,6 @@ export function* signInAPI(action: any) {
     if (response?.success) {
       yield put(signInSuccess(response.data));
     } else {
-      if (response?.error) {
-        Alert.alert(response?.error || 'Something went wrong');
-      }
       yield put(signInFailure(response.error));
     }
   } catch (e) {
@@ -42,9 +38,6 @@ export function* signUpAPI(action: any) {
     if (response?.success) {
       yield put(signUpSuccess(response.data));
     } else {
-      if (response?.error) {
-        Alert.alert(response?.error || 'Something went wrong');
-      }
       yield put(signUpFailure(response.error));
     }
   } catch (e) {
@@ -53,10 +46,13 @@ export function* signUpAPI(action: any) {
 }
 
 export function* signOutAPI() {
+  yield put(LoadingRequest());
   try {
     yield delay(500);
     yield put(signOutSuccess());
+    yield put(LoadingSuccess());
   } catch (e) {
+    yield put(LoadingSuccess());
     console.log(e);
   }
 }

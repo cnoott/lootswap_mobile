@@ -3,7 +3,7 @@ LootSwap - FIRST TAB SCREEN
 ***/
 
 import React, {FC} from 'react';
-import {InHeader} from '../../components/header';
+import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import {
   Container,
   SubContainer,
@@ -49,7 +49,7 @@ export const HomeScreen: FC<{}> = () => {
   };
   return (
     <Container>
-      <InHeader />
+      <InHomeHeader />
       <SubContainer>
         <FlatList data={[1, 2, 3, 4, 5, 6, 7, 8]} renderItem={renderItem} />
       </SubContainer>

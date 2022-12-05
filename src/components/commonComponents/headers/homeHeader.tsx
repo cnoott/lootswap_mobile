@@ -4,15 +4,15 @@ import {useDispatch} from 'react-redux';
 import {
   HEADERLOGO,
   NOTIFICATIONS_BOTTOM_TAB,
-} from '../constants/imageConstants';
-import {signOutRequest} from '../redux/modules';
+} from '../../../constants/imageConstants';
+import {signOutRequest} from '../../../redux/modules';
 // import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 interface HeaderProps {
   title?: string;
 }
 
-export const InHeader: FC<HeaderProps> = React.memo(() => {
+export const InHomeHeader: FC<HeaderProps> = React.memo(() => {
   const dispatch = useDispatch();
   // const {title} = props;
   // const navigation: NavigationProp<any, any> = useNavigation();

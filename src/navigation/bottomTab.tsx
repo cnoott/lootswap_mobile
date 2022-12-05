@@ -6,6 +6,7 @@ import React, {FC} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/home';
 import BrowseScreen from '../screens/browse';
+import ProfileScreen from '../screens/profile';
 import {useTheme} from 'styled-components';
 import {StyleSheet, Platform, View, TouchableOpacity, Text} from 'react-native';
 import {verticalScale, moderateScale} from 'react-native-size-matters';
@@ -74,7 +75,7 @@ export const BottomTabs: FC<{}> = () => {
             });
             if (!isFocused && !event.defaultPrevented) {
               // The `merge: true` option makes sure that the params inside the tab screen are preserved
-              if (index !== 0) {
+              if ([1, 3, 4].includes(index)) {
                 navigation.navigate('SignInScreen');
               } else {
                 navigation.navigate({name: route.name, merge: true});
@@ -123,7 +124,7 @@ export const BottomTabs: FC<{}> = () => {
       tabBar={props => <MyCustomTabBar {...props} />}>
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Offers" component={BrowseScreen} />
-      <Tab.Screen name="Profile" component={BrowseScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Notifications" component={BrowseScreen} />
       <Tab.Screen name="Add loot" component={BrowseScreen} />
     </Tab.Navigator>

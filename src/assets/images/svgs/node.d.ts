@@ -16,4 +16,14 @@ declare module 'localsvgimages' {
   export const BOTTOM_TAB_NOTIFICATION_SELECTED: any;
   export const BOTTOM_TAB_OFFERS: any;
   export const BOTTOM_TAB_OFFERS_SELECTED: any;
+  export const PROFILE_TRIPPLE_DOT_ICON: any;
+  export const RIGHT_ARROW: any;
+  export const PROFILE_ADDRESS: any;
+  export const PROFILE_MY_LOOT: any;
+  export const PROFILE_ORDERS: any;
+  export const PROFILE_WALLET: any;
+  export const PROFILE_REFERRAL: any;
+  export const PROFILE_SUPPORT: any;
+  export const PROFILE_SIGN_OUT: any;
+  export const PROFILE_NOTIFICATION: any;
 }

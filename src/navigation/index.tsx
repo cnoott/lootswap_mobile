@@ -4,6 +4,7 @@ LOOTSWAP - NAVIGATION STACK CLASS
 
 import React, {FC} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
+import DropdownAlert from 'react-native-dropdownalert';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AuthScreen from '../screens/auth/signIn';
 import CreateAccountScreen from '../screens/auth/signUp';
@@ -13,6 +14,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getInitialRoute} from '../utility/utility';
 import LSLoader from '../components/commonComponents/LSLoader';
 import {LoadingProps} from '../redux/modules/loading/reducer';
+import {Alert} from 'custom_top_alert';
 
 const Stack = createNativeStackNavigator();
 
@@ -75,6 +77,17 @@ const StackNavigator: FC<{}> = () => {
         )}
       </Stack.Navigator>
       {<LSLoader isVisible={loading?.isLoading} />}
+      {
+        <DropdownAlert
+          ref={ref => {
+            Alert.setDropDown(ref);
+          }}
+          renderImage={() => null}
+          tapToCloseEnabled
+          useNativeDriver
+          closeInterval={2500}
+        />
+      }
     </NavigationContainer>
   );
 };

@@ -5,6 +5,8 @@ const theme = {
     secondary: '#FFFFFF',
     white: '#FFFFFF',
     black: '#000000',
+    grey: '#EEEEEE',
+    redAlert: '#F75555',
     lightGrey: '#757575',
     bg: '#FAFAFA',
     danger: '#FC0000',
