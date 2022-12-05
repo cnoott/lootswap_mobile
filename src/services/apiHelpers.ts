@@ -1,6 +1,6 @@
 import axios from 'axios';
 import _ from 'lodash';
-import {API} from '@env';
+//import {API} from '@env';
 
 const TIME_OUT = 30000;
 export const createAxiosInstanceWithHeader = () => {
