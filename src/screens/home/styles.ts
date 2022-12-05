@@ -27,7 +27,7 @@ export const FlatList = styled.FlatList.attrs(() => ({
   ${layout}
 `;
 
-export const ItemContainer = styled.View.attrs(props => ({
+export const ItemContainer = styled.View.attrs(() => ({
   margin: moderateScale(5),
   pb: verticalScale(10),
   width: '47%',
@@ -67,7 +67,7 @@ export const ShippingText = styled.Text.attrs(props => ({
   ${layout}
 `;
 
-export const CellBottomView = styled.View.attrs(props => ({
+export const CellBottomView = styled.View.attrs(() => ({
   mt: verticalScale(5),
   px: scale(5),
 }))`
@@ -76,7 +76,7 @@ export const CellBottomView = styled.View.attrs(props => ({
   ${color}
 `;
 
-export const BottomHeaderView = styled.View.attrs(props => ({
+export const BottomHeaderView = styled.View.attrs(() => ({
   justifyContent: 'space-between',
 }))`
   flex-direction: row ${space} ${layout} ${color};

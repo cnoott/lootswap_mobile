@@ -12,7 +12,7 @@ interface HeaderProps {
   title?: string;
 }
 
-export const InHeader: FC<HeaderProps> = React.memo(props => {
+export const InHeader: FC<HeaderProps> = React.memo(() => {
   const dispatch = useDispatch();
   // const {title} = props;
   // const navigation: NavigationProp<any, any> = useNavigation();

@@ -31,7 +31,7 @@ export const HeaderLabel = styled.Text.attrs(props => ({
   ${layout}
 `;
 
-export const Touchable = styled.TouchableOpacity.attrs(props => ({
+export const Touchable = styled.TouchableOpacity.attrs(() => ({
   hitSlop: {left: 20, right: 20, top: 10, bottom: 10},
 }))``;
 
@@ -67,7 +67,7 @@ export const ProfileContainerView = styled.View.attrs({
 
 export const ProfileUploadView = styled.TouchableOpacity``;
 
-export const EditIconContainer = styled.TouchableOpacity.attrs(props => ({
+export const EditIconContainer = styled.TouchableOpacity.attrs(() => ({
   zIndex: 1000,
 }))`
   position: absolute;
@@ -75,7 +75,7 @@ export const EditIconContainer = styled.TouchableOpacity.attrs(props => ({
   bottom: 0px;
 `;
 
-export const BottomButton = styled.TouchableOpacity.attrs(props => ({
+export const BottomButton = styled.TouchableOpacity.attrs(() => ({
   mb: 60,
 }))`
   align-items: center;

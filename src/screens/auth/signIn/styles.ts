@@ -53,7 +53,7 @@ export const FullView = styled.View.attrs({
   flex: 1,
 })``;
 
-export const BottomButton = styled.TouchableOpacity.attrs(props => ({
+export const BottomButton = styled.TouchableOpacity.attrs(() => ({
   mb: 60,
 }))`
   align-items: center;

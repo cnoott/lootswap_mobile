@@ -48,6 +48,6 @@ export const TextInput = styled.TextInput.attrs(props => ({
   ${border}
 `;
 
-export const Touchable = styled.TouchableOpacity.attrs(props => ({
+export const Touchable = styled.TouchableOpacity.attrs(() => ({
   hitSlop: {left: 20, right: 20, top: 10, bottom: 10},
 }))``;
