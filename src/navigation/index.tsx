@@ -12,6 +12,7 @@ import {AuthProps} from '../redux/modules/auth/reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {getInitialRoute} from '../utility/utility';
 import LSLoader from '../components/commonComponents/LSLoader';
+import {LoadingProps} from '../redux/modules/loading/reducer';
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +59,7 @@ const AppNavigation = () => (
 const StackNavigator: FC<{}> = () => {
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
+  const loading: LoadingProps = useSelector(state => state.loading);
   const {initialScreen, isLoggedIn} = getInitialRoute(auth.userData, dispatch); // Check whether the current session active or not
   return (
     <NavigationContainer>
@@ -72,7 +74,7 @@ const StackNavigator: FC<{}> = () => {
           <Stack.Screen name="AuthScreen" component={AuthNavigation} />
         )}
       </Stack.Navigator>
-      {<LSLoader isVisible={auth?.isLoading} />}
+      {<LSLoader isVisible={loading?.isLoading} />}
     </NavigationContainer>
   );
 };

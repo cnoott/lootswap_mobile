@@ -2,7 +2,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import {API} from '@env';
 
-const TIME_OUT = 60000;
+const TIME_OUT = 30000;
 export const createAxiosInstanceWithHeader = () => {
   const api = axios.create({
     timeout: TIME_OUT,

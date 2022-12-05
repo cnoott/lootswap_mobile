@@ -53,7 +53,8 @@ const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
       } else if (
         res.status === 422 ||
         res.status === 400 ||
-        res.status === 409
+        res.status === 409 ||
+        res.status === 401
       ) {
         return {
           status: res.status,

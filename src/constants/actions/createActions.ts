@@ -11,3 +11,7 @@ export const SIGN_UP_DATA = {
 export const SIGN_OUT = {
   ...createActionConst(actions.SIGN_OUT),
 };
+
+export const LOADING = {
+  ...createActionConst(actions.LOADING),
+};

@@ -6,10 +6,10 @@ import {
   signUpSuccess,
   signUpFailure,
   signOutSuccess,
-  signOutFailure,
 } from './actions';
 import {signIn, signUp} from '../../../services/apiEndpoints';
 import {Alert} from 'react-native';
+import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 
 type APIResponseProps = {
   success: boolean;
@@ -17,8 +17,10 @@ type APIResponseProps = {
   error?: any;
 };
 export function* signInAPI(action: any) {
+  yield put(LoadingRequest());
   try {
     const response: APIResponseProps = yield call(signIn, action?.reqData);
+    yield put(LoadingSuccess());
     if (response?.success) {
       yield put(signInSuccess(response.data));
     } else {
@@ -33,8 +35,10 @@ export function* signInAPI(action: any) {
 }
 
 export function* signUpAPI(action: any) {
+  yield put(LoadingRequest());
   try {
     const response: APIResponseProps = yield call(signUp, action?.reqData);
+    yield put(LoadingSuccess());
     if (response?.success) {
       yield put(signUpSuccess(response.data));
     } else {
@@ -48,17 +52,10 @@ export function* signUpAPI(action: any) {
   }
 }
 
-export function* signOutAPI(action: any) {
+export function* signOutAPI() {
   try {
-    if (true) {
-      yield delay(2000);
-      yield put(signOutSuccess());
-    } else {
-      if (response?.error) {
-        Alert.alert(response?.error || 'Something went wrong');
-      }
-      yield put(signOutFailure(response.error));
-    }
+    yield delay(500);
+    yield put(signOutSuccess());
   } catch (e) {
     console.log(e);
   }
