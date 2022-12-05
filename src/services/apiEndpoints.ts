@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import * as utils from './apiHelpers';
 import {API_RESPONSE} from '../constants/stringConstants';
+import {Alert} from 'custom_top_alert';
 
 type ApiRetryTypes = {baseUrl?: string; retry: number};
 
@@ -56,12 +57,14 @@ const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
         res.status === 409 ||
         res.status === 401
       ) {
-        return {
+        const errorObj = {
           status: res.status,
           error: detailErrorMsg
             ? utils.retrieveDetailMessageFromResponse(res)
             : utils.retrieveErrorMessageFromResponse(res),
         };
+        Alert.showError(errorObj?.error || 'Something went wrong');
+        return errorObj;
       } else if (res.status === 401) {
         return;
       } else if (res.status === 500) {

@@ -54,10 +54,11 @@ export const FullView = styled.View.attrs({
 })``;
 
 export const ProfileContainerView = styled.View.attrs({
-  width: scale(70),
-  height: scale(70),
+  width: scale(60),
+  height: scale(60),
   ml: moderateScale(24),
   my: verticalScale(5),
+  mb: verticalScale(10),
 })`
   align-items: center;
   justify-content: center;

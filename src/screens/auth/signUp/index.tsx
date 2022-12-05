@@ -42,6 +42,7 @@ import {
   uploadFile,
 } from '../../../services/imageUploadService';
 import {Alert} from 'react-native';
+import {scale} from 'react-native-size-matters';
 
 type FormProps = {
   email: string;
@@ -61,8 +62,15 @@ export const CreateAccountScreen: FC<{}> = () => {
       .string()
       .email('Please enter valid email')
       .required('Please enter email'),
-    username: yup.string().required('Please enter username'),
-    password: yup.string().required('Please enter valid password'),
+    username: yup
+      .string()
+      .required('Please enter username')
+      .matches(/^[a-zA-Z0-9]+$/, 'Please enter valid username'),
+    password: yup
+      .string()
+      .required('Please enter valid password')
+      .min(6, 'Atleast 6 characters required')
+      .max(15, "Password can't be greater then 15 characters"),
   });
 
   const onSubmit = (values: FormProps) => {
@@ -85,7 +93,7 @@ export const CreateAccountScreen: FC<{}> = () => {
     ImagePicker.openPicker({
       width: 300,
       height: 400,
-      cropping: false,
+      cropping: true,
     }).then(image => {
       setImageUploading(true);
       const fileData = {
@@ -118,7 +126,7 @@ export const CreateAccountScreen: FC<{}> = () => {
     return (
       <BottomButton
         onPress={() => {
-          navigation.navigate('AuthScreen');
+          navigation.navigate('SignInScreen');
         }}>
         <ButtonText1>Already have an account?</ButtonText1>
         <ButtonText2> Sign In</ButtonText2>
@@ -130,7 +138,11 @@ export const CreateAccountScreen: FC<{}> = () => {
     return (
       <ProfileContainerView>
         <ProfileUploadView onPress={onEditProfilePress}>
-          <SvgXml xml={PROFILE_PLACEHOLDER_ICON} />
+          <SvgXml
+            xml={PROFILE_PLACEHOLDER_ICON}
+            height={scale(54)}
+            width={scale(54)}
+          />
           <EditIconContainer onPress={onEditProfilePress}>
             <SvgXml xml={EDIT_PROFILE_ICON} />
           </EditIconContainer>

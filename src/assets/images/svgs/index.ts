@@ -114,3 +114,75 @@ export const BOTTOM_TAB_OFFERS_SELECTED = `<svg width="24" height="24" viewBox="
 <rect x="0.5" y="0.5" width="23" height="23" stroke="white"/>
 </svg>
 `;
+
+export const PROFILE_TRIPPLE_DOT_ICON = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M14.0002 3.2085C19.9595 3.2085 24.7918 8.03966 24.7918 14.0002C24.7918 19.9595 19.9595 24.7918 14.0002 24.7918C8.03966 24.7918 3.2085 19.9595 3.2085 14.0002C3.2085 8.04083 8.04083 3.2085 14.0002 3.2085Z" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18.5957 14.015H18.6062" stroke="#212121" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M13.9189 14.015H13.9294" stroke="#212121" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.24166 14.015H9.25216" stroke="#212121" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+export const RIGHT_ARROW = `<svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.0835 4.66683L12.9168 10.5002L7.0835 16.3335" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+export const PROFILE_ADDRESS = `<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M14.5103 11.2105C14.5103 9.8292 13.391 8.70996 12.0097 8.70996C10.6295 8.70996 9.51025 9.8292 9.51025 11.2105C9.51025 12.5907 10.6295 13.71 12.0097 13.71C13.391 13.71 14.5103 12.5907 14.5103 11.2105Z" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9995 21.5C9.10148 21.5 4.5 16.4587 4.5 11.0986C4.5 6.90246 7.8571 3.5 11.9995 3.5C16.1419 3.5 19.5 6.90246 19.5 11.0986C19.5 16.4587 14.8985 21.5 11.9995 21.5Z" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+export const PROFILE_MY_LOOT = `<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.6998 23.2502H9.29977C4.35977 23.2502 2.25977 21.1402 2.25977 16.2102V11.7202C2.25977 11.3102 2.59977 10.9702 3.00977 10.9702C3.41977 10.9702 3.75977 11.3102 3.75977 11.7202V16.2102C3.75977 20.3002 5.20977 21.7502 9.29977 21.7502H14.6898C18.7798 21.7502 20.2298 20.3002 20.2298 16.2102V11.7202C20.2298 11.3102 20.5698 10.9702 20.9798 10.9702C21.3898 10.9702 21.7298 11.3102 21.7298 11.7202V16.2102C21.7398 21.1402 19.6298 23.2502 14.6998 23.2502Z" fill="#292D32"/>
+<path d="M12 13.25C10.9 13.25 9.9 12.82 9.19 12.03C8.48 11.24 8.15 10.21 8.26 9.11L8.93 2.43C8.97 2.05 9.29 1.75 9.68 1.75H14.35C14.74 1.75 15.06 2.04 15.1 2.43L15.77 9.11C15.88 10.21 15.55 11.24 14.84 12.03C14.1 12.82 13.1 13.25 12 13.25ZM10.35 3.25L9.75 9.26C9.68 9.93 9.88 10.56 10.3 11.02C11.15 11.96 12.85 11.96 13.7 11.02C14.12 10.55 14.32 9.92 14.25 9.26L13.65 3.25H10.35Z" fill="#292D32"/>
+<path d="M18.31 13.25C16.28 13.25 14.47 11.61 14.26 9.59L13.56 2.58C13.54 2.37 13.61 2.16 13.75 2C13.89 1.84 14.09 1.75 14.31 1.75H17.36C20.3 1.75 21.67 2.98 22.08 6L22.36 8.78C22.48 9.96 22.12 11.08 21.35 11.93C20.58 12.78 19.5 13.25 18.31 13.25ZM15.14 3.25L15.76 9.44C15.89 10.69 17.05 11.75 18.31 11.75C19.07 11.75 19.75 11.46 20.24 10.93C20.72 10.4 20.94 9.69 20.87 8.93L20.59 6.18C20.28 3.92 19.55 3.25 17.36 3.25H15.14Z" fill="#292D32"/>
+<path d="M5.64002 13.25C4.45002 13.25 3.37002 12.78 2.60002 11.93C1.83002 11.08 1.47002 9.96 1.59002 8.78L1.86002 6.03C2.28002 2.98 3.65002 1.75 6.59002 1.75H9.64002C9.85002 1.75 10.05 1.84 10.2 2C10.35 2.16 10.41 2.37 10.39 2.58L9.69002 9.59C9.48002 11.61 7.67002 13.25 5.64002 13.25ZM6.59002 3.25C4.40002 3.25 3.67002 3.91 3.35002 6.2L3.08002 8.93C3.00002 9.69 3.23002 10.4 3.71002 10.93C4.19002 11.46 4.87002 11.75 5.64002 11.75C6.90002 11.75 8.07002 10.69 8.19002 9.44L8.81002 3.25H6.59002Z" fill="#292D32"/>
+<path d="M14.5 23.25H9.5C9.09 23.25 8.75 22.91 8.75 22.5V20C8.75 17.9 9.9 16.75 12 16.75C14.1 16.75 15.25 17.9 15.25 20V22.5C15.25 22.91 14.91 23.25 14.5 23.25ZM10.25 21.75H13.75V20C13.75 18.74 13.26 18.25 12 18.25C10.74 18.25 10.25 18.74 10.25 20V21.75Z" fill="#292D32"/>
+</svg>
+`;
+
+export const PROFILE_ORDERS = `<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.5 10.7202V19.5002C19.5 21.5002 19 22.5002 16.5 22.5002H7.5C5 22.5002 4.5 21.5002 4.5 19.5002V10.7202" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5 2.5H19C21 2.5 22 3.5 22 5.5V7.5C22 9.5 21 10.5 19 10.5H5C3 10.5 2 9.5 2 7.5V5.5C2 3.5 3 2.5 5 2.5Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10.1802 14.5H13.8202" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+export const PROFILE_WALLET = `<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13 10.25H7C6.59 10.25 6.25 9.91 6.25 9.5C6.25 9.09 6.59 8.75 7 8.75H13C13.41 8.75 13.75 9.09 13.75 9.5C13.75 9.91 13.41 10.25 13 10.25Z" fill="#292D32"/>
+<path d="M19.0399 15.3002C17.5299 15.3002 16.2499 14.1802 16.1299 12.7402C16.0499 11.9102 16.3499 11.1002 16.9499 10.5102C17.4499 9.99019 18.1599 9.7002 18.9099 9.7002H20.9999C21.9899 9.7302 22.7499 10.5102 22.7499 11.4702V13.5302C22.7499 14.4902 21.9899 15.2702 21.0299 15.3002H19.0399ZM20.9699 11.2002H18.9199C18.5699 11.2002 18.2499 11.3302 18.0199 11.5702C17.7299 11.8502 17.5899 12.2302 17.6299 12.6102C17.6799 13.2702 18.3199 13.8002 19.0399 13.8002H20.9999C21.1299 13.8002 21.2499 13.6802 21.2499 13.5302V11.4702C21.2499 11.3202 21.1299 11.2102 20.9699 11.2002Z" fill="#292D32"/>
+<path d="M16 21.75H7C3.56 21.75 1.25 19.44 1.25 16V9C1.25 5.92 3.14998 3.69001 6.09998 3.32001C6.36998 3.28001 6.68 3.25 7 3.25H16C16.24 3.25 16.55 3.26 16.87 3.31C19.82 3.65 21.75 5.89 21.75 9V10.45C21.75 10.86 21.41 11.2 21 11.2H18.92C18.57 11.2 18.25 11.33 18.02 11.57L18.01 11.58C17.73 11.85 17.6 12.22 17.63 12.6C17.68 13.26 18.32 13.79 19.04 13.79H21C21.41 13.79 21.75 14.13 21.75 14.54V15.99C21.75 19.44 19.44 21.75 16 21.75ZM7 4.75C6.76 4.75 6.52999 4.76999 6.29999 4.79999C4.09999 5.07999 2.75 6.68 2.75 9V16C2.75 18.58 4.42 20.25 7 20.25H16C18.58 20.25 20.25 18.58 20.25 16V15.3H19.04C17.53 15.3 16.25 14.18 16.13 12.74C16.05 11.92 16.35 11.1 16.95 10.52C17.47 9.99002 18.17 9.70001 18.92 9.70001H20.25V9C20.25 6.66 18.88 5.04998 16.66 4.78998C16.42 4.74998 16.21 4.75 16 4.75H7Z" fill="#292D32"/>
+</svg>
+`;
+
+export const PROFILE_REFERRAL = `<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9728 20.8681C8.7338 20.8681 5.9668 20.3781 5.9668 18.4161C5.9668 16.4541 8.7158 14.7461 11.9728 14.7461C15.2118 14.7461 17.9788 16.4381 17.9788 18.3991C17.9788 20.3601 15.2298 20.8681 11.9728 20.8681Z" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9726 11.9485C14.0986 11.9485 15.8226 10.2255 15.8226 8.09951C15.8226 5.97351 14.0986 4.24951 11.9726 4.24951C9.84657 4.24951 8.12257 5.97351 8.12257 8.09951C8.11657 10.2175 9.82657 11.9415 11.9456 11.9485H11.9726Z" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18.3623 10.8915C19.5993 10.5605 20.5113 9.43254 20.5113 8.08954C20.5113 6.68854 19.5183 5.51854 18.1963 5.24854" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18.9434 14.0444C20.6974 14.0444 22.1954 15.2334 22.1954 16.2954C22.1954 16.9204 21.6784 17.6014 20.8944 17.7854" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5.58408 10.8915C4.34608 10.5605 3.43408 9.43254 3.43408 8.08954C3.43408 6.68854 4.42808 5.51854 5.74908 5.24854" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5.002 14.0444C3.248 14.0444 1.75 15.2334 1.75 16.2954C1.75 16.9204 2.267 17.6014 3.052 17.7854" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+export const PROFILE_SUPPORT = `<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M21.25 12.5C21.25 19.437 18.937 21.75 12 21.75C5.063 21.75 2.75 19.437 2.75 12.5C2.75 5.563 5.063 3.25 12 3.25C18.937 3.25 21.25 5.563 21.25 12.5Z" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12 16.395V12.5" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.0045 9H11.9955" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+export const PROFILE_SIGN_OUT = `<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M21.791 12.6206H9.75" stroke="#F75555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18.8643 9.70459L21.7923 12.6206L18.8643 15.5366" stroke="#F75555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16.3599 8.13C16.0299 4.55 14.6899 3.25 9.35986 3.25C2.25886 3.25 2.25886 5.56 2.25886 12.5C2.25886 19.44 2.25886 21.75 9.35986 21.75C14.6899 21.75 16.0299 20.45 16.3599 16.87" stroke="#F75555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
+
+export const PROFILE_NOTIFICATION = `<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.9964 3.01416C7.5621 3.01416 5.63543 7.0294 5.63543 9.68368C5.63543 11.6675 5.92305 11.0837 4.82496 13.5037C3.484 16.9523 8.87638 18.3618 11.9964 18.3618C15.1154 18.3618 20.5078 16.9523 19.1678 13.5037C18.0697 11.0837 18.3573 11.6675 18.3573 9.68368C18.3573 7.0294 16.4297 3.01416 11.9964 3.01416Z" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14.306 21.0122C13.0117 22.4579 10.9927 22.4751 9.68604 21.0122" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;
