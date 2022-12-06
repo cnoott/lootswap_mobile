@@ -2,14 +2,31 @@ import axios from 'axios';
 import _ from 'lodash';
 //import {API} from '@env';
 
+export const baseURL = 'http://192.168.1.2:8000/api';
+
 const TIME_OUT = 30000;
 export const createAxiosInstanceWithHeader = () => {
   const api = axios.create({
     timeout: TIME_OUT,
-    baseURL: 'http://192.168.0.105:8000/api',
+    baseURL,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+    },
+    validateStatus: status => status >= 200 && status <= 500,
+  });
+  return api;
+};
+
+export const createProfileImageUploadAxiosInstanceWithHeader = (
+  file: any,
+  signedRequest: string,
+) => {
+  const api = axios.create({
+    timeout: TIME_OUT,
+    baseURL: signedRequest,
+    headers: {
+      'Content-Type': file.type,
     },
     validateStatus: status => status >= 200 && status <= 500,
   });

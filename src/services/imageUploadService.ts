@@ -3,11 +3,12 @@ LOOTSWAP - COMMON IMAGE UPLOAD SERVICE
 ***/
 
 import {API_METHOD} from 'custom_enums';
+import {baseURL} from './apiHelpers';
 
 export const getSignedRequest = (file: any) => {
   const newName = Math.floor(Math.random() * 9999) + encodeURIComponent('test');
   return fetch(
-    `http://192.168.0.105:8000/api/sign-s3?file-name=${newName}&file-type=${file.type}`,
+    `${baseURL}/sign-s3?file-name=${newName}&file-type=${file.type}`,
     {
       method: API_METHOD.Get,
     },

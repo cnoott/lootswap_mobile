@@ -12,6 +12,10 @@ export const SIGN_OUT = {
   ...createActionConst(actions.SIGN_OUT),
 };
 
+export const PROFILE_IMG_UPLOAD = {
+  ...createActionConst(actions.PROFILE_IMG_UPLOAD),
+};
+
 export const LOADING = {
   ...createActionConst(actions.LOADING),
 };

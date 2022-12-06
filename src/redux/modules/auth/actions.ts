@@ -1,4 +1,9 @@
-import {SIGN_IN_DATA, SIGN_UP_DATA, SIGN_OUT} from '../../../constants/actions';
+import {
+  SIGN_IN_DATA,
+  SIGN_UP_DATA,
+  SIGN_OUT,
+  PROFILE_IMG_UPLOAD,
+} from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
   return {
@@ -64,6 +69,28 @@ export const signOutSuccess = () => {
 export const signOutFailure = (error: any) => {
   return {
     type: SIGN_OUT.FAILURE,
+    error,
+  };
+};
+
+// Profile Image Upload Actions
+export const profileImgUploadRequest = (payload: any) => {
+  return {
+    type: PROFILE_IMG_UPLOAD.REQUEST,
+    payload,
+  };
+};
+
+export const profileImgUploadSuccess = (payload: any) => {
+  return {
+    type: PROFILE_IMG_UPLOAD.SUCCESS,
+    payload,
+  };
+};
+
+export const profileImgUploadFailure = (error: any) => {
+  return {
+    type: PROFILE_IMG_UPLOAD.FAILURE,
     error,
   };
 };

@@ -1,13 +1,21 @@
 // @flow
 
-import {SIGN_IN_DATA, SIGN_UP_DATA, SIGN_OUT} from '../../../constants/actions';
+import {
+  SIGN_IN_DATA,
+  SIGN_UP_DATA,
+  SIGN_OUT,
+  PROFILE_IMG_UPLOAD,
+} from '../../../constants/actions';
 
 export interface AuthProps {
-  isLoading: boolean;
-  error: any;
-  data: any;
-  userData: any;
-  authToken: any;
+  isLoading?: boolean;
+  error?: any;
+  data?: any;
+  userData?: any;
+  authToken?: any;
+  imgUpload?: boolean;
+  imgError?: any;
+  profileImgData?: any;
 }
 
 type ActionProps = {
@@ -22,6 +30,9 @@ export const InitialState: AuthProps = {
   data: null,
   userData: null,
   authToken: null,
+  imgUpload: false,
+  imgError: null,
+  profileImgData: null,
 };
 
 export default function auth(state = InitialState, action: ActionProps) {
@@ -110,6 +121,29 @@ export default function auth(state = InitialState, action: ActionProps) {
         error: error,
         data: null,
         authToken: null,
+      };
+    }
+
+    case PROFILE_IMG_UPLOAD.REQUEST: {
+      return {
+        ...state,
+        imgUpload: true,
+        imgError: null,
+      };
+    }
+    case PROFILE_IMG_UPLOAD.SUCCESS: {
+      return {
+        ...state,
+        imgUpload: false,
+        imgError: null,
+        profileImgData: payload,
+      };
+    }
+    case PROFILE_IMG_UPLOAD.FAILURE: {
+      return {
+        ...state,
+        imgUpload: false,
+        imgError: error,
       };
     }
     default:

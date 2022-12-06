@@ -13,4 +13,5 @@ export const actions = {
   SIGN_UP_DATA: 'SIGN_UP_DATA',
   SIGN_OUT: 'SIGN_OUT',
   LOADING: 'LOADING',
+  PROFILE_IMG_UPLOAD: 'PROFILE_IMG_UPLOAD',
 };
