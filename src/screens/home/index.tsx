@@ -1,8 +1,8 @@
 /***
-LootSwap - FIRST TAB SCREEN
-***/
+  LootSwap - FIRST TAB SCREEN
+ ***/
 
-import React, {FC} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import {
   Container,
@@ -20,38 +20,82 @@ import {
   EmptyRowView,
   HeaderDes,
 } from './styles';
+import algoliasearch from 'algoliasearch/lite';
+import {
+  InstantSearch,
+  useSearchBox,
+  useInfiniteHits,
+} from 'react-instantsearch-hooks'
+import {filter} from 'lodash';
+
+const appId = 'O616IHS8SQ';
+const apiKey = '1a61d9059fcc3f918576c7aa95279846';
+const ALGOLIA_INDEX_NAME = 'dev_lootswap';
+const searchClient = algoliasearch(appId, apiKey);
 
 export const HomeScreen: FC<{}> = () => {
-  const renderItem = () => {
+  const renderItem = ({item}) => {
     return (
       <ItemContainer>
-        <Image source={{uri: 'https://picsum.photos/200/300'}} />
+        <Image source={{uri: item.primary_photo}} />
         <CellBottomView>
           <BottomHeaderView>
             <EmptyRowView>
-              <HeaderTextMain>Adidas</HeaderTextMain>
-              <BarView />
-              <HeaderTextSub>Yeezy</HeaderTextSub>
+              <HeaderTextMain>{item.brand}</HeaderTextMain>
             </EmptyRowView>
-            <HeaderTextMain>$140</HeaderTextMain>
+            <HeaderTextMain>${item.price}</HeaderTextMain>
           </BottomHeaderView>
-          <HeaderDes>Side Pure</HeaderDes>
+          <HeaderDes>{item.name}</HeaderDes>
           <EmptyRowView>
-            <HeaderDes>New With Box </HeaderDes>
-            <HeaderTextMain>11</HeaderTextMain>
+            <HeaderTextMain>Size {item.size}</HeaderTextMain>
           </EmptyRowView>
         </CellBottomView>
+
+        {item.who_pays === 'seller-pays' &&
         <FreeShipingContainer>
           <ShippingText>Free Shipping</ShippingText>
         </FreeShipingContainer>
+        }
       </ItemContainer>
     );
   };
+
+  const SearchBox = () => {
+    //TODO
+    //Integrate with Algolia
+  };
+
+  const InfiniteHits = ({...props}) => {
+    const {hits, isLastPage, showMore} = useInfiniteHits(props);
+    const filteredHits = hits.filter(hit => hit.isVisible && hit.isVirtuallyVerified);
+    console.log(filteredHits);
+
+    return (
+      <>
+        <FlatList 
+          data={filteredHits} 
+          renderItem={renderItem}
+          keyExtractor={item => item.objectID}
+          onEndReached={() => {
+            if (isLastPage) {
+              showMore();
+            }
+          }}
+        />
+      </>
+    );
+  };
+
   return (
     <Container>
       <InHomeHeader />
       <SubContainer>
-        <FlatList data={[1, 2, 3, 4, 5, 6, 7, 8]} renderItem={renderItem} />
+        <InstantSearch
+          indexName={ALGOLIA_INDEX_NAME}
+          searchClient={searchClient}
+        >
+          <InfiniteHits/>
+        </InstantSearch>
       </SubContainer>
     </Container>
   );
