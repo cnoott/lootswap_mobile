@@ -20,7 +20,7 @@ import LSInput from '../../../components/commonComponents/LSInput';
 import LSButton from '../../../components/commonComponents/LSButton';
 import LSLoader from '../../../components/commonComponents/LSLoader';
 import {Size, Type} from '../../../enums';
-import {signUpRequest} from '../../../redux/modules';
+import {profileImgUploadRequest, signUpRequest} from '../../../redux/modules';
 
 import {
   Container,
@@ -43,6 +43,7 @@ import {
 } from '../../../services/imageUploadService';
 import {Alert} from 'react-native';
 import {scale} from 'react-native-size-matters';
+import {AuthProps} from '../../../redux/modules/auth/reducer';
 
 type FormProps = {
   email: string;
@@ -57,6 +58,7 @@ export const CreateAccountScreen: FC<{}> = () => {
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const [isImageUploading, setImageUploading] = useState(false);
   const [profileUrl, setProfileUrl] = useState('');
+
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
@@ -104,6 +106,8 @@ export const CreateAccountScreen: FC<{}> = () => {
             ? image?.sourceURL
             : image?.sourceURL?.replace('file://', ''),
       };
+      // dispatch(profileImgUploadRequest(fileData));
+
       getSignedRequest(fileData)
         .then(signedReqData => {
           uploadFile(fileData, signedReqData?.signedRequest, signedReqData?.url)

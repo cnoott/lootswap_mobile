@@ -1,13 +1,25 @@
 import {takeLatest, call, put, delay} from 'redux-saga/effects';
-import {SIGN_IN_DATA, SIGN_OUT, SIGN_UP_DATA} from '../../../constants/actions';
+import {
+  PROFILE_IMG_UPLOAD,
+  SIGN_IN_DATA,
+  SIGN_OUT,
+  SIGN_UP_DATA,
+} from '../../../constants/actions';
 import {
   signInSuccess,
   signInFailure,
   signUpSuccess,
   signUpFailure,
   signOutSuccess,
+  profileImgUploadSuccess,
+  profileImgUploadFailure,
 } from './actions';
-import {signIn, signUp} from '../../../services/apiEndpoints';
+import {
+  signIn,
+  signUp,
+  getProfileImageSignedURL,
+  uploadProfileImage,
+} from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 
 type APIResponseProps = {
@@ -45,6 +57,31 @@ export function* signUpAPI(action: any) {
   }
 }
 
+export function* uploadProfileImgAPI(action: any) {
+  try {
+    const signedResponse: APIResponseProps = yield call(
+      getProfileImageSignedURL,
+      action?.payload,
+    );
+
+    const uploadResponse: APIResponseProps = yield call(
+      uploadProfileImage,
+      signedResponse.data,
+      action?.payload,
+    );
+
+    if (signedResponse?.success && uploadResponse?.success) {
+      yield put(profileImgUploadSuccess(signedResponse.data));
+    } else {
+      yield put(
+        profileImgUploadFailure(signedResponse.error || uploadResponse.error),
+      );
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function* signOutAPI() {
   yield put(LoadingRequest());
   try {
@@ -61,4 +98,5 @@ export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
   yield takeLatest(SIGN_OUT.REQUEST, signOutAPI);
+  yield takeLatest(PROFILE_IMG_UPLOAD.REQUEST, uploadProfileImgAPI);
 }

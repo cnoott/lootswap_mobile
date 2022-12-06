@@ -44,6 +44,29 @@ export const signUp = (body: any) => {
   return handleResponse(api.post('signup', body), API_RESPONSE.CODE200);
 };
 
+export const getProfileImageSignedURL = (body: any) => {
+  const {type} = body;
+  const newName = Math.floor(Math.random() * 9999) + encodeURIComponent('test');
+  return handleResponse(
+    api.get(`sign-s3?file-name=${newName}&file-type=${type}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const uploadProfileImage = (signedImgData: any, imageFileData: any) => {
+  const {signedRequest} = signedImgData;
+  const profileImgUploadApi =
+    utils.createProfileImageUploadAxiosInstanceWithHeader(
+      imageFileData,
+      signedRequest,
+    );
+
+  return handleResponse(
+    profileImgUploadApi.put('', imageFileData),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
