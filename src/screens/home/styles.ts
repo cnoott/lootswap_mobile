@@ -85,7 +85,7 @@ export const BottomHeaderView = styled.View.attrs(() => ({
 export const HeaderTextMain = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
   my: scale(1),
-  maxWidth: '50%',
+  maxWidth: '100%',
   numberOfLines: 1,
 }))`
   fontsize: ${() => moderateScale(14)}px;
@@ -98,7 +98,7 @@ export const HeaderTextMain = styled.Text.attrs(props => ({
 export const HeaderTextSub = styled.Text.attrs(props => ({
   color: props.theme.colors.lightGrey,
   my: scale(1),
-  maxWidth: '46%',
+  maxWidth: '50%',
   numberOfLines: 1,
 }))`
   fontsize: ${() => moderateScale(14)}px;
