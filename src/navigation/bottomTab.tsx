@@ -8,9 +8,10 @@ import HomeScreen from '../screens/home';
 import BrowseScreen from '../screens/browse';
 import ProfileScreen from '../screens/profile';
 import {useTheme} from 'styled-components';
-import {StyleSheet, Platform, View, TouchableOpacity, Text} from 'react-native';
-import {verticalScale, moderateScale} from 'react-native-size-matters';
 import {SvgXml} from 'react-native-svg';
+import {useSelector} from 'react-redux';
+import {getInitialRoute} from '../utility/utility';
+import {AuthProps} from '../redux/modules/auth/reducer';
 import {
   BOTTOM_TAB_HOME,
   BOTTOM_TAB_HOME_SELECTED,
@@ -23,6 +24,12 @@ import {
   BOTTOM_TAB_OFFERS,
   BOTTOM_TAB_OFFERS_SELECTED,
 } from 'localsvgimages';
+import {
+  TabBarContainer,
+  TabItemTouchable,
+  TabItemContainer,
+  TabItemText,
+} from './styles';
 
 const Tab = createBottomTabNavigator();
 
@@ -54,15 +61,15 @@ const getTabBarIcon = (isFocused?: boolean, route?: string) => {
 
 export const BottomTabs: FC<{}> = () => {
   const theme = useTheme();
-  const styles = makeStyles(theme);
-
   /**
    *
    * Custom Tab Bar
    */
   const MyCustomTabBar = ({state, descriptors, navigation}) => {
+    const auth: AuthProps = useSelector(state => state.auth);
+    const {isLoggedIn} = getInitialRoute(auth.userData);
     return (
-      <View style={styles.tabBarContainer}>
+      <TabBarContainer>
         {state.routes.map((route, index) => {
           const {options} = descriptors[route.key];
           const isFocused = state.index === index;
@@ -75,7 +82,7 @@ export const BottomTabs: FC<{}> = () => {
             });
             if (!isFocused && !event.defaultPrevented) {
               // The `merge: true` option makes sure that the params inside the tab screen are preserved
-              if ([1, 3, 4].includes(index)) {
+              if (!isLoggedIn && [1, 2, 3, 4].includes(index)) {
                 navigation.navigate('SignInScreen');
               } else {
                 navigation.navigate({name: route.name, merge: true});
@@ -91,26 +98,21 @@ export const BottomTabs: FC<{}> = () => {
           };
 
           return (
-            <TouchableOpacity
-              accessibilityRole="button"
+            <TabItemTouchable
               accessibilityState={isFocused ? {selected: true} : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
               testID={options.tabBarTestID}
               onPress={onPress}
               onLongPress={onLongPress}
-              key={index}
-              style={{flex: 1, alignItems: 'center'}}>
-              <View style={[{alignItems: 'center', justifyContent: 'center'}]}>
+              key={index}>
+              <TabItemContainer>
                 {getTabBarIcon(isFocused, route.name)}
-                <Text
-                  style={isFocused ? styles.tabLabelSelected : styles.tabLabel}>
-                  {route.name}
-                </Text>
-              </View>
-            </TouchableOpacity>
+                <TabItemText isActive={isFocused}>{route.name}</TabItemText>
+              </TabItemContainer>
+            </TabItemTouchable>
           );
         })}
-      </View>
+      </TabBarContainer>
     );
   };
 
@@ -130,43 +132,5 @@ export const BottomTabs: FC<{}> = () => {
     </Tab.Navigator>
   );
 };
-
-const makeStyles = (theme: any) =>
-  StyleSheet.create({
-    tabBarContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      height: moderateScale(75),
-      backgroundColor: theme.colors.white,
-      shadowColor:
-        Platform.OS === 'ios' ? 'rgba(0, 0, 0, 0.2)' : theme.colors.black,
-      shadowOffset: {
-        width: 0,
-        height: 12,
-      },
-      shadowOpacity: 0.58,
-      shadowRadius: 16,
-      elevation: 24,
-      paddingBottom: moderateScale(15),
-    },
-    bottomBarImg: {
-      marginTop: moderateScale(2),
-      width: verticalScale(18),
-      height: verticalScale(18),
-    },
-    tabLabel: {
-      color: theme.colors.placeholder,
-      fontSize: moderateScale(10),
-      marginTop: moderateScale(2),
-      fontWeight: '600',
-    },
-    tabLabelSelected: {
-      color: theme.colors.primary,
-      fontSize: moderateScale(10),
-      marginTop: moderateScale(2),
-      fontWeight: '800',
-    },
-  });
 
 export default BottomTabs;

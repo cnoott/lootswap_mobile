@@ -2,41 +2,20 @@
 LOOTSWAP - NAVIGATION STACK CLASS
 ***/
 
-import React, {FC} from 'react';
+import React, {FC, useRef} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import DropdownAlert from 'react-native-dropdownalert';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AuthScreen from '../screens/auth/signIn';
 import CreateAccountScreen from '../screens/auth/signUp';
 import BottomTabs from './bottomTab';
-import {AuthProps} from '../redux/modules/auth/reducer';
-import {useDispatch, useSelector} from 'react-redux';
-import {getInitialRoute} from '../utility/utility';
+import {useSelector} from 'react-redux';
 import LSLoader from '../components/commonComponents/LSLoader';
 import {LoadingProps} from '../redux/modules/loading/reducer';
 import {Alert} from 'custom_top_alert';
+import {isReadyRef, navigationRef} from './navigationHelper';
 
 const Stack = createNativeStackNavigator();
-
-const AuthNavigation = () => (
-  <Stack.Navigator
-    initialRouteName={'SignInScreen'}
-    screenOptions={{
-      headerShown: false,
-    }}>
-    <Stack.Screen
-      name="SignInScreen"
-      component={AuthScreen}
-      options={{presentation: 'modal'}}
-    />
-    <Stack.Screen
-      name="CreateAccountScreen"
-      component={CreateAccountScreen}
-      options={{presentation: 'modal'}}
-    />
-    <Stack.Screen name="BottomTabs" component={BottomTabs} />
-  </Stack.Navigator>
-);
 
 const AppNavigation = () => (
   <Stack.Navigator
@@ -59,22 +38,20 @@ const AppNavigation = () => (
 );
 
 const StackNavigator: FC<{}> = () => {
-  const dispatch = useDispatch();
-  const auth: AuthProps = useSelector(state => state.auth);
   const loading: LoadingProps = useSelector(state => state.loading);
-  const {initialScreen, isLoggedIn} = getInitialRoute(auth.userData, dispatch); // Check whether the current session active or not
+  const navRef = useRef();
+  const onNavigationReady = () => {
+    navRef.current = navigationRef.current.getCurrentRoute().name;
+    isReadyRef.current = true;
+  };
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef} onReady={onNavigationReady}>
       <Stack.Navigator
-        initialRouteName={`${initialScreen}`}
+        initialRouteName={'AppScreens'}
         screenOptions={{
           headerShown: false,
         }}>
-        {isLoggedIn ? (
-          <Stack.Screen name="AppScreens" component={AppNavigation} />
-        ) : (
-          <Stack.Screen name="AuthScreen" component={AuthNavigation} />
-        )}
+        <Stack.Screen name="AppScreens" component={AppNavigation} />
       </Stack.Navigator>
       {<LSLoader isVisible={loading?.isLoading} />}
       {

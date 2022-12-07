@@ -8,15 +8,22 @@ interface LSInputProps extends TextInputProps {
   leftIcon?: string;
   rightIcon?: string;
   onRightIconPress?: Function;
+  homeSearch?: boolean;
 }
 
 const LSInput: FC<LSInputProps> = React.memo(props => {
-  const {error, leftIcon, rightIcon, onRightIconPress = () => {}} = props;
+  const {
+    error,
+    leftIcon,
+    rightIcon,
+    onRightIconPress = () => {},
+    homeSearch = false,
+  } = props;
   return (
     <>
-      <InputContainer>
+      <InputContainer isHomeSearch={homeSearch}>
         {leftIcon && <SvgXml xml={leftIcon} />}
-        <TextInput {...props} />
+        <TextInput {...props} isHomeSearch={homeSearch} />
         {rightIcon && (
           <Touchable onPress={onRightIconPress}>
             <SvgXml xml={rightIcon} />

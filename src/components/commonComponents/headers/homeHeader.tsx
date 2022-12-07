@@ -27,9 +27,9 @@ export const InHomeHeader: FC<HeaderProps> = React.memo(() => {
   return (
     <HeaderContainer>
       <LogoImage source={HEADERLOGO} />
-      <BellTouchable onPress={onBellPress}>
+      {/* <BellTouchable onPress={onBellPress}>
         <BellImage source={NOTIFICATIONS_BOTTOM_TAB} />
-      </BellTouchable>
+      </BellTouchable> */}
     </HeaderContainer>
   );
 });

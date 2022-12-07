@@ -1,7 +1,8 @@
 import React, {FC, useState} from 'react';
+import {Keyboard} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {SvgXml} from 'react-native-svg';
 import {
   LOOT_SWAP_LOGO,
@@ -15,6 +16,7 @@ import LSInput from '../../../components/commonComponents/LSInput';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {signInRequest} from '../../../redux/modules';
 import {Size, Type} from '../../../enums';
+import LSLoader from '../../../components/commonComponents/LSLoader';
 import {
   Container,
   HeaderContainer,
@@ -27,6 +29,7 @@ import {
   Touchable,
   ForgotPassLabel,
 } from './styles';
+import {LoadingProps} from '../../../redux/modules/loading/reducer';
 
 type FormProps = {
   emailUsername: string;
@@ -35,6 +38,7 @@ type FormProps = {
 
 export const AuthScreen: FC<{}> = () => {
   const dispatch = useDispatch();
+  const loading: LoadingProps = useSelector(state => state.loading);
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const loginValidationSchema = yup.object().shape({
@@ -46,6 +50,7 @@ export const AuthScreen: FC<{}> = () => {
   });
 
   const onSubmit = (values: FormProps) => {
+    Keyboard.dismiss();
     dispatch(
       signInRequest({
         email: values?.emailUsername,
@@ -128,12 +133,13 @@ export const AuthScreen: FC<{}> = () => {
       <KeyboardAwareScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={Innercontainer}
-        keyboardShouldPersistTaps={'handled'}>
+        keyboardShouldPersistTaps={'always'}>
         {renderHeaderLogo()}
         <HeaderLabel>Login to your account</HeaderLabel>
         {renderBody()}
         {renderBottomView()}
       </KeyboardAwareScrollView>
+      {<LSLoader isVisible={loading?.isLoading} />}
     </Container>
   );
 };

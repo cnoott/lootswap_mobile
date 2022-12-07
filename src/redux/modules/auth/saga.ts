@@ -21,6 +21,7 @@ import {
   uploadProfileImage,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
+import {resetRoute} from '../../../navigation/navigationHelper';
 
 type APIResponseProps = {
   success: boolean;
@@ -33,6 +34,7 @@ export function* signInAPI(action: any) {
     const response: APIResponseProps = yield call(signIn, action?.reqData);
     yield put(LoadingSuccess());
     if (response?.success) {
+      resetRoute();
       yield put(signInSuccess(response.data));
     } else {
       yield put(signInFailure(response.error));
@@ -48,6 +50,7 @@ export function* signUpAPI(action: any) {
     const response: APIResponseProps = yield call(signUp, action?.reqData);
     yield put(LoadingSuccess());
     if (response?.success) {
+      resetRoute();
       yield put(signUpSuccess(response.data));
     } else {
       yield put(signUpFailure(response.error));
@@ -88,6 +91,7 @@ export function* signOutAPI() {
     yield delay(500);
     yield put(signOutSuccess());
     yield put(LoadingSuccess());
+    resetRoute();
   } catch (e) {
     yield put(LoadingSuccess());
     console.log(e);
