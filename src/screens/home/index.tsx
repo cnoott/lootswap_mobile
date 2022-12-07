@@ -2,8 +2,10 @@
   LootSwap - FIRST TAB SCREEN
  ***/
 
-import React, {FC, useRef, useState} from 'react';
+import React, {FC, useState} from 'react';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
+import CarouselComponent from '../../components/Carousel';
+import LSInput from '../../components/commonComponents/LSInput';
 import {
   Container,
   SubContainer,
@@ -25,7 +27,7 @@ import {
   InstantSearch,
   useSearchBox,
   useInfiniteHits,
-} from 'react-instantsearch-hooks'
+} from 'react-instantsearch-hooks';
 import {filter} from 'lodash';
 
 const appId = 'O616IHS8SQ';
@@ -33,7 +35,10 @@ const apiKey = '1a61d9059fcc3f918576c7aa95279846';
 const ALGOLIA_INDEX_NAME = 'dev_lootswap';
 const searchClient = algoliasearch(appId, apiKey);
 
+import {SEARCH_INPUT_ICON} from 'localsvgimages';
+
 export const HomeScreen: FC<{}> = () => {
+  const [searchText, setSearchText] = useState('');
   const renderItem = ({item}) => {
     return (
       <ItemContainer>
@@ -51,11 +56,11 @@ export const HomeScreen: FC<{}> = () => {
           </EmptyRowView>
         </CellBottomView>
 
-        {item.who_pays === 'seller-pays' &&
-        <FreeShipingContainer>
-          <ShippingText>Free Shipping</ShippingText>
-        </FreeShipingContainer>
-        }
+        {item.who_pays === 'seller-pays' && (
+          <FreeShipingContainer>
+            <ShippingText>Free Shipping</ShippingText>
+          </FreeShipingContainer>
+        )}
       </ItemContainer>
     );
   };
@@ -67,13 +72,15 @@ export const HomeScreen: FC<{}> = () => {
 
   const InfiniteHits = ({...props}) => {
     const {hits, isLastPage, showMore} = useInfiniteHits(props);
-    const filteredHits = hits.filter(hit => hit.isVisible && hit.isVirtuallyVerified);
+    const filteredHits = hits.filter(
+      hit => hit.isVisible && hit.isVirtuallyVerified,
+    );
     console.log(filteredHits);
 
     return (
       <>
-        <FlatList 
-          data={filteredHits} 
+        <FlatList
+          data={filteredHits}
           renderItem={renderItem}
           keyExtractor={item => item.objectID}
           onEndReached={() => {
@@ -86,16 +93,30 @@ export const HomeScreen: FC<{}> = () => {
     );
   };
 
+  const renderSearch = () => {
+    return (
+      <LSInput
+        onChangeText={setSearchText}
+        value={searchText}
+        placeholder={'Search'}
+        leftIcon={SEARCH_INPUT_ICON}
+        homeSearch={true}
+      />
+    );
+  };
   return (
     <Container>
       <InHomeHeader />
       <SubContainer>
-        <InstantSearch
+        {/* <InstantSearch
           indexName={ALGOLIA_INDEX_NAME}
           searchClient={searchClient}
         >
           <InfiniteHits/>
-        </InstantSearch>
+        </InstantSearch> */}
+        <CarouselComponent />
+        {renderSearch()}
+        <FlatList data={[1, 2, 3, 4, 5, 6, 7, 8]} renderItem={renderItem} />
       </SubContainer>
     </Container>
   );

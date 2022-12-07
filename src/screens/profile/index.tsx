@@ -143,9 +143,9 @@ export const ProfileScreen: FC<{}> = () => {
       </ProfileContainerView>
     );
   };
-  const renderOptionItem = (item: Option) => {
+  const renderOptionItem = (item: Option, index: Number) => {
     return (
-      <OptionItemContainer>
+      <OptionItemContainer key={index}>
         <EmptyRowView>
           <SvgXml xml={item?.icon} />
           <OptionText>{item?.title}</OptionText>
@@ -157,8 +157,8 @@ export const ProfileScreen: FC<{}> = () => {
   const renderOptions = () => {
     return (
       <OptionsContainer>
-        {optionsList.map(item => {
-          return renderOptionItem(item);
+        {optionsList.map((item, index) => {
+          return renderOptionItem(item, index);
         })}
       </OptionsContainer>
     );

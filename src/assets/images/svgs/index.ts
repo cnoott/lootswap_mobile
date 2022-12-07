@@ -186,3 +186,9 @@ export const PROFILE_NOTIFICATION = `<svg width="24" height="25" viewBox="0 0 24
 <path d="M14.306 21.0122C13.0117 22.4579 10.9927 22.4751 9.68604 21.0122" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 `;
+
+export const SEARCH_INPUT_ICON = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="9.80589" cy="9.80589" r="7.49047" stroke="#101010" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15.0156 15.4043L17.9523 18.3334" stroke="#101010" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;

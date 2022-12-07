@@ -12,6 +12,7 @@ export const Container = styled.View.attrs(props => ({
 
 export const SubContainer = styled.View.attrs(() => ({
   margin: moderateScale(15),
+  flex: 1,
 }))`
   ${space}
   ${layout}
@@ -20,8 +21,8 @@ export const SubContainer = styled.View.attrs(() => ({
 export const FlatList = styled.FlatList.attrs(() => ({
   numColumns: 2,
   showVerticalScrollIndicator: false,
+  contentContainerStyle: {flexGrow: 1},
 }))`
-  margin-bottom: ${verticalScale(80)}px;
   ${color}
   ${space}
   ${layout}
@@ -50,8 +51,8 @@ export const FreeShipingContainer = styled.View.attrs(props => ({
   bg: props.theme.colors.white,
 }))`
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 5px;
+  left: 5px;
   ${space}
   ${layout}
   ${color}

@@ -43,7 +43,7 @@ import {
 } from '../../../services/imageUploadService';
 import {Alert, Text } from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {AuthProps} from '../../../redux/modules/auth/reducer';
+import {LoadingProps} from '../../../redux/modules/loading/reducer';
 
 type FormProps = {
   email: string;
@@ -53,7 +53,7 @@ type FormProps = {
 
 export const CreateAccountScreen: FC<{}> = () => {
   const dispatch = useDispatch();
-  const auth: AuthProps = useSelector(state => state.auth);
+  const loading: LoadingProps = useSelector(state => state.loading);
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const [isImageUploading, setImageUploading] = useState(false);
@@ -244,7 +244,7 @@ export const CreateAccountScreen: FC<{}> = () => {
         {renderBody()}
         {renderBottomView()}
       </KeyboardAwareScrollView>
-      {<LSLoader isVisible={auth?.isLoading} />}
+      {<LSLoader isVisible={loading?.isLoading} />}
     </Container>
   );
 };
