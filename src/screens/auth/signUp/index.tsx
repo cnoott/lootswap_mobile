@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {Platform} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -41,7 +41,7 @@ import {
   getSignedRequest,
   uploadFile,
 } from '../../../services/imageUploadService';
-import {Alert} from 'react-native';
+import {Alert, Text } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {AuthProps} from '../../../redux/modules/auth/reducer';
 
@@ -58,6 +58,12 @@ export const CreateAccountScreen: FC<{}> = () => {
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const [isImageUploading, setImageUploading] = useState(false);
   const [profileUrl, setProfileUrl] = useState('');
+
+  useEffect(() => {
+    const seed = Math.floor(Math.random() * 999999);
+    const defaultProfileUrl = `https://avatars.dicebear.com/api/micah/${seed}.png`;
+    setProfileUrl(defaultProfileUrl);
+  }, []);
 
   const loginValidationSchema = yup.object().shape({
     email: yup
@@ -138,6 +144,12 @@ export const CreateAccountScreen: FC<{}> = () => {
     );
   };
 
+  const randomizeProfileUrl = () => {
+    const seed = Math.floor(Math.random() * 999999);
+    const defaultProfileUrl = `https://avatars.dicebear.com/api/micah/${seed}.png`;
+    setProfileUrl(defaultProfileUrl);
+  };
+
   const renderProfileUploadView = () => {
     return (
       <ProfileContainerView>
@@ -147,12 +159,13 @@ export const CreateAccountScreen: FC<{}> = () => {
             height={scale(54)}
             width={scale(54)}
           />
-          <EditIconContainer onPress={onEditProfilePress}>
+          <EditIconContainer onPress={onEditProfilePress} style={{zIndex: 3}}>
             <SvgXml xml={EDIT_PROFILE_ICON} />
           </EditIconContainer>
-          {profileUrl && <Image source={{uri: profileUrl}} />}
+          {profileUrl && <Image style={{zIndex:1}} source={{uri: profileUrl}} />}
         </ProfileUploadView>
         {isImageUploading && <ImageUploadIndicator />}
+        <Text onPress={randomizeProfileUrl} style={{color: 'blue'}}> Random </Text>
       </ProfileContainerView>
     );
   };
