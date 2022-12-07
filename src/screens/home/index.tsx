@@ -108,15 +108,14 @@ export const HomeScreen: FC<{}> = () => {
     <Container>
       <InHomeHeader />
       <SubContainer>
-        {/* <InstantSearch
-          indexName={ALGOLIA_INDEX_NAME}
-          searchClient={searchClient}
-        >
-          <InfiniteHits/>
-        </InstantSearch> */}
         <CarouselComponent />
         {renderSearch()}
-        <FlatList data={[1, 2, 3, 4, 5, 6, 7, 8]} renderItem={renderItem} />
+        {/* <FlatList data={[1, 2, 3, 4, 5, 6, 7, 8]} renderItem={renderItem} /> */}
+        <InstantSearch
+          indexName={ALGOLIA_INDEX_NAME}
+          searchClient={searchClient}>
+          <InfiniteHits />
+        </InstantSearch>
       </SubContainer>
     </Container>
   );
