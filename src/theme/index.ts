@@ -3,6 +3,7 @@ const theme = {
   colors: {
     primary: '#6267FE',
     secondary: '#FFFFFF',
+    secondaryButton: '#E7E7E7',
     white: '#FFFFFF',
     black: '#000000',
     grey: '#EEEEEE',
@@ -15,6 +16,8 @@ const theme = {
     modalBg: 'rgba(0, 0, 0, 0.2)',
     cancel: '#838078',
     inputBg: '#FAFAFA',
+    commonSearchBack: '#F5F5F5',
+    divider: '#E0E0E0',
   },
   width: 50,
   height: 50,

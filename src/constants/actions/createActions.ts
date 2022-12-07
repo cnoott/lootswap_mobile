@@ -19,3 +19,7 @@ export const PROFILE_IMG_UPLOAD = {
 export const LOADING = {
   ...createActionConst(actions.LOADING),
 };
+
+export const HOME_FILTER = {
+  ...createActionConst(actions.HOME_FILTER),
+};

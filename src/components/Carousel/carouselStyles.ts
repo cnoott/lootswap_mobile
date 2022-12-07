@@ -6,7 +6,10 @@ const width = Dimensions.get('window').width;
 
 export const Container = styled.View.attrs(() => ({
   height: verticalScale(width / 2 - 50),
-}))``;
+  ml: moderateScale(10),
+}))`
+  ${space}
+`;
 
 export const SubContainer = styled.View.attrs(() => ({
   margin: moderateScale(15),
@@ -16,9 +19,10 @@ export const SubContainer = styled.View.attrs(() => ({
   ${layout}
 `;
 
-export const Image = styled.Image.attrs({
+export const Image = styled.Image.attrs(props => ({
   height: verticalScale(width / 2 - 60),
-})`
+  width: props?.width,
+}))`
   ${color}
   ${space}
   ${layout}
