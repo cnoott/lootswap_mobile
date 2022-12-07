@@ -28,9 +28,9 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
         borderSize = scale(10);
         break;
       case Size.Medium:
-        width = moderateScale(windowWidth / 2 - 36);
+        width = moderateScale(windowWidth / 2 - 66);
         height = moderateScale(48);
-        fontSize = 15;
+        fontSize = moderateScale(16);
         borderSize = scale(20);
         break;
       case Size.Large:

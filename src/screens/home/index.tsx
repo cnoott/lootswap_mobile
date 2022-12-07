@@ -17,8 +17,6 @@ import {
   CellBottomView,
   BottomHeaderView,
   HeaderTextMain,
-  HeaderTextSub,
-  BarView,
   EmptyRowView,
   HeaderDes,
 } from './styles';
@@ -29,15 +27,17 @@ import {
   useInfiniteHits,
 } from 'react-instantsearch-hooks';
 import {filter} from 'lodash';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 const appId = 'O616IHS8SQ';
 const apiKey = '1a61d9059fcc3f918576c7aa95279846';
 const ALGOLIA_INDEX_NAME = 'dev_lootswap';
 const searchClient = algoliasearch(appId, apiKey);
 
-import {SEARCH_INPUT_ICON} from 'localsvgimages';
+import {SEARCH_INPUT_ICON, HOME_FILTER_ICON} from 'localsvgimages';
 
 export const HomeScreen: FC<{}> = () => {
+  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [searchText, setSearchText] = useState('');
   const renderItem = ({item}) => {
     return (
@@ -63,11 +63,6 @@ export const HomeScreen: FC<{}> = () => {
         )}
       </ItemContainer>
     );
-  };
-
-  const SearchBox = () => {
-    //TODO
-    //Integrate with Algolia
   };
 
   const InfiniteHits = ({...props}) => {
@@ -101,16 +96,17 @@ export const HomeScreen: FC<{}> = () => {
         placeholder={'Search'}
         leftIcon={SEARCH_INPUT_ICON}
         homeSearch={true}
+        rightIcon={HOME_FILTER_ICON}
+        onRightIconPress={() => navigation.navigate('HomeFiltersScreen')}
       />
     );
   };
   return (
     <Container>
       <InHomeHeader />
+      <CarouselComponent />
       <SubContainer>
-        <CarouselComponent />
         {renderSearch()}
-        {/* <FlatList data={[1, 2, 3, 4, 5, 6, 7, 8]} renderItem={renderItem} /> */}
         <InstantSearch
           indexName={ALGOLIA_INDEX_NAME}
           searchClient={searchClient}>

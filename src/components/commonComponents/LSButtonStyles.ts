@@ -5,11 +5,11 @@ import {Size, Type} from '../../enums';
 export const ButtonContainer = styled.TouchableOpacity.attrs(props => ({
   width: props.width,
   height: props.height,
-  borderWidth: props.size === Size.Medium ? 2 : 0,
+  // borderWidth: props.size === Size.Medium ? 2 : 0,
   bg:
     props.type === Type.Primary
       ? props.theme.colors.primary
-      : props.theme.colors.secondary,
+      : props.theme.colors.secondaryButton,
   borderRadius: props.borderSize,
 }))`
   align-items: center;
@@ -24,8 +24,8 @@ export const ButtonContainer = styled.TouchableOpacity.attrs(props => ({
 export const BText = styled.Text.attrs(props => ({
   color:
     props.type === Type.Primary
-      ? props.theme.colors.secondary
-      : props.theme.colors.primary,
+      ? props.theme.colors.white
+      : props.theme.colors.text,
 }))`
   font-size: ${props => `${props.fontSize}px`};
   ${color}

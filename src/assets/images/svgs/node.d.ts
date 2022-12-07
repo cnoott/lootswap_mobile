@@ -27,4 +27,5 @@ declare module 'localsvgimages' {
   export const PROFILE_SIGN_OUT: any;
   export const PROFILE_NOTIFICATION: any;
   export const SEARCH_INPUT_ICON: any;
+  export const HOME_FILTER_ICON: any;
 }

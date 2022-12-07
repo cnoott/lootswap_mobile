@@ -5,12 +5,12 @@ import {scale, moderateScale} from 'react-native-size-matters';
 export const InputContainer = styled.View.attrs(props => ({
   marginTop: moderateScale(props.isHomeSearch ? 10 : 15),
   mx: moderateScale(props.isHomeSearch ? 0 : 24),
-  bg: props.theme.colors.inputBg,
+  bg: props.isHomeSearch
+    ? props.theme.colors.commonSearchBack
+    : props.theme.colors.inputBg,
   borderRadius: scale(8.5),
   px: scale(10),
-  borderWidth: moderateScale(props.isHomeSearch ? 1 : 0),
   marginBottom: moderateScale(props.isHomeSearch ? 10 : 0),
-  borderColor: props.theme.colors.lightGrey,
 }))`
   flex-direction: row;
   align-items: center;
@@ -32,7 +32,9 @@ export const ErrorText = styled.Text.attrs(props => ({
 
 export const TextInput = styled.TextInput.attrs(props => ({
   color: props.theme.colors.black,
-  placeholderTextColor: props.theme.colors.placeholder,
+  placeholderTextColor: props.isHomeSearch
+    ? props.theme.colors.black
+    : props.theme.colors.placeholder,
   height: scale(47),
   shadowColor: props.theme.colors.primary,
   shadowOpacity: 0.2,
