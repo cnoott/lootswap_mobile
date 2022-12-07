@@ -15,6 +15,7 @@ function CarouselComponent() {
         autoPlay={true}
         data={[...new Array(6).keys()]}
         scrollAnimationDuration={1000}
+        mode={'parallax'}
         // onSnapToItem={index => console.log('current index:', index)}
         renderItem={({index}) => (
           <Image
