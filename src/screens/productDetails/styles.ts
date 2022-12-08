@@ -2,9 +2,8 @@ import styled from 'styled-components/native';
 import {layout, space, color} from 'styled-system';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 
-export const Container = styled.View.attrs(props => ({
+export const Container = styled.View.attrs(() => ({
   flex: 1,
-  backgroundColor: props.theme.colors.screenBg,
 }))`
   ${space}
   ${layout}
