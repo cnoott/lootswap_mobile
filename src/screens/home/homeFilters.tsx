@@ -20,13 +20,16 @@ import {
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {FILTER_TYPE} from 'custom_types';
+import {Pressable, Animated, StyleSheet} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {ResetHomeFilter, UpdateHomeFilter} from '../../redux/modules';
 import {FilterProps} from '../../redux/modules/home/reducer';
+import {useCardAnimation} from '@react-navigation/stack';
 
 export const HomeFilterScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const home: FilterProps = useSelector(state => state.home);
+  const {current} = useCardAnimation();
   const dispatch = useDispatch();
   const [appliedFilters, setAppliedFilters] = useState([
     ...home?.homeFilterData,
@@ -77,27 +80,49 @@ export const HomeFilterScreen: FC<{}> = () => {
   };
   return (
     <Container>
+      <Pressable
+        style={[
+          StyleSheet.absoluteFill,
+          {backgroundColor: 'rgba(0, 0, 0, 0.7)'},
+        ]}
+        onPress={navigation.goBack}
+      />
       <SubContainer>
-        <HorizontalBar />
-        <HeadingText>Filter</HeadingText>
-        <Divider />
-        {appliedFilters.map(filter => {
-          return renderFilterItem(filter);
-        })}
-        <ButtonsContainer>
-          <LSButton
-            title={'Reset'}
-            size={Size.Medium}
-            type={Type.Secondary}
-            onPress={onResetFilterPress}
-          />
-          <LSButton
-            title={'Apply'}
-            size={Size.Medium}
-            type={Type.Primary}
-            onPress={onApplyFilterPress}
-          />
-        </ButtonsContainer>
+        <Animated.View
+          style={{
+            borderRadius: 3,
+            backgroundColor: 'transparent',
+            transform: [
+              {
+                scale: current.progress.interpolate({
+                  inputRange: [0.5, 1],
+                  outputRange: [0.5, 1],
+                  extrapolate: 'identity',
+                }),
+              },
+            ],
+          }}>
+          <HorizontalBar />
+          <HeadingText>Filter</HeadingText>
+          <Divider />
+          {appliedFilters.map(filter => {
+            return renderFilterItem(filter);
+          })}
+          <ButtonsContainer>
+            <LSButton
+              title={'Reset'}
+              size={Size.Medium}
+              type={Type.Secondary}
+              onPress={onResetFilterPress}
+            />
+            <LSButton
+              title={'Apply'}
+              size={Size.Medium}
+              type={Type.Primary}
+              onPress={onApplyFilterPress}
+            />
+          </ButtonsContainer>
+        </Animated.View>
       </SubContainer>
     </Container>
   );
