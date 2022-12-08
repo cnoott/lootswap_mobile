@@ -2,6 +2,7 @@ declare module 'localsvgimages' {
   export const LOOT_SWAP_LOGO: any;
   export const EMAIL_ICON: any;
   export const SHOW_HIDE_PASS_ICON: any;
+  export const SHOW_PASS_ICON: any;
   export const LOCK_ICON: any;
   export const ADD_USER_ICON: any;
   export const PROFILE_PLACEHOLDER_ICON: any;
@@ -28,4 +29,5 @@ declare module 'localsvgimages' {
   export const PROFILE_NOTIFICATION: any;
   export const SEARCH_INPUT_ICON: any;
   export const HOME_FILTER_ICON: any;
+  export const LEFT_PRIMARY_ARROW: any;
 }

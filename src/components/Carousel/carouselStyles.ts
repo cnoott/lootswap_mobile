@@ -4,8 +4,8 @@ import {color, layout, space} from 'styled-system';
 import {moderateScale, verticalScale} from 'react-native-size-matters';
 const width = Dimensions.get('window').width;
 
-export const Container = styled.View.attrs(() => ({
-  height: verticalScale(width / 2 - 50),
+export const Container = styled.View.attrs(props => ({
+  height: props.height,
 }))`
   align-self: center;
   ${space}
@@ -20,7 +20,7 @@ export const SubContainer = styled.View.attrs(() => ({
 `;
 
 export const Image = styled.Image.attrs(props => ({
-  height: verticalScale(width / 2 - 60),
+  height: props?.height,
   width: props?.width,
 }))`
   ${color}

@@ -41,7 +41,8 @@ export const HomeScreen: FC<{}> = () => {
   const [searchText, setSearchText] = useState('');
   const renderItem = ({item}) => {
     return (
-      <ItemContainer>
+      <ItemContainer
+        onPress={() => navigation.navigate('ProductDetailsScreen')}>
         <Image source={{uri: item.primary_photo}} />
         <CellBottomView>
           <BottomHeaderView>

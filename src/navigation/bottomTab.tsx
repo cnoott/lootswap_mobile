@@ -4,9 +4,11 @@ LootSwap - BOTTOM TABS SCREEN
 
 import React, {FC} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/home';
 import BrowseScreen from '../screens/browse';
 import ProfileScreen from '../screens/profile';
+import ProductDetailsScreen from '../screens/productDetails';
 import {useTheme} from 'styled-components';
 import {SvgXml} from 'react-native-svg';
 import {useSelector} from 'react-redux';
@@ -32,6 +34,21 @@ import {
 } from './styles';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const HomeStackNavigation = () => (
+  <Stack.Navigator
+    initialRouteName={'HomeScreen'}
+    screenOptions={{
+      headerShown: false,
+    }}>
+    <Stack.Screen name="HomeScreen" component={HomeScreen} />
+    <Stack.Screen
+      name="ProductDetailsScreen"
+      component={ProductDetailsScreen}
+    />
+  </Stack.Navigator>
+);
 
 const getTabBarIcon = (isFocused?: boolean, route?: string) => {
   let _source = BOTTOM_TAB_HOME;
@@ -124,7 +141,7 @@ export const BottomTabs: FC<{}> = () => {
         tabBarInactiveTintColor: theme.colors.secondary,
       }}
       tabBar={props => <MyCustomTabBar {...props} />}>
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home" component={HomeStackNavigation} />
       <Tab.Screen name="Offers" component={BrowseScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Notifications" component={BrowseScreen} />

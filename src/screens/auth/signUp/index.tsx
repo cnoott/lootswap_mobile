@@ -2,7 +2,7 @@ import React, {FC, useState, useEffect} from 'react';
 import {Platform} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {SvgXml} from 'react-native-svg';
 import {
   LOOT_SWAP_LOGO,
@@ -12,13 +12,13 @@ import {
   ADD_USER_ICON,
   PROFILE_PLACEHOLDER_ICON,
   EDIT_PROFILE_ICON,
+  SHOW_PASS_ICON,
 } from 'localsvgimages';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import ImagePicker from 'react-native-image-crop-picker';
 import LSInput from '../../../components/commonComponents/LSInput';
 import LSButton from '../../../components/commonComponents/LSButton';
-import LSLoader from '../../../components/commonComponents/LSLoader';
 import {Size, Type} from '../../../enums';
 import {profileImgUploadRequest, signUpRequest} from '../../../redux/modules';
 
@@ -41,9 +41,8 @@ import {
   getSignedRequest,
   uploadFile,
 } from '../../../services/imageUploadService';
-import {Alert, Text } from 'react-native';
+import {Alert, Text} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import {LoadingProps} from '../../../redux/modules/loading/reducer';
 
 type FormProps = {
   email: string;
@@ -53,7 +52,6 @@ type FormProps = {
 
 export const CreateAccountScreen: FC<{}> = () => {
   const dispatch = useDispatch();
-  const loading: LoadingProps = useSelector(state => state.loading);
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const [isImageUploading, setImageUploading] = useState(false);
@@ -162,10 +160,15 @@ export const CreateAccountScreen: FC<{}> = () => {
           <EditIconContainer onPress={onEditProfilePress} style={{zIndex: 3}}>
             <SvgXml xml={EDIT_PROFILE_ICON} />
           </EditIconContainer>
-          {profileUrl && <Image style={{zIndex:1}} source={{uri: profileUrl}} />}
+          {profileUrl && (
+            <Image style={{zIndex: 1}} source={{uri: profileUrl}} />
+          )}
         </ProfileUploadView>
         {isImageUploading && <ImageUploadIndicator />}
-        <Text onPress={randomizeProfileUrl} style={{color: 'blue'}}> Random </Text>
+        <Text onPress={randomizeProfileUrl} style={{color: 'blue'}}>
+          {' '}
+          Random{' '}
+        </Text>
       </ProfileContainerView>
     );
   };
@@ -206,7 +209,7 @@ export const CreateAccountScreen: FC<{}> = () => {
                 error={errors.password}
                 leftIcon={LOCK_ICON}
                 rightIcon={
-                  isPasswordHidden ? SHOW_HIDE_PASS_ICON : SHOW_HIDE_PASS_ICON
+                  isPasswordHidden ? SHOW_HIDE_PASS_ICON : SHOW_PASS_ICON
                 }
                 onRightIconPress={() => setPasswordHidden(!isPasswordHidden)}
                 secureTextEntry={isPasswordHidden}
@@ -244,7 +247,6 @@ export const CreateAccountScreen: FC<{}> = () => {
         {renderBody()}
         {renderBottomView()}
       </KeyboardAwareScrollView>
-      {<LSLoader isVisible={loading?.isLoading} />}
     </Container>
   );
 };

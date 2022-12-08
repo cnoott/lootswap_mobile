@@ -28,10 +28,11 @@ export const FlatList = styled.FlatList.attrs(() => ({
   ${layout}
 `;
 
-export const ItemContainer = styled.View.attrs(() => ({
+export const ItemContainer = styled.TouchableOpacity.attrs(() => ({
   margin: moderateScale(5),
   pb: verticalScale(10),
   width: '47%',
+  activeOpacity: 0.8,
 }))`
   ${space}
   ${layout}

@@ -15,10 +15,11 @@ export const Container = styled.View.attrs(props => ({
   ${color}
 `;
 
-export const HeaderContainer = styled.View.attrs({
-  height: scale(94),
+export const HeaderContainer = styled.View.attrs(props => ({
+  height: scale(84),
   pt: moderateScale(34),
-})`
+  bg: props.theme.colors.white,
+}))`
   flex-direction: row;
   align-items: center;
   justify-content: center;
