@@ -16,11 +16,13 @@ import {
   FilterButtonText,
   EmptyView,
   ButtonsContainer,
+  AnimationStyle,
+  PressableStyle,
 } from './homeFiltersStyles';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {FILTER_TYPE} from 'custom_types';
-import {Pressable, Animated, StyleSheet} from 'react-native';
+import {Pressable, Animated} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {ResetHomeFilter, UpdateHomeFilter} from '../../redux/modules';
 import {FilterProps} from '../../redux/modules/home/reducer';
@@ -80,28 +82,9 @@ export const HomeFilterScreen: FC<{}> = () => {
   };
   return (
     <Container>
-      <Pressable
-        style={[
-          StyleSheet.absoluteFill,
-          {backgroundColor: 'rgba(0, 0, 0, 0.7)'},
-        ]}
-        onPress={navigation.goBack}
-      />
+      <Pressable style={PressableStyle()} onPress={navigation.goBack} />
       <SubContainer>
-        <Animated.View
-          style={{
-            borderRadius: 3,
-            backgroundColor: 'transparent',
-            transform: [
-              {
-                scale: current.progress.interpolate({
-                  inputRange: [0.5, 1],
-                  outputRange: [0.5, 1],
-                  extrapolate: 'identity',
-                }),
-              },
-            ],
-          }}>
+        <Animated.View style={AnimationStyle(current)}>
           <HorizontalBar />
           <HeadingText>Filter</HeadingText>
           <Divider />

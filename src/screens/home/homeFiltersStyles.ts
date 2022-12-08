@@ -1,11 +1,11 @@
 import styled from 'styled-components/native';
-import {Dimensions} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {color, layout, space, border} from 'styled-system';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 
 const windowHeight = Dimensions.get('window').height;
 
-export const Container = styled.View.attrs(props => ({
+export const Container = styled.View.attrs(() => ({
   flex: 1,
   bg: 'rgba(0,0,0,0.4)',
   justifyContent: 'flex-end',
@@ -105,10 +105,30 @@ export const FilterButtonText = styled.Text.attrs(props => ({
 
 export const EmptyView = styled.View``;
 
-export const ButtonsContainer = styled.View.attrs(props => ({
+export const ButtonsContainer = styled.View.attrs(() => ({
   width: '100%',
   mt: verticalScale(20),
   justifyContent: 'space-around',
 }))`
   flex-direction: row ${color} ${layout} ${space} ${border};
 `;
+
+export const AnimationStyle = (current: any) => {
+  return {
+    borderRadius: 3,
+    backgroundColor: 'transparent',
+    transform: [
+      {
+        scale: current.progress.interpolate({
+          inputRange: [0.5, 1],
+          outputRange: [0.5, 1],
+          extrapolate: 'identity',
+        }),
+      },
+    ],
+  };
+};
+
+export const PressableStyle = () => {
+  return [StyleSheet.absoluteFill, {backgroundColor: 'rgba(0, 0, 0, 0.7)'}];
+};
