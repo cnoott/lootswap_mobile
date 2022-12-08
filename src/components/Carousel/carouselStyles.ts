@@ -6,8 +6,8 @@ const width = Dimensions.get('window').width;
 
 export const Container = styled.View.attrs(() => ({
   height: verticalScale(width / 2 - 50),
-  ml: moderateScale(10),
 }))`
+  align-self: center;
   ${space}
 `;
 

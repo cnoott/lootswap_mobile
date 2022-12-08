@@ -5,7 +5,6 @@ LOOTSWAP - NAVIGATION STACK CLASS
 import React, {FC, useRef} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import DropdownAlert from 'react-native-dropdownalert';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AuthScreen from '../screens/auth/signIn';
 import CreateAccountScreen from '../screens/auth/signUp';
 import BottomTabs from './bottomTab';
@@ -14,8 +13,10 @@ import LSLoader from '../components/commonComponents/LSLoader';
 import {LoadingProps} from '../redux/modules/loading/reducer';
 import {Alert} from 'custom_top_alert';
 import {isReadyRef, navigationRef} from './navigationHelper';
+import HomeFilterScreen from '../screens/home/homeFilters';
+import {createStackNavigator} from '@react-navigation/stack';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const AppNavigation = () => (
   <Stack.Navigator
@@ -33,6 +34,13 @@ const AppNavigation = () => (
       name="CreateAccountScreen"
       component={CreateAccountScreen}
       options={{presentation: 'modal'}}
+    />
+    <Stack.Screen
+      name="HomeFiltersScreen"
+      component={HomeFilterScreen}
+      options={{
+        presentation: 'transparentModal',
+      }}
     />
   </Stack.Navigator>
 );
