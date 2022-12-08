@@ -18,6 +18,7 @@ const theme = {
     inputBg: '#FAFAFA',
     commonSearchBack: '#F5F5F5',
     divider: '#E0E0E0',
+    screenBg: '#E7E7E7',
   },
   width: 50,
   height: 50,
