@@ -3,7 +3,7 @@ const theme = {
   colors: {
     primary: '#6267FE',
     secondary: '#FFFFFF',
-    secondaryButton: '#E7E7E7',
+    secondaryButton: '#000000',
     white: '#FFFFFF',
     black: '#000000',
     grey: '#EEEEEE',

@@ -11,6 +11,7 @@ export const ButtonContainer = styled.TouchableOpacity.attrs(props => ({
       ? props.theme.colors.primary
       : props.theme.colors.secondaryButton,
   borderRadius: props.borderSize,
+  activeOpacity: 0.6,
 }))`
   align-items: center;
   justify-content: center;
@@ -25,8 +26,8 @@ export const BText = styled.Text.attrs(props => ({
   color:
     props.type === Type.Primary
       ? props.theme.colors.white
-      : props.theme.colors.text,
+      : props.theme.colors.white,
 }))`
   font-size: ${props => `${props.fontSize}px`};
-  ${color}
+  font-weight: 600 ${color};
 `;

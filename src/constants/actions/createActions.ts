@@ -23,3 +23,7 @@ export const LOADING = {
 export const HOME_FILTER = {
   ...createActionConst(actions.HOME_FILTER),
 };
+
+export const GET_USER_DETAILS = {
+  ...createActionConst(actions.GET_USER_DETAILS),
+};

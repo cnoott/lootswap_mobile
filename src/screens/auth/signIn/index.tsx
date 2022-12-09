@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {Keyboard} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -39,6 +39,7 @@ export const AuthScreen: FC<{}> = () => {
   const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isPasswordHidden, setPasswordHidden] = useState(true);
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const loginValidationSchema = yup.object().shape({
     emailUsername: yup
       .string()
@@ -46,6 +47,26 @@ export const AuthScreen: FC<{}> = () => {
       .required('Please enter email or username'),
     password: yup.string().required('Please enter valid password'),
   });
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true); // or some other action
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false); // or some other action
+      },
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
 
   const onSubmit = (values: FormProps) => {
     Keyboard.dismiss();
@@ -129,6 +150,7 @@ export const AuthScreen: FC<{}> = () => {
   return (
     <Container>
       <KeyboardAwareScrollView
+        scrollEnabled={isKeyboardVisible}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={Innercontainer}
         keyboardShouldPersistTaps={'handled'}>

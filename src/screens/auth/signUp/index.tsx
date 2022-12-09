@@ -1,5 +1,5 @@
 import React, {FC, useState, useEffect} from 'react';
-import {Platform} from 'react-native';
+import {Platform, Keyboard} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch} from 'react-redux';
@@ -56,11 +56,32 @@ export const CreateAccountScreen: FC<{}> = () => {
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const [isImageUploading, setImageUploading] = useState(false);
   const [profileUrl, setProfileUrl] = useState('');
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
   useEffect(() => {
     const seed = Math.floor(Math.random() * 999999);
     const defaultProfileUrl = `https://avatars.dicebear.com/api/micah/${seed}.png`;
     setProfileUrl(defaultProfileUrl);
+  }, []);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true); // or some other action
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false); // or some other action
+      },
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
   }, []);
 
   const loginValidationSchema = yup.object().shape({
@@ -239,6 +260,7 @@ export const CreateAccountScreen: FC<{}> = () => {
   return (
     <Container>
       <KeyboardAwareScrollView
+        scrollEnabled={isKeyboardVisible}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={Innercontainer}
         keyboardShouldPersistTaps={'handled'}>

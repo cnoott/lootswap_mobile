@@ -4,6 +4,7 @@ import {
   SIGN_IN_DATA,
   SIGN_OUT,
   SIGN_UP_DATA,
+  GET_USER_DETAILS,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -13,12 +14,15 @@ import {
   signOutSuccess,
   profileImgUploadSuccess,
   profileImgUploadFailure,
+  getUsersDetailsSuccess,
+  getUsersDetailsFailure,
 } from './actions';
 import {
   signIn,
   signUp,
   getProfileImageSignedURL,
   uploadProfileImage,
+  getRequestedUserDetailsCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
@@ -98,9 +102,28 @@ export function* signOutAPI() {
   }
 }
 
+export function* getRequestedUserDetails(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      getRequestedUserDetailsCall,
+      action?.userId,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      yield put(getUsersDetailsSuccess(response.data));
+    } else {
+      yield put(getUsersDetailsFailure(response.error));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
   yield takeLatest(SIGN_OUT.REQUEST, signOutAPI);
   yield takeLatest(PROFILE_IMG_UPLOAD.REQUEST, uploadProfileImgAPI);
+  yield takeLatest(GET_USER_DETAILS.REQUEST, getRequestedUserDetails);
 }

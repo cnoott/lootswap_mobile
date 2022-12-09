@@ -3,6 +3,7 @@ import {
   SIGN_UP_DATA,
   SIGN_OUT,
   PROFILE_IMG_UPLOAD,
+  GET_USER_DETAILS,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -91,6 +92,29 @@ export const profileImgUploadSuccess = (payload: any) => {
 export const profileImgUploadFailure = (error: any) => {
   return {
     type: PROFILE_IMG_UPLOAD.FAILURE,
+    error,
+  };
+};
+
+// Get Other Users Actions
+
+export const getUsersDetailsRequest = (userId: string) => {
+  return {
+    type: GET_USER_DETAILS.REQUEST,
+    userId,
+  };
+};
+
+export const getUsersDetailsSuccess = (payload: any) => {
+  return {
+    type: GET_USER_DETAILS.SUCCESS,
+    payload,
+  };
+};
+
+export const getUsersDetailsFailure = (error: any) => {
+  return {
+    type: GET_USER_DETAILS.FAILURE,
     error,
   };
 };

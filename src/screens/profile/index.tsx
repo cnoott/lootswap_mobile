@@ -41,6 +41,7 @@ import {scale} from 'react-native-size-matters';
 import {useSelector, useDispatch} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import {signOutRequest} from '../../redux/modules';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 
 type Option = {
   icon: string;
