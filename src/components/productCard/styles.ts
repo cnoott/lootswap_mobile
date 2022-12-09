@@ -1,0 +1,90 @@
+import styled from 'styled-components/native';
+import {color, layout, space} from 'styled-system';
+import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
+
+export const ItemContainer = styled.TouchableOpacity.attrs(() => ({
+  margin: moderateScale(5),
+  pb: verticalScale(10),
+  width: '47%',
+  activeOpacity: 0.8,
+}))`
+  ${space}
+  ${layout}
+  ${color}
+`;
+
+export const Image = styled.Image.attrs({
+  height: scale(150),
+})`
+  ${color}
+  ${space}
+${layout}
+`;
+
+export const FreeShipingContainer = styled.View.attrs(props => ({
+  p: moderateScale(5),
+  bg: props.theme.colors.white,
+}))`
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  ${space}
+  ${layout}
+  ${color}
+`;
+
+export const ShippingText = styled.Text.attrs(props => ({
+  color: props.theme.colors.primary,
+}))`
+  fontsize: ${() => moderateScale(14)}px;
+  font-family: 'Inter-Bold';
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const CellBottomView = styled.View.attrs(() => ({
+  mt: verticalScale(5),
+  px: scale(5),
+}))`
+  ${space}
+  ${layout}
+  ${color}
+`;
+
+export const BottomHeaderView = styled.View.attrs(() => ({
+  justifyContent: 'space-between',
+}))`
+  flex-direction: row ${space} ${layout} ${color};
+`;
+
+export const HeaderTextMain = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  my: scale(1),
+  maxWidth: '100%',
+  numberOfLines: 1,
+}))`
+  fontsize: ${() => moderateScale(14)}px;
+  font-family: 'Inter-Bold';
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const HeaderDes = styled.Text.attrs(props => ({
+  color: props.theme.colors.lightGrey,
+  my: scale(2),
+  maxWidth: '95%',
+  numberOfLines: 1,
+}))`
+  fontsize: ${() => moderateScale(14)}px;
+  font-family: 'Inter-Bold';
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const EmptyRowView = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;

@@ -1,4 +1,4 @@
-import React, {FC, useState, useRef} from 'react';
+import React, {FC, useState} from 'react';
 import LSInput from '../commonComponents/LSInput';
 import {useSearchBox} from 'react-instantsearch-hooks';
 import {SEARCH_INPUT_ICON, HOME_FILTER_ICON} from 'localsvgimages';
@@ -12,7 +12,6 @@ const LSSearch: FC<LSSearchProps> = React.memo(props => {
 
   const {query, refine} = useSearchBox(props);
   const [inputValue, setInputValue] = useState(query);
-  const inputRef = useRef(null);
 
   function setQuery(newQuery: any) {
     setInputValue(newQuery);
@@ -21,7 +20,6 @@ const LSSearch: FC<LSSearchProps> = React.memo(props => {
 
   return (
     <LSInput
-      ref={inputRef}
       value={inputValue}
       onChangeText={setQuery}
       placeholder={'Search'}
