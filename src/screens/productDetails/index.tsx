@@ -2,12 +2,14 @@
   LootSwap - PRODUCT DETAILS SCREEN
  ***/
 
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {Dimensions} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 import {
   Container,
   SubContainer,
@@ -21,10 +23,22 @@ import {
   TagView,
   TagLabel,
   BottomSpace,
+  ScrollContainer,
+  GuarenteedView,
+  GuarenteedDesView,
+  ProtectionTopLabel,
+  ProtectionBottomLabel,
+  HorizontalBar,
+  DescriptionLabel,
+  RatingsContainer,
+  ProductOwnerLabel,
 } from './styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {SvgXml} from 'react-native-svg';
-import {LEFT_PRIMARY_ARROW} from 'localsvgimages';
+import {LEFT_PRIMARY_ARROW, SHIELD_ICON} from 'localsvgimages';
+import StarRatings from '../../components/starRatings';
+import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
+import {getUsersDetailsRequest} from '../../redux/modules';
 
 const height = Dimensions.get('window').height;
 const tagList = [
@@ -34,14 +48,25 @@ const tagList = [
     backColor: '#f2ed63',
   },
   {
-    label: 'Ship',
+    label: 'Sale',
     labelColor: '#0a0a0a',
     backColor: '#50b4d9',
   },
 ];
 
-export const ProductDetailsScreen: FC<{}> = () => {
+export const ProductDetailsScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
+  const dispatch = useDispatch();
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {requestedUserDetails} = auth;
+  const {productData = {}} = route?.params;
+  useEffect(() => {
+    if (productData?.userId) {
+      // Getting Product owner details(
+      dispatch(getUsersDetailsRequest(productData?.userId));
+    }
+  }, []);
+
   const renderGoBackView = () => {
     return (
       <GoBackContainer onPress={() => navigation.goBack()}>
@@ -68,36 +93,81 @@ export const ProductDetailsScreen: FC<{}> = () => {
       <TopSpace>
         <LSButton
           title={'Buy Now'}
-          size={Size.Large}
-          type={Type.Primary}
+          size={Size.Full}
+          type={Type.Secondary}
           onPress={() => {}}
         />
         <TopSpace />
         <LSButton
           title={'Send Offer'}
-          size={Size.Large}
-          type={Type.Secondary}
+          size={Size.Full}
+          type={Type.Primary}
           onPress={() => {}}
         />
       </TopSpace>
     );
   };
+  const renderProtectionView = () => {
+    return (
+      <GuarenteedView>
+        <SvgXml xml={SHIELD_ICON} />
+        <GuarenteedDesView>
+          <ProtectionTopLabel>Buyer Protection Gyarantee</ProtectionTopLabel>
+          <ProtectionBottomLabel>
+            Purchase are covered by Paypal Purchase Protection
+          </ProtectionBottomLabel>
+        </GuarenteedDesView>
+      </GuarenteedView>
+    );
+  };
+  const renderDescriptionView = () => {
+    return (
+      <TopSpace>
+        <DescriptionLabel>Description</DescriptionLabel>
+        <ProductDetails>{productData?.description}</ProductDetails>
+      </TopSpace>
+    );
+  };
+  const renderRatingsContainer = () => {
+    return (
+      <RatingsContainer>
+        <LSProfileImageComponent
+          profileUrl={requestedUserDetails?.profile_picture}
+        />
+        <GuarenteedDesView>
+          <ProductOwnerLabel>{requestedUserDetails?.name}</ProductOwnerLabel>
+          <StarRatings rating={requestedUserDetails?.combinedRatings} />
+        </GuarenteedDesView>
+      </RatingsContainer>
+    );
+  };
   return (
     <Container>
       <InHomeHeader />
-      <TopSpace />
-      <CarouselComponent height={height / 2 + 40} isProduct={true} />
-      <SubContainer>
-        {renderGoBackView()}
-        <ProductLabel>Adidas</ProductLabel>
-        {renderTags()}
-        <ProductDetails>yeezy 350</ProductDetails>
-        <ProductDetails>Size: 10</ProductDetails>
-        <ProductDetails>Condition: New without box</ProductDetails>
-        <PriceLabel>$200</PriceLabel>
-        {renderButtons()}
-        <BottomSpace />
-      </SubContainer>
+      <ScrollContainer>
+        <TopSpace />
+        <CarouselComponent height={height / 2 + 40} isProduct={true} />
+        <SubContainer>
+          {renderGoBackView()}
+          <ProductLabel>{productData?.brand}</ProductLabel>
+          {!!productData?.type && renderTags()}
+          <ProductDetails>{productData?.name}</ProductDetails>
+          <ProductDetails>Size: {productData?.size}</ProductDetails>
+          <ProductDetails>Condition: {productData?.condition}</ProductDetails>
+          <PriceLabel>${productData?.price}</PriceLabel>
+          {renderButtons()}
+          {renderProtectionView()}
+          {requestedUserDetails && (
+            <>
+              <HorizontalBar />
+              {renderRatingsContainer()}
+            </>
+          )}
+          <HorizontalBar />
+          {renderDescriptionView()}
+          <BottomSpace />
+        </SubContainer>
+      </ScrollContainer>
     </Container>
   );
 };

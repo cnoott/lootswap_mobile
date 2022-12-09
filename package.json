@@ -16,6 +16,7 @@
     "@react-navigation/native-stack": "^6.9.1",
     "@react-navigation/stack": "^6.3.8",
     "@reduxjs/toolkit": "^1.9.0",
+    "add": "^2.0.6",
     "algoliasearch": "^4.14.2",
     "axios": "^1.2.0",
     "babel-plugin-dotenv-import": "^3.0.1",
@@ -26,6 +27,7 @@
     "react-native": "0.70.6",
     "react-native-dropdownalert": "^4.5.1",
     "react-native-gesture-handler": "^2.8.0",
+    "react-native-heroicons": "^3.2.0",
     "react-native-image-crop-picker": "^0.38.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-reanimated": "^2.13.0",
@@ -42,6 +44,7 @@
     "redux-saga": "^1.2.1",
     "styled-components": "^5.3.6",
     "styled-system": "^5.1.5",
+    "yarn": "^1.22.19",
     "yup": "^0.32.11"
   },
   "devDependencies": {

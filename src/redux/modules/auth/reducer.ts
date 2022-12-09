@@ -5,7 +5,9 @@ import {
   SIGN_UP_DATA,
   SIGN_OUT,
   PROFILE_IMG_UPLOAD,
+  GET_USER_DETAILS,
 } from '../../../constants/actions';
+import {getCombinedRatings} from '../../../utility/utility';
 
 export interface AuthProps {
   isLoading?: boolean;
@@ -16,6 +18,7 @@ export interface AuthProps {
   imgUpload?: boolean;
   imgError?: any;
   profileImgData?: any;
+  requestedUserDetails?: any;
 }
 
 type ActionProps = {
@@ -33,6 +36,7 @@ export const InitialState: AuthProps = {
   imgUpload: false,
   imgError: null,
   profileImgData: null,
+  requestedUserDetails: null,
 };
 
 export default function auth(state = InitialState, action: ActionProps) {
@@ -144,6 +148,27 @@ export default function auth(state = InitialState, action: ActionProps) {
         ...state,
         imgUpload: false,
         imgError: error,
+      };
+    }
+    case GET_USER_DETAILS.REQUEST: {
+      return {
+        ...state,
+        requestedUserDetails: null,
+      };
+    }
+    case GET_USER_DETAILS.SUCCESS: {
+      const combinedRatings = getCombinedRatings(payload?.ratings);
+      return {
+        ...state,
+        requestedUserDetails: payload
+          ? {...payload, combinedRatings: combinedRatings}
+          : null,
+      };
+    }
+    case GET_USER_DETAILS.FAILURE: {
+      return {
+        ...state,
+        requestedUserDetails: null,
       };
     }
     default:

@@ -20,6 +20,7 @@ function CarouselComponent(props: CarouselProps) {
         width={w}
         height={height}
         autoPlay={true}
+        keyExtractor={item => item}
         data={[...new Array(6).keys()]}
         scrollAnimationDuration={2500}
         mode={isProduct ? 'horizontal-stack' : 'parallax'}
@@ -27,7 +28,6 @@ function CarouselComponent(props: CarouselProps) {
           snapDirection: 'left',
           stackInterval: 18,
         }}
-        // onSnapToItem={index => console.log('current index:', index)}
         renderItem={({index}) => (
           <Image
             width={isProduct ? w - 20 : w}

@@ -121,3 +121,15 @@ export const getHomeFilterData = () => {
   ];
   return filterData;
 };
+
+export const getCombinedRatings = (ratingsArr = []) => {
+  let ratingSum = 0;
+  let combinedRating = 0;
+  ratingsArr.forEach(rating => {
+    ratingSum = ratingSum + rating;
+  });
+  if (ratingSum !== 0) {
+    combinedRating = ratingSum / ratingsArr?.length;
+  }
+  return combinedRating;
+};

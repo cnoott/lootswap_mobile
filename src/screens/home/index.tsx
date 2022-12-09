@@ -18,12 +18,14 @@ const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 export const HomeScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
 
-  const onProductPress = () => {
-    navigation.navigate('ProductDetailsScreen');
+  const onProductPress = (product: any) => {
+    navigation.navigate('ProductDetailsScreen', {
+      productData: product,
+    });
   };
 
   const renderItem = ({item}) => {
-    return <LSProductCard item={item} onPress={onProductPress} />;
+    return <LSProductCard item={item} onPress={() => onProductPress(item)} />;
   };
 
   const onRightIconPress = () => {

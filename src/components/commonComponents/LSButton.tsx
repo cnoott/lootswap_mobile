@@ -39,6 +39,12 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
         fontSize = 16;
         borderSize = scale(30);
         break;
+      case Size.Full:
+        width = moderateScale(windowWidth - 80);
+        height = moderateScale(48);
+        fontSize = 16;
+        borderSize = scale(10);
+        break;
       default:
         break;
     }
@@ -48,7 +54,7 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
 
   return (
     <ButtonContainer {...props} {...getSize()} type={type} size={size}>
-      <BText {...props} {...getSize()} type={type}>
+      <BText {...props} {...getSize()} type={type} disabled>
         {children || title}
       </BText>
     </ButtonContainer>
