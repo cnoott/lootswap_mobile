@@ -133,3 +133,26 @@ export const getCombinedRatings = (ratingsArr = []) => {
   }
   return combinedRating;
 };
+
+export const getProductTags = (tagType = 'trade-sell', theme: any) => {
+  const tradeItem = {
+    label: 'Trade',
+    labelColor: theme?.colors.tradeText,
+    backColor: theme?.colors.tradeBg,
+  };
+  const saleItem = {
+    label: 'Sale',
+    labelColor: theme?.colors.sellText,
+    backColor: theme?.colors.sellBg,
+  };
+  switch (tagType) {
+    case 'trade-sell':
+      return [tradeItem, saleItem];
+    case 'trade-only':
+      return [tradeItem];
+    case 'sell-only':
+      return [saleItem];
+    default:
+      return [tradeItem, saleItem];
+  }
+};

@@ -5,6 +5,7 @@
 import React, {FC, useEffect} from 'react';
 import {Dimensions} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import {useTheme} from 'styled-components';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
 import LSButton from '../../components/commonComponents/LSButton';
@@ -39,25 +40,15 @@ import {LEFT_PRIMARY_ARROW, SHIELD_ICON} from 'localsvgimages';
 import StarRatings from '../../components/starRatings';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
 import {getUsersDetailsRequest} from '../../redux/modules';
+import {getProductTags} from '../../utility/utility';
 
 const height = Dimensions.get('window').height;
-const tagList = [
-  {
-    label: 'Trade',
-    labelColor: '#0a0a0a',
-    backColor: '#f2ed63',
-  },
-  {
-    label: 'Sale',
-    labelColor: '#0a0a0a',
-    backColor: '#50b4d9',
-  },
-];
 
 export const ProductDetailsScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
+  const theme = useTheme();
   const {requestedUserDetails} = auth;
   const {productData = {}} = route?.params;
   useEffect(() => {
@@ -78,7 +69,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const renderTags = () => {
     return (
       <TagsContainer>
-        {tagList?.map(tag => {
+        {getProductTags(productData?.type, theme)?.map(tag => {
           return (
             <TagView backColor={tag?.backColor}>
               <TagLabel tagColor={tag?.labelColor}>{tag?.label}</TagLabel>
