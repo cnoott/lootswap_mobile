@@ -39,7 +39,7 @@ import {SvgXml} from 'react-native-svg';
 import {LEFT_PRIMARY_ARROW, SHIELD_ICON} from 'localsvgimages';
 import StarRatings from '../../components/starRatings';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
-import {getUsersDetailsRequest} from '../../redux/modules';
+import {getUsersDetailsRequest, getProductDetails} from '../../redux/modules';
 import {getProductTags} from '../../utility/utility';
 
 const height = Dimensions.get('window').height;
@@ -48,13 +48,16 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
+  const homeStates: AuthProps = useSelector(state => state.home);
   const theme = useTheme();
   const {requestedUserDetails} = auth;
+  const {selectedProductDetails} = homeStates;
   const {productData = {}} = route?.params;
   useEffect(() => {
     if (productData?.userId) {
       // Getting Product owner details(
       dispatch(getUsersDetailsRequest(productData?.userId));
+      dispatch(getProductDetails(productData?.objectID));
     }
   }, []);
 
@@ -135,30 +138,41 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   return (
     <Container>
       <InHomeHeader />
-      <ScrollContainer>
-        <TopSpace />
-        <CarouselComponent height={height / 2 + 40} isProduct={true} />
-        <SubContainer>
-          {renderGoBackView()}
-          <ProductLabel>{productData?.brand}</ProductLabel>
-          {!!productData?.type && renderTags()}
-          <ProductDetails>{productData?.name}</ProductDetails>
-          <ProductDetails>Size: {productData?.size}</ProductDetails>
-          <ProductDetails>Condition: {productData?.condition}</ProductDetails>
-          <PriceLabel>${productData?.price}</PriceLabel>
-          {renderButtons()}
-          {renderProtectionView()}
-          {requestedUserDetails && (
-            <>
-              <HorizontalBar />
-              {renderRatingsContainer()}
-            </>
-          )}
-          <HorizontalBar />
-          {renderDescriptionView()}
-          <BottomSpace />
-        </SubContainer>
-      </ScrollContainer>
+      {requestedUserDetails && (
+        <ScrollContainer>
+          <TopSpace />
+          <CarouselComponent
+            height={height / 2 + 40}
+            isProduct={true}
+            imagesArr={
+              selectedProductDetails?.secondary_photos || [
+                selectedProductDetails?.primary_photo,
+              ]
+            }
+            showDummy={false}
+          />
+          <SubContainer>
+            {renderGoBackView()}
+            <ProductLabel>{productData?.brand}</ProductLabel>
+            {!!productData?.type && renderTags()}
+            <ProductDetails>{productData?.name}</ProductDetails>
+            <ProductDetails>Size: {productData?.size}</ProductDetails>
+            <ProductDetails>Condition: {productData?.condition}</ProductDetails>
+            <PriceLabel>${productData?.price}</PriceLabel>
+            {renderButtons()}
+            {renderProtectionView()}
+            {requestedUserDetails && (
+              <>
+                <HorizontalBar />
+                {renderRatingsContainer()}
+              </>
+            )}
+            <HorizontalBar />
+            {renderDescriptionView()}
+            <BottomSpace />
+          </SubContainer>
+        </ScrollContainer>
+      )}
     </Container>
   );
 };
