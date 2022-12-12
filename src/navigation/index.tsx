@@ -13,7 +13,8 @@ import LSLoader from '../components/commonComponents/LSLoader';
 import {LoadingProps} from '../redux/modules/loading/reducer';
 import {Alert} from 'custom_top_alert';
 import {isReadyRef, navigationRef} from './navigationHelper';
-import HomeFilterScreen from '../screens/home/homeFilters';
+import HomeFilterScreen from '../screens/home/homeFiltersContainer';
+import UserChatScreen from '../screens/message';
 import {createStackNavigator} from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
@@ -42,6 +43,7 @@ const AppNavigation = () => (
         presentation: 'transparentModal',
       }}
     />
+    <Stack.Screen name="UserChatScreen" component={UserChatScreen} />
   </Stack.Navigator>
 );
 

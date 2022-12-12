@@ -98,6 +98,13 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           type={Type.Primary}
           onPress={() => {}}
         />
+        <TopSpace />
+        <LSButton
+          title={'Message'}
+          size={Size.Full}
+          type={Type.Primary}
+          onPress={() => navigation.navigate('UserChatScreen')}
+        />
       </TopSpace>
     );
   };
