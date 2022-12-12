@@ -122,6 +122,17 @@ export const getHomeFilterData = () => {
   return filterData;
 };
 
+export const configureFilterData = (filterItems: any) => {
+  const newFilters = filterItems?.map(category => {
+    const newItem = category?.data?.map(filter => {
+      filter.parentId = category?.id;
+      return filter;
+    });
+    return {...category, data: newItem};
+  });
+  return newFilters;
+};
+
 export const getCombinedRatings = (ratingsArr = []) => {
   let ratingSum = 0;
   let combinedRating = 0;

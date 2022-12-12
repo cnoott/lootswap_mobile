@@ -30,5 +30,7 @@ declare module 'localsvgimages' {
   export const SEARCH_INPUT_ICON: any;
   export const HOME_FILTER_ICON: any;
   export const LEFT_PRIMARY_ARROW: any;
+  export const LEFT_BLACK_ARROW: any;
   export const SHIELD_ICON: any;
+  export const MEDIA_UPLOAD_GREY_ICON: any;
 }

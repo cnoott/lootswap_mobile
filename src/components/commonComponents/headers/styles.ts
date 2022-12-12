@@ -52,7 +52,20 @@ export const ProfileHeaderText = styled.Text.attrs(props => ({
   ${layout}
 `;
 
-export const ProfileRightTouchable = styled.TouchableOpacity``;
+export const StackHeaderText = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  ml: moderateScale(10),
+}))`
+  font-size: ${props => `${moderateScale(22)}px`};
+  font-family: Inter-Bold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const ProfileRightTouchable = styled.TouchableOpacity`
+  margin-left: ${scale(5)}px;
+`;
 
 export const Touchable = styled.TouchableOpacity.attrs(props => ({
   bg: props.theme.colors.bg,
@@ -351,4 +364,9 @@ export const ModalItemContainer = styled.TouchableOpacity.attrs(props => ({
   ${space}
   ${layout}
   ${border}
+`;
+
+export const EmptyRowView = styled.View`
+  flex-direction: row;
+  align-items: center;
 `;

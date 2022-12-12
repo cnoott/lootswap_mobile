@@ -3,14 +3,13 @@ import {color, border, layout, space} from 'styled-system';
 import {scale, moderateScale} from 'react-native-size-matters';
 
 export const InputContainer = styled.View.attrs(props => ({
-  marginTop: moderateScale(props.isHomeSearch ? 10 : 15),
+  marginTop: moderateScale(props.isHomeSearch ? 0 : 15),
   mx: moderateScale(props.isHomeSearch ? 0 : 24),
   bg: props.isHomeSearch
     ? props.theme.colors.commonSearchBack
     : props.theme.colors.inputBg,
   borderRadius: scale(8.5),
   px: scale(10),
-  marginBottom: moderateScale(props.isHomeSearch ? 10 : 0),
 }))`
   flex-direction: row;
   align-items: center;
