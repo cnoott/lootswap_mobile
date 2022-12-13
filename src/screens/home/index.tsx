@@ -1,5 +1,5 @@
 /***
-  LootSwap - FIRST TAB SCREEN
+  LootSwap - FIRST TAB HOME SCREEN
  ***/
 
 import React, {FC, useState} from 'react';
