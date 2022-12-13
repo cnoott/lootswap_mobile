@@ -4,3 +4,22 @@ declare module '@env' {
   export const AlgoliaApiKey: string;
   export const ALGOLIA_INDEX_NAME: string;
 }
+
+declare module 'custom_types' {
+  export type APIResponseProps = {
+    success: boolean;
+    data?: any;
+    error?: any;
+  };
+  export type SUB_FILTER = {
+    label: string;
+    selected: boolean;
+    parentId: Number;
+  };
+  export type FILTER_TYPE = {
+    filterLabel: string;
+    list: Array<SUB_FILTER>;
+    isFilterActive: boolean;
+    id: Number;
+  };
+}

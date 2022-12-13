@@ -2,8 +2,7 @@
   LootSwap - Home Filters SCREEN
  ***/
 
-import React, {FC, useEffect, useState} from 'react';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
+import React from 'react';
 import {
   Container,
   SubContainer,
@@ -16,80 +15,45 @@ import {
   FilterButtonText,
   EmptyView,
   ButtonsContainer,
-  AnimationStyle,
   PressableStyle,
 } from './homeFiltersStyles';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {FILTER_TYPE} from 'custom_types';
-import {Pressable, Animated} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
-import {ResetHomeFilter, UpdateHomeFilter} from '../../redux/modules';
-import {FilterProps} from '../../redux/modules/home/reducer';
-import {useCardAnimation} from '@react-navigation/stack';
-import {useClearRefinements} from 'react-instantsearch-hooks';
+import {Pressable, Modal} from 'react-native';
+// import {ResetHomeFilter, UpdateHomeFilter} from '../../redux/modules';
+// import {useClearRefinements} from 'react-instantsearch-hooks';
 import {useFilterData} from '../../utility/customHooks/useFilterData';
 import {configureFilterData} from '../../utility/utility';
 
-export const HomeFiltersScreen: FC<{}> = props => {
-  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
-  const home: FilterProps = useSelector(state => state.home);
-  const {current} = useCardAnimation();
-  const dispatch = useDispatch();
-  const {filterData, hasData} = useFilterData(props);
-  const [appliedFilters, setAppliedFilters] = useState(
-    configureFilterData([...filterData]),
-  );
-  const [filterConfigured, setFilterConfigured] = useState(false);
-  useEffect(() => {
-    if (hasData && !filterConfigured) {
-      setFilterConfigured(true);
-      setAppliedFilters(configureFilterData([...filterData]));
-    }
-  }, [hasData, filterData, filterConfigured]);
+export const HomeFiltersScreen = props => {
+  const {isModalOpen, onToggleModal} = props;
+  const {filterData} = useFilterData(props);
+  const appliedFilters = configureFilterData([...filterData]);
+  // const [filterConfigured, setFilterConfigured] = useState(false);
+  // const {canRefine: canClear, refine: clearFilterData} = useClearRefinements();
 
-  const {canRefine: canClear, refine: clearFilterData} = useClearRefinements();
+  // const onResetFilterPress = () => {
+  //   dispatch(ResetHomeFilter());
+  //   if (canClear) {
+  //     clearFilterData();
+  //   }
+  //   navigation.goBack();
+  // };
 
-  const onResetFilterPress = () => {
-    dispatch(ResetHomeFilter());
-    if (canClear) {
-      clearFilterData();
-    }
-    navigation.goBack();
-  };
   const onApplyFilterPress = () => {
-    const _filtersData = [...appliedFilters];
-    _filtersData.map(category => {
-      let isAnySelected = false;
-      category?.data?.map(filter => {
-        if (filter?.isRefined) {
-          category.refineFunction(filter?.label);
-        }
-      });
-      if (isAnySelected) {
-        category?.refineFunction();
-      }
-    });
-    navigation.goBack();
+    onToggleModal();
   };
 
   const onFilterPress = filter => {
     const _filter = [...appliedFilters];
-    const newFilter = _filter.map(data => {
-      let category = data;
+    _filter.map(data => {
       if (data?.id === filter?.parentId) {
-        const _subcategory = data?.data?.map(subData => {
-          if (subData?.label === filter?.label) {
-            subData.isRefined = !subData.isRefined;
-          }
-          return subData;
-        });
-        category.data = _subcategory;
+        data.refineFunction(filter.value);
       }
-      return category;
     });
-    setAppliedFilters(newFilter);
   };
+
   const renderFilter = ({item}) => {
     return (
       <FilterButton
@@ -110,11 +74,11 @@ export const HomeFiltersScreen: FC<{}> = props => {
     );
   };
   return (
-    <Container>
-      <Pressable style={PressableStyle()} onPress={navigation.goBack} />
-      {appliedFilters?.length > 0 && (
-        <SubContainer>
-          <Animated.View style={AnimationStyle(current)}>
+    <Modal transparent={true} animationType="slide" visible={isModalOpen}>
+      <Container>
+        <Pressable style={PressableStyle()} onPress={onToggleModal} />
+        {appliedFilters?.length > 0 && (
+          <SubContainer>
             <HorizontalBar />
             <HeadingText>Filter</HeadingText>
             <Divider />
@@ -123,22 +87,16 @@ export const HomeFiltersScreen: FC<{}> = props => {
             })}
             <ButtonsContainer>
               <LSButton
-                title={'Reset'}
-                size={Size.Medium}
-                type={Type.Secondary}
-                onPress={onResetFilterPress}
-              />
-              <LSButton
-                title={'Apply'}
-                size={Size.Medium}
+                title={'Done'}
+                size={Size.Large}
                 type={Type.Primary}
                 onPress={onApplyFilterPress}
               />
             </ButtonsContainer>
-          </Animated.View>
-        </SubContainer>
-      )}
-    </Container>
+          </SubContainer>
+        )}
+      </Container>
+    </Modal>
   );
 };
 
