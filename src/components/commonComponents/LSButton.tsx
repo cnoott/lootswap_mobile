@@ -21,6 +21,12 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
 
   const getSize = () => {
     switch (size) {
+      case Size.Extra_Small:
+        width = scale(80);
+        height = verticalScale(32);
+        fontSize = scale(12);
+        borderSize = scale(10);
+        break;
       case Size.Small:
         width = scale(110);
         height = verticalScale(32);

@@ -5,7 +5,7 @@ import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 
 export const Container = styled.View.attrs(props => ({
   flex: 1,
-  backgroundColor: props.theme.colors.secondary,
+  backgroundColor: props.theme.colors.white,
 }))`
   ${space}
   ${layout}
@@ -62,9 +62,8 @@ export const SectionList = styled.SectionList.attrs(() => ({
 `;
 
 export const ListHeaderContainer = styled.View.attrs(props => ({
-  width: scale(108),
-  height: scale(30),
-  borderRadius: scale(10),
+  p: scale(10),
+  borderRadius: scale(8),
   alignItems: 'center',
   justifyContent: 'center',
   bg: props?.theme?.colors?.divider,
@@ -72,13 +71,14 @@ export const ListHeaderContainer = styled.View.attrs(props => ({
   align-self: center;
   ${layout}
   ${color}
+  ${space}
 `;
 
 export const ListHeaderText = styled.Text.attrs(props => ({
-  color: props.theme.colors.black,
+  color: props.theme.colors.lightGrey,
 }))`
   font-size: ${moderateScale(12)}px;
-  font-family: 'Inter-Light';
+  font-family: Inter-Bold;
   ${color}
   ${space}
   ${layout}

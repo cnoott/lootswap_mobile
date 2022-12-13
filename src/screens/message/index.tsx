@@ -20,29 +20,40 @@ import {
   SectionList,
   ListHeaderContainer,
   ListHeaderText,
-  MessageBoxContainer,
 } from './styles';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {MEDIA_UPLOAD_GREY_ICON} from 'localsvgimages';
 import {PaperAirplaneIcon} from 'react-native-heroicons/solid';
 import {moderateScale} from 'react-native-size-matters';
+import MessageCell from '../../components/message/messageCell';
+import useMessagingService, {
+  socketObj,
+} from '../../services/useMessagingService';
 
 const DATA = [
   {
     title: 'Main dishes',
-    data: ['Pizza', 'Burger', 'Risotto'],
+    data: [
+      'Hello, good morning.',
+      'I am a Customer Service, is there anything I can help you with? 😄',
+    ],
+    self: false,
   },
   {
     title: 'Sides',
-    data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
+    data: [
+      "Hi, I'm having problems with my order & payment.",
+      'Can you help me?',
+    ],
+    self: true,
   },
   {
     title: 'Drinks',
-    data: ['Water', 'Coke', 'Beer'],
-  },
-  {
-    title: 'Desserts',
-    data: ['Cheese Cake', 'Ice Cream'],
+    data: [
+      'Of course...',
+      'Can you tell me the problem you are having? so I can help solve it 😁',
+    ],
+    self: false,
   },
 ];
 
@@ -50,6 +61,7 @@ export const UserChatScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+  useMessagingService();
   const [messageText, setMessageText] = useState('');
   const renderRightInputView = () => {
     return (
@@ -76,18 +88,8 @@ export const UserChatScreen: FC<{}> = () => {
       </InputView>
     );
   };
-  const renderMessage = (messageData: any) => {
-    return (
-      <MessageBoxContainer
-        self={[
-          'Pizza',
-          'Onion Rings',
-          'Water',
-          'Ice Cream',
-          'Risotto',
-        ].includes(messageData)}
-      />
-    );
+  const renderMessage = (messageData: any, isSelf = false) => {
+    return <MessageCell self={isSelf} item={messageData} />;
   };
   const renderListHeader = (title: string) => {
     return (
@@ -101,7 +103,7 @@ export const UserChatScreen: FC<{}> = () => {
       <SectionList
         sections={DATA}
         keyExtractor={(item, index) => item + index}
-        renderItem={({item}) => renderMessage(item)}
+        renderItem={({item, index}) => renderMessage(item, DATA[index]?.self)}
         renderSectionHeader={({section: {title}}) => renderListHeader(title)}
       />
     );

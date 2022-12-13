@@ -1,4 +1,5 @@
 export enum Size {
+  Extra_Small = 'esm',
   Small = 'sm',
   Medium = 'md',
   Large = 'lg',
