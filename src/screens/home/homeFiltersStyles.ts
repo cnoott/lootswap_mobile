@@ -7,7 +7,6 @@ const windowHeight = Dimensions.get('window').height;
 
 export const Container = styled.View.attrs(() => ({
   flex: 1,
-  bg: 'rgba(0,0,0,0.4)',
   justifyContent: 'flex-end',
 }))`
   align-items: flex-start ${space} ${layout} ${color};

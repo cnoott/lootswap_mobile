@@ -8,7 +8,7 @@ interface CarouselProps {
   height?: number;
   isProduct?: boolean;
   imagesArr?: Array<string>;
-  showDummy: boolean;
+  showDummy?: boolean;
 }
 const width = Dimensions.get('window').width;
 

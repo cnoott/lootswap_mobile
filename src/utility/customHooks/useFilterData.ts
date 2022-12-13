@@ -1,22 +1,29 @@
 import {useRefinementList} from 'react-instantsearch-hooks';
 
-export const useFilterData = props => {
+export const useFilterData = () => {
   const {items: categoriesItems, refine: categoriesRefine} = useRefinementList({
     attribute: 'category',
   });
-  const {items, refine} = useRefinementList({attribute: 'brand'});
+
+  const {items: brandItems, refine: brandRefine} = useRefinementList({
+    attribute: 'brand',
+  });
+
   const {items: priceItems, refine: priceRefine} = useRefinementList({
     attribute: 'price',
   });
+
   const {items: sizeItems, refine: sezeRefine} = useRefinementList({
     attribute: 'size',
   });
-  const hasData =
+
+  let hasData =
     categoriesItems?.length > 0 &&
     priceItems?.length > 0 &&
     sizeItems?.length > 0 &&
-    items?.length > 0;
-  const filterData = [
+    brandItems?.length > 0;
+
+  let filterData = [
     {
       FilterTitle: 'Categories',
       data: categoriesItems,
@@ -26,8 +33,8 @@ export const useFilterData = props => {
     },
     {
       FilterTitle: 'Brand',
-      data: items,
-      refineFunction: label => refine(label),
+      data: brandItems,
+      refineFunction: label => brandRefine(label),
       id: 2,
       isCategorySelected: false,
     },

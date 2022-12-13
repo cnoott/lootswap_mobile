@@ -2,7 +2,7 @@
   LootSwap - FIRST TAB SCREEN
  ***/
 
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
 import {Container, SubContainer, FlatList} from './styles';
@@ -12,11 +12,13 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import LSSearch from '../../components/filterSearch';
 import {AlgoliaAppId, AlgoliaApiKey, ALGOLIA_INDEX_NAME} from '@env';
 import LSProductCard from '../../components/productCard';
+import HomeFiltersScreen from './homeFilters';
 
 const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 
 export const HomeScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const onProductPress = (product: any) => {
     navigation.navigate('ProductDetailsScreen', {
@@ -29,7 +31,7 @@ export const HomeScreen: FC<{}> = () => {
   };
 
   const onRightIconPress = () => {
-    navigation.navigate('HomeFiltersScreen');
+    onToggleModal();
   };
 
   const InfiniteHits = ({...props}) => {
@@ -37,7 +39,6 @@ export const HomeScreen: FC<{}> = () => {
     const filteredHits = hits.filter(
       hit => hit.isVisible && hit.isVirtuallyVerified,
     );
-
     return (
       <FlatList
         data={filteredHits}
@@ -52,6 +53,10 @@ export const HomeScreen: FC<{}> = () => {
     );
   };
 
+  const onToggleModal = () => {
+    setModalOpen(isOpen => !isOpen);
+  };
+
   return (
     <Container>
       <InHomeHeader />
@@ -62,6 +67,10 @@ export const HomeScreen: FC<{}> = () => {
           searchClient={searchClient}>
           <LSSearch onRightIconPress={onRightIconPress} />
           <InfiniteHits />
+          <HomeFiltersScreen
+            isModalOpen={isModalOpen}
+            onToggleModal={onToggleModal}
+          />
         </InstantSearch>
       </SubContainer>
     </Container>
