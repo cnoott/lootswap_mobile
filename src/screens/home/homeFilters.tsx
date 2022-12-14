@@ -16,6 +16,7 @@ import {
   EmptyView,
   ButtonsContainer,
   PressableStyle,
+  BottomMarginView,
 } from './homeFiltersStyles';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
@@ -85,6 +86,8 @@ export const HomeFiltersScreen = props => {
             {appliedFilters.map(filter => {
               return renderFilterItem(filter);
             })}
+            <BottomMarginView />
+            <Divider />
             <ButtonsContainer>
               <LSButton
                 title={'Done'}

@@ -13,7 +13,7 @@ export const Container = styled.View.attrs(() => ({
 `;
 
 export const SubContainer = styled.View.attrs(props => ({
-  height: windowHeight / 2 + 180,
+  height: windowHeight / 2 + 90,
   width: '100%',
   bg: props.theme.colors.white,
   borderTopLeftRadius: moderateScale(20),
@@ -37,7 +37,7 @@ export const HorizontalBar = styled.View.attrs(props => ({
 
 export const HeadingText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  my: verticalScale(15),
+  my: verticalScale(5),
 }))`
   font-size: ${() => moderateScale(24)}px;
   font-family: 'Inter-Bold';
@@ -57,7 +57,7 @@ export const Divider = styled.View.attrs(props => ({
 
 export const ListTitleText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  mt: verticalScale(15),
+  mt: verticalScale(10),
   mb: verticalScale(10),
 }))`
   font-size: ${() => moderateScale(18)}px;
@@ -104,9 +104,13 @@ export const FilterButtonText = styled.Text.attrs(props => ({
 
 export const EmptyView = styled.View``;
 
+export const BottomMarginView = styled.View`
+  height: 15px;
+`;
+
 export const ButtonsContainer = styled.View.attrs(() => ({
   width: '100%',
-  mt: verticalScale(20),
+  mt: verticalScale(10),
   justifyContent: 'space-around',
 }))`
   flex-direction: row ${color} ${layout} ${space} ${border};

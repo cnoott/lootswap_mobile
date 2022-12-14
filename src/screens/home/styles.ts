@@ -11,8 +11,8 @@ export const Container = styled.View.attrs(props => ({
 `;
 
 export const SubContainer = styled.View.attrs(() => ({
-  margin: moderateScale(15),
-  flex: 1,
+  marginVertical: moderateScale(5),
+  marginHorizontal: moderateScale(10),
 }))`
   ${space}
   ${layout}
@@ -20,7 +20,7 @@ export const SubContainer = styled.View.attrs(() => ({
 
 export const FlatList = styled.FlatList.attrs(() => ({
   numColumns: 2,
-  showVerticalScrollIndicator: false,
+  showsVerticalScrollIndicator: false,
   contentContainerStyle: {flexGrow: 1},
 }))`
   ${color}
