@@ -45,7 +45,9 @@ export const HomeScreen: FC<{}> = () => {
 
   const InfiniteHits = ({...props}) => {
     const {hits, isLastPage, showMore} = useInfiniteHits(props);
-    const filteredHits = hits;
+    const filteredHits = hits.filter(
+      hit => hit.isVisible && hit.isVirtuallyVerified,
+    );
     return (
       <FlatList
         data={[1, ...filteredHits]}
