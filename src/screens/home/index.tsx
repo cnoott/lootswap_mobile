@@ -26,29 +26,38 @@ export const HomeScreen: FC<{}> = () => {
     });
   };
 
-  const renderItem = ({item}) => {
-    return <LSProductCard item={item} onPress={() => onProductPress(item)} />;
-  };
-
   const onRightIconPress = () => {
     onToggleModal();
   };
 
+  const onEndReached = (isLastPage: boolean, showMore: Function = () => {}) => {
+    if (isLastPage) {
+      showMore();
+    }
+  };
+
+  const renderItem = ({item, index}) => {
+    if (index === 0) {
+      return <CarouselComponent />;
+    }
+    return <LSProductCard item={item} onPress={() => onProductPress(item)} />;
+  };
+
   const InfiniteHits = ({...props}) => {
     const {hits, isLastPage, showMore} = useInfiniteHits(props);
-    const filteredHits = hits.filter(
-      hit => hit.isVisible && hit.isVirtuallyVerified,
-    );
+    const filteredHits = hits;
     return (
       <FlatList
-        data={filteredHits}
+        data={[1, ...filteredHits]}
         renderItem={renderItem}
         keyExtractor={item => item.objectID}
-        onEndReached={() => {
-          if (isLastPage) {
-            showMore();
-          }
-        }}
+        onEndReached={() => onEndReached(isLastPage, showMore)}
+        ListHeaderComponent={
+          <SubContainer>
+            <LSSearch onRightIconPress={onRightIconPress} />
+          </SubContainer>
+        }
+        stickyHeaderIndices={[0]}
       />
     );
   };
@@ -60,19 +69,13 @@ export const HomeScreen: FC<{}> = () => {
   return (
     <Container>
       <InHomeHeader />
-      <CarouselComponent />
-      <SubContainer>
-        <InstantSearch
-          indexName={ALGOLIA_INDEX_NAME}
-          searchClient={searchClient}>
-          <LSSearch onRightIconPress={onRightIconPress} />
-          <InfiniteHits />
-          <HomeFiltersScreen
-            isModalOpen={isModalOpen}
-            onToggleModal={onToggleModal}
-          />
-        </InstantSearch>
-      </SubContainer>
+      <InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
+        <InfiniteHits />
+        <HomeFiltersScreen
+          isModalOpen={isModalOpen}
+          onToggleModal={onToggleModal}
+        />
+      </InstantSearch>
     </Container>
   );
 };
