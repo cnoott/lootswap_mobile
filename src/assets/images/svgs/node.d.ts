@@ -33,4 +33,5 @@ declare module 'localsvgimages' {
   export const LEFT_BLACK_ARROW: any;
   export const SHIELD_ICON: any;
   export const MEDIA_UPLOAD_GREY_ICON: any;
+  export const EDIT_PROFILE_EMAIL_ICON: any;
 }

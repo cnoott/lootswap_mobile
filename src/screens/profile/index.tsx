@@ -5,7 +5,7 @@ LootSwap - FIRST TAB SCREEN
 import React, {FC, useState} from 'react';
 // import {Platform} from 'react-native';
 import {SvgXml} from 'react-native-svg';
-import {InProfileHeader} from '../../components/commonComponents/headers/profileHeader';
+import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {
   Container,
   SubContainer,
@@ -27,77 +27,44 @@ import {
   EDIT_PROFILE_ICON,
   PROFILE_PLACEHOLDER_ICON,
   RIGHT_ARROW,
-  BOTTOM_TAB_PROFILE,
-  PROFILE_ADDRESS,
-  PROFILE_MY_LOOT,
-  PROFILE_ORDERS,
-  PROFILE_WALLET,
-  PROFILE_REFERRAL,
-  PROFILE_SUPPORT,
   PROFILE_SIGN_OUT,
-  PROFILE_NOTIFICATION,
 } from 'localsvgimages';
 import {scale} from 'react-native-size-matters';
 import {useSelector, useDispatch} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import {signOutRequest} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
+import {getProfileOptions} from '../../utility/utility';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 type Option = {
   icon: string;
   title: string;
-  onPress: Function;
+  index: Number;
 };
-
-const optionsList: Array<Option> = [
-  {
-    icon: BOTTOM_TAB_PROFILE,
-    title: 'Edit Profile',
-    onPress: () => {},
-  },
-  {
-    icon: PROFILE_ADDRESS,
-    title: 'Address',
-    onPress: () => {},
-  },
-  {
-    icon: PROFILE_MY_LOOT,
-    title: 'My loot',
-    onPress: () => {},
-  },
-  {
-    icon: PROFILE_ORDERS,
-    title: 'Orders/Archive',
-    onPress: () => {},
-  },
-  {
-    icon: PROFILE_WALLET,
-    title: 'Wallet',
-    onPress: () => {},
-  },
-  {
-    icon: PROFILE_NOTIFICATION,
-    title: 'Notifications',
-    onPress: () => {},
-  },
-  {
-    icon: PROFILE_REFERRAL,
-    title: 'Referral program',
-    onPress: () => {},
-  },
-  {
-    icon: PROFILE_SUPPORT,
-    title: 'Customer support/Privacy Policy',
-    onPress: () => {},
-  },
-];
 
 export const ProfileScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
+  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const dispatch = useDispatch();
   const [profileUrl, setProfileUrl] = useState('');
   const [isImageUploading, setImageUploading] = useState(false);
   const {userData} = auth;
+  const onProfileOptionPress = (index: Number) => {
+    switch (index) {
+      case 1:
+        navigation.navigate('EditProfileScreen');
+        break;
+      case 3:
+        navigation.navigate('MyLootScreen');
+        break;
+      case 6:
+        navigation.navigate('NotificationSettingScreen');
+        break;
+      default:
+        break;
+    }
+  };
   const onEditProfilePress = () => {
     ImagePicker.openPicker({
       width: 300,
@@ -150,7 +117,9 @@ export const ProfileScreen: FC<{}> = () => {
   };
   const renderOptionItem = (item: Option, index: Number) => {
     return (
-      <OptionItemContainer key={index}>
+      <OptionItemContainer
+        key={index}
+        onPress={() => onProfileOptionPress(item?.index)}>
         <EmptyRowView>
           <SvgXml xml={item?.icon} />
           <OptionText>{item?.title}</OptionText>
@@ -162,7 +131,7 @@ export const ProfileScreen: FC<{}> = () => {
   const renderOptions = () => {
     return (
       <OptionsContainer>
-        {optionsList.map((item, index) => {
+        {getProfileOptions().map((item, index) => {
           return renderOptionItem(item, index);
         })}
       </OptionsContainer>
@@ -178,7 +147,7 @@ export const ProfileScreen: FC<{}> = () => {
   };
   return (
     <Container>
-      <InProfileHeader />
+      <InStackHeader back={false} right={true} />
       <SubContainer>
         {renderProfileUploadView()}
         <UserNameText>{userData?.name}</UserNameText>

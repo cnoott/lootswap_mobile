@@ -2,7 +2,7 @@ import axios from 'axios';
 import _ from 'lodash';
 //import {API} from '@env';
 
-export const baseURL = 'http://192.168.1.2:8000/api';
+export const baseURL = 'http://192.168.0.105:8000/api';
 
 const TIME_OUT = 30000;
 export const createAxiosInstanceWithHeader = () => {

@@ -22,4 +22,9 @@ declare module 'custom_types' {
     isFilterActive: boolean;
     id: Number;
   };
+  export type PROFILE_OPTIONS_TYPE = {
+    icon: string;
+    title: string;
+    index: Number;
+  };
 }

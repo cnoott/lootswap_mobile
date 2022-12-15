@@ -1,5 +1,6 @@
 import {useEffect} from 'react';
 import socketIo from 'socket.io-client';
+import {baseURL} from './apiHelpers';
 
 export let socketObj: any = null;
 const useMessagingService = () => {
@@ -9,7 +10,7 @@ const useMessagingService = () => {
     }
   });
   const connect = () => {
-    socketObj = socketIo('http://192.168.1.2:8000', {
+    socketObj = socketIo(baseURL, {
       transports: ['websocket'],
       upgrade: false,
     });

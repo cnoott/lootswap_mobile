@@ -1,6 +1,17 @@
 /***
 LOOTSWAP - UTILITY
 ***/
+import {
+  BOTTOM_TAB_PROFILE,
+  PROFILE_ADDRESS,
+  PROFILE_MY_LOOT,
+  PROFILE_ORDERS,
+  PROFILE_WALLET,
+  PROFILE_REFERRAL,
+  PROFILE_SUPPORT,
+  PROFILE_NOTIFICATION,
+} from 'localsvgimages';
+import {PROFILE_OPTIONS_TYPE} from 'custom_types';
 
 /*
 On Launch -
@@ -60,4 +71,50 @@ export const getProductTags = (tagType = 'trade-sell', theme: any) => {
     default:
       return [tradeItem, saleItem];
   }
+};
+
+export const getProfileOptions = () => {
+  const optionsList: Array<PROFILE_OPTIONS_TYPE> = [
+    {
+      icon: BOTTOM_TAB_PROFILE,
+      title: 'Edit Profile',
+      index: 1,
+    },
+    {
+      icon: PROFILE_ADDRESS,
+      title: 'Address',
+      index: 2,
+    },
+    {
+      icon: PROFILE_MY_LOOT,
+      title: 'My loot',
+      index: 3,
+    },
+    {
+      icon: PROFILE_ORDERS,
+      title: 'Orders/Archive',
+      index: 4,
+    },
+    {
+      icon: PROFILE_WALLET,
+      title: 'Wallet',
+      index: 5,
+    },
+    {
+      icon: PROFILE_NOTIFICATION,
+      title: 'Notifications',
+      index: 6,
+    },
+    {
+      icon: PROFILE_REFERRAL,
+      title: 'Referral program',
+      index: 7,
+    },
+    {
+      icon: PROFILE_SUPPORT,
+      title: 'Customer support/Privacy Policy',
+      index: 8,
+    },
+  ];
+  return optionsList;
 };

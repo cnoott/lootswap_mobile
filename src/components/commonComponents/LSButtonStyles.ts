@@ -1,14 +1,10 @@
 import styled from 'styled-components/native';
 import {color, border, layout} from 'styled-system';
-import {Type} from '../../enums';
 
 export const ButtonContainer = styled.TouchableOpacity.attrs(props => ({
   width: props.width,
   height: props.height,
-  bg:
-    props.type === Type.Primary
-      ? props.theme.colors.primary
-      : props.theme.colors.secondaryButton,
+  bg: props.buttonColor,
   borderRadius: props.borderSize,
   activeOpacity: 0.6,
 }))`
@@ -22,10 +18,7 @@ export const ButtonContainer = styled.TouchableOpacity.attrs(props => ({
 `;
 
 export const BText = styled.Text.attrs(props => ({
-  color:
-    props.type === Type.Primary
-      ? props.theme.colors.white
-      : props.theme.colors.white,
+  color: props.textColor,
 }))`
   font-size: ${props => `${props.fontSize}px`};
   font-weight: 600 ${color};

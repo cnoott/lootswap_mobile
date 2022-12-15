@@ -8,7 +8,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/home';
 import BrowseScreen from '../screens/browse';
 import ProfileScreen from '../screens/profile';
+import EditProfileScreen from '../screens/profile/editProfile';
+import NotificationSettingScreen from '../screens/profile/notificationSettings';
 import ProductDetailsScreen from '../screens/productDetails';
+import LootScreen from '../screens/loot';
+import MyLootScreen from '../screens/loot/myLoot';
+import NotificationsScreen from '../screens/notifications';
 import {useTheme} from 'styled-components';
 import {SvgXml} from 'react-native-svg';
 import {useSelector} from 'react-redux';
@@ -47,6 +52,33 @@ const HomeStackNavigation = () => (
       name="ProductDetailsScreen"
       component={ProductDetailsScreen}
     />
+  </Stack.Navigator>
+);
+
+const ProfileStackNavigation = () => (
+  <Stack.Navigator
+    initialRouteName={'ProfileScreen'}
+    screenOptions={{
+      headerShown: false,
+    }}>
+    <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+    <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+    <Stack.Screen name="MyLootScreen" component={MyLootScreen} />
+    <Stack.Screen
+      name="NotificationSettingScreen"
+      component={NotificationSettingScreen}
+    />
+  </Stack.Navigator>
+);
+
+const LootStackNavigation = () => (
+  <Stack.Navigator
+    initialRouteName={'LootScreen'}
+    screenOptions={{
+      headerShown: false,
+    }}>
+    <Stack.Screen name="LootScreen" component={LootScreen} />
+    <Stack.Screen name="MyLootScreen" component={MyLootScreen} />
   </Stack.Navigator>
 );
 
@@ -143,9 +175,9 @@ export const BottomTabs: FC<{}> = () => {
       tabBar={props => <MyCustomTabBar {...props} />}>
       <Tab.Screen name="Home" component={HomeStackNavigation} />
       <Tab.Screen name="Offers" component={BrowseScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
-      <Tab.Screen name="Notifications" component={BrowseScreen} />
-      <Tab.Screen name="Add loot" component={BrowseScreen} />
+      <Tab.Screen name="Profile" component={ProfileStackNavigation} />
+      <Tab.Screen name="Notifications" component={NotificationsScreen} />
+      <Tab.Screen name="Add loot" component={LootStackNavigation} />
     </Tab.Navigator>
   );
 };
