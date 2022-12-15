@@ -15,6 +15,7 @@ import {Alert} from 'custom_top_alert';
 import {isReadyRef, navigationRef} from './navigationHelper';
 import UserChatScreen from '../screens/message';
 import {createStackNavigator} from '@react-navigation/stack';
+import SplashScreen from 'react-native-splash-screen';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,7 @@ const StackNavigator: FC<{}> = () => {
   const loading: LoadingProps = useSelector(state => state.loading);
   const navRef = useRef();
   const onNavigationReady = () => {
+    SplashScreen.hide();
     navRef.current = navigationRef.current.getCurrentRoute().name;
     isReadyRef.current = true;
   };
