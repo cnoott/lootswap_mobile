@@ -5,7 +5,7 @@
 import React, {FC, useState} from 'react';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
-import {Container, SubContainer, FlatList} from './styles';
+import {Container, FlatList, SearchContainer} from './styles';
 import algoliasearch from 'algoliasearch/lite';
 import {InstantSearch, useInfiniteHits} from 'react-instantsearch-hooks';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -55,9 +55,9 @@ export const HomeScreen: FC<{}> = () => {
         keyExtractor={item => item.objectID}
         onEndReached={() => onEndReached(isLastPage, showMore)}
         ListHeaderComponent={
-          <SubContainer>
+          <SearchContainer>
             <LSSearch onRightIconPress={onRightIconPress} />
-          </SubContainer>
+          </SearchContainer>
         }
         stickyHeaderIndices={[0]}
       />

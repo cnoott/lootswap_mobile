@@ -18,6 +18,16 @@ export const SubContainer = styled.View.attrs(() => ({
   ${layout}
 `;
 
+export const SearchContainer = styled.View.attrs(props => ({
+  paddingVertical: moderateScale(5),
+  paddingHorizontal: moderateScale(10),
+  bg: props.theme.colors.white,
+}))`
+  ${space}
+  ${layout}
+  ${color}
+`;
+
 export const FlatList = styled.FlatList.attrs(() => ({
   numColumns: 2,
   showsVerticalScrollIndicator: false,

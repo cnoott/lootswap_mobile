@@ -45,7 +45,7 @@ export const ProfileHeaderText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
   mr: moderateScale(2),
 }))`
-  font-size: ${moderateScale(24)}px;
+  font-size: ${moderateScale(22)}px;
   font-family: Inter-Bold;
   ${color}
   ${space}
@@ -65,6 +65,10 @@ export const StackHeaderText = styled.Text.attrs(props => ({
 
 export const ProfileRightTouchable = styled.TouchableOpacity`
   margin-left: ${scale(5)}px;
+`;
+
+export const ProfileLeftTouchable = styled.TouchableOpacity`
+  margin-right: ${scale(5)}px;
 `;
 
 export const Touchable = styled.TouchableOpacity.attrs(props => ({

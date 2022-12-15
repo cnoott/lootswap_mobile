@@ -226,3 +226,8 @@ export const MEDIA_UPLOAD_GREY_ICON = `<svg width="20" height="20" viewBox="0 0 
 <path fill-rule="evenodd" clip-rule="evenodd" d="M8.91846 7.32056C8.91846 8.17056 8.23013 8.85889 7.38013 8.85889C6.53096 8.85889 5.8418 8.17056 5.8418 7.32056C5.8418 6.47056 6.53096 5.78223 7.38013 5.78223C8.2293 5.78306 8.91763 6.47139 8.91846 7.32056Z" stroke="#9E9E9E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M17.6725 12.4582C16.9033 11.6665 15.4242 10.0674 13.8158 10.0674C12.2067 10.0674 11.2792 13.5949 9.73167 13.5949C8.18417 13.5949 6.77833 11.9999 5.53833 13.0224C4.29833 14.044 3.125 16.1332 3.125 16.1332" stroke="#9E9E9E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`;
+
+export const EDIT_PROFILE_EMAIL_ICON = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.621 7.51587C14.621 7.51587 11.946 10.7264 9.98943 10.7264C8.03371 10.7264 5.32861 7.51587 5.32861 7.51587" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M2.04346 9.97404C2.04346 4.27562 4.02758 2.37671 9.97997 2.37671C15.9323 2.37671 17.9165 4.27562 17.9165 9.97404C17.9165 15.6716 15.9323 17.5714 9.97997 17.5714C4.02758 17.5714 2.04346 15.6716 2.04346 9.97404Z" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;

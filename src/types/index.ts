@@ -19,3 +19,9 @@ export type FILTER_TYPE = {
   isFilterActive: boolean;
   id: Number;
 };
+
+export type PROFILE_OPTIONS_TYPE = {
+  icon: string;
+  title: string;
+  index: Number;
+};
