@@ -9,6 +9,8 @@ interface CarouselProps {
   isProduct?: boolean;
   imagesArr?: Array<string>;
   showDummy?: boolean;
+  autoPlay?: boolean;
+  loop?: boolean;
 }
 const width = Dimensions.get('window').width;
 
@@ -18,28 +20,33 @@ function CarouselComponent(props: CarouselProps) {
     height = verticalScale(width / 2 - (props?.isProduct ? 50 : 20)),
     isProduct = false,
     showDummy = true,
+    autoPlay = true,
+    loop = true,
   } = props;
   const w = moderateScale(width) - moderateScale(63);
   return (
     <Container height={height}>
       <Carousel
-        loop
+        loop={loop}
         width={isProduct ? w : width}
         height={height}
-        autoPlay={true}
-        autoPlayInterval={6000}
+        parallaxScrollingOffset={50}
+        autoPlay={autoPlay}
+        autoPlayInterval={9000}
         keyExtractor={item => item}
         data={imagesArr}
         scrollAnimationDuration={1500}
-        mode={isProduct ? 'horizontal-stack' : 'default'}
+        mode={isProduct ? 'parallax' : 'default'}
         modeConfig={{
           snapDirection: 'left',
           stackInterval: 18,
+          parallaxScrollingScale: 0.94,
+          parallaxScrollingOffset: 50,
         }}
         renderItem={({index, item}) => (
           <>
             <Image
-              width={isProduct ? w - 20 : width}
+              width={isProduct ? w - 10 : width}
               height={height - (isProduct ? 0 : 50)}
               source={{
                 uri: showDummy

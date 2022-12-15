@@ -44,7 +44,7 @@ export const GoBackText = styled.Text.attrs(props => ({
   color: props.theme.colors.primary,
   ml: scale(5),
 }))`
-  font-size: ${moderateScale(16)}px;
+  font-size: ${moderateScale(14)}px;
   font-family: Inter-Bold;
   font-weight: 500;
   ${color}
