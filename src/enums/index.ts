@@ -8,6 +8,7 @@ export enum Size {
 export enum Type {
   Primary = 'primary',
   Secondary = 'secondary',
+  Message = 'message',
   Grey = 'grey',
   Error = 'error',
   Link = 'link',

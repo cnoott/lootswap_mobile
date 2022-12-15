@@ -82,6 +82,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       </TagsContainer>
     );
   };
+  const handleNewMessage = () => {
+
+  };
   const renderButtons = () => {
     return (
       <TopSpace>
@@ -134,6 +137,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       <RatingsContainer>
         <LSProfileImageComponent
           profileUrl={requestedUserDetails?.profile_picture}
+          imageHeight={42}
+          imageWidth={42}
         />
         <GuarenteedDesView>
           <ProductOwnerLabel>{requestedUserDetails?.name}</ProductOwnerLabel>
@@ -151,6 +156,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           <CarouselComponent
             height={height / 2 + 40}
             isProduct={true}
+            autoPlay={false}
+            loop={false}
             imagesArr={
               selectedProductDetails?.secondary_photos || [
                 selectedProductDetails?.primary_photo,
