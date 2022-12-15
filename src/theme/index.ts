@@ -23,6 +23,7 @@ const theme = {
     tradeText: '#4862B2',
     sellBg: '#FDF6B2',
     sellText: '#723B13',
+    toggle_dark: '#35383F',
   },
   width: 50,
   height: 50,

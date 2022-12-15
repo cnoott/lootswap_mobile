@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import {color, border, layout, space} from 'styled-system';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
-import {Dimensions} from 'react-native';
+import {Dimensions, Platform} from 'react-native';
 import {Size, Type} from '../../../enums';
 
 const windowWidth = Dimensions.get('window').width;
@@ -16,8 +16,8 @@ export const Container = styled.View.attrs(props => ({
 `;
 
 export const HeaderContainer = styled.View.attrs(props => ({
-  height: scale(84),
-  pt: moderateScale(34),
+  height: scale(Platform.OS === 'ios' ? 94 : 64),
+  pt: moderateScale(Platform.OS === 'ios' ? 34 : 0),
   bg: props.theme.colors.white,
 }))`
   flex-direction: row;
@@ -29,9 +29,9 @@ export const HeaderContainer = styled.View.attrs(props => ({
 `;
 
 export const ProfileHeaderContainer = styled.View.attrs({
-  height: scale(94),
-  pt: moderateScale(34),
-  px: scale(20),
+  height: scale(Platform.OS === 'ios' ? 94 : 64),
+  pt: moderateScale(Platform.OS === 'ios' ? 34 : 0),
+  px: scale(10),
 })`
   flex-direction: row;
   align-items: center;
