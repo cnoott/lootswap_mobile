@@ -53,13 +53,13 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const {requestedUserDetails} = auth;
   const {selectedProductDetails} = homeStates;
   const {productData = {}} = route?.params;
+
   useEffect(() => {
     if (productData?.userId) {
-      // Getting Product owner details(
       dispatch(getUsersDetailsRequest(productData?.userId));
       dispatch(getProductDetails(productData?.objectID));
     }
-  }, []);
+  }, [dispatch, productData?.userId, productData?.objectID]);
 
   const renderGoBackView = () => {
     return (

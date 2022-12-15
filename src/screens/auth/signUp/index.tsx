@@ -20,7 +20,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import LSInput from '../../../components/commonComponents/LSInput';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {Size, Type} from '../../../enums';
-import {profileImgUploadRequest, signUpRequest} from '../../../redux/modules';
+import {signUpRequest} from '../../../redux/modules';
 
 import {
   Container,
@@ -140,9 +140,8 @@ export const CreateAccountScreen: FC<{}> = () => {
               setImageUploading(false);
               setProfileUrl(url);
             })
-            .catch(error => {
+            .catch(() => {
               setImageUploading(false);
-              console.log('error ====', error);
             });
         })
         .catch(() => {

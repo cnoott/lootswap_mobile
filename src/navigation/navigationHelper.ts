@@ -3,7 +3,7 @@ LOOTSWAP - HELPER CLASS FOR NAVIGATION
 ***/
 
 import * as React from 'react';
-import {CommonActions, NavigationProp} from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
 
 export let isReadyRef = React.createRef();
 export let navigationRef = React.createRef();
@@ -15,7 +15,7 @@ export const resetRoute = (screenName = 'AppScreens', data = {}) => {
   navigationRef.current?.dispatch(
     CommonActions.reset({
       index: 0,
-      routes: [{name: screenName}],
+      routes: [{name: screenName, params: data}],
     }),
   );
 };

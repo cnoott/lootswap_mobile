@@ -83,7 +83,7 @@ export const BottomTabs: FC<{}> = () => {
    * Custom Tab Bar
    */
   const MyCustomTabBar = ({state, descriptors, navigation}) => {
-    const auth: AuthProps = useSelector(state => state.auth);
+    const auth: AuthProps = useSelector(reduxState => reduxState.auth);
     const {isLoggedIn} = getInitialRoute(auth.userData);
     return (
       <TabBarContainer>

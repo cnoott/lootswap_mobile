@@ -7,9 +7,9 @@ const useMessagingService = () => {
     if (socketObj == null) {
       connect();
     }
-  }, []);
+  });
   const connect = () => {
-    socketObj = socketIo('http://192.168.0.105:8000', {
+    socketObj = socketIo('http://192.168.1.2:8000', {
       transports: ['websocket'],
       upgrade: false,
     });

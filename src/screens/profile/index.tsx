@@ -3,7 +3,7 @@ LootSwap - FIRST TAB SCREEN
 ***/
 
 import React, {FC, useState} from 'react';
-import {Platform} from 'react-native';
+// import {Platform} from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import {InProfileHeader} from '../../components/commonComponents/headers/profileHeader';
 import {
@@ -105,14 +105,18 @@ export const ProfileScreen: FC<{}> = () => {
       cropping: true,
     }).then(image => {
       // setImageUploading(true);
-      const fileData = {
-        ...image,
-        type: image?.mime,
-        uri:
-          Platform.OS === 'android'
-            ? image?.sourceURL
-            : image?.sourceURL?.replace('file://', ''),
-      };
+      // const fileData = {
+      //   ...image,
+      //   type: image?.mime,
+      //   uri:
+      //     Platform.OS === 'android'
+      //       ? image?.sourceURL
+      //       : image?.sourceURL?.replace('file://', ''),
+      // };
+
+      // Unwanted code
+      setProfileUrl(image.path);
+      setImageUploading(false);
     });
   };
   const onSignoutPress = () => {

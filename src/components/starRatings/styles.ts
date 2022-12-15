@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 import {color, layout, space} from 'styled-system';
-import {moderateScale, verticalScale} from 'react-native-size-matters';
+import {moderateScale} from 'react-native-size-matters';
 
-export const Container = styled.View.attrs(props => ({}))`
+export const Container = styled.View`
   flex-direction: row ${space};
 `;
 

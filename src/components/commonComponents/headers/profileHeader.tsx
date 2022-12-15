@@ -4,10 +4,10 @@ import {
   ProfileRightTouchable,
 } from './styles';
 import React, {FC} from 'react';
-import {useDispatch} from 'react-redux';
+// import {useDispatch} from 'react-redux';
 import {SvgXml} from 'react-native-svg';
 import {PROFILE_TRIPPLE_DOT_ICON} from 'localsvgimages';
-import {signOutRequest} from '../../../redux/modules';
+// import {signOutRequest} from '../../../redux/modules';
 // import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 interface HeaderProps {
@@ -15,7 +15,7 @@ interface HeaderProps {
 }
 
 export const InProfileHeader: FC<HeaderProps> = React.memo(() => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const onTrippleDotPress = () => {
     // dispatch(signOutRequest());
   };

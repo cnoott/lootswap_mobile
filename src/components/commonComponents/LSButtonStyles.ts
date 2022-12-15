@@ -1,11 +1,10 @@
 import styled from 'styled-components/native';
 import {color, border, layout} from 'styled-system';
-import {Size, Type} from '../../enums';
+import {Type} from '../../enums';
 
 export const ButtonContainer = styled.TouchableOpacity.attrs(props => ({
   width: props.width,
   height: props.height,
-  // borderWidth: props.size === Size.Medium ? 2 : 0,
   bg:
     props.type === Type.Primary
       ? props.theme.colors.primary
