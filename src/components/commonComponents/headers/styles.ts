@@ -45,7 +45,7 @@ export const ProfileHeaderText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
   mr: moderateScale(2),
 }))`
-  font-size: ${props => `${moderateScale(24)}px`};
+  font-size: ${moderateScale(24)}px;
   font-family: Inter-Bold;
   ${color}
   ${space}
@@ -56,7 +56,7 @@ export const StackHeaderText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
   ml: moderateScale(10),
 }))`
-  font-size: ${props => `${moderateScale(22)}px`};
+  font-size: ${moderateScale(20)}px;
   font-family: Inter-Bold;
   ${color}
   ${space}
@@ -118,7 +118,6 @@ ${layout}
 export const BellImage = styled.Image.attrs({
   width: scale(22),
   height: scale(20),
-  // mr: moderateScale(10),
 })`
   ${color}
   ${space}
@@ -248,7 +247,6 @@ export const TextInput = styled.TextInput.attrs(props => ({
   placeholderTextColor: props.theme.colors.placeholder,
   bg: props.theme.colors.white,
   height: scale(47),
-  // borderBottomColor: props.theme.colors.secondary,
   borderRadius: scale(8.5),
   textAlign: 'center',
   shadowColor: props.theme.colors.primary,

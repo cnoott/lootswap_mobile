@@ -3,8 +3,6 @@ LootSwap - USER CHAT SCREEN
 ***/
 
 import React, {FC, useState} from 'react';
-import {SvgXml} from 'react-native-svg';
-import {useSelector} from 'react-redux';
 import {useTheme} from 'styled-components';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {InUserChatHeader} from '../../components/commonComponents/headers/userChatHeader';
@@ -21,14 +19,11 @@ import {
   ListHeaderContainer,
   ListHeaderText,
 } from './styles';
-import {AuthProps} from '../../redux/modules/auth/reducer';
 import {MEDIA_UPLOAD_GREY_ICON} from 'localsvgimages';
 import {PaperAirplaneIcon} from 'react-native-heroicons/solid';
 import {moderateScale} from 'react-native-size-matters';
 import MessageCell from '../../components/message/messageCell';
-import useMessagingService, {
-  socketObj,
-} from '../../services/useMessagingService';
+import useMessagingService from '../../services/useMessagingService';
 
 const DATA = [
   {
@@ -58,7 +53,6 @@ const DATA = [
 ];
 
 export const UserChatScreen: FC<{}> = () => {
-  const auth: AuthProps = useSelector(state => state.auth);
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   useMessagingService();

@@ -2,10 +2,8 @@
 
 import {HOME_FILTER, GET_PRODUCT_DETAILS} from '../../../constants/actions';
 import {FILTER_TYPE} from 'custom_types';
-import {getHomeFilterData} from '../../../utility/utility';
 
 export interface FilterProps {
-  homeFilterData: FILTER_TYPE;
   selectedProductDetails: any;
 }
 
@@ -16,24 +14,16 @@ type ActionProps = {
 };
 
 export const InitialState: FilterProps = {
-  homeFilterData: getHomeFilterData(),
   selectedProductDetails: null,
 };
 
 export default function loading(state = InitialState, action: ActionProps) {
-  const {type, newFilter, payload} = action;
+  const {type, payload} = action;
 
   switch (type) {
-    case HOME_FILTER.UPDATE: {
-      return {
-        ...state,
-        homeFilterData: newFilter,
-      };
-    }
     case HOME_FILTER.RESET: {
       return {
         ...state,
-        homeFilterData: getHomeFilterData(),
       };
     }
     case GET_PRODUCT_DETAILS.REQUEST: {

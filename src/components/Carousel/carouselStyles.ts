@@ -1,8 +1,6 @@
-import {Dimensions} from 'react-native';
 import styled from 'styled-components/native';
 import {color, layout, space} from 'styled-system';
-import {moderateScale, verticalScale} from 'react-native-size-matters';
-const width = Dimensions.get('window').width;
+import {moderateScale} from 'react-native-size-matters';
 
 export const Container = styled.View.attrs(props => ({
   height: props.height,

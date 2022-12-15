@@ -82,7 +82,7 @@ export const FullWidthDivider = styled.View.attrs(props => ({
   ${color}
 `;
 
-export const OptionsContainer = styled.View.attrs(props => ({
+export const OptionsContainer = styled.View.attrs(() => ({
   px: moderateScale(3),
   mt: verticalScale(20),
 }))`
@@ -90,7 +90,7 @@ export const OptionsContainer = styled.View.attrs(props => ({
   ${space}
 `;
 
-export const OptionItemContainer = styled.TouchableOpacity.attrs(props => ({
+export const OptionItemContainer = styled.TouchableOpacity.attrs(() => ({
   py: verticalScale(5),
   mb: verticalScale(10),
   hitSlop: {top: 5, bottom: 5, left: 20, right: 20},
@@ -119,7 +119,7 @@ export const EmptyRowView = styled.View`
   align-items: center;
 `;
 
-export const SignOutContainer = styled.TouchableOpacity.attrs(props => ({
+export const SignOutContainer = styled.TouchableOpacity.attrs(() => ({
   py: verticalScale(5),
   hitSlop: {top: 5, bottom: 5, left: 20, right: 20},
 }))`
