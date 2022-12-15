@@ -22,6 +22,7 @@ import {
   EmptyRowView,
   SignOutContainer,
   SignOutText,
+  BottomView,
 } from './styles';
 import {
   EDIT_PROFILE_ICON,
@@ -154,6 +155,7 @@ export const ProfileScreen: FC<{}> = () => {
         <FullWidthDivider />
         {renderOptions()}
         {renderSignOut()}
+        <BottomView />
       </SubContainer>
     </Container>
   );

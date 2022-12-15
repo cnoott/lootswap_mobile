@@ -118,3 +118,39 @@ export const getProfileOptions = () => {
   ];
   return optionsList;
 };
+
+export const getNotificationSettingsList = () => {
+  const list = [
+    {
+      label: 'New Messages',
+      status: false,
+      id: 1,
+    },
+    {
+      label: 'Offers',
+      status: true,
+      id: 2,
+    },
+    {
+      label: 'Shipping updates',
+      status: false,
+      id: 3,
+    },
+    {
+      label: 'Price drops',
+      status: false,
+      id: 4,
+    },
+    {
+      label: 'Marketing notifications',
+      status: false,
+      id: 5,
+    },
+    {
+      label: 'App Updates',
+      status: false,
+      id: 6,
+    },
+  ];
+  return list;
+};

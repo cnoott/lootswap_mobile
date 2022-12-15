@@ -10,8 +10,10 @@ export const Container = styled.View.attrs(props => ({
   ${layout}
 `;
 
-export const SubContainer = styled.View.attrs(() => ({
+export const SubContainer = styled.ScrollView.attrs(() => ({
   mx: moderateScale(15),
+  showsVerticalScrollIndicator: false,
+  pb: verticalScale(30),
 }))`
   ${space}
   ${layout}
@@ -139,4 +141,8 @@ export const SignOutText = styled.Text.attrs(props => ({
   ${color}
   ${space}
   ${layout}
+`;
+
+export const BottomView = styled.TouchableOpacity`
+  height: 40px;
 `;
