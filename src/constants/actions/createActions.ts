@@ -31,3 +31,7 @@ export const GET_USER_DETAILS = {
 export const GET_PRODUCT_DETAILS = {
   ...createActionConst(actions.GET_PRODUCT_DETAILS),
 };
+
+export const GET_MESSAGE_INITIATED_STATUS = {
+  ...createActionConst(actions.GET_MESSAGE_INITIATED_STATUS),
+};

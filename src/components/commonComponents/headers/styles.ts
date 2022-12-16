@@ -368,6 +368,8 @@ export const ModalItemContainer = styled.TouchableOpacity.attrs(props => ({
   ${border}
 `;
 
+export const TouchableOpacity = styled.TouchableOpacity``;
+
 export const EmptyRowView = styled.View`
   flex-direction: row;
   align-items: center;

@@ -75,6 +75,13 @@ export const getRequestedProductDetailsCall = (productId: string) => {
   return handleResponse(api.get(`product/${productId}`), API_RESPONSE.CODE200);
 };
 
+export const getMessageInitiatedstatusCall = (reqData: any) => {
+  return handleResponse(
+    api.post('check-if-already-messaged', reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

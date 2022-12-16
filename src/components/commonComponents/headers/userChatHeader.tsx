@@ -3,6 +3,7 @@ import {
   ProfileHeaderContainer,
   ProfileRightTouchable,
   EmptyRowView,
+  TouchableOpacity,
 } from './styles';
 import {LEFT_BLACK_ARROW} from 'localsvgimages';
 import React, {FC} from 'react';
@@ -27,7 +28,9 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(({title}) => {
   return (
     <ProfileHeaderContainer>
       <EmptyRowView>
-        <SvgXml xml={LEFT_BLACK_ARROW} />
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <SvgXml xml={LEFT_BLACK_ARROW} />
+        </TouchableOpacity>
         <StackHeaderText>{title}</StackHeaderText>
       </EmptyRowView>
       {true ? (
