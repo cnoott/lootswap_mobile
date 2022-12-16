@@ -39,7 +39,11 @@ import {SvgXml} from 'react-native-svg';
 import {LEFT_PRIMARY_ARROW, SHIELD_ICON} from 'localsvgimages';
 import StarRatings from '../../components/starRatings';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
-import {getUsersDetailsRequest, getProductDetails} from '../../redux/modules';
+import {
+  getUsersDetailsRequest,
+  getProductDetails,
+  getMessageInitiatedStatus,
+} from '../../redux/modules';
 import {getProductTags} from '../../utility/utility';
 
 const height = Dimensions.get('window').height;
@@ -50,7 +54,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const auth: AuthProps = useSelector(state => state.auth);
   const homeStates: AuthProps = useSelector(state => state.home);
   const theme = useTheme();
-  const {requestedUserDetails} = auth;
+  const {requestedUserDetails, userData} = auth;
   const {selectedProductDetails} = homeStates;
   const {productData = {}} = route?.params;
 
@@ -60,6 +64,24 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       dispatch(getProductDetails(productData?.objectID));
     }
   }, [dispatch, productData?.userId, productData?.objectID]);
+
+  const onMessagePress = () => {
+    dispatch(
+      getMessageInitiatedStatus(
+        JSON.stringify({
+          userId: userData?._id,
+          productId: productData?.objectID,
+        }),
+        (res: any) => {
+          console.log('Success ===', res);
+        },
+        (error: any) => {
+          console.log('error ===', error);
+        },
+      ),
+    );
+    // navigation.navigate('UserChatScreen');
+  };
 
   const renderGoBackView = () => {
     return (
@@ -102,8 +124,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
         <LSButton
           title={'Message'}
           size={Size.Full}
-          type={Type.Primary}
-          onPress={() => navigation.navigate('UserChatScreen')}
+          type={Type.Grey}
+          onPress={onMessagePress}
         />
       </TopSpace>
     );
