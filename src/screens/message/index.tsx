@@ -1,10 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /***
 LootSwap - USER CHAT SCREEN
 ***/
 
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect, useRef} from 'react';
 import {useTheme} from 'styled-components';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useDispatch, useSelector} from 'react-redux';
 import {InUserChatHeader} from '../../components/commonComponents/headers/userChatHeader';
 import LSInput from '../../components/commonComponents/LSInput';
 import {
@@ -24,42 +26,93 @@ import {PaperAirplaneIcon} from 'react-native-heroicons/solid';
 import {moderateScale} from 'react-native-size-matters';
 import MessageCell from '../../components/message/messageCell';
 import useMessagingService from '../../services/useMessagingService';
+import {AuthProps} from '../../redux/modules/auth/reducer';
+import {MessageProps} from '../../redux/modules/message/reducer';
+import {getMessagesHistory} from '../../redux/modules/message/actions';
+import {getConfiguredMessageData} from '../../utility/utility';
 
-const DATA = [
-  {
-    title: 'Main dishes',
-    data: [
-      'Hello, good morning.',
-      'I am a Customer Service, is there anything I can help you with? 😄',
-    ],
-    self: false,
-  },
-  {
-    title: 'Sides',
-    data: [
-      "Hi, I'm having problems with my order & payment.",
-      'Can you help me?',
-    ],
-    self: true,
-  },
-  {
-    title: 'Drinks',
-    data: [
-      'Of course...',
-      'Can you tell me the problem you are having? so I can help solve it 😁',
-    ],
-    self: false,
-  },
-];
-
-export const UserChatScreen: FC<{}> = () => {
+export const UserChatScreen: FC<any> = ({route}) => {
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const auth: AuthProps = useSelector(state => state.auth);
+  const messageData: MessageProps = useSelector(state => state.message);
   const insets = useSafeAreaInsets();
-  useMessagingService();
   const [messageText, setMessageText] = useState('');
+  const [messagesList, setMessagesList] = useState<any>([]);
+  const [messageDoc, setMessageDoc] = useState(null);
+  const [isSocketInitDone, setSocketInitDone] = useState(false);
+  var messagesListRaw: any = useRef([]);
+  const {userData} = auth;
+  const {historyMessages} = messageData;
+  const {messageId, productOwnerId} = route?.params;
+  const socketObj = useMessagingService({
+    messageId: messageId,
+    userId: userData?._id,
+    targetId: productOwnerId,
+  });
+
+  useEffect(() => {
+    dispatch(
+      getMessagesHistory({
+        userId: userData?._id,
+        messageId: messageId,
+      }),
+    );
+    return () => socketObj && socketObj.removeAllListeners();
+  }, []);
+
+  useEffect(() => {
+    if (historyMessages && historyMessages?.messages) {
+      setMessageDoc(historyMessages);
+      messagesListRaw.current = historyMessages?.messages;
+      setMessagesList(getConfiguredMessageData(historyMessages?.messages));
+      console.log('historyMessages?.messages ===', historyMessages?.messages);
+    }
+  }, [historyMessages]);
+
+  useEffect(() => {
+    if (socketObj && !isSocketInitDone) {
+      setSocketInitDone(true);
+      initSocket();
+    }
+  }, [socketObj, isSocketInitDone]);
+
+  const initSocket = async () => {
+    // Listner for receiving messages
+    socketObj.on('send message', ({content}) => {
+      //{content, from, to}
+      const messagesData = [...messagesListRaw.current, content];
+      messagesListRaw.current = messagesData;
+      const newData = getConfiguredMessageData(messagesData);
+      setMessagesList(newData);
+    });
+  };
+
+  const sendMessage = () => {
+    if (messageText === '') {
+      return;
+    }
+    const isReciever = messageDoc?.reciever?._id === userData?._id;
+    const messageObj = {
+      message: messageText,
+      userName: userData?.name,
+      userId: userData?._id,
+      isReciever,
+    };
+    try {
+      socketObj.emit('send message', {
+        content: messageObj,
+        to: messageId,
+      });
+      setMessageText('');
+    } catch (error) {
+      console.log('Error ===', error);
+    }
+  };
+
   const renderRightInputView = () => {
     return (
-      <Touchable>
+      <Touchable onPress={sendMessage}>
         <InputRightButtonView>
           <PaperAirplaneIcon
             size={moderateScale(20)}
@@ -82,8 +135,8 @@ export const UserChatScreen: FC<{}> = () => {
       </InputView>
     );
   };
-  const renderMessage = (messageData: any, isSelf = false) => {
-    return <MessageCell self={isSelf} item={messageData} />;
+  const renderMessage = (messageInfo: any, isSelf = false) => {
+    return <MessageCell self={isSelf} item={messageInfo?.message} />;
   };
   const renderListHeader = (title: string) => {
     return (
@@ -95,9 +148,9 @@ export const UserChatScreen: FC<{}> = () => {
   const renderMessagesListView = () => {
     return (
       <SectionList
-        sections={DATA}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({item, index}) => renderMessage(item, DATA[index]?.self)}
+        sections={messagesList}
+        keyExtractor={(item, index) => item?.message + index}
+        renderItem={({item}) => renderMessage(item, false)}
         renderSectionHeader={({section: {title}}) => renderListHeader(title)}
       />
     );

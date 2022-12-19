@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import * as utils from './apiHelpers';
+import * as ApiHelper from './apiHelpers';
 import {API_RESPONSE} from '../constants/stringConstants';
 import {Alert} from 'custom_top_alert';
 
@@ -7,8 +7,8 @@ type ApiRetryTypes = {baseUrl?: string; retry: number};
 
 let API_RETRY: ApiRetryTypes = {baseUrl: '', retry: 0};
 let isTokenExpired = false;
-const api = utils.createAxiosInstanceWithHeader();
-
+const api = ApiHelper.createAxiosInstanceWithHeader();
+api.interceptors.request.use(ApiHelper.globalUserTokenInterceptor);
 api.interceptors.response.use(
   response => {
     const originalRequest = response.config;
@@ -56,7 +56,7 @@ export const getProfileImageSignedURL = (body: any) => {
 export const uploadProfileImage = (signedImgData: any, imageFileData: any) => {
   const {signedRequest} = signedImgData;
   const profileImgUploadApi =
-    utils.createProfileImageUploadAxiosInstanceWithHeader(
+    ApiHelper.createProfileImageUploadAxiosInstanceWithHeader(
       imageFileData,
       signedRequest,
     );
@@ -89,10 +89,17 @@ export const createFirstMessageCall = (reqData: any) => {
   );
 };
 
+export const getMessageHistoryCall = (reqData: any) => {
+  return handleResponse(
+    api.get(`message/${reqData?.userId}/${reqData?.messageId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
-      console.log('API Response: ', res);
+      // console.log('API Response: ', res);
 
       if (res.status === code) {
         return {status: res.status, success: true, data: res.data};
@@ -105,8 +112,8 @@ const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
         const errorObj = {
           status: res.status,
           error: detailErrorMsg
-            ? utils.retrieveDetailMessageFromResponse(res)
-            : utils.retrieveErrorMessageFromResponse(res),
+            ? ApiHelper.retrieveDetailMessageFromResponse(res)
+            : ApiHelper.retrieveErrorMessageFromResponse(res),
         };
         Alert.showError(errorObj?.error || 'Something went wrong');
         return errorObj;
@@ -114,7 +121,7 @@ const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
         return;
       } else if (res.status === 500) {
         var debounce_fun = _.debounce(() => {
-          const err = utils.retrieveDetailMessageFromResponse(res);
+          const err = ApiHelper.retrieveDetailMessageFromResponse(res);
           if (err === 'Token is expire!' && !isTokenExpired) {
             isTokenExpired = true;
           }
@@ -124,7 +131,7 @@ const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
       }
       throw {
         status: res.status,
-        error: utils.retrieveErrorMessageFromResponse(res),
+        error: ApiHelper.retrieveErrorMessageFromResponse(res),
       };
     })
     .catch((error: any) => {

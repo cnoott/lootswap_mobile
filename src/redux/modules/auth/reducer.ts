@@ -19,6 +19,7 @@ export interface AuthProps {
   imgError?: any;
   profileImgData?: any;
   requestedUserDetails?: any;
+  isLogedIn?: boolean;
 }
 
 type ActionProps = {
@@ -37,6 +38,7 @@ export const InitialState: AuthProps = {
   imgError: null,
   profileImgData: null,
   requestedUserDetails: null,
+  isLogedIn: false,
 };
 
 export default function auth(state = InitialState, action: ActionProps) {
@@ -56,6 +58,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         isLoading: false,
         userData: payload?.user,
         authToken: payload?.token,
+        isLogedIn: true,
         error: null,
       };
     }
@@ -64,6 +67,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         ...state,
         isLoading: false,
         userData: payload,
+        isLogedIn: true,
         error: null,
       };
     }
@@ -74,6 +78,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         error: error,
         userData: null,
         authToken: null,
+        isLogedIn: false,
       };
     }
 
@@ -90,6 +95,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         isLoading: false,
         userData: payload?.user,
         authToken: payload?.token,
+        isLogedIn: true,
         error: null,
       };
     }
@@ -100,6 +106,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         error: error,
         userData: null,
         authToken: null,
+        isLogedIn: false,
       };
     }
     case SIGN_OUT.REQUEST: {
@@ -115,6 +122,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         isLoading: false,
         userData: null,
         authToken: null,
+        isLogedIn: false,
         error: null,
       };
     }
@@ -125,6 +133,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         error: error,
         data: null,
         authToken: null,
+        isLogedIn: false,
       };
     }
 

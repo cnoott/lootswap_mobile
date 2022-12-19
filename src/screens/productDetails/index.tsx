@@ -46,6 +46,7 @@ import {
   createFirstMessage,
 } from '../../redux/modules';
 import {getProductTags} from '../../utility/utility';
+import {Alert} from 'custom_top_alert';
 
 const height = Dimensions.get('window').height;
 
@@ -55,7 +56,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const auth: AuthProps = useSelector(state => state.auth);
   const homeStates: AuthProps = useSelector(state => state.home);
   const theme = useTheme();
-  const {requestedUserDetails, userData} = auth;
+  const {requestedUserDetails, userData, isLogedIn} = auth;
   const {selectedProductDetails} = homeStates;
   const {productData = {}} = route?.params;
 
@@ -78,6 +79,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
         reqObj,
         (res: any) => {
           console.log('Success ===', res);
+          navigation.navigate('UserChatScreen');
         },
         (error: any) => {
           console.log('error ===', error);
@@ -87,23 +89,31 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   };
 
   const onMessagePress = () => {
-    dispatch(
-      getMessageInitiatedStatus(
-        JSON.stringify({
-          userId: userData?._id,
-          productId: productData?.objectID,
-        }),
-        (res: any) => {
-          console.log('Success ===', res);
-        },
-        (error: any) => {
-          // Call create first message method when message already not initiated
-          initiateFirstMessage();
-          console.log('error ===', error);
-        },
-      ),
-    );
-    // navigation.navigate('UserChatScreen');
+    if (isLogedIn) {
+      dispatch(
+        getMessageInitiatedStatus(
+          JSON.stringify({
+            userId: userData?._id,
+            productId: productData?.objectID,
+          }),
+          (res: any) => {
+            if (res?.noMessage) {
+              initiateFirstMessage();
+            } else {
+              navigation.navigate('UserChatScreen', {
+                messageId: res?.messageDoc?._id,
+                productOwnerId: productData?.userId,
+              });
+            }
+          },
+          () => {
+            Alert.showError('Something went wrong!');
+          },
+        ),
+      );
+    } else {
+      Alert.showError('Please Login first');
+    }
   };
 
   const renderGoBackView = () => {
