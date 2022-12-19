@@ -43,14 +43,20 @@ export const HomeScreen: FC<{}> = () => {
     return <LSProductCard item={item} onPress={() => onProductPress(item)} />;
   };
 
+  const transformItems = items => {
+    return items.filter(item => item.isVisible && item.isVirtuallyVerified);
+  };
+
   const InfiniteHits = ({...props}) => {
-    const {hits, isLastPage, showMore} = useInfiniteHits(props);
-    const filteredHits = hits.filter(
-      hit => hit.isVisible && hit.isVirtuallyVerified,
-    );
+    const {hits, isLastPage, showMore} = useInfiniteHits({
+      ...props,
+      transformItems,
+    });
+    console.log(hits);
+
     return (
       <FlatList
-        data={[1, ...filteredHits]}
+        data={hits}
         renderItem={renderItem}
         keyExtractor={item => item.objectID}
         onEndReached={() => onEndReached(isLastPage, showMore)}
