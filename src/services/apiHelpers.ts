@@ -1,8 +1,10 @@
 import axios from 'axios';
 import _ from 'lodash';
+import ReduxStore from '../redux/store/store';
 //import {API} from '@env';
 
 export const baseURL = 'http://192.168.0.105:8000/api';
+export const baseURLMessage = 'http://192.168.0.105:8000/messages';
 
 const TIME_OUT = 30000;
 export const createAxiosInstanceWithHeader = () => {
@@ -16,6 +18,17 @@ export const createAxiosInstanceWithHeader = () => {
     validateStatus: status => status >= 200 && status <= 500,
   });
   return api;
+};
+
+export const globalUserTokenInterceptor = (config: any) => {
+  const {store} = ReduxStore;
+  const state = store.getState();
+  if (!_.has(config, 'headers.Authorization')) {
+    _.merge(config, {
+      headers: {Authorization: `Bearer ${state.auth.authToken}`},
+    });
+  }
+  return config;
 };
 
 export const createProfileImageUploadAxiosInstanceWithHeader = (

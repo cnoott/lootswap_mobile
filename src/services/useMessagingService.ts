@@ -1,30 +1,31 @@
 import {useEffect} from 'react';
 import socketIo from 'socket.io-client';
-import {baseURL} from './apiHelpers';
+import {baseURLMessage} from './apiHelpers';
 
 export let socketObj: any = null;
-const useMessagingService = () => {
+const useMessagingService = (authObj: any) => {
   useEffect(() => {
     if (socketObj == null) {
       connect();
     }
   });
   const connect = () => {
-    socketObj = socketIo(baseURL, {
+    socketObj = socketIo(baseURLMessage, {
       transports: ['websocket'],
       upgrade: false,
+      auth: authObj,
     });
     socketObj.connect();
-    initListners();
+    // initListners();
   };
-  const initListners = () => {
-    if (socketObj) {
-      socketObj.on('connect', () => {
-        // Socket Connected
-        console.log('<==== Socket Connected ====>');
-      });
-    }
-  };
+  // const initListners = () => {
+  //   if (socketObj) {
+  //     socketObj.on('connect', () => {
+  //       // Socket Connected
+  //       console.log('<==== Socket Connected ====>');
+  //     });
+  //   }
+  // };
   return socketObj;
 };
 

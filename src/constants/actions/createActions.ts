@@ -39,3 +39,7 @@ export const GET_MESSAGE_INITIATED_STATUS = {
 export const CREATE_FIRST_MESSAGE = {
   ...createActionConst(actions.CREATE_FIRST_MESSAGE),
 };
+
+export const GET_MESSAGES_HISTORY = {
+  ...createActionConst(actions.GET_MESSAGES_HISTORY),
+};
