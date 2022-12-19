@@ -82,9 +82,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       </TagsContainer>
     );
   };
-  const handleNewMessage = () => {
-
-  };
   const renderButtons = () => {
     return (
       <TopSpace>
