@@ -43,6 +43,7 @@ import {
   getUsersDetailsRequest,
   getProductDetails,
   getMessageInitiatedStatus,
+  createFirstMessage,
 } from '../../redux/modules';
 import {getProductTags} from '../../utility/utility';
 
@@ -65,6 +66,26 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     }
   }, [dispatch, productData?.userId, productData?.objectID]);
 
+  const initiateFirstMessage = () => {
+    const reqObj = {
+      userId: userData?._id,
+      recieverId: productData?.userId,
+      senderId: userData?._id,
+      productId: productData?.objectID,
+    };
+    dispatch(
+      createFirstMessage(
+        reqObj,
+        (res: any) => {
+          console.log('Success ===', res);
+        },
+        (error: any) => {
+          console.log('error ===', error);
+        },
+      ),
+    );
+  };
+
   const onMessagePress = () => {
     dispatch(
       getMessageInitiatedStatus(
@@ -76,6 +97,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           console.log('Success ===', res);
         },
         (error: any) => {
+          // Call create first message method when message already not initiated
+          initiateFirstMessage();
           console.log('error ===', error);
         },
       ),

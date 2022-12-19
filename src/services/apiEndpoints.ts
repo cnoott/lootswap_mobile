@@ -82,6 +82,13 @@ export const getMessageInitiatedstatusCall = (reqData: any) => {
   );
 };
 
+export const createFirstMessageCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`create-message-mobile/${reqData?.userId}`, reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

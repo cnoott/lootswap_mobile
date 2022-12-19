@@ -35,3 +35,7 @@ export const GET_PRODUCT_DETAILS = {
 export const GET_MESSAGE_INITIATED_STATUS = {
   ...createActionConst(actions.GET_MESSAGE_INITIATED_STATUS),
 };
+
+export const CREATE_FIRST_MESSAGE = {
+  ...createActionConst(actions.CREATE_FIRST_MESSAGE),
+};
