@@ -59,6 +59,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const {requestedUserDetails, userData, isLogedIn} = auth;
   const {selectedProductDetails} = homeStates;
   const {productData = {}} = route?.params;
+  console.log('requestedUserDetails ===', requestedUserDetails);
 
   useEffect(() => {
     if (productData?.userId) {
@@ -78,8 +79,13 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       createFirstMessage(
         reqObj,
         (res: any) => {
-          console.log('Success ===', res);
-          navigation.navigate('UserChatScreen');
+          const url = res?.url;
+          const urlData = url.split('/');
+          navigation.navigate('UserChatScreen', {
+            messageId: urlData[2],
+            productOwnerId: productData?.userId,
+            productOwnerName: requestedUserDetails?.name || 'Owner',
+          });
         },
         (error: any) => {
           console.log('error ===', error);
@@ -103,6 +109,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               navigation.navigate('UserChatScreen', {
                 messageId: res?.messageDoc?._id,
                 productOwnerId: productData?.userId,
+                productOwnerName: requestedUserDetails?.name || 'Owner',
               });
             }
           },

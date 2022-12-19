@@ -28,7 +28,10 @@ import MessageCell from '../../components/message/messageCell';
 import useMessagingService from '../../services/useMessagingService';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
-import {getMessagesHistory} from '../../redux/modules/message/actions';
+import {
+  getMessagesHistory,
+  saveSentMessage,
+} from '../../redux/modules/message/actions';
 import {getConfiguredMessageData} from '../../utility/utility';
 
 export const UserChatScreen: FC<any> = ({route}) => {
@@ -44,7 +47,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
   var messagesListRaw: any = useRef([]);
   const {userData} = auth;
   const {historyMessages} = messageData;
-  const {messageId, productOwnerId} = route?.params;
+  const {messageId, productOwnerId, productOwnerName} = route?.params;
   const socketObj = useMessagingService({
     messageId: messageId,
     userId: userData?._id,
@@ -81,7 +84,10 @@ export const UserChatScreen: FC<any> = ({route}) => {
     // Listner for receiving messages
     socketObj.on('send message', ({content}) => {
       //{content, from, to}
-      const messagesData = [...messagesListRaw.current, content];
+      const messagesData =
+        messagesListRaw?.current?.length > 0
+          ? [...messagesListRaw.current, content]
+          : [content];
       messagesListRaw.current = messagesData;
       const newData = getConfiguredMessageData(messagesData);
       setMessagesList(newData);
@@ -104,6 +110,22 @@ export const UserChatScreen: FC<any> = ({route}) => {
         content: messageObj,
         to: messageId,
       });
+      const reqData = {
+        userId: userData?._id,
+        messageId: messageId,
+        messageObj: messageObj,
+      };
+      dispatch(
+        saveSentMessage(
+          reqData,
+          () => {
+            // Success
+          },
+          () => {
+            // Failure
+          },
+        ),
+      );
       setMessageText('');
     } catch (error) {
       console.log('Error ===', error);
@@ -150,14 +172,16 @@ export const UserChatScreen: FC<any> = ({route}) => {
       <SectionList
         sections={messagesList}
         keyExtractor={(item, index) => item?.message + index}
-        renderItem={({item}) => renderMessage(item, false)}
+        renderItem={({item}) =>
+          renderMessage(item, item?.userId === userData?._id)
+        }
         renderSectionHeader={({section: {title}}) => renderListHeader(title)}
       />
     );
   };
   return (
     <Container>
-      <InUserChatHeader title={'Customer Service'} />
+      <InUserChatHeader title={productOwnerName} />
       <KeyboardAvoidingView>
         <SubContainer>{renderMessagesListView()}</SubContainer>
         <InputContainer bottomSpace={insets.bottom - 10}>

@@ -156,7 +156,6 @@ export const getNotificationSettingsList = () => {
 };
 
 export const getConfiguredMessageData = messageList => {
-  console.log('messageList ===', messageList);
   const data = {
     title: '19/12/2022',
     data: messageList,

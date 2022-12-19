@@ -96,6 +96,16 @@ export const getMessageHistoryCall = (reqData: any) => {
   );
 };
 
+export const saveSentMessageCall = (reqData: any) => {
+  return handleResponse(
+    api.post(
+      `send-message/${reqData?.userId}/${reqData?.messageId}`,
+      reqData?.messageObj,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
