@@ -5,9 +5,10 @@ import {baseURLMessage} from './apiHelpers';
 export let socketObj: any = null;
 const useMessagingService = (authObj: any) => {
   useEffect(() => {
-    if (socketObj == null) {
-      connect();
-    }
+    // if (socketObj == null) {
+    //   connect();
+    // }
+    connect();
   });
   const connect = () => {
     socketObj = socketIo(baseURLMessage, {

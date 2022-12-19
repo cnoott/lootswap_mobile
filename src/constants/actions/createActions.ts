@@ -43,3 +43,7 @@ export const CREATE_FIRST_MESSAGE = {
 export const GET_MESSAGES_HISTORY = {
   ...createActionConst(actions.GET_MESSAGES_HISTORY),
 };
+
+export const SAVE_SENT_MESSAGE = {
+  ...createActionConst(actions.SAVE_SENT_MESSAGE),
+};
