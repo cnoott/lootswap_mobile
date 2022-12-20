@@ -16,12 +16,18 @@ interface LSLSDropDownProps {
   itemsList?: any;
   dropdownLabel?: string;
   isSearch?: boolean;
+  onSelectItem?: Function;
 }
 
 const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
-  const {dropdownLabel, itemsList = [], isSearch = false} = props;
+  const {
+    dropdownLabel,
+    itemsList = [],
+    isSearch = false,
+    onSelectItem = () => {},
+  } = props;
   return (
     <Dropdown
       style={[
@@ -44,8 +50,10 @@ const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
       onBlur={() => setIsFocus(false)}
       onChange={item => {
         setValue(item);
+        onSelectItem(item);
       }}
       renderRightIcon={() => <SvgXml xml={DROP_DOWN_ARROW} />}
+      autoScroll={false}
     />
   );
 });
