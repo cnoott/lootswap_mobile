@@ -28,14 +28,15 @@ export const HeaderContainer = styled.View.attrs(props => ({
   ${layout}
 `;
 
-export const ProfileHeaderContainer = styled.View.attrs({
+export const ProfileHeaderContainer = styled.View.attrs(() => ({
   height: scale(Platform.OS === 'ios' ? 94 : 64),
   pt: moderateScale(Platform.OS === 'ios' ? 34 : 0),
   px: scale(10),
-})`
+}))`
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${props =>
+    `${props?.centerAligned ? 'center' : 'space-between'}`};
   ${color}
   ${space}
     ${layout}
