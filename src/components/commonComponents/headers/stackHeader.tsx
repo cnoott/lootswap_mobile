@@ -14,18 +14,24 @@ interface HeaderProps {
   title?: string;
   back?: boolean;
   right?: boolean;
+  centerAligned?: boolean;
 }
 
 export const InStackHeader: FC<HeaderProps> = React.memo(props => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
-  const {title = 'Profile', back = true, right = false} = props;
+  const {
+    title = 'Profile',
+    back = true,
+    right = false,
+    centerAligned = false,
+  } = props;
   const onTrippleDotPress = () => {};
   const onBackPress = () => {
     navigation.goBack();
   };
 
   return (
-    <ProfileHeaderContainer>
+    <ProfileHeaderContainer centerAligned={centerAligned}>
       <EmptyRowView>
         {back && (
           <ProfileLeftTouchable onPress={onBackPress}>
