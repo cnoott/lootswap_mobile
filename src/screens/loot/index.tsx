@@ -2,32 +2,46 @@
 LootSwap - LOOT LIST SCREEN
 ***/
 
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {Container, Innercontainer, ButtonContainer} from './styles';
 import LSDropDown from '../../components/commonComponents/LSDropDown';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
-
-const data = [
-  {label: 'Item 1', value: '1'},
-  {label: 'Item 2', value: '2'},
-  {label: 'Item 3', value: '3'},
-  {label: 'Item 4', value: '4'},
-  {label: 'Item 5', value: '5'},
-  {label: 'Item 6', value: '6'},
-  {label: 'Item 7', value: '7'},
-  {label: 'Item 8', value: '8'},
-];
+import {
+  categoryList,
+  brandsList,
+  conditionList,
+  getSizeList,
+} from '../../utility/utility';
 
 export const LootScreen: FC<{}> = () => {
-  const renderDropdown = (dropdownLabel: string, isSearch: boolean) => {
+  const [categoryData, setCategoryData] = useState(null);
+  const [sizeData, setSizeData] = useState(null);
+  const [brandData, setBrandData] = useState(null);
+  const [conditionData, setConditionData] = useState(null);
+  const handleNext = () => {
+    const data = {
+      category: categoryData?.value,
+      size: sizeData?.value,
+      brand: brandData?.value,
+      condition: conditionData?.value,
+    };
+    console.log('Data ===', data);
+  };
+  const renderDropdown = (
+    dropdownLabel: string,
+    isSearch: boolean,
+    dropDowndata: any,
+    selectItemFunction: Function,
+  ) => {
     return (
       <LSDropDown
-        itemsList={data}
+        itemsList={dropDowndata}
         dropdownLabel={dropdownLabel}
         isSearch={isSearch}
+        onSelectItem={selectItemFunction}
       />
     );
   };
@@ -39,17 +53,22 @@ export const LootScreen: FC<{}> = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={Innercontainer}
         keyboardShouldPersistTaps={'handled'}>
-        {renderDropdown('Category', false)}
-        {renderDropdown('Size', false)}
-        {renderDropdown('Brand/Designer', true)}
-        {renderDropdown('Condition', false)}
+        {renderDropdown('Category', false, categoryList, setCategoryData)}
+        {renderDropdown(
+          'Size',
+          false,
+          getSizeList(categoryData ? categoryData?.value : ''),
+          setSizeData,
+        )}
+        {renderDropdown('Brand/Designer', true, brandsList, setBrandData)}
+        {renderDropdown('Condition', false, conditionList, setConditionData)}
         <ButtonContainer>
           <LSButton
             title={'Next'}
             size={Size.Full}
             type={Type.Primary}
             radius={20}
-            onPress={() => {}}
+            onPress={handleNext}
           />
         </ButtonContainer>
       </KeyboardAwareScrollView>
