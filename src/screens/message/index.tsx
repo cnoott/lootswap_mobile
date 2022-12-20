@@ -18,8 +18,6 @@ import {
   InputRightButtonView,
   InputView,
   SectionList,
-  ListHeaderContainer,
-  ListHeaderText,
 } from './styles';
 import {MEDIA_UPLOAD_GREY_ICON} from 'localsvgimages';
 import {PaperAirplaneIcon} from 'react-native-heroicons/solid';
@@ -28,10 +26,7 @@ import MessageCell from '../../components/message/messageCell';
 import useMessagingService from '../../services/useMessagingService';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
-import {
-  getMessagesHistory,
-  saveSentMessage,
-} from '../../redux/modules/message/actions';
+import {getMessagesHistory} from '../../redux/modules/message/actions';
 import {getConfiguredMessageData} from '../../utility/utility';
 
 export const UserChatScreen: FC<any> = ({route}) => {
@@ -69,7 +64,6 @@ export const UserChatScreen: FC<any> = ({route}) => {
       setMessageDoc(historyMessages);
       messagesListRaw.current = historyMessages?.messages;
       setMessagesList(getConfiguredMessageData(historyMessages?.messages));
-      console.log('historyMessages?.messages ===', historyMessages?.messages);
     }
   }, [historyMessages]);
 
@@ -110,22 +104,6 @@ export const UserChatScreen: FC<any> = ({route}) => {
         content: messageObj,
         to: messageId,
       });
-      const reqData = {
-        userId: userData?._id,
-        messageId: messageId,
-        messageObj: messageObj,
-      };
-      dispatch(
-        saveSentMessage(
-          reqData,
-          () => {
-            // Success
-          },
-          () => {
-            // Failure
-          },
-        ),
-      );
       setMessageText('');
     } catch (error) {
       console.log('Error ===', error);
@@ -160,13 +138,16 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const renderMessage = (messageInfo: any, isSelf = false) => {
     return <MessageCell self={isSelf} item={messageInfo?.message} />;
   };
-  const renderListHeader = (title: string) => {
-    return (
-      <ListHeaderContainer>
-        <ListHeaderText>{title}</ListHeaderText>
-      </ListHeaderContainer>
-    );
+  const renderListHeader = () => {
+    return null; // shelving for now
   };
+  // const renderListHeader = (title: string) => {
+  //   return (
+  //     <ListHeaderContainer>
+  //       <ListHeaderText>{title}</ListHeaderText>
+  //     </ListHeaderContainer>
+  //   );
+  // };
   const renderMessagesListView = () => {
     return (
       <SectionList
@@ -175,7 +156,8 @@ export const UserChatScreen: FC<any> = ({route}) => {
         renderItem={({item}) =>
           renderMessage(item, item?.userId === userData?._id)
         }
-        renderSectionHeader={({section: {title}}) => renderListHeader(title)}
+        // renderSectionHeader={({section: {title}}) => renderListHeader(title)}
+        renderSectionHeader={() => renderListHeader()}
       />
     );
   };

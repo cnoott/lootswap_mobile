@@ -2,7 +2,6 @@ import {
   GET_MESSAGE_INITIATED_STATUS,
   CREATE_FIRST_MESSAGE,
   GET_MESSAGES_HISTORY,
-  SAVE_SENT_MESSAGE,
 } from '../../../constants/actions';
 
 /**
@@ -52,18 +51,5 @@ export const getMessagesHistoryFailure = (error: any) => {
   return {
     type: GET_MESSAGES_HISTORY.FAILURE,
     error,
-  };
-};
-
-export const saveSentMessage = (
-  reqData: any,
-  successCallBack: Function,
-  errorCallBack: Function,
-) => {
-  return {
-    type: SAVE_SENT_MESSAGE.REQUEST,
-    reqData: reqData,
-    successCallBack: successCallBack,
-    errorCallBack: errorCallBack,
   };
 };
