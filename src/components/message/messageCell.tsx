@@ -13,7 +13,7 @@ const MessageCell: FC<LSMessageCellProps> = React.memo(props => {
   return (
     <MessageBoxContainer self={self} onPress={onPress}>
       <MessageText>{item}</MessageText>
-      <TimeText>9.12 AM</TimeText>
+      <TimeText />
     </MessageBoxContainer>
   );
 });
