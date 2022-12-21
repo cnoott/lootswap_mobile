@@ -1,6 +1,10 @@
-import {moderateScale, verticalScale} from 'react-native-size-matters';
+import {moderateScale, verticalScale, scale} from 'react-native-size-matters';
 import styled from 'styled-components/native';
-import {layout, space} from 'styled-system';
+import {layout, space, color} from 'styled-system';
+import {Dimensions} from 'react-native';
+
+const width = Dimensions.get('window').width;
+const productImageWidth = width / 2 - 60;
 
 export const Container = styled.View.attrs(props => ({
   flex: 1,
@@ -22,6 +26,42 @@ export const StepOneContainer = styled.View.attrs(props => ({
 export const ButtonContainer = styled.View.attrs(() => ({
   mt: verticalScale(50),
 }))`
+  ${space}
+  ${layout}
+`;
+
+export const AddProductsList = styled.FlatList.attrs(() => ({
+  numColumns: 2,
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    flexGrow: 1,
+    alignItems: 'flex-start',
+  },
+  ml: scale(10),
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const ImageContainer = styled.View.attrs(props => ({
+  height: scale(productImageWidth),
+  width: scale(productImageWidth),
+  borderRadius: scale(20),
+  bg: props.theme.colors.grey,
+  m: scale(5),
+}))`
+  ${layout} ${color} ${space};
+`;
+
+export const Image = styled.Image.attrs(() => ({
+  width: scale(productImageWidth),
+  height: scale(productImageWidth),
+  borderRadius: scale(20),
+}))`
+  position: absolute;
+  align-self: center;
+  ${color}
   ${space}
   ${layout}
 `;

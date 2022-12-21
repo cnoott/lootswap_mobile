@@ -112,32 +112,6 @@ export const SwiperComponent: SwiperProps = styled(Swiper).attrs(() => ({
   ${layout}
 `;
 
-export const DropdownStyle = {
-  height: verticalScale(56),
-  borderColor: 'gray',
-  borderRadius: moderateScale(16),
-  paddingHorizontal: moderateScale(20),
-  backgroundColor: '#FAFAFA',
-};
-
-export const PlaceholderStyle = {
-  fontSize: moderateScale(16),
-};
-
-export const SelectedTextStyle = {
-  fontSize: 16,
-};
-
-export const InputSearchStyle = {
-  height: 40,
-  fontSize: 16,
-};
-
-export const IconStyle = {
-  width: moderateScale(20),
-  height: moderateScale(20),
-};
-
 export const Innercontainer = {
   flex: 1,
 };

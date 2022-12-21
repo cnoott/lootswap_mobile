@@ -52,8 +52,6 @@ export const HomeScreen: FC<{}> = () => {
       ...props,
       transformItems,
     });
-    console.log(hits);
-
     return (
       <FlatList
         data={hits}
