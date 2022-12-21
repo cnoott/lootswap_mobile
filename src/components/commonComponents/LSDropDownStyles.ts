@@ -1,21 +1,30 @@
 import {moderateScale, verticalScale} from 'react-native-size-matters';
+import styled from 'styled-components/native';
+import {layout, space} from 'styled-system';
+
+export const SearchIconContainer = styled.View.attrs(() => ({
+  mr: verticalScale(10),
+}))`
+  ${space}
+  ${layout}
+`;
 
 export const DropdownStyle = {
-  height: verticalScale(56),
+  height: verticalScale(48),
   borderColor: 'gray',
   borderRadius: moderateScale(16),
   paddingHorizontal: moderateScale(20),
   backgroundColor: '#FAFAFA',
-  marginTop: verticalScale(30),
+  marginTop: verticalScale(10),
 };
 
 export const DropdownStyleSearch = {
-  height: verticalScale(56),
+  height: verticalScale(48),
   borderColor: '#35383F',
   borderRadius: moderateScale(16),
   paddingHorizontal: moderateScale(20),
   backgroundColor: '#FAFAFA',
-  marginTop: verticalScale(30),
+  marginTop: verticalScale(10),
   borderWidth: 1,
 };
 
@@ -24,12 +33,12 @@ export const SelectedBorder = {
 };
 
 export const PlaceholderStyle = {
-  fontSize: moderateScale(16),
+  fontSize: moderateScale(14),
   fontWeight: '400',
 };
 
 export const SelectedTextStyle = {
-  fontSize: moderateScale(16),
+  fontSize: moderateScale(14),
   fontWeight: '400',
 };
 

@@ -17,10 +17,12 @@ declare module 'custom_types' {
     parentId: Number;
   };
   export type FILTER_TYPE = {
-    filterLabel: string;
-    list: Array<SUB_FILTER>;
-    isFilterActive: boolean;
-    id: Number;
+    filterLabel?: string;
+    list?: Array<SUB_FILTER>;
+    isFilterActive?: boolean;
+    id?: Number;
+    FilterTitle?: string;
+    data?: Array<SUB_FILTER>;
   };
   export type PROFILE_OPTIONS_TYPE = {
     icon: string;

@@ -9,6 +9,7 @@ interface LSInputProps extends TextInputProps {
   rightIcon?: string;
   onRightIconPress?: Function;
   homeSearch?: boolean;
+  height?: number;
 }
 
 const LSInput: FC<LSInputProps> = React.memo(props => {

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import {color, border, layout, space} from 'styled-system';
-import {scale, moderateScale} from 'react-native-size-matters';
+import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 
 export const InputContainer = styled.View.attrs(props => ({
   marginTop: moderateScale(props.isHomeSearch ? 0 : 15),
@@ -34,7 +34,7 @@ export const TextInput = styled.TextInput.attrs(props => ({
   placeholderTextColor: props.isHomeSearch
     ? props.theme.colors.black
     : props.theme.colors.placeholder,
-  height: scale(47),
+  height: scale(props?.height || 47),
   shadowColor: props.theme.colors.primary,
   shadowOpacity: 0.2,
   shadowRadius: 4,
@@ -45,6 +45,7 @@ export const TextInput = styled.TextInput.attrs(props => ({
   fontSize: moderateScale(props.isHomeSearch ? 17 : 15),
   mx: scale(10),
   flex: 1,
+  py: verticalScale(props.multiline ? 15 : 0),
 }))`
   ${color}
   ${space}

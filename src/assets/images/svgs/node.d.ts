@@ -35,4 +35,7 @@ declare module 'localsvgimages' {
   export const MEDIA_UPLOAD_GREY_ICON: any;
   export const EDIT_PROFILE_EMAIL_ICON: any;
   export const DROP_DOWN_ARROW: any;
+  export const SEARCH_DROPDOWN: any;
+  export const PAY_PAL_IMAGE: any;
+  export const LINK_PAYPAL_TEXT: any;
 }
