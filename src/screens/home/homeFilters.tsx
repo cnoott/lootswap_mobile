@@ -66,9 +66,9 @@ export const HomeFiltersScreen = props => {
       </FilterButton>
     );
   };
-  const renderFilterItem = (filter: FILTER_TYPE) => {
+  const renderFilterItem = (filter: FILTER_TYPE, index: number) => {
     return (
-      <EmptyView>
+      <EmptyView key={index}>
         <ListTitleText>{filter?.FilterTitle}</ListTitleText>
         <FlatList data={filter?.data} renderItem={renderFilter} />
       </EmptyView>
@@ -83,8 +83,8 @@ export const HomeFiltersScreen = props => {
             <HorizontalBar />
             <HeadingText>Filter</HeadingText>
             <Divider />
-            {appliedFilters.map(filter => {
-              return renderFilterItem(filter);
+            {appliedFilters.map((filter: FILTER_TYPE, index: number) => {
+              return renderFilterItem(filter, index);
             })}
             <BottomMarginView />
             <Divider />

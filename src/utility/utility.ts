@@ -388,3 +388,20 @@ export const getSizeList = (category: string = '') => {
       return [];
   }
 };
+
+export const getAddProductTitle = (step: number) => {
+  switch (step) {
+    case 1:
+      return 'Product Type';
+    case 2:
+      return 'Basic Info';
+    case 3:
+      return 'Product Images';
+    case 4:
+      return 'Trade Type';
+    case 5:
+      return 'Product Price';
+    default:
+      return 'Product Type';
+  }
+};

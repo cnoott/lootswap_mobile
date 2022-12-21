@@ -56,6 +56,12 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
         fontSize = 16;
         borderSize = scale(radius);
         break;
+      case Size.Fit_To_Width:
+        width = '80%';
+        height = moderateScale(48);
+        fontSize = 16;
+        borderSize = scale(radius);
+        break;
       default:
         break;
     }

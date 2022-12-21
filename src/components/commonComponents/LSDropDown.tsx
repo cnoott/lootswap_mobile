@@ -2,15 +2,15 @@ import React, {FC, useState} from 'react';
 import {Dropdown} from 'react-native-element-dropdown';
 import {
   DropdownStyle,
-  DropdownStyleSearch,
   PlaceholderStyle,
   SelectedTextStyle,
   InputSearchStyle,
   IconStyle,
   SelectedBorder,
+  SearchIconContainer,
 } from './LSDropDownStyles';
 import {SvgXml} from 'react-native-svg';
-import {DROP_DOWN_ARROW} from 'localsvgimages';
+import {DROP_DOWN_ARROW, SEARCH_DROPDOWN} from 'localsvgimages';
 
 interface LSLSDropDownProps {
   itemsList?: any;
@@ -31,7 +31,7 @@ const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
   return (
     <Dropdown
       style={[
-        isSearch ? DropdownStyleSearch : DropdownStyle,
+        isSearch ? DropdownStyle : DropdownStyle,
         isFocus && SelectedBorder,
       ]}
       placeholderStyle={PlaceholderStyle}
@@ -53,6 +53,13 @@ const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
         onSelectItem(item);
       }}
       renderRightIcon={() => <SvgXml xml={DROP_DOWN_ARROW} />}
+      renderLeftIcon={() =>
+        isSearch ? (
+          <SearchIconContainer>
+            <SvgXml xml={SEARCH_DROPDOWN} />
+          </SearchIconContainer>
+        ) : null
+      }
       autoScroll={false}
     />
   );
