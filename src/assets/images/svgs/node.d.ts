@@ -38,4 +38,8 @@ declare module 'localsvgimages' {
   export const SEARCH_DROPDOWN: any;
   export const PAY_PAL_IMAGE: any;
   export const LINK_PAYPAL_TEXT: any;
+  export const USD_TEXT: any;
+  export const DOLLOR_TEXT: any;
+  export const RADIO_BUTTON_SELECTED: any;
+  export const RADIO_BUTTON_UNSELECTED: any;
 }
