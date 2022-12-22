@@ -3,8 +3,12 @@ import {color, border, layout, space} from 'styled-system';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 
 export const InputContainer = styled.View.attrs(props => ({
-  marginTop: moderateScale(props.isHomeSearch ? 0 : 15),
-  mx: moderateScale(props.isHomeSearch ? 0 : 24),
+  marginTop: moderateScale(
+    props.topSpace ? props.topSpace : props.isHomeSearch ? 0 : 15,
+  ),
+  mx: moderateScale(
+    props.horizontalSpace ? props.horizontalSpace : props.isHomeSearch ? 0 : 24,
+  ),
   bg: props.isHomeSearch
     ? props.theme.colors.commonSearchBack
     : props.theme.colors.inputBg,

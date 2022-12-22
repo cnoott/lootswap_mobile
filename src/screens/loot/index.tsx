@@ -8,6 +8,8 @@ import {InStackHeader} from '../../components/commonComponents/headers/stackHead
 import AddProductStepOne from './addProduct/addProductStepOne';
 import AddProductStepTwo from './addProduct/addProductStepTwo';
 import AddProductStepThree from './addProduct/addProductStepThree';
+import AddProductStepFour from './addProduct/addProductStepFour';
+import AddProductStepFive from './addProduct/addProductStepFive';
 import LSButton from '../../components/commonComponents/LSButton';
 import {SvgXml} from 'react-native-svg';
 import {
@@ -126,6 +128,8 @@ export const LootScreen: FC<{}> = () => {
           <AddProductStepOne />
           <AddProductStepTwo />
           <AddProductStepThree />
+          <AddProductStepFour />
+          <AddProductStepFive />
         </SwiperComponent>
       </KeyboardAwareScrollView>
       {renderBottomButtonView()}

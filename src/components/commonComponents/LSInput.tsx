@@ -10,6 +10,8 @@ interface LSInputProps extends TextInputProps {
   onRightIconPress?: Function;
   homeSearch?: boolean;
   height?: number;
+  horizontalSpace?: number;
+  topSpace?: number;
 }
 
 const LSInput: FC<LSInputProps> = React.memo(props => {
@@ -17,12 +19,17 @@ const LSInput: FC<LSInputProps> = React.memo(props => {
     error,
     leftIcon,
     rightIcon,
+    horizontalSpace,
+    topSpace,
     onRightIconPress = () => {},
     homeSearch = false,
   } = props;
   return (
     <>
-      <InputContainer isHomeSearch={homeSearch}>
+      <InputContainer
+        isHomeSearch={homeSearch}
+        horizontalSpace={horizontalSpace}
+        topSpace={topSpace}>
         {leftIcon && <SvgXml xml={leftIcon} />}
         <TextInput {...props} isHomeSearch={homeSearch} />
         {rightIcon && (
