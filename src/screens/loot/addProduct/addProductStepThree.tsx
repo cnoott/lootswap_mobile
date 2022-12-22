@@ -5,6 +5,7 @@ LootSwap - ADD_PRODUCT STEP 1
 import React, {FC, useState} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Platform} from 'react-native';
+import {SvgXml} from 'react-native-svg';
 import {
   getSignedRequest,
   uploadFile,
@@ -19,7 +20,10 @@ import {
   PlusSign,
   AddImageLabel,
   Touchable,
+  DeleteContainer,
+  FullTouchable,
 } from './styles';
+import {TRASH_WHITE_ICON} from 'localsvgimages';
 
 export const AddProductStepThree: FC<{}> = () => {
   const [isImageUploading, setImageUploading] = useState(false);
@@ -69,6 +73,15 @@ export const AddProductStepThree: FC<{}> = () => {
       </Touchable>
     );
   };
+  const renderDeleteView = () => {
+    return (
+      <DeleteContainer>
+        <FullTouchable>
+          <SvgXml xml={TRASH_WHITE_ICON} />
+        </FullTouchable>
+      </DeleteContainer>
+    );
+  };
   const renderProductImageContainer = ({item, index}) => {
     const isFooter = index + 1 === productImagesArr?.length;
     if (isFooter) {
@@ -77,6 +90,7 @@ export const AddProductStepThree: FC<{}> = () => {
     return (
       <ImageContainer>
         <Image source={{uri: item}} />
+        {renderDeleteView()}
       </ImageContainer>
     );
   };

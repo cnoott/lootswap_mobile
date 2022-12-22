@@ -13,6 +13,7 @@ import NotificationSettingScreen from '../screens/profile/notificationSettings';
 import ProductDetailsScreen from '../screens/productDetails';
 import LootScreen from '../screens/loot';
 import MyLootScreen from '../screens/loot/myLoot';
+import AddProductOverviewScreen from '../screens/loot/addProductOverview';
 import NotificationsScreen from '../screens/notifications';
 import {useTheme} from 'styled-components';
 import {SvgXml} from 'react-native-svg';
@@ -79,6 +80,10 @@ const LootStackNavigation = () => (
     }}>
     <Stack.Screen name="LootScreen" component={LootScreen} />
     <Stack.Screen name="MyLootScreen" component={MyLootScreen} />
+    <Stack.Screen
+      name="AddProductOverviewScreen"
+      component={AddProductOverviewScreen}
+    />
   </Stack.Navigator>
 );
 

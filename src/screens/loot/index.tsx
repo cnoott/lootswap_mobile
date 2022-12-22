@@ -12,6 +12,7 @@ import AddProductStepFour from './addProduct/addProductStepFour';
 import AddProductStepFive from './addProduct/addProductStepFive';
 import LSButton from '../../components/commonComponents/LSButton';
 import {SvgXml} from 'react-native-svg';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {
   Container,
   Innercontainer,
@@ -34,13 +35,17 @@ import {PAY_PAL_IMAGE, LINK_PAYPAL_TEXT} from 'localsvgimages';
 import {getAddProductTitle} from '../../utility/utility';
 
 export const LootScreen: FC<{}> = () => {
+  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const swiperRef = useRef<any>(null);
   const [currIndex, setCurrIndex] = useState(0);
   const [isPayPalModalVisible, setPayPalModalVisible] = useState(false);
   const handleNext = useCallback(() => {
     // setPayPalModalVisible(true);
+    if (currIndex === 4) {
+      navigation.navigate('AddProductOverviewScreen');
+    }
     swiperRef?.current?.scrollTo(currIndex + 1);
-  }, [currIndex]);
+  }, [currIndex, navigation]);
   const handleBack = useCallback(() => {
     if (currIndex !== 0) {
       swiperRef?.current?.scrollTo(currIndex - 1);
