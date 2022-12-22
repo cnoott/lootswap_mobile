@@ -74,6 +74,26 @@ export const ImageContainer = styled.View.attrs(props => ({
   ${layout} ${color} ${space};
 `;
 
+export const DeleteContainer = styled.View.attrs(props => ({
+  height: scale(24),
+  width: scale(24),
+  borderRadius: scale(12),
+  bg: props.theme.colors.black,
+  top: 10,
+  right: 10,
+}))`
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  ${layout} ${color} ${space};
+`;
+
+export const FullTouchable = styled.TouchableOpacity`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Touchable = styled.TouchableOpacity``;
 
 export const TouchableRow = styled.TouchableOpacity`
