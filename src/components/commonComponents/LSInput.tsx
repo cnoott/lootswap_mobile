@@ -12,6 +12,8 @@ interface LSInputProps extends TextInputProps {
   height?: number;
   horizontalSpace?: number;
   topSpace?: number;
+  onBlurCall?: Function;
+  keyboardType?: string;
 }
 
 const LSInput: FC<LSInputProps> = React.memo(props => {
@@ -23,6 +25,8 @@ const LSInput: FC<LSInputProps> = React.memo(props => {
     topSpace,
     onRightIconPress = () => {},
     homeSearch = false,
+    onBlurCall = () => {},
+    keyboardType = 'default',
   } = props;
   return (
     <>
@@ -31,7 +35,12 @@ const LSInput: FC<LSInputProps> = React.memo(props => {
         horizontalSpace={horizontalSpace}
         topSpace={topSpace}>
         {leftIcon && <SvgXml xml={leftIcon} />}
-        <TextInput {...props} isHomeSearch={homeSearch} />
+        <TextInput
+          {...props}
+          isHomeSearch={homeSearch}
+          onBlur={onBlurCall}
+          keyboardType={keyboardType}
+        />
         {rightIcon && (
           <Touchable onPress={onRightIconPress}>
             <SvgXml xml={rightIcon} />

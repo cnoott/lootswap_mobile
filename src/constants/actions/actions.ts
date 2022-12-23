@@ -2,7 +2,7 @@ export const createActionConst = (name: String) => {
   return {
     REQUEST: `${name}.REQUEST`,
     SUCCESS: `${name}.SUCCESS`,
-    UPDATE: `${name}.SUCCESS`,
+    UPDATE: `${name}.UPDATE`,
     FAILURE: `${name}.FAILURE`,
     RESET: `${name}.RESET`,
   };
@@ -21,4 +21,5 @@ export const actions = {
   CREATE_FIRST_MESSAGE: 'CREATE_FIRST_MESSAGE',
   GET_MESSAGES_HISTORY: 'GET_MESSAGES_HISTORY',
   SAVE_SENT_MESSAGE: 'SAVE_SENT_MESSAGE',
+  ADD_PRODUCT: 'ADD_PRODUCT',
 };

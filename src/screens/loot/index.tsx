@@ -3,7 +3,9 @@ LootSwap - LOOT LIST SCREEN
 ***/
 
 import React, {FC, useRef, useState, useCallback} from 'react';
+import {Keyboard} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useSelector, useDispatch} from 'react-redux';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import AddProductStepOne from './addProduct/addProductStepOne';
 import AddProductStepTwo from './addProduct/addProductStepTwo';
@@ -33,14 +35,25 @@ import {Size, Type} from '../../enums';
 import {LSModal} from '../../components/commonComponents/LSModal';
 import {PAY_PAL_IMAGE, LINK_PAYPAL_TEXT} from 'localsvgimages';
 import {getAddProductTitle} from '../../utility/utility';
+import {HomeProps} from '../../redux/modules/home/reducer';
+import {UpdateAddProductData} from '../../redux/modules';
+import {ADD_PRODUCT_TYPE} from 'custom_types';
 
 export const LootScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
+  const dispatch = useDispatch();
+  const homeData: HomeProps = useSelector(state => state?.home);
   const swiperRef = useRef<any>(null);
   const [currIndex, setCurrIndex] = useState(0);
   const [isPayPalModalVisible, setPayPalModalVisible] = useState(false);
+  const {addProductData} = homeData;
+  console.log('addProductData ===', addProductData);
+  const updateProductData = (proData: ADD_PRODUCT_TYPE) => {
+    dispatch(UpdateAddProductData(proData));
+  };
   const handleNext = useCallback(() => {
     // setPayPalModalVisible(true);
+    Keyboard.dismiss();
     if (currIndex === 4) {
       navigation.navigate('AddProductOverviewScreen');
     }
@@ -130,11 +143,11 @@ export const LootScreen: FC<{}> = () => {
         contentContainerStyle={Innercontainer}
         keyboardShouldPersistTaps={'handled'}>
         <SwiperComponent ref={swiperRef} onIndexChanged={setCurrIndex}>
-          <AddProductStepOne />
-          <AddProductStepTwo />
-          <AddProductStepThree />
-          <AddProductStepFour />
-          <AddProductStepFive />
+          <AddProductStepOne updateProductData={updateProductData} />
+          <AddProductStepTwo updateProductData={updateProductData} />
+          <AddProductStepThree updateProductData={updateProductData} />
+          <AddProductStepFour updateProductData={updateProductData} />
+          <AddProductStepFive updateProductData={updateProductData} />
         </SwiperComponent>
       </KeyboardAwareScrollView>
       {renderBottomButtonView()}

@@ -17,10 +17,11 @@ interface LSLSDropDownProps {
   dropdownLabel?: string;
   isSearch?: boolean;
   onSelectItem?: Function;
+  selectedValue?: any;
 }
 
 const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(props?.selectedValue || null);
   const [isFocus, setIsFocus] = useState(false);
   const {
     dropdownLabel,

@@ -23,11 +23,27 @@ import {
   DeleteContainer,
   FullTouchable,
 } from './styles';
+import {useSelector} from 'react-redux';
+import {HomeProps} from '../../../redux/modules/home/reducer';
 import {TRASH_WHITE_ICON} from 'localsvgimages';
 
-export const AddProductStepThree: FC<{}> = () => {
+interface ProductStep {
+  updateProductData: Function;
+}
+
+export const AddProductStepThree: FC<ProductStep> = props => {
+  const addProductData: HomeProps = useSelector(
+    state => state?.home?.addProductData,
+  );
   const [isImageUploading, setImageUploading] = useState(false);
   const [productImagesArr, setProductImagesArr] = useState<any>([1]); // Always adding 1 element to show add images component at last
+  const {updateProductData} = props;
+  const updateImagesData = (newImages: Array<string>) => {
+    updateProductData({
+      ...addProductData,
+      stepThree: newImages,
+    });
+  };
   const onAddImage = () => {
     ImagePicker.openPicker({
       width: 300,
@@ -49,7 +65,9 @@ export const AddProductStepThree: FC<{}> = () => {
             .then(url => {
               setImageUploading(false);
               if (url) {
-                setProductImagesArr([url, ...productImagesArr]);
+                const newArr = [url, ...productImagesArr];
+                setProductImagesArr(newArr);
+                updateImagesData(newArr.slice(0, -1));
               }
             })
             .catch(() => {

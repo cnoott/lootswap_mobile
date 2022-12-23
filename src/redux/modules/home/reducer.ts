@@ -1,29 +1,39 @@
 // @flow
 
-import {HOME_FILTER, GET_PRODUCT_DETAILS} from '../../../constants/actions';
-import {FILTER_TYPE} from 'custom_types';
+import {GET_PRODUCT_DETAILS, ADD_PRODUCT} from '../../../constants/actions';
+import {ADD_PRODUCT_TYPE} from 'custom_types';
+import {getAddProductRawData} from '../../../utility/utility';
 
-export interface FilterProps {
+export interface HomeProps {
   selectedProductDetails: any;
+  addProductData: ADD_PRODUCT_TYPE;
 }
 
 type ActionProps = {
   type: string;
-  newFilter: FILTER_TYPE;
   payload: any;
+  newProduct: ADD_PRODUCT_TYPE;
 };
 
-export const InitialState: FilterProps = {
+export const InitialState: HomeProps = {
   selectedProductDetails: null,
+  addProductData: getAddProductRawData(),
 };
 
 export default function loading(state = InitialState, action: ActionProps) {
-  const {type, payload} = action;
+  const {type, payload, newProduct} = action;
 
   switch (type) {
-    case HOME_FILTER.RESET: {
+    case ADD_PRODUCT.RESET: {
       return {
         ...state,
+        addProductData: getAddProductRawData(),
+      };
+    }
+    case ADD_PRODUCT.UPDATE: {
+      return {
+        ...state,
+        addProductData: newProduct,
       };
     }
     case GET_PRODUCT_DETAILS.REQUEST: {

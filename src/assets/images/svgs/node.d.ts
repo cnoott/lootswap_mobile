@@ -43,4 +43,5 @@ declare module 'localsvgimages' {
   export const RADIO_BUTTON_SELECTED: any;
   export const RADIO_BUTTON_UNSELECTED: any;
   export const TRASH_WHITE_ICON: any;
+  export const PRODUCT_EDIT_PRIMARY: any;
 }
