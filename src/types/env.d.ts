@@ -29,4 +29,40 @@ declare module 'custom_types' {
     title: string;
     index: Number;
   };
+  export type DROPDOWN_TYPE = {
+    item?: string;
+    value?: string;
+  };
+  export type TRADE_TYPE = {
+    isTradeOnly?: boolean;
+    isSellOnly?: boolean;
+    isTradeAndSell?: boolean;
+  };
+  export type PRODUCT_STEP_ONE_TYPE = {
+    category?: DROPDOWN_TYPE;
+    brand?: DROPDOWN_TYPE;
+    size?: DROPDOWN_TYPE;
+    condition?: DROPDOWN_TYPE;
+  };
+  export type PRODUCT_STEP_TWO_TYPE = {
+    productName?: string;
+    productDescription?: string;
+  };
+  export type PRODUCT_STEP_FOUR_TYPE = {
+    tradeOptions?: TRADE_TYPE;
+    tradeDescription?: string;
+  };
+  export type PRODUCT_STEP_FIVE_TYPE = {
+    productPrice?: Number;
+    shippingCost?: Number;
+    isShippingPrice?: boolean;
+    isFreeShipping?: boolean;
+  };
+  export type ADD_PRODUCT_TYPE = {
+    stepOne?: PRODUCT_STEP_ONE_TYPE;
+    stepTwo?: PRODUCT_STEP_TWO_TYPE;
+    stepThree?: Array<string>;
+    stepFour?: PRODUCT_STEP_FOUR_TYPE;
+    stepFive?: PRODUCT_STEP_FIVE_TYPE;
+  };
 }

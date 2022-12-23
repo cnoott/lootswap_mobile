@@ -23,10 +23,40 @@ import {
   RADIO_BUTTON_SELECTED,
   RADIO_BUTTON_UNSELECTED,
 } from 'localsvgimages';
+import {useSelector} from 'react-redux';
+import {HomeProps} from '../../../redux/modules/home/reducer';
 
-export const AddProductStepFive: FC<{}> = () => {
-  const [price, setPrice] = useState('');
-  const [shippingCost, setShippingCost] = useState('');
+interface ProductStep {
+  updateProductData: Function;
+}
+
+export const AddProductStepFive: FC<ProductStep> = props => {
+  const addProductData: HomeProps = useSelector(
+    state => state?.home?.addProductData,
+  );
+  const [price, setPrice] = useState(0);
+  const [shippingCost, setShippingCost] = useState(0);
+  const {updateProductData} = props;
+  const {stepFive} = addProductData;
+  const onBlurCall = () => {
+    updateProductData({
+      ...addProductData,
+      stepFive: {
+        ...addProductData?.stepFive,
+        productPrice: price,
+        shippingCost: shippingCost,
+      },
+    });
+  };
+  const onButtonPress = (newData: any) => {
+    updateProductData({
+      ...addProductData,
+      stepFive: {
+        ...addProductData?.stepFive,
+        ...newData,
+      },
+    });
+  };
   const renderShippingView = () => {
     return (
       <HorizontalSpace>
@@ -36,12 +66,30 @@ export const AddProductStepFive: FC<{}> = () => {
           This option only applies if someone buys your item, not for trades
           shipping will use USPS Priority service.
         </ShippingDes>
-        <TouchableRow>
-          <SvgXml xml={RADIO_BUTTON_SELECTED} />
+        <TouchableRow
+          onPress={() =>
+            onButtonPress({isShippingPrice: !stepFive?.isShippingPrice})
+          }>
+          <SvgXml
+            xml={
+              stepFive?.isShippingPrice
+                ? RADIO_BUTTON_SELECTED
+                : RADIO_BUTTON_UNSELECTED
+            }
+          />
           <ShippingOptionsText>Set Shipping Price</ShippingOptionsText>
         </TouchableRow>
-        <TouchableRow>
-          <SvgXml xml={RADIO_BUTTON_UNSELECTED} />
+        <TouchableRow
+          onPress={() =>
+            onButtonPress({isFreeShipping: !stepFive?.isFreeShipping})
+          }>
+          <SvgXml
+            xml={
+              stepFive?.isFreeShipping
+                ? RADIO_BUTTON_SELECTED
+                : RADIO_BUTTON_UNSELECTED
+            }
+          />
           <ShippingOptionsText>Provide Free Shipping</ShippingOptionsText>
           <FreeTagContainer>
             <FreeTag>Free</FreeTag>
@@ -66,6 +114,8 @@ export const AddProductStepFive: FC<{}> = () => {
         topSpace={1}
         rightIcon={USD_TEXT}
         leftIcon={DOLLOR_TEXT}
+        keyboardType={'numeric'}
+        onBlurCall={onBlurCall}
       />
       {renderShippingView()}
       <HorizontalSpace>
@@ -79,6 +129,8 @@ export const AddProductStepFive: FC<{}> = () => {
         topSpace={1}
         rightIcon={USD_TEXT}
         leftIcon={DOLLOR_TEXT}
+        keyboardType={'numeric'}
+        onBlurCall={onBlurCall}
       />
     </Container>
   );

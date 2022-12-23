@@ -1,16 +1,16 @@
-import {HOME_FILTER, GET_PRODUCT_DETAILS} from '../../../constants/actions';
-import {FILTER_TYPE} from 'custom_types';
+import {GET_PRODUCT_DETAILS, ADD_PRODUCT} from '../../../constants/actions';
+import {ADD_PRODUCT_TYPE} from 'custom_types';
 
-export const UpdateHomeFilter = (newFilter: FILTER_TYPE) => {
+export const UpdateAddProductData = (newProduct: ADD_PRODUCT_TYPE) => {
   return {
-    type: HOME_FILTER.UPDATE,
-    newFilter: newFilter,
+    type: ADD_PRODUCT.UPDATE,
+    newProduct: newProduct,
   };
 };
 
-export const ResetHomeFilter = () => {
+export const ResetAddProductData = () => {
   return {
-    type: HOME_FILTER.RESET,
+    type: ADD_PRODUCT.RESET,
   };
 };
 

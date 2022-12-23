@@ -13,12 +13,48 @@ import {
   Touchable,
   EmptyView,
 } from './styles';
+import {useSelector} from 'react-redux';
+import {HomeProps} from '../../../redux/modules/home/reducer';
 
-export const AddProductStepFour: FC<{}> = () => {
+interface ProductStep {
+  updateProductData: Function;
+}
+
+export const AddProductStepFour: FC<ProductStep> = props => {
+  const addProductData: HomeProps = useSelector(
+    state => state?.home?.addProductData,
+  );
   const [tradeDes, setTradeDes] = useState('');
-  const renderTradeButton = (label: string, isSelected: boolean) => {
+  const {stepFour} = addProductData;
+  const {updateProductData} = props;
+  const onBlurCall = () => {
+    updateProductData({
+      ...addProductData,
+      stepFour: {
+        ...addProductData?.stepFour,
+        tradeDescription: tradeDes,
+      },
+    });
+  };
+  const onButtonPress = (newData: any) => {
+    updateProductData({
+      ...addProductData,
+      stepFour: {
+        ...addProductData?.stepFour,
+        tradeOptions: {
+          ...addProductData?.stepFour?.tradeOptions,
+          ...newData,
+        },
+      },
+    });
+  };
+  const renderTradeButton = (
+    label: string,
+    isSelected: boolean,
+    onPress: Function,
+  ) => {
     return (
-      <Touchable>
+      <Touchable onPress={onPress}>
         <TradeButton selected={isSelected}>
           <TradeButtonText selected={isSelected}>{label}</TradeButtonText>
         </TradeButton>
@@ -29,9 +65,26 @@ export const AddProductStepFour: FC<{}> = () => {
     return (
       <EmptyView>
         <TradeOptionsText>Trade Options</TradeOptionsText>
-        {renderTradeButton('Trade and Sell', false)}
-        {renderTradeButton('Trade Only', true)}
-        {renderTradeButton('Sell Only', false)}
+        {renderTradeButton(
+          'Trade and Sell',
+          stepFour?.tradeOptions?.isTradeAndSell,
+          () =>
+            onButtonPress({
+              isTradeAndSell: !stepFour?.tradeOptions?.isTradeAndSell,
+            }),
+        )}
+        {renderTradeButton(
+          'Trade Only',
+          stepFour?.tradeOptions?.isTradeOnly,
+          () =>
+            onButtonPress({isTradeOnly: !stepFour?.tradeOptions?.isTradeOnly}),
+        )}
+        {renderTradeButton(
+          'Sell Only',
+          stepFour?.tradeOptions?.isSellOnly,
+          () =>
+            onButtonPress({isSellOnly: !stepFour?.tradeOptions?.isSellOnly}),
+        )}
       </EmptyView>
     );
   };
@@ -50,6 +103,7 @@ export const AddProductStepFour: FC<{}> = () => {
         multiline={true}
         height={200}
         horizontalSpace={20}
+        onBlurCall={onBlurCall}
       />
     </Container>
   );

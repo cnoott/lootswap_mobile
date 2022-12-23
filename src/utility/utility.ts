@@ -11,7 +11,7 @@ import {
   PROFILE_SUPPORT,
   PROFILE_NOTIFICATION,
 } from 'localsvgimages';
-import {PROFILE_OPTIONS_TYPE} from 'custom_types';
+import {PROFILE_OPTIONS_TYPE, GET_PRODUCT_DETAILS} from 'custom_types';
 
 /*
 On Launch -
@@ -404,4 +404,37 @@ export const getAddProductTitle = (step: number) => {
     default:
       return 'Product Type';
   }
+};
+
+export const getAddProductRawData = () => {
+  const addProductData: GET_PRODUCT_DETAILS = {
+    stepOne: {
+      category: null,
+      brand: null,
+      size: null,
+      condition: null,
+    },
+    stepTwo: {
+      productName: '',
+      productDescription: '',
+    },
+    stepThree: {
+      productImages: [],
+    },
+    stepFour: {
+      tradeOptions: {
+        isTradeOnly: false,
+        isSellOnly: false,
+        isTradeAndSell: false,
+      },
+      tradeDescription: '',
+    },
+    stepFive: {
+      productPrice: 0.0,
+      shippingCost: 0.0,
+      isShippingPrice: true,
+      isFreeShipping: false,
+    },
+  };
+  return addProductData;
 };

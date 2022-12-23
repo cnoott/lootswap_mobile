@@ -47,3 +47,7 @@ export const GET_MESSAGES_HISTORY = {
 export const SAVE_SENT_MESSAGE = {
   ...createActionConst(actions.SAVE_SENT_MESSAGE),
 };
+
+export const ADD_PRODUCT = {
+  ...createActionConst(actions.ADD_PRODUCT),
+};

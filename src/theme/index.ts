@@ -2,6 +2,7 @@ const theme = {
   borderRadius: '10px',
   colors: {
     primary: '#6267FE',
+    primaryTrans: '#6267FE22',
     secondary: '#FFFFFF',
     secondaryButton: '#000000',
     white: '#FFFFFF',
@@ -9,6 +10,7 @@ const theme = {
     grey: '#EEEEEE',
     redAlert: '#F75555',
     lightGrey: '#757575',
+    greySecondary: '#707070',
     bg: '#FAFAFA',
     danger: '#FC0000',
     placeholder: '#818181',
