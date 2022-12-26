@@ -6,7 +6,6 @@ import React, {FC} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/home';
-import BrowseScreen from '../screens/browse';
 import ProfileScreen from '../screens/profile';
 import EditProfileScreen from '../screens/profile/editProfile';
 import NotificationSettingScreen from '../screens/profile/notificationSettings';
@@ -15,6 +14,8 @@ import LootScreen from '../screens/loot';
 import MyLootScreen from '../screens/loot/myLoot';
 import AddProductOverviewScreen from '../screens/loot/addProductOverview';
 import NotificationsScreen from '../screens/notifications';
+import OffersScreen from '../screens/offers';
+import OffersMessageScreen from '../screens/offers/offerMessageScreen';
 import {useTheme} from 'styled-components';
 import {SvgXml} from 'react-native-svg';
 import {useSelector} from 'react-redux';
@@ -84,6 +85,17 @@ const LootStackNavigation = () => (
       name="AddProductOverviewScreen"
       component={AddProductOverviewScreen}
     />
+  </Stack.Navigator>
+);
+
+const OffersStackNavigation = () => (
+  <Stack.Navigator
+    initialRouteName={'OffersScreen'}
+    screenOptions={{
+      headerShown: false,
+    }}>
+    <Stack.Screen name="OffersScreen" component={OffersScreen} />
+    <Stack.Screen name="OffersMessageScreen" component={OffersMessageScreen} />
   </Stack.Navigator>
 );
 
@@ -182,7 +194,7 @@ export const BottomTabs: FC<{}> = () => {
       <Tab.Screen name="List loot" component={LootStackNavigation} />
       <Tab.Screen name="Profile" component={ProfileStackNavigation} />
       <Tab.Screen name="Notifications" component={NotificationsScreen} />
-      <Tab.Screen name="Offers" component={BrowseScreen} />
+      <Tab.Screen name="Offers" component={OffersStackNavigation} />
     </Tab.Navigator>
   );
 };
