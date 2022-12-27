@@ -5,12 +5,10 @@ INSQUAD - OFFERS SCREEN
 import React, {FC, useState} from 'react';
 import {useWindowDimensions} from 'react-native';
 import {SceneMap} from 'react-native-tab-view';
-import {SvgXml} from 'react-native-svg';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
-import TradeOfferItem from './offerItems/TradeOfferItem';
-import {SWAP_ICON} from 'localsvgimages';
+import TradeOfferCell from './offerItems/TradeOfferCell';
 import {
   Container,
   TopTabView,
@@ -25,12 +23,6 @@ import {
   NameLabel,
   DesignationLabel,
   TimeLabel,
-  BottomRowView,
-  ImageContainer,
-  Image,
-  SwapButtonContainer,
-  SwapLine,
-  EmptyView,
 } from './styles';
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
@@ -59,28 +51,12 @@ export const OffersScreen: FC<{}> = () => {
       </RowView>
     );
   };
-  const renderSwapView = () => {
-    return (
-      <EmptyView>
-        <SwapLine />
-        <SwapButtonContainer>
-          <SvgXml xml={SWAP_ICON} />
-        </SwapButtonContainer>
-      </EmptyView>
-    );
-  };
   const renderOfferItem = ({item}: any) => {
     return (
       <OfferCellContainer
         onPress={() => navigation.navigate('OffersMessageScreen')}>
         {renderUserDetails()}
-        <BottomRowView>
-          <TradeOfferItem subItem={item} />
-          {renderSwapView()}
-          <ImageContainer>
-            <Image source={{uri: 'https://picsum.photos/200'}} />
-          </ImageContainer>
-        </BottomRowView>
+        <TradeOfferCell offerItem={item} />
       </OfferCellContainer>
     );
   };

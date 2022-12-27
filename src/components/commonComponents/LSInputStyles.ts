@@ -12,7 +12,7 @@ export const InputContainer = styled.View.attrs(props => ({
   bg: props.isHomeSearch
     ? props.theme.colors.commonSearchBack
     : props.theme.colors.inputBg,
-  borderRadius: scale(8.5),
+  borderRadius: scale(props.inputRadius),
   px: scale(10),
 }))`
   flex-direction: row;

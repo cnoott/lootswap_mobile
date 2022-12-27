@@ -1,6 +1,8 @@
 import React from 'react';
 import RNModal from 'react-native-modal';
-import {ModalViewContainer} from './LSModalStyles';
+import {SvgXml} from 'react-native-svg';
+import {TRADE_MODAL_CLOSE_BUTTON} from 'localsvgimages';
+import {ModalViewContainer, CloseTouchable} from './LSModalStyles';
 
 type LSModalProps = {
   isVisible: boolean;
@@ -29,4 +31,15 @@ const ModalContainer = ({children}: {children: React.ReactNode}) => (
   <ModalViewContainer>{children}</ModalViewContainer>
 );
 
+const ModalCloseButton = ({
+  onCloseButtonPress,
+}: {
+  onCloseButtonPress: Function;
+}) => (
+  <CloseTouchable onPress={() => onCloseButtonPress()}>
+    <SvgXml xml={TRADE_MODAL_CLOSE_BUTTON} />
+  </CloseTouchable>
+);
+
 LSModal.Container = ModalContainer;
+LSModal.CloseButton = ModalCloseButton;

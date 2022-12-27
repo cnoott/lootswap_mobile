@@ -30,7 +30,7 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
         width = scale(80);
         height = verticalScale(32);
         fontSize = scale(12);
-        borderSize = scale(10);
+        borderSize = scale(radius);
         break;
       case Size.Small:
         width = scale(110);
@@ -82,6 +82,14 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
       case Type.Grey:
         buttonColor = theme?.colors.screenBg;
         textColor = theme?.colors.black;
+        break;
+      case Type.Error:
+        buttonColor = theme?.colors.errorColor;
+        textColor = theme?.colors.white;
+        break;
+      case Type.Success:
+        buttonColor = theme?.colors.successColor;
+        textColor = theme?.colors.white;
         break;
       default:
         break;

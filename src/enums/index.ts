@@ -12,6 +12,7 @@ export enum Type {
   Message = 'message',
   Grey = 'grey',
   Error = 'error',
+  Success = 'success',
   Link = 'link',
   Info = 'info',
   Text = 'text',

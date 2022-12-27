@@ -28,6 +28,8 @@ const theme = {
     sellText: '#723B13',
     toggle_dark: '#35383F',
     offerColor: '#4AAF57',
+    errorColor: '#F03E3E',
+    successColor: '#40C057',
   },
   width: 50,
   height: 50,

@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {Dimensions} from 'react-native';
+import {Dimensions, Platform} from 'react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {layout, space, color, border} from 'styled-system';
@@ -14,6 +14,18 @@ export const Container = styled.View.attrs(props => ({
 export const TopTabView = styled(TabView).attrs(() => ({
   flex: 1,
 }))``;
+
+export const ChatContainer = styled.View.attrs(() => ({
+  flex: 1,
+}))``;
+
+export const KeyboardAvoidingView = styled.KeyboardAvoidingView.attrs(() => ({
+  flex: 1,
+  behavior: Platform.OS === 'ios' ? 'padding' : 'height',
+}))`
+  ${space}
+  ${layout}
+`;
 
 export const CustomTabBar = styled(TabBar).attrs(props => ({
   indicatorStyle: {
@@ -153,8 +165,8 @@ export const EmptyRowView = styled.View`
   width: 55%;
 `;
 
-export const BottomRowView = styled.View.attrs(() => ({
-  mt: scale(20),
+export const BottomRowView = styled.View.attrs((props: any) => ({
+  mt: scale(props?.topMargin || 20),
 }))`
   flex-direction: row;
   align-items: center;
@@ -171,7 +183,7 @@ export const Image: any = styled.Image.attrs((props: any) => ({
   align-self: center;
   ${color}
   ${space}
-    ${layout}
+  ${layout}
 `;
 
 export const ImageContainer: any = styled.View.attrs((props: any) => ({
@@ -318,4 +330,65 @@ export const EmptyView = styled.View`
   align-items: center;
   justify-content: center;
   width: ${scale(45)}px;
+`;
+
+export const InputContainer = styled.View.attrs(props => ({
+  mb: verticalScale(props?.bottomSpace || 16),
+  px: scale(10),
+}))`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  ${space}
+  ${layout}
+`;
+
+export const InputView = styled.View.attrs(() => ({
+  width: '83%',
+}))``;
+
+export const Touchable = styled.TouchableOpacity``;
+
+export const InputRightButtonView = styled.View.attrs(props => ({
+  width: scale(48),
+  height: scale(48),
+  borderRadius: scale(24),
+  alignItems: 'center',
+  justifyContent: 'center',
+  bg: props?.theme?.colors?.primary,
+}))`
+  ${layout}
+  ${color}
+`;
+
+export const SectionList = styled.SectionList.attrs(() => ({
+  showVerticalScrollIndicator: false,
+  contentContainerStyle: {flexGrow: 1},
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const ModalContainerView = styled.View.attrs(() => ({
+  p: scale(15),
+}))`
+  ${space}
+`;
+
+export const ModalHeaderText: any = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+}))`
+  font-size: ${moderateScale(20)}px;
+  font-family: Inter-Bold;
+  text-align: center;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const TopMargin = styled.View.attrs(props => ({
+  mt: verticalScale(props?.margin || 20),
+}))`
+  ${space}
 `;

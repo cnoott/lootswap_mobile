@@ -15,3 +15,11 @@ export const ModalViewContainer = styled.TouchableOpacity.attrs(props => ({
   ${border}
   ${space}
 `;
+
+export const CloseTouchable = styled.TouchableOpacity.attrs(() => ({
+  hitSlop: {top: 10, left: 10, right: 10, bottom: 10},
+}))`
+  position: absolute;
+  top: 10px;
+  right: 10px ${layout} ${space};
+`;
