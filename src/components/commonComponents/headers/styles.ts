@@ -64,6 +64,19 @@ export const StackHeaderText = styled.Text.attrs(props => ({
   ${layout}
 `;
 
+export const OfferChatHeaderText = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  ml: moderateScale(5),
+  width: scale(80),
+  numberOfLines: 1,
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-family: Inter-Bold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
 export const ProfileRightTouchable = styled.TouchableOpacity`
   margin-left: ${scale(5)}px;
 `;
@@ -374,4 +387,8 @@ export const TouchableOpacity = styled.TouchableOpacity``;
 export const EmptyRowView = styled.View`
   flex-direction: row;
   align-items: center;
+`;
+
+export const SpaceRowView = styled.View`
+  margin-left: ${scale(2)}px;
 `;

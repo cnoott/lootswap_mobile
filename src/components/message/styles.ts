@@ -11,7 +11,9 @@ export const MessageBoxContainer = styled.View.attrs(props => ({
   borderTopLeftRadius: scale(props?.self ? 10 : 5),
   borderBottomRightRadius: scale(props?.self ? 20 : 10),
   borderTopRightRadius: scale(props?.self ? 5 : 10),
-  bg: props?.theme?.colors?.commonSearchBack,
+  bg: props?.self
+    ? props?.theme?.colors?.primary
+    : props?.theme?.colors?.commonSearchBack,
   my: verticalScale(15),
   justifyContent: 'center',
   alignSelf: props?.self ? 'flex-end' : 'flex-start',
@@ -25,11 +27,12 @@ export const MessageBoxContainer = styled.View.attrs(props => ({
 `;
 
 export const MessageText = styled.Text.attrs(props => ({
-  color: props.theme.colors.lightGrey,
+  color: props?.self ? props.theme.colors.white : props.theme.colors.lightGrey,
   width: '80%',
 }))`
   font-size: ${moderateScale(12)}px;
   font-family: Inter-Bold;
+  font-weight: 400;
   text-align: left;
   ${color}
   ${space}
