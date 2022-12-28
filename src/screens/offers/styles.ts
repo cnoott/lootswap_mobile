@@ -430,7 +430,7 @@ export const ScrollViewContainer = styled.ScrollView.attrs(() => ({}))``;
 export const ItemsListView = styled.FlatList.attrs(() => ({
   showsVerticalScrollIndicator: false,
   keyboardShouldPersistTaps: 'always',
-  contentContainerStyle: {flexGrow: 1, alignItems: 'center'},
+  contentContainerStyle: {flexGrow: 1, alignItems: 'flex-start'},
   numColumns: 2,
   mb: 10,
 }))`

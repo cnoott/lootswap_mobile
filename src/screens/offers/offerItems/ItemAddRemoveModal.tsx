@@ -23,17 +23,18 @@ interface ItemAddRemoveModalProp {
   isModalVisible: boolean;
   isAddItem: boolean;
   onCloseModal?: Function;
+  itemsData?: any;
 }
 
 export const ItemAddRemoveModal: FC<ItemAddRemoveModalProp> = props => {
   const layout = useWindowDimensions();
-  const productSize = layout.width / 2 - 60;
-  const {isModalVisible, isAddItem, onCloseModal = () => {}} = props;
-  const renderOfferItem = () => {
+  const productSize = layout.width / 2 - 56;
+  const {isModalVisible, isAddItem, itemsData, onCloseModal = () => {}} = props;
+  const renderOfferItem = ({item}: any) => {
     return (
       <ImageContainer size={productSize}>
         <Image source={{uri: 'https://picsum.photos/200'}} size={productSize} />
-        <AnimatedCheckBox />
+        <AnimatedCheckBox isChecked={item?.isSelected} />
       </ImageContainer>
     );
   };
@@ -51,10 +52,7 @@ export const ItemAddRemoveModal: FC<ItemAddRemoveModalProp> = props => {
           <ModalSubHeaderText>(maximum 3 items)</ModalSubHeaderText>
           <TopMargin />
           <TopMargin margin={2} />
-          <ItemsListView
-            data={[1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6]}
-            renderItem={renderOfferItem}
-          />
+          <ItemsListView data={itemsData} renderItem={renderOfferItem} />
           {isAddItem ? (
             <LSButton
               title={'Add Selected Items'}

@@ -15,7 +15,11 @@ import EditTradeModal from './offerItems/EditTradeModal';
 import AcceptDeclineModal from './offerItems/AcceptDeclineModal';
 import ItemAddRemoveModal from './offerItems/ItemAddRemoveModal';
 import ChangeOfferModal from './offerItems/ChangeOfferModal';
-import {getConfiguredMessageData} from '../../utility/utility';
+import {
+  getConfiguredMessageData,
+  getAllOfferItemsData,
+  getSelectedOfferItemsData,
+} from '../../utility/utility';
 import {
   Container,
   ChatContainer,
@@ -156,6 +160,9 @@ export const OffersMessageScreen: FC<{}> = () => {
         isModalVisible={isAddRemoveItemModalVisible}
         isAddItem={isAddItem}
         onCloseModal={closeModal}
+        itemsData={
+          isAddItem ? getAllOfferItemsData() : getSelectedOfferItemsData()
+        }
       />
       <ChangeOfferModal
         isModalVisible={isChangeOfferModalVisible}
