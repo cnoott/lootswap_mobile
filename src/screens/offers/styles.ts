@@ -3,6 +3,7 @@ import {Dimensions, Platform} from 'react-native';
 import {TabView, TabBar} from 'react-native-tab-view';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 import {layout, space, color, border} from 'styled-system';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 const productImageWidth = 130;
 
@@ -376,6 +377,21 @@ export const ModalContainerView = styled.View.attrs(() => ({
   ${space}
 `;
 
+export const TradeModalContainerView = styled.View.attrs(() => ({
+  pt: scale(10),
+  pb: scale(20),
+}))`
+  ${space}
+`;
+
+export const AddRemoveModalContainerView = styled.View.attrs(() => ({
+  pt: scale(10),
+  pb: scale(20),
+  height: scale(Dimensions.get('window').height / 2 + 100),
+}))`
+  ${space}
+`;
+
 export const ModalHeaderText: any = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
@@ -387,8 +403,60 @@ export const ModalHeaderText: any = styled.Text.attrs(props => ({
   ${layout}
 `;
 
+export const ModalSubHeaderText: any = styled.Text.attrs(props => ({
+  color: props.theme.colors.lightGrey,
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-family: Inter;
+  text-align: center;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
 export const TopMargin = styled.View.attrs(props => ({
   mt: verticalScale(props?.margin || 20),
 }))`
   ${space}
+`;
+
+export const EditTradeModalStyle = {
+  margin: 0,
+  justifyContent: 'flex-end',
+};
+
+export const ScrollViewContainer = styled.ScrollView.attrs(() => ({}))``;
+
+export const ItemsListView = styled.FlatList.attrs(() => ({
+  showsVerticalScrollIndicator: false,
+  keyboardShouldPersistTaps: 'always',
+  contentContainerStyle: {flexGrow: 1, alignItems: 'center'},
+  numColumns: 2,
+  mb: 10,
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const AnimatedCheckBox = styled(BouncyCheckbox).attrs(props => ({
+  disableText: true,
+  size: scale(20),
+  fillColor: props?.theme?.colors.primary,
+  unfillColor: props?.theme?.colors.white,
+  iconStyle: {
+    borderRadius: 8,
+  },
+  innerIconStyle: {
+    borderWidth: 0,
+    borderRadius: 8,
+    borderColor: props?.selected
+      ? props?.theme?.colors.primary
+      : props?.theme?.colors.black,
+  },
+}))`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  ${border}
 `;
