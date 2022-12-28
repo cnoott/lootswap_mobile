@@ -438,3 +438,59 @@ export const getAddProductRawData = () => {
   };
   return addProductData;
 };
+
+export const getAllOfferItemsData = () => {
+  const data = [
+    {
+      isSelected: true,
+      item: 1,
+    },
+    {
+      isSelected: false,
+      item: 2,
+    },
+    {
+      isSelected: false,
+      item: 3,
+    },
+    {
+      isSelected: true,
+      item: 4,
+    },
+    {
+      isSelected: false,
+      item: 5,
+    },
+    {
+      isSelected: false,
+      item: 6,
+    },
+    {
+      isSelected: true,
+      item: 7,
+    },
+    {
+      isSelected: false,
+      item: 8,
+    },
+  ];
+  return data;
+};
+
+export const getSelectedOfferItemsData = () => {
+  const data = [
+    {
+      isSelected: true,
+      item: 1,
+    },
+    {
+      isSelected: true,
+      item: 4,
+    },
+    {
+      isSelected: true,
+      item: 7,
+    },
+  ];
+  return data;
+};
