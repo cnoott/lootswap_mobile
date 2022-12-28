@@ -10,13 +10,14 @@ interface ButtonProps extends TouchableOpacityProps {
   size?: string;
   type?: string;
   radius?: number;
+  fitToWidth?: string;
 }
 
 const windowWidth = Dimensions.get('window').width;
 
 const LSButton: FC<ButtonProps> = React.memo(props => {
   const theme = useTheme();
-  const {children, title, size, type, radius = 10} = props;
+  const {children, title, size, type, radius = 10, fitToWidth = '80%'} = props;
   let width = scale(60);
   let height = verticalScale(26);
   let fontSize = scale(12);
@@ -57,7 +58,7 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
         borderSize = scale(radius);
         break;
       case Size.Fit_To_Width:
-        width = '80%';
+        width = fitToWidth;
         height = moderateScale(48);
         fontSize = 16;
         borderSize = scale(radius);

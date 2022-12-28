@@ -10,11 +10,12 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {LSOfferChatHeader} from '../../components/commonComponents/headers/offerChatHeader';
 import TradeOfferCell from './offerItems/TradeOfferCell';
 import LSInput from '../../components/commonComponents/LSInput';
-import LSButton from '../../components/commonComponents/LSButton';
-import {LSModal} from '../../components/commonComponents/LSModal';
 import MessageCell from '../../components/message/messageCell';
+import EditTradeModal from './offerItems/EditTradeModal';
+import AcceptDeclineModal from './offerItems/AcceptDeclineModal';
+import ItemAddRemoveModal from './offerItems/ItemAddRemoveModal';
+import ChangeOfferModal from './offerItems/ChangeOfferModal';
 import {getConfiguredMessageData} from '../../utility/utility';
-import {Size, Type} from 'custom_enums';
 import {
   Container,
   ChatContainer,
@@ -24,9 +25,6 @@ import {
   InputRightButtonView,
   InputView,
   SectionList,
-  ModalContainerView,
-  ModalHeaderText,
-  TopMargin,
 } from './styles';
 export const OffersMessageScreen: FC<{}> = () => {
   const theme = useTheme();
@@ -38,48 +36,41 @@ export const OffersMessageScreen: FC<{}> = () => {
   const [isAcceptDeclineModalVisible, setAcceptDeclineModalVisible] =
     useState(false);
   const [isDecline, setDecline] = useState(false);
+  const [isEditTradeModalVisible, setEditTradeModalVisible] = useState(false);
+  const [isAddItem, setAddItem] = useState(false);
+  const [isAddRemoveItemModalVisible, setAddRemoveItemModalVisible] =
+    useState(false);
+  const [isChangeOfferModalVisible, setChangeOfferModalVisible] =
+    useState(false);
   const sendMessage = () => {
     setMessagesList(getConfiguredMessageData([1, 2, 3, 4, 5, 6, 7, 8]));
   };
+  const onAddItemPress = () => {
+    closeModal();
+    setTimeout(() => {
+      setAddItem(true);
+      setAddRemoveItemModalVisible(true);
+    }, 600);
+  };
+  const onRemoveItemPress = () => {
+    closeModal();
+    setTimeout(() => {
+      setAddRemoveItemModalVisible(true);
+    }, 600);
+  };
+  const onChangeOfferPress = () => {
+    closeModal();
+    setTimeout(() => {
+      setChangeOfferModalVisible(true);
+    }, 600);
+  };
   const closeModal = () => {
     setDecline(false);
+    setAddItem(false);
     setAcceptDeclineModalVisible(false);
-  };
-  const renderAcceptDeclineModalView = () => {
-    return (
-      <LSModal
-        isVisible={isAcceptDeclineModalVisible}
-        onBackdropPress={() => closeModal()}>
-        <LSModal.Container>
-          <ModalContainerView>
-            <ModalHeaderText>
-              {`Are you sure you would like to ${
-                isDecline ? 'Decline' : 'Accept'
-              } this trade?`}
-            </ModalHeaderText>
-            <TopMargin />
-            <LSButton
-              title={
-                isDecline ? 'Yes, Decline the Trade' : 'Yes, Accept the Trade'
-              }
-              size={Size.Fit_To_Width}
-              type={isDecline ? Type.Error : Type.Success}
-              radius={20}
-              onPress={() => closeModal()}
-            />
-            <TopMargin margin={2} />
-            <LSButton
-              title={'Not this time'}
-              size={Size.Fit_To_Width}
-              type={Type.Grey}
-              radius={20}
-              onPress={() => closeModal()}
-            />
-          </ModalContainerView>
-          <LSModal.CloseButton onCloseButtonPress={() => closeModal()} />
-        </LSModal.Container>
-      </LSModal>
-    );
+    setEditTradeModalVisible(false);
+    setAddRemoveItemModalVisible(false);
+    setChangeOfferModalVisible(false);
   };
   const renderOfferCellView = () => {
     return <TradeOfferCell offerItem={1} topMargin={5} />;
@@ -137,7 +128,7 @@ export const OffersMessageScreen: FC<{}> = () => {
           setDecline(true);
           setAcceptDeclineModalVisible(true);
         }}
-        onTrippleDotPress={() => {}}
+        onTrippleDotPress={() => setEditTradeModalVisible(true)}
       />
       {renderOfferCellView()}
       <KeyboardAvoidingView>
@@ -147,7 +138,29 @@ export const OffersMessageScreen: FC<{}> = () => {
           {renderRightInputView()}
         </InputContainer>
       </KeyboardAvoidingView>
-      {renderAcceptDeclineModalView()}
+      <AcceptDeclineModal
+        isModalVisible={isAcceptDeclineModalVisible}
+        isDecline={isDecline}
+        onCloseModal={closeModal}
+        onAcceptOfferPress={closeModal}
+        onDeclineOfferPress={closeModal}
+      />
+      <EditTradeModal
+        isModalVisible={isEditTradeModalVisible}
+        onCloseModal={closeModal}
+        onAddItemPress={onAddItemPress}
+        onRemoveItemPress={onRemoveItemPress}
+        onChangeOfferPress={onChangeOfferPress}
+      />
+      <ItemAddRemoveModal
+        isModalVisible={isAddRemoveItemModalVisible}
+        isAddItem={isAddItem}
+        onCloseModal={closeModal}
+      />
+      <ChangeOfferModal
+        isModalVisible={isChangeOfferModalVisible}
+        onCloseModal={closeModal}
+      />
     </Container>
   );
 };
