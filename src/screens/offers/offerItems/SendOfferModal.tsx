@@ -45,20 +45,31 @@ export const SendOfferModal: FC<SendOfferModalProp> = props => {
   const onItemPress = (itemId: string) => {
     const offerItems = [...itemsData];
     const foundItemIndex = offerItems?.findIndex(
-      _item => _item?._id === itemId,
+      _item => _item?._id === itemId && _item?.isSelected,
     );
     const alreadySelectedItems = offerItems?.filter(_fil => _fil?.isSelected);
-    if (foundItemIndex === -1 && alreadySelectedItems?.length >= 3) {
-      Alert.showError('Already 3 items selected');
-      return;
-    }
-    const updatedData = offerItems?.map(data => {
-      if (data?._id === itemId) {
-        data.isSelected = data?.isSelected ? !data?.isSelected : true;
+    if (alreadySelectedItems?.length >= 3) {
+      if (foundItemIndex >= 0) {
+        const updatedData = offerItems?.map(data => {
+          if (data?._id === itemId) {
+            data.isSelected = data?.isSelected ? !data?.isSelected : true;
+          }
+          return data;
+        });
+        updateOfferData(updatedData);
+      } else {
+        Alert.showError('Already 3 items selected');
+        return;
       }
-      return data;
-    });
-    updateOfferData(updatedData);
+    } else {
+      const updatedData = offerItems?.map(data => {
+        if (data?._id === itemId) {
+          data.isSelected = data?.isSelected ? !data?.isSelected : true;
+        }
+        return data;
+      });
+      updateOfferData(updatedData);
+    }
   };
   const onSendOfferPress = () => {
     const offerItems = [...itemsData];

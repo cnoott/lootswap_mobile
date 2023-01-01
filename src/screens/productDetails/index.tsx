@@ -151,7 +151,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       sender: userData?._id,
       senderItems: idsList,
       senderMoneyOffer: price,
-      recieverItem: productData?._id,
     };
     dispatch(
       sendTradeOffer(
