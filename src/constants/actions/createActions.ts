@@ -51,3 +51,11 @@ export const SAVE_SENT_MESSAGE = {
 export const ADD_PRODUCT = {
   ...createActionConst(actions.ADD_PRODUCT),
 };
+
+export const GET_PRODUCT_LISTED_ITEMS = {
+  ...createActionConst(actions.GET_PRODUCT_LISTED_ITEMS),
+};
+
+export const SEND_TRADE_OFFER = {
+  ...createActionConst(actions.SEND_TRADE_OFFER),
+};

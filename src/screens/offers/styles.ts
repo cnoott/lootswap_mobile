@@ -392,6 +392,18 @@ export const AddRemoveModalContainerView = styled.View.attrs(() => ({
   ${space}
 `;
 
+export const SendOfferModalContainerView = styled.KeyboardAvoidingView.attrs(
+  () => ({
+    behavior: 'padding',
+    pt: scale(10),
+    pb: scale(20),
+    minHeight: scale(Dimensions.get('window').height / 2 + 50),
+    maxHeight: scale(Dimensions.get('window').height - 280),
+  }),
+)`
+  ${space}
+`;
+
 export const ModalHeaderText: any = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
@@ -409,6 +421,18 @@ export const ModalSubHeaderText: any = styled.Text.attrs(props => ({
   font-size: ${moderateScale(14)}px;
   font-family: Inter;
   text-align: center;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const MoneyOfferText: any = styled.Text.attrs(props => ({
+  color: props.theme.colors.lightGrey,
+  my: scale(5),
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-family: Inter;
+  text-align: left;
   ${color}
   ${space}
   ${layout}

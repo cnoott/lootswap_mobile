@@ -2,7 +2,7 @@
   LootSwap - PRODUCT DETAILS SCREEN
  ***/
 
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Dimensions} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {useTheme} from 'styled-components';
@@ -39,11 +39,14 @@ import {SvgXml} from 'react-native-svg';
 import {LEFT_PRIMARY_ARROW, SHIELD_ICON} from 'localsvgimages';
 import StarRatings from '../../components/starRatings';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
+import SendOfferModal from '../offers/offerItems/SendOfferModal';
 import {
   getUsersDetailsRequest,
   getProductDetails,
   getMessageInitiatedStatus,
   createFirstMessage,
+  getProductListedItemsForOffer,
+  sendTradeOffer,
 } from '../../redux/modules';
 import {getProductTags} from '../../utility/utility';
 import {Alert} from 'custom_top_alert';
@@ -56,10 +59,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const auth: AuthProps = useSelector(state => state.auth);
   const homeStates: AuthProps = useSelector(state => state.home);
   const theme = useTheme();
+  const [isSendOfferModalVisible, setSendOfferModalVisible] = useState(false);
+  const [sendOfferItems, setSendOfferItems] = useState([]);
   const {requestedUserDetails, userData, isLogedIn} = auth;
   const {selectedProductDetails} = homeStates;
   const {productData = {}} = route?.params;
-  console.log('requestedUserDetails ===', requestedUserDetails);
 
   useEffect(() => {
     if (productData?.userId) {
@@ -123,6 +127,49 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     }
   };
 
+  const onSendOfferPress = () => {
+    dispatch(
+      getProductListedItemsForOffer(
+        productData?.userId,
+        (response: any) => {
+          setSendOfferItems(response);
+          setSendOfferModalVisible(true);
+        },
+        () => {
+          Alert.showError('Something went wrong!');
+        },
+      ),
+    );
+  };
+
+  const sendFinalOffer = (selectedItems: Array<any>, price: any) => {
+    const idsList = selectedItems?.map(offerItem => {
+      return offerItem?._id;
+    });
+    const reqData = {
+      reciever: productData?.userId,
+      sender: userData?._id,
+      senderItems: idsList,
+      senderMoneyOffer: price,
+      recieverItem: productData?._id,
+    };
+    dispatch(
+      sendTradeOffer(
+        reqData,
+        res => {
+          console.log('Success ====', res);
+        },
+        error => {
+          console.log('error ====', error);
+        },
+      ),
+    );
+  };
+
+  const updateOfferData = (newData: Array<any>) => {
+    setSendOfferItems([...newData]);
+  };
+
   const renderGoBackView = () => {
     return (
       <GoBackContainer onPress={() => navigation.goBack()}>
@@ -158,7 +205,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           title={'Send Offer'}
           size={Size.Full}
           type={Type.Primary}
-          onPress={() => {}}
+          onPress={() => onSendOfferPress()}
         />
         <TopSpace />
         <LSButton
@@ -246,6 +293,13 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           </SubContainer>
         </ScrollContainer>
       )}
+      <SendOfferModal
+        isModalVisible={isSendOfferModalVisible}
+        onCloseModal={() => setSendOfferModalVisible(false)}
+        itemsData={sendOfferItems || []}
+        updateOfferData={updateOfferData}
+        sendFinalOffer={sendFinalOffer}
+      />
     </Container>
   );
 };
