@@ -1,6 +1,10 @@
 // @flow
 
-import {GET_PRODUCT_DETAILS, ADD_PRODUCT} from '../../../constants/actions';
+import {
+  GET_PRODUCT_DETAILS,
+  ADD_PRODUCT,
+  CREATE_NEW_PRODUCT,
+} from '../../../constants/actions';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 import {getAddProductRawData} from '../../../utility/utility';
 
@@ -52,6 +56,17 @@ export default function loading(state = InitialState, action: ActionProps) {
       return {
         ...state,
         selectedProductDetails: null,
+      };
+    }
+    case CREATE_NEW_PRODUCT.SUCCESS: {
+      return {
+        ...state,
+        selectedProductDetails: null,
+      };
+    }
+    case CREATE_NEW_PRODUCT.FAILURE: {
+      return {
+        ...state,
       };
     }
     default:

@@ -82,7 +82,7 @@ export const SendOfferModal: FC<SendOfferModalProp> = props => {
   };
   const renderOfferItem = ({item}: any) => {
     return (
-      <ImageContainer size={productSize}>
+      <ImageContainer size={productSize} onPress={() => onItemPress(item?._id)}>
         <Image source={{uri: item?.primary_photo}} size={productSize} />
         <AnimatedCheckBox
           isChecked={item?.isSelected}

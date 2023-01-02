@@ -3,14 +3,23 @@ import {
   GET_PRODUCT_DETAILS,
   GET_PRODUCT_LISTED_ITEMS,
   SEND_TRADE_OFFER,
+  CREATE_NEW_PRODUCT,
 } from '../../../constants/actions';
-import {getProductDetailsSuccess, getProductDetailsFailure} from './actions';
+import {
+  getProductDetailsSuccess,
+  getProductDetailsFailure,
+  createNewProductSuccess,
+  createNewProductFailure,
+} from './actions';
 import {
   getRequestedProductDetailsCall,
   getProductListedItemsForOfferCall,
   sendTradeOfferCall,
+  createNewProductCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
+import {resetRoute} from '../../../navigation/navigationHelper';
+import {Alert} from 'custom_top_alert';
 
 type APIResponseProps = {
   success: boolean;
@@ -74,6 +83,27 @@ export function* sendTradeOffer(action: any) {
   }
 }
 
+export function* createNewProduct(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      createNewProductCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      Alert.showSuccess('Product added successfully..');
+      yield put(createNewProductSuccess());
+      resetRoute();
+    } else {
+      yield put(createNewProductFailure());
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(GET_PRODUCT_DETAILS.REQUEST, getSelectedProductDetails);
   yield takeLatest(
@@ -81,4 +111,5 @@ export default function* authSaga() {
     getProductListedItemsForOffer,
   );
   yield takeLatest(SEND_TRADE_OFFER.REQUEST, sendTradeOffer);
+  yield takeLatest(CREATE_NEW_PRODUCT.REQUEST, createNewProduct);
 }
