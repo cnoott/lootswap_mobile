@@ -148,6 +148,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     });
     const reqData = {
       reciever: productData?.userId,
+      recieverItem: productData.objectID,
       sender: userData?._id,
       senderItems: idsList,
       senderMoneyOffer: price,
