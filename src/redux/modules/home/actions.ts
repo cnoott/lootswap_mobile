@@ -3,6 +3,7 @@ import {
   ADD_PRODUCT,
   GET_PRODUCT_LISTED_ITEMS,
   SEND_TRADE_OFFER,
+  CREATE_NEW_PRODUCT,
 } from '../../../constants/actions';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 
@@ -63,5 +64,24 @@ export const sendTradeOffer = (
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
+  };
+};
+
+export const createNewProduct = (reqData: any) => {
+  return {
+    type: CREATE_NEW_PRODUCT.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const createNewProductSuccess = () => {
+  return {
+    type: CREATE_NEW_PRODUCT.SUCCESS,
+  };
+};
+
+export const createNewProductFailure = () => {
+  return {
+    type: CREATE_NEW_PRODUCT.FAILURE,
   };
 };

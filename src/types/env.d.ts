@@ -32,6 +32,7 @@ declare module 'custom_types' {
   export type DROPDOWN_TYPE = {
     item?: string;
     value?: string;
+    label?: string;
   };
   export type TRADE_TYPE = {
     isTradeOnly?: boolean;

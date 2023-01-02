@@ -30,3 +30,9 @@ export enum API_METHOD {
   Delete = 'DELETE',
   Put = 'PUT',
 }
+
+export enum Trade_Options {
+  TradeAndSell = 'trade-sell',
+  TradeOnly = 'trade-only',
+  SellOnly = 'sell-only',
+}

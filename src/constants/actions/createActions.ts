@@ -59,3 +59,7 @@ export const GET_PRODUCT_LISTED_ITEMS = {
 export const SEND_TRADE_OFFER = {
   ...createActionConst(actions.SEND_TRADE_OFFER),
 };
+
+export const CREATE_NEW_PRODUCT = {
+  ...createActionConst(actions.CREATE_NEW_PRODUCT),
+};

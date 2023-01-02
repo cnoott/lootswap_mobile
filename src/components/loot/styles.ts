@@ -37,6 +37,7 @@ export const ImageContainer = styled.View.attrs(props => ({
 export const DesContainer = styled.View.attrs(() => ({
   ml: scale(10),
   height: verticalScale(100),
+  flex: 1,
 }))`
   justify-content: space-evenly ${space} ${layout};
 `;

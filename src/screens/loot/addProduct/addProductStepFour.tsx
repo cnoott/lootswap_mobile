@@ -27,24 +27,47 @@ export const AddProductStepFour: FC<ProductStep> = props => {
   const [tradeDes, setTradeDes] = useState('');
   const {stepFour} = addProductData;
   const {updateProductData} = props;
+  const onChangeTrade = (index = 1) => {
+    const newData = {
+      isTradeAndSell: false,
+      isTradeOnly: false,
+      isSellOnly: false,
+    };
+    switch (index) {
+      case 1:
+        newData.isTradeAndSell = true;
+        newData.isTradeOnly = false;
+        newData.isSellOnly = false;
+        break;
+      case 2:
+        newData.isTradeAndSell = false;
+        newData.isTradeOnly = true;
+        newData.isSellOnly = false;
+        break;
+      case 3:
+        newData.isTradeAndSell = false;
+        newData.isTradeOnly = false;
+        newData.isSellOnly = true;
+        break;
+      default:
+        break;
+    }
+    updateProductData({
+      ...addProductData,
+      stepFour: {
+        ...addProductData?.stepFour,
+        tradeOptions: {
+          ...newData,
+        },
+      },
+    });
+  };
   const onBlurCall = () => {
     updateProductData({
       ...addProductData,
       stepFour: {
         ...addProductData?.stepFour,
         tradeDescription: tradeDes,
-      },
-    });
-  };
-  const onButtonPress = (newData: any) => {
-    updateProductData({
-      ...addProductData,
-      stepFour: {
-        ...addProductData?.stepFour,
-        tradeOptions: {
-          ...addProductData?.stepFour?.tradeOptions,
-          ...newData,
-        },
       },
     });
   };
@@ -68,22 +91,17 @@ export const AddProductStepFour: FC<ProductStep> = props => {
         {renderTradeButton(
           'Trade and Sell',
           stepFour?.tradeOptions?.isTradeAndSell,
-          () =>
-            onButtonPress({
-              isTradeAndSell: !stepFour?.tradeOptions?.isTradeAndSell,
-            }),
+          () => onChangeTrade(1),
         )}
         {renderTradeButton(
           'Trade Only',
           stepFour?.tradeOptions?.isTradeOnly,
-          () =>
-            onButtonPress({isTradeOnly: !stepFour?.tradeOptions?.isTradeOnly}),
+          () => onChangeTrade(2),
         )}
         {renderTradeButton(
           'Sell Only',
           stepFour?.tradeOptions?.isSellOnly,
-          () =>
-            onButtonPress({isSellOnly: !stepFour?.tradeOptions?.isSellOnly}),
+          () => onChangeTrade(3),
         )}
       </EmptyView>
     );

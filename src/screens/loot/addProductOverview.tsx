@@ -5,6 +5,7 @@ LootSwap - Add PRODUCT OVERVIEW SCREEN
 import React, {FC} from 'react';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {SvgXml} from 'react-native-svg';
+import {useSelector, useDispatch} from 'react-redux';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from 'custom_enums';
 import {
@@ -34,8 +35,45 @@ import {
   RowSpaceView,
 } from './addProductOverviewStyles';
 import {PRODUCT_EDIT_PRIMARY} from 'localsvgimages';
+import {HomeProps} from '../../redux/modules/home/reducer';
+import {AuthProps} from '../../redux/modules/auth/reducer';
+import {getSelectedTradeData} from '../../utility/utility'; //createNewProduct
+import {createNewProduct} from '../../redux/modules';
 
 export const AddProductOverviewScreen: FC<{}> = () => {
+  const dispatch = useDispatch();
+  const homeData: HomeProps = useSelector(state => state?.home);
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {addProductData} = homeData;
+  const {userData} = auth;
+  const {stepOne, stepTwo, stepThree, stepFour, stepFive} = addProductData;
+  const tradeData = getSelectedTradeData(stepFour?.tradeOptions);
+  console.log('addProductData ====', addProductData);
+  const addProduct = () => {
+    const images = stepThree?.map((_img: string) => {
+      const _data = {
+        src: _img,
+      };
+      return _data;
+    });
+    const reqData = {
+      name: stepTwo?.productName,
+      userId: userData?._id,
+      description: stepTwo?.productDescription,
+      condition: stepOne?.condition?.value,
+      size: stepOne?.size?.value,
+      brand: stepOne?.brand?.value,
+      interestedIn: '',
+      price: stepFive?.productPrice,
+      who_pays: 'buyer-pays',
+      sellerShippingCost: stepFive?.shippingCost,
+      category: stepOne?.category?.value,
+      type: tradeData?.value,
+      photos: images || [],
+    };
+    console.log('reqData for add product ===', reqData);
+    dispatch(createNewProduct(reqData));
+  };
   const renderEditButton = () => {
     return (
       <EditButtonContainer>
@@ -51,7 +89,7 @@ export const AddProductOverviewScreen: FC<{}> = () => {
       <SectionHeaderContainer>
         <EmptyView>
           <SubHeaderText>{label}</SubHeaderText>
-          {!!subLabel && <SubInfoText>7 of 13 Images</SubInfoText>}
+          {!!subLabel && <SubInfoText>{subLabel}</SubInfoText>}
         </EmptyView>
         {renderEditButton()}
       </SectionHeaderContainer>
@@ -62,8 +100,8 @@ export const AddProductOverviewScreen: FC<{}> = () => {
       <>
         {renderSectionHeader('Basic Info')}
         <ProductNameContainer>
-          <ProductNameLabel>Puma Shoes X50</ProductNameLabel>
-          <ProductBrandLabel>Nike</ProductBrandLabel>
+          <ProductNameLabel>{stepTwo?.productName}</ProductNameLabel>
+          <ProductBrandLabel>{stepOne?.brand?.label}</ProductBrandLabel>
         </ProductNameContainer>
       </>
     );
@@ -72,29 +110,25 @@ export const AddProductOverviewScreen: FC<{}> = () => {
     return (
       <>
         <SubHeaderText>Description</SubHeaderText>
-        <DesText numberOfLines={3}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed bibendum
-          suscipit dui, at congue magna interdum id. Mauris tristique libero
-          quis elit pulvinar...
-        </DesText>
+        <DesText numberOfLines={3}>{stepTwo?.productDescription}</DesText>
       </>
     );
   };
-  const renderImageView = () => {
+  const renderImageView = ({item}: any) => {
     return (
       <ImageContainer>
-        <Image source={{uri: 'https://picsum.photos/200'}} />
+        <Image source={{uri: item}} />
       </ImageContainer>
     );
   };
   const renderProductImagesView = () => {
     return (
       <>
-        {renderSectionHeader('Product Images', '7 of 13 Images')}
-        <FlatList
-          data={[...new Array(6).keys()]}
-          renderItem={renderImageView}
-        />
+        {renderSectionHeader(
+          'Product Images',
+          `${stepThree?.length} of 13 Images`,
+        )}
+        <FlatList data={stepThree} renderItem={renderImageView} />
       </>
     );
   };
@@ -110,10 +144,10 @@ export const AddProductOverviewScreen: FC<{}> = () => {
     return (
       <>
         {renderSectionHeader('Product Type')}
-        {renderSubProductInfo('Category', 'Means wear > Sports > Shoes')}
-        {renderSubProductInfo('Size', '15 UK')}
-        {renderSubProductInfo('Condition', 'Very Worn')}
-        {renderSubProductInfo('Brand/Designer', 'Nike')}
+        {renderSubProductInfo('Category', `${stepOne?.category?.label}`)}
+        {renderSubProductInfo('Size', `${stepOne?.size?.label}`)}
+        {renderSubProductInfo('Condition', `${stepOne?.condition?.label}`)}
+        {renderSubProductInfo('Brand/Designer', `${stepOne?.brand?.label}`)}
       </>
     );
   };
@@ -128,10 +162,7 @@ export const AddProductOverviewScreen: FC<{}> = () => {
     return (
       <>
         {renderSectionHeader('Trade Type')}
-        <RowView>
-          {renderTradeButton('Trade Only', true)}
-          {renderTradeButton('Sell Only', false)}
-        </RowView>
+        <RowView>{renderTradeButton(tradeData?.label, true)}</RowView>
       </>
     );
   };
@@ -142,11 +173,11 @@ export const AddProductOverviewScreen: FC<{}> = () => {
         <ProductNameContainer>
           <RowSpaceView>
             <SubInfoText>Price</SubInfoText>
-            <DetailsText>$ 499.00</DetailsText>
+            <DetailsText>$ {stepFive?.productPrice}</DetailsText>
           </RowSpaceView>
           <RowSpaceView>
             <SubInfoText>Shipping Cost</SubInfoText>
-            <DetailsText>+$ 20.00</DetailsText>
+            <DetailsText>+$ {stepFive?.shippingCost}</DetailsText>
           </RowSpaceView>
         </ProductNameContainer>
       </>
@@ -160,7 +191,7 @@ export const AddProductOverviewScreen: FC<{}> = () => {
         <TopSpace />
         {renderDescriptionView()}
         <Divider />
-        {renderProductImagesView()}
+        {stepThree?.length > 0 && renderProductImagesView()}
         <Divider />
         {renderProductTypeView()}
         <Divider />
@@ -174,7 +205,7 @@ export const AddProductOverviewScreen: FC<{}> = () => {
           size={Size.Full}
           type={Type.Primary}
           radius={20}
-          onPress={() => {}}
+          onPress={addProduct}
         />
       </SubContainer>
     </Container>

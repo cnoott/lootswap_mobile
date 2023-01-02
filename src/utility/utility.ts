@@ -12,6 +12,7 @@ import {
   PROFILE_NOTIFICATION,
 } from 'localsvgimages';
 import {PROFILE_OPTIONS_TYPE, GET_PRODUCT_DETAILS} from 'custom_types';
+import {Trade_Options} from 'custom_enums';
 
 /*
 On Launch -
@@ -493,4 +494,28 @@ export const getSelectedOfferItemsData = () => {
     },
   ];
   return data;
+};
+
+export const getSelectedTradeData = (tradeOption: any) => {
+  const tradeSell = {
+    label: 'Trade and Sell',
+    value: Trade_Options.TradeAndSell,
+  };
+  const tradeOnly = {
+    label: 'Trade Only',
+    value: Trade_Options.TradeOnly,
+  };
+  const sellOnly = {
+    label: 'Sell Only',
+    value: Trade_Options.SellOnly,
+  };
+  if (tradeOption?.isTradeAndSell) {
+    return tradeSell;
+  }
+  if (tradeOption?.isTradeOnly) {
+    return tradeOnly;
+  }
+  if (tradeOption?.isSellOnly) {
+    return sellOnly;
+  }
 };
