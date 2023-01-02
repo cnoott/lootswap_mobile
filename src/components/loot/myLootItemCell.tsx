@@ -20,21 +20,22 @@ interface LSMyLootCellProps {
 
 const MyLootCell: FC<LSMyLootCellProps> = React.memo(props => {
   const {onPress = () => {}} = props;
+  const item = props.item.item;
 
   const renderImageView = () => {
     return (
       <ImageContainer>
-        <Image source={{uri: 'https://picsum.photos/id/237/200/300'}} />
+        <Image source={{uri: item.primary_photo}} />
       </ImageContainer>
     );
   };
   const renderDescription = () => {
     return (
       <DesContainer>
-        <TitleText>Nike React Infinity V3</TitleText>
-        <BrandText>Brand</BrandText>
+        <TitleText>{item.name}</TitleText>
+        <BrandText>{item.brand}</BrandText>
         <DesBottomContainer>
-          <PriceText>$240.00</PriceText>
+          <PriceText>${item.price}</PriceText>
           <LSButton
             title={'Edit Item'}
             size={Size.Extra_Small}
