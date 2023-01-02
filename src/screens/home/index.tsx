@@ -42,15 +42,15 @@ export const HomeScreen: FC<{}> = () => {
     }
     return <LSProductCard item={item} onPress={() => onProductPress(item)} />;
   };
-
+  /* Commenting out for development purposes
   const transformItems = items => {
     return items.filter(item => item.isVisible && item.isVirtuallyVerified);
   };
+  */
 
   const InfiniteHits = ({...props}) => {
     const {hits, isLastPage, showMore} = useInfiniteHits({
       ...props,
-      transformItems,
     });
     return (
       <FlatList
