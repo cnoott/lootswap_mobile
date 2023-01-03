@@ -89,7 +89,7 @@ export const OffersScreen: FC<{}> = () => {
   });
   return (
     <Container>
-      <InStackHeader back={false} title={'Trade feed'} centerAligned={true} />
+      <InStackHeader back={false} title={'Trades'} centerAligned={true} />
       <TopTabView
         navigationState={{index, routes}}
         renderTabBar={renderTabBar}
