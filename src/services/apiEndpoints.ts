@@ -117,6 +117,13 @@ export const createNewProductCall = (reqData: any) => {
   );
 };
 
+export const getTradesHistoryCall = (reqData: any) => {
+  return handleResponse(
+    api.get(`/trades/${reqData?.userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
