@@ -6,6 +6,7 @@ import React, {FC} from 'react';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {SvgXml} from 'react-native-svg';
 import {useSelector, useDispatch} from 'react-redux';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from 'custom_enums';
 import {
@@ -40,13 +41,15 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 import {getSelectedTradeData} from '../../utility/utility'; //createNewProduct
 import {createNewProduct} from '../../redux/modules';
 
-export const AddProductOverviewScreen: FC<{}> = () => {
+export const AddProductOverviewScreen: FC<any> = ({route}) => {
+  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const dispatch = useDispatch();
   const homeData: HomeProps = useSelector(state => state?.home);
   const auth: AuthProps = useSelector(state => state.auth);
   const {addProductData} = homeData;
   const {userData} = auth;
   const {stepOne, stepTwo, stepThree, stepFour, stepFive} = addProductData;
+  const {isFromEdit = false} = route?.params || {};
   const tradeData = getSelectedTradeData(stepFour?.tradeOptions);
   console.log('addProductData ====', addProductData);
   const addProduct = () => {
@@ -71,34 +74,52 @@ export const AddProductOverviewScreen: FC<{}> = () => {
       type: tradeData?.value,
       photos: images || [],
     };
-    console.log('reqData for add product ===', reqData);
     dispatch(createNewProduct(reqData));
   };
-  const renderEditButton = () => {
+  const onBackCall = () => {
+    navigation.navigate('LootScreen', {
+      isFromEdit: false,
+      editIndex: 0,
+      isLootEdit: false,
+    });
+  };
+  const updateProduct = () => {};
+  const renderEditButton = (index: Number) => {
     return (
       <EditButtonContainer>
-        <FullTouchable>
+        <FullTouchable
+          onPress={() =>
+            navigation.navigate('LootScreen', {
+              isFromEdit: true,
+              editIndex: index,
+              isLootEdit: isFromEdit,
+            })
+          }>
           <SvgXml xml={PRODUCT_EDIT_PRIMARY} />
           <EditLabel>Edit</EditLabel>
         </FullTouchable>
       </EditButtonContainer>
     );
   };
-  const renderSectionHeader = (label: string, subLabel?: string) => {
+  const renderSectionHeader = (
+    label: string,
+    subLabel?: string,
+    editIndex?: Number,
+  ) => {
     return (
       <SectionHeaderContainer>
         <EmptyView>
           <SubHeaderText>{label}</SubHeaderText>
           {!!subLabel && <SubInfoText>{subLabel}</SubInfoText>}
         </EmptyView>
-        {renderEditButton()}
+        {renderEditButton(editIndex)}
       </SectionHeaderContainer>
     );
   };
   const renderProductNameView = () => {
     return (
       <>
-        {renderSectionHeader('Basic Info')}
+        {renderSectionHeader('Basic Info', false, 2)}
         <ProductNameContainer>
           <ProductNameLabel>{stepTwo?.productName}</ProductNameLabel>
           <ProductBrandLabel>{stepOne?.brand?.label}</ProductBrandLabel>
@@ -127,6 +148,7 @@ export const AddProductOverviewScreen: FC<{}> = () => {
         {renderSectionHeader(
           'Product Images',
           `${stepThree?.length} of 13 Images`,
+          3,
         )}
         <FlatList data={stepThree} renderItem={renderImageView} />
       </>
@@ -143,7 +165,7 @@ export const AddProductOverviewScreen: FC<{}> = () => {
   const renderProductTypeView = () => {
     return (
       <>
-        {renderSectionHeader('Product Type')}
+        {renderSectionHeader('Product Type', false, 1)}
         {renderSubProductInfo('Category', `${stepOne?.category?.label}`)}
         {renderSubProductInfo('Size', `${stepOne?.size?.label}`)}
         {renderSubProductInfo('Condition', `${stepOne?.condition?.label}`)}
@@ -161,7 +183,7 @@ export const AddProductOverviewScreen: FC<{}> = () => {
   const renderTradeTypeView = () => {
     return (
       <>
-        {renderSectionHeader('Trade Type')}
+        {renderSectionHeader('Trade Type', false, 4)}
         <RowView>{renderTradeButton(tradeData?.label, true)}</RowView>
       </>
     );
@@ -169,7 +191,7 @@ export const AddProductOverviewScreen: FC<{}> = () => {
   const renderProductPriceView = () => {
     return (
       <>
-        {renderSectionHeader('Product Price')}
+        {renderSectionHeader('Product Price', false, 5)}
         <ProductNameContainer>
           <RowSpaceView>
             <SubInfoText>Price</SubInfoText>
@@ -185,7 +207,11 @@ export const AddProductOverviewScreen: FC<{}> = () => {
   };
   return (
     <Container>
-      <InStackHeader back={true} title={'Overview'} />
+      <InStackHeader
+        back={!isFromEdit}
+        title={'Overview'}
+        onBackCall={onBackCall}
+      />
       <SubContainer>
         {renderProductNameView()}
         <TopSpace />
@@ -201,11 +227,11 @@ export const AddProductOverviewScreen: FC<{}> = () => {
         <TopSpace />
         <TopSpace />
         <LSButton
-          title={'Publish Now'}
+          title={isFromEdit ? 'Update' : 'Publish Now'}
           size={Size.Full}
           type={Type.Primary}
           radius={20}
-          onPress={addProduct}
+          onPress={() => (isFromEdit ? updateProduct() : addProduct())}
         />
       </SubContainer>
     </Container>

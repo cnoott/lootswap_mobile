@@ -24,19 +24,23 @@ import {
   FullTouchable,
 } from './styles';
 import {useSelector} from 'react-redux';
-import {HomeProps} from '../../../redux/modules/home/reducer';
 import {TRASH_WHITE_ICON} from 'localsvgimages';
+import {ADD_PRODUCT_TYPE} from 'custom_types';
 
 interface ProductStep {
   updateProductData: Function;
 }
 
 export const AddProductStepThree: FC<ProductStep> = props => {
-  const addProductData: HomeProps = useSelector(
+  const addProductData: ADD_PRODUCT_TYPE = useSelector(
     state => state?.home?.addProductData,
   );
+  const preFilledData =
+    addProductData?.stepThree?.length > 0
+      ? [...addProductData?.stepThree, 1]
+      : [1];
   const [isImageUploading, setImageUploading] = useState(false);
-  const [productImagesArr, setProductImagesArr] = useState<any>([1]); // Always adding 1 element to show add images component at last
+  const [productImagesArr, setProductImagesArr] = useState<any>(preFilledData); // Always adding 1 element to show add images component at last
   const {updateProductData} = props;
   const updateImagesData = (newImages: Array<string>) => {
     updateProductData({

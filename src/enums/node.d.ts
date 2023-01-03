@@ -4,4 +4,5 @@ declare module 'custom_enums' {
   export const FontFamily: any;
   export const API_METHOD: any;
   export const Trade_Options: any;
+  export const Who_Pays_Options: any;
 }

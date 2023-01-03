@@ -15,6 +15,7 @@ interface LSInputProps extends TextInputProps {
   onBlurCall?: Function;
   keyboardType?: string;
   inputRadius?: number;
+  defaultValue?: any;
 }
 
 const LSInput: FC<LSInputProps> = React.memo(props => {
