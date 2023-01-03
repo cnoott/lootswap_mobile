@@ -70,6 +70,11 @@ const ProfileStackNavigation = () => (
       name="NotificationSettingScreen"
       component={NotificationSettingScreen}
     />
+    <Stack.Screen name="LootScreen" component={LootScreen} />
+    <Stack.Screen
+      name="AddProductOverviewScreen"
+      component={AddProductOverviewScreen}
+    />
   </Stack.Navigator>
 );
 

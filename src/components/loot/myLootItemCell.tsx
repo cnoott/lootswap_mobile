@@ -14,12 +14,12 @@ import {Size, Type} from '../../enums';
 import LSButton from '../../components/commonComponents/LSButton';
 
 interface LSMyLootCellProps {
-  onPress?: Function;
+  onEditLootPress?: Function;
   item?: any;
 }
 
 const MyLootCell: FC<LSMyLootCellProps> = React.memo(props => {
-  const {onPress = () => {}} = props;
+  const {onEditLootPress = () => {}} = props;
   const item = props.item.item;
 
   const renderImageView = () => {
@@ -40,7 +40,7 @@ const MyLootCell: FC<LSMyLootCellProps> = React.memo(props => {
             title={'Edit Item'}
             size={Size.Extra_Small}
             type={Type.Secondary}
-            onPress={onPress}
+            onPress={() => onEditLootPress()}
           />
         </DesBottomContainer>
       </DesContainer>

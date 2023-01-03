@@ -6,18 +6,22 @@ import React, {FC, useState} from 'react';
 import {Container} from './styles';
 import LSInput from '../../../components/commonComponents/LSInput';
 import {useSelector} from 'react-redux';
-import {HomeProps} from '../../../redux/modules/home/reducer';
+import {ADD_PRODUCT_TYPE} from 'custom_types';
 
 interface ProductStep {
   updateProductData: Function;
 }
 
 export const AddProductStepTwo: FC<ProductStep> = props => {
-  const addProductData: HomeProps = useSelector(
+  const addProductData: ADD_PRODUCT_TYPE = useSelector(
     state => state?.home?.addProductData,
   );
-  const [productName, setProductName] = useState('');
-  const [productDes, setProductDes] = useState('');
+  const [productName, setProductName] = useState(
+    addProductData?.stepTwo?.productName || '',
+  );
+  const [productDes, setProductDes] = useState(
+    addProductData?.stepTwo?.productDescription || '',
+  );
   const {updateProductData} = props;
   const onBlurCall = () => {
     updateProductData({

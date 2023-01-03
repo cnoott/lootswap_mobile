@@ -20,11 +20,19 @@ interface ProductStep {
 
 export const AddProductStepOne: FC<ProductStep> = props => {
   const homeData: HomeProps = useSelector(state => state?.home);
-  const [categoryData, setCategoryData] = useState(null);
-  const [sizeData, setSizeData] = useState(null);
-  const [brandData, setBrandData] = useState(null);
-  const [conditionData, setConditionData] = useState(null);
   const {addProductData} = homeData;
+  const [categoryData, setCategoryData] = useState(
+    addProductData?.stepOne?.category || null,
+  );
+  const [sizeData, setSizeData] = useState(
+    addProductData?.stepOne?.size || null,
+  );
+  const [brandData, setBrandData] = useState(
+    addProductData?.stepOne?.brand || null,
+  );
+  const [conditionData, setConditionData] = useState(
+    addProductData?.stepOne?.condition || null,
+  );
   const {updateProductData} = props;
 
   const updateData = (newData: any = {}) => {

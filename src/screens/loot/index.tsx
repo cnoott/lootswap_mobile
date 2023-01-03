@@ -39,17 +39,32 @@ import {HomeProps} from '../../redux/modules/home/reducer';
 import {UpdateAddProductData} from '../../redux/modules';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 
-export const LootScreen: FC<{}> = () => {
+export const LootScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const dispatch = useDispatch();
   const homeData: HomeProps = useSelector(state => state?.home);
   const swiperRef = useRef<any>(null);
-  const [currIndex, setCurrIndex] = useState(0);
   const [isPayPalModalVisible, setPayPalModalVisible] = useState(false);
   const {addProductData} = homeData;
+  const {
+    isFromEdit = false,
+    editIndex = null,
+    isLootEdit = false,
+  } = route?.params || {};
+  const [currIndex, setCurrIndex] = useState(
+    isFromEdit && editIndex ? editIndex - 1 : 0,
+  );
   console.log('addProductData ===', addProductData);
   const updateProductData = (proData: ADD_PRODUCT_TYPE) => {
     dispatch(UpdateAddProductData(proData));
+  };
+  const handleDone = () => {
+    if (isLootEdit) {
+      navigation.goBack();
+    } // Navigating again to AddProductOverviewScreen
+    else {
+      navigation.navigate('AddProductOverviewScreen');
+    }
   };
   const handleNext = useCallback(() => {
     // setPayPalModalVisible(true);
@@ -114,6 +129,19 @@ export const LootScreen: FC<{}> = () => {
     );
   };
   const renderBottomButtonView = () => {
+    if (isFromEdit) {
+      return (
+        <ButtonContainer>
+          <LSButton
+            title={'Done'}
+            size={Size.Fit_To_Width}
+            type={Type.Primary}
+            radius={20}
+            onPress={handleDone}
+          />
+        </ButtonContainer>
+      );
+    }
     return (
       <ButtonContainer>
         <LSButton
@@ -133,6 +161,43 @@ export const LootScreen: FC<{}> = () => {
       </ButtonContainer>
     );
   };
+  const renderSteps = () => {
+    if (!isFromEdit) {
+      return [1, 2, 3, 4, 5].map(data => {
+        switch (data) {
+          case 1:
+            return <AddProductStepOne updateProductData={updateProductData} />;
+          case 2:
+            return <AddProductStepTwo updateProductData={updateProductData} />;
+          case 3:
+            return (
+              <AddProductStepThree updateProductData={updateProductData} />
+            );
+          case 4:
+            return <AddProductStepFour updateProductData={updateProductData} />;
+          case 5:
+            return <AddProductStepFive updateProductData={updateProductData} />;
+          default:
+            break;
+        }
+      });
+    } else {
+      switch (editIndex) {
+        case 1:
+          return <AddProductStepOne updateProductData={updateProductData} />;
+        case 2:
+          return <AddProductStepTwo updateProductData={updateProductData} />;
+        case 3:
+          return <AddProductStepThree updateProductData={updateProductData} />;
+        case 4:
+          return <AddProductStepFour updateProductData={updateProductData} />;
+        case 5:
+          return <AddProductStepFive updateProductData={updateProductData} />;
+        default:
+          return <AddProductStepOne updateProductData={updateProductData} />;
+      }
+    }
+  };
   return (
     <Container>
       <InStackHeader back={false} title={'Add Product'} centerAligned={false} />
@@ -143,11 +208,7 @@ export const LootScreen: FC<{}> = () => {
         contentContainerStyle={Innercontainer}
         keyboardShouldPersistTaps={'handled'}>
         <SwiperComponent ref={swiperRef} onIndexChanged={setCurrIndex}>
-          <AddProductStepOne updateProductData={updateProductData} />
-          <AddProductStepTwo updateProductData={updateProductData} />
-          <AddProductStepThree updateProductData={updateProductData} />
-          <AddProductStepFour updateProductData={updateProductData} />
-          <AddProductStepFive updateProductData={updateProductData} />
+          {renderSteps()}
         </SwiperComponent>
       </KeyboardAwareScrollView>
       {renderBottomButtonView()}

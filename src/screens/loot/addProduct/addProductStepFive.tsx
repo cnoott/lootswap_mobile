@@ -24,20 +24,22 @@ import {
   RADIO_BUTTON_UNSELECTED,
 } from 'localsvgimages';
 import {useSelector} from 'react-redux';
-import {HomeProps} from '../../../redux/modules/home/reducer';
+import {ADD_PRODUCT_TYPE} from 'custom_types';
 
 interface ProductStep {
   updateProductData: Function;
 }
 
 export const AddProductStepFive: FC<ProductStep> = props => {
-  const addProductData: HomeProps = useSelector(
+  const addProductData: ADD_PRODUCT_TYPE = useSelector(
     state => state?.home?.addProductData,
   );
-  const [price, setPrice] = useState(0);
-  const [shippingCost, setShippingCost] = useState(0);
-  const {updateProductData} = props;
   const {stepFive} = addProductData;
+  const [price, setPrice] = useState(stepFive?.productPrice || 0.0);
+  const [shippingCost, setShippingCost] = useState(
+    stepFive?.shippingCost || 0.0,
+  );
+  const {updateProductData} = props;
   const onBlurCall = () => {
     updateProductData({
       ...addProductData,
@@ -68,7 +70,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
         </ShippingDes>
         <TouchableRow
           onPress={() =>
-            onButtonPress({isShippingPrice: !stepFive?.isShippingPrice})
+            onButtonPress({isShippingPrice: true, isFreeShipping: false})
           }>
           <SvgXml
             xml={
@@ -81,7 +83,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
         </TouchableRow>
         <TouchableRow
           onPress={() =>
-            onButtonPress({isFreeShipping: !stepFive?.isFreeShipping})
+            onButtonPress({isFreeShipping: true, isShippingPrice: false})
           }>
           <SvgXml
             xml={
@@ -108,7 +110,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
       </HorizontalSpace>
       <LSInput
         onChangeText={setPrice}
-        value={price}
+        defaultValue={String(price)}
         placeholder={'0.00'}
         horizontalSpace={20}
         topSpace={1}
@@ -118,20 +120,24 @@ export const AddProductStepFive: FC<ProductStep> = props => {
         onBlurCall={onBlurCall}
       />
       {renderShippingView()}
-      <HorizontalSpace>
-        <TradeOptionsText>Shipping Cost</TradeOptionsText>
-      </HorizontalSpace>
-      <LSInput
-        onChangeText={setShippingCost}
-        value={shippingCost}
-        placeholder={'0.00'}
-        horizontalSpace={20}
-        topSpace={1}
-        rightIcon={USD_TEXT}
-        leftIcon={DOLLOR_TEXT}
-        keyboardType={'numeric'}
-        onBlurCall={onBlurCall}
-      />
+      {!stepFive?.isFreeShipping && (
+        <>
+          <HorizontalSpace>
+            <TradeOptionsText>Shipping Cost</TradeOptionsText>
+          </HorizontalSpace>
+          <LSInput
+            onChangeText={setShippingCost}
+            defaultValue={String(shippingCost)}
+            placeholder={'0.00'}
+            horizontalSpace={20}
+            topSpace={1}
+            rightIcon={USD_TEXT}
+            leftIcon={DOLLOR_TEXT}
+            keyboardType={'numeric'}
+            onBlurCall={onBlurCall}
+          />
+        </>
+      )}
     </Container>
   );
 };

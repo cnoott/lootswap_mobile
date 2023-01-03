@@ -14,18 +14,18 @@ import {
   EmptyView,
 } from './styles';
 import {useSelector} from 'react-redux';
-import {HomeProps} from '../../../redux/modules/home/reducer';
+import {ADD_PRODUCT_TYPE} from 'custom_types';
 
 interface ProductStep {
   updateProductData: Function;
 }
 
 export const AddProductStepFour: FC<ProductStep> = props => {
-  const addProductData: HomeProps = useSelector(
+  const addProductData: ADD_PRODUCT_TYPE = useSelector(
     state => state?.home?.addProductData,
   );
-  const [tradeDes, setTradeDes] = useState('');
   const {stepFour} = addProductData;
+  const [tradeDes, setTradeDes] = useState(stepFour?.tradeDescription || '');
   const {updateProductData} = props;
   const onChangeTrade = (index = 1) => {
     const newData = {

@@ -15,6 +15,7 @@ interface HeaderProps {
   back?: boolean;
   right?: boolean;
   centerAligned?: boolean;
+  onBackCall?: Function;
 }
 
 export const InStackHeader: FC<HeaderProps> = React.memo(props => {
@@ -24,10 +25,15 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
     back = true,
     right = false,
     centerAligned = false,
+    onBackCall,
   } = props;
   const onTrippleDotPress = () => {};
   const onBackPress = () => {
-    navigation.goBack();
+    if (onBackCall) {
+      onBackCall();
+    } else {
+      navigation.goBack();
+    }
   };
 
   return (

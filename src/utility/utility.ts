@@ -12,7 +12,7 @@ import {
   PROFILE_NOTIFICATION,
 } from 'localsvgimages';
 import {PROFILE_OPTIONS_TYPE, GET_PRODUCT_DETAILS} from 'custom_types';
-import {Trade_Options} from 'custom_enums';
+import {Trade_Options, Who_Pays_Options} from 'custom_enums';
 
 /*
 On Launch -
@@ -518,4 +518,73 @@ export const getSelectedTradeData = (tradeOption: any) => {
   if (tradeOption?.isSellOnly) {
     return sellOnly;
   }
+};
+
+const getStepOneDataFromLists = (arrayData: any, catValue: string) => {
+  const filteredCategory = arrayData?.filter(cat => cat?.value === catValue);
+  return filteredCategory[0] || arrayData[0];
+};
+
+const getTradeDataForConfigure = (trade: string) => {
+  const tradeData = {
+    isTradeAndSell: false,
+    isTradeOnly: false,
+    isSellOnly: false,
+  };
+  switch (trade) {
+    case Trade_Options?.TradeAndSell:
+      tradeData.isTradeAndSell = true;
+      break;
+    case Trade_Options?.isTradeOnly:
+      tradeData.isTradeOnly = true;
+      break;
+    case Trade_Options?.SellOnly:
+      tradeData.isSellOnly = true;
+      break;
+    default:
+      tradeData.isTradeAndSell = true;
+      break;
+  }
+  return tradeData;
+};
+
+export const configureAndGetLootData = (lootData: any) => {
+  const newLootData: GET_PRODUCT_DETAILS = getAddProductRawData();
+  // Configure STEP 1
+  newLootData.stepOne.category = getStepOneDataFromLists(
+    categoryList,
+    lootData?.category,
+  );
+  newLootData.stepOne.brand = getStepOneDataFromLists(
+    brandsList,
+    lootData?.brand,
+  );
+  newLootData.stepOne.size = getStepOneDataFromLists(
+    getSizeList(lootData?.category),
+    lootData?.size,
+  );
+  newLootData.stepOne.condition = getStepOneDataFromLists(
+    conditionList,
+    lootData?.condition,
+  );
+  // Configure STEP 2
+  newLootData.stepTwo.productName = lootData?.name;
+  newLootData.stepTwo.productDescription = lootData?.description;
+  // Configure STEP 3
+  const secPhotosList =
+    lootData?.secondary_photos && lootData?.secondary_photos?.length > 0
+      ? [...lootData?.secondary_photos]
+      : [];
+  newLootData.stepThree = [lootData?.primary_photo, ...secPhotosList];
+  // Configure STEP 4
+  newLootData.stepFour.tradeOptions = getTradeDataForConfigure(lootData?.type);
+  newLootData.stepFour.tradeDescription = lootData?.interestedIn;
+  // Configure STEP 5
+  newLootData.stepFive.productPrice = parseFloat(lootData?.price);
+  newLootData.stepFive.shippingCost = parseFloat(lootData?.sellerShippingCost);
+  newLootData.stepFive.isShippingPrice =
+    Who_Pays_Options?.BuyerPays === lootData?.who_pays;
+  newLootData.stepFive.isFreeShipping =
+    Who_Pays_Options?.SellerPays === lootData?.who_pays;
+  return newLootData;
 };
