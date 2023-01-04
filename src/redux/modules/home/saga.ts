@@ -10,12 +10,14 @@ import {
   getProductDetailsFailure,
   createNewProductSuccess,
   createNewProductFailure,
+  resetAddProductData,
 } from './actions';
 import {
   getRequestedProductDetailsCall,
   getProductListedItemsForOfferCall,
   sendTradeOfferCall,
   createNewProductCall,
+  updateProductCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
@@ -87,13 +89,18 @@ export function* createNewProduct(action: any) {
   yield put(LoadingRequest());
   try {
     const response: APIResponseProps = yield call(
-      createNewProductCall,
+      action?.isUpdateCall ? updateProductCall : createNewProductCall,
       action?.reqData,
     );
     yield put(LoadingSuccess());
     if (response?.success) {
-      Alert.showSuccess('Product added successfully..');
+      Alert.showSuccess(
+        action?.isUpdateCall
+          ? 'Product updated successfully..'
+          : 'Product added successfully..',
+      );
       yield put(createNewProductSuccess());
+      yield put(resetAddProductData());
       resetRoute();
     } else {
       yield put(createNewProductFailure());

@@ -39,10 +39,10 @@ export const MyLootScreen: FC<{}> = () => {
 
   const onEditLootPress = ({item}: any) => {
     const prodData = configureAndGetLootData(item);
-    // console.log('prodData ===', prodData);
     dispatch(UpdateAddProductData(prodData));
     navigation.navigate('AddProductOverviewScreen', {
       isFromEdit: true,
+      productId: item?._id,
     });
   };
 

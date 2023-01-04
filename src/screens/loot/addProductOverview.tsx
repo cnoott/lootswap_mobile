@@ -8,7 +8,7 @@ import {SvgXml} from 'react-native-svg';
 import {useSelector, useDispatch} from 'react-redux';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import LSButton from '../../components/commonComponents/LSButton';
-import {Size, Type} from 'custom_enums';
+import {Size, Type, Who_Pays_Options} from 'custom_enums';
 import {
   Container,
   SubContainer,
@@ -38,7 +38,7 @@ import {
 import {PRODUCT_EDIT_PRIMARY} from 'localsvgimages';
 import {HomeProps} from '../../redux/modules/home/reducer';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {getSelectedTradeData} from '../../utility/utility'; //createNewProduct
+import {getSelectedTradeData} from '../../utility/utility';
 import {createNewProduct} from '../../redux/modules';
 
 export const AddProductOverviewScreen: FC<any> = ({route}) => {
@@ -49,17 +49,17 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
   const {addProductData} = homeData;
   const {userData} = auth;
   const {stepOne, stepTwo, stepThree, stepFour, stepFive} = addProductData;
-  const {isFromEdit = false} = route?.params || {};
+  const {isFromEdit = false, productId} = route?.params || {};
   const tradeData = getSelectedTradeData(stepFour?.tradeOptions);
   console.log('addProductData ====', addProductData);
-  const addProduct = () => {
+  const addProduct = (isUpdateCall: boolean = false) => {
     const images = stepThree?.map((_img: string) => {
       const _data = {
         src: _img,
       };
       return _data;
     });
-    const reqData = {
+    const reqData: any = {
       name: stepTwo?.productName,
       userId: userData?._id,
       description: stepTwo?.productDescription,
@@ -68,22 +68,30 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
       brand: stepOne?.brand?.value,
       interestedIn: '',
       price: stepFive?.productPrice,
-      who_pays: 'buyer-pays',
+      who_pays: stepFive?.isFreeShipping
+        ? Who_Pays_Options?.SellerPays
+        : Who_Pays_Options?.BuyerPays,
       sellerShippingCost: stepFive?.shippingCost,
       category: stepOne?.category?.value,
       type: tradeData?.value,
       photos: images || [],
     };
-    dispatch(createNewProduct(reqData));
+    if (isUpdateCall) {
+      reqData.productIdToUpdate = productId;
+    }
+    dispatch(createNewProduct(reqData, isUpdateCall));
   };
   const onBackCall = () => {
-    navigation.navigate('LootScreen', {
-      isFromEdit: false,
-      editIndex: 0,
-      isLootEdit: false,
-    });
+    if (isFromEdit) {
+      navigation.goBack();
+    } else {
+      navigation.navigate('LootScreen', {
+        isFromEdit: false,
+        editIndex: 0,
+        isLootEdit: false,
+      });
+    }
   };
-  const updateProduct = () => {};
   const renderEditButton = (index: Number) => {
     return (
       <EditButtonContainer>
@@ -207,11 +215,7 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
   };
   return (
     <Container>
-      <InStackHeader
-        back={!isFromEdit}
-        title={'Overview'}
-        onBackCall={onBackCall}
-      />
+      <InStackHeader back={true} title={'Overview'} onBackCall={onBackCall} />
       <SubContainer>
         {renderProductNameView()}
         <TopSpace />
@@ -231,7 +235,7 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
           size={Size.Full}
           type={Type.Primary}
           radius={20}
-          onPress={() => (isFromEdit ? updateProduct() : addProduct())}
+          onPress={() => addProduct(isFromEdit)}
         />
       </SubContainer>
     </Container>

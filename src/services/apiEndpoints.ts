@@ -117,6 +117,15 @@ export const createNewProductCall = (reqData: any) => {
   );
 };
 
+export const updateProductCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/product/${reqData?.productIdToUpdate}/${reqData?.userId}`, {
+      product: reqData,
+    }),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const getTradesHistoryCall = (reqData: any) => {
   return handleResponse(
     api.get(`/trades/${reqData?.userId}`),

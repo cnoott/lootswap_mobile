@@ -1,6 +1,6 @@
 import {moderateScale, verticalScale, scale} from 'react-native-size-matters';
 import styled from 'styled-components/native';
-import {layout, space, color} from 'styled-system';
+import {layout, space, color, border} from 'styled-system';
 import {Dimensions} from 'react-native';
 
 const width = Dimensions.get('window').width;
@@ -74,18 +74,21 @@ export const ImageContainer = styled.View.attrs(props => ({
   ${layout} ${color} ${space};
 `;
 
-export const DeleteContainer = styled.View.attrs(props => ({
+export const DeleteContainer = styled.TouchableOpacity.attrs(props => ({
   height: scale(24),
   width: scale(24),
   borderRadius: scale(12),
   bg: props.theme.colors.black,
   top: 10,
   right: 10,
+  hitSlop: {top: 10, left: 10, right: 10, bottom: 10},
 }))`
   align-items: center;
   justify-content: center;
   position: absolute;
-  ${layout} ${color} ${space};
+  top: 10px;
+  right: 10px;
+  ${layout} ${color} ${space} ${border};
 `;
 
 export const FullTouchable = styled.TouchableOpacity`
