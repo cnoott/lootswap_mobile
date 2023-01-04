@@ -23,8 +23,7 @@ export function* getTradesHistory(action: any) {
     yield put(LoadingSuccess());
     if (response?.success) {
       yield put(getTradesHistorySuccess(response.data));
-    }
-    else {
+    } else {
       yield put(getTradesHistoryFailure(response.error));
     }
   } catch (e) {
