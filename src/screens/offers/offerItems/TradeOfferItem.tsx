@@ -61,21 +61,26 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
       </OfferItemContainer>
     );
   };
-  const renderTrippleView = () => {
-    const _size = 60;
-    const photoArray = subItem?.senderItems.map(item => {
+  const renderTrippleView = (showMoneyOffer: boolean = false) => {
+    const _size = 58;
+    const photoArray = subItem?.senderItems.map((item: any) => {
       return item?.primary_photo;
     });
+    // Adding one extra element to show money offer view at last
+    if (showMoneyOffer) {
+      photoArray.push('1');
+    }
 
     const renderTrippleOffer = () => {
       return (
         <TrippleViewOffer size={_size}>
-          <OfferText>+$500</OfferText>
+          <OfferText>+${subItem?.senderMoneyOffer}</OfferText>
         </TrippleViewOffer>
       );
     };
-    const trippleViewItem = ({item}) => {
-      if (false) {
+    const trippleViewItem = ({item, index}: any) => {
+      const isFooter = index + 1 === photoArray?.length;
+      if (isFooter && showMoneyOffer) {
         return renderTrippleOffer();
       }
       return (
@@ -101,7 +106,7 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
       case subItem?.senderItems.length === 2:
         return renderDoubleView();
       case subItem?.senderItems.length === 3 && subItem?.senderMoneyOffer > 0:
-        return renderTrippleView();
+        return renderTrippleView(true);
       case subItem?.senderItems.length === 3:
         return renderTrippleView();
 

@@ -34,10 +34,14 @@ import {
 import {Size, Type} from '../../enums';
 import {LSModal} from '../../components/commonComponents/LSModal';
 import {PAY_PAL_IMAGE, LINK_PAYPAL_TEXT} from 'localsvgimages';
-import {getAddProductTitle} from '../../utility/utility';
+import {
+  getAddProductTitle,
+  validateCreateProductData,
+} from '../../utility/utility';
 import {HomeProps} from '../../redux/modules/home/reducer';
 import {UpdateAddProductData} from '../../redux/modules';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
+import {Alert} from 'custom_top_alert';
 
 export const LootScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -66,14 +70,19 @@ export const LootScreen: FC<any> = ({route}) => {
       navigation.navigate('AddProductOverviewScreen');
     }
   };
-  const handleNext = useCallback(() => {
-    // setPayPalModalVisible(true);
+  const handleNext = useCallback(async () => {
     Keyboard.dismiss();
-    if (currIndex === 4) {
-      navigation.navigate('AddProductOverviewScreen');
+    const canGoNext = validateCreateProductData(currIndex + 1, addProductData);
+    if (canGoNext) {
+      // setPayPalModalVisible(true);
+      if (currIndex === 4) {
+        navigation.navigate('AddProductOverviewScreen');
+      }
+      swiperRef?.current?.scrollTo(currIndex + 1);
+    } else {
+      Alert.showError('Please fill all information');
     }
-    swiperRef?.current?.scrollTo(currIndex + 1);
-  }, [currIndex, navigation]);
+  }, [currIndex, addProductData, navigation]);
   const handleBack = useCallback(() => {
     if (currIndex !== 0) {
       swiperRef?.current?.scrollTo(currIndex - 1);

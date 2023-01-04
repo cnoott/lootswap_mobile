@@ -28,6 +28,8 @@ export const getInitialRoute = (userData: any) => {
   return {initialScreen, isLoggedIn};
 };
 
+export const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+
 export const configureFilterData = (filterItems: any) => {
   const newFilters = filterItems?.map(category => {
     const newItem = category?.data?.map(filter => {
@@ -587,4 +589,55 @@ export const configureAndGetLootData = (lootData: any) => {
   newLootData.stepFive.isFreeShipping =
     Who_Pays_Options?.SellerPays === lootData?.who_pays;
   return newLootData;
+};
+
+export const validateCreateProductData = (
+  currStep: number,
+  prodData: GET_PRODUCT_DETAILS,
+) => {
+  var canGoNext = false;
+  switch (currStep) {
+    case 1:
+      const {category, brand, size, condition} = prodData?.stepOne;
+      if (category && brand && size && condition) {
+        canGoNext = true;
+      }
+      break;
+    case 2:
+      const {productName, productDescription} = prodData?.stepTwo;
+      if (productName && productDescription) {
+        canGoNext = true;
+      }
+      break;
+    case 3:
+      const {stepThree} = prodData;
+      if (stepThree?.length >= 2) {
+        canGoNext = true;
+      }
+      break;
+    case 4:
+      const {tradeOptions} = prodData?.stepFour;
+      if (
+        tradeOptions?.isTradeAndSell ||
+        tradeOptions?.isTradeOnly ||
+        tradeOptions?.isSellOnly
+      ) {
+        canGoNext = true;
+      }
+      break;
+    case 5:
+      const {productPrice, shippingCost, isShippingPrice, isFreeShipping} =
+        prodData?.stepFive;
+      if (productPrice) {
+        if (isFreeShipping) {
+          canGoNext = true;
+        } else if (isShippingPrice && shippingCost) {
+          canGoNext = true;
+        }
+      }
+      break;
+    default:
+      break;
+  }
+  return canGoNext;
 };
