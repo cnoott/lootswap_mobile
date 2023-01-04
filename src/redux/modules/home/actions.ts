@@ -14,7 +14,7 @@ export const UpdateAddProductData = (newProduct: ADD_PRODUCT_TYPE) => {
   };
 };
 
-export const ResetAddProductData = () => {
+export const resetAddProductData = () => {
   return {
     type: ADD_PRODUCT.RESET,
   };
@@ -67,10 +67,11 @@ export const sendTradeOffer = (
   };
 };
 
-export const createNewProduct = (reqData: any) => {
+export const createNewProduct = (reqData: any, isUpdateCall: boolean) => {
   return {
     type: CREATE_NEW_PRODUCT.REQUEST,
     reqData: reqData,
+    isUpdateCall: isUpdateCall,
   };
 };
 
