@@ -28,6 +28,7 @@ import {
 } from '../../../redux/modules/loading/actions';
 import {TRASH_WHITE_ICON} from 'localsvgimages';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
+import {Alert} from 'custom_top_alert';
 
 interface ProductStep {
   updateProductData: Function;
@@ -50,40 +51,52 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       stepThree: newImages,
     });
   };
+  /**
+   * You can add Min 2 & Max 13 images
+   */
   const onAddImage = () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      cropping: true,
-    }).then(image => {
-      dispatch(LoadingRequest());
-      const fileData = {
-        ...image,
-        type: image?.mime,
-        uri:
-          Platform.OS === 'android'
-            ? image?.sourceURL
-            : image?.sourceURL?.replace('file://', ''),
-      };
-      getSignedRequest(fileData)
-        .then(signedReqData => {
-          uploadFile(fileData, signedReqData?.signedRequest, signedReqData?.url)
-            .then(url => {
-              dispatch(LoadingSuccess());
-              if (url) {
-                const newArr = [url, ...productImagesArr];
-                setProductImagesArr(newArr); // Local Update
-                updateImagesData(newArr.slice(0, -1)); // Reducer Update
-              }
-            })
-            .catch(() => {
-              dispatch(LoadingSuccess());
-            });
-        })
-        .catch(() => {
-          dispatch(LoadingSuccess());
-        });
-    });
+    if (productImagesArr?.length <= 14) {
+      // Checking for 1 extra due to footer component
+      ImagePicker.openPicker({
+        width: 300,
+        height: 400,
+        cropping: true,
+      }).then(image => {
+        dispatch(LoadingRequest());
+        const fileData = {
+          ...image,
+          type: image?.mime,
+          uri:
+            Platform.OS === 'android'
+              ? image?.sourceURL
+              : image?.sourceURL?.replace('file://', ''),
+        };
+        getSignedRequest(fileData)
+          .then(signedReqData => {
+            uploadFile(
+              fileData,
+              signedReqData?.signedRequest,
+              signedReqData?.url,
+            )
+              .then(url => {
+                dispatch(LoadingSuccess());
+                if (url) {
+                  const newArr = [url, ...productImagesArr];
+                  setProductImagesArr(newArr); // Local Update
+                  updateImagesData(newArr.slice(0, -1)); // Reducer Update
+                }
+              })
+              .catch(() => {
+                dispatch(LoadingSuccess());
+              });
+          })
+          .catch(() => {
+            dispatch(LoadingSuccess());
+          });
+      });
+    } else {
+      Alert.showError('Maximum images added');
+    }
   };
   const onRemoveImage = (imageIndex: number) => {
     const newImgArr = [...productImagesArr];

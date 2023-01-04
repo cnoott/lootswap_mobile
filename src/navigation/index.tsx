@@ -66,7 +66,8 @@ const StackNavigator: FC<{}> = () => {
           renderImage={() => null}
           tapToCloseEnabled
           useNativeDriver
-          closeInterval={2500}
+          closeInterval={2000}
+          startDelta={-300}
         />
       }
     </NavigationContainer>
