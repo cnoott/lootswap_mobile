@@ -60,6 +60,10 @@ export const SEND_TRADE_OFFER = {
   ...createActionConst(actions.SEND_TRADE_OFFER),
 };
 
+export const GET_TRADES_HISTORY = {
+  ...createActionConst(actions.GET_TRADES_HISTORY),
+};
+
 export const CREATE_NEW_PRODUCT = {
   ...createActionConst(actions.CREATE_NEW_PRODUCT),
 };

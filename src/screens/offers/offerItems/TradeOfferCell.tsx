@@ -37,7 +37,7 @@ export const TradeOfferCell: FC<TradeOfferItemProp> = props => {
       <TradeOfferItem subItem={offerItem} />
       {renderSwapView()}
       <ImageContainer>
-        <Image source={{uri: 'https://picsum.photos/200'}} />
+        <Image source={{uri: offerItem.recieverItem.primary_photo}} />
       </ImageContainer>
     </BottomRowView>
   );

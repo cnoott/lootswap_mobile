@@ -2,10 +2,14 @@
 INSQUAD - OFFERS SCREEN
 ***/
 
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {useWindowDimensions} from 'react-native';
 import {SceneMap} from 'react-native-tab-view';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {AuthProps} from '../../redux/modules/auth/reducer';
+import {getTradesHistory} from '../../redux/modules/offers/actions';
+import {TradeProps} from '../../redux/modules/offers/reducer';
+import {useDispatch, useSelector} from 'react-redux';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
 import TradeOfferCell from './offerItems/TradeOfferCell';
@@ -32,22 +36,62 @@ export const OffersScreen: FC<{}> = () => {
     {key: 'first', title: 'Trade offers'},
     {key: 'second', title: 'Messages'},
   ]);
-  const renderUserDetails = () => {
+  const dispatch = useDispatch();
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData} = auth;
+  const tradesData: TradeProps = useSelector(state => state.offers);
+  const {historyTrades} = tradesData;
+
+  useEffect(() => {
+    dispatch(
+      getTradesHistory({
+        userId: userData?._id,
+      }),
+    );
+  }, [dispatch, userData?._id]);
+
+  const daysPast = createdAt => {
+    const timeDiff = new Date().getTime() - new Date(createdAt).getTime();
+    const daysSince = Math.floor(timeDiff / (1000 * 3600 * 24));
+    if (daysSince > 31) {
+      return 'over a month ago';
+    } else if (daysSince > 1) {
+      return `${daysSince} days ago`;
+    } else if (daysSince === 0) {
+      return 'today';
+    } else {
+      return 'One day ago';
+    }
+  };
+
+  const RenderUserDetails = ({item}) => {
     return (
       <RowView>
         <EmptyRowView>
           <LSProfileImageComponent
-            profileUrl={''}
-            imageHeight={60}
-            imageWidth={60}
+            profileUrl={
+              userData._id === item.reciever._id
+                ? item.sender.profile_picture
+                : item.reciever.profile_picture
+            }
+            imageHeight={50}
+            imageWidth={50}
             imageRadius={30}
           />
           <OwnerDetailsView>
-            <NameLabel>Jamel Eusebio</NameLabel>
-            <DesignationLabel>Dancer</DesignationLabel>
+            <NameLabel>
+              {userData._id === item.reciever._id ? (
+                <>{item.sender.name}</>
+              ) : (
+                <>{item.reciever.name}</>
+              )}
+            </NameLabel>
+            <DesignationLabel>
+              {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
+            </DesignationLabel>
           </OwnerDetailsView>
         </EmptyRowView>
-        <TimeLabel>2 months ago</TimeLabel>
+        <TimeLabel> {daysPast(item.createdAt)} </TimeLabel>
       </RowView>
     );
   };
@@ -55,17 +99,14 @@ export const OffersScreen: FC<{}> = () => {
     return (
       <OfferCellContainer
         onPress={() => navigation.navigate('OffersMessageScreen')}>
-        {renderUserDetails()}
+        <RenderUserDetails item={item} />
         <TradeOfferCell offerItem={item} />
       </OfferCellContainer>
     );
   };
   const FirstRoute = () => (
     <TabContainer>
-      <OffersListView
-        data={[...new Array(6).keys()]}
-        renderItem={renderOfferItem}
-      />
+      <OffersListView data={historyTrades} renderItem={renderOfferItem} />
     </TabContainer>
   );
 
@@ -89,7 +130,7 @@ export const OffersScreen: FC<{}> = () => {
   });
   return (
     <Container>
-      <InStackHeader back={false} title={'Trade feed'} centerAligned={true} />
+      <InStackHeader back={false} title={'Trades'} centerAligned={true} />
       <TopTabView
         navigationState={{index, routes}}
         renderTabBar={renderTabBar}
