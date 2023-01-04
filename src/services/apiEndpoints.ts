@@ -127,7 +127,7 @@ export const getTradesHistoryCall = (reqData: any) => {
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
-      console.log('API Response: ', res);
+      //console.log('API Response: ', res);
 
       if (res.status === code) {
         return {status: res.status, success: true, data: res.data};
