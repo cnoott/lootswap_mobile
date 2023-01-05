@@ -59,6 +59,9 @@ export const ProfileScreen: FC<{}> = () => {
       case 3:
         navigation.navigate('MyLootScreen');
         break;
+      case 4:
+        navigation.navigate('TrackOrderScreen');
+        break;
       case 6:
         navigation.navigate('NotificationSettingScreen');
         break;

@@ -20,6 +20,16 @@ interface TradeOfferItemProp {
   subItem?: any;
 }
 
+export interface ListRenderItemInfo {
+  item: any;
+  index: number;
+  separators?: {
+    highlight: () => void;
+    unhighlight: () => void;
+    updateProps: (select: 'leading' | 'trailing', newProps: any) => void;
+  };
+}
+
 export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
   const {subItem} = props;
   const renderDefaultView = () => {
@@ -82,7 +92,7 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
         </TrippleViewOffer>
       );
     };
-    const trippleViewItem = ({item, index}: any) => {
+    const trippleViewItem = ({item, index}: ListRenderItemInfo) => {
       const isFooter = index + 1 === photoArray?.length;
       if (isFooter && showMoneyOffer) {
         return renderTrippleOffer();
