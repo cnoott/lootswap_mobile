@@ -133,6 +133,13 @@ export const getTradesHistoryCall = (reqData: any) => {
   );
 };
 
+export const getTradeCall = (reqData: any) => {
+  return handleResponse(
+    api.get(`/get-trade/${reqData?.tradeId}/${reqData?.userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

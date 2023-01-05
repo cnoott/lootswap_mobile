@@ -58,7 +58,7 @@ export const OffersScreen: FC<{}> = () => {
     } else if (daysSince > 1) {
       return `${daysSince} days ago`;
     } else if (daysSince === 0) {
-      return 'today';
+      return 'Today';
     } else {
       return 'One day ago';
     }
@@ -95,10 +95,13 @@ export const OffersScreen: FC<{}> = () => {
       </RowView>
     );
   };
+
   const renderOfferItem = ({item}: any) => {
     return (
       <OfferCellContainer
-        onPress={() => navigation.navigate('OffersMessageScreen')}>
+        onPress={() =>
+          navigation.navigate('OffersMessageScreen', {tradeData: item})
+        }>
         <RenderUserDetails item={item} />
         <TradeOfferCell offerItem={item} />
       </OfferCellContainer>

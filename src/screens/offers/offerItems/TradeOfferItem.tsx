@@ -52,7 +52,7 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
         </ImageContainer>
         {isOffer && (
           <DoubleViewOffer>
-            <OfferText>+$50</OfferText>
+            <OfferText>${subItem.senderMoneyOffer}</OfferText>
           </DoubleViewOffer>
         )}
         <ImageContainerDouble size={_size}>
@@ -97,17 +97,17 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
   };
   const renderSubItems = () => {
     switch (true) {
-      case subItem?.senderItems.length === 1 && subItem?.senderMoneyOffer > 0:
+      case subItem?.senderItems?.length === 1 && subItem?.senderMoneyOffer > 0:
         return renderSingleViewWithOffer();
-      case subItem?.senderItems.length === 1:
+      case subItem?.senderItems?.length === 1:
         return renderSingleView();
-      case subItem?.senderItems.length === 2 && subItem?.senderMoneyOffer > 0:
+      case subItem?.senderItems?.length === 2 && subItem?.senderMoneyOffer > 0:
         return renderDoubleView(true);
-      case subItem?.senderItems.length === 2:
+      case subItem?.senderItems?.length === 2:
         return renderDoubleView();
-      case subItem?.senderItems.length === 3 && subItem?.senderMoneyOffer > 0:
+      case subItem?.senderItems?.length === 3 && subItem?.senderMoneyOffer > 0:
         return renderTrippleView(true);
-      case subItem?.senderItems.length === 3:
+      case subItem?.senderItems?.length === 3:
         return renderTrippleView();
 
       default:
