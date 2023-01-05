@@ -22,6 +22,10 @@ interface TradeOfferItemProp {
 
 export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
   const {subItem} = props;
+  const renderDefaultView = () => {
+    return <ImageContainer />;
+  };
+
   const renderSingleView = () => {
     const senderItemPhoto = subItem?.senderItems[0]?.primary_photo;
     return (
@@ -96,22 +100,21 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
     );
   };
   const renderSubItems = () => {
-    switch (true) {
-      case subItem?.senderItems.length === 1 && subItem?.senderMoneyOffer > 0:
+    switch (subItem?.senderItems?.length) {
+      case 1 && subItem?.senderMoneyOffer > 0:
         return renderSingleViewWithOffer();
-      case subItem?.senderItems.length === 1:
+      case 1:
         return renderSingleView();
-      case subItem?.senderItems.length === 2 && subItem?.senderMoneyOffer > 0:
+      case 2 && subItem?.senderMoneyOffer > 0:
         return renderDoubleView(true);
-      case subItem?.senderItems.length === 2:
+      case 2:
         return renderDoubleView();
-      case subItem?.senderItems.length === 3 && subItem?.senderMoneyOffer > 0:
+      case 3 && subItem?.senderMoneyOffer > 0:
         return renderTrippleView(true);
-      case subItem?.senderItems.length === 3:
+      case 3:
         return renderTrippleView();
-
       default:
-        return renderSingleView();
+        return renderDefaultView();
     }
   };
   return <>{renderSubItems()}</>;
