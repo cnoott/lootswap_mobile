@@ -30,8 +30,7 @@ import {
   InputView,
   SectionList,
 } from './styles';
-//TODO: make api call to get latest trade state every time the screen shows
-export const OffersMessageScreen: FC<any> = ({}) => {
+export const OffersMessageScreen: FC<{}> = props => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const [messageText, setMessageText] = useState('');
@@ -50,6 +49,9 @@ export const OffersMessageScreen: FC<any> = ({}) => {
   const sendMessage = () => {
     setMessagesList(getConfiguredMessageData([1, 2, 3, 4, 5, 6, 7, 8]));
   };
+
+  const offerItem = props.route?.params?.item;
+
   const onAddItemPress = () => {
     closeModal();
     setTimeout(() => {
@@ -78,7 +80,7 @@ export const OffersMessageScreen: FC<any> = ({}) => {
     setChangeOfferModalVisible(false);
   };
   const renderOfferCellView = () => {
-    return <TradeOfferCell offerItem={1} topMargin={5} />;
+    return <TradeOfferCell offerItem={offerItem} topMargin={5} />;
   };
   const renderRightInputView = () => {
     return (

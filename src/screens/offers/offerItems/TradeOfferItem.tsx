@@ -20,8 +20,22 @@ interface TradeOfferItemProp {
   subItem?: any;
 }
 
+export interface ListRenderItemInfo {
+  item: any;
+  index: number;
+  separators?: {
+    highlight: () => void;
+    unhighlight: () => void;
+    updateProps: (select: 'leading' | 'trailing', newProps: any) => void;
+  };
+}
+
 export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
   const {subItem} = props;
+  const renderDefaultView = () => {
+    return <ImageContainer />;
+  };
+
   const renderSingleView = () => {
     const senderItemPhoto = subItem?.senderItems[0]?.primary_photo;
     return (
@@ -78,7 +92,7 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
         </TrippleViewOffer>
       );
     };
-    const trippleViewItem = ({item, index}: any) => {
+    const trippleViewItem = ({item, index}: ListRenderItemInfo) => {
       const isFooter = index + 1 === photoArray?.length;
       if (isFooter && showMoneyOffer) {
         return renderTrippleOffer();
@@ -96,22 +110,22 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
     );
   };
   const renderSubItems = () => {
-    switch (true) {
-      case subItem?.senderItems?.length === 1 && subItem?.senderMoneyOffer > 0:
-        return renderSingleViewWithOffer();
-      case subItem?.senderItems?.length === 1:
-        return renderSingleView();
-      case subItem?.senderItems?.length === 2 && subItem?.senderMoneyOffer > 0:
-        return renderDoubleView(true);
-      case subItem?.senderItems?.length === 2:
-        return renderDoubleView();
-      case subItem?.senderItems?.length === 3 && subItem?.senderMoneyOffer > 0:
-        return renderTrippleView(true);
-      case subItem?.senderItems?.length === 3:
-        return renderTrippleView();
 
-      default:
+    switch (subItem?.senderItems?.length) {
+      case 1 && subItem?.senderMoneyOffer > 0:
+        return renderSingleViewWithOffer();
+      case 1:
         return renderSingleView();
+      case 2 && subItem?.senderMoneyOffer > 0:
+        return renderDoubleView(true);
+      case 2:
+        return renderDoubleView();
+      case 3 && subItem?.senderMoneyOffer > 0:
+        return renderTrippleView(true);
+      case 3:
+        return renderTrippleView();
+      default:
+        return renderDefaultView();
     }
   };
   return <>{renderSubItems()}</>;

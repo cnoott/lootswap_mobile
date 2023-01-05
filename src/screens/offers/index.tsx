@@ -99,9 +99,10 @@ export const OffersScreen: FC<{}> = () => {
   const renderOfferItem = ({item}: any) => {
     return (
       <OfferCellContainer
-        onPress={() =>
-          navigation.navigate('OffersMessageScreen', {tradeData: item})
-        }>
+
+        onPress={() => {
+          navigation.navigate('OffersMessageScreen', {item});
+        }}>
         <RenderUserDetails item={item} />
         <TradeOfferCell offerItem={item} />
       </OfferCellContainer>

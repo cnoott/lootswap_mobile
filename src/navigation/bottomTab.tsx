@@ -16,6 +16,7 @@ import AddProductOverviewScreen from '../screens/loot/addProductOverview';
 import NotificationsScreen from '../screens/notifications';
 import OffersScreen from '../screens/offers';
 import OffersMessageScreen from '../screens/offers/offerMessageScreen';
+import TrackOrderScreen from '../screens/order/trackOrderScreen';
 import {useTheme} from 'styled-components';
 import {SvgXml} from 'react-native-svg';
 import {useSelector} from 'react-redux';
@@ -75,6 +76,7 @@ const ProfileStackNavigation = () => (
       name="AddProductOverviewScreen"
       component={AddProductOverviewScreen}
     />
+    <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
   </Stack.Navigator>
 );
 
