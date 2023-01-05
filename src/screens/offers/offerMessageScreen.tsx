@@ -30,7 +30,7 @@ import {
   InputView,
   SectionList,
 } from './styles';
-export const OffersMessageScreen: FC<{}> = () => {
+export const OffersMessageScreen: FC<{}> = props => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const [messageText, setMessageText] = useState('');
@@ -49,6 +49,9 @@ export const OffersMessageScreen: FC<{}> = () => {
   const sendMessage = () => {
     setMessagesList(getConfiguredMessageData([1, 2, 3, 4, 5, 6, 7, 8]));
   };
+
+  const offerItem = props.route?.params?.item;
+
   const onAddItemPress = () => {
     closeModal();
     setTimeout(() => {
@@ -77,7 +80,7 @@ export const OffersMessageScreen: FC<{}> = () => {
     setChangeOfferModalVisible(false);
   };
   const renderOfferCellView = () => {
-    return <TradeOfferCell offerItem={1} topMargin={5} />;
+    return <TradeOfferCell offerItem={offerItem} topMargin={5} />;
   };
   const renderRightInputView = () => {
     return (
