@@ -46,4 +46,11 @@ declare module 'localsvgimages' {
   export const PRODUCT_EDIT_PRIMARY: any;
   export const SWAP_ICON: any;
   export const TRADE_MODAL_CLOSE_BUTTON: any;
+  export const ORDER_TRACK_STEP_SELECTED: any;
+  export const ORDER_TRACK_STEP_UNSELECTED: any;
+  export const ORDER_TRACK_PURCHASED: any;
+  export const ORDER_TRACK_SHIPPED_SELECTED: any;
+  export const ORDER_TRACK_IN_TRANSIT_UNSELECTED: any;
+  export const ORDER_TRACK_DELIVERED_UNSELECTED: any;
+  export const ORDER_DETAILS_ICON: any;
 }
