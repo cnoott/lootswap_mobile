@@ -1,4 +1,4 @@
-import {GET_TRADES_HISTORY} from '../../../constants/actions';
+import {GET_TRADES_HISTORY, GET_TRADE} from '../../../constants/actions';
 
 export const getTradesHistory = (reqData: any) => {
   return {
@@ -17,6 +17,27 @@ export const getTradesHistorySuccess = (payload: any) => {
 export const getTradesHistoryFailure = (error: any) => {
   return {
     type: GET_TRADES_HISTORY.FAILURE,
+    error,
+  };
+};
+
+export const getTrade = (reqData: any) => {
+  return {
+    type: GET_TRADE.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const getTradeSuccess = (payload: any) => {
+  return {
+    type: GET_TRADE.SUCCESS,
+    payload,
+  };
+};
+
+export const getTradeFailure = (error: any) => {
+  return {
+    type: GET_TRADE.FAILURE,
     error,
   };
 };

@@ -30,7 +30,8 @@ import {
   InputView,
   SectionList,
 } from './styles';
-export const OffersMessageScreen: FC<{}> = () => {
+//TODO: make api call to get latest trade state every time the screen shows
+export const OffersMessageScreen: FC<any> = ({}) => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const [messageText, setMessageText] = useState('');
