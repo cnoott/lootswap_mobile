@@ -40,7 +40,7 @@ export const TrackOrderScreen: FC<{}> = () => {
       </>
     );
   };
-  const renderOrderCell = () => {
+  const renderSingleOrderCell = () => {
     const color = 'Black';
     const size = '42';
     const qty = 1;
@@ -70,7 +70,7 @@ export const TrackOrderScreen: FC<{}> = () => {
       <InStackHeader title={'Track Order'} right={true} />
       <SubContainer>
         {renderOrderHeaderDetails()}
-        {renderOrderCell()}
+        {renderSingleOrderCell()}
         <OrderTrackSteps currStep={2} />
         <FullDivider />
         <OrderStatusDetails />
