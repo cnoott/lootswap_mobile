@@ -6,6 +6,7 @@ import {
   StepDivider,
   DashLine,
   StepOuterContainer,
+  EmptyView,
 } from './styles';
 import {SvgXml} from 'react-native-svg';
 import {useTheme} from 'styled-components';
@@ -21,18 +22,24 @@ import {
 const OrderTrackSteps: FC<any> = React.memo(props => {
   const theme = useTheme();
   const {currStep} = props;
-  const stepsList = true
+  const stepsList = false
     ? getSingleOrderStepsList()
     : getMultipleOrderStepsList();
   const renderStep = (stepData: any, isStepCompleted: boolean) => {
     return (
       <StepContainer key={stepData?.index}>
-        <SvgXml
-          xml={
-            isStepCompleted ? stepData?.selectedIcon : stepData?.unSelectedIcon
-          }
-        />
-        <StepLabelText>{stepData?.label}</StepLabelText>
+        <EmptyView>
+          <SvgXml
+            xml={
+              isStepCompleted
+                ? stepData?.selectedIcon
+                : stepData?.unSelectedIcon
+            }
+          />
+          <StepLabelText isMulti={true} isLast={stepData?.index === 5}>
+            {stepData?.label}
+          </StepLabelText>
+        </EmptyView>
         <SvgXml
           xml={
             isStepCompleted

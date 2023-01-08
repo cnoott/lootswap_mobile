@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {ViewProps} from 'react-native';
 import {color, layout, space, border} from 'styled-system';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 import DashedLine from 'react-native-dashed-line';
@@ -8,8 +9,7 @@ export const Container = styled.View.attrs(() => ({
   flex: 1,
 }))`
   flex-direction: row;
-  justify-content: center;
-  ${color} ${space} ${layout};
+  justify-content: center ${color} ${space} ${layout};
 `;
 
 export const StatusDetailsContainer = styled.View.attrs(() => ({
@@ -28,10 +28,11 @@ export const Image = styled.Image.attrs({
   ${layout}
 `;
 
-export const StepOuterContainer = styled.View.attrs(() => ({
-  flex: 1,
+export const StepOuterContainer = styled.View.attrs((props: ViewProps) => ({
+  width: props?.width,
 }))`
   flex-direction: row;
+  justify-content: space-around;
   overflow: hidden;
   ${layout}
   ${color}
@@ -39,6 +40,7 @@ export const StepOuterContainer = styled.View.attrs(() => ({
 
 export const StepContainer = styled.View`
   align-items: center;
+  justify-content: space-between;
   ${space} ${layout} ${color};
 `;
 
@@ -76,8 +78,8 @@ export const StatusDetailsDivider = styled.View.attrs(() => ({
 `;
 
 export const DashLine = styled(DashedLine).attrs(() => ({
-  dashLength: 5,
-  dashGap: 5,
+  dashLength: 3,
+  dashGap: 2,
 }))`
   ${space} ${layout} ${border} ${color}
 `;
@@ -92,9 +94,12 @@ export const DashLineNew = styled(DashedLine).attrs(() => ({
 export const StepLabelText = styled.Text.attrs(props => ({
   color: props.theme.colors.greySubDetails,
   my: verticalScale(5),
+  numberOfLines: 2,
+  maxWidth: scale(props?.isMulti ? (props?.isLast ? 42 : 38) : 68),
 }))`
-  font-size: ${() => moderateScale(11)}px;
+  font-size: ${() => moderateScale(10)}px;
   font-family: 'Inter';
+  text-align: center;
   ${color}
   ${space}
   ${layout}
@@ -202,4 +207,8 @@ export const OrderStatusView = styled.View.attrs(() => ({
   width: '100%',
 }))`
   flex-direction: column ${space} ${layout};
+`;
+
+export const EmptyView = styled.View`
+  align-items: center;
 `;
