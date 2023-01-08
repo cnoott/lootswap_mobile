@@ -1,12 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /***
-INSQUAD - OFFERS MESSAGE SCREEN
+LOOTSWAP - OFFERS MESSAGE SCREEN
 ***/
 
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState, useRef} from 'react';
 import {PaperAirplaneIcon} from 'react-native-heroicons/solid';
 import {useTheme} from 'styled-components';
 import {moderateScale} from 'react-native-size-matters';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useSelector} from 'react-redux';
 import {LSOfferChatHeader} from '../../components/commonComponents/headers/offerChatHeader';
 import TradeOfferCell from './offerItems/TradeOfferCell';
 import LSInput from '../../components/commonComponents/LSInput';
@@ -15,6 +17,8 @@ import EditTradeModal from './offerItems/EditTradeModal';
 import AcceptDeclineModal from './offerItems/AcceptDeclineModal';
 import ItemAddRemoveModal from './offerItems/ItemAddRemoveModal';
 import ChangeOfferModal from './offerItems/ChangeOfferModal';
+import useMessagingService from '../../services/useMessagingService';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 import {
   getConfiguredMessageData,
   getAllOfferItemsData,
@@ -33,10 +37,8 @@ import {
 export const OffersMessageScreen: FC<{}> = props => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+  const offerItem = props.route?.params?.item;
   const [messageText, setMessageText] = useState('');
-  const [messagesList, setMessagesList] = useState<any>(
-    getConfiguredMessageData([1, 2, 3, 4, 5, 6, 7, 8]),
-  );
   const [isAcceptDeclineModalVisible, setAcceptDeclineModalVisible] =
     useState(false);
   const [isDecline, setDecline] = useState(false);
@@ -46,11 +48,60 @@ export const OffersMessageScreen: FC<{}> = props => {
     useState(false);
   const [isChangeOfferModalVisible, setChangeOfferModalVisible] =
     useState(false);
-  const sendMessage = () => {
-    setMessagesList(getConfiguredMessageData([1, 2, 3, 4, 5, 6, 7, 8]));
+  const [isSocketInitDone, setSocketInitDone] = useState(false);
+  const [messagesList, setMessagesList] = useState<any>(
+    getConfiguredMessageData(offerItem?.messages || []),
+  );
+  var messagesListRaw: any = useRef(offerItem?.messages || []);
+  const auth: AuthProps = useSelector(state => state?.auth);
+  const {userData} = auth;
+  const socketObj = useMessagingService(
+    {
+      tradeId: offerItem?._id,
+      userId: userData?._id,
+    },
+    true,
+  );
+
+  useEffect(() => {
+    if (socketObj && !isSocketInitDone) {
+      setSocketInitDone(true);
+      initSocket();
+    }
+  }, [socketObj, isSocketInitDone]);
+
+  useEffect(() => {
+    return () => socketObj && socketObj.removeAllListeners();
+  }, []);
+
+  const initSocket = () => {
+    socketObj.on('private message', ({content, from}: any) => {
+      const messageData = {
+        ...content,
+        isSelf: from === userData?._id,
+      };
+      const messagesData =
+        messagesListRaw?.current?.length > 0
+          ? [...messagesListRaw.current, messageData]
+          : [content];
+      messagesListRaw.current = messagesData;
+      const newData = getConfiguredMessageData(messagesData);
+      setMessagesList(newData);
+      // ToDO
+      // if (content.message === `trade-accepted-message`) {
+      //     setTradeStatus('accepted');
+      // }
+    });
   };
 
-  const offerItem = props.route?.params?.item;
+  const sendMessage = () => {
+    const content = {message: messageText, userName: userData?.name};
+    socketObj.emit('private message', {
+      content: content,
+      to: offerItem?._id,
+    });
+    setMessageText('');
+  };
 
   const onAddItemPress = () => {
     closeModal();
@@ -107,13 +158,8 @@ export const OffersMessageScreen: FC<{}> = props => {
       </InputView>
     );
   };
-  const renderMessage = (isSelf = false) => {
-    return (
-      <MessageCell
-        self={isSelf}
-        item={'Sem consequat tristique nec varius tellus molestie.'}
-      />
-    );
+  const renderMessage = (item: any) => {
+    return <MessageCell self={true} item={item?.message} />;
   };
   const renderChatView = () => {
     return (
@@ -121,7 +167,7 @@ export const OffersMessageScreen: FC<{}> = props => {
         <SectionList
           sections={messagesList}
           keyExtractor={(item, index) => item + index}
-          renderItem={({item}) => renderMessage(item % 2 === 0)}
+          renderItem={({item}) => renderMessage(item)}
         />
       </ChatContainer>
     );

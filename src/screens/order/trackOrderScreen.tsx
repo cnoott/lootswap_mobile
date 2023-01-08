@@ -24,6 +24,7 @@ import {
 } from './trackOrderScreenStyle';
 import OrderTrackSteps from '../../components/orderTrack/orderTrackSteps';
 import OrderStatusDetails from '../../components/orderTrack/orderStatusDetails';
+import TradeOfferCell from '../offers/offerItems/TradeOfferCell';
 
 export const TrackOrderScreen: FC<{}> = () => {
   const renderOrderHeaderDetails = () => {
@@ -39,6 +40,9 @@ export const TrackOrderScreen: FC<{}> = () => {
         </RowContainer>
       </>
     );
+  };
+  const renderMultipleOrderCell = () => {
+    return <TradeOfferCell offerItem={{}} />;
   };
   const renderSingleOrderCell = () => {
     const color = 'Black';
@@ -70,7 +74,7 @@ export const TrackOrderScreen: FC<{}> = () => {
       <InStackHeader title={'Track Order'} right={true} />
       <SubContainer>
         {renderOrderHeaderDetails()}
-        {renderSingleOrderCell()}
+        {true ? renderMultipleOrderCell() : renderSingleOrderCell()}
         <OrderTrackSteps currStep={2} />
         <FullDivider />
         <OrderStatusDetails />
