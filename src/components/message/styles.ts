@@ -30,7 +30,7 @@ export const MessageText = styled.Text.attrs(props => ({
   color: props?.self ? props.theme.colors.white : props.theme.colors.lightGrey,
   width: '80%',
 }))`
-  font-size: ${moderateScale(12)}px;
+  font-size: ${moderateScale(14)}px;
   font-family: Inter-Bold;
   font-weight: 400;
   text-align: left;

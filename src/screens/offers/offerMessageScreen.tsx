@@ -8,6 +8,9 @@ import {useTheme} from 'styled-components';
 import {moderateScale} from 'react-native-size-matters';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {LSOfferChatHeader} from '../../components/commonComponents/headers/offerChatHeader';
+import {useDispatch, useSelector} from 'react-redux';
+import {AuthProps} from '../../redux/modules/auth/reducer';
+import {acceptTrade, cancelTrade, getTradesHistory} from '../../redux/modules';
 import TradeOfferCell from './offerItems/TradeOfferCell';
 import LSInput from '../../components/commonComponents/LSInput';
 import MessageCell from '../../components/message/messageCell';
@@ -28,15 +31,17 @@ import {
   Touchable,
   InputRightButtonView,
   InputView,
-  SectionList,
 } from './styles';
+import {FlatList} from 'react-native';
 export const OffersMessageScreen: FC<{}> = props => {
+  const offerItem = props.route?.params?.item;
+  const dispatch = useDispatch();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData} = auth;
   const [messageText, setMessageText] = useState('');
-  const [messagesList, setMessagesList] = useState<any>(
-    getConfiguredMessageData([1, 2, 3, 4, 5, 6, 7, 8]),
-  );
+  const [messagesList, setMessagesList] = useState<any>(offerItem?.messages);
   const [isAcceptDeclineModalVisible, setAcceptDeclineModalVisible] =
     useState(false);
   const [isDecline, setDecline] = useState(false);
@@ -49,8 +54,6 @@ export const OffersMessageScreen: FC<{}> = props => {
   const sendMessage = () => {
     setMessagesList(getConfiguredMessageData([1, 2, 3, 4, 5, 6, 7, 8]));
   };
-
-  const offerItem = props.route?.params?.item;
 
   const onAddItemPress = () => {
     closeModal();
@@ -107,21 +110,61 @@ export const OffersMessageScreen: FC<{}> = props => {
       </InputView>
     );
   };
-  const renderMessage = (isSelf = false) => {
+  const renderMessage = (isSelf = false, item: any) => {
     return (
       <MessageCell
         self={isSelf}
-        item={'Sem consequat tristique nec varius tellus molestie.'}
+        item={item.message}
       />
     );
+  };
+  const handleAcceptTrade = () => {
+    const reqData = {
+      tradeId: offerItem?._id,
+      userId: userData?._id,
+    };
+    dispatch(
+      acceptTrade(
+        reqData,
+        res => {
+          console.log('Success:',res);
+          //TODO: redirect to screen
+        },
+        error => {
+          console.log('error:', error);
+        },
+      ),
+    );
+  };
+  const handleCancelTrade = () => {
+    const reqData = {
+      userId: userData?._id,
+      tradeId: offerItem?._id,
+    };
+    dispatch(
+      cancelTrade(
+        reqData,
+        res => {
+          console.log('succ:', res);
+          dispatch(
+            getTradesHistory({
+              userId: userData?._id,
+            }),
+          );
+        },
+        error => {
+          console.log('error:', error);
+        },
+      ),
+    );
+    closeModal();
   };
   const renderChatView = () => {
     return (
       <ChatContainer>
-        <SectionList
-          sections={messagesList}
-          keyExtractor={(item, index) => item + index}
-          renderItem={({item}) => renderMessage(item % 2 === 0)}
+        <FlatList
+          data={messagesList}
+          renderItem={({item}) => renderMessage(item?.userName === userData?.name, item)}
         />
       </ChatContainer>
     );
@@ -129,13 +172,24 @@ export const OffersMessageScreen: FC<{}> = props => {
   return (
     <Container>
       <LSOfferChatHeader
-        title={'Jamel E.'}
+        title={
+          offerItem.reciever._id === userData?._id
+            ? offerItem.sender.name
+            : offerItem.reciever.name
+        }
         onAcceptPress={() => setAcceptDeclineModalVisible(true)}
         onDeclinePress={() => {
           setDecline(true);
           setAcceptDeclineModalVisible(true);
         }}
         onTrippleDotPress={() => setEditTradeModalVisible(true)}
+        profilePicture={
+          offerItem.reciever._id === userData?.id
+            ? offerItem.sender.profile_picture
+            : offerItem.reciever.profile_picture
+        }
+        offerItem={offerItem}
+        userData={userData}
       />
       {renderOfferCellView()}
       <KeyboardAvoidingView>
@@ -149,8 +203,8 @@ export const OffersMessageScreen: FC<{}> = props => {
         isModalVisible={isAcceptDeclineModalVisible}
         isDecline={isDecline}
         onCloseModal={closeModal}
-        onAcceptOfferPress={closeModal}
-        onDeclineOfferPress={closeModal}
+        onAcceptOfferPress={handleAcceptTrade}
+        onDeclineOfferPress={handleCancelTrade}
       />
       <EditTradeModal
         isModalVisible={isEditTradeModalVisible}

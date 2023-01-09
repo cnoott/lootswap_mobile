@@ -110,19 +110,19 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
     );
   };
   const renderSubItems = () => {
-
-    switch (subItem?.senderItems?.length) {
-      case 1 && subItem?.senderMoneyOffer > 0:
+    const length = subItem?.senderItems?.length;
+    switch (true) {
+      case length === 1 && subItem?.senderMoneyOffer > 0:
         return renderSingleViewWithOffer();
-      case 1:
+      case length == 1:
         return renderSingleView();
-      case 2 && subItem?.senderMoneyOffer > 0:
+      case length === 2 && subItem?.senderMoneyOffer > 0:
         return renderDoubleView(true);
-      case 2:
+      case length === 2:
         return renderDoubleView();
-      case 3 && subItem?.senderMoneyOffer > 0:
+      case length === 3 && subItem?.senderMoneyOffer > 0:
         return renderTrippleView(true);
-      case 3:
+      case length === 3:
         return renderTrippleView();
       default:
         return renderDefaultView();
