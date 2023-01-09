@@ -54,6 +54,7 @@ export const OffersMessageScreen: FC<{}> = props => {
   );
   var messagesListRaw: any = useRef(offerItem?.messages || []);
   const auth: AuthProps = useSelector(state => state?.auth);
+  console.log('offerItem ===', offerItem);
   const {userData} = auth;
   const socketObj = useMessagingService(
     {
@@ -154,6 +155,7 @@ export const OffersMessageScreen: FC<{}> = props => {
           placeholder={'Type something...'}
           homeSearch={true}
           inputRadius={20}
+          multiline={true}
         />
       </InputView>
     );
@@ -175,13 +177,15 @@ export const OffersMessageScreen: FC<{}> = props => {
   return (
     <Container>
       <LSOfferChatHeader
-        title={'Jamel E.'}
+        title={offerItem?.reciever?.name}
+        profileUrl={offerItem?.reciever?.profile_picture}
         onAcceptPress={() => setAcceptDeclineModalVisible(true)}
         onDeclinePress={() => {
           setDecline(true);
           setAcceptDeclineModalVisible(true);
         }}
         onTrippleDotPress={() => setEditTradeModalVisible(true)}
+        tradeStatus={offerItem?.status}
       />
       {renderOfferCellView()}
       <KeyboardAvoidingView>
