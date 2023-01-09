@@ -7,7 +7,7 @@ import {useWindowDimensions} from 'react-native';
 import {SceneMap} from 'react-native-tab-view';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {getTradesHistory} from '../../redux/modules/offers/actions';
+import {getTradesHistory} from '../../redux/modules';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
@@ -99,7 +99,6 @@ export const OffersScreen: FC<{}> = () => {
   const renderOfferItem = ({item}: any) => {
     return (
       <OfferCellContainer
-
         onPress={() => {
           navigation.navigate('OffersMessageScreen', {item});
         }}>
