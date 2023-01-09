@@ -14,16 +14,26 @@ import LSButton from '../LSButton';
 import {Size, Type} from '../../../enums';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {LSProfileImageComponent} from '../profileImage';
+import {Trade_Status} from 'custom_enums';
 
 interface HeaderProps {
   title: string;
   onAcceptPress: Function;
   onDeclinePress: Function;
   onTrippleDotPress: Function;
+  profileUrl?: string;
+  tradeStatus: string;
 }
 
 export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
-  ({title, onAcceptPress, onDeclinePress, onTrippleDotPress}) => {
+  ({
+    title,
+    onAcceptPress,
+    onDeclinePress,
+    onTrippleDotPress,
+    tradeStatus,
+    profileUrl = '',
+  }) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
     return (
       <ProfileHeaderContainer>
@@ -32,7 +42,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
             <SvgXml xml={LEFT_BLACK_ARROW} />
           </TouchableOpacity>
           <LSProfileImageComponent
-            profileUrl={''}
+            profileUrl={profileUrl}
             imageHeight={34}
             imageWidth={34}
             imageRadius={17}
@@ -40,23 +50,27 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
           <OfferChatHeaderText>{title}</OfferChatHeaderText>
         </EmptyRowView>
         <EmptyRowView>
-          <LSButton
-            title={'Accept'}
-            size={Size.Extra_Small}
-            type={Type.Success}
-            radius={20}
-            onPress={() => onAcceptPress()}
-          />
-          <SpaceRowView />
-          <SpaceRowView />
-          <LSButton
-            title={'Decline'}
-            size={Size.Extra_Small}
-            type={Type.Error}
-            radius={20}
-            onPress={() => onDeclinePress()}
-          />
-          <SpaceRowView />
+          {tradeStatus === Trade_Status?.Pending && (
+            <>
+              <LSButton
+                title={'Accept'}
+                size={Size.Extra_Small}
+                type={Type.Success}
+                radius={20}
+                onPress={() => onAcceptPress()}
+              />
+              <SpaceRowView />
+              <SpaceRowView />
+              <LSButton
+                title={'Decline'}
+                size={Size.Extra_Small}
+                type={Type.Error}
+                radius={20}
+                onPress={() => onDeclinePress()}
+              />
+              <SpaceRowView />
+            </>
+          )}
           <ProfileLeftTouchable onPress={() => onTrippleDotPress()}>
             <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
           </ProfileLeftTouchable>

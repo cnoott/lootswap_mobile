@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
 import TradeOfferCell from './offerItems/TradeOfferCell';
+import {getTradeStatusColor} from '../../utility/utility';
 import {
   Container,
   TopTabView,
@@ -25,7 +26,8 @@ import {
   OwnerDetailsView,
   EmptyRowView,
   NameLabel,
-  DesignationLabel,
+  StatusContainerView,
+  StatusLabel,
   TimeLabel,
 } from './styles';
 export const OffersScreen: FC<{}> = () => {
@@ -65,6 +67,7 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const RenderUserDetails = ({item}) => {
+    const statusColorObj = getTradeStatusColor(item.status);
     return (
       <RowView>
         <EmptyRowView>
@@ -86,9 +89,13 @@ export const OffersScreen: FC<{}> = () => {
                 <>{item.reciever.name}</>
               )}
             </NameLabel>
-            <DesignationLabel>
-              {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
-            </DesignationLabel>
+            <StatusContainerView
+              bgColor={statusColorObj?.backColor}
+              borderColor={statusColorObj?.labelColor}>
+              <StatusLabel color={statusColorObj?.labelColor}>
+                {item?.status.charAt(0).toUpperCase() + item?.status.slice(1)}
+              </StatusLabel>
+            </StatusContainerView>
           </OwnerDetailsView>
         </EmptyRowView>
         <TimeLabel> {daysPast(item.createdAt)} </TimeLabel>

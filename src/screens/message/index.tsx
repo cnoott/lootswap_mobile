@@ -131,6 +131,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
           placeholder={'Message..'}
           rightIcon={MEDIA_UPLOAD_GREY_ICON}
           homeSearch={true}
+          multiline
         />
       </InputView>
     );

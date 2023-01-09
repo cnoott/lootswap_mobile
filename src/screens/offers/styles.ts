@@ -139,12 +139,26 @@ export const NameLabel: any = styled.Text.attrs(props => ({
   ${layout}
 `;
 
-export const DesignationLabel: any = styled.Text.attrs(props => ({
-  color: props.theme.colors.greySubDetails,
+export const StatusContainerView = styled.View.attrs((props: any) => ({
+  px: scale(8),
+  py: scale(4),
+  bg: props?.bgColor,
+  borderRadius: scale(8),
   mt: verticalScale(2),
 }))`
-  font-size: ${moderateScale(14)}px;
-  font-family: Inter;
+  align-items: center;
+  justify-content: center;
+  ${color}
+  ${space}
+  ${layout}
+  ${border}
+`;
+
+export const StatusLabel: any = styled.Text.attrs((props: any) => ({
+  color: props?.color,
+}))`
+  font-size: ${moderateScale(12)}px;
+  font-family: Inter-Bold;
   ${color}
   ${space}
   ${layout}

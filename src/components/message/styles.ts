@@ -3,8 +3,9 @@ import {color, layout, space} from 'styled-system';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 
 export const MessageBoxContainer = styled.View.attrs(props => ({
-  width: '70%',
-  minHeight: scale(46),
+  maxWidth: '80%',
+  minWidth: '15%',
+  minHeight: scale(42),
   maxHeight: scale(420),
   borderRadius: scale(10),
   borderBottomLeftRadius: scale(props?.self ? 10 : 20),
@@ -20,6 +21,7 @@ export const MessageBoxContainer = styled.View.attrs(props => ({
   mx: scale(10),
   p: scale(10),
   pl: scale(15),
+  flexShrink: 1,
 }))`
   ${layout}
   ${color}
@@ -28,7 +30,8 @@ export const MessageBoxContainer = styled.View.attrs(props => ({
 
 export const MessageText = styled.Text.attrs(props => ({
   color: props?.self ? props.theme.colors.white : props.theme.colors.lightGrey,
-  width: '80%',
+  flex: 1,
+  flexWrap: 'wrap',
 }))`
   font-size: ${moderateScale(12)}px;
   font-family: Inter-Bold;

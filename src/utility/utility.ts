@@ -16,7 +16,7 @@ import {
   ORDER_TRACK_DELIVERED_UNSELECTED,
 } from 'localsvgimages';
 import {PROFILE_OPTIONS_TYPE, GET_PRODUCT_DETAILS} from 'custom_types';
-import {Trade_Options, Who_Pays_Options} from 'custom_enums';
+import {Trade_Options, Who_Pays_Options, Trade_Status} from 'custom_enums';
 
 /*
 On Launch -
@@ -710,4 +710,28 @@ export const getMultipleOrderStepsList = () => {
     },
   ];
   return stepsList;
+};
+
+export const getTradeStatusColor = (status: string) => {
+  let colorData = {
+    backColor: 'rgba(30, 66, 159, 0.2)',
+    labelColor: '#1E429F',
+  };
+  switch (status) {
+    case Trade_Status.Canceled:
+      colorData.backColor = 'rgba(240, 62, 62, 0.2)';
+      colorData.labelColor = '#F03E3E';
+      break;
+    case Trade_Status.Pending:
+      colorData.backColor = 'rgba(30, 66, 159, 0.2)';
+      colorData.labelColor = '#1E429F';
+      break;
+    case Trade_Status.Accepted:
+      colorData.backColor = 'rgba(74, 175, 87, 0.2)';
+      colorData.labelColor = '#4AAF57';
+      break;
+    default:
+      break;
+  }
+  return colorData;
 };
