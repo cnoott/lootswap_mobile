@@ -43,9 +43,7 @@ export const OffersMessageScreen: FC<{}> = props => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const [messageText, setMessageText] = useState('');
-  const [messagesList, setMessagesList] = useState<any>(
-    getConfiguredMessageData(offerItem?.messages || []),
-  );
+  const [messagesList, setMessagesList] = useState<any>(offerItem?.messages);
   const [isAcceptDeclineModalVisible, setAcceptDeclineModalVisible] =
     useState(false);
   const [isDecline, setDecline] = useState(false);
