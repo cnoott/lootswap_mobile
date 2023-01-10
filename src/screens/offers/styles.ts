@@ -20,6 +20,13 @@ export const ChatContainer = styled.View.attrs(() => ({
   flex: 1,
 }))``;
 
+export const EmptyListContainer = styled.View.attrs(() => ({
+  flex: 1,
+}))`
+  align-items: center;
+  justify-content: center;
+`;
+
 export const KeyboardAvoidingView = styled.KeyboardAvoidingView.attrs(() => ({
   flex: 1,
   behavior: Platform.OS === 'ios' ? 'padding' : 'height',
@@ -500,4 +507,28 @@ export const AnimatedCheckBox = styled(BouncyCheckbox).attrs(props => ({
   top: 10px;
   left: 10px;
   ${border}
+`;
+
+export const NoOffersLabel: any = styled.Text.attrs((props: any) => ({
+  color: props.theme.colors.black,
+  mt: verticalScale(10),
+}))`
+  font-size: ${moderateScale(18)}px;
+  font-family: Inter-Bold;
+  font-weight: 600;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const NoOffersMessage: any = styled.Text.attrs((props: any) => ({
+  color: props.theme.colors.black,
+  my: verticalScale(10),
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-family: Inter;
+  font-weight: 500;
+  ${color}
+  ${space}
+  ${layout}
 `;

@@ -3,16 +3,13 @@
 LOOTSWAP - OFFERS MESSAGE SCREEN
 ***/
 
-
 import React, {FC, useEffect, useState, useRef} from 'react';
 import {PaperAirplaneIcon} from 'react-native-heroicons/solid';
 import {useTheme} from 'styled-components';
 import {moderateScale} from 'react-native-size-matters';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useSelector} from 'react-redux';
 import {LSOfferChatHeader} from '../../components/commonComponents/headers/offerChatHeader';
 import {useDispatch, useSelector} from 'react-redux';
-import {AuthProps} from '../../redux/modules/auth/reducer';
 import {acceptTrade, cancelTrade, getTradesHistory} from '../../redux/modules';
 import TradeOfferCell from './offerItems/TradeOfferCell';
 import LSInput from '../../components/commonComponents/LSInput';
@@ -46,9 +43,9 @@ export const OffersMessageScreen: FC<{}> = props => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const [messageText, setMessageText] = useState('');
-  const [messagesList, setMessagesList] = useState<any>(offerItem?.messages);
-  const offerItem = props.route?.params?.item;
-
+  const [messagesList, setMessagesList] = useState<any>(
+    getConfiguredMessageData(offerItem?.messages || []),
+  );
   const [isAcceptDeclineModalVisible, setAcceptDeclineModalVisible] =
     useState(false);
   const [isDecline, setDecline] = useState(false);
@@ -59,13 +56,7 @@ export const OffersMessageScreen: FC<{}> = props => {
   const [isChangeOfferModalVisible, setChangeOfferModalVisible] =
     useState(false);
   const [isSocketInitDone, setSocketInitDone] = useState(false);
-  const [messagesList, setMessagesList] = useState<any>(
-    getConfiguredMessageData(offerItem?.messages || []),
-  );
   var messagesListRaw: any = useRef(offerItem?.messages || []);
-  const auth: AuthProps = useSelector(state => state?.auth);
-  console.log('offerItem ===', offerItem);
-  const {userData} = auth;
   const socketObj = useMessagingService(
     {
       tradeId: offerItem?._id,

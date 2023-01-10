@@ -3,7 +3,7 @@ INSQUAD - OFFERS SCREEN
 ***/
 
 import React, {FC, useState, useEffect} from 'react';
-import {useWindowDimensions} from 'react-native';
+import {useWindowDimensions, RefreshControl} from 'react-native';
 import {SceneMap} from 'react-native-tab-view';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
 import TradeOfferCell from './offerItems/TradeOfferCell';
+import NoOffersView from './offerItems/NoOffersView';
 import {getTradeStatusColor} from '../../utility/utility';
 import {
   Container,
@@ -52,6 +53,14 @@ export const OffersScreen: FC<{}> = () => {
     );
   }, [dispatch, userData?._id]);
 
+  const onTradeOffersRefresh = () => {
+    dispatch(
+      getTradesHistory({
+        userId: userData?._id,
+      }),
+    );
+  };
+
   const daysPast = createdAt => {
     const timeDiff = new Date().getTime() - new Date(createdAt).getTime();
     const daysSince = Math.floor(timeDiff / (1000 * 3600 * 24));
@@ -83,7 +92,7 @@ export const OffersScreen: FC<{}> = () => {
           />
           <OwnerDetailsView>
             <NameLabel>
-              {userData._id === item.reciever._id ? (
+              {userData?._id === item?.reciever?._id ? (
                 <>{item.sender.name}</>
               ) : (
                 <>{item.reciever.name}</>
@@ -116,7 +125,14 @@ export const OffersScreen: FC<{}> = () => {
   };
   const FirstRoute = () => (
     <TabContainer>
-      <OffersListView data={historyTrades} renderItem={renderOfferItem} />
+      <OffersListView
+        data={historyTrades}
+        renderItem={renderOfferItem}
+        ListEmptyComponent={() => <NoOffersView navigation={navigation} />}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={onTradeOffersRefresh} />
+        }
+      />
     </TabContainer>
   );
 
