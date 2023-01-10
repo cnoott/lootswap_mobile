@@ -217,7 +217,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               });
             }}
           />
-          <TopSpace /> 
+          <TopSpace />
           <LSButton
             title={'Delete Item'}
             size={Size.Full}
@@ -225,7 +225,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             onPress={() => {}}
           />
         </TopSpace>
-
       );
     } else {
       return (
