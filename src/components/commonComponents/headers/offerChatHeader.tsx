@@ -40,6 +40,56 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     tradeStatus,
   }) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
+
+    const renderOptions = () => {
+      if (tradeStatus === Trade_Status?.Accepted) {
+        //The trade accepted header will be here
+        return <></>;
+      }
+
+      if (tradeStatus === Trade_Status?.Canceled) {
+        //the cancled header will be here
+        return <></>;
+      }
+
+      if (userData?._id === offerItem.reciever._id) {
+        return (
+          <>
+            <LSButton
+              title={'Accept'}
+              size={Size.Extra_Small}
+              type={Type.Success}
+              radius={20}
+              onPress={() => onAcceptPress()}
+            />
+            <SpaceRowView />
+            <SpaceRowView />
+            <LSButton
+              title={'Decline'}
+              size={Size.Extra_Small}
+              type={Type.Error}
+              radius={20}
+              onPress={() => onDeclinePress()}
+            />
+            <SpaceRowView />
+          </>
+        );
+      } else {
+        return (
+          <>
+            <LSButton
+              title={'Decline'}
+              size={Size.Extra_Small}
+              type={Type.Error}
+              radius={20}
+              onPress={() => onDeclinePress()}
+            />
+            <SpaceRowView />
+          </>
+        );
+      }
+    };
+
     return (
       <ProfileHeaderContainer>
         <EmptyRowView>
@@ -55,28 +105,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
           <OfferChatHeaderText>{title}</OfferChatHeaderText>
         </EmptyRowView>
         <EmptyRowView>
-          {tradeStatus === Trade_Status?.Pending &&
-            offerItem?.reciever._id === userData?._id && (
-              <>
-                <LSButton
-                  title={'Accept'}
-                  size={Size.Extra_Small}
-                  type={Type.Success}
-                  radius={20}
-                  onPress={() => onAcceptPress()}
-                />
-                <SpaceRowView />
-                <SpaceRowView />
-                <LSButton
-                  title={'Decline'}
-                  size={Size.Extra_Small}
-                  type={Type.Error}
-                  radius={20}
-                  onPress={() => onDeclinePress()}
-                />
-                <SpaceRowView />
-              </>
-            )}
+          {renderOptions()}
           <ProfileLeftTouchable onPress={() => onTrippleDotPress()}>
             <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
           </ProfileLeftTouchable>
