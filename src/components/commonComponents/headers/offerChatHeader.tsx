@@ -51,7 +51,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
           <OfferChatHeaderText>{title}</OfferChatHeaderText>
         </EmptyRowView>
         <EmptyRowView>
-          {offerItem?.reciever._id === userData?._id &&
+          {offerItem?.reciever._id === userData?._id && (
             <LSButton
               title={'Accept'}
               size={Size.Extra_Small}
@@ -59,7 +59,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
               radius={20}
               onPress={() => onAcceptPress()}
             />
-          }
+          )}
           <SpaceRowView />
           <SpaceRowView />
           <LSButton
