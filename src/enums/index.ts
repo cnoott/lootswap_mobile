@@ -41,3 +41,9 @@ export enum Who_Pays_Options {
   BuyerPays = 'buyer-pays',
   SellerPays = 'seller-pays',
 }
+
+export enum Trade_Status {
+  Pending = 'pending',
+  Accepted = 'accepted',
+  Canceled = 'canceled',
+}
