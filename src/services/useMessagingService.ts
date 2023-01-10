@@ -1,9 +1,9 @@
 import {useEffect} from 'react';
 import socketIo from 'socket.io-client';
-import {baseURLMessage} from './apiHelpers';
+import {baseURLMessage, baseURLPriveteMessage} from './apiHelpers';
 
 export let socketObj: any = null;
-const useMessagingService = (authObj: any) => {
+const useMessagingService = (authObj: any, isPrivete: boolean) => {
   useEffect(() => {
     // if (socketObj == null) {
     //   connect();
@@ -11,7 +11,7 @@ const useMessagingService = (authObj: any) => {
     connect();
   });
   const connect = () => {
-    socketObj = socketIo(baseURLMessage, {
+    socketObj = socketIo(isPrivete ? baseURLPriveteMessage : baseURLMessage, {
       transports: ['websocket'],
       upgrade: false,
       auth: authObj,
