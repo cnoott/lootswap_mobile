@@ -55,27 +55,28 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
           <OfferChatHeaderText>{title}</OfferChatHeaderText>
         </EmptyRowView>
         <EmptyRowView>
-          {tradeStatus === Trade_Status?.Pending && offerItem?.reciever._id === userData?._id && (
-            <>
-              <LSButton
-                title={'Accept'}
-                size={Size.Extra_Small}
-                type={Type.Success}
-                radius={20}
-                onPress={() => onAcceptPress()}
-              />
-              <SpaceRowView />
-              <SpaceRowView />
-              <LSButton
-                title={'Decline'}
-                size={Size.Extra_Small}
-                type={Type.Error}
-                radius={20}
-                onPress={() => onDeclinePress()}
-              />
-              <SpaceRowView />
-            </>
-          )}
+          {tradeStatus === Trade_Status?.Pending &&
+            offerItem?.reciever._id === userData?._id && (
+              <>
+                <LSButton
+                  title={'Accept'}
+                  size={Size.Extra_Small}
+                  type={Type.Success}
+                  radius={20}
+                  onPress={() => onAcceptPress()}
+                />
+                <SpaceRowView />
+                <SpaceRowView />
+                <LSButton
+                  title={'Decline'}
+                  size={Size.Extra_Small}
+                  type={Type.Error}
+                  radius={20}
+                  onPress={() => onDeclinePress()}
+                />
+                <SpaceRowView />
+              </>
+            )}
           <ProfileLeftTouchable onPress={() => onTrippleDotPress()}>
             <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
           </ProfileLeftTouchable>
