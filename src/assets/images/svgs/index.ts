@@ -362,3 +362,8 @@ export const ORDER_DETAILS_ICON = `<svg width="36" height="36" viewBox="0 0 36 3
 <path d="M18.0003 24.3453C21.5045 24.3453 24.3453 21.5045 24.3453 18.0003C24.3453 14.496 21.5045 11.6553 18.0003 11.6553C14.496 11.6553 11.6553 14.496 11.6553 18.0003C11.6553 21.5045 14.496 24.3453 18.0003 24.3453Z" fill="#101010" stroke="#101010" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 `;
+
+export const EMPTY_TRADE_OFFERS_ICON = `<svg width="36" height="36" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="#000000" class="w-6 h-6">
+<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H6.911a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661z" />
+</svg>
+`;

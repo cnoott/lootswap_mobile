@@ -100,36 +100,51 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     );
   };
 
-  const onMessagePress = () => {
-    if (isLogedIn) {
-      dispatch(
-        getMessageInitiatedStatus(
-          JSON.stringify({
-            userId: userData?._id,
-            productId: productData?.objectID,
-          }),
-          (res: any) => {
-            if (res?.noMessage) {
-              initiateFirstMessage();
-            } else {
-              navigation.navigate('UserChatScreen', {
-                messageId: res?.messageDoc?._id,
-                productOwnerId: productData?.userId,
-                productOwnerName: requestedUserDetails?.name || 'Owner',
-              });
-            }
-          },
-          () => {
-            Alert.showError('Something went wrong!');
-          },
-        ),
-      );
-    } else {
-      Alert.showError('Please Login first');
+  const goToLogin = () => {
+    navigation.navigate('SignInScreen');
+  };
+
+  const onBuyNewPress = () => {
+    if (!isLogedIn) {
+      goToLogin();
+      return;
     }
   };
 
+  const onMessagePress = () => {
+    if (!isLogedIn) {
+      goToLogin();
+      return;
+    }
+    dispatch(
+      getMessageInitiatedStatus(
+        JSON.stringify({
+          userId: userData?._id,
+          productId: productData?.objectID,
+        }),
+        (res: any) => {
+          if (res?.noMessage) {
+            initiateFirstMessage();
+          } else {
+            navigation.navigate('UserChatScreen', {
+              messageId: res?.messageDoc?._id,
+              productOwnerId: productData?.userId,
+              productOwnerName: requestedUserDetails?.name || 'Owner',
+            });
+          }
+        },
+        () => {
+          Alert.showError('Something went wrong!');
+        },
+      ),
+    );
+  };
+
   const onSendOfferPress = () => {
+    if (!isLogedIn) {
+      goToLogin();
+      return;
+    }
     dispatch(
       getProductListedItemsForOffer(
         productData?.userId,
@@ -217,7 +232,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               });
             }}
           />
-          <TopSpace /> 
+          <TopSpace />
           <LSButton
             title={'Delete Item'}
             size={Size.Full}
@@ -225,7 +240,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             onPress={() => {}}
           />
         </TopSpace>
-
       );
     } else {
       return (
@@ -234,7 +248,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             title={'Buy Now'}
             size={Size.Full}
             type={Type.Secondary}
-            onPress={() => {}}
+            onPress={onBuyNewPress}
           />
           <TopSpace />
           <LSButton

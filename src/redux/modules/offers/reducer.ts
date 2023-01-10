@@ -24,7 +24,6 @@ export default function loading(state = InitialState, action: ActionProps) {
     case GET_TRADES_HISTORY.REQUEST: {
       return {
         ...state,
-        historyTrades: null,
       };
     }
     case GET_TRADES_HISTORY.SUCCESS: {
