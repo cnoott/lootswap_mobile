@@ -2,7 +2,7 @@
 INSQUAD - OFFERS MESSAGE SCREEN
 ***/
 
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {PaperAirplaneIcon} from 'react-native-heroicons/solid';
 import {useTheme} from 'styled-components';
 import {moderateScale} from 'react-native-size-matters';
@@ -54,6 +54,14 @@ export const OffersMessageScreen: FC<{}> = props => {
   const sendMessage = () => {
     setMessagesList(getConfiguredMessageData([1, 2, 3, 4, 5, 6, 7, 8]));
   };
+
+  useEffect(() => {
+    dispatch(
+      getTradesHistory({
+        userId: userData?._id,
+      }),
+    );
+  }, [dispatch, userData?._id]);
 
   const onAddItemPress = () => {
     closeModal();
@@ -111,12 +119,7 @@ export const OffersMessageScreen: FC<{}> = props => {
     );
   };
   const renderMessage = (isSelf = false, item: any) => {
-    return (
-      <MessageCell
-        self={isSelf}
-        item={item.message}
-      />
-    );
+    return <MessageCell self={isSelf} item={item.message} />;
   };
   const handleAcceptTrade = () => {
     const reqData = {
@@ -127,7 +130,7 @@ export const OffersMessageScreen: FC<{}> = props => {
       acceptTrade(
         reqData,
         res => {
-          console.log('Success:',res);
+          console.log('Success:', res);
           //TODO: redirect to screen
         },
         error => {
@@ -164,7 +167,9 @@ export const OffersMessageScreen: FC<{}> = props => {
       <ChatContainer>
         <FlatList
           data={messagesList}
-          renderItem={({item}) => renderMessage(item?.userName === userData?.name, item)}
+          renderItem={({item}) =>
+            renderMessage(item?.userName === userData?.name, item)
+          }
         />
       </ChatContainer>
     );

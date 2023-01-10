@@ -47,6 +47,7 @@ import {
   createFirstMessage,
   getProductListedItemsForOffer,
   sendTradeOffer,
+  getTradesHistory,
 } from '../../redux/modules';
 import {getProductTags} from '../../utility/utility';
 import {Alert} from 'custom_top_alert';
@@ -158,6 +159,13 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
         reqData,
         res => {
           console.log('Success ====', res);
+          navigation.navigate('OffersMessageScreen', {item: res});
+          setSendOfferModalVisible(false);
+          dispatch(
+            getTradesHistory({
+              userId: userData?._id,
+            }),
+          );
         },
         error => {
           console.log('error ====', error);

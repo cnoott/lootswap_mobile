@@ -70,7 +70,7 @@ export const OffersScreen: FC<{}> = () => {
         <EmptyRowView>
           <LSProfileImageComponent
             profileUrl={
-              userData._id === item.reciever._id
+              userData?._id === item.reciever._id
                 ? item.sender.profile_picture
                 : item.reciever.profile_picture
             }
