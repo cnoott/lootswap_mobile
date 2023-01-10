@@ -10,9 +10,13 @@ import {
   PROFILE_REFERRAL,
   PROFILE_SUPPORT,
   PROFILE_NOTIFICATION,
+  ORDER_TRACK_PURCHASED,
+  ORDER_TRACK_SHIPPED_SELECTED,
+  ORDER_TRACK_IN_TRANSIT_UNSELECTED,
+  ORDER_TRACK_DELIVERED_UNSELECTED,
 } from 'localsvgimages';
 import {PROFILE_OPTIONS_TYPE, GET_PRODUCT_DETAILS} from 'custom_types';
-import {Trade_Options, Who_Pays_Options} from 'custom_enums';
+import {Trade_Options, Who_Pays_Options, Trade_Status} from 'custom_enums';
 
 /*
 On Launch -
@@ -640,4 +644,94 @@ export const validateCreateProductData = (
       break;
   }
   return canGoNext;
+};
+
+export const getSingleOrderStepsList = () => {
+  const stepsList = [
+    {
+      index: 1,
+      label: 'Purchased',
+      selectedIcon: ORDER_TRACK_PURCHASED,
+      unSelectedIcon: ORDER_TRACK_PURCHASED,
+    },
+    {
+      index: 2,
+      label: 'Shipped',
+      selectedIcon: ORDER_TRACK_SHIPPED_SELECTED,
+      unSelectedIcon: ORDER_TRACK_SHIPPED_SELECTED,
+    },
+    {
+      index: 3,
+      label: 'In Transit',
+      selectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
+      unSelectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
+    },
+    {
+      index: 4,
+      label: 'Delivered',
+      selectedIcon: ORDER_TRACK_DELIVERED_UNSELECTED,
+      unSelectedIcon: ORDER_TRACK_DELIVERED_UNSELECTED,
+    },
+  ];
+  return stepsList;
+};
+
+export const getMultipleOrderStepsList = () => {
+  const stepsList = [
+    {
+      index: 1,
+      label: 'Ship\nItem(s)',
+      selectedIcon: ORDER_TRACK_PURCHASED,
+      unSelectedIcon: ORDER_TRACK_PURCHASED,
+    },
+    {
+      index: 2,
+      label: 'In Transit',
+      selectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
+      unSelectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
+    },
+    {
+      index: 3,
+      label: 'Verified Center',
+      selectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
+      unSelectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
+    },
+    {
+      index: 4,
+      label: 'Shipped to you\n(transit)',
+      selectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
+      unSelectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
+    },
+    {
+      index: 5,
+      label: 'Delivered',
+      selectedIcon: ORDER_TRACK_DELIVERED_UNSELECTED,
+      unSelectedIcon: ORDER_TRACK_DELIVERED_UNSELECTED,
+    },
+  ];
+  return stepsList;
+};
+
+export const getTradeStatusColor = (status: string) => {
+  let colorData = {
+    backColor: 'rgba(30, 66, 159, 0.2)',
+    labelColor: '#1E429F',
+  };
+  switch (status) {
+    case Trade_Status.Canceled:
+      colorData.backColor = 'rgba(240, 62, 62, 0.2)';
+      colorData.labelColor = '#F03E3E';
+      break;
+    case Trade_Status.Pending:
+      colorData.backColor = 'rgba(30, 66, 159, 0.2)';
+      colorData.labelColor = '#1E429F';
+      break;
+    case Trade_Status.Accepted:
+      colorData.backColor = 'rgba(74, 175, 87, 0.2)';
+      colorData.labelColor = '#4AAF57';
+      break;
+    default:
+      break;
+  }
+  return colorData;
 };

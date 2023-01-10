@@ -5,6 +5,7 @@ import ReduxStore from '../redux/store/store';
 
 export const baseURL = 'http://192.168.0.105:8000/api';
 export const baseURLMessage = 'http://192.168.0.105:8000/messages';
+export const baseURLPriveteMessage = 'http://192.168.0.105:8000';
 
 const TIME_OUT = 30000;
 export const createAxiosInstanceWithHeader = () => {

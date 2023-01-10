@@ -38,7 +38,8 @@ export const TextInput = styled.TextInput.attrs(props => ({
   placeholderTextColor: props.isHomeSearch
     ? props.theme.colors.black
     : props.theme.colors.placeholder,
-  height: scale(props?.height || 47),
+  minHeight: scale(props?.height || 47),
+  maxHeight: scale(240),
   shadowColor: props.theme.colors.primary,
   shadowOpacity: 0.2,
   shadowRadius: 4,
@@ -49,7 +50,7 @@ export const TextInput = styled.TextInput.attrs(props => ({
   fontSize: moderateScale(props.isHomeSearch ? 17 : 15),
   mx: scale(10),
   flex: 1,
-  py: verticalScale(props.multiline ? 15 : 0),
+  py: verticalScale(props.multiline ? 12 : 0),
 }))`
   ${color}
   ${space}
