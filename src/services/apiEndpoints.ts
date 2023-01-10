@@ -133,6 +133,28 @@ export const getTradesHistoryCall = (reqData: any) => {
   );
 };
 
+export const getTradeCall = (reqData: any) => {
+  return handleResponse(
+    api.get(`/get-trade/${reqData?.tradeId}/${reqData?.userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const acceptTradeCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/order/create/${reqData?.userId}/${reqData?.tradeId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const cancelTradeCall = (reqData: any) => {
+  console.log('cancel Call', reqData);
+  return handleResponse(
+    api.put(`/cancel-trade/${reqData?.userId}/${reqData?.tradeId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

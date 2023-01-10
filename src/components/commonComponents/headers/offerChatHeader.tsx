@@ -17,10 +17,13 @@ import {LSProfileImageComponent} from '../profileImage';
 import {Trade_Status} from 'custom_enums';
 
 interface HeaderProps {
+  profilePicture: string;
   title: string;
   onAcceptPress: Function;
   onDeclinePress: Function;
   onTrippleDotPress: Function;
+  offerItem: any;
+  userData: any;
   profileUrl?: string;
   tradeStatus: string;
 }
@@ -31,8 +34,10 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     onAcceptPress,
     onDeclinePress,
     onTrippleDotPress,
+    profilePicture,
+    offerItem,
+    userData,
     tradeStatus,
-    profileUrl = '',
   }) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
     return (
@@ -42,7 +47,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
             <SvgXml xml={LEFT_BLACK_ARROW} />
           </TouchableOpacity>
           <LSProfileImageComponent
-            profileUrl={profileUrl}
+            profileUrl={profilePicture}
             imageHeight={34}
             imageWidth={34}
             imageRadius={17}
@@ -50,7 +55,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
           <OfferChatHeaderText>{title}</OfferChatHeaderText>
         </EmptyRowView>
         <EmptyRowView>
-          {tradeStatus === Trade_Status?.Pending && (
+          {tradeStatus === Trade_Status?.Pending && offerItem?.reciever._id === userData?._id && (
             <>
               <LSButton
                 title={'Accept'}

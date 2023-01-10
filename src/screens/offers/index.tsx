@@ -7,7 +7,7 @@ import {useWindowDimensions} from 'react-native';
 import {SceneMap} from 'react-native-tab-view';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {getTradesHistory} from '../../redux/modules/offers/actions';
+import {getTradesHistory} from '../../redux/modules';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
@@ -60,7 +60,7 @@ export const OffersScreen: FC<{}> = () => {
     } else if (daysSince > 1) {
       return `${daysSince} days ago`;
     } else if (daysSince === 0) {
-      return 'today';
+      return 'Today';
     } else {
       return 'One day ago';
     }
@@ -73,7 +73,7 @@ export const OffersScreen: FC<{}> = () => {
         <EmptyRowView>
           <LSProfileImageComponent
             profileUrl={
-              userData._id === item.reciever._id
+              userData?._id === item.reciever._id
                 ? item.sender.profile_picture
                 : item.reciever.profile_picture
             }
@@ -102,6 +102,7 @@ export const OffersScreen: FC<{}> = () => {
       </RowView>
     );
   };
+
   const renderOfferItem = ({item}: any) => {
     return (
       <OfferCellContainer

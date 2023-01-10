@@ -47,8 +47,10 @@ import {
   createFirstMessage,
   getProductListedItemsForOffer,
   sendTradeOffer,
+  getTradesHistory,
+  UpdateAddProductData,
 } from '../../redux/modules';
-import {getProductTags} from '../../utility/utility';
+import {getProductTags, configureAndGetLootData} from '../../utility/utility';
 import {Alert} from 'custom_top_alert';
 
 const height = Dimensions.get('window').height;
@@ -158,6 +160,13 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
         reqData,
         res => {
           console.log('Success ====', res);
+          navigation.navigate('OffersMessageScreen', {item: res});
+          setSendOfferModalVisible(false);
+          dispatch(
+            getTradesHistory({
+              userId: userData?._id,
+            }),
+          );
         },
         error => {
           console.log('error ====', error);
@@ -192,30 +201,58 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     );
   };
   const renderButtons = () => {
-    return (
-      <TopSpace>
-        <LSButton
-          title={'Buy Now'}
-          size={Size.Full}
-          type={Type.Secondary}
-          onPress={() => {}}
-        />
-        <TopSpace />
-        <LSButton
-          title={'Send Offer'}
-          size={Size.Full}
-          type={Type.Primary}
-          onPress={() => onSendOfferPress()}
-        />
-        <TopSpace />
-        <LSButton
-          title={'Message'}
-          size={Size.Full}
-          type={Type.Grey}
-          onPress={onMessagePress}
-        />
-      </TopSpace>
-    );
+    if (userData?._id === requestedUserDetails?._id) {
+      return (
+        <TopSpace>
+          <LSButton
+            title={'Edit Item'}
+            size={Size.Full}
+            type={Type.Secondary}
+            onPress={() => {
+              const prodData = configureAndGetLootData(selectedProductDetails);
+              dispatch(UpdateAddProductData(prodData));
+              navigation.navigate('AddProductOverviewScreen', {
+                isFromEdit: true,
+                productId: selectedProductDetails._id,
+              });
+            }}
+          />
+          <TopSpace /> 
+          <LSButton
+            title={'Delete Item'}
+            size={Size.Full}
+            type={Type.Error}
+            onPress={() => {}}
+          />
+        </TopSpace>
+
+      );
+    } else {
+      return (
+        <TopSpace>
+          <LSButton
+            title={'Buy Now'}
+            size={Size.Full}
+            type={Type.Secondary}
+            onPress={() => {}}
+          />
+          <TopSpace />
+          <LSButton
+            title={'Send Offer'}
+            size={Size.Full}
+            type={Type.Primary}
+            onPress={() => onSendOfferPress()}
+          />
+          <TopSpace />
+          <LSButton
+            title={'Message'}
+            size={Size.Full}
+            type={Type.Grey}
+            onPress={onMessagePress}
+          />
+        </TopSpace>
+      );
+    }
   };
   const renderProtectionView = () => {
     return (

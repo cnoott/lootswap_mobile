@@ -64,6 +64,18 @@ export const GET_TRADES_HISTORY = {
   ...createActionConst(actions.GET_TRADES_HISTORY),
 };
 
+export const GET_TRADE = {
+  ...createActionConst(actions.GET_TRADE),
+};
+
 export const CREATE_NEW_PRODUCT = {
   ...createActionConst(actions.CREATE_NEW_PRODUCT),
+};
+
+export const ACCEPT_TRADE = {
+  ...createActionConst(actions.ACCEPT_TRADE),
+};
+
+export const CANCEL_TRADE = {
+  ...createActionConst(actions.CANCEL_TRADE),
 };

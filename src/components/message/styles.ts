@@ -33,7 +33,7 @@ export const MessageText = styled.Text.attrs(props => ({
   flex: 1,
   flexWrap: 'wrap',
 }))`
-  font-size: ${moderateScale(12)}px;
+  font-size: ${moderateScale(14)}px;
   font-family: Inter-Bold;
   font-weight: 400;
   text-align: left;
