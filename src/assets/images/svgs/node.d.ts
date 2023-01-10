@@ -53,4 +53,5 @@ declare module 'localsvgimages' {
   export const ORDER_TRACK_IN_TRANSIT_UNSELECTED: any;
   export const ORDER_TRACK_DELIVERED_UNSELECTED: any;
   export const ORDER_DETAILS_ICON: any;
+  export const EMPTY_TRADE_OFFERS_ICON: any;
 }
