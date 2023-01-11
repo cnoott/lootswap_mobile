@@ -16,6 +16,7 @@ import AddProductOverviewScreen from '../screens/loot/addProductOverview';
 import NotificationsScreen from '../screens/notifications';
 import OffersScreen from '../screens/offers';
 import OffersMessageScreen from '../screens/offers/offerMessageScreen';
+import MyOrdersListScreen from '../screens/order/myOrdersListScreen';
 import TrackOrderScreen from '../screens/order/trackOrderScreen';
 import {useTheme} from 'styled-components';
 import {SvgXml} from 'react-native-svg';
@@ -76,6 +77,7 @@ const ProfileStackNavigation = () => (
       name="AddProductOverviewScreen"
       component={AddProductOverviewScreen}
     />
+    <Stack.Screen name="MyOrdersListScreen" component={MyOrdersListScreen} />
     <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
   </Stack.Navigator>
 );

@@ -15,7 +15,7 @@ export const MessageBoxContainer = styled.View.attrs(props => ({
   bg: props?.self
     ? props?.theme?.colors?.primary
     : props?.theme?.colors?.commonSearchBack,
-  my: verticalScale(15),
+  my: verticalScale(5),
   justifyContent: 'center',
   alignSelf: props?.self ? 'flex-end' : 'flex-start',
   mx: scale(10),
