@@ -300,6 +300,8 @@ export const OffersMessageScreen: FC<{}> = props => {
         onAddItemPress={onAddItemPress}
         onRemoveItemPress={onRemoveItemPress}
         onChangeOfferPress={onChangeOfferPress}
+        offerItem={offerItem}
+        userData={userData}
       />
       <ItemAddRemoveModal
         isModalVisible={isAddRemoveItemModalVisible}
