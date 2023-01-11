@@ -10,7 +10,12 @@ import {moderateScale} from 'react-native-size-matters';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {LSOfferChatHeader} from '../../components/commonComponents/headers/offerChatHeader';
 import {useDispatch, useSelector} from 'react-redux';
-import {acceptTrade, cancelTrade, getTradesHistory} from '../../redux/modules';
+import {
+  acceptTrade,
+  cancelTrade,
+  getTradesHistory,
+  getProductListedItemsForOffer,
+} from '../../redux/modules';
 import TradeOfferCell from './offerItems/TradeOfferCell';
 import LSInput from '../../components/commonComponents/LSInput';
 import MessageCell from '../../components/message/messageCell';
@@ -20,6 +25,7 @@ import ItemAddRemoveModal from './offerItems/ItemAddRemoveModal';
 import ChangeOfferModal from './offerItems/ChangeOfferModal';
 import useMessagingService from '../../services/useMessagingService';
 import {AuthProps} from '../../redux/modules/auth/reducer';
+import {Alert} from 'custom_top_alert';
 import {
   getConfiguredMessageData,
   getAllOfferItemsData,
@@ -49,6 +55,7 @@ export const OffersMessageScreen: FC<{}> = props => {
   const [isDecline, setDecline] = useState(false);
   const [isEditTradeModalVisible, setEditTradeModalVisible] = useState(false);
   const [isAddItem, setAddItem] = useState(false);
+  const [editTradeItems, setEditTradeItems] = useState([]);
   const [isAddRemoveItemModalVisible, setAddRemoveItemModalVisible] =
     useState(false);
   const [isChangeOfferModalVisible, setChangeOfferModalVisible] =
@@ -113,10 +120,41 @@ export const OffersMessageScreen: FC<{}> = props => {
 
   const onAddItemPress = () => {
     closeModal();
+    if (offerItem?.senderItems.length >= 3) {
+      Alert.showError('You cannot add more than 3 items to a trade');
+      return;
+    }
+    dispatch(
+      getProductListedItemsForOffer(
+        userData?._id,
+        (response: any) => {
+          const filtered = [];
+          response.forEach(item => {
+            // Filters out items already in the trade
+            // and items that are not avalibale
+            if (
+              !offerItem?.senderItems.some(
+                senderItem => senderItem._id === item._id,
+              ) &&
+              item.isVisible &&
+              item.isVirtuallyVerified
+            ) {
+              filtered.push(item);
+            }
+          });
+          console.log(filtered);
+          setEditTradeItems(filtered);
+
+        },
+        () => {
+          Alert.showError('Could not load items!');
+        },
+      ),
+    );
     setTimeout(() => {
       setAddItem(true);
       setAddRemoveItemModalVisible(true);
-    }, 600);
+    }, 400);
   };
   const onRemoveItemPress = () => {
     closeModal();
@@ -273,8 +311,12 @@ export const OffersMessageScreen: FC<{}> = props => {
         isAddItem={isAddItem}
         onCloseModal={closeModal}
         itemsData={
-          isAddItem ? getAllOfferItemsData() : getSelectedOfferItemsData()
+          isAddItem
+            ? editTradeItems
+            : getSelectedOfferItemsData()
         }
+        offerItem={offerItem}
+        userData={userData}
       />
       <ChangeOfferModal
         isModalVisible={isChangeOfferModalVisible}

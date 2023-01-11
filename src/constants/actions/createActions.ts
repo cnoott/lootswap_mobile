@@ -79,3 +79,7 @@ export const ACCEPT_TRADE = {
 export const CANCEL_TRADE = {
   ...createActionConst(actions.CANCEL_TRADE),
 };
+
+export const ADD_ITEMS = {
+  ...createActionConst(actions.ADD_ITEMS),
+};

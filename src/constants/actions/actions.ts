@@ -29,4 +29,5 @@ export const actions = {
   GET_TRADE: 'GET_TRADE',
   ACCEPT_TRADE: 'ACCEPT_TRADE',
   CANCEL_TRADE: 'CANCEL_TRADE',
+  ADD_ITEMS: 'ADD_ITEMS',
 };
