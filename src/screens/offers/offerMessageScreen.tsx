@@ -28,8 +28,6 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 import {Alert} from 'custom_top_alert';
 import {
   getConfiguredMessageData,
-  getAllOfferItemsData,
-  getSelectedOfferItemsData,
 } from '../../utility/utility';
 import {
   Container,
@@ -144,7 +142,6 @@ export const OffersMessageScreen: FC<{}> = props => {
           });
           console.log(filtered);
           setEditTradeItems(filtered);
-
         },
         () => {
           Alert.showError('Could not load items!');
@@ -310,11 +307,7 @@ export const OffersMessageScreen: FC<{}> = props => {
         isModalVisible={isAddRemoveItemModalVisible}
         isAddItem={isAddItem}
         onCloseModal={closeModal}
-        itemsData={
-          isAddItem
-            ? editTradeItems
-            : getSelectedOfferItemsData()
-        }
+        itemsData={isAddItem ? editTradeItems : offerItem?.senderItems}
         offerItem={offerItem}
         userData={userData}
       />

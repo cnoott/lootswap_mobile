@@ -446,7 +446,7 @@ export const getAddProductRawData = () => {
   return addProductData;
 };
 
-export const getAllOfferItemsData = (offerItem, userData) => {
+export const getAllOfferItemsData = () => {
   const data = [
     {
       isSelected: true,
