@@ -48,6 +48,7 @@ export const ProfileHeaderText = styled.Text.attrs(props => ({
 }))`
   font-size: ${moderateScale(22)}px;
   font-family: Inter-Bold;
+  align-self: center;
   ${color}
   ${space}
   ${layout}
@@ -391,4 +392,13 @@ export const EmptyRowView = styled.View`
 
 export const SpaceRowView = styled.View`
   margin-left: ${scale(2)}px;
+`;
+
+export const EmptyBox = styled.View.attrs({
+  width: scale(20),
+  height: scale(20),
+})`
+  ${color}
+  ${space}
+  ${layout}
 `;
