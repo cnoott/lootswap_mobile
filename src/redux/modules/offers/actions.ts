@@ -3,6 +3,7 @@ import {
   GET_TRADE,
   ACCEPT_TRADE,
   CANCEL_TRADE,
+  ADD_ITEMS,
 } from '../../../constants/actions';
 
 export const getTradesHistory = (reqData: any) => {
@@ -81,6 +82,19 @@ export const cancelTrade = (
 ) => {
   return {
     type: CANCEL_TRADE.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const addItems = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: ADD_ITEMS.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
