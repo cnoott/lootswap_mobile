@@ -39,6 +39,7 @@ export const OffersScreen: FC<{}> = () => {
     {key: 'first', title: 'Trade offers'},
     {key: 'second', title: 'Messages'},
   ]);
+  const [selectedTrade, setSelectedTrade] = useState(null);
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
@@ -115,7 +116,9 @@ export const OffersScreen: FC<{}> = () => {
   const renderOfferItem = ({item}: any) => {
     return (
       <OfferCellContainer
+        key={item._id}
         onPress={() => {
+          setSelectedTrade(item._id);
           navigation.navigate('OffersMessageScreen', {item});
         }}>
         <RenderUserDetails item={item} />
@@ -128,6 +131,8 @@ export const OffersScreen: FC<{}> = () => {
       <OffersListView
         data={historyTrades}
         renderItem={renderOfferItem}
+        keyExtractor={item => item._id}
+        extraData={selectedTrade}
         ListEmptyComponent={() => <NoOffersView navigation={navigation} />}
         refreshControl={
           <RefreshControl refreshing={false} onRefresh={onTradeOffersRefresh} />
