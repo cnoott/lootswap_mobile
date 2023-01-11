@@ -20,7 +20,7 @@ import {
   Image,
   AnimatedCheckBox,
 } from '../styles';
-import {addItems, getTradesHistory} from '../../../redux/modules';
+import {addItems, removeItems, getTradesHistory} from '../../../redux/modules';
 
 interface ItemAddRemoveModalProp {
   isModalVisible: boolean;
@@ -44,18 +44,19 @@ export const ItemAddRemoveModal: FC<ItemAddRemoveModalProp> = props => {
     userData,
   } = props;
   const [itemsToAdd, setItemsToAdd] = useState([]);
+  const [itemsToRemove, setItemsToRemove] = useState([]);
 
-  const onItemPress = (itemId: string) => {
+  const onAddItemPress = (itemId: string) => {
     const offerItems = [...itemsData];
     const foundItemIndex = offerItems?.findIndex(
-      _item => _item?._id === itemId && _item?.isSelected
+      _item => _item?._id === itemId && _item?.isSelected,
     );
     const alreadySelectedItems = offerItems?.filter(_fil => _fil?.isSelected);
-    if (alreadySelectedItems?.length + offerItem?.senderItems?.length >= 3){
+    if (alreadySelectedItems?.length + offerItem?.senderItems?.length >= 3) {
       if (foundItemIndex >= 0) {
         const updatedData = offerItems?.map(data => {
           if (data?._id === itemId) {
-            data.isSelected = data?.isSelected ? !data?.isSelected: true;
+            data.isSelected = data?.isSelected ? !data?.isSelected : true;
           }
           return data;
         });
@@ -74,13 +75,32 @@ export const ItemAddRemoveModal: FC<ItemAddRemoveModalProp> = props => {
       setItemsToAdd(updatedData);
     }
   };
+  const onRemoveItemPress = (itemId: string) => {
+    const offerItems = [...itemsData];
+    const alreadySelectedItems = offerItems?.filter(_fil => _fil?.isSelected);
+    if (
+      alreadySelectedItems.length + 1 === offerItem?.senderItems.length &&
+      offerItem?.senderMoneyOffer === 0
+    ) {
+      Alert.showError(
+        'You cannot remove all your items without a money offer!',
+      );
+      return;
+    }
+    const updatedData = offerItems?.map(data => {
+      if (data?._id === itemId) {
+        data.isSelected = data?.isSelected ? !data?.isSelected : true;
+      }
+      return data;
+    });
+    setItemsToRemove(updatedData);
+  };
   const submitAddItem = () => {
     const filteredItems = itemsToAdd.filter(item => item?.isSelected);
     if (filteredItems.length === 0) {
       onCloseModal();
       return;
     }
-    filteredItems.map(item => console.log(item?.name));
     const reqData = {
       userId: userData?._id,
       tradeId: offerItem?._id,
@@ -89,7 +109,7 @@ export const ItemAddRemoveModal: FC<ItemAddRemoveModalProp> = props => {
     dispatch(
       addItems(
         reqData,
-        res => {
+        () => {
           dispatch(
             getTradesHistory({
               userId: userData?._id,
@@ -98,18 +118,54 @@ export const ItemAddRemoveModal: FC<ItemAddRemoveModalProp> = props => {
           onCloseModal();
         },
         error => {
-          console.log('err: ',error);
+          console.log('err: ', error);
+        },
+      ),
+    );
+  };
+  const submitRemoveItem = () => {
+    const filteredItems = itemsToRemove.filter(item => item?.isSelected);
+    if (filteredItems.length === 0) {
+      onCloseModal();
+      return;
+    }
+    const reqData = {
+      userId: userData?._id,
+      tradeId: offerItem?._id,
+      itemIds: filteredItems,
+    };
+    dispatch(
+      removeItems(
+        reqData,
+        () => {
+          dispatch(
+            getTradesHistory({
+              userId: userData?._id,
+            }),
+          );
+          onCloseModal();
+        },
+        error => {
+          console.log('err: ', error);
         },
       ),
     );
   };
   const renderOfferItem = ({item}: any) => {
     return (
-      <ImageContainer size={productSize} onPress={() => onItemPress(item?._id)}>
+      <ImageContainer
+        size={productSize}
+        onPress={() => {
+          isAddItem ? onAddItemPress(item?._id) : onRemoveItemPress(item?._id);
+        }}>
         <Image source={{uri: item.primary_photo}} size={productSize} />
         <AnimatedCheckBox
           isChecked={item?.isSelected}
-          onPress={() => onItemPress(item?._id)}
+          onPress={() => {
+            isAddItem
+              ? onAddItemPress(item?._id)
+              : onRemoveItemPress(item?._id);
+          }}
           disableBuiltInState
         />
       </ImageContainer>
@@ -146,7 +202,7 @@ export const ItemAddRemoveModal: FC<ItemAddRemoveModalProp> = props => {
               type={Type.Error}
               radius={20}
               fitToWidth={'90%'}
-              onPress={() => onCloseModal()}
+              onPress={() => submitRemoveItem()}
             />
           )}
           <TopMargin margin={2} />

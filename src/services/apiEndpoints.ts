@@ -163,6 +163,15 @@ export const addItemsCall = (reqData: any) => {
   );
 };
 
+export const removeItemsCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/remove-items/${reqData?.userId}/${reqData?.tradeId}`, {
+      itemIds: reqData?.itemIds,
+    }),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

@@ -5,6 +5,7 @@ import {
   ACCEPT_TRADE,
   CANCEL_TRADE,
   ADD_ITEMS,
+  REMOVE_ITEMS,
 } from '../../../constants/actions';
 import {
   getTradesHistoryCall,
@@ -12,6 +13,7 @@ import {
   acceptTradeCall,
   cancelTradeCall,
   addItemsCall,
+  removeItemsCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {
@@ -121,10 +123,30 @@ export function* addItems(action: any) {
   }
 }
 
+export function* removeItems(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      removeItemsCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export default function* offersSaga() {
   yield takeLatest(GET_TRADES_HISTORY.REQUEST, getTradesHistory);
   yield takeLatest(GET_TRADE.REQUEST, getTrade);
   yield takeLatest(ACCEPT_TRADE.REQUEST, acceptTrade);
   yield takeLatest(CANCEL_TRADE.REQUEST, cancelTrade);
   yield takeLatest(ADD_ITEMS.REQUEST, addItems);
+  yield takeLatest(REMOVE_ITEMS.REQUEST, removeItems);
 }
