@@ -26,9 +26,7 @@ import ChangeOfferModal from './offerItems/ChangeOfferModal';
 import useMessagingService from '../../services/useMessagingService';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {Alert} from 'custom_top_alert';
-import {
-  getConfiguredMessageData,
-} from '../../utility/utility';
+import {getConfiguredMessageData} from '../../utility/utility';
 import {
   Container,
   ChatContainer,
