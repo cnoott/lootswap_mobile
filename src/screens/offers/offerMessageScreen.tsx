@@ -314,6 +314,8 @@ export const OffersMessageScreen: FC<{}> = props => {
       <ChangeOfferModal
         isModalVisible={isChangeOfferModalVisible}
         onCloseModal={closeModal}
+        offerItem={offerItem}
+        userData={userData}
       />
     </Container>
   );
