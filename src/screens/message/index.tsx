@@ -43,6 +43,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
   });
   const insets = useSafeAreaInsets();
   const [messageText, setMessageText] = useState('');
+  const [isSocketInitDone, setSocketInitDone] = useState(false);
   const [messagesList, setMessagesList] = useState<any>([]);
   const [messageDoc, setMessageDoc] = useState(null);
   var messagesListRaw: any = useRef([]);
@@ -71,10 +72,11 @@ export const UserChatScreen: FC<any> = ({route}) => {
   }, [historyMessages]);
 
   useEffect(() => {
-    if (socketObj && isConnected) {
+    if (socketObj && isConnected && !isSocketInitDone) {
       initSocket(socketObj);
+      setSocketInitDone(true);
     }
-  }, [socketObj, isConnected]);
+  }, [socketObj, isConnected, isSocketInitDone]);
 
   const initSocket = (_socketObj: any) => {
     // Listner for receiving messages
