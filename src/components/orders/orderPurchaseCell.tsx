@@ -13,10 +13,11 @@ import {
 interface OrderPurchaseProps {
   item?: number;
   isSales?: boolean;
+  onCellPress?: Function;
 }
 
 function OrderPurchaseCell(props: OrderPurchaseProps) {
-  const {item, isSales = false} = props;
+  const {item, isSales = false, onCellPress = () => {}} = props;
   const renderImageView = () => {
     return (
       <ImageContainer>
@@ -27,7 +28,7 @@ function OrderPurchaseCell(props: OrderPurchaseProps) {
     );
   };
   return (
-    <PurchaseCellContainer>
+    <PurchaseCellContainer onPress={() => onCellPress()}>
       <OrderUserDetailView item={item} isSales={isSales} />
       <DetailsContainer>
         {renderImageView()}

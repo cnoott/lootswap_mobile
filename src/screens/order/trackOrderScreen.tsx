@@ -26,7 +26,8 @@ import OrderTrackSteps from '../../components/orderTrack/orderTrackSteps';
 import OrderStatusDetails from '../../components/orderTrack/orderStatusDetails';
 import TradeOfferCell from '../offers/offerItems/TradeOfferCell';
 
-export const TrackOrderScreen: FC<{}> = () => {
+export const TrackOrderScreen: FC<any> = ({route}) => {
+  const {isTradeOrder = false} = route?.params || {};
   const renderOrderHeaderDetails = () => {
     return (
       <>
@@ -74,8 +75,8 @@ export const TrackOrderScreen: FC<{}> = () => {
       <InStackHeader title={'Track Order'} right={true} />
       <SubContainer>
         {renderOrderHeaderDetails()}
-        {true ? renderMultipleOrderCell() : renderSingleOrderCell()}
-        <OrderTrackSteps currStep={2} />
+        {isTradeOrder ? renderMultipleOrderCell() : renderSingleOrderCell()}
+        <OrderTrackSteps currStep={2} isTradeOrder={isTradeOrder} />
         <FullDivider />
         <OrderStatusDetails />
       </SubContainer>

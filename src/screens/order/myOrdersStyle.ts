@@ -108,3 +108,16 @@ export const SalesListView = styled.FlatList.attrs(() => ({
   ${space}
   ${layout}
 `;
+
+export const TradeOrdersListView = styled.FlatList.attrs(() => ({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    flexGrow: 1,
+  },
+  mx: scale(10),
+  my: scale(10),
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
