@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {LSProfileImageComponent} from '../commonComponents/profileImage';
-import {getTradeStatusColor} from '../../utility/utility';
+import {getShippingStatusColor} from '../../utility/utility';
 import {
   RowView,
   UserLeftView,
@@ -22,7 +22,7 @@ interface OrderUserDetailViewProps {
 
 const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
   const {item = {}, isSales = false} = props;
-  const statusColorObj = getTradeStatusColor(item?.status || '');
+  const statusColorObj = getShippingStatusColor(item?.status || '');
   return (
     <RowView>
       <UserLeftView>
