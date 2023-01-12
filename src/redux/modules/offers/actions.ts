@@ -5,6 +5,7 @@ import {
   CANCEL_TRADE,
   ADD_ITEMS,
   REMOVE_ITEMS,
+  CHANGE_MONEY_OFFER,
 } from '../../../constants/actions';
 
 export const getTradesHistory = (reqData: any) => {
@@ -109,6 +110,19 @@ export const removeItems = (
 ) => {
   return {
     type: REMOVE_ITEMS.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const changeMoneyOffer = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: CHANGE_MONEY_OFFER.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,

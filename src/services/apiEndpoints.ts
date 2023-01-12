@@ -172,6 +172,15 @@ export const removeItemsCall = (reqData: any) => {
   );
 };
 
+export const changeMoneyOfferCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/change-money-offer/${reqData?.userId}/${reqData?.tradeId}`, {
+      moneyOffer: reqData?.moneyOffer,
+    }),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

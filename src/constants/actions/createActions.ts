@@ -87,3 +87,7 @@ export const ADD_ITEMS = {
 export const REMOVE_ITEMS = {
   ...createActionConst(actions.REMOVE_ITEMS),
 };
+
+export const CHANGE_MONEY_OFFER = {
+  ...createActionConst(actions.CHANGE_MONEY_OFFER),
+};
