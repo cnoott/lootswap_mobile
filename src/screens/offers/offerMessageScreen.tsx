@@ -13,7 +13,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   acceptTrade,
   cancelTrade,
-  getTradesHistory,
+  getTrade,
   getProductListedItemsForOffer,
 } from '../../redux/modules';
 import TradeOfferCell from './offerItems/TradeOfferCell';
@@ -37,8 +37,13 @@ import {
   InputView,
 } from './styles';
 import {FlatList} from 'react-native';
+//import {TradeProps} from '../../redux/modules/offers/reducer';
 export const OffersMessageScreen: FC<{}> = props => {
+  const tradeId = props.route?.params.item._id;
+  //const tradeData: TradeProps = useSelector(state => state.offers);
+  //const offerItem = tradeData?.trade; //DOESNT WORK!!
   const offerItem = props.route?.params?.item;
+
   const dispatch = useDispatch();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
@@ -65,6 +70,15 @@ export const OffersMessageScreen: FC<{}> = props => {
     },
     true,
   );
+
+  useEffect(() => {
+    dispatch(
+      getTrade({
+        userId: userData?._id,
+        tradeId: item?._id,
+      }),
+    );
+  }, [dispatch, userData?._id]);
 
   useEffect(() => {
     if (socketObj && !isSocketInitDone) {
@@ -96,14 +110,6 @@ export const OffersMessageScreen: FC<{}> = props => {
       // }
     });
   };
-
-  useEffect(() => {
-    dispatch(
-      getTradesHistory({
-        userId: userData?._id,
-      }),
-    );
-  }, [dispatch, userData?._id]);
 
   const sendMessage = () => {
     const content = {message: messageText, userName: userData?.name};
@@ -205,7 +211,7 @@ export const OffersMessageScreen: FC<{}> = props => {
   };
   const handleAcceptTrade = () => {
     const reqData = {
-      tradeId: offerItem?._id,
+      tradeId: tradeId,
       userId: userData?._id,
     };
     dispatch(
@@ -229,11 +235,11 @@ export const OffersMessageScreen: FC<{}> = props => {
     dispatch(
       cancelTrade(
         reqData,
-        res => {
-          console.log('succ:', res);
+        () => {
           dispatch(
-            getTradesHistory({
+            getTrade({
               userId: userData?._id,
+              tradeId: tradeId,
             }),
           );
         },
@@ -260,9 +266,9 @@ export const OffersMessageScreen: FC<{}> = props => {
     <Container>
       <LSOfferChatHeader
         title={
-          offerItem.reciever._id === userData?._id
-            ? offerItem.sender.name
-            : offerItem.reciever.name
+          offerItem?.reciever?._id === userData?._id
+            ? offerItem?.sender?.name
+            : offerItem?.reciever?.name
         }
         onAcceptPress={() => setAcceptDeclineModalVisible(true)}
         onDeclinePress={() => {
@@ -271,9 +277,9 @@ export const OffersMessageScreen: FC<{}> = props => {
         }}
         onTrippleDotPress={() => setEditTradeModalVisible(true)}
         profilePicture={
-          offerItem.reciever._id === userData?.id
-            ? offerItem.sender.profile_picture
-            : offerItem.reciever.profile_picture
+          offerItem?.reciever?._id === userData?._id
+            ? offerItem?.sender?.profile_picture
+            : offerItem?.reciever?.profile_picture
         }
         offerItem={offerItem}
         userData={userData}
