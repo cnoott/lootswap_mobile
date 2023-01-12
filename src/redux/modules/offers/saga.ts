@@ -58,6 +58,7 @@ export function* getTrade(action: any) {
     );
     yield put(LoadingSuccess());
     if (response?.success) {
+      console.log('DAATA', response.data);
       yield put(getTradeSuccess(response.data));
     } else {
       yield put(getTradeFailure(response.error));
@@ -68,7 +69,6 @@ export function* getTrade(action: any) {
 }
 
 export function* acceptTrade(action: any) {
-  console.log('HERE!');
   yield put(LoadingRequest());
   try {
     const response: APIResponseProps = yield call(

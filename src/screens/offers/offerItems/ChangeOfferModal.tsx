@@ -26,11 +26,11 @@ export const ChangeOfferModal: FC<ChangeOfferModalProp> = props => {
   const {isModalVisible, onCloseModal = () => {}, userData, offerItem} = props;
 
   const priceValidation = () => {
-    if (offerPrice === 0 || offerPrice === 0.00) {
+    if (offerPrice === 0 || offerPrice === 0.0) {
       onCloseModal();
       return;
     }
-    var regex = new RegExp('^(0|[1-9][0-9]{0,2})(,\d{3})*(\.\d{1,2})?');
+    var regex = new RegExp('^(0|[1-9][0-9]{0,2})(,d{3})*(.d{1,2})?');
     if (!offerPrice.toString().match(regex)) {
       return false;
     } else {
