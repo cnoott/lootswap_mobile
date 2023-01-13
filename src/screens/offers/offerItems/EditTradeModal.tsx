@@ -42,7 +42,7 @@ export const EditTradeModal: FC<EditTradeModalProp> = props => {
         <TradeModalContainerView>
           <ModalHeaderText>Edit Trade Options</ModalHeaderText>
           <TopMargin />
-          {userData?._id === offerItem.sender?._id && (
+          {userData?._id === offerItem?.sender?._id && (
             <>
               <LSButton
                 title={'Add Items'}

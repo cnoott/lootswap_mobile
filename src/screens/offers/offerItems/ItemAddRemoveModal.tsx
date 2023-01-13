@@ -20,7 +20,7 @@ import {
   Image,
   AnimatedCheckBox,
 } from '../styles';
-import {addItems, removeItems, getTradesHistory} from '../../../redux/modules';
+import {addItems, removeItems, getTrade} from '../../../redux/modules';
 
 interface ItemAddRemoveModalProp {
   isModalVisible: boolean;
@@ -111,8 +111,9 @@ export const ItemAddRemoveModal: FC<ItemAddRemoveModalProp> = props => {
         reqData,
         () => {
           dispatch(
-            getTradesHistory({
+            getTrade({
               userId: userData?._id,
+              tradeId: offerItem?._id,
             }),
           );
           onCloseModal();
@@ -139,8 +140,9 @@ export const ItemAddRemoveModal: FC<ItemAddRemoveModalProp> = props => {
         reqData,
         () => {
           dispatch(
-            getTradesHistory({
+            getTrade({
               userId: userData?._id,
+              tradeId: offerItem?._id,
             }),
           );
           onCloseModal();

@@ -10,7 +10,7 @@ import {Size, Type} from 'custom_enums';
 import {useDispatch} from 'react-redux';
 import {USD_TEXT, DOLLOR_TEXT} from 'localsvgimages';
 import {ModalContainerView, ModalHeaderText, TopMargin} from '../styles';
-import {changeMoneyOffer, getTradesHistory} from '../../../redux/modules';
+import {changeMoneyOffer, getTrade} from '../../../redux/modules';
 import {Alert} from 'custom_top_alert';
 
 interface ChangeOfferModalProp {
@@ -53,8 +53,9 @@ export const ChangeOfferModal: FC<ChangeOfferModalProp> = props => {
         reqData,
         () => {
           dispatch(
-            getTradesHistory({
+            getTrade({
               userId: userData?._id,
+              tradeId: offerItem?._id,
             }),
           );
           onCloseModal();

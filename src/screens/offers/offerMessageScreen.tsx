@@ -14,6 +14,7 @@ import {
   acceptTrade,
   cancelTrade,
   getTrade,
+  getTradesHistory,
   getProductListedItemsForOffer,
 } from '../../redux/modules';
 import TradeOfferCell from './offerItems/TradeOfferCell';
@@ -37,12 +38,12 @@ import {
   InputView,
 } from './styles';
 import {FlatList} from 'react-native';
-//import {TradeProps} from '../../redux/modules/offers/reducer';
+import {TradeProps} from '../../redux/modules/offers/reducer';
 export const OffersMessageScreen: FC<{}> = props => {
   const tradeId = props.route?.params.item._id;
-  //const tradeData: TradeProps = useSelector(state => state.offers);
-  //const offerItem = tradeData?.trade; //DOESNT WORK!!
-  const offerItem = props.route?.params?.item;
+  const tradeData: TradeProps = useSelector(state => state.offers);
+  const offerItem = tradeData?.trade;
+  //const offerItem = props.route?.params?.item;
 
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -70,16 +71,19 @@ export const OffersMessageScreen: FC<{}> = props => {
     },
     true,
   );
-
   useEffect(() => {
     dispatch(
       getTrade({
         userId: userData?._id,
-        tradeId: item?._id,
+        tradeId: tradeId,
+      }),
+    );
+    dispatch(
+      getTradesHistory({
+        userId: userData?._id,
       }),
     );
   }, [dispatch, userData?._id]);
-
   useEffect(() => {
     if (socketObj && !isSocketInitDone) {
       setSocketInitDone(true);
