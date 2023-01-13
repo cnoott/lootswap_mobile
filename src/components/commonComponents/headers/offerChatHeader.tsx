@@ -52,7 +52,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
         return <></>;
       }
 
-      if (userData?._id === offerItem.reciever._id) {
+      if (userData?._id === offerItem?.reciever._id) {
         return (
           <>
             <LSButton
