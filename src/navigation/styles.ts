@@ -38,7 +38,7 @@ export const TabItemText = styled.Text.attrs(props => ({
   color: props.isActive
     ? props.theme.colors.primary
     : props.theme.colors.placeholder,
-  fontSize: moderateScale(10),
+  fontSize: moderateScale(9),
   marginTop: moderateScale(2),
 }))`
   font-weight: ${props => `${props.isActive ? 600 : 400}`};

@@ -27,7 +27,11 @@ import ChangeOfferModal from './offerItems/ChangeOfferModal';
 import useMessagingService from '../../services/useMessagingService';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {Alert} from 'custom_top_alert';
-import {getConfiguredMessageData} from '../../utility/utility';
+import {
+  getAllOfferItemsData,
+  getSelectedOfferItemsData,
+  getConfiguredMessageData,
+} from '../../utility/utility';
 import {
   Container,
   ChatContainer,
@@ -50,8 +54,18 @@ export const OffersMessageScreen: FC<{}> = props => {
   const insets = useSafeAreaInsets();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
+  const {socketObj, isConnected}: any = useMessagingService(
+    {
+      tradeId: offerItem?._id,
+      userId: userData?._id,
+    },
+    true,
+  );
   const [messageText, setMessageText] = useState('');
-  const [messagesList, setMessagesList] = useState<any>(offerItem?.messages);
+
+  const [messagesList, setMessagesList] = useState<any>(
+    offerItem?.messages || [],
+  );
   const [isAcceptDeclineModalVisible, setAcceptDeclineModalVisible] =
     useState(false);
   const [isDecline, setDecline] = useState(false);
@@ -62,8 +76,8 @@ export const OffersMessageScreen: FC<{}> = props => {
     useState(false);
   const [isChangeOfferModalVisible, setChangeOfferModalVisible] =
     useState(false);
-  const [isSocketInitDone, setSocketInitDone] = useState(false);
   var messagesListRaw: any = useRef(offerItem?.messages || []);
+
   const socketObj = useMessagingService(
     {
       tradeId: offerItem?._id,
@@ -84,19 +98,26 @@ export const OffersMessageScreen: FC<{}> = props => {
       }),
     );
   }, [dispatch, userData?._id]);
-  useEffect(() => {
-    if (socketObj && !isSocketInitDone) {
-      setSocketInitDone(true);
-      initSocket();
-    }
-  }, [socketObj, isSocketInitDone]);
 
   useEffect(() => {
-    return () => socketObj && socketObj.removeAllListeners();
+    if (socketObj && isConnected) {
+      initSocket(socketObj);
+    }
+  }, [socketObj, isConnected]);
+
+  useEffect(() => {
+    return () => {
+      socketObj?.off('connect');
+      socketObj?.emit('disconnect');
+      socketObj?.off('private message');
+      socketObj?.disconnect();
+      socketObj?.removeAllListeners();
+      socketObj?.close();
+    };
   }, []);
 
-  const initSocket = () => {
-    socketObj.on('private message', ({content, from}: any) => {
+  const initSocket = (_socketObj: any) => {
+    _socketObj.on('private message', ({content, from}: any) => {
       const messageData = {
         ...content,
         isSelf: from === userData?._id,
@@ -106,8 +127,8 @@ export const OffersMessageScreen: FC<{}> = props => {
           ? [...messagesListRaw.current, messageData]
           : [content];
       messagesListRaw.current = messagesData;
-      const newData = getConfiguredMessageData(messagesData);
-      setMessagesList(newData);
+      setMessagesList(messagesData);
+
       // ToDO
       // if (content.message === `trade-accepted-message`) {
       //     setTradeStatus('accepted');
@@ -255,10 +276,12 @@ export const OffersMessageScreen: FC<{}> = props => {
     closeModal();
   };
   const renderChatView = () => {
+    console.log('messagesList ===', messagesList?.length);
     return (
       <ChatContainer>
         <FlatList
           data={messagesList}
+          extraData={messagesList}
           renderItem={({item}) =>
             renderMessage(item?.userName === userData?.name, item)
           }

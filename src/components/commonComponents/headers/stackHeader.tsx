@@ -4,6 +4,7 @@ import {
   ProfileRightTouchable,
   ProfileLeftTouchable,
   EmptyRowView,
+  EmptyBox,
 } from './styles';
 import React, {FC} from 'react';
 import {SvgXml} from 'react-native-svg';
@@ -16,6 +17,7 @@ interface HeaderProps {
   right?: boolean;
   centerAligned?: boolean;
   onBackCall?: Function;
+  onlyTitleCenterAlign?: boolean;
 }
 
 export const InStackHeader: FC<HeaderProps> = React.memo(props => {
@@ -25,6 +27,7 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
     back = true,
     right = false,
     centerAligned = false,
+    onlyTitleCenterAlign = false,
     onBackCall,
   } = props;
   const onTrippleDotPress = () => {};
@@ -35,7 +38,27 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
       navigation.goBack();
     }
   };
-
+  if (onlyTitleCenterAlign) {
+    return (
+      <ProfileHeaderContainer>
+        {back ? (
+          <ProfileLeftTouchable onPress={onBackPress}>
+            <SvgXml xml={LEFT_BLACK_ARROW} />
+          </ProfileLeftTouchable>
+        ) : (
+          <EmptyBox />
+        )}
+        <ProfileHeaderText>{title}</ProfileHeaderText>
+        {right ? (
+          <ProfileRightTouchable onPress={onTrippleDotPress}>
+            <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
+          </ProfileRightTouchable>
+        ) : (
+          <EmptyBox />
+        )}
+      </ProfileHeaderContainer>
+    );
+  }
   return (
     <ProfileHeaderContainer centerAligned={centerAligned}>
       <EmptyRowView>

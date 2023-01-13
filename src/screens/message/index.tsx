@@ -30,24 +30,25 @@ import {getMessagesHistory} from '../../redux/modules/message/actions';
 import {getConfiguredMessageData} from '../../utility/utility';
 
 export const UserChatScreen: FC<any> = ({route}) => {
+  const {messageId, productOwnerId, productOwnerName} = route?.params;
   const theme = useTheme();
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const messageData: MessageProps = useSelector(state => state.message);
-  const insets = useSafeAreaInsets();
-  const [messageText, setMessageText] = useState('');
-  const [messagesList, setMessagesList] = useState<any>([]);
-  const [messageDoc, setMessageDoc] = useState(null);
-  const [isSocketInitDone, setSocketInitDone] = useState(false);
-  var messagesListRaw: any = useRef([]);
   const {userData} = auth;
-  const {historyMessages} = messageData;
-  const {messageId, productOwnerId, productOwnerName} = route?.params;
-  const socketObj = useMessagingService({
+  const {socketObj, isConnected}: any = useMessagingService({
     messageId: messageId,
     userId: userData?._id,
     targetId: productOwnerId,
   });
+  const insets = useSafeAreaInsets();
+  const messageListref = useRef(null);
+  const [messageText, setMessageText] = useState('');
+  const [isSocketInitDone, setSocketInitDone] = useState(false);
+  const [messagesList, setMessagesList] = useState<any>([]);
+  const [messageDoc, setMessageDoc] = useState(null);
+  var messagesListRaw: any = useRef([]);
+  const {historyMessages} = messageData;
 
   useEffect(() => {
     dispatch(
@@ -56,7 +57,11 @@ export const UserChatScreen: FC<any> = ({route}) => {
         messageId: messageId,
       }),
     );
-    return () => socketObj && socketObj.removeAllListeners();
+    return () => {
+      socketObj?.removeAllListeners();
+      socketObj?.close();
+      socketObj?.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -68,15 +73,15 @@ export const UserChatScreen: FC<any> = ({route}) => {
   }, [historyMessages]);
 
   useEffect(() => {
-    if (socketObj && !isSocketInitDone) {
+    if (socketObj && isConnected && !isSocketInitDone) {
+      initSocket(socketObj);
       setSocketInitDone(true);
-      initSocket();
     }
-  }, [socketObj, isSocketInitDone]);
+  }, [socketObj, isConnected, isSocketInitDone]);
 
-  const initSocket = async () => {
+  const initSocket = (_socketObj: any) => {
     // Listner for receiving messages
-    socketObj.on('send message', ({content}) => {
+    _socketObj.on('send message', ({content}) => {
       //{content, from, to}
       const messagesData =
         messagesListRaw?.current?.length > 0
@@ -85,6 +90,14 @@ export const UserChatScreen: FC<any> = ({route}) => {
       messagesListRaw.current = messagesData;
       const newData = getConfiguredMessageData(messagesData);
       setMessagesList(newData);
+      if (messageListref?.current) {
+        setTimeout(() => {
+          messageListref?.current?.scrollToLocation({
+            sectionIndex: 0,
+            itemIndex: messagesListRaw.current?.length - 1,
+          });
+        }, 100);
+      }
     });
   };
 
@@ -152,6 +165,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const renderMessagesListView = () => {
     return (
       <SectionList
+        ref={messageListref}
         sections={messagesList}
         keyExtractor={(item, index) => item?.message + index}
         renderItem={({item}) =>
@@ -159,6 +173,13 @@ export const UserChatScreen: FC<any> = ({route}) => {
         }
         // renderSectionHeader={({section: {title}}) => renderListHeader(title)}
         renderSectionHeader={() => renderListHeader()}
+        initialScrollIndex={messagesListRaw?.current?.length - 1}
+        getItemLayout={(data, index) => ({
+          length: 100,
+          offset: 100 * index,
+          index,
+          data,
+        })}
       />
     );
   };

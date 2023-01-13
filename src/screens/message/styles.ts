@@ -53,7 +53,7 @@ export const InputRightButtonView = styled.View.attrs(props => ({
 `;
 
 export const SectionList = styled.SectionList.attrs(() => ({
-  showVerticalScrollIndicator: false,
+  showsVerticalScrollIndicator: false,
   contentContainerStyle: {flexGrow: 1},
 }))`
   ${color}
