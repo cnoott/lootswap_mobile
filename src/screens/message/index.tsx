@@ -42,6 +42,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
     targetId: productOwnerId,
   });
   const insets = useSafeAreaInsets();
+  const messageListref = useRef(null);
   const [messageText, setMessageText] = useState('');
   const [isSocketInitDone, setSocketInitDone] = useState(false);
   const [messagesList, setMessagesList] = useState<any>([]);
@@ -89,6 +90,14 @@ export const UserChatScreen: FC<any> = ({route}) => {
       messagesListRaw.current = messagesData;
       const newData = getConfiguredMessageData(messagesData);
       setMessagesList(newData);
+      if (messageListref?.current) {
+        setTimeout(() => {
+          messageListref?.current?.scrollToLocation({
+            sectionIndex: 0,
+            itemIndex: messagesListRaw.current?.length - 1,
+          });
+        }, 100);
+      }
     });
   };
 
@@ -156,6 +165,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const renderMessagesListView = () => {
     return (
       <SectionList
+        ref={messageListref}
         sections={messagesList}
         keyExtractor={(item, index) => item?.message + index}
         renderItem={({item}) =>
@@ -163,6 +173,13 @@ export const UserChatScreen: FC<any> = ({route}) => {
         }
         // renderSectionHeader={({section: {title}}) => renderListHeader(title)}
         renderSectionHeader={() => renderListHeader()}
+        initialScrollIndex={messagesListRaw?.current?.length - 1}
+        getItemLayout={(data, index) => ({
+          length: 100,
+          offset: 100 * index,
+          index,
+          data,
+        })}
       />
     );
   };
