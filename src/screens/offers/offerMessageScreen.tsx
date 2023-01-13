@@ -28,11 +28,6 @@ import useMessagingService from '../../services/useMessagingService';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {Alert} from 'custom_top_alert';
 import {
-  getAllOfferItemsData,
-  getSelectedOfferItemsData,
-  getConfiguredMessageData,
-} from '../../utility/utility';
-import {
   Container,
   ChatContainer,
   KeyboardAvoidingView,
@@ -78,13 +73,6 @@ export const OffersMessageScreen: FC<{}> = props => {
     useState(false);
   var messagesListRaw: any = useRef(offerItem?.messages || []);
 
-  const socketObj = useMessagingService(
-    {
-      tradeId: offerItem?._id,
-      userId: userData?._id,
-    },
-    true,
-  );
   useEffect(() => {
     dispatch(
       getTrade({
