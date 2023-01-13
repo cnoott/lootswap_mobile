@@ -30,6 +30,8 @@ const theme = {
     offerColor: '#4AAF57',
     errorColor: '#F03E3E',
     successColor: '#40C057',
+    shippedLabelColor: '#FACC15',
+    shippedBackColor: 'rgba(250, 204, 21, 0.1)',
   },
   width: 50,
   height: 50,

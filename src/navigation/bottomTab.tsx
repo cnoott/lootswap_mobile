@@ -16,6 +16,7 @@ import AddProductOverviewScreen from '../screens/loot/addProductOverview';
 import NotificationsScreen from '../screens/notifications';
 import OffersScreen from '../screens/offers';
 import OffersMessageScreen from '../screens/offers/offerMessageScreen';
+import MyOrdersListScreen from '../screens/order/myOrdersListScreen';
 import TrackOrderScreen from '../screens/order/trackOrderScreen';
 import {useTheme} from 'styled-components';
 import {SvgXml} from 'react-native-svg';
@@ -76,6 +77,7 @@ const ProfileStackNavigation = () => (
       name="AddProductOverviewScreen"
       component={AddProductOverviewScreen}
     />
+    <Stack.Screen name="MyOrdersListScreen" component={MyOrdersListScreen} />
     <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
   </Stack.Navigator>
 );
@@ -112,7 +114,7 @@ const getTabBarIcon = (isFocused?: boolean, route?: string) => {
     case 'Home':
       _source = isFocused ? BOTTOM_TAB_HOME_SELECTED : BOTTOM_TAB_HOME;
       break;
-    case 'Offers':
+    case 'Offers/Inbox':
       _source = isFocused ? BOTTOM_TAB_OFFERS_SELECTED : BOTTOM_TAB_OFFERS;
       break;
     case 'Profile':
@@ -201,7 +203,7 @@ export const BottomTabs: FC<{}> = () => {
       <Tab.Screen name="List loot" component={LootStackNavigation} />
       <Tab.Screen name="Profile" component={ProfileStackNavigation} />
       <Tab.Screen name="Notifications" component={NotificationsScreen} />
-      <Tab.Screen name="Offers" component={OffersStackNavigation} />
+      <Tab.Screen name="Offers/Inbox" component={OffersStackNavigation} />
     </Tab.Navigator>
   );
 };

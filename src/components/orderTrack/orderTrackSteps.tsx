@@ -21,8 +21,8 @@ import {
 
 const OrderTrackSteps: FC<any> = React.memo(props => {
   const theme = useTheme();
-  const {currStep} = props;
-  const stepsList = false
+  const {currStep, isTradeOrder = false} = props;
+  const stepsList = !isTradeOrder
     ? getSingleOrderStepsList()
     : getMultipleOrderStepsList();
   const renderStep = (stepData: any, isStepCompleted: boolean) => {
@@ -36,7 +36,7 @@ const OrderTrackSteps: FC<any> = React.memo(props => {
                 : stepData?.unSelectedIcon
             }
           />
-          <StepLabelText isMulti={true} isLast={stepData?.index === 5}>
+          <StepLabelText isMulti={isTradeOrder} isLast={stepData?.index === 5}>
             {stepData?.label}
           </StepLabelText>
         </EmptyView>

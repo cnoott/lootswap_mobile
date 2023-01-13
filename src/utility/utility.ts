@@ -16,7 +16,12 @@ import {
   ORDER_TRACK_DELIVERED_UNSELECTED,
 } from 'localsvgimages';
 import {PROFILE_OPTIONS_TYPE, GET_PRODUCT_DETAILS} from 'custom_types';
-import {Trade_Options, Who_Pays_Options, Trade_Status} from 'custom_enums';
+import {
+  Trade_Options,
+  Who_Pays_Options,
+  Trade_Status,
+  Order_Status,
+} from 'custom_enums';
 
 /*
 On Launch -
@@ -729,6 +734,34 @@ export const getTradeStatusColor = (status: string) => {
     case Trade_Status.Accepted:
       colorData.backColor = 'rgba(74, 175, 87, 0.2)';
       colorData.labelColor = '#4AAF57';
+      break;
+    default:
+      break;
+  }
+  return colorData;
+};
+
+export const getShippingStatusColor = (status: string) => {
+  let colorData = {
+    backColor: 'rgba(250, 204, 21, 0.1)',
+    labelColor: '#FACC15',
+  };
+  switch (status) {
+    case Order_Status.Shipped:
+      colorData.backColor = 'rgba(250, 204, 21, 0.1)';
+      colorData.labelColor = '#FACC15';
+      break;
+    case Trade_Status.InTransit:
+      colorData.backColor = 'rgba(36, 107, 253, 0.1)';
+      colorData.labelColor = '#246BFD';
+      break;
+    case Trade_Status.Delivered:
+      colorData.backColor = 'rgba(74, 222, 128, 0.1)';
+      colorData.labelColor = '#4ADE80';
+      break;
+    case Trade_Status.Purchased:
+      colorData.backColor = 'rgba(103, 58, 179, 0.1)';
+      colorData.labelColor = '#673AB3';
       break;
     default:
       break;

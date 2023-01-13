@@ -47,3 +47,11 @@ export enum Trade_Status {
   Accepted = 'accepted',
   Canceled = 'canceled',
 }
+
+export enum Order_Status {
+  Purchased = 'purchased',
+  Shipped = 'shipped',
+  InTransit = 'in_transit',
+  VerifiedCenter = 'verified_center',
+  Delivered = 'delivered',
+}
