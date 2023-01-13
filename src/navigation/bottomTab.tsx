@@ -114,7 +114,7 @@ const getTabBarIcon = (isFocused?: boolean, route?: string) => {
     case 'Home':
       _source = isFocused ? BOTTOM_TAB_HOME_SELECTED : BOTTOM_TAB_HOME;
       break;
-    case 'Offers':
+    case 'Offers/Inbox':
       _source = isFocused ? BOTTOM_TAB_OFFERS_SELECTED : BOTTOM_TAB_OFFERS;
       break;
     case 'Profile':
@@ -203,7 +203,7 @@ export const BottomTabs: FC<{}> = () => {
       <Tab.Screen name="List loot" component={LootStackNavigation} />
       <Tab.Screen name="Profile" component={ProfileStackNavigation} />
       <Tab.Screen name="Notifications" component={NotificationsScreen} />
-      <Tab.Screen name="Offers" component={OffersStackNavigation} />
+      <Tab.Screen name="Offers/Inbox" component={OffersStackNavigation} />
     </Tab.Navigator>
   );
 };
