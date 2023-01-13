@@ -4,12 +4,18 @@ import {
   GET_TRADE,
   ACCEPT_TRADE,
   CANCEL_TRADE,
+  ADD_ITEMS,
+  REMOVE_ITEMS,
+  CHANGE_MONEY_OFFER,
 } from '../../../constants/actions';
 import {
   getTradesHistoryCall,
   getTradeCall,
   acceptTradeCall,
   cancelTradeCall,
+  addItemsCall,
+  removeItemsCall,
+  changeMoneyOfferCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {
@@ -52,6 +58,7 @@ export function* getTrade(action: any) {
     );
     yield put(LoadingSuccess());
     if (response?.success) {
+      console.log('DAATA', response.data);
       yield put(getTradeSuccess(response.data));
     } else {
       yield put(getTradeFailure(response.error));
@@ -62,7 +69,6 @@ export function* getTrade(action: any) {
 }
 
 export function* acceptTrade(action: any) {
-  console.log('HERE!');
   yield put(LoadingRequest());
   try {
     const response: APIResponseProps = yield call(
@@ -89,7 +95,63 @@ export function* cancelTrade(action: any) {
       action?.reqData,
     );
     yield put(LoadingSuccess());
-    console.log('succ!!!!', response);
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
+export function* addItems(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      addItemsCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
+export function* removeItems(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      removeItemsCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
+export function* changeMoneyOffer(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      changeMoneyOfferCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
     if (response?.success) {
       action?.successCallBack(response.data);
     } else {
@@ -106,4 +168,7 @@ export default function* offersSaga() {
   yield takeLatest(GET_TRADE.REQUEST, getTrade);
   yield takeLatest(ACCEPT_TRADE.REQUEST, acceptTrade);
   yield takeLatest(CANCEL_TRADE.REQUEST, cancelTrade);
+  yield takeLatest(ADD_ITEMS.REQUEST, addItems);
+  yield takeLatest(REMOVE_ITEMS.REQUEST, removeItems);
+  yield takeLatest(CHANGE_MONEY_OFFER.REQUEST, changeMoneyOffer);
 }

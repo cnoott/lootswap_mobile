@@ -11,6 +11,7 @@ import CarouselComponent from '../../components/Carousel';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {AuthProps} from '../../redux/modules/auth/reducer';
+import {TradeProps} from '../../redux/modules/offers/reducer';
 import {
   Container,
   SubContainer,
@@ -60,6 +61,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const homeStates: AuthProps = useSelector(state => state.home);
+  const tradesData: TradeProps = useSelector(state => state.offers);
+  const {historyTrades} = tradesData;
   const theme = useTheme();
   const [isSendOfferModalVisible, setSendOfferModalVisible] = useState(false);
   const [sendOfferItems, setSendOfferItems] = useState([]);
@@ -71,8 +74,13 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     if (productData?.userId) {
       dispatch(getUsersDetailsRequest(productData?.userId));
       dispatch(getProductDetails(productData?.objectID));
+      dispatch(
+        getTradesHistory({
+          userId: userData?._id,
+        }),
+      );
     }
-  }, [dispatch, productData?.userId, productData?.objectID]);
+  }, [dispatch, productData?.userId, productData?.objectID, userData?._id]);
 
   const initiateFirstMessage = () => {
     const reqObj = {
@@ -147,7 +155,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     }
     dispatch(
       getProductListedItemsForOffer(
-        productData?.userId,
+        userData?._id,
         (response: any) => {
           setSendOfferItems(response);
           setSendOfferModalVisible(true);
@@ -238,6 +246,22 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             size={Size.Full}
             type={Type.Error}
             onPress={() => {}}
+          />
+        </TopSpace>
+      );
+    } else if (
+      isLogedIn &&
+      historyTrades.some(
+        trade => trade.recieverItem._id === productData?.objectID,
+      )
+    ) {
+      return (
+        <TopSpace>
+          <LSButton
+            title={'Already Trading'}
+            size={Size.Full}
+            type={Type.Secondary}
+            onPress={onBuyNewPress}
           />
         </TopSpace>
       );

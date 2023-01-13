@@ -148,9 +148,35 @@ export const acceptTradeCall = (reqData: any) => {
 };
 
 export const cancelTradeCall = (reqData: any) => {
-  console.log('cancel Call', reqData);
   return handleResponse(
     api.put(`/cancel-trade/${reqData?.userId}/${reqData?.tradeId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const addItemsCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/add-items/${reqData?.userId}/${reqData?.tradeId}`, {
+      itemIds: reqData?.itemIds,
+    }),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const removeItemsCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/remove-items/${reqData?.userId}/${reqData?.tradeId}`, {
+      itemIds: reqData?.itemIds,
+    }),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const changeMoneyOfferCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/change-money-offer/${reqData?.userId}/${reqData?.tradeId}`, {
+      moneyOffer: reqData?.moneyOffer,
+    }),
     API_RESPONSE.CODE200,
   );
 };

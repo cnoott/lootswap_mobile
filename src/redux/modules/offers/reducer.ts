@@ -45,9 +45,10 @@ export default function loading(state = InitialState, action: ActionProps) {
       };
     }
     case GET_TRADE.SUCCESS: {
+      console.log('TRADE SUCCESS', payload[0]);
       return {
         ...state,
-        trade: payload,
+        trade: payload[0],
       };
     }
     case GET_TRADE.FAILURE: {
