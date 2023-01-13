@@ -96,8 +96,7 @@ export const CreateAccountScreen: FC<{}> = () => {
     password: yup
       .string()
       .required('Please enter valid password')
-      .min(6, 'Atleast 6 characters required')
-      .max(15, "Password can't be greater then 15 characters"),
+      .min(6, 'Atleast 6 characters required'),
   });
 
   const onSubmit = (values: FormProps) => {
