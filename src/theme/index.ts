@@ -32,6 +32,7 @@ const theme = {
     successColor: '#40C057',
     shippedLabelColor: '#FACC15',
     shippedBackColor: 'rgba(250, 204, 21, 0.1)',
+    greyLabel: '#404040',
   },
   width: 50,
   height: 50,

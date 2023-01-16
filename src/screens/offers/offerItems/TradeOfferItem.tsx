@@ -61,7 +61,7 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
     const senderItemRightPhoto = subItem?.senderItems[1]?.primary_photo;
     return (
       <OfferItemContainer>
-        <ImageContainer size={_size}>
+        <ImageContainer size={_size} onPress={() => alert('item pressed')}>
           <Image source={{uri: senderItemLeftPhoto}} size={_size} />
         </ImageContainer>
         {isOffer && (
@@ -69,7 +69,9 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
             <OfferText>${subItem.senderMoneyOffer}</OfferText>
           </DoubleViewOffer>
         )}
-        <ImageContainerDouble size={_size}>
+        <ImageContainerDouble
+          size={_size}
+          onPress={() => alert(' second item pressed')}>
           <Image source={{uri: senderItemRightPhoto}} size={_size} />
         </ImageContainerDouble>
       </OfferItemContainer>
@@ -98,7 +100,9 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
         return renderTrippleOffer();
       }
       return (
-        <ImageContainer size={_size}>
+        <ImageContainer
+          size={_size}
+          onPress={() => alert(`${index + 1} Pressed`)}>
           <Image source={{uri: item}} size={_size} />
         </ImageContainer>
       );
