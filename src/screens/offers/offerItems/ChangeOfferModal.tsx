@@ -27,8 +27,7 @@ export const ChangeOfferModal: FC<ChangeOfferModalProp> = props => {
 
   const priceValidation = () => {
     if (offerPrice === 0 || offerPrice === 0.0) {
-      onCloseModal();
-      return;
+      return true;
     }
     var regex = new RegExp('^(0|[1-9][0-9]{0,2})(,d{3})*(.d{1,2})?');
     if (!offerPrice.toString().match(regex)) {

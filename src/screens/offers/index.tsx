@@ -122,7 +122,7 @@ export const OffersScreen: FC<{}> = () => {
           navigation.navigate('OffersMessageScreen', {item});
         }}>
         <RenderUserDetails item={item} />
-        <TradeOfferCell offerItem={item} />
+        <TradeOfferCell offerItem={item} isInTrade={false} />
       </OfferCellContainer>
     );
   };
