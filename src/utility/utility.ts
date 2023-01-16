@@ -783,3 +783,17 @@ export const offerCellOnPress = (
     navigation.navigate('OffersMessageScreen', {item: offerItem});
   }
 };
+
+export const daysPast = (createdAt: string) => {
+  const timeDiff = new Date().getTime() - new Date(createdAt).getTime();
+  const daysSince = Math.floor(timeDiff / (1000 * 3600 * 24));
+  if (daysSince > 31) {
+    return 'over a month ago';
+  } else if (daysSince > 1) {
+    return `${daysSince} days ago`;
+  } else if (daysSince === 0) {
+    return 'Today';
+  } else {
+    return 'One day ago';
+  }
+};

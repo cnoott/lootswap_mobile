@@ -14,7 +14,7 @@ import {InStackHeader} from '../../components/commonComponents/headers/stackHead
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
 import TradeOfferCell from './offerItems/TradeOfferCell';
 import NoOffersView from './offerItems/NoOffersView';
-import {getTradeStatusColor} from '../../utility/utility';
+import {getTradeStatusColor, daysPast} from '../../utility/utility';
 import {
   Container,
   TopTabView,
@@ -60,20 +60,6 @@ export const OffersScreen: FC<{}> = () => {
         userId: userData?._id,
       }),
     );
-  };
-
-  const daysPast = createdAt => {
-    const timeDiff = new Date().getTime() - new Date(createdAt).getTime();
-    const daysSince = Math.floor(timeDiff / (1000 * 3600 * 24));
-    if (daysSince > 31) {
-      return 'over a month ago';
-    } else if (daysSince > 1) {
-      return `${daysSince} days ago`;
-    } else if (daysSince === 0) {
-      return 'Today';
-    } else {
-      return 'One day ago';
-    }
   };
 
   const RenderUserDetails = ({item}) => {

@@ -11,7 +11,7 @@ import {
 } from './styles';
 
 interface OrderPurchaseProps {
-  item?: number;
+  item?: any;
   isSales?: boolean;
   onCellPress?: Function;
 }
@@ -22,7 +22,7 @@ function OrderPurchaseCell(props: OrderPurchaseProps) {
     return (
       <ImageContainer>
         <Image
-          source={{uri: item?.primary_photo || 'https://picsum.photos/200'}}
+          source={{uri: item?.productId?.primary_photo}}
         />
       </ImageContainer>
     );
@@ -33,8 +33,8 @@ function OrderPurchaseCell(props: OrderPurchaseProps) {
       <DetailsContainer>
         {renderImageView()}
         <DetailsRightView>
-          <OrderTitle>Puma XP500</OrderTitle>
-          <OrderPrice>$30.00</OrderPrice>
+          <OrderTitle>{item?.productId?.name}</OrderTitle>
+          <OrderPrice>${item?.productId?.price}</OrderPrice>
         </DetailsRightView>
       </DetailsContainer>
     </PurchaseCellContainer>
