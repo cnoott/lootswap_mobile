@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {LSProfileImageComponent} from '../commonComponents/profileImage';
-import {getShippingStatusColor} from '../../utility/utility';
+import {getShippingStatusColor, daysPast} from '../../utility/utility';
 import {
   RowView,
   UserLeftView,
@@ -16,7 +16,7 @@ import {
 } from './styles';
 
 interface OrderUserDetailViewProps {
-  item?: number;
+  item?: any;
   isSales?: boolean;
 }
 
@@ -27,13 +27,15 @@ const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
     <RowView>
       <UserLeftView>
         <LSProfileImageComponent
-          profileUrl={''}
+          profileUrl={isSales ? item?.buyerId?.name : item?.sellerId?.name}
           imageHeight={50}
           imageWidth={50}
           imageRadius={30}
         />
         <OwnerDetailsView>
-          <NameLabel>Jamel Eusebio</NameLabel>
+          <NameLabel>
+            {isSales ? item?.buyerId?.name : item?.sellerId?.name}
+          </NameLabel>
           <StatusContainerView
             bgColor={statusColorObj?.backColor}
             borderColor={statusColorObj?.labelColor}>
@@ -44,7 +46,7 @@ const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
         </OwnerDetailsView>
       </UserLeftView>
       <UserRightView>
-        <TimeLabel>2 months ago</TimeLabel>
+        <TimeLabel>{daysPast(item?.createdAt)}</TimeLabel>
         <PrintLabelContainer>
           <PrintIcon />
           <PrintLabel>Print Label</PrintLabel>
