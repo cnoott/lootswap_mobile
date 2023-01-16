@@ -22,7 +22,7 @@ import {
   Trade_Status,
   Order_Status,
 } from 'custom_enums';
-
+import {NavigationProp} from '@react-navigation/native';
 /*
 On Launch -
 Checking if current session has expired or not. Session is set to 15 minutes
@@ -767,4 +767,21 @@ export const getShippingStatusColor = (status: string) => {
       break;
   }
   return colorData;
+};
+
+export const offerCellOnPress = (
+  item: any,
+  offerItem: any,
+  inTradeScreen: boolean,
+  navigation: NavigationProp<any, any>,
+) => {
+
+  if (inTradeScreen) {
+    navigation.navigate('ProductDetailsScreen', {
+      productData: {...item, objectID: item._id}
+    });
+  }
+  else {
+    navigation.navigate('OffersMessageScreen', {item: offerItem});
+  }
 };

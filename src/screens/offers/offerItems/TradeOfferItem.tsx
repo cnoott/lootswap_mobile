@@ -15,9 +15,12 @@ import {
   OfferItemList,
   TrippleViewOffer,
 } from '../styles';
+import {offerCellOnPress} from '../../../utility/utility';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 interface TradeOfferItemProp {
   subItem?: any;
+  isInTrade?: boolean;
 }
 
 export interface ListRenderItemInfo {
@@ -31,7 +34,8 @@ export interface ListRenderItemInfo {
 }
 
 export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
-  const {subItem} = props;
+  const {subItem, isInTrade} = props;
+  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const renderDefaultView = () => {
     return <ImageContainer />;
   };
@@ -39,7 +43,15 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
   const renderSingleView = () => {
     const senderItemPhoto = subItem?.senderItems[0]?.primary_photo;
     return (
-      <ImageContainer>
+      <ImageContainer
+        onPress={() =>
+          offerCellOnPress(
+            subItem?.senderItems[0],
+            subItem,
+            isInTrade,
+            navigation,
+          )
+        }>
         <Image source={{uri: senderItemPhoto}} />
       </ImageContainer>
     );
@@ -47,7 +59,16 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
   const renderSingleViewWithOffer = () => {
     const senderItemPhoto = subItem?.senderItems[0]?.primary_photo;
     return (
-      <OfferItemContainerCenter itemsCenter={true}>
+      <OfferItemContainerCenter
+        itemsCenter={true}
+        onPress={() =>
+          offerCellOnPress(
+            subItem?.senderItems[0],
+            subItem,
+            isInTrade,
+            navigation,
+          )
+        }>
         <Image source={{uri: senderItemPhoto}} size={115} />
         <SingleViewOffer>
           <OfferText>+${subItem.senderMoneyOffer}</OfferText>
@@ -61,7 +82,16 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
     const senderItemRightPhoto = subItem?.senderItems[1]?.primary_photo;
     return (
       <OfferItemContainer>
-        <ImageContainer size={_size}>
+        <ImageContainer
+          size={_size}
+          onPress={() =>
+            offerCellOnPress(
+              subItem?.senderItems[0],
+              subItem,
+              isInTrade,
+              navigation,
+            )
+          }>
           <Image source={{uri: senderItemLeftPhoto}} size={_size} />
         </ImageContainer>
         {isOffer && (
@@ -69,7 +99,17 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
             <OfferText>${subItem.senderMoneyOffer}</OfferText>
           </DoubleViewOffer>
         )}
-        <ImageContainerDouble size={_size}>
+        <ImageContainerDouble
+          size={_size}
+          onPress={() => {
+            console.log('pressed');
+            offerCellOnPress(
+              subItem?.senderItems[1],
+              subItem,
+              isInTrade,
+              navigation,
+            );
+          }}>
           <Image source={{uri: senderItemRightPhoto}} size={_size} />
         </ImageContainerDouble>
       </OfferItemContainer>
