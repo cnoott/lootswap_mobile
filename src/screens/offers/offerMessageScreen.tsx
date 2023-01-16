@@ -10,6 +10,7 @@ import {moderateScale} from 'react-native-size-matters';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {LSOfferChatHeader} from '../../components/commonComponents/headers/offerChatHeader';
 import {useDispatch, useSelector} from 'react-redux';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {
   acceptTrade,
   cancelTrade,
@@ -28,11 +29,6 @@ import useMessagingService from '../../services/useMessagingService';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {Alert} from 'custom_top_alert';
 import {
-  getAllOfferItemsData,
-  getSelectedOfferItemsData,
-  getConfiguredMessageData,
-} from '../../utility/utility';
-import {
   Container,
   ChatContainer,
   KeyboardAvoidingView,
@@ -44,6 +40,7 @@ import {
 import {FlatList} from 'react-native';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 export const OffersMessageScreen: FC<{}> = props => {
+  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const tradeId = props.route?.params.item._id;
   const tradeData: TradeProps = useSelector(state => state.offers);
   const offerItem = tradeData?.trade;
@@ -78,13 +75,6 @@ export const OffersMessageScreen: FC<{}> = props => {
     useState(false);
   var messagesListRaw: any = useRef(offerItem?.messages || []);
 
-  const socketObj = useMessagingService(
-    {
-      tradeId: offerItem?._id,
-      userId: userData?._id,
-    },
-    true,
-  );
   useEffect(() => {
     dispatch(
       getTrade({
@@ -245,6 +235,9 @@ export const OffersMessageScreen: FC<{}> = props => {
         res => {
           console.log('Success:', res);
           //TODO: redirect to screen
+          navigation?.navigate('TradeCheckoutScreen', {
+            tradeData: offerItem,
+          });
         },
         error => {
           console.log('error:', error);

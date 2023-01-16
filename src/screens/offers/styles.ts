@@ -224,18 +224,21 @@ export const ImageContainer: any = styled.TouchableOpacity.attrs(
   ${layout} ${color} ${space} ${border};
 `;
 
-export const ImageContainerDouble: any = styled.View.attrs((props: any) => ({
-  height: scale(props?.size ? props?.size : productImageWidth),
-  width: scale(props?.size ? props?.size : productImageWidth),
-  borderRadius: scale(10),
-  bg: props.theme.colors.grey,
-  bottom: 0,
-  right: 0,
-}))`
+export const ImageContainerDouble: any = styled.TouchableOpacity.attrs(
+  (props: any) => ({
+    height: scale(props?.size ? props?.size : productImageWidth),
+    width: scale(props?.size ? props?.size : productImageWidth),
+    borderRadius: scale(10),
+    bg: props.theme.colors.grey,
+    activeOpacity: 1,
+  }),
+)`
   align-items: center;
   justify-content: center;
   position: absolute;
-  ${layout} ${color} ${space};
+  right: 0px;
+  bottom: 0px;
+  ${layout} ${color} ${space} ${border};
 `;
 
 export const OfferItemContainer = styled.View.attrs(() => ({
