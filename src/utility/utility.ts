@@ -775,13 +775,11 @@ export const offerCellOnPress = (
   inTradeScreen: boolean,
   navigation: NavigationProp<any, any>,
 ) => {
-
   if (inTradeScreen) {
     navigation.navigate('ProductDetailsScreen', {
-      productData: {...item, objectID: item._id}
+      productData: {...item, objectID: item._id},
     });
-  }
-  else {
+  } else {
     navigation.navigate('OffersMessageScreen', {item: offerItem});
   }
 };
