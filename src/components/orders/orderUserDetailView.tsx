@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {LSProfileImageComponent} from '../commonComponents/profileImage';
-import {getShippingStatusColor, daysPast} from '../../utility/utility';
+import {daysPast, paypalOrderShippingStatus} from '../../utility/utility';
 import {
   RowView,
   UserLeftView,
@@ -18,16 +18,21 @@ import {
 interface OrderUserDetailViewProps {
   item?: any;
   isSales?: boolean;
+  userData?: any;
 }
 
 const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
-  const {item = {}, isSales = false} = props;
-  const statusColorObj = getShippingStatusColor(item?.status || '');
+  const {item = {}, isSales = false, userData} = props;
+  //const statusColorObj = getShippingStatusColor(item?.status || '');
   return (
     <RowView>
       <UserLeftView>
         <LSProfileImageComponent
-          profileUrl={isSales ? item?.buyerId?.name : item?.sellerId?.name}
+          profileUrl={
+            isSales
+              ? item?.buyerId?.profile_picture
+              : item?.sellerId?.profile_picture
+          }
           imageHeight={50}
           imageWidth={50}
           imageRadius={30}
@@ -37,10 +42,15 @@ const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
             {isSales ? item?.buyerId?.name : item?.sellerId?.name}
           </NameLabel>
           <StatusContainerView
-            bgColor={statusColorObj?.backColor}
-            borderColor={statusColorObj?.labelColor}>
-            <StatusLabel color={statusColorObj?.labelColor}>
-              {isSales ? 'Shipped' : 'In transit'}
+            bgColor={paypalOrderShippingStatus(userData?._id, item)?.backColor}
+            borderColor={
+              paypalOrderShippingStatus(userData?._id, item)?.labelColor
+            }>
+            <StatusLabel
+              color={
+                paypalOrderShippingStatus(userData?._id, item)?.labelColor
+              }>
+              {paypalOrderShippingStatus(userData?._id, item)?.text}
             </StatusLabel>
           </StatusContainerView>
         </OwnerDetailsView>

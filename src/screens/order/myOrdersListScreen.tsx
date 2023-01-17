@@ -25,7 +25,7 @@ import {
 } from './myOrdersStyle';
 //TODO:
 //- handle guest orders
-//- dont show orders that havent been paid for
+//- dont show trade orders that havent been paid for
 //- handle status
 //- handle printing label button
 export const MyOrdersListScreen: FC<{}> = () => {
@@ -66,6 +66,7 @@ export const MyOrdersListScreen: FC<{}> = () => {
             isSales={item?.sellerId._id === userData?._id}
             onCellPress={onItemPress}
             item={item}
+            userData={userData}
           />
         )}
       </>
@@ -80,6 +81,7 @@ export const MyOrdersListScreen: FC<{}> = () => {
             isSales={item?.sellerId._id === userData?._id}
             onCellPress={onItemPress}
             item={item}
+            userData={userData}
           />
         )}
       </>

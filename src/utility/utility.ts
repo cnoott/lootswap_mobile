@@ -797,3 +797,58 @@ export const daysPast = (createdAt: string) => {
     return 'One day ago';
   }
 };
+
+export const paypalOrderShippingStatus = (userId: string, paypalOrder: any) => {
+  const {shippingStep} = paypalOrder;
+  if (shippingStep === -1) {
+    return {text: 'CANCELED'};
+  }
+
+  switch (shippingStep) {
+    case 2:
+      return {
+        text: 'In Transit',
+        backColor: 'rgba(36, 107, 253, 0.1)',
+        labelColor: '#246BFD',
+      };
+    case 3:
+      return {
+        text: 'Delivered',
+        backColor: 'rgba(74, 222, 128, 0.1)',
+        labelColor: '#4ADE80',
+      };
+  }
+
+  const isSeller = paypalOrder?.sellerId?._id === userId;
+  if (isSeller) {
+    switch (shippingStep) {
+      case 0:
+        return {
+          text: 'Generate Shipping Label',
+          backColor: 'rgba(250, 204, 21, 0.1)',
+          labelColor: '#FACC15',
+        };
+      case 1:
+        return {
+          text: 'Waiting for tracking update',
+          backColor: 'rgba(250, 204, 21, 0.1)',
+          labelColor: '#FACC15',
+        };
+    }
+  } else {
+    switch (shippingStep) {
+      case 0:
+        return {
+          text: 'Waiting for seller to ship',
+          backColor: 'rgba(250, 204, 21, 0.1)',
+          labelColor: '#FACC15',
+        };
+      case 1:
+        return {
+          text: 'Waiting for tracking',
+          backColor: 'rgba(250, 204, 21, 0.1)',
+          labelColor: '#FACC15',
+      };
+    }
+  }
+};
