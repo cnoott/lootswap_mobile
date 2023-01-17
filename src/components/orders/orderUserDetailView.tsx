@@ -39,7 +39,8 @@ const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
         />
         <OwnerDetailsView>
           <NameLabel>
-            {isSales ? item?.buyerId?.name : item?.sellerId?.name}
+            {item?.isGuest && isSales ? item?.buyerId?.name : item?.sellerId?.name}
+            {item?.isGuest && 'Guest'}
           </NameLabel>
           <StatusContainerView
             bgColor={paypalOrderShippingStatus(userData?._id, item)?.backColor}
