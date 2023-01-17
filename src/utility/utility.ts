@@ -848,7 +848,7 @@ export const paypalOrderShippingStatus = (userId: string, paypalOrder: any) => {
           text: 'Waiting for tracking',
           backColor: 'rgba(250, 204, 21, 0.1)',
           labelColor: '#FACC15',
-      };
+        };
     }
   }
 };
