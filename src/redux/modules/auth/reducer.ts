@@ -26,6 +26,7 @@ type ActionProps = {
   type: string;
   error: any;
   payload: any;
+  clearOldData?: boolean;
 };
 
 export const InitialState: AuthProps = {
@@ -42,7 +43,7 @@ export const InitialState: AuthProps = {
 };
 
 export default function auth(state = InitialState, action: ActionProps) {
-  const {type, payload, error} = action;
+  const {type, payload, error, clearOldData = true} = action;
 
   switch (type) {
     case SIGN_IN_DATA.REQUEST: {
@@ -162,7 +163,7 @@ export default function auth(state = InitialState, action: ActionProps) {
     case GET_USER_DETAILS.REQUEST: {
       return {
         ...state,
-        requestedUserDetails: null,
+        requestedUserDetails: clearOldData ? null : state?.requestedUserDetails,
       };
     }
     case GET_USER_DETAILS.SUCCESS: {
