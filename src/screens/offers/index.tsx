@@ -16,8 +16,8 @@ import {InStackHeader} from '../../components/commonComponents/headers/stackHead
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
 import TradeOfferCell from './offerItems/TradeOfferCell';
 import NoOffersView from './offerItems/NoOffersView';
+import {getTradeStatusColor, daysPast} from '../../utility/utility';
 import NoMessagesView from './offerItems/NoMessagesView';
-import {getTradeStatusColor} from '../../utility/utility';
 import {
   Container,
   TopTabView,
@@ -75,20 +75,6 @@ export const OffersScreen: FC<{}> = () => {
 
   const onMessagesRefresh = () => {
     dispatch(getAllMyMessages(userData?._id));
-  };
-
-  const daysPast = createdAt => {
-    const timeDiff = new Date().getTime() - new Date(createdAt).getTime();
-    const daysSince = Math.floor(timeDiff / (1000 * 3600 * 24));
-    if (daysSince > 31) {
-      return 'over a month ago';
-    } else if (daysSince > 1) {
-      return `${daysSince} days ago`;
-    } else if (daysSince === 0) {
-      return 'Today';
-    } else {
-      return 'One day ago';
-    }
   };
 
   const goToMessageScreen = (msgData: any) => {
@@ -150,7 +136,7 @@ export const OffersScreen: FC<{}> = () => {
           navigation.navigate('OffersMessageScreen', {item});
         }}>
         <RenderUserDetails item={item} />
-        <TradeOfferCell offerItem={item} />
+        <TradeOfferCell offerItem={item} isInTrade={false} />
       </OfferCellContainer>
     );
   };

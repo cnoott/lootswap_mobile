@@ -193,7 +193,9 @@ export const OffersMessageScreen: FC<{}> = props => {
     setChangeOfferModalVisible(false);
   };
   const renderOfferCellView = () => {
-    return <TradeOfferCell offerItem={offerItem} topMargin={5} />;
+    return (
+      <TradeOfferCell offerItem={offerItem} topMargin={5} isInTrade={true} />
+    );
   };
   const renderRightInputView = () => {
     return (
