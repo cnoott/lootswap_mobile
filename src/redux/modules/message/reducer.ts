@@ -3,10 +3,12 @@
 import {
   GET_MESSAGE_INITIATED_STATUS,
   GET_MESSAGES_HISTORY,
+  GET_ALL_MY_MESSAGES,
 } from '../../../constants/actions';
 
 export interface MessageProps {
   historyMessages: any;
+  allMyMessages: any;
 }
 
 type ActionProps = {
@@ -16,6 +18,7 @@ type ActionProps = {
 
 export const InitialState: MessageProps = {
   historyMessages: null,
+  allMyMessages: null,
 };
 
 export default function loading(state = InitialState, action: ActionProps) {
@@ -41,6 +44,23 @@ export default function loading(state = InitialState, action: ActionProps) {
       };
     }
     case GET_MESSAGES_HISTORY.FAILURE: {
+      return {
+        ...state,
+        historyMessages: null,
+      };
+    }
+    case GET_ALL_MY_MESSAGES.REQUEST: {
+      return {
+        ...state,
+      };
+    }
+    case GET_ALL_MY_MESSAGES.SUCCESS: {
+      return {
+        ...state,
+        allMyMessages: payload,
+      };
+    }
+    case GET_ALL_MY_MESSAGES.FAILURE: {
       return {
         ...state,
         historyMessages: null,

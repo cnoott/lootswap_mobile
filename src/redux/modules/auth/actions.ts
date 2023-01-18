@@ -98,10 +98,14 @@ export const profileImgUploadFailure = (error: any) => {
 
 // Get Other Users Actions
 
-export const getUsersDetailsRequest = (userId: string) => {
+export const getUsersDetailsRequest = (
+  userId: string,
+  clearOldData: boolean = true,
+) => {
   return {
     type: GET_USER_DETAILS.REQUEST,
     userId,
+    clearOldData: clearOldData,
   };
 };
 

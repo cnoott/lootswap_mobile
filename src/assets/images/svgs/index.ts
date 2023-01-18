@@ -360,3 +360,32 @@ export const EMPTY_TRADE_OFFERS_ICON = `<svg width="36" height="36" xmlns="http:
 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H6.911a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661z" />
 </svg>
 `;
+
+export const EDIT_PRIMARY_ICON_BOTTOM_LINE = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.2599 3.6L5.04985 12.29C4.73985 12.62 4.43985 13.27 4.37985 13.72L4.00985 16.96C3.87985 18.13 4.71985 18.93 5.87985 18.73L9.09985 18.18C9.54985 18.1 10.1799 17.77 10.4899 17.43L18.6999 8.74C20.1199 7.24 20.7599 5.53 18.5499 3.44C16.3499 1.37 14.6799 2.1 13.2599 3.6Z" stroke="#6267FE" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M11.8901 5.04999C12.3201 7.80999 14.5601 9.91999 17.3401 10.2" stroke="#6267FE" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M3 22H21" stroke="#6267FE" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
+export const NOTIF_MESSAGE = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2V9L14 7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12 9L10 7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1.97998 13H6.38998C6.76998 13 7.10998 13.21 7.27998 13.55L8.44998 15.89C8.78998 16.57 9.47998 17 10.24 17H13.77C14.53 17 15.22 16.57 15.56 15.89L16.73 13.55C16.9 13.21 17.25 13 17.62 13H21.98" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7 4.12988C3.46 4.64988 2 6.72988 2 10.9999V14.9999C2 19.9999 4 21.9999 9 21.9999H15C20 21.9999 22 19.9999 22 14.9999V10.9999C22 6.72988 20.54 4.64988 17 4.12988" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
+export const NOTIF_LOOT = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.83 8.70005L15.3 4.17005C14.35 3.22005 13.04 2.71005 11.7 2.78005L6.69998 3.02005C4.69998 3.11005 3.10998 4.70005 3.00998 6.69005L2.76998 11.69C2.70998 13.03 3.20998 14.34 4.15998 15.29L8.68997 19.82C10.55 21.68 13.57 21.68 15.44 19.82L19.83 15.43C21.7 13.58 21.7 10.56 19.83 8.70005ZM9.49998 12.38C7.91998 12.38 6.61998 11.09 6.61998 9.50005C6.61998 7.91005 7.91998 6.62005 9.49998 6.62005C11.08 6.62005 12.38 7.91005 12.38 9.50005C12.38 11.09 11.08 12.38 9.49998 12.38ZM17.53 13.53L13.53 17.53C13.38 17.68 13.19 17.75 13 17.75C12.81 17.75 12.62 17.68 12.47 17.53C12.18 17.24 12.18 16.76 12.47 16.47L16.47 12.47C16.76 12.18 17.24 12.18 17.53 12.47C17.82 12.76 17.82 13.24 17.53 13.53Z" fill="white"/>
+</svg>
+`;
+
+export const NOTIF_CREDIT_CARD = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M23.3335 4.66675H4.66683C3.38 4.66675 2.3335 5.71325 2.3335 7.00008V21.0001C2.3335 22.2869 3.38 23.3334 4.66683 23.3334H23.3335C24.6203 23.3334 25.6668 22.2869 25.6668 21.0001V7.00008C25.6668 5.71325 24.6203 4.66675 23.3335 4.66675ZM4.66683 7.00008H23.3335V9.33342H4.66683V7.00008ZM4.66683 21.0001V14.0001H23.3347L23.3358 21.0001H4.66683Z" fill="white"/>
+<path d="M7 16.3333H14V18.6666H7V16.3333Z" fill="white"/>
+</svg>
+`;
+
+export const NOTIF_PROFILE = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M20.1762 8.50615C20.1762 11.9327 17.4288 14.6802 13.9998 14.6802C10.5721 14.6802 7.82352 11.9327 7.82352 8.50615C7.82352 5.07961 10.5721 2.33325 13.9998 2.33325C17.4288 2.33325 20.1762 5.07961 20.1762 8.50615ZM13.9998 25.6666C8.93927 25.6666 4.6665 24.8441 4.6665 21.6707C4.6665 18.4962 8.96612 17.7028 13.9998 17.7028C19.0616 17.7028 23.3332 18.5253 23.3332 21.6987C23.3332 24.8732 19.0336 25.6666 13.9998 25.6666Z" fill="white"/>
+</svg>
+`;

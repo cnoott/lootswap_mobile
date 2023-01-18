@@ -2,6 +2,7 @@ import {
   GET_MESSAGE_INITIATED_STATUS,
   CREATE_FIRST_MESSAGE,
   GET_MESSAGES_HISTORY,
+  GET_ALL_MY_MESSAGES,
 } from '../../../constants/actions';
 
 /**
@@ -50,6 +51,27 @@ export const getMessagesHistorySuccess = (payload: any) => {
 export const getMessagesHistoryFailure = (error: any) => {
   return {
     type: GET_MESSAGES_HISTORY.FAILURE,
+    error,
+  };
+};
+
+export const getAllMyMessages = (userId: string) => {
+  return {
+    type: GET_ALL_MY_MESSAGES.REQUEST,
+    userId: userId,
+  };
+};
+
+export const getAllMyMessagesSuccess = (payload: any) => {
+  return {
+    type: GET_ALL_MY_MESSAGES.SUCCESS,
+    payload,
+  };
+};
+
+export const getAllMyMessagesFailure = (error: any) => {
+  return {
+    type: GET_ALL_MY_MESSAGES.FAILURE,
     error,
   };
 };

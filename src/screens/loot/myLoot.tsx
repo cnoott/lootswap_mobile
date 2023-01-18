@@ -3,9 +3,10 @@
  ***/
 
 import React, {FC, useEffect, useState} from 'react';
-import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
+import {RefreshControl} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {Container, SubContainer, FlatList} from './myLootStyles';
 import {getProductListedItemsForOffer} from '../../redux/modules';
@@ -23,19 +24,28 @@ export const MyLootScreen: FC<{}> = () => {
 
   useEffect(() => {
     if (userData?._id) {
-      dispatch(
-        getProductListedItemsForOffer(
-          userData?._id,
-          (response: any) => {
-            setUserItems(response);
-          },
-          () => {
-            Alert.showError('Could not load items!');
-          },
-        ),
-      );
+      getLootData(userData?._id);
     }
-  }, [userData?._id, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userData?._id]);
+
+  const getLootData = (userId: string) => {
+    dispatch(
+      getProductListedItemsForOffer(
+        userId,
+        (response: any) => {
+          setUserItems(response);
+        },
+        () => {
+          Alert.showError('Could not load items!');
+        },
+      ),
+    );
+  };
+
+  const onMyLootRefresh = () => {
+    getLootData(userData?._id);
+  };
 
   const onEditLootPress = ({item}: any) => {
     const prodData = configureAndGetLootData(item);
@@ -58,6 +68,9 @@ export const MyLootScreen: FC<{}> = () => {
               onEditLootPress={() => onEditLootPress(item)}
             />
           )}
+          refreshControl={
+            <RefreshControl refreshing={false} onRefresh={onMyLootRefresh} />
+          }
         />
       </SubContainer>
     </Container>
