@@ -79,9 +79,9 @@ export const TabBarLabel: any = styled.Text.attrs((props: any) => ({
   ${layout}
 `;
 
-export const TabContainer = styled.View.attrs(() => ({
+export const TabContainer = styled.View.attrs(props => ({
   flex: 1,
-  backgroundColor: '#E5E5E5',
+  backgroundColor: props.theme.colors.white,
 }))`
   ${space}
 `;
@@ -93,13 +93,10 @@ export const OfferCellContainer = styled.TouchableOpacity.attrs(props => ({
   alignSelf: 'stretch',
   mb: scale(10),
   p: scale(10),
-  shadowColor: props.theme.colors.black,
+  shadowColor: '#171717',
   shadowOpacity: 0.2,
   shadowRadius: 1,
-  shadowOffset: {
-    height: 0.5,
-    width: 1,
-  },
+  shadowOffset: {width: 0, height: 0},
   activeOpacity: 0.9,
 }))`
   ${space}
@@ -107,7 +104,40 @@ export const OfferCellContainer = styled.TouchableOpacity.attrs(props => ({
   ${border}
 `;
 
+export const MessageCellContainer = styled.TouchableOpacity.attrs(props => ({
+  backgroundColor: props.theme.colors.bg,
+  borderRadius: scale(20),
+  minHeight: verticalScale(220),
+  alignSelf: 'stretch',
+  mb: scale(10),
+  p: scale(10),
+  shadowColor: '#171717',
+  shadowOpacity: 0.2,
+  shadowRadius: 1,
+  shadowOffset: {width: 0, height: 0},
+  activeOpacity: 0.9,
+}))`
+  flex-direction: row;
+  align-items: center;
+  ${space}
+  ${color}
+  ${border}
+`;
+
 export const OffersListView = styled.FlatList.attrs(() => ({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    flexGrow: 1,
+  },
+  mx: scale(10),
+  my: scale(10),
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const MessagesListView = styled.FlatList.attrs(() => ({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {
     flexGrow: 1,
@@ -181,6 +211,18 @@ export const TimeLabel: any = styled.Text.attrs(props => ({
   ${layout}
 `;
 
+export const ProductNameLabel: any = styled.Text.attrs(props => ({
+  color: props.theme.colors.greySecondary,
+  mr: 10,
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-family: Inter;
+  align-self: stretch;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
 export const EmptyRowView = styled.View`
   flex-direction: row;
   align-items: center;
@@ -224,18 +266,21 @@ export const ImageContainer: any = styled.TouchableOpacity.attrs(
   ${layout} ${color} ${space} ${border};
 `;
 
-export const ImageContainerDouble: any = styled.View.attrs((props: any) => ({
-  height: scale(props?.size ? props?.size : productImageWidth),
-  width: scale(props?.size ? props?.size : productImageWidth),
-  borderRadius: scale(10),
-  bg: props.theme.colors.grey,
-  bottom: 0,
-  right: 0,
-}))`
+export const ImageContainerDouble: any = styled.TouchableOpacity.attrs(
+  (props: any) => ({
+    height: scale(props?.size ? props?.size : productImageWidth),
+    width: scale(props?.size ? props?.size : productImageWidth),
+    borderRadius: scale(10),
+    bg: props.theme.colors.grey,
+    activeOpacity: 1,
+  }),
+)`
   align-items: center;
   justify-content: center;
   position: absolute;
-  ${layout} ${color} ${space};
+  right: 0px;
+  bottom: 0px;
+  ${layout} ${color} ${space} ${border};
 `;
 
 export const OfferItemContainer = styled.View.attrs(() => ({

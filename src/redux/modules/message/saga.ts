@@ -3,16 +3,20 @@ import {
   GET_MESSAGE_INITIATED_STATUS,
   CREATE_FIRST_MESSAGE,
   GET_MESSAGES_HISTORY,
+  GET_ALL_MY_MESSAGES,
 } from '../../../constants/actions';
 import {
   getMessageInitiatedstatusCall,
   createFirstMessageCall,
   getMessageHistoryCall,
+  getAllMyMessagesCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {
   getMessagesHistorySuccess,
   getMessagesHistoryFailure,
+  getAllMyMessagesSuccess,
+  getAllMyMessagesFailure,
 } from '../message/actions';
 
 type APIResponseProps = {
@@ -77,6 +81,24 @@ export function* getMessageHistory(action: any) {
   }
 }
 
+export function* getAllMyMessage(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      getAllMyMessagesCall,
+      action?.userId,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      yield put(getAllMyMessagesSuccess(response.data));
+    } else {
+      yield put(getAllMyMessagesFailure(response.error));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default function* messageSaga() {
   yield takeLatest(
     GET_MESSAGE_INITIATED_STATUS.REQUEST,
@@ -84,4 +106,5 @@ export default function* messageSaga() {
   );
   yield takeLatest(CREATE_FIRST_MESSAGE.REQUEST, createFirstMessage);
   yield takeLatest(GET_MESSAGES_HISTORY.REQUEST, getMessageHistory);
+  yield takeLatest(GET_ALL_MY_MESSAGES.REQUEST, getAllMyMessage);
 }

@@ -10,6 +10,7 @@ import {moderateScale} from 'react-native-size-matters';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {LSOfferChatHeader} from '../../components/commonComponents/headers/offerChatHeader';
 import {useDispatch, useSelector} from 'react-redux';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {
   acceptTrade,
   cancelTrade,
@@ -39,6 +40,7 @@ import {
 import {FlatList} from 'react-native';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 export const OffersMessageScreen: FC<{}> = props => {
+  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const tradeId = props.route?.params.item._id;
   const tradeData: TradeProps = useSelector(state => state.offers);
   const offerItem = tradeData?.trade;
@@ -235,6 +237,9 @@ export const OffersMessageScreen: FC<{}> = props => {
         res => {
           console.log('Success:', res);
           //TODO: redirect to screen
+          navigation?.navigate('TradeCheckoutScreen', {
+            tradeData: offerItem,
+          });
         },
         error => {
           console.log('error:', error);

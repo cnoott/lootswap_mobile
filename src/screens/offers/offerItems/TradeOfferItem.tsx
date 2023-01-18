@@ -138,7 +138,9 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
         return renderTrippleOffer();
       }
       return (
-        <ImageContainer size={_size}>
+        <ImageContainer
+          size={_size}
+          onPress={() => alert(`${index + 1} Pressed`)}>
           <Image source={{uri: item}} size={_size} />
         </ImageContainer>
       );
