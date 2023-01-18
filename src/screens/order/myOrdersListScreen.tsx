@@ -1,9 +1,9 @@
 /***
-INSQUAD - MY ORDERS SCREEN
+LootSwap - MY ORDERS SCREEN
 ***/
 
 import React, {FC, useState} from 'react';
-import {useWindowDimensions} from 'react-native';
+import {useWindowDimensions, RefreshControl} from 'react-native';
 import {SceneMap} from 'react-native-tab-view';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
@@ -29,6 +29,10 @@ export const MyOrdersListScreen: FC<{}> = () => {
     {key: 'third', title: 'Trade Orders'},
   ]);
 
+  const onPurchasesRefresh = () => {};
+  const onSalesRefresh = () => {};
+  const onTradeOrdersRefresh = () => {};
+
   const onItemPress = (isTradeOrder: boolean = false) => {
     navigation?.navigate('TrackOrderScreen', {
       isTradeOrder: isTradeOrder,
@@ -49,13 +53,25 @@ export const MyOrdersListScreen: FC<{}> = () => {
 
   const FirstRoute = () => (
     <TabContainer>
-      <PurchasesListView data={[1, 2, 3, 4]} renderItem={renderPurchasesItem} />
+      <PurchasesListView
+        data={[1, 2, 3, 4]}
+        renderItem={renderPurchasesItem}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={onPurchasesRefresh} />
+        }
+      />
     </TabContainer>
   );
 
   const SecondRoute = () => (
     <TabContainer>
-      <SalesListView data={[1, 2, 3, 4]} renderItem={renderSalesItem} />
+      <SalesListView
+        data={[1, 2, 3, 4]}
+        renderItem={renderSalesItem}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={onSalesRefresh} />
+        }
+      />
     </TabContainer>
   );
 
@@ -64,6 +80,9 @@ export const MyOrdersListScreen: FC<{}> = () => {
       <TradeOrdersListView
         data={[1, 2, 3, 4]}
         renderItem={renderTradeOrdersItem}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={onTradeOrdersRefresh} />
+        }
       />
     </TabContainer>
   );

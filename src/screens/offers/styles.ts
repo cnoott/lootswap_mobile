@@ -79,9 +79,9 @@ export const TabBarLabel: any = styled.Text.attrs((props: any) => ({
   ${layout}
 `;
 
-export const TabContainer = styled.View.attrs(() => ({
+export const TabContainer = styled.View.attrs(props => ({
   flex: 1,
-  backgroundColor: '#E5E5E5',
+  backgroundColor: props.theme.colors.white,
 }))`
   ${space}
 `;
@@ -93,13 +93,10 @@ export const OfferCellContainer = styled.TouchableOpacity.attrs(props => ({
   alignSelf: 'stretch',
   mb: scale(10),
   p: scale(10),
-  shadowColor: props.theme.colors.black,
+  shadowColor: '#171717',
   shadowOpacity: 0.2,
   shadowRadius: 1,
-  shadowOffset: {
-    height: 0.5,
-    width: 1,
-  },
+  shadowOffset: {width: 0, height: 0},
   activeOpacity: 0.9,
 }))`
   ${space}
@@ -107,7 +104,40 @@ export const OfferCellContainer = styled.TouchableOpacity.attrs(props => ({
   ${border}
 `;
 
+export const MessageCellContainer = styled.TouchableOpacity.attrs(props => ({
+  backgroundColor: props.theme.colors.bg,
+  borderRadius: scale(20),
+  minHeight: verticalScale(220),
+  alignSelf: 'stretch',
+  mb: scale(10),
+  p: scale(10),
+  shadowColor: '#171717',
+  shadowOpacity: 0.2,
+  shadowRadius: 1,
+  shadowOffset: {width: 0, height: 0},
+  activeOpacity: 0.9,
+}))`
+  flex-direction: row;
+  align-items: center;
+  ${space}
+  ${color}
+  ${border}
+`;
+
 export const OffersListView = styled.FlatList.attrs(() => ({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {
+    flexGrow: 1,
+  },
+  mx: scale(10),
+  my: scale(10),
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const MessagesListView = styled.FlatList.attrs(() => ({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {
     flexGrow: 1,
@@ -176,6 +206,18 @@ export const TimeLabel: any = styled.Text.attrs(props => ({
 }))`
   font-size: ${moderateScale(14)}px;
   font-family: Inter;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const ProductNameLabel: any = styled.Text.attrs(props => ({
+  color: props.theme.colors.greySecondary,
+  mr: 10,
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-family: Inter;
+  align-self: stretch;
   ${color}
   ${space}
   ${layout}
