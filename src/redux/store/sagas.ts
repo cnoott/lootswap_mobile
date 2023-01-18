@@ -6,6 +6,7 @@ import authSaga from '../modules/auth/saga';
 import homeSaga from '../modules/home/saga';
 import messageSaga from '../modules/message/saga';
 import offersSaga from '../modules/offers/saga';
+import ordersSaga from '../modules/orders/saga';
 import {spawn} from 'redux-saga/effects';
 
 function* sagas() {
@@ -13,6 +14,7 @@ function* sagas() {
   yield spawn(homeSaga);
   yield spawn(messageSaga);
   yield spawn(offersSaga);
+  yield spawn(ordersSaga);
 }
 
 export default sagas;

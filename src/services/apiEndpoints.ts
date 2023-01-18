@@ -181,6 +181,13 @@ export const changeMoneyOfferCall = (reqData: any) => {
   );
 };
 
+export const getAllOrdersCall = (reqData: any) => {
+  return handleResponse(
+    api.get(`/get-both-orders/${reqData.userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const getAllMyMessagesCall = (userId: string) => {
   return handleResponse(
     api.get(`/read-my-messages/${userId}`),

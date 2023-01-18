@@ -1,19 +1,20 @@
 import * as React from 'react';
-import OrderUserDetailView from './orderUserDetailView';
 import TradeOfferCell from '../../screens/offers/offerItems/TradeOfferCell';
 import {PurchaseCellContainer} from './styles';
+import TradeOrderUserDetailView from './tradeOrderUserDetailView';
 
 interface OrderPurchaseProps {
-  item?: number;
+  item?: any;
   onCellPress?: Function;
+  userData?: any;
 }
 
 function OrderTradeOrdersCell(props: OrderPurchaseProps) {
-  const {item, onCellPress = () => {}} = props;
+  const {item, onCellPress = () => {}, userData} = props;
   return (
     <PurchaseCellContainer onPress={() => onCellPress(true)}>
-      <OrderUserDetailView item={item} />
-      <TradeOfferCell offerItem={{}} />
+      <TradeOrderUserDetailView item={item} userData={userData} />
+      <TradeOfferCell offerItem={item?.tradeId} />
     </PurchaseCellContainer>
   );
 }

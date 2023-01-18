@@ -7,6 +7,7 @@ import loading from '../modules/loading/reducer';
 import home from '../modules/home/reducer';
 import message from '../modules/message/reducer';
 import offers from '../modules/offers/reducer';
+import orders from '../modules/orders/reducer';
 import {combineReducers} from 'redux';
 
 const appReducer = combineReducers({
@@ -15,6 +16,7 @@ const appReducer = combineReducers({
   home,
   message,
   offers,
+  orders,
 });
 
 const rootReducer = (state: any, action: any) => {

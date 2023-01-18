@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {LSProfileImageComponent} from '../commonComponents/profileImage';
-import {daysPast, paypalOrderShippingStatus} from '../../utility/utility';
+import {daysPast, tradeOrderShippingStatus} from '../../utility/utility';
 import {
   RowView,
   UserLeftView,
@@ -15,23 +15,26 @@ import {
   PrintLabel,
 } from './styles';
 
-interface OrderUserDetailViewProps {
+interface TradeOrderUserDetailViewProps {
   item?: any;
-  isSales?: boolean;
   userData?: any;
 }
+//TODO
+// - shipping status function
+//
+const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
+  const {item = {}, userData} = props;
+  const isReciever = item?.reciever?._id === userData?._id;
+  const {labelColor, backColor, text} = tradeOrderShippingStatus(userData?._id, item);
 
-const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
-  const {item = {}, isSales = false, userData} = props;
-  const {labelColor, backColor, text} = paypalOrderShippingStatus(userData?._id, item);
   return (
     <RowView>
       <UserLeftView>
         <LSProfileImageComponent
           profileUrl={
-            isSales
-              ? item?.buyerId?.profile_picture
-              : item?.sellerId?.profile_picture
+            isReciever
+              ? item?.sender?.profile_picture
+              : item?.reciever?.profile_picture
           }
           imageHeight={50}
           imageWidth={50}
@@ -39,10 +42,7 @@ const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
         />
         <OwnerDetailsView>
           <NameLabel>
-            {item?.isGuest && isSales
-              ? item?.buyerId?.name
-              : item?.sellerId?.name}
-            {item?.isGuest && 'Guest'}
+            {isReciever ? item?.sender?.name : item?.reciever?.name}
           </NameLabel>
           <StatusContainerView bgColor={backColor} borderColor={labelColor}>
             <StatusLabel color={labelColor}>{text}</StatusLabel>
@@ -60,4 +60,4 @@ const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
   );
 };
 
-export default OrderUserDetailView;
+export default TradeOrderUserDetailView;
