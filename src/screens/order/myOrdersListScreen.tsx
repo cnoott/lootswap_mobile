@@ -54,7 +54,6 @@ export const MyOrdersListScreen: FC<{}> = () => {
   const onSalesRefresh = () => {};
   const onTradeOrdersRefresh = () => {};
 
-
   const onItemPress = (isTradeOrder: boolean = false) => {
     navigation?.navigate('TrackOrderScreen', {
       isTradeOrder: isTradeOrder,
