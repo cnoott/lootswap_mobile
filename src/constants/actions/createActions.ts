@@ -91,3 +91,7 @@ export const REMOVE_ITEMS = {
 export const CHANGE_MONEY_OFFER = {
   ...createActionConst(actions.CHANGE_MONEY_OFFER),
 };
+
+export const GET_ALL_MY_MESSAGES = {
+  ...createActionConst(actions.GET_ALL_MY_MESSAGES),
+};

@@ -1,19 +1,22 @@
 /***
-INSQUAD - OFFERS SCREEN
+LootSwap - OFFERS SCREEN
 ***/
 
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState} from 'react';
 import {useWindowDimensions, RefreshControl} from 'react-native';
 import {SceneMap} from 'react-native-tab-view';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {getTradesHistory} from '../../redux/modules';
+import {getTradesHistory, getAllMyMessages} from '../../redux/modules';
 import {TradeProps} from '../../redux/modules/offers/reducer';
+import {MessageProps} from '../../redux/modules/message/reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
 import TradeOfferCell from './offerItems/TradeOfferCell';
 import NoOffersView from './offerItems/NoOffersView';
+import NoMessagesView from './offerItems/NoMessagesView';
 import {getTradeStatusColor} from '../../utility/utility';
 import {
   Container,
@@ -30,6 +33,9 @@ import {
   StatusContainerView,
   StatusLabel,
   TimeLabel,
+  MessagesListView,
+  MessageCellContainer,
+  ProductNameLabel,
 } from './styles';
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
@@ -45,14 +51,19 @@ export const OffersScreen: FC<{}> = () => {
   const {userData} = auth;
   const tradesData: TradeProps = useSelector(state => state.offers);
   const {historyTrades} = tradesData;
+  const messagesStoreData: MessageProps = useSelector(state => state.message);
+  const {allMyMessages} = messagesStoreData;
 
-  useEffect(() => {
-    dispatch(
-      getTradesHistory({
-        userId: userData?._id,
-      }),
-    );
-  }, [dispatch, userData?._id]);
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(
+        getTradesHistory({
+          userId: userData?._id,
+        }),
+      );
+      dispatch(getAllMyMessages(userData?._id));
+    }, [userData?._id, dispatch]),
+  );
 
   const onTradeOffersRefresh = () => {
     dispatch(
@@ -60,6 +71,10 @@ export const OffersScreen: FC<{}> = () => {
         userId: userData?._id,
       }),
     );
+  };
+
+  const onMessagesRefresh = () => {
+    dispatch(getAllMyMessages(userData?._id));
   };
 
   const daysPast = createdAt => {
@@ -74,6 +89,19 @@ export const OffersScreen: FC<{}> = () => {
     } else {
       return 'One day ago';
     }
+  };
+
+  const goToMessageScreen = (msgData: any) => {
+    const prodOwnerName =
+      msgData?.product?.userId === msgData.reciever._id
+        ? msgData.reciever.name
+        : msgData.sender.name;
+    const params = {
+      messageId: msgData?._id,
+      productOwnerId: msgData?.product?.userId,
+      productOwnerName: prodOwnerName || 'Owner',
+    };
+    navigation.navigate('UserChatScreen', params);
   };
 
   const RenderUserDetails = ({item}) => {
@@ -126,6 +154,36 @@ export const OffersScreen: FC<{}> = () => {
       </OfferCellContainer>
     );
   };
+
+  const renderMessageItem = ({item}: any) => {
+    return (
+      <MessageCellContainer
+        key={item?._id}
+        onPress={() => goToMessageScreen(item)}>
+        <LSProfileImageComponent
+          profileUrl={
+            userData?._id === item.reciever._id
+              ? item.sender.profile_picture
+              : item.reciever.profile_picture
+          }
+          imageHeight={60}
+          imageWidth={60}
+          imageRadius={30}
+        />
+        <OwnerDetailsView>
+          <NameLabel>
+            {userData?._id === item?.reciever?._id ? (
+              <>{item.sender.name}</>
+            ) : (
+              <>{item.reciever.name}</>
+            )}
+          </NameLabel>
+          <ProductNameLabel>{item?.product?.name}</ProductNameLabel>
+        </OwnerDetailsView>
+      </MessageCellContainer>
+    );
+  };
+
   const FirstRoute = () => (
     <TabContainer>
       <OffersListView
@@ -143,7 +201,15 @@ export const OffersScreen: FC<{}> = () => {
 
   const SecondRoute = () => (
     <TabContainer>
-      <></>
+      <MessagesListView
+        data={allMyMessages?.messageDocs || []}
+        renderItem={renderMessageItem}
+        keyExtractor={(item: any) => item?._id}
+        ListEmptyComponent={() => <NoMessagesView />}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={onMessagesRefresh} />
+        }
+      />
     </TabContainer>
   );
 
@@ -161,7 +227,7 @@ export const OffersScreen: FC<{}> = () => {
   });
   return (
     <Container>
-      <InStackHeader back={false} title={'Trades'} centerAligned={true} />
+      <InStackHeader back={false} title={'Trade feed'} centerAligned={true} />
       <TopTabView
         navigationState={{index, routes}}
         renderTabBar={renderTabBar}
