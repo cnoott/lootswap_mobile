@@ -24,14 +24,12 @@ import {
   TradeOrdersListView,
 } from './myOrdersStyle';
 //TODO:
-//- handle guest orders
 //- dont show trade orders that havent been paid for
-//- handle status
 //- handle printing label button
 export const MyOrdersListScreen: FC<{}> = () => {
   const dispatch = useDispatch();
   const orders: OrderProps = useSelector(state => state.orders);
-  const {paypalOrders} = orders;
+  const {paypalOrders, tradeOrders} = orders;
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
 
@@ -88,8 +86,8 @@ export const MyOrdersListScreen: FC<{}> = () => {
     );
   };
 
-  const renderTradeOrdersItem = () => {
-    return <OrderTradeOrdersCell onCellPress={onItemPress} />;
+  const renderTradeOrdersItem = ({item}) => {
+    return <OrderTradeOrdersCell onCellPress={onItemPress} item={item} />;
   };
 
   const FirstRoute = () => (
@@ -107,7 +105,7 @@ export const MyOrdersListScreen: FC<{}> = () => {
   const ThirdRoute = () => (
     <TabContainer>
       <TradeOrdersListView
-        data={[1, 2, 3, 4]}
+        data={tradeOrders}
         renderItem={renderTradeOrdersItem}
       />
     </TabContainer>

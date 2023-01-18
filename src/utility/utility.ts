@@ -744,12 +744,12 @@ export const getTradeStatusColor = (status: string) => {
 export const getShippingStatusColor = (status: string) => {
   let colorData = {
     backColor: 'rgba(250, 204, 21, 0.1)',
-    labelColor: '#FACC15',
+    labelColor: '#e1b505',
   };
   switch (status) {
     case Order_Status.Shipped:
       colorData.backColor = 'rgba(250, 204, 21, 0.1)';
-      colorData.labelColor = '#FACC15';
+      colorData.labelColor = '#e1b505';
       break;
     case Trade_Status.InTransit:
       colorData.backColor = 'rgba(36, 107, 253, 0.1)';
@@ -800,11 +800,14 @@ export const daysPast = (createdAt: string) => {
 
 export const paypalOrderShippingStatus = (userId: string, paypalOrder: any) => {
   const {shippingStep} = paypalOrder;
-  if (shippingStep === -1) {
-    return {text: 'CANCELED'};
-  }
 
   switch (shippingStep) {
+    case -1:
+      return {
+        text: 'CANCELED',
+        backColor: 'rgba(255, 0, 0, 0.1)',
+        labelColor: '#b30000',
+      };
     case 2:
       return {
         text: 'In Transit',
@@ -826,13 +829,13 @@ export const paypalOrderShippingStatus = (userId: string, paypalOrder: any) => {
         return {
           text: 'Generate Shipping Label',
           backColor: 'rgba(250, 204, 21, 0.1)',
-          labelColor: '#FACC15',
+          labelColor: '#e1b505',
         };
       case 1:
         return {
           text: 'Waiting for tracking update',
           backColor: 'rgba(250, 204, 21, 0.1)',
-          labelColor: '#FACC15',
+          labelColor: '#e1b505',
         };
     }
   } else {
@@ -841,14 +844,87 @@ export const paypalOrderShippingStatus = (userId: string, paypalOrder: any) => {
         return {
           text: 'Waiting for seller to ship',
           backColor: 'rgba(250, 204, 21, 0.1)',
-          labelColor: '#FACC15',
+          labelColor: '#e1b505',
         };
       case 1:
         return {
           text: 'Waiting for tracking',
           backColor: 'rgba(250, 204, 21, 0.1)',
-          labelColor: '#FACC15',
+          labelColor: '#e1b505',
         };
     }
+  }
+};
+
+export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
+  const {recieverStep, senderStep, reciever, sender} = tradeOrder;
+
+  if (userId === reciever._id && tradeOrder.recieverPaymentStatus !== 'paid') {
+    return {
+      text: 'Waiting for payment',
+      backColor: 'rgba(250, 204, 21, 0.1)',
+      labelColor: '#e1b505',
+    };
+  }
+  if (userId === sender._id && tradeOrder.senderPaymentStatus !== 'paid') {
+    return {
+      text: 'Waiting for payment',
+      backColor: 'rgba(250, 204, 21, 0.1)',
+      labelColor: '#e1b505',
+    };
+  }
+
+  const step = userId === reciever._id ? recieverStep : senderStep;
+  switch (step) {
+    case -3:
+    case -2:
+    case -1:
+      return {
+        text: 'CANCELED',
+        backColor: 'rgba(255, 0, 0, 0.1)',
+        labelColor: '#b30000',
+      };
+    case 0:
+      return {
+        text: 'Waiting for payment',
+        backColor: 'rgba(250, 204, 21, 0.1)',
+        labelColor: '#e1b505',
+      };
+    case 1:
+      return {
+        text: 'Waiting for other user to ship',
+        backColor: 'rgba(250, 204, 21, 0.1)',
+        labelColor: '#e1b505',
+      };
+    case 2:
+      return {
+        text: 'Shipping to verification center',
+        backColor: 'rgba(36, 107, 253, 0.1)',
+        labelColor: '#246BFD',
+      };
+    case 3:
+      return {
+        text: 'At verification center',
+        backColor: 'rgba(36, 107, 253, 0.1)',
+        labelColor: '#246BFD',
+      };
+    case 4:
+      return {
+        text: 'Shipping to you',
+        backColor: 'rgba(36, 107, 253, 0.1)',
+        labelColor: '#246BFD',
+      };
+    case 5:
+      return {
+        text: 'Delivered',
+        backColor: 'rgba(74, 222, 128, 0.1)',
+        labelColor: '#4ADE80',
+      };
+    default:
+      return {
+        text: 'Status error',
+        backColor: 'rgba(250, 204, 21, 0.1)',
+        labelColor: '#e1b505',
+      };
   }
 };
