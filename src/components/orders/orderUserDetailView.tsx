@@ -23,7 +23,10 @@ interface OrderUserDetailViewProps {
 
 const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
   const {item = {}, isSales = false, userData} = props;
-  const {labelColor, backColor, text} = paypalOrderShippingStatus(userData?._id, item);
+  const {labelColor, backColor, text} = paypalOrderShippingStatus(
+    userData?._id,
+    item,
+  );
   return (
     <RowView>
       <UserLeftView>

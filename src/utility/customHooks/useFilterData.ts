@@ -5,7 +5,11 @@ export const useFilterData = () => {
     attribute: 'category',
   });
 
-  const {items: brandItems, refine: brandRefine} = useRefinementList({
+  const {
+    items: brandItems,
+    refine: brandRefine,
+    searchForItems,
+  } = useRefinementList({
     attribute: 'brand',
   });
 
@@ -25,7 +29,7 @@ export const useFilterData = () => {
 
   let filterData = [
     {
-      FilterTitle: 'Categories',
+      FilterTitle: 'Category',
       data: categoriesItems,
       refineFunction: label => categoriesRefine(label),
       id: 1,
@@ -35,21 +39,36 @@ export const useFilterData = () => {
       FilterTitle: 'Brand',
       data: brandItems,
       refineFunction: label => brandRefine(label),
+      searchFunction: (val: string) => searchForItems(val),
       id: 2,
+      isCategorySelected: false,
+    },
+    {
+      FilterTitle: 'Product Type',
+      data: priceItems?.slice(0, 4),
+      refineFunction: () => {},
+      id: 3,
+      isCategorySelected: false,
+    },
+    {
+      FilterTitle: 'Shoe Sizes',
+      data: sizeItems,
+      refineFunction: label => sezeRefine(label),
+      id: 4,
+      isCategorySelected: false,
+    },
+    {
+      FilterTitle: 'Clothing Sizes',
+      data: sizeItems,
+      refineFunction: label => sezeRefine(label),
+      id: 5,
       isCategorySelected: false,
     },
     {
       FilterTitle: 'Price Range',
       data: priceItems,
       refineFunction: label => priceRefine(label),
-      id: 3,
-      isCategorySelected: false,
-    },
-    {
-      FilterTitle: 'Size',
-      data: sizeItems,
-      refineFunction: label => sezeRefine(label),
-      id: 4,
+      id: 6,
       isCategorySelected: false,
     },
   ];

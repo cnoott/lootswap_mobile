@@ -6,8 +6,6 @@ import React from 'react';
 import {
   Container,
   SubContainer,
-  HorizontalBar,
-  HeadingText,
   Divider,
   ListTitleText,
   FlatList,
@@ -15,20 +13,38 @@ import {
   FilterButtonText,
   EmptyView,
   ButtonsContainer,
-  PressableStyle,
   BottomMarginView,
+  EmptyContainer,
+  SelectedBrandButton,
+  CloseIcon,
+  BrandList,
+  AnimatedCheckBox,
+  PriceRangeContainer,
+  PriceSubMinMaxLabel,
+  MinPriceContainer,
+  HorizontalMarginView,
 } from './homeFiltersStyles';
+import algoliasearch from 'algoliasearch/lite';
+import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSButton from '../../components/commonComponents/LSButton';
+import LSInput from '../../components/commonComponents/LSInput';
+import LSFilterScreenSearch from '../../components/filterSearch/filterScreenSearch';
 import {Size, Type} from '../../enums';
 import {FILTER_TYPE} from 'custom_types';
-import {Pressable, Modal} from 'react-native';
+import {AlgoliaAppId, AlgoliaApiKey, ALGOLIA_INDEX_NAME} from '@env';
 // import {ResetHomeFilter, UpdateHomeFilter} from '../../redux/modules';
 // import {useClearRefinements} from 'react-instantsearch-hooks';
+import {InstantSearch} from 'react-instantsearch-hooks';
 import {useFilterData} from '../../utility/customHooks/useFilterData';
-import {configureFilterData} from '../../utility/utility';
+import {
+  configureFilterData,
+  capitalizeFirstLetter,
+} from '../../utility/utility';
+import {DOLLOR_TEXT} from 'localsvgimages';
 
-export const HomeFiltersScreen = props => {
-  const {isModalOpen, onToggleModal} = props;
+const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
+
+const FilterComponent = ({...props}) => {
   const {filterData} = useFilterData(props);
   const appliedFilters = configureFilterData([...filterData]);
   // const [filterConfigured, setFilterConfigured] = useState(false);
@@ -42,9 +58,7 @@ export const HomeFiltersScreen = props => {
   //   navigation.goBack();
   // };
 
-  const onApplyFilterPress = () => {
-    onToggleModal();
-  };
+  const onApplyFilterPress = () => {};
 
   const onFilterPress = filter => {
     const _filter = [...appliedFilters];
@@ -55,51 +69,141 @@ export const HomeFiltersScreen = props => {
     });
   };
 
-  const renderFilter = ({item}) => {
+  const renderFilter = (item, filterId) => {
     return (
       <FilterButton
         onPress={() => onFilterPress(item)}
-        isSelected={item?.isRefined}>
+        isSelected={item?.isRefined}
+        horizontalPadding={filterId === 4 || filterId === 5 ? 15 : 20}>
         <FilterButtonText isSelected={item?.isRefined}>
-          {item?.label}
+          {capitalizeFirstLetter(item?.label)}
         </FilterButtonText>
       </FilterButton>
     );
   };
-  const renderFilterItem = (filter: FILTER_TYPE, index: number) => {
+  const renderSelectedBrandButton = ({item, index}: any) => {
+    return (
+      <SelectedBrandButton onPress={() => {}} key={index}>
+        <FilterButtonText isSelected={true}>
+          {capitalizeFirstLetter(item?.label)}
+        </FilterButtonText>
+        <CloseIcon />
+      </SelectedBrandButton>
+    );
+  };
+  const renderBrandFilter = (filter: FILTER_TYPE, index: number) => {
     return (
       <EmptyView key={index}>
         <ListTitleText>{filter?.FilterTitle}</ListTitleText>
-        <FlatList data={filter?.data} renderItem={renderFilter} />
+        <LSFilterScreenSearch />
+        <BottomMarginView />
+        <BrandList data={filter?.data} renderItem={renderSelectedBrandButton} />
+      </EmptyView>
+    );
+  };
+  const renderProductTypeFilter = (filter: FILTER_TYPE, index: number) => {
+    return (
+      <EmptyView key={index}>
+        <ListTitleText>{filter?.FilterTitle}</ListTitleText>
+        <AnimatedCheckBox isChecked={true} selected={true} text="Tradeable" />
+        <AnimatedCheckBox isChecked={false} text="For Purcahse Only" />
+      </EmptyView>
+    );
+  };
+  const renderPriceRangeFilter = (filter: FILTER_TYPE, index: number) => {
+    return (
+      <EmptyView key={index}>
+        <ListTitleText>{filter?.FilterTitle}</ListTitleText>
+        <PriceRangeContainer>
+          <MinPriceContainer>
+            <PriceSubMinMaxLabel>Min Price</PriceSubMinMaxLabel>
+            <LSInput
+              onChangeText={() => {}}
+              value={''}
+              placeholder={'0.00'}
+              horizontalSpace={0.1}
+              topSpace={1}
+              rightIcon={DOLLOR_TEXT}
+              keyboardType={'numeric'}
+              homeSearch={true}
+            />
+          </MinPriceContainer>
+          <HorizontalMarginView />
+          <MinPriceContainer>
+            <PriceSubMinMaxLabel>Max Price</PriceSubMinMaxLabel>
+            <LSInput
+              onChangeText={() => {}}
+              value={''}
+              placeholder={'0.00'}
+              horizontalSpace={0.1}
+              topSpace={1}
+              rightIcon={DOLLOR_TEXT}
+              keyboardType={'numeric'}
+              homeSearch={true}
+            />
+          </MinPriceContainer>
+        </PriceRangeContainer>
+      </EmptyView>
+    );
+  };
+  const renderFilterItem = (filter: FILTER_TYPE, index: number) => {
+    if (filter?.id === 2) {
+      return renderBrandFilter(filter, index);
+    }
+    if (filter?.id === 3) {
+      return renderProductTypeFilter(filter, index);
+    }
+    if (filter?.id === 6) {
+      return renderPriceRangeFilter(filter, index);
+    }
+    return (
+      <EmptyView key={index}>
+        <ListTitleText>{filter?.FilterTitle}</ListTitleText>
+        <FlatList
+          data={filter?.data}
+          renderItem={({item}) => renderFilter(item, filter?.id)}
+        />
       </EmptyView>
     );
   };
   return (
-    <Modal transparent={true} animationType="slide" visible={isModalOpen}>
-      <Container>
-        <Pressable style={PressableStyle()} onPress={onToggleModal} />
-        {appliedFilters?.length > 0 && (
-          <SubContainer>
-            <HorizontalBar />
-            <HeadingText>Filter</HeadingText>
-            <Divider />
-            {appliedFilters.map((filter: FILTER_TYPE, index: number) => {
-              return renderFilterItem(filter, index);
-            })}
-            <BottomMarginView />
-            <Divider />
-            <ButtonsContainer>
-              <LSButton
-                title={'Done'}
-                size={Size.Large}
-                type={Type.Primary}
-                onPress={onApplyFilterPress}
-              />
-            </ButtonsContainer>
-          </SubContainer>
-        )}
-      </Container>
-    </Modal>
+    <EmptyContainer>
+      {appliedFilters?.length > 0 && (
+        <SubContainer>
+          {appliedFilters.map((filter: FILTER_TYPE, index: number) => {
+            return renderFilterItem(filter, index);
+          })}
+          <BottomMarginView />
+          <Divider />
+          <ButtonsContainer>
+            <LSButton
+              title={'RESET'}
+              size={Size.Medium}
+              type={Type.Grey}
+              onPress={onApplyFilterPress}
+            />
+            <LSButton
+              title={'APPLY'}
+              size={Size.Medium}
+              type={Type.Primary}
+              onPress={onApplyFilterPress}
+            />
+          </ButtonsContainer>
+          <BottomMarginView />
+        </SubContainer>
+      )}
+    </EmptyContainer>
+  );
+};
+
+export const HomeFiltersScreen = () => {
+  return (
+    <Container>
+      <InStackHeader title="Filters" />
+      <InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
+        <FilterComponent />
+      </InstantSearch>
+    </Container>
   );
 };
 
