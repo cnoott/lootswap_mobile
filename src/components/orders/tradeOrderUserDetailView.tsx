@@ -25,7 +25,10 @@ interface TradeOrderUserDetailViewProps {
 const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
   const {item = {}, userData} = props;
   const isReciever = item?.reciever?._id === userData?._id;
-  const {labelColor, backColor, text} = tradeOrderShippingStatus(userData?._id, item);
+  const {labelColor, backColor, text} = tradeOrderShippingStatus(
+    userData?._id,
+    item,
+  );
 
   return (
     <RowView>

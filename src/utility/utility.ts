@@ -39,6 +39,10 @@ export const getInitialRoute = (userData: any) => {
 
 export const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
+export const capitalizeFirstLetter = (stringToChange: string) => {
+  return stringToChange.charAt(0).toUpperCase() + stringToChange.slice(1);
+};
+
 export const configureFilterData = (filterItems: any) => {
   const newFilters = filterItems?.map(category => {
     const newItem = category?.data?.map(filter => {

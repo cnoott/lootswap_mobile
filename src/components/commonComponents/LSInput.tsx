@@ -9,6 +9,7 @@ interface LSInputProps extends TextInputProps {
   rightIcon?: string;
   onRightIconPress?: Function;
   homeSearch?: boolean;
+  filterSearch?: boolean;
   height?: number;
   horizontalSpace?: number;
   topSpace?: number;
@@ -27,6 +28,7 @@ const LSInput: FC<LSInputProps> = React.memo(props => {
     topSpace,
     onRightIconPress = () => {},
     homeSearch = false,
+    filterSearch = false,
     onBlurCall = () => {},
     keyboardType = 'default',
     inputRadius = 8.5,
@@ -34,7 +36,7 @@ const LSInput: FC<LSInputProps> = React.memo(props => {
   return (
     <>
       <InputContainer
-        isHomeSearch={homeSearch}
+        isHomeSearch={homeSearch || filterSearch}
         horizontalSpace={horizontalSpace}
         topSpace={topSpace}
         inputRadius={inputRadius}>
@@ -44,6 +46,7 @@ const LSInput: FC<LSInputProps> = React.memo(props => {
           isHomeSearch={homeSearch}
           onBlur={onBlurCall}
           keyboardType={keyboardType}
+          placeholderTextColor={'red'}
         />
         {rightIcon && (
           <Touchable onPress={onRightIconPress}>
