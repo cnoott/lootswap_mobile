@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import {Platform} from 'react-native';
-import {color} from 'styled-system';
+import {color, space} from 'styled-system';
 import {moderateScale} from 'react-native-size-matters';
 
 export const TabBarContainer = styled.View.attrs(props => ({
@@ -38,9 +38,10 @@ export const TabItemText = styled.Text.attrs(props => ({
   color: props.isActive
     ? props.theme.colors.primary
     : props.theme.colors.placeholder,
-  fontSize: moderateScale(9),
   marginTop: moderateScale(2),
 }))`
   font-weight: ${props => `${props.isActive ? 600 : 400}`};
+  font-size: ${moderateScale(12)}px;
   ${color}
+  ${space}
 `;

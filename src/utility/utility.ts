@@ -54,6 +54,32 @@ export const configureFilterData = (filterItems: any) => {
   return newFilters;
 };
 
+export const configureBrandListForDropdown = (brandData: any) => {
+  const newBrandData = brandData?.map((brand: any, index: any) => {
+    brand.id = index + 1;
+    brand.name = brand?.label;
+    return brand;
+  });
+  return newBrandData;
+};
+
+export const configureSizeList = (sizeList: any) => {
+  const regex = /^[\-\+]?[\d]+\.?(\d+)?$/;
+  let clothesSize: Array<any> = [];
+  let otherSize: Array<any> = [];
+  sizeList.map((sizeData: any) => {
+    if (!regex.test(sizeData?.value)) {
+      clothesSize.push(sizeData);
+    } else {
+      otherSize.push(sizeData);
+    }
+  });
+  return {
+    shoeSize: otherSize,
+    clothingSize: clothesSize,
+  };
+};
+
 export const getCombinedRatings = (ratingsArr = []) => {
   let ratingSum = 0;
   let combinedRating = 0;

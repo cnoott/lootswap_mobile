@@ -1,6 +1,12 @@
-import {useRefinementList} from 'react-instantsearch-hooks';
+import {useRefinementList, useRange} from 'react-instantsearch-hooks';
+import {configureBrandListForDropdown, configureSizeList} from '../utility';
 
-export const useFilterData = () => {
+export const useFilterData = (props: any) => {
+  const {
+    range,
+    canRefine,
+    refine: priceRefine,
+  } = useRange({...props, attribute: 'price'});
   const {items: categoriesItems, refine: categoriesRefine} = useRefinementList({
     attribute: 'category',
   });
@@ -13,7 +19,7 @@ export const useFilterData = () => {
     attribute: 'brand',
   });
 
-  const {items: priceItems, refine: priceRefine} = useRefinementList({
+  const {items: priceItems} = useRefinementList({
     attribute: 'price',
   });
 
@@ -26,7 +32,7 @@ export const useFilterData = () => {
     priceItems?.length > 0 &&
     sizeItems?.length > 0 &&
     brandItems?.length > 0;
-
+  const sizeData = configureSizeList(sizeItems);
   let filterData = [
     {
       FilterTitle: 'Category',
@@ -37,7 +43,7 @@ export const useFilterData = () => {
     },
     {
       FilterTitle: 'Brand',
-      data: brandItems,
+      data: configureBrandListForDropdown(brandItems),
       refineFunction: label => brandRefine(label),
       searchFunction: (val: string) => searchForItems(val),
       id: 2,
@@ -52,14 +58,14 @@ export const useFilterData = () => {
     },
     {
       FilterTitle: 'Shoe Sizes',
-      data: sizeItems,
+      data: sizeData?.shoeSize,
       refineFunction: label => sezeRefine(label),
       id: 4,
       isCategorySelected: false,
     },
     {
       FilterTitle: 'Clothing Sizes',
-      data: sizeItems,
+      data: sizeData?.clothingSize,
       refineFunction: label => sezeRefine(label),
       id: 5,
       isCategorySelected: false,
@@ -70,6 +76,8 @@ export const useFilterData = () => {
       refineFunction: label => priceRefine(label),
       id: 6,
       isCategorySelected: false,
+      range: range,
+      canRefine: canRefine,
     },
   ];
   return {filterData, hasData};
