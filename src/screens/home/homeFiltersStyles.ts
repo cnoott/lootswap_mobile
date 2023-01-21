@@ -4,6 +4,7 @@ import {color, layout, space, border} from 'styled-system';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 import {XMarkIcon} from 'react-native-heroicons/solid';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export const Container = styled.View.attrs(props => ({
   flex: 1,
@@ -16,9 +17,10 @@ export const EmptyContainer = styled.View`
   flex: 1;
 `;
 
-export const SubContainer = styled.ScrollView.attrs(() => ({
+export const SubContainer = styled(KeyboardAwareScrollView).attrs(() => ({
   px: moderateScale(20),
   showsVerticalScrollIndicator: false,
+  keyboardShouldPersistTaps: 'always',
 }))`
   ${color}
   ${layout}
@@ -55,9 +57,9 @@ export const Divider = styled.View.attrs(props => ({
   ${color} ${layout} ${space} ${border};
 `;
 
-export const ListTitleText = styled.Text.attrs(props => ({
+export const ListTitleText = styled.Text.attrs((props: any) => ({
   color: props.theme.colors.text,
-  mt: verticalScale(20),
+  mt: verticalScale(props?.isFirst ? 0 : 20),
   mb: verticalScale(10),
 }))`
   font-size: ${() => moderateScale(18)}px;
