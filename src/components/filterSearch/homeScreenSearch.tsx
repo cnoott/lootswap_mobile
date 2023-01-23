@@ -3,11 +3,11 @@ import LSInput from '../commonComponents/LSInput';
 import {useSearchBox} from 'react-instantsearch-hooks';
 import {SEARCH_INPUT_ICON, HOME_FILTER_ICON} from 'localsvgimages';
 
-interface LSSearchProps {
+interface LSHomeScreenSearchProps {
   onRightIconPress?: Function;
 }
 
-const LSSearch: FC<LSSearchProps> = React.memo(props => {
+const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
   const {onRightIconPress = () => {}} = props;
 
   const {query, refine} = useSearchBox(props);
@@ -31,4 +31,4 @@ const LSSearch: FC<LSSearchProps> = React.memo(props => {
   );
 });
 
-export default LSSearch;
+export default LSHomeScreenSearch;
