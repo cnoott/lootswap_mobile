@@ -1,6 +1,6 @@
 /***
-LootSwap - MY ORDERS SCREEN
-***/
+  LootSwap - MY ORDERS SCREEN
+ ***/
 
 import React, {FC, useState, useEffect} from 'react';
 import {useWindowDimensions, RefreshControl} from 'react-native';
@@ -24,7 +24,6 @@ import {
   TradeOrdersListView,
 } from './myOrdersStyle';
 //TODO:
-//- dont show trade orders that havent been paid for
 //- handle printing label button
 export const MyOrdersListScreen: FC<{}> = () => {
   const dispatch = useDispatch();
@@ -50,14 +49,71 @@ export const MyOrdersListScreen: FC<{}> = () => {
     );
   }, [dispatch, userData?._id]);
 
-  const onPurchasesRefresh = () => {};
-  const onSalesRefresh = () => {};
-  const onTradeOrdersRefresh = () => {};
+  const onRefresh = () => {
+    dispatch(
+      getAllOrders({
+        userId: userData?._id,
+      }),
+    );
+  };
 
-  const onItemPress = (isTradeOrder: boolean = false) => {
-    navigation?.navigate('TrackOrderScreen', {
-      isTradeOrder: isTradeOrder,
-    });
+  /* make sales order item press
+     const onItemPress = (isTradeOrder: boolean = false, tradeOrder: any) => {
+     navigation?.navigate('TrackOrderScreen', {
+isTradeOrder: isTradeOrder,
+});
+};
+*/
+  const onPaypalItemPress = () => {
+    console.log('WIP');
+  };
+
+  const onTradeItemPress = (tradeOrder: any) => {
+    const isReciever = userData?._id === tradeOrder.reciever._id;
+
+    if (isReciever) {
+      if (tradeOrder?.recieverSessionStatus === 'complete') {
+        navigation?.navigate('TrackOrderScreen', {
+          isTradeOrder: true,
+          item: tradeOrder,
+        });
+      }
+
+      switch (tradeOrder.recieverPaymentStatus) {
+        case 'paid':
+        case 'processing':
+          navigation?.navigate('TrackOrderScreen', {
+            isTradeOrder: true,
+            item: tradeOrder,
+          });
+          break;
+        case 'failed':
+          //TODO dispatch accept trade again
+          console.log('failed wip');
+          break;
+      }
+    } else {
+      switch (tradeOrder.senderPaymentStatus) {
+        case 'paid':
+        case 'processing':
+          navigation?.navigate('TrackOrderScreen', {
+            isTradeOrder: true,
+            item: tradeOrder,
+          });
+          break;
+        case 'unpaid':
+          navigation?.navigate('Offers/Inbox', {
+            screen: 'TradeCheckoutScreen',
+            params: {
+              tradeData: tradeOrder.tradeId,
+              orderData: tradeOrder,
+            },
+          });
+          break;
+        case 'failed':
+          console.log('failed wip');
+      }
+    }
   };
 
   const renderPurchasesItem = ({item}) => {
@@ -66,7 +122,7 @@ export const MyOrdersListScreen: FC<{}> = () => {
         {item?.buyerId?._id === userData?._id && (
           <OrderPurchaseCell
             isSales={item?.sellerId._id === userData?._id}
-            onCellPress={onItemPress}
+            onCellPress={onPaypalItemPress}
             item={item}
             userData={userData}
           />
@@ -81,7 +137,7 @@ export const MyOrdersListScreen: FC<{}> = () => {
         {item?.sellerId?._id === userData?._id && (
           <OrderPurchaseCell
             isSales={item?.sellerId._id === userData?._id}
-            onCellPress={onItemPress}
+            onCellPress={onPaypalItemPress}
             item={item}
             userData={userData}
           />
@@ -91,7 +147,12 @@ export const MyOrdersListScreen: FC<{}> = () => {
   };
 
   const renderTradeOrdersItem = ({item}) => {
-    return <OrderTradeOrdersCell onCellPress={onItemPress} item={item} />;
+    return (
+      <OrderTradeOrdersCell
+        onCellPress={() => onTradeItemPress(item)}
+        item={item}
+      />
+    );
   };
 
   const FirstRoute = () => (
@@ -100,7 +161,7 @@ export const MyOrdersListScreen: FC<{}> = () => {
         data={paypalOrders}
         renderItem={renderPurchasesItem}
         refreshControl={
-          <RefreshControl refreshing={false} onRefresh={onPurchasesRefresh} />
+          <RefreshControl refreshing={false} onRefresh={onRefresh} />
         }
       />
     </TabContainer>
@@ -112,7 +173,7 @@ export const MyOrdersListScreen: FC<{}> = () => {
         data={paypalOrders}
         renderItem={renderSalesItem}
         refreshControl={
-          <RefreshControl refreshing={false} onRefresh={onSalesRefresh} />
+          <RefreshControl refreshing={false} onRefresh={onRefresh} />
         }
       />
     </TabContainer>
@@ -124,7 +185,7 @@ export const MyOrdersListScreen: FC<{}> = () => {
         data={tradeOrders}
         renderItem={renderTradeOrdersItem}
         refreshControl={
-          <RefreshControl refreshing={false} onRefresh={onTradeOrdersRefresh} />
+          <RefreshControl refreshing={false} onRefresh={onRefresh} />
         }
       />
     </TabContainer>

@@ -382,7 +382,7 @@ PODS:
     - React-perflogger (= 0.70.6)
   - RNCAsyncStorage (1.17.11):
     - React-Core
-  - RNGestureHandler (2.8.0):
+  - RNGestureHandler (2.9.0):
     - React-Core
   - RNImageCropPicker (0.38.1):
     - React-Core
@@ -393,7 +393,7 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController
-  - RNReanimated (2.13.0):
+  - RNReanimated (2.14.4):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -428,6 +428,42 @@ PODS:
   - RNVectorIcons (9.2.0):
     - React-Core
   - SocketRocket (0.6.0)
+  - Stripe (23.3.2):
+    - StripeApplePay (= 23.3.2)
+    - StripeCore (= 23.3.2)
+    - StripePayments (= 23.3.2)
+    - StripePaymentsUI (= 23.3.2)
+    - StripeUICore (= 23.3.2)
+  - stripe-react-native (0.23.0):
+    - React-Core
+    - Stripe (~> 23.3.0)
+    - StripeApplePay (~> 23.3.0)
+    - StripeFinancialConnections (~> 23.3.0)
+    - StripePayments (~> 23.3.0)
+    - StripePaymentSheet (~> 23.3.0)
+    - StripePaymentsUI (~> 23.3.0)
+  - StripeApplePay (23.3.2):
+    - StripeCore (= 23.3.2)
+  - StripeCore (23.3.2)
+  - StripeFinancialConnections (23.3.2):
+    - StripeCore (= 23.3.2)
+    - StripeUICore (= 23.3.2)
+  - StripePayments (23.3.2):
+    - StripeCore (= 23.3.2)
+    - StripePayments/Stripe3DS2 (= 23.3.2)
+  - StripePayments/Stripe3DS2 (23.3.2):
+    - StripeCore (= 23.3.2)
+  - StripePaymentSheet (23.3.2):
+    - StripeApplePay (= 23.3.2)
+    - StripeCore (= 23.3.2)
+    - StripePayments (= 23.3.2)
+    - StripePaymentsUI (= 23.3.2)
+  - StripePaymentsUI (23.3.2):
+    - StripeCore (= 23.3.2)
+    - StripePayments (= 23.3.2)
+    - StripeUICore (= 23.3.2)
+  - StripeUICore (23.3.2):
+    - StripeCore (= 23.3.2)
   - TOCropViewController (2.6.1)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -503,6 +539,7 @@ DEPENDENCIES:
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - "stripe-react-native (from `../node_modules/@stripe/stripe-react-native`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -521,6 +558,14 @@ SPEC REPOS:
     - libevent
     - OpenSSL-Universal
     - SocketRocket
+    - Stripe
+    - StripeApplePay
+    - StripeCore
+    - StripeFinancialConnections
+    - StripePayments
+    - StripePaymentSheet
+    - StripePaymentsUI
+    - StripeUICore
     - TOCropViewController
     - YogaKit
 
@@ -613,6 +658,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
+  stripe-react-native:
+    :path: "../node_modules/@stripe/stripe-react-native"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -668,17 +715,26 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 15437b576139df27635400de0599d9844f1ab817
   ReactCommon: 349be31adeecffc7986a0de875d7fb0dcf4e251c
   RNCAsyncStorage: 8616bd5a58af409453ea4e1b246521bb76578d60
-  RNGestureHandler: 62232ba8f562f7dea5ba1b3383494eb5bf97a4d3
+  RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNImageCropPicker: 648356d68fbf9911a1016b3e3723885d28373eda
-  RNReanimated: ce445c233a6ff5600223484a88ad5704945d972a
+  RNReanimated: 6668b0587bebd4b15dd849b99e5a9c70fc12ed95
   RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
   RNSVG: 3a79c0c4992213e4f06c08e62730c5e7b9e4dc17
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
+  Stripe: a11f72e054b581f16064d5b735e33a056f197c34
+  stripe-react-native: 8cf9e4131f9e4c576ac91fd81afe8cee6b656582
+  StripeApplePay: e6267e960bee142c5140137c79f36639d96be2d2
+  StripeCore: e7a5ef22f15ca26f83a9d8f52e87c6767317a268
+  StripeFinancialConnections: f4530a4feddc2c2fdd378fd767a161f0fddbb258
+  StripePayments: e56a21a758f06cb6048aae711d60c135ac49eaf7
+  StripePaymentSheet: 55451afab0ad85cc4cda9aec26a62a5a5694c029
+  StripePaymentsUI: d3fa98cca974d6b29a331b7efe8c4803cdfe47de
+  StripeUICore: b8514392b8d679a1be9739198e2df4168f34c8a7
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   Yoga: 99caf8d5ab45e9d637ee6e0174ec16fbbb01bcfc
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 73e9a1fdbeeb0835676f577d8b4a7380dedb3889
+PODFILE CHECKSUM: 289fc48c666233cf011403c9ca280b72cf88a1f6
 
 COCOAPODS: 1.11.3
