@@ -13,6 +13,7 @@ const theme = {
     greySecondary: '#707070',
     greySubDetails: '#616161',
     bg: '#FAFAFA',
+    light_bg: '#E5E5E5',
     danger: '#FC0000',
     placeholder: '#818181',
     text: '#101010',

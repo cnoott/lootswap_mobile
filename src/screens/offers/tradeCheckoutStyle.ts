@@ -243,3 +243,17 @@ export const SummaryText = styled.Text.attrs(props => ({
   ${space}
     ${layout}
 `;
+
+export const OfferCellOnlyContainer = styled.View.attrs(() => ({
+  px: scale(15),
+  mb: verticalScale(10),
+}))`
+  flex-direction: row;
+  ${space}
+`;
+
+export const OfferCellOnlyRightView = styled.View`
+  flex: 1;
+  margin-left: ${scale(10)}px;
+  justify-content: space-evenly;
+`;

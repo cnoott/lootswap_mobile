@@ -17,6 +17,7 @@ export enum Type {
   Info = 'info',
   Text = 'text',
   Placeholder = 'placeholder',
+  Custom = 'custom',
 }
 
 export enum FontFamily {

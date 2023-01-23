@@ -42,6 +42,12 @@ export const ProfileHeaderContainer = styled.View.attrs(() => ({
     ${layout}
 `;
 
+export const ChatOfferContainer = styled.View.attrs(props => ({
+  bg: props.theme.colors.white,
+}))`
+  ${color}
+`;
+
 export const ProfileHeaderText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
   mr: moderateScale(2),
@@ -390,6 +396,8 @@ export const EmptyRowView = styled.View`
   align-items: center;
 `;
 
+export const EmptyColumnView = styled.View``;
+
 export const SpaceRowView = styled.View`
   margin-left: ${scale(2)}px;
 `;
@@ -401,4 +409,91 @@ export const EmptyBox = styled.View.attrs({
   ${color}
   ${space}
   ${layout}
+`;
+
+export const OfferStatusContainer = styled.View.attrs((props: any) => ({
+  height: verticalScale(70),
+  px: scale(8),
+  alignSelf: 'stretch',
+  bg: props?.isAccepted ? 'rgba(36, 192, 93, 0.1)' : 'rgba(247, 85, 85, 0.1)',
+  borderRadius: scale(20),
+  mx: scale(15),
+  mb: verticalScale(15),
+}))`
+  align-items: center;
+  flex-direction: row;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const OfferStatusLeftView = styled.View.attrs(() => ({
+  flex: 0.7,
+}))``;
+
+export const OfferStatusRightView = styled.View.attrs(() => ({
+  flex: 0.3,
+}))``;
+
+export const OfferStatusTitleText = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  mb: scale(5),
+}))`
+  font-size: ${scale(14)}px;
+  font-family: Inter-Bold;
+  ${color}
+  ${space}
+`;
+
+export const OfferStatusText = styled.Text.attrs((props: any) => ({
+  color: props?.isAccepted
+    ? props.theme.colors.successColor
+    : props.theme.colors.errorColor,
+  ml: scale(2),
+}))`
+  font-size: ${scale(12)}px;
+  font-family: Inter-Bold;
+  ${color}
+  ${space}
+`;
+
+export const ArrowContainer = styled.TouchableOpacity.attrs((props: any) => ({
+  bg: props.theme.colors.light_bg,
+  activeOpacity: 1,
+}))`
+  align-items: center;
+  justify-content: center;
+  ${color}
+`;
+
+export const PendingOfferStatusContainer = styled.View.attrs(() => ({
+  px: scale(15),
+  alignSelf: 'stretch',
+  mb: verticalScale(15),
+}))`
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const OfferYouLabel = styled.Text.attrs((props: any) => ({
+  color: props.theme.colors.placeholder,
+  mb: scale(2),
+}))`
+  font-size: ${scale(12)}px;
+  font-family: Inter-Bold;
+  ${color}
+  ${space}
+`;
+
+export const OfferPriceText = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+}))`
+  font-size: ${scale(13)}px;
+  font-family: Inter-Bold;
+  ${color}
+  ${space}
 `;

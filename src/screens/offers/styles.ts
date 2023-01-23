@@ -12,6 +12,11 @@ export const Container = styled.View.attrs(props => ({
   backgroundColor: props.theme.colors.secondary,
 }))``;
 
+export const OfferMessageContainer = styled.View.attrs(props => ({
+  flex: 1,
+  backgroundColor: props.theme.colors.light_bg,
+}))``;
+
 export const TopTabView = styled(TabView).attrs(() => ({
   flex: 1,
 }))``;
