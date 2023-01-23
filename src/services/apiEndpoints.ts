@@ -195,6 +195,20 @@ export const getAllMyMessagesCall = (userId: string) => {
   );
 };
 
+export const getTradeShippingRatesCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/get-rates/${reqData?.userId}/${reqData?.orderId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const fetchPaymentSheetCall = (reqData: any) => {
+  return handleResponse(
+    api.get(`/mobile-trade-checkout/${reqData?.userId}/${reqData?.orderId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

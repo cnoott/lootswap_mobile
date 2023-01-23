@@ -18,6 +18,7 @@ import NotificationsScreen from '../screens/notifications';
 import OffersScreen from '../screens/offers';
 import OffersMessageScreen from '../screens/offers/offerMessageScreen';
 import TradeCheckoutScreen from '../screens/offers/tradeCheckoutScreen';
+import TradeCheckoutSuccessScreen from '../screens/offers/tradeCheckoutSuccessScreen';
 import MyOrdersListScreen from '../screens/order/myOrdersListScreen';
 import TrackOrderScreen from '../screens/order/trackOrderScreen';
 import {useTheme} from 'styled-components';
@@ -109,6 +110,10 @@ const OffersStackNavigation = () => (
     <Stack.Screen name="OffersScreen" component={OffersScreen} />
     <Stack.Screen name="OffersMessageScreen" component={OffersMessageScreen} />
     <Stack.Screen name="TradeCheckoutScreen" component={TradeCheckoutScreen} />
+    <Stack.Screen
+      name="TradeCheckoutSuccessScreen"
+      component={TradeCheckoutSuccessScreen}
+    />
   </Stack.Navigator>
 );
 
