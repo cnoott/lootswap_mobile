@@ -3,6 +3,7 @@ declare module '@env' {
   export const AlgoliaAppId: string;
   export const AlgoliaApiKey: string;
   export const ALGOLIA_INDEX_NAME: string;
+  export const StripeApiKey: string;
 }
 
 declare module 'custom_types' {

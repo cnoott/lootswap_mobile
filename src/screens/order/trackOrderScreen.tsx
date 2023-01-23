@@ -23,27 +23,73 @@ import {
   FullDivider,
 } from './trackOrderScreenStyle';
 import OrderTrackSteps from '../../components/orderTrack/orderTrackSteps';
-import OrderStatusDetails from '../../components/orderTrack/orderStatusDetails';
+//import OrderStatusDetails from '../../components/orderTrack/orderStatusDetails';
 import TradeOfferCell from '../offers/offerItems/TradeOfferCell';
+import {useSelector} from 'react-redux';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 
 export const TrackOrderScreen: FC<any> = ({route}) => {
-  const {isTradeOrder = false} = route?.params || {};
+  const {isTradeOrder = false, item} = route?.params || {};
+  const auth: AuthProps = useSelector(state => state?.auth);
+  const {userData} = auth;
+
+  const isReciever = userData?._id === item?.reciever;
+
+  const renderTrackingNumber = () => {
+    if (!isTradeOrder) {
+      return;
+    }
+
+    const {recieverUPSShipmentData, senderUPSShipmentData} = item;
+
+    if (isReciever) {
+      if (
+        item.senderStep < 3 ||
+        typeof item.toSenderTrackingNumber === 'undefined'
+      ) {
+        return senderUPSShipmentData.toWarehouse.ShipmentResponse
+          .ShipmentResults.PackageResults.TrackingNumber;
+      } else {
+        return item?.toSenderTrackingNumber;
+      }
+    } else {
+      if (
+        item.recieverStep < 3 ||
+        typeof item.toRecieverTrackingNumber === 'undefined'
+      ) {
+        return recieverUPSShipmentData.toWarehouse.ShipmentResponse
+          .ShipmentResults.PackageResults.TrackingNumber;
+      } else {
+        return item?.toRecieverTrackingNumber;
+      }
+    }
+  };
+
+  //TODO: save carrier for purchase/sales
   const renderOrderHeaderDetails = () => {
     return (
       <>
         <RowContainer>
           <OrderDataLabel>Tracking Number</OrderDataLabel>
-          <TrackingNumberLabel>987665231069340553</TrackingNumberLabel>
+          <TrackingNumberLabel>{renderTrackingNumber()}</TrackingNumberLabel>
         </RowContainer>
         <RowContainer>
-          <OrderDataLabel>Shipping Carrier: USPS</OrderDataLabel>
-          <Image source={{uri: 'https://picsum.photos/200'}} />
+          <OrderDataLabel>
+            Shipping Carrier: {isTradeOrder ? 'UPS' : 'USPS'}
+          </OrderDataLabel>
+          {isTradeOrder && (
+            <Image
+              source={{
+                uri: 'https://1000logos.net/wp-content/uploads/2021/04/UPS-logo.png',
+              }}
+            />
+          )}
         </RowContainer>
       </>
     );
   };
   const renderMultipleOrderCell = () => {
-    return <TradeOfferCell offerItem={{}} />;
+    return <TradeOfferCell offerItem={item.tradeId} />;
   };
   const renderSingleOrderCell = () => {
     const color = 'Black';
@@ -76,9 +122,12 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       <SubContainer>
         {renderOrderHeaderDetails()}
         {isTradeOrder ? renderMultipleOrderCell() : renderSingleOrderCell()}
-        <OrderTrackSteps currStep={2} isTradeOrder={isTradeOrder} />
+        <OrderTrackSteps
+          currStep={isReciever ? item?.senderStep : item?.recieverStep}
+          isTradeOrder={isTradeOrder}
+        />
         <FullDivider />
-        <OrderStatusDetails />
+        {/*<OrderStatusDetails />*/}
       </SubContainer>
     </Container>
   );

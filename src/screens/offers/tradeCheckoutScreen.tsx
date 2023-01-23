@@ -2,10 +2,11 @@
 LootSwap - TRADE CHECKOUT SCREEN
 ***/
 
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {SvgXml} from 'react-native-svg';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import TradeCheckoutItemCell from './offerItems/TradeCheckoutItemCell';
+import {StripeApiKey, MerchantIdentifier} from '@env';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from 'custom_enums';
 import {EDIT_PRIMARY_ICON_BOTTOM_LINE} from '../../assets/images/svgs';
@@ -22,18 +23,108 @@ import {
   HeadingLabel,
   EmptyView,
   VerticalMargin,
-  AppliedPromoContainer,
-  PromoText,
-  AppliedLabel,
-  PromoContainer,
-  PromoDes,
+  //  AppliedPromoContainer,
+  //  PromoText,
+  //  AppliedLabel,
+  //  PromoContainer,
+  //  PromoDes,
   PromoAppliedLabel,
   StretchedRowView,
   ItemSubLabel,
   SummaryText,
 } from './tradeCheckoutStyle';
+import {AuthProps} from '../../redux/modules/auth/reducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  getUsersDetailsRequest,
+  fetchPaymentSheet,
+  getAllOrders,
+} from '../../redux/modules';
+import {StripeProvider, useStripe} from '@stripe/stripe-react-native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
-export const TradeCheckoutScreen: FC<{}> = () => {
+type PaymentDetails = {
+  platformFee: number;
+  toUserRate: number;
+  toWarehouseRate: number;
+  total: number;
+  userPayout: number;
+};
+//TODO:
+//  > Alert error handling
+export const TradeCheckoutScreen: FC<{}> = props => {
+  const navigation: NavigationProp<any, any> = useNavigation();
+  const {tradeData, orderData} = props.route?.params;
+  const dispatch = useDispatch();
+  const auth: AuthProps = useSelector(state => state?.auth);
+  const {requestedUserDetails, userData} = auth;
+  const [paymentDetails, setPaymentDetails] = useState<PaymentDetails>({
+    platformFee: 0,
+    toUserRate: 0,
+    toWarehouseRate: 0,
+    total: 0,
+    userPayout: 0,
+  });
+  const {platformFee, toUserRate, toWarehouseRate, total, userPayout} =
+    paymentDetails;
+
+  const {initPaymentSheet, presentPaymentSheet} = useStripe();
+  const [loading, setLoading] = useState(false);
+
+  const initializePaymentSheet = async () => {
+    const reqData = {
+      userId: userData?._id,
+      orderId: orderData?._id,
+    };
+    dispatch(
+      fetchPaymentSheet(
+        reqData,
+        async res => {
+          setPaymentDetails(res.rateData);
+          const {paymentIntent, ephemeralKey, customer} = res.stripeData;
+
+          const {error} = await initPaymentSheet({
+            merchantDisplayName: 'lootswap, Inc.',
+            customerId: customer,
+            customerEphemeralKeySecret: ephemeralKey,
+            paymentIntentClientSecret: paymentIntent,
+          });
+          if (!error) {
+            setLoading(true);
+          }
+        },
+        error => {
+          console.log('payment sheet error:', error);
+        },
+      ),
+    );
+  };
+
+  const openPaymentSheet = async () => {
+    const {error} = await presentPaymentSheet();
+
+    if (error) {
+      //alert here
+      console.log('error payment sheet', error);
+    } else {
+      //TODO: navigate to sucess screen
+      console.log('Success!');
+      dispatch(
+        getAllOrders({
+          userId: userData?._id,
+        }),
+      );
+      navigation.navigate('TradeCheckoutSuccessScreen', {
+        orderId: orderData._id,
+      });
+    }
+  };
+
+  useEffect(() => {
+    initializePaymentSheet();
+    dispatch(getUsersDetailsRequest(userData?._id));
+  });
+
   const renderHeading = (label: string) => {
     return <HeadingLabel>{label}</HeadingLabel>;
   };
@@ -43,7 +134,12 @@ export const TradeCheckoutScreen: FC<{}> = () => {
         <DeliveryAddSubContainer>
           <DeliveryAddressLabel>Delivery Address</DeliveryAddressLabel>
           <DeliveryAddressText>
-            42 Fairhaven Commons, Golden Street Way, Fairhaven, MA 2719
+            {requestedUserDetails?.shipping_address?.street1}
+            {', '}
+            {requestedUserDetails?.shipping_address?.street2}
+            {requestedUserDetails?.shipping_address?.city}{' '}
+            {requestedUserDetails?.shipping_address?.state}{' '}
+            {requestedUserDetails?.shipping_address?.zip}
           </DeliveryAddressText>
         </DeliveryAddSubContainer>
         <EditLabelContainer>
@@ -56,21 +152,24 @@ export const TradeCheckoutScreen: FC<{}> = () => {
   const renderYourItems = () => {
     return (
       <EmptyView>
-        {renderHeading('Items You Have')}
-        <TradeCheckoutItemCell itemData={{}} />
+        {renderHeading('Item you will send')}
+        <TradeCheckoutItemCell itemData={tradeData?.recieverItem} />
       </EmptyView>
     );
   };
-  const renderReceiversItems = () => {
+  const renderSendersItems = () => {
     return (
       <EmptyView>
-        {renderHeading('Items You Receive')}
-        {[1, 2, 3, 4].map(() => {
-          return <TradeCheckoutItemCell itemData={{}} />;
+        {renderHeading(
+          `Item${tradeData?.senderItems?.length > 1 ? 's' : ''} You Receive`,
+        )}
+        {tradeData?.senderItems.map(item => {
+          return <TradeCheckoutItemCell itemData={item} />;
         })}
       </EmptyView>
     );
   };
+  /*
   const renderPromoCodeView = () => {
     return (
       <EmptyView>
@@ -86,12 +185,13 @@ export const TradeCheckoutScreen: FC<{}> = () => {
       </EmptyView>
     );
   };
+  */
 
-  const renderSummaryDetail = (label: string, value: string) => {
+  const renderSummaryDetail = (label: string, value: number) => {
     return (
       <StretchedRowView topMargin={5}>
         <ItemSubLabel>{label}</ItemSubLabel>
-        <SummaryText>{value}</SummaryText>
+        <SummaryText>${value}</SummaryText>
       </StretchedRowView>
     );
   };
@@ -101,14 +201,17 @@ export const TradeCheckoutScreen: FC<{}> = () => {
         {renderHeading('Purchase Summary')}
         <StretchedRowView>
           <ItemSubLabel>
-            Platform fee <PromoAppliedLabel>{'50'}% off</PromoAppliedLabel>
+            Platform fee <PromoAppliedLabel>{'100'}% off!</PromoAppliedLabel>
           </ItemSubLabel>
-          <SummaryText>+$5.00</SummaryText>
+          <SummaryText>+${platformFee}</SummaryText>
         </StretchedRowView>
-        {renderSummaryDetail('Shipment to verification center', '+$15.00')}
-        {renderSummaryDetail('Shipment to trader', '+$15.00')}
-        {renderSummaryDetail('Additional Cash offer', '+$50.00')}
-        {renderSummaryDetail('Taxes and fees', '+$7.43')}
+        {renderSummaryDetail(
+          'Shipment to verification center',
+          toWarehouseRate,
+        )}
+        {renderSummaryDetail('Shipment to trader', toUserRate)}
+        {renderSummaryDetail('Additional Cash offer', userPayout)}
+        {/*renderSummaryDetail('Taxes and fees', paymentDetails?.)*/}
       </EmptyView>
     );
   };
@@ -116,7 +219,7 @@ export const TradeCheckoutScreen: FC<{}> = () => {
     return (
       <StretchedRowView>
         <HeadingLabel>Total</HeadingLabel>
-        <HeadingLabel isBlack={true}>{'$97.43'}</HeadingLabel>
+        <HeadingLabel isBlack={true}>${total}</HeadingLabel>
       </StretchedRowView>
     );
   };
@@ -124,37 +227,41 @@ export const TradeCheckoutScreen: FC<{}> = () => {
     return (
       <LSButton
         title={'CHECK OUT'}
+        disabled={!loading}
         size={Size.Fit_To_Width}
         type={Type.Primary}
         radius={20}
         fitToWidth={'100%'}
-        onPress={() => {}}
+        onPress={openPaymentSheet}
       />
     );
   };
   return (
-    <Container>
-      <InStackHeader title={'Trade Checkout'} onlyTitleCenterAlign={true} />
-      <HorizontalBar />
-      <ScrollSubContainer>
-        {renderDeliveryAddressContainer()}
-        {renderYourItems()}
-        {renderReceiversItems()}
-        <VerticalMargin />
+    <StripeProvider
+      publishableKey={StripeApiKey}
+      merchantIdentifier={MerchantIdentifier}>
+      <Container>
+        <InStackHeader title={'Trade Checkout'} onlyTitleCenterAlign={true} />
         <HorizontalBar />
-        {renderPromoCodeView()}
-        <VerticalMargin />
-        <HorizontalBar />
-        {renderPurchaseSummary()}
-        <VerticalMargin />
-        <HorizontalBar />
-        <VerticalMargin />
-        {renderTotalView()}
-        <VerticalMargin />
-        {renderCheckOutButton()}
-        <VerticalMargin margin={20} />
-      </ScrollSubContainer>
-    </Container>
+        <ScrollSubContainer>
+          {renderDeliveryAddressContainer()}
+          {renderYourItems()}
+          {renderSendersItems()}
+          <VerticalMargin />
+          <HorizontalBar />
+          <VerticalMargin />
+          <HorizontalBar />
+          {renderPurchaseSummary()}
+          <VerticalMargin />
+          <HorizontalBar />
+          <VerticalMargin />
+          {renderTotalView()}
+          <VerticalMargin />
+          {renderCheckOutButton()}
+          <VerticalMargin margin={20} />
+        </ScrollSubContainer>
+      </Container>
+    </StripeProvider>
   );
 };
 
