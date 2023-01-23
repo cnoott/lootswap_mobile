@@ -39,6 +39,10 @@ export const getInitialRoute = (userData: any) => {
 
 export const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
+export const capitalizeFirstLetter = (stringToChange: string) => {
+  return stringToChange.charAt(0).toUpperCase() + stringToChange.slice(1);
+};
+
 export const configureFilterData = (filterItems: any) => {
   const newFilters = filterItems?.map(category => {
     const newItem = category?.data?.map(filter => {
@@ -48,6 +52,32 @@ export const configureFilterData = (filterItems: any) => {
     return {...category, data: newItem};
   });
   return newFilters;
+};
+
+export const configureBrandListForDropdown = (brandData: any) => {
+  const newBrandData = brandData?.map((brand: any, index: any) => {
+    brand.id = index + 1;
+    brand.name = brand?.label;
+    return brand;
+  });
+  return newBrandData;
+};
+
+export const configureSizeList = (sizeList: any) => {
+  const regex = /^[\-\+]?[\d]+\.?(\d+)?$/;
+  let clothesSize: Array<any> = [];
+  let otherSize: Array<any> = [];
+  sizeList.map((sizeData: any) => {
+    if (!regex.test(sizeData?.value)) {
+      clothesSize.push(sizeData);
+    } else {
+      otherSize.push(sizeData);
+    }
+  });
+  return {
+    shoeSize: otherSize,
+    clothingSize: clothesSize,
+  };
 };
 
 export const getCombinedRatings = (ratingsArr = []) => {

@@ -1,15 +1,25 @@
-import {useRefinementList} from 'react-instantsearch-hooks';
+import {useRefinementList, useRange} from 'react-instantsearch-hooks';
+import {configureBrandListForDropdown, configureSizeList} from '../utility';
 
-export const useFilterData = () => {
+export const useFilterData = (props: any) => {
+  const {
+    range,
+    canRefine,
+    refine: priceRefine,
+  } = useRange({...props, attribute: 'price'});
   const {items: categoriesItems, refine: categoriesRefine} = useRefinementList({
     attribute: 'category',
   });
 
-  const {items: brandItems, refine: brandRefine} = useRefinementList({
+  const {
+    items: brandItems,
+    refine: brandRefine,
+    searchForItems,
+  } = useRefinementList({
     attribute: 'brand',
   });
 
-  const {items: priceItems, refine: priceRefine} = useRefinementList({
+  const {items: priceItems} = useRefinementList({
     attribute: 'price',
   });
 
@@ -22,10 +32,10 @@ export const useFilterData = () => {
     priceItems?.length > 0 &&
     sizeItems?.length > 0 &&
     brandItems?.length > 0;
-
+  const sizeData = configureSizeList(sizeItems);
   let filterData = [
     {
-      FilterTitle: 'Categories',
+      FilterTitle: 'Category',
       data: categoriesItems,
       refineFunction: label => categoriesRefine(label),
       id: 1,
@@ -33,24 +43,41 @@ export const useFilterData = () => {
     },
     {
       FilterTitle: 'Brand',
-      data: brandItems,
+      data: configureBrandListForDropdown(brandItems),
       refineFunction: label => brandRefine(label),
+      searchFunction: (val: string) => searchForItems(val),
       id: 2,
+      isCategorySelected: false,
+    },
+    {
+      FilterTitle: 'Product Type',
+      data: priceItems?.slice(0, 4),
+      refineFunction: () => {},
+      id: 3,
+      isCategorySelected: false,
+    },
+    {
+      FilterTitle: 'Shoe Sizes',
+      data: sizeData?.shoeSize,
+      refineFunction: label => sezeRefine(label),
+      id: 4,
+      isCategorySelected: false,
+    },
+    {
+      FilterTitle: 'Clothing Sizes',
+      data: sizeData?.clothingSize,
+      refineFunction: label => sezeRefine(label),
+      id: 5,
       isCategorySelected: false,
     },
     {
       FilterTitle: 'Price Range',
       data: priceItems,
       refineFunction: label => priceRefine(label),
-      id: 3,
+      id: 6,
       isCategorySelected: false,
-    },
-    {
-      FilterTitle: 'Size',
-      data: sizeItems,
-      refineFunction: label => sezeRefine(label),
-      id: 4,
-      isCategorySelected: false,
+      range: range,
+      canRefine: canRefine,
     },
   ];
   return {filterData, hasData};

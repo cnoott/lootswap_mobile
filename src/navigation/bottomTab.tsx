@@ -6,6 +6,7 @@ import React, {FC} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/home';
+import HomeFiltersScreen from '../screens/home/homeFilters';
 import ProfileScreen from '../screens/profile';
 import EditProfileScreen from '../screens/profile/editProfile';
 import NotificationSettingScreen from '../screens/profile/notificationSettings';
@@ -54,6 +55,7 @@ const HomeStackNavigation = () => (
       headerShown: false,
     }}>
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
+    <Stack.Screen name="HomeFiltersScreen" component={HomeFiltersScreen} />
     <Stack.Screen
       name="ProductDetailsScreen"
       component={ProductDetailsScreen}
@@ -205,6 +207,7 @@ export const BottomTabs: FC<{}> = () => {
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: theme.colors.secondary,
       }}
+      initialRouteName={'Home'}
       tabBar={props => <MyCustomTabBar {...props} />}>
       <Tab.Screen name="Home" component={HomeStackNavigation} />
       <Tab.Screen name="List loot" component={LootStackNavigation} />

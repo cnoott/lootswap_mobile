@@ -33,6 +33,8 @@ const theme = {
     shippedLabelColor: '#FACC15',
     shippedBackColor: 'rgba(250, 204, 21, 0.1)',
     greyLabel: '#404040',
+    searchInnerBG: '#F6F6F9',
+    searchBorder: '#EAEAF3',
   },
   width: 50,
   height: 50,

@@ -17,6 +17,10 @@ declare module 'custom_types' {
     selected: boolean;
     parentId: Number;
   };
+  export type PRICE_RANGE_FILTER = {
+    min: Number;
+    max: Number;
+  };
   export type FILTER_TYPE = {
     filterLabel?: string;
     list?: Array<SUB_FILTER>;
@@ -24,6 +28,8 @@ declare module 'custom_types' {
     id?: Number;
     FilterTitle?: string;
     data?: Array<SUB_FILTER>;
+    canRefine?: boolean;
+    range?: PRICE_RANGE_FILTER;
   };
   export type PROFILE_OPTIONS_TYPE = {
     icon: string;
@@ -68,3 +74,8 @@ declare module 'custom_types' {
     stepFive?: PRODUCT_STEP_FIVE_TYPE;
   };
 }
+
+/**
+ * Custom Modules declaration
+ */
+declare module 'react-native-searchable-dropdown';

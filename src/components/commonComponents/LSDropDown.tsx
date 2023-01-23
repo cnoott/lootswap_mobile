@@ -10,7 +10,7 @@ import {
   SearchIconContainer,
 } from './LSDropDownStyles';
 import {SvgXml} from 'react-native-svg';
-import {DROP_DOWN_ARROW, SEARCH_DROPDOWN} from 'localsvgimages';
+import {DROP_DOWN_ARROW, SEARCH_INPUT_ICON} from 'localsvgimages';
 
 interface LSLSDropDownProps {
   itemsList?: any;
@@ -57,7 +57,7 @@ const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
       renderLeftIcon={() =>
         isSearch ? (
           <SearchIconContainer>
-            <SvgXml xml={SEARCH_DROPDOWN} />
+            <SvgXml xml={SEARCH_INPUT_ICON} />
           </SearchIconContainer>
         ) : null
       }
