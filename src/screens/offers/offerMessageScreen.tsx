@@ -235,11 +235,11 @@ export const OffersMessageScreen: FC<{}> = props => {
       acceptTrade(
         reqData,
         res => {
-          console.log('Success:', res);
-          //TODO: redirect to screen
           navigation?.navigate('TradeCheckoutScreen', {
             tradeData: offerItem,
+            orderData: res,
           });
+          closeModal();
         },
         error => {
           console.log('error:', error);
