@@ -18,7 +18,6 @@ import {
   getTradesHistory,
   getProductListedItemsForOffer,
 } from '../../redux/modules';
-import TradeOfferCell from './offerItems/TradeOfferCell';
 import LSInput from '../../components/commonComponents/LSInput';
 import MessageCell from '../../components/message/messageCell';
 import EditTradeModal from './offerItems/EditTradeModal';
@@ -29,7 +28,7 @@ import useMessagingService from '../../services/useMessagingService';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {Alert} from 'custom_top_alert';
 import {
-  Container,
+  OfferMessageContainer,
   ChatContainer,
   KeyboardAvoidingView,
   InputContainer,
@@ -192,11 +191,6 @@ export const OffersMessageScreen: FC<{}> = props => {
     setAddRemoveItemModalVisible(false);
     setChangeOfferModalVisible(false);
   };
-  const renderOfferCellView = () => {
-    return (
-      <TradeOfferCell offerItem={offerItem} topMargin={5} isInTrade={true} />
-    );
-  };
   const renderRightInputView = () => {
     return (
       <Touchable onPress={sendMessage}>
@@ -271,7 +265,6 @@ export const OffersMessageScreen: FC<{}> = props => {
     closeModal();
   };
   const renderChatView = () => {
-    console.log('messagesList ===', messagesList?.length);
     return (
       <ChatContainer>
         <FlatList
@@ -285,7 +278,7 @@ export const OffersMessageScreen: FC<{}> = props => {
     );
   };
   return (
-    <Container>
+    <OfferMessageContainer>
       <LSOfferChatHeader
         title={
           offerItem?.reciever?._id === userData?._id
@@ -307,7 +300,6 @@ export const OffersMessageScreen: FC<{}> = props => {
         userData={userData}
         tradeStatus={offerItem?.status}
       />
-      {renderOfferCellView()}
       <KeyboardAvoidingView>
         {renderChatView()}
         <InputContainer bottomSpace={insets.bottom - 30}>
@@ -345,7 +337,7 @@ export const OffersMessageScreen: FC<{}> = props => {
         offerItem={offerItem}
         userData={userData}
       />
-    </Container>
+    </OfferMessageContainer>
   );
 };
 

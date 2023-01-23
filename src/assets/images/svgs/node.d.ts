@@ -59,4 +59,8 @@ declare module 'localsvgimages' {
   export const NOTIF_LOOT: any;
   export const NOTIF_CREDIT_CARD: any;
   export const NOTIF_PROFILE: any;
+  export const ACCORDIAN_DOWN_ELLIPSE: any;
+  export const ACCORDIAN_UP_ELLIPSE: any;
+  export const OFFER_ACCEPTED_HEADER_ICON: any;
+  export const OFFER_REJECTED_HEADER_ICON: any;
 }

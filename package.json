@@ -30,6 +30,7 @@
     "react-instantsearch-hooks": "^6.38.1",
     "react-native": "0.70.6",
     "react-native-bouncy-checkbox": "^3.0.6",
+    "react-native-collapsible": "^1.6.0",
     "react-native-dashed-line": "^1.1.0",
     "react-native-dropdownalert": "^4.5.1",
     "react-native-element-dropdown": "^2.5.1",

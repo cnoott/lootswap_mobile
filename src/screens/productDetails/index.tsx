@@ -251,7 +251,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       );
     } else if (
       isLogedIn &&
-      historyTrades.some(
+      historyTrades?.some(
         trade => trade.recieverItem._id === productData?.objectID,
       )
     ) {
