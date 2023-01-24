@@ -1,12 +1,14 @@
 import styled from 'styled-components/native';
-import {layout, space, color} from 'styled-system';
+import {layout, space, color, border} from 'styled-system';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 
-export const Container = styled.View.attrs(() => ({
+export const Container = styled.View.attrs((props: any) => ({
   flex: 1,
+  bg: props?.theme?.colors?.white,
 }))`
   ${space}
   ${layout}
+  ${color}
 `;
 
 export const ScrollContainer = styled.ScrollView.attrs(() => ({
@@ -21,8 +23,29 @@ export const SubContainer = styled.View.attrs(props => ({
   padding: moderateScale(15),
   flex: 1,
   backgroundColor: props.theme.colors.white,
-  mt: verticalScale(10),
+  mt: verticalScale(1),
 }))`
+  ${space}
+  ${layout}
+`;
+
+export const DetailsContainer = styled.View.attrs(() => ({}))`
+  flex-direction: row;
+  ${space}
+`;
+
+export const DetailsLeftView = styled.View.attrs(() => ({
+  flex: 1,
+}))`
+  flex-direction: column;
+  ${space}
+  ${layout}
+`;
+
+export const DetailsRightView = styled.View`
+  flex-direction: column;
+  align-items: center;
+  margin-top: ${verticalScale(10)}px;
   ${space}
   ${layout}
 `;
@@ -54,10 +77,21 @@ export const GoBackText = styled.Text.attrs(props => ({
 
 export const ProductLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  my: scale(3),
+  my: scale(1),
 }))`
   font-size: ${moderateScale(22)}px;
   font-family: Inter-Bold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const ProductName = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  my: scale(1),
+}))`
+  font-size: ${moderateScale(18)}px;
+  font-family: Inter;
   ${color}
   ${space}
   ${layout}
@@ -67,7 +101,14 @@ export const ProductDetails = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
   my: scale(1),
 }))`
-  font-size: ${moderateScale(14)}px;
+  font-size: ${moderateScale(12)}px;
+  font-family: Inter;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const BoldText = styled.Text`
   font-family: Inter;
   ${color}
   ${space}
@@ -76,10 +117,21 @@ export const ProductDetails = styled.Text.attrs(props => ({
 
 export const PriceLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  my: scale(5),
+  mt: scale(5),
 }))`
   font-size: ${moderateScale(16)}px;
   font-family: Inter-Black;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const ShippingLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.lightGrey,
+  my: scale(1),
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-family: Inter;
   ${color}
   ${space}
   ${layout}
@@ -93,9 +145,9 @@ export const TagsContainer = styled.View.attrs(() => ({
 `;
 
 export const TagView = styled.View.attrs(props => ({
-  py: verticalScale(4),
-  px: scale(8),
-  borderRadius: scale(8),
+  py: verticalScale(8),
+  px: scale(10),
+  borderRadius: scale(16),
   alignItems: 'center',
   justifyContent: 'center',
   bg: props?.backColor,
@@ -109,21 +161,27 @@ export const TagView = styled.View.attrs(props => ({
 export const TagLabel = styled.Text.attrs(props => ({
   color: props?.tagColor,
 }))`
-  font-size: ${moderateScale(10)}px;
-  font-family: Inter;
+  font-size: ${moderateScale(12)}px;
+  font-family: Inter-Bold;
   ${color}
   ${space}
   ${layout}
 `;
 
-export const GuarenteedView = styled.View.attrs(() => ({
+export const GuarenteedView = styled.View.attrs((props: any) => ({
   mt: verticalScale(20),
+  borderWidth: 0.5,
+  borderRadius: scale(20),
+  borderColor: props.theme.colors.protectionBorder,
+  p: scale(10),
+  overflow: 'hidden',
 }))`
-  flex-direction: row ${space};
+  flex-direction: row ${space} ${border} ${color};
 `;
 
 export const GuarenteedDesView = styled.View.attrs(() => ({
-  ml: scale(6),
+  ml: scale(16),
+  flex: 1,
 }))`
   justify-content: center;
   ${space};
@@ -132,7 +190,7 @@ export const GuarenteedDesView = styled.View.attrs(() => ({
 export const ProtectionTopLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
-  font-size: ${moderateScale(14)}px;
+  font-size: ${moderateScale(20)}px;
   font-family: Inter-Black;
   ${color}
   ${space}
@@ -140,10 +198,11 @@ export const ProtectionTopLabel = styled.Text.attrs(props => ({
 `;
 
 export const ProtectionBottomLabel = styled.Text.attrs(props => ({
-  color: props.theme.colors.text,
+  color: props.theme.colors.lightGrey,
   my: scale(1),
+  width: '95%',
 }))`
-  font-size: ${moderateScale(12)}px;
+  font-size: ${moderateScale(13)}px;
   font-family: Inter;
   ${color}
   ${space}
@@ -152,9 +211,9 @@ export const ProtectionBottomLabel = styled.Text.attrs(props => ({
 
 export const HorizontalBar = styled.View.attrs(props => ({
   mt: verticalScale(15),
-  height: verticalScale(1),
+  height: verticalScale(0.3),
   width: '100%',
-  bg: props.theme.colors.text,
+  bg: props.theme.colors.lightGrey,
 }))`
   ${space}
   ${color}
@@ -194,3 +253,11 @@ export const BottomSpace = styled.View.attrs(() => ({
 `;
 
 export const EmptyView = styled.View``;
+
+export const SVGTextContainer = styled.View.attrs(() => ({}))`
+  ${space}
+`;
+
+export const SVGImageStyle = {
+  marginBottom: -2,
+};

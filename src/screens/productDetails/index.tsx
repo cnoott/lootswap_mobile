@@ -6,7 +6,7 @@ import React, {FC, useEffect, useState} from 'react';
 import {Dimensions} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {useTheme} from 'styled-components';
-import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
+import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import CarouselComponent from '../../components/Carousel';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
@@ -16,8 +16,6 @@ import {
   Container,
   SubContainer,
   TopSpace,
-  GoBackContainer,
-  GoBackText,
   ProductLabel,
   ProductDetails,
   PriceLabel,
@@ -34,10 +32,22 @@ import {
   DescriptionLabel,
   RatingsContainer,
   ProductOwnerLabel,
+  ProductName,
+  BoldText,
+  ShippingLabel,
+  DetailsContainer,
+  DetailsLeftView,
+  DetailsRightView,
+  SVGImageStyle,
 } from './styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {SvgXml} from 'react-native-svg';
-import {LEFT_PRIMARY_ARROW, SHIELD_ICON} from 'localsvgimages';
+import {
+  SHIELD_ICON,
+  LIKE_HEART_ICON,
+  PAY_PAL_LABEL,
+  LOOT_SWAP_LOGO_LABEL,
+} from 'localsvgimages';
 import StarRatings from '../../components/starRatings';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
 import SendOfferModal from '../offers/offerItems/SendOfferModal';
@@ -182,7 +192,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       sendTradeOffer(
         reqData,
         res => {
-          console.log('Success ====', res);
           navigation.navigate('OffersMessageScreen', {item: res});
           setSendOfferModalVisible(false);
           dispatch(
@@ -202,14 +211,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     setSendOfferItems([...newData]);
   };
 
-  const renderGoBackView = () => {
-    return (
-      <GoBackContainer onPress={() => navigation.goBack()}>
-        <SvgXml xml={LEFT_PRIMARY_ARROW} />
-        <GoBackText>Go Back</GoBackText>
-      </GoBackContainer>
-    );
-  };
   const renderTags = () => {
     return (
       <TagsContainer>
@@ -297,9 +298,15 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       <GuarenteedView>
         <SvgXml xml={SHIELD_ICON} />
         <GuarenteedDesView>
-          <ProtectionTopLabel>Buyer Protection Gyarantee</ProtectionTopLabel>
+          <ProtectionTopLabel>
+            Buyer & Trade protection Guarantee
+          </ProtectionTopLabel>
           <ProtectionBottomLabel>
-            Purchase are covered by Paypal Purchase Protection
+            {'Protection Purchases are covered by\n'}{' '}
+            <SvgXml xml={PAY_PAL_LABEL} style={SVGImageStyle} /> Purchase
+            Protection & Trades are covered by{' '}
+            <SvgXml xml={LOOT_SWAP_LOGO_LABEL} style={SVGImageStyle} /> manual
+            Verification
           </ProtectionBottomLabel>
         </GuarenteedDesView>
       </GuarenteedView>
@@ -330,10 +337,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   };
   return (
     <Container>
-      <InHomeHeader />
+      <InStackHeader back={true} title={''} />
       {requestedUserDetails && (
         <ScrollContainer>
-          <TopSpace />
           <CarouselComponent
             height={height / 2 + 40}
             isProduct={true}
@@ -347,23 +353,39 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             showDummy={false}
           />
           <SubContainer>
-            {renderGoBackView()}
-            <ProductLabel>{productData?.brand}</ProductLabel>
-            {!!productData?.type && renderTags()}
-            <ProductDetails>{productData?.name}</ProductDetails>
-            <ProductDetails>Size: {productData?.size}</ProductDetails>
-            <ProductDetails>Condition: {productData?.condition}</ProductDetails>
-            <PriceLabel>${productData?.price}</PriceLabel>
-            {renderButtons()}
+            <DetailsContainer>
+              <DetailsLeftView>
+                {!!productData?.type && renderTags()}
+                <ProductLabel>{productData?.brand}</ProductLabel>
+                <ProductName>{productData?.name}</ProductName>
+                <ProductDetails>
+                  Condition: <BoldText>{productData?.condition}</BoldText>
+                </ProductDetails>
+                <ProductDetails>
+                  Size: <BoldText>{productData?.size}</BoldText>
+                </ProductDetails>
+                <PriceLabel>${productData?.price}</PriceLabel>
+                {selectedProductDetails?.sellerShippingCost && (
+                  <ShippingLabel>
+                    +${selectedProductDetails?.sellerShippingCost} Shipping Cost
+                  </ShippingLabel>
+                )}
+              </DetailsLeftView>
+              {requestedUserDetails?.likedProducts?.length > 0 && (
+                <DetailsRightView>
+                  <SvgXml xml={LIKE_HEART_ICON} />
+                  <ProductDetails>
+                    {requestedUserDetails?.likedProducts?.length}
+                  </ProductDetails>
+                </DetailsRightView>
+              )}
+            </DetailsContainer>
+            <HorizontalBar />
             {renderProtectionView()}
-            {requestedUserDetails && (
-              <>
-                <HorizontalBar />
-                {renderRatingsContainer()}
-              </>
-            )}
+            {requestedUserDetails && <>{renderRatingsContainer()}</>}
             <HorizontalBar />
             {renderDescriptionView()}
+            {renderButtons()}
             <BottomSpace />
           </SubContainer>
         </ScrollContainer>
