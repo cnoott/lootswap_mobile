@@ -389,6 +389,16 @@ export const OfferText: any = styled.Text.attrs(props => ({
   ${layout}
 `;
 
+export const OfferTextSingleOffer: any = styled.Text.attrs(props => ({
+  color: props.theme.colors.white,
+}))`
+  font-size: ${moderateScale(16)}px;
+  font-family: Inter-Bold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
 export const OfferItemList = styled.FlatList.attrs(() => ({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {
@@ -581,4 +591,16 @@ export const NoOffersMessage: any = styled.Text.attrs((props: any) => ({
   ${color}
   ${space}
   ${layout}
+`;
+
+export const SingleMoneyOfferContainer = styled.View.attrs(props => ({
+  height: scale(productImageWidth),
+  width: scale(productImageWidth),
+  borderRadius: scale(10),
+  mr: scale(5),
+  bg: props.theme.colors.offerColor,
+}))`
+  align-items: center;
+  justify-content: center;
+  ${layout} ${color} ${space};
 `;
