@@ -63,4 +63,7 @@ declare module 'localsvgimages' {
   export const ACCORDIAN_UP_ELLIPSE: any;
   export const OFFER_ACCEPTED_HEADER_ICON: any;
   export const OFFER_REJECTED_HEADER_ICON: any;
+  export const LIKE_HEART_ICON: any;
+  export const PAY_PAL_LABEL: any;
+  export const LOOT_SWAP_LOGO_LABEL: any;
 }
