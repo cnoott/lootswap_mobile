@@ -14,6 +14,8 @@ import {
   OfferText,
   OfferItemList,
   TrippleViewOffer,
+  SingleMoneyOfferContainer,
+  OfferTextSingleOffer,
 } from '../styles';
 import {offerCellOnPress} from '../../../utility/utility';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -38,6 +40,16 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const renderDefaultView = () => {
     return <ImageContainer />;
+  };
+
+  const renderSingleMoneyOfferView = () => {
+    return (
+      <SingleMoneyOfferContainer onPress={() => {}}>
+        <OfferTextSingleOffer>
+          +${subItem.senderMoneyOffer}
+        </OfferTextSingleOffer>
+      </SingleMoneyOfferContainer>
+    );
   };
 
   const renderSingleView = () => {
@@ -153,7 +165,10 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
   };
   const renderSubItems = () => {
     const length = subItem?.senderItems?.length;
+    const isOnlyMoneyOffer = false; // TODO -> NEED TO ADD RENDER CONDITION
     switch (true) {
+      case isOnlyMoneyOffer:
+        return renderSingleMoneyOfferView();
       case length === 1 && subItem?.senderMoneyOffer > 0:
         return renderSingleViewWithOffer();
       case length == 1:

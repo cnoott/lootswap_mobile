@@ -457,6 +457,16 @@ export const OfferStatusText = styled.Text.attrs((props: any) => ({
   ${space}
 `;
 
+export const OfferEditedStatusTitleText = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+}))`
+  font-size: ${scale(14)}px;
+  font-family: Inter-Bold;
+  text-align: center;
+  ${color}
+  ${space}
+`;
+
 export const ArrowContainer = styled.TouchableOpacity.attrs((props: any) => ({
   bg: props.theme.colors.light_bg,
   activeOpacity: 1,
@@ -496,4 +506,20 @@ export const OfferPriceText = styled.Text.attrs(props => ({
   font-family: Inter-Bold;
   ${color}
   ${space}
+`;
+
+export const OfferEditedStatusContainer = styled.View.attrs(() => ({
+  height: verticalScale(48),
+  px: scale(8),
+  alignSelf: 'stretch',
+  bg: 'rgba(254, 198, 0, 0.1)',
+  borderRadius: scale(20),
+  mx: scale(15),
+  mb: verticalScale(15),
+}))`
+  align-items: center;
+  justify-content: center;
+  ${color}
+  ${space}
+  ${layout}
 `;

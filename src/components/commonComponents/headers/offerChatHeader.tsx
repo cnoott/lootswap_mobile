@@ -22,6 +22,8 @@ import {
   PendingOfferStatusContainer,
   OfferYouLabel,
   OfferPriceText,
+  OfferEditedStatusContainer,
+  OfferEditedStatusTitleText,
 } from './styles';
 import {
   LEFT_BLACK_ARROW,
@@ -64,6 +66,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
   }) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
     const [accOpen, setAccOpen] = useState(true);
+    const isTradeEdited = false;
     const isAccepted = tradeStatus === Trade_Status?.Accepted;
     const isCanceled = tradeStatus === Trade_Status?.Canceled;
     const isPending = !isAccepted && !isCanceled;
@@ -124,6 +127,20 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
 
     const renderOfferForSellOnlyView = () => {
       return <OfferForSellOnlyCell itemData={offerItem?.recieverItem} />;
+    };
+
+    const RenderTradeOfferEditedView = () => {
+      const name =
+        offerItem?.reciever?._id === userData?._id
+          ? offerItem?.reciever?.name
+          : offerItem?.sender?.name;
+      return (
+        <OfferEditedStatusContainer>
+          <OfferEditedStatusTitleText>
+            {name} has edited their trade offer
+          </OfferEditedStatusTitleText>
+        </OfferEditedStatusContainer>
+      );
     };
 
     const RenderOfferStatusAccrordianView = () => {
@@ -197,14 +214,20 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       );
     };
 
+    const getOfferStatusView = () => {
+      if (isTradeEdited) {
+        return <RenderTradeOfferEditedView />; // TODO -> NEED TO ADD RENDER CONDITION
+      } else if (isPending) {
+        return <RenderPendingOfferStatusAccrordianView />;
+      } else {
+        return <RenderOfferStatusAccrordianView />;
+      }
+    };
+
     const renderOfferStatusContainer = () => {
       return (
         <EmptyColumnView>
-          {isPending ? (
-            <RenderPendingOfferStatusAccrordianView />
-          ) : (
-            <RenderOfferStatusAccrordianView />
-          )}
+          {getOfferStatusView()}
           <Collapsible collapsed={accOpen} renderChildrenCollapsed={true}>
             {isPending ? renderOfferForSellOnlyView() : renderOfferCellView()}
           </Collapsible>
@@ -239,7 +262,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
             </ProfileLeftTouchable>
           </EmptyRowView>
         </ProfileHeaderContainer>
-        {renderOfferStatusContainer()}
+        {offerItem && renderOfferStatusContainer()}
       </ChatOfferContainer>
     );
   },
