@@ -18,6 +18,8 @@ interface HeaderProps {
   centerAligned?: boolean;
   onBackCall?: Function;
   onlyTitleCenterAlign?: boolean;
+  printLabel?: boolean;
+  printLabelButton?: any;
 }
 
 export const InStackHeader: FC<HeaderProps> = React.memo(props => {
@@ -29,6 +31,8 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
     centerAligned = false,
     onlyTitleCenterAlign = false,
     onBackCall,
+    printLabel = false,
+    printLabelButton = () => {},
   } = props;
   const onTrippleDotPress = () => {};
   const onBackPress = () => {
@@ -74,6 +78,7 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
           <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
         </ProfileRightTouchable>
       )}
+      {printLabel && printLabelButton()}
     </ProfileHeaderContainer>
   );
 });

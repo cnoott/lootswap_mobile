@@ -887,16 +887,31 @@ export const paypalOrderShippingStatus = (userId: string, paypalOrder: any) => {
 };
 
 export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
-  const {recieverStep, senderStep, reciever, sender} = tradeOrder;
+  const {recieverStep, senderStep, reciever} = tradeOrder;
+  const isReciever = userId === reciever?._id;
+  if (isReciever && tradeOrder?.recieverPaymentStatus === 'processing') {
+    return {
+      text: 'Processing payment',
+      backColor: 'rgba(250, 204, 21, 0.1)',
+      labelColor: '#e1b505',
+    };
+  }
+  if (!isReciever && tradeOrder?.senderPaymentStatus === 'processing') {
+    return {
+      text: 'Processing payment',
+      backColor: 'rgba(250, 204, 21, 0.1)',
+      labelColor: '#e1b505',
+    };
+  }
 
-  if (userId === reciever._id && tradeOrder.recieverPaymentStatus !== 'paid') {
+  if (isReciever && tradeOrder?.recieverPaymentStatus !== 'paid') {
     return {
       text: 'Waiting for payment',
       backColor: 'rgba(250, 204, 21, 0.1)',
       labelColor: '#e1b505',
     };
   }
-  if (userId === sender._id && tradeOrder.senderPaymentStatus !== 'paid') {
+  if (!isReciever && tradeOrder?.senderPaymentStatus !== 'paid') {
     return {
       text: 'Waiting for payment',
       backColor: 'rgba(250, 204, 21, 0.1)',
@@ -904,7 +919,7 @@ export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
     };
   }
 
-  const step = userId === reciever._id ? recieverStep : senderStep;
+  const step = isReciever ? recieverStep : senderStep;
   switch (step) {
     case -3:
     case -2:
