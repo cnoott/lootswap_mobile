@@ -385,11 +385,10 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             isProduct={true}
             autoPlay={false}
             loop={false}
-            imagesArr={
-              selectedProductDetails?.secondary_photos || [
-                selectedProductDetails?.primary_photo,
-              ]
-            }
+            imagesArr={[
+              selectedProductDetails?.primary_photo,
+              ...selectedProductDetails?.secondary_photos,
+            ]}
             showDummy={false}
           />
           <SubContainer>
