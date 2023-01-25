@@ -9,6 +9,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 export const Container = styled.View.attrs(props => ({
   flex: 1,
   bg: props.theme.colors.white,
+  pb: verticalScale(20),
 }))`
   align-items: flex-start ${space} ${layout} ${color};
 `;

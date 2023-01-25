@@ -69,6 +69,7 @@ import {
 } from '../../redux/modules';
 import {getProductTags, configureAndGetLootData} from '../../utility/utility';
 import {Alert} from 'custom_top_alert';
+import {Trade_Options} from 'custom_enums';
 
 const height = Dimensions.get('window').height;
 
@@ -404,12 +405,16 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                 <ProductDetails>
                   Size: <BoldText>{productData?.size}</BoldText>
                 </ProductDetails>
-                <PriceLabel>${productData?.price}</PriceLabel>
-                {selectedProductDetails?.sellerShippingCost && (
-                  <ShippingLabel>
-                    +${selectedProductDetails?.sellerShippingCost} Shipping Cost
-                  </ShippingLabel>
+                {productData?.type !== Trade_Options?.TradeOnly && (
+                  <PriceLabel>${productData?.price}</PriceLabel>
                 )}
+                {productData?.type !== Trade_Options?.TradeOnly &&
+                  selectedProductDetails?.sellerShippingCost && (
+                    <ShippingLabel>
+                      +${selectedProductDetails?.sellerShippingCost} Shipping
+                      Cost
+                    </ShippingLabel>
+                  )}
               </DetailsLeftView>
               {requestedUserDetails?.likedProducts?.length > 0 && (
                 <DetailsRightView>

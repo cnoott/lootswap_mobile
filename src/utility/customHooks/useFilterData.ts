@@ -1,13 +1,15 @@
 import {useRefinementList, useRange} from 'react-instantsearch-hooks';
 import {configureBrandListForDropdown, configureSizeList} from '../utility';
 
-export const useFilterData = (props: any) => {
+export const useFilterData = props => {
   const {
     range,
     canRefine,
     refine: priceRefine,
   } = useRange({...props, attribute: 'price'});
+
   const {items: categoriesItems, refine: categoriesRefine} = useRefinementList({
+    ...props,
     attribute: 'category',
   });
 
@@ -16,14 +18,17 @@ export const useFilterData = (props: any) => {
     refine: brandRefine,
     searchForItems,
   } = useRefinementList({
+    ...props,
     attribute: 'brand',
   });
 
   const {items: priceItems} = useRefinementList({
+    ...props,
     attribute: 'price',
   });
 
   const {items: sizeItems, refine: sezeRefine} = useRefinementList({
+    ...props,
     attribute: 'size',
   });
 
@@ -73,7 +78,7 @@ export const useFilterData = (props: any) => {
     {
       FilterTitle: 'Price Range',
       data: priceItems,
-      refineFunction: label => priceRefine(label),
+      refineFunction: rangeArr => priceRefine(rangeArr),
       id: 6,
       isCategorySelected: false,
       range: range,
