@@ -14,6 +14,7 @@ import {
   PrintIcon,
   PrintLabel,
 } from './styles';
+import RNPrint from 'react-native-print';
 
 interface TradeOrderUserDetailViewProps {
   item?: any;
@@ -29,6 +30,15 @@ const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
     userData?._id,
     item,
   );
+
+  const printLabel = async () => {
+    const htmlString = isReciever
+      ? `<img src="data:image/png;base64,${item.recieverUPSShipmentData.toWearhouseLabel}"`
+      : `<img src="data:image/png;base64,${item.senderUPSShipmentData.toWearhouseLabel}"`;
+    RNPrint.print({
+      html: htmlString,
+    });
+  };
 
   return (
     <RowView>
@@ -54,7 +64,7 @@ const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
       </UserLeftView>
       <UserRightView>
         <TimeLabel>{daysPast(item?.createdAt)}</TimeLabel>
-        <PrintLabelContainer>
+        <PrintLabelContainer onPress={() => printLabel()}>
           <PrintIcon />
           <PrintLabel>Print Label</PrintLabel>
         </PrintLabelContainer>

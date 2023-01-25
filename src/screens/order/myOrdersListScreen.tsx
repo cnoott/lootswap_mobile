@@ -23,8 +23,7 @@ import {
   SalesListView,
   TradeOrdersListView,
 } from './myOrdersStyle';
-//TODO:
-//- handle printing label button
+
 export const MyOrdersListScreen: FC<{}> = () => {
   const dispatch = useDispatch();
   const orders: OrderProps = useSelector(state => state.orders);
@@ -69,7 +68,7 @@ isTradeOrder: isTradeOrder,
   };
 
   const onTradeItemPress = (tradeOrder: any) => {
-    const isReciever = userData?._id === tradeOrder.reciever._id;
+    const isReciever = userData?._id === tradeOrder?.reciever?._id;
 
     if (isReciever) {
       if (tradeOrder?.recieverSessionStatus === 'complete') {
@@ -111,7 +110,13 @@ isTradeOrder: isTradeOrder,
           });
           break;
         case 'failed':
-          console.log('failed wip');
+          navigation?.navigate('Offers/Inbox', {
+            screen: 'TradeCheckoutScreen',
+            params: {
+              tradeData: tradeOrder.tradeId,
+              orderData: tradeOrder,
+            },
+          });
       }
     }
   };
@@ -151,6 +156,7 @@ isTradeOrder: isTradeOrder,
       <OrderTradeOrdersCell
         onCellPress={() => onTradeItemPress(item)}
         item={item}
+        userData={userData}
       />
     );
   };

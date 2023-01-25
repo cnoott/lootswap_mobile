@@ -25,15 +25,27 @@ import {
 import OrderTrackSteps from '../../components/orderTrack/orderTrackSteps';
 //import OrderStatusDetails from '../../components/orderTrack/orderStatusDetails';
 import TradeOfferCell from '../offers/offerItems/TradeOfferCell';
+import LSButton from '../../components/commonComponents/LSButton';
+import {Size, Type} from '../../enums';
 import {useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-
+import RNPrint from 'react-native-print';
+//TODO: tracking number is a hyperlink
 export const TrackOrderScreen: FC<any> = ({route}) => {
   const {isTradeOrder = false, item} = route?.params || {};
   const auth: AuthProps = useSelector(state => state?.auth);
   const {userData} = auth;
 
-  const isReciever = userData?._id === item?.reciever;
+  const isReciever = userData?._id === item?.reciever?._id;
+
+  const printLabel = async () => {
+    const htmlString = isReciever
+      ? `<img src="data:image/png;base64,${item.recieverUPSShipmentData.toWearhouseLabel}"`
+      : `<img src="data:image/png;base64,${item.senderUPSShipmentData.toWearhouseLabel}"`;
+    RNPrint.print({
+      html: htmlString,
+    });
+  };
 
   const renderTrackingNumber = () => {
     if (!isTradeOrder) {
@@ -43,6 +55,10 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
     const {recieverUPSShipmentData, senderUPSShipmentData} = item;
 
     if (isReciever) {
+      if (item.senderPaymentStatus === 'unpaid') {
+        return 'Waiting for other user to pay';
+      }
+
       if (
         item.senderStep < 3 ||
         typeof item.toSenderTrackingNumber === 'undefined'
@@ -53,6 +69,10 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
         return item?.toSenderTrackingNumber;
       }
     } else {
+      if (item.senderPaymentStatus === 'processing') {
+        return 'Payment processing';
+      }
+
       if (
         item.recieverStep < 3 ||
         typeof item.toRecieverTrackingNumber === 'undefined'
@@ -62,6 +82,25 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       } else {
         return item?.toRecieverTrackingNumber;
       }
+    }
+  };
+
+  const printLabelButton = () => (
+    <LSButton
+      title={'Print Label'}
+      size={Size.Extra_Small}
+      type={Type.Primary}
+      radius={15}
+      onPress={() => printLabel()}
+    />
+  );
+
+  const printLabelRenderOptions = () => {
+    if (
+      item.recieverPaymentStatus === 'paid' &&
+      item.senderPaymentStatus === 'paid'
+    ) {
+      return printLabelButton();
     }
   };
 
@@ -118,7 +157,12 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
   };
   return (
     <Container>
-      <InStackHeader title={'Track Order'} right={true} />
+      <InStackHeader
+        title={'Track Order'}
+        right={false}
+        printLabel={true}
+        printLabelButton={printLabelRenderOptions}
+      />
       <SubContainer>
         {renderOrderHeaderDetails()}
         {isTradeOrder ? renderMultipleOrderCell() : renderSingleOrderCell()}
