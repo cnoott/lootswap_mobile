@@ -2,7 +2,7 @@
   LootSwap - FIRST TAB HOME SCREEN
  ***/
 
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
@@ -13,6 +13,7 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import LSHomeScreenSearch from '../../components/filterSearch/homeScreenSearch';
 import {AlgoliaAppId, AlgoliaApiKey, ALGOLIA_INDEX_NAME} from '@env';
 import LSProductCard from '../../components/productCard';
+import HomeFiltersScreen from './homeFilters';
 import {
   LoadingRequest,
   LoadingSuccess,
@@ -23,6 +24,7 @@ const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 export const HomeScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const dispatch = useDispatch();
+  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     // For Loader handling
@@ -39,7 +41,8 @@ export const HomeScreen: FC<{}> = () => {
   };
 
   const onRightIconPress = () => {
-    navigation.navigate('HomeFiltersScreen');
+    onToggleModal();
+    // navigation.navigate('HomeFiltersScreen');
   };
 
   const onEndReached = (isLastPage: boolean, showMore: Function = () => {}) => {
@@ -80,11 +83,21 @@ export const HomeScreen: FC<{}> = () => {
     );
   };
 
+  const onToggleModal = () => {
+    setModalOpen(isOpen => !isOpen);
+  };
+
   return (
     <Container>
       <InHomeHeader />
       <InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
         <InfiniteHits />
+        {isModalOpen && (
+          <HomeFiltersScreen
+            isModalOpen={isModalOpen}
+            onToggleModal={onToggleModal}
+          />
+        )}
       </InstantSearch>
     </Container>
   );

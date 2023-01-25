@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /***
 LootSwap - TRADE CHECKOUT SCREEN
 ***/
