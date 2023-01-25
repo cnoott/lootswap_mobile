@@ -80,7 +80,7 @@ export const ProductLabel = styled.Text.attrs(props => ({
   my: scale(1),
 }))`
   font-size: ${moderateScale(22)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-ExtraBold;
   ${color}
   ${space}
   ${layout}
@@ -91,7 +91,7 @@ export const ProductName = styled.Text.attrs(props => ({
   my: scale(1),
 }))`
   font-size: ${moderateScale(18)}px;
-  font-family: Inter;
+  font-family: Urbanist-SemiBold;
   ${color}
   ${space}
   ${layout}
@@ -102,14 +102,14 @@ export const ProductDetails = styled.Text.attrs(props => ({
   my: scale(1),
 }))`
   font-size: ${moderateScale(12)}px;
-  font-family: Inter;
+  font-family: Urbanist-Medium;
   ${color}
   ${space}
   ${layout}
 `;
 
 export const BoldText = styled.Text`
-  font-family: Inter;
+  font-family: Urbanist-SemiBold;
   ${color}
   ${space}
   ${layout}
@@ -119,8 +119,8 @@ export const PriceLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
   mt: scale(5),
 }))`
-  font-size: ${moderateScale(16)}px;
-  font-family: Inter-Black;
+  font-size: ${moderateScale(22)}px;
+  font-family: Urbanist-ExtraBold;
   ${color}
   ${space}
   ${layout}
@@ -131,7 +131,7 @@ export const ShippingLabel = styled.Text.attrs(props => ({
   my: scale(1),
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter;
+  font-family: Urbanist-Medium;
   ${color}
   ${space}
   ${layout}
@@ -162,7 +162,7 @@ export const TagLabel = styled.Text.attrs(props => ({
   color: props?.tagColor,
 }))`
   font-size: ${moderateScale(12)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-SemiBold;
   ${color}
   ${space}
   ${layout}
@@ -191,7 +191,7 @@ export const ProtectionTopLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
   font-size: ${moderateScale(20)}px;
-  font-family: Inter-Black;
+  font-family: Urbanist-ExtraBold;
   ${color}
   ${space}
   ${layout}
@@ -203,7 +203,7 @@ export const ProtectionBottomLabel = styled.Text.attrs(props => ({
   width: '95%',
 }))`
   font-size: ${moderateScale(13)}px;
-  font-family: Inter;
+  font-family: Urbanist-Medium;
   ${color}
   ${space}
   ${layout}
@@ -234,7 +234,7 @@ export const DescriptionLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter-Black;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
@@ -251,7 +251,7 @@ export const ProductOwnerLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
   font-size: ${moderateScale(18)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-ExtraBold;
   ${color}
   ${space}
   ${layout}
@@ -279,7 +279,7 @@ export const SellerInfoLabel = styled.Text.attrs(props => ({
   mt: verticalScale(15),
 }))`
   font-size: ${moderateScale(15)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
@@ -303,7 +303,7 @@ export const NewSellerLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.tradeBg,
 }))`
   font-size: ${moderateScale(13)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-SemiBold;
   ${color}
   ${space}
   ${layout}

@@ -50,6 +50,13 @@
 		<string>Inter-Black.otf</string>
 		<string>Inter-Bold.otf</string>
 		<string>Inter-Light.otf</string>
+		<string>Urbanist-Black.ttf</string>
+		<string>Urbanist-Bold.ttf</string>
+		<string>Urbanist-ExtraBold.ttf</string>
+		<string>Urbanist-Light.ttf</string>
+		<string>Urbanist-Medium.ttf</string>
+		<string>Urbanist-SemiBold.ttf</string>
+		<string>Urbanist-Thin.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
