@@ -1,6 +1,10 @@
 import * as React from 'react';
 import {LSProfileImageComponent} from '../commonComponents/profileImage';
-import {daysPast, paypalOrderShippingStatus} from '../../utility/utility';
+import {
+  daysPast,
+  paypalOrderShippingStatus,
+  tradeOrderShippingStatus,
+} from '../../utility/utility';
 import {
   RowView,
   UserLeftView,
@@ -23,10 +27,10 @@ interface OrderUserDetailViewProps {
 
 const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
   const {item = {}, isSales = false, userData} = props;
-  const {labelColor, backColor, text} = paypalOrderShippingStatus(
-    userData?._id,
-    item,
-  );
+  const {labelColor, backColor, text} = isSales
+    ? paypalOrderShippingStatus(userData?._id, item)
+    : tradeOrderShippingStatus(userData?._id, item);
+
   return (
     <RowView>
       <UserLeftView>

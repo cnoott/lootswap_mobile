@@ -2,7 +2,7 @@
 LootSwap - TRADE CHECKOUT SCREEN
 ***/
 
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useState, useCallback} from 'react';
 import {SvgXml} from 'react-native-svg';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import TradeCheckoutItemCell from './offerItems/TradeCheckoutItemCell';
@@ -35,6 +35,7 @@ import {
 } from './tradeCheckoutStyle';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {useDispatch, useSelector} from 'react-redux';
+import {Alert} from 'custom_top_alert';
 import {
   getUsersDetailsRequest,
   fetchPaymentSheet,
@@ -71,7 +72,7 @@ export const TradeCheckoutScreen: FC<{}> = props => {
   const {initPaymentSheet, presentPaymentSheet} = useStripe();
   const [loading, setLoading] = useState(false);
 
-  const initializePaymentSheet = async () => {
+  const initializePaymentSheet = useCallback(() => {
     const reqData = {
       userId: userData?._id,
       orderId: orderData?._id,
@@ -94,11 +95,13 @@ export const TradeCheckoutScreen: FC<{}> = props => {
           }
         },
         error => {
-          console.log('payment sheet error:', error);
+          Alert.showError(
+            `Error getting rates data! Please restart app and try again: ${error}`,
+          );
         },
       ),
     );
-  };
+  }, [dispatch, orderData?._id, userData?._id, initPaymentSheet]);
 
   const openPaymentSheet = async () => {
     const {error} = await presentPaymentSheet();
@@ -121,9 +124,9 @@ export const TradeCheckoutScreen: FC<{}> = props => {
   };
 
   useEffect(() => {
-    initializePaymentSheet();
     dispatch(getUsersDetailsRequest(userData?._id));
-  });
+    initializePaymentSheet();
+  }, [userData?._id, dispatch, initializePaymentSheet]);
 
   const renderHeading = (label: string) => {
     return <HeadingLabel>{label}</HeadingLabel>;
