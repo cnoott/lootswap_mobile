@@ -39,6 +39,12 @@ import {
   DetailsLeftView,
   DetailsRightView,
   SVGImageStyle,
+  ProtectionIconStyle,
+  SellerInfoLabel,
+  EmptyRowView,
+  NewSellerTagView,
+  NewSellerLabel,
+  DescriptionContainerView,
 } from './styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {SvgXml} from 'react-native-svg';
@@ -296,7 +302,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const renderProtectionView = () => {
     return (
       <GuarenteedView>
-        <SvgXml xml={SHIELD_ICON} />
+        <SvgXml xml={SHIELD_ICON} style={ProtectionIconStyle} />
         <GuarenteedDesView>
           <ProtectionTopLabel>
             Buyer & Trade protection Guarantee
@@ -314,25 +320,59 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   };
   const renderDescriptionView = () => {
     return (
-      <TopSpace>
+      <DescriptionContainerView>
         <DescriptionLabel>Description</DescriptionLabel>
+        <TopSpace space={5} />
         <ProductDetails>{productData?.description}</ProductDetails>
-      </TopSpace>
+      </DescriptionContainerView>
     );
   };
-  const renderRatingsContainer = () => {
+  const renderLookingForView = () => {
     return (
-      <RatingsContainer>
-        <LSProfileImageComponent
-          profileUrl={requestedUserDetails?.profile_picture}
-          imageHeight={42}
-          imageWidth={42}
-        />
-        <GuarenteedDesView>
-          <ProductOwnerLabel>{requestedUserDetails?.name}</ProductOwnerLabel>
-          <StarRatings rating={requestedUserDetails?.combinedRatings} />
-        </GuarenteedDesView>
-      </RatingsContainer>
+      <DescriptionContainerView>
+        <DescriptionLabel>This user is looking for</DescriptionLabel>
+        <TopSpace space={5} />
+        <ProductDetails>{productData?.interestedIn}</ProductDetails>
+      </DescriptionContainerView>
+    );
+  };
+  const renderUserDetailsView = () => {
+    return (
+      <>
+        <SellerInfoLabel>SELLER INFO :</SellerInfoLabel>
+        <RatingsContainer>
+          <LSProfileImageComponent
+            profileUrl={requestedUserDetails?.profile_picture}
+            imageHeight={57}
+            imageWidth={57}
+            imageRadius={10}
+          />
+          <GuarenteedDesView>
+            <EmptyRowView>
+              <ProductOwnerLabel>
+                {requestedUserDetails?.name}
+              </ProductOwnerLabel>
+              {requestedUserDetails?.combinedRatings > 0 ? null : (
+                <NewSellerTagView>
+                  <NewSellerLabel>New Seller</NewSellerLabel>
+                </NewSellerTagView>
+              )}
+            </EmptyRowView>
+            <EmptyRowView>
+              {requestedUserDetails?.combinedRatings > 0 ? (
+                <>
+                  <StarRatings rating={requestedUserDetails?.combinedRatings} />
+                  <ShippingLabel>
+                    {` (${requestedUserDetails?.ratings?.length} Reviews)`}
+                  </ShippingLabel>
+                </>
+              ) : (
+                <ShippingLabel>No Reviews yet</ShippingLabel>
+              )}
+            </EmptyRowView>
+          </GuarenteedDesView>
+        </RatingsContainer>
+      </>
     );
   };
   return (
@@ -382,9 +422,10 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             </DetailsContainer>
             <HorizontalBar />
             {renderProtectionView()}
-            {requestedUserDetails && <>{renderRatingsContainer()}</>}
+            {requestedUserDetails && <>{renderUserDetailsView()}</>}
             <HorizontalBar />
             {renderDescriptionView()}
+            {!!productData?.interestedIn && renderLookingForView()}
             {renderButtons()}
             <BottomSpace />
           </SubContainer>
