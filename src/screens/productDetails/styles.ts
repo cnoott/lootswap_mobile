@@ -50,8 +50,8 @@ export const DetailsRightView = styled.View`
   ${layout}
 `;
 
-export const TopSpace = styled.View.attrs(() => ({
-  mt: verticalScale(10),
+export const TopSpace = styled.View.attrs((props: any) => ({
+  mt: verticalScale(props?.space || 10),
 }))`
   ${space}
 `;
@@ -219,10 +219,21 @@ export const HorizontalBar = styled.View.attrs(props => ({
   ${color}
 `;
 
+export const DescriptionContainerView = styled.View.attrs((props: any) => ({
+  mt: verticalScale(20),
+  borderWidth: 0.5,
+  borderRadius: scale(20),
+  borderColor: props.theme.colors.light_bg,
+  p: scale(15),
+  overflow: 'hidden',
+}))`
+  ${space} ${border} ${color};
+`;
+
 export const DescriptionLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
-  font-size: ${moderateScale(16)}px;
+  font-size: ${moderateScale(14)}px;
   font-family: Inter-Black;
   ${color}
   ${space}
@@ -254,10 +265,54 @@ export const BottomSpace = styled.View.attrs(() => ({
 
 export const EmptyView = styled.View``;
 
+export const EmptyRowView = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
 export const SVGTextContainer = styled.View.attrs(() => ({}))`
   ${space}
 `;
 
+export const SellerInfoLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.lightGrey,
+  mt: verticalScale(15),
+}))`
+  font-size: ${moderateScale(15)}px;
+  font-family: Inter-Bold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const NewSellerTagView = styled.View.attrs(() => ({
+  py: verticalScale(5),
+  px: scale(10),
+  borderRadius: scale(5),
+  alignItems: 'center',
+  justifyContent: 'center',
+  bg: 'rgba(74, 222, 128, 0.1)',
+  ml: scale(5),
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const NewSellerLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.tradeBg,
+}))`
+  font-size: ${moderateScale(13)}px;
+  font-family: Inter-Bold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
 export const SVGImageStyle = {
   marginBottom: -2,
+};
+
+export const ProtectionIconStyle = {
+  marginTop: verticalScale(5),
 };
