@@ -6,7 +6,7 @@ import React, {FC, useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
-import {Container, FlatList, SearchContainer} from './styles';
+import {Container, FlatList, SearchContainer, EmptyView} from './styles';
 import algoliasearch from 'algoliasearch/lite';
 import {InstantSearch, useInfiniteHits} from 'react-instantsearch-hooks';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -53,7 +53,11 @@ export const HomeScreen: FC<{}> = () => {
 
   const renderItem = ({item, index}) => {
     if (index === 0) {
-      return <CarouselComponent />;
+      return (
+        <EmptyView>
+          <CarouselComponent />
+        </EmptyView>
+      );
     }
     return <LSProductCard item={item} onPress={() => onProductPress(item)} />;
   };
@@ -79,6 +83,12 @@ export const HomeScreen: FC<{}> = () => {
           </SearchContainer>
         }
         stickyHeaderIndices={[0]}
+        getItemLayout={(data, index) => ({
+          length: 100,
+          offset: 100 * index,
+          index,
+          data,
+        })}
       />
     );
   };

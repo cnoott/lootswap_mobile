@@ -14,3 +14,6 @@ export const OFFERS_BOTTOM_TAB = require('../assets/images/bottomTab/offers.png'
 export const PROFILE_BOTTOM_TAB = require('../assets/images/bottomTab/profile.png');
 export const NOTIFICATIONS_BOTTOM_TAB = require('../assets/images/bottomTab/bell.png');
 export const ADD_LOOT_BOTTOM_TAB = require('../assets/images/bottomTab/add-loot.png');
+
+// Gif's
+export const PAYMENT_SUCCESS_GIF = require('../assets/images/gif/payment_success.gif');
