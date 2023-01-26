@@ -30,7 +30,7 @@ export const TabItemTouchable = styled.TouchableOpacity.attrs(() => ({
 }))``;
 
 export const TabItemContainer = styled.View`
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 `;
 
@@ -42,6 +42,7 @@ export const TabItemText = styled.Text.attrs(props => ({
 }))`
   font-weight: ${props => `${props.isActive ? 600 : 400}`};
   font-size: ${moderateScale(12)}px;
+  font-family: Urbanist;
   ${color}
   ${space}
 `;
