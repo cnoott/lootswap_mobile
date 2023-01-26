@@ -36,7 +36,7 @@ function CarouselComponent(props: CarouselProps) {
         keyExtractor={item => item}
         data={imagesArr}
         scrollAnimationDuration={1500}
-        mode={isProduct ? 'parallax' : 'default'}
+        mode={'default'}
         modeConfig={{
           snapDirection: 'left',
           stackInterval: 18,
