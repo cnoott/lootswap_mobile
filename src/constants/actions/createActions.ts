@@ -28,6 +28,10 @@ export const GET_USER_DETAILS = {
   ...createActionConst(actions.GET_USER_DETAILS),
 };
 
+export const GET_MY_DETAILS = {
+  ...createActionConst(actions.GET_MY_DETAILS),
+};
+
 export const GET_PRODUCT_DETAILS = {
   ...createActionConst(actions.GET_PRODUCT_DETAILS),
 };

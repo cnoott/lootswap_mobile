@@ -4,6 +4,7 @@ import {
   SIGN_OUT,
   PROFILE_IMG_UPLOAD,
   GET_USER_DETAILS,
+  GET_MY_DETAILS,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -119,6 +120,27 @@ export const getUsersDetailsSuccess = (payload: any) => {
 export const getUsersDetailsFailure = (error: any) => {
   return {
     type: GET_USER_DETAILS.FAILURE,
+    error,
+  };
+};
+
+export const getMyDetailsRequest = (userId: string) => {
+  return {
+    type: GET_MY_DETAILS.REQUEST,
+    userId,
+  };
+};
+
+export const getMyDetailsSuccess = (payload: any) => {
+  return {
+    type: GET_MY_DETAILS.SUCCESS,
+    payload,
+  };
+};
+
+export const getMyDetailsFailure = (error: any) => {
+  return {
+    type: GET_MY_DETAILS.FAILURE,
     error,
   };
 };

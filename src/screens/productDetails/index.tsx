@@ -128,11 +128,14 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     navigation.navigate('SignInScreen');
   };
 
-  const onBuyNewPress = () => {
+  const onBuyNowPress = () => {
     if (!isLogedIn) {
       goToLogin();
       return;
     }
+    navigation.navigate('CheckoutScreen', {
+      productData: selectedProductDetails,
+    });
   };
 
   const onMessagePress = () => {
@@ -268,7 +271,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             title={'Already Trading'}
             size={Size.Full}
             type={Type.Secondary}
-            onPress={onBuyNewPress}
+            onPress={onBuyNowPress}
           />
         </TopSpace>
       );
@@ -279,7 +282,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             title={'Buy Now'}
             size={Size.Full}
             type={Type.Secondary}
-            onPress={onBuyNewPress}
+            onPress={onBuyNowPress}
           />
           <TopSpace />
           <LSButton
@@ -385,10 +388,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             isProduct={true}
             autoPlay={false}
             loop={false}
-            imagesArr={[
-              selectedProductDetails?.primary_photo,
-              ...selectedProductDetails?.secondary_photos,
-            ]}
+            imagesArr={selectedProductDetails?.product_photos}
             showDummy={false}
           />
           <SubContainer>

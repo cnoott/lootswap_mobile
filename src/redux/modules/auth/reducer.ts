@@ -6,6 +6,7 @@ import {
   SIGN_OUT,
   PROFILE_IMG_UPLOAD,
   GET_USER_DETAILS,
+  GET_MY_DETAILS,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
 
@@ -179,6 +180,22 @@ export default function auth(state = InitialState, action: ActionProps) {
       return {
         ...state,
         requestedUserDetails: null,
+      };
+    }
+    case GET_MY_DETAILS.REQUEST: {
+      return {
+        ...state,
+      };
+    }
+    case GET_MY_DETAILS.SUCCESS: {
+      return {
+        ...state,
+        userData: {...state.userData, ...payload},
+      };
+    }
+    case GET_MY_DETAILS.FAILURE: {
+      return {
+        ...state,
       };
     }
     default:

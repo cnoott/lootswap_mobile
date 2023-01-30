@@ -22,4 +22,5 @@ export const BText = styled.Text.attrs(props => ({
 }))`
   font-size: ${props => `${props.fontSize}px`};
   font-weight: 600 ${color};
+  font-family: Urbanist-Bold;
 `;

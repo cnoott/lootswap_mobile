@@ -5,6 +5,7 @@ import {
   SIGN_OUT,
   SIGN_UP_DATA,
   GET_USER_DETAILS,
+  GET_MY_DETAILS,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -16,6 +17,8 @@ import {
   profileImgUploadFailure,
   getUsersDetailsSuccess,
   getUsersDetailsFailure,
+  getMyDetailsSuccess,
+  getMyDetailsFailure,
 } from './actions';
 import {
   signIn,
@@ -120,10 +123,29 @@ export function* getRequestedUserDetails(action: any) {
   }
 }
 
+export function* getMyDetails(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      getRequestedUserDetailsCall,
+      action?.userId,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      yield put(getMyDetailsSuccess(response.data));
+    } else {
+      yield put(getMyDetailsFailure(response.error));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
   yield takeLatest(SIGN_OUT.REQUEST, signOutAPI);
   yield takeLatest(PROFILE_IMG_UPLOAD.REQUEST, uploadProfileImgAPI);
   yield takeLatest(GET_USER_DETAILS.REQUEST, getRequestedUserDetails);
+  yield takeLatest(GET_MY_DETAILS.REQUEST, getMyDetails);
 }
