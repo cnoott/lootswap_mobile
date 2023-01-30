@@ -102,12 +102,12 @@ export const HomeScreen: FC<{}> = () => {
       <InHomeHeader />
       <InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
         <InfiniteHits />
-        {isModalOpen && (
+        {
           <HomeFiltersScreen
             isModalOpen={isModalOpen}
             onToggleModal={onToggleModal}
           />
-        )}
+        }
       </InstantSearch>
     </Container>
   );

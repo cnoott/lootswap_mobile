@@ -1,43 +1,32 @@
 import {useRefinementList, useRange} from 'react-instantsearch-hooks';
 import {configureBrandListForDropdown, configureSizeList} from '../utility';
 
-export const useFilterData = props => {
+export const useFilterData = () => {
   const {
     range,
     canRefine,
     refine: priceRefine,
-  } = useRange({...props, attribute: 'price'});
+  } = useRange({attribute: 'price'});
 
   const {items: categoriesItems, refine: categoriesRefine} = useRefinementList({
-    ...props,
     attribute: 'category',
   });
 
-  const {
-    items: brandItems,
-    refine: brandRefine,
-    searchForItems,
-  } = useRefinementList({
-    ...props,
+  const {items: brandItems, refine: brandRefine} = useRefinementList({
     attribute: 'brand',
   });
 
-  const {items: priceItems} = useRefinementList({
-    ...props,
-    attribute: 'price',
-  });
-
   const {items: sizeItems, refine: sezeRefine} = useRefinementList({
-    ...props,
     attribute: 'size',
   });
 
   let hasData =
     categoriesItems?.length > 0 &&
-    priceItems?.length > 0 &&
     sizeItems?.length > 0 &&
-    brandItems?.length > 0;
+    brandItems?.length > 0 &&
+    range;
   const sizeData = configureSizeList(sizeItems);
+  const brandsData = configureBrandListForDropdown(brandItems);
   let filterData = [
     {
       FilterTitle: 'Category',
@@ -48,15 +37,15 @@ export const useFilterData = props => {
     },
     {
       FilterTitle: 'Brand',
-      data: configureBrandListForDropdown(brandItems),
+      data: brandsData?.unSelectedBrandList,
+      selectedBrandData: brandsData?.selectedBrandList,
       refineFunction: label => brandRefine(label),
-      searchFunction: (val: string) => searchForItems(val),
       id: 2,
       isCategorySelected: false,
     },
     {
       FilterTitle: 'Product Type',
-      data: priceItems?.slice(0, 4),
+      data: [1, 2],
       refineFunction: () => {},
       id: 3,
       isCategorySelected: false,
@@ -77,7 +66,6 @@ export const useFilterData = props => {
     },
     {
       FilterTitle: 'Price Range',
-      data: priceItems,
       refineFunction: rangeArr => priceRefine(rangeArr),
       id: 6,
       isCategorySelected: false,

@@ -21,7 +21,7 @@ export const EmptyContainer = styled.View`
 export const SubContainer = styled(KeyboardAwareScrollView).attrs(() => ({
   px: moderateScale(20),
   showsVerticalScrollIndicator: false,
-  keyboardShouldPersistTaps: 'always',
+  keyboardShouldPersistTaps: 'handled',
 }))`
   ${color}
   ${layout}
@@ -128,11 +128,11 @@ export const BottomMarginView = styled.View`
 `;
 
 export const ButtonsContainer = styled.View.attrs(() => ({
-  width: '100%',
+  // width: '100%',
   mt: verticalScale(10),
-  justifyContent: 'space-around',
+  // justifyContent: 'space-around',
 }))`
-  flex-direction: row ${color} ${layout} ${space} ${border};
+  ${color} ${layout} ${space} ${border};
 `;
 
 export const SelectedBrandButton = styled.TouchableOpacity.attrs(props => ({
