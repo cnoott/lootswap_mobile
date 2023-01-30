@@ -5,13 +5,7 @@ import {Size, Type} from 'custom_enums';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {WebView} from 'react-native-webview';
-import {
-  StyleSheet,
-  Modal,
-  View,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, Modal, View, Text, TouchableOpacity} from 'react-native';
 import {
   Container,
   HorizontalBar,
