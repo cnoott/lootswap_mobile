@@ -49,7 +49,10 @@ export default function loading(state = InitialState, action: ActionProps) {
     case GET_PRODUCT_DETAILS.SUCCESS: {
       return {
         ...state,
-        selectedProductDetails: payload,
+        selectedProductDetails: {
+          ...payload,
+          product_photos: [payload.primary_photo, ...payload.secondary_photos],
+        },
       };
     }
     case GET_PRODUCT_DETAILS.FAILURE: {

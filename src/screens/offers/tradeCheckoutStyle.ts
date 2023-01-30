@@ -46,7 +46,7 @@ export const DeliveryAddressLabel = styled.Text.attrs(props => ({
   mb: scale(5),
 }))`
   font-size: ${moderateScale(16)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
@@ -61,7 +61,7 @@ export const DeliveryAddressText = styled.Text.attrs(props => ({
   width: '90%',
 }))`
   font-size: ${moderateScale(16)}px;
-  font-family: Inter;
+  font-family: Urbanist-Medium;
   text-align: left;
   line-height: ${moderateScale(22)}px;
   ${color}
@@ -79,7 +79,7 @@ export const EditLabel: any = styled.Text.attrs(props => ({
   ml: scale(5),
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
@@ -91,7 +91,7 @@ export const HeadingLabel: any = styled.Text.attrs((props: any) => ({
 }))`
   font-size: ${moderateScale(22)}px;
   line-height: ${moderateScale(27)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-ExtraBold;
   ${color}
   ${space}
   ${layout}
@@ -110,7 +110,7 @@ export const ItemNameText = styled.Text.attrs(props => ({
   mb: scale(2),
 }))`
   font-size: ${moderateScale(20)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-ExtraBold;
   ${color}
   ${space}
     ${layout}
@@ -121,7 +121,7 @@ export const ItemCategoryText = styled.Text.attrs(props => ({
   mb: scale(2),
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-SemiBold;
   font-weight: 400;
   ${color}
   ${space}
@@ -142,7 +142,7 @@ export const ItemSubLabel = styled.Text.attrs(props => ({
   mb: scale(2),
 }))`
   font-size: ${moderateScale(13)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 400;
   ${color}
   ${space}
@@ -154,7 +154,7 @@ export const ItemSubValue = styled.Text.attrs(props => ({
   mb: scale(2),
 }))`
   font-size: ${moderateScale(13)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 700;
   ${color}
   ${space}
@@ -185,7 +185,7 @@ export const PromoText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-ExtraBold;
   ${color}
   ${space}
   ${layout}
@@ -195,7 +195,7 @@ export const AppliedLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.primary,
 }))`
   font-size: ${moderateScale(16)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
@@ -216,7 +216,7 @@ export const PromoDes = styled.Text.attrs(props => ({
   color: props.theme.colors.white,
 }))`
   font-size: ${moderateScale(24)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
     ${layout}
@@ -227,7 +227,7 @@ export const PromoAppliedLabel = styled.Text.attrs(() => ({
   mt: verticalScale(10),
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
       ${layout}
@@ -237,7 +237,7 @@ export const SummaryText = styled.Text.attrs(props => ({
   color: props.theme.colors.greyLabel,
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-SemiBold;
   font-weight: 400;
   ${color}
   ${space}
