@@ -229,11 +229,13 @@ export const OffersMessageScreen: FC<{}> = props => {
       acceptTrade(
         reqData,
         res => {
-          navigation?.navigate('TradeCheckoutScreen', {
-            tradeData: offerItem,
-            orderData: res,
-          });
           closeModal();
+          setTimeout(() => {
+            navigation?.navigate('TradeCheckoutScreen', {
+              tradeData: offerItem,
+              orderData: res,
+            });
+          }, 100);
         },
         error => {
           console.log('error:', error);
