@@ -37,8 +37,8 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
   const getSize = () => {
     switch (size) {
       case Size.Extra_Small:
-        width = scale(80);
-        height = verticalScale(32);
+        width = scale(70);
+        height = verticalScale(28);
         fontSize = scale(12);
         borderSize = scale(radius);
         break;
