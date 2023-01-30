@@ -133,7 +133,7 @@ export const StretchedRowView = styled.View`
   align-items: center;
   justify-content: space-between;
   align-self: stretch;
-  margin-top: ${props => `${props?.topMargin ? props?.topMargin : 0}`};
+  margin-top: ${props => `${props?.topMargin ? props?.topMargin : 0}`}px;
   ${space}
 `;
 

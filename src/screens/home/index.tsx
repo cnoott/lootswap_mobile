@@ -2,17 +2,18 @@
   LootSwap - FIRST TAB HOME SCREEN
  ***/
 
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
-import {Container, FlatList, SearchContainer} from './styles';
+import {Container, FlatList, SearchContainer, EmptyView} from './styles';
 import algoliasearch from 'algoliasearch/lite';
 import {InstantSearch, useInfiniteHits} from 'react-instantsearch-hooks';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import LSHomeScreenSearch from '../../components/filterSearch/homeScreenSearch';
 import {AlgoliaAppId, AlgoliaApiKey, ALGOLIA_INDEX_NAME} from '@env';
 import LSProductCard from '../../components/productCard';
+import HomeFiltersScreen from './homeFilters';
 import {
   LoadingRequest,
   LoadingSuccess,
@@ -23,6 +24,7 @@ const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 export const HomeScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const dispatch = useDispatch();
+  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     // For Loader handling
@@ -39,7 +41,8 @@ export const HomeScreen: FC<{}> = () => {
   };
 
   const onRightIconPress = () => {
-    navigation.navigate('HomeFiltersScreen');
+    onToggleModal();
+    // navigation.navigate('HomeFiltersScreen');
   };
 
   const onEndReached = (isLastPage: boolean, showMore: Function = () => {}) => {
@@ -50,7 +53,11 @@ export const HomeScreen: FC<{}> = () => {
 
   const renderItem = ({item, index}) => {
     if (index === 0) {
-      return <CarouselComponent />;
+      return (
+        <EmptyView>
+          <CarouselComponent />
+        </EmptyView>
+      );
     }
     return <LSProductCard item={item} onPress={() => onProductPress(item)} />;
   };
@@ -76,8 +83,18 @@ export const HomeScreen: FC<{}> = () => {
           </SearchContainer>
         }
         stickyHeaderIndices={[0]}
+        getItemLayout={(data, index) => ({
+          length: 100,
+          offset: 100 * index,
+          index,
+          data,
+        })}
       />
     );
+  };
+
+  const onToggleModal = () => {
+    setModalOpen(isOpen => !isOpen);
   };
 
   return (
@@ -85,6 +102,12 @@ export const HomeScreen: FC<{}> = () => {
       <InHomeHeader />
       <InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
         <InfiniteHits />
+        {
+          <HomeFiltersScreen
+            isModalOpen={isModalOpen}
+            onToggleModal={onToggleModal}
+          />
+        }
       </InstantSearch>
     </Container>
   );
