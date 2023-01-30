@@ -55,12 +55,18 @@ export const configureFilterData = (filterItems: any) => {
 };
 
 export const configureBrandListForDropdown = (brandData: any) => {
-  const newBrandData = brandData?.map((brand: any, index: any) => {
+  const selectedBrandList = [];
+  const unSelectedBrandList = [];
+  brandData?.map((brand: any, index: any) => {
     brand.id = index + 1;
     brand.name = brand?.label;
-    return brand;
+    if (brand?.isRefined) {
+      selectedBrandList.push(brand);
+    } else {
+      unSelectedBrandList.push(brand);
+    }
   });
-  return newBrandData;
+  return {selectedBrandList, unSelectedBrandList};
 };
 
 export const configureSizeList = (sizeList: any) => {

@@ -31,55 +31,28 @@ import LSSearchableDropdown from '../../components/commonComponents/LSSearchable
 import LSLoader from '../../components/commonComponents/LSLoader';
 import {Size, Type} from '../../enums';
 import {FILTER_TYPE, PRICE_RANGE_FILTER} from 'custom_types';
-import {useClearRefinements} from 'react-instantsearch-hooks';
 import {useFilterData} from '../../utility/customHooks/useFilterData';
 import {
   configureFilterData,
   capitalizeFirstLetter,
 } from '../../utility/utility';
 import {DOLLOR_TEXT} from 'localsvgimages';
-import {Alert} from 'custom_top_alert';
 
 export const HomeFiltersScreen = props => {
   const {isModalOpen, onToggleModal} = props;
   const {filterData, hasData} = useFilterData(props);
   const appliedFilters = configureFilterData([...filterData]);
-  const [selectedBrands, setSelectedBrands] = useState([]);
   const [priceRange, setPriceRange] = useState<PRICE_RANGE_FILTER>(null);
-  const [alteredFilterData, setAlteredFilterData] = useState<any>(null);
-  // const [filterConfigured, setFilterConfigured] = useState(false);
-  const {canRefine: canClear, refine: clearFilterData} = useClearRefinements();
 
-  const onApplyFilterPress = () => {
-    if (alteredFilterData) {
-      const _filter = alteredFilterData
-        ? [...alteredFilterData]
-        : [...appliedFilters];
-      _filter.map(data => {
-        // For Price range => If index of price range changes then here also needs to change
-        if (data?.id === 6 && priceRange) {
-          data.refineFunction([priceRange?.min, priceRange?.max]);
-        } else {
-          data?.data?.map(innerData => {
-            if (innerData?.isRefined) {
-              data.refineFunction(innerData?.value); // Will run for all selected filters
-            }
-          });
-        }
-      });
-      onToggleModal();
-      setAlteredFilterData(null);
-    } else {
-      Alert.showError('Please apply filter');
-    }
+  const onDoneButtonPress = () => {
+    onToggleModal();
   };
 
-  const onResetFilterPress = () => {
-    if (canClear) {
-      clearFilterData();
-      setTimeout(() => {
-        onToggleModal();
-      }, 200);
+  const priceChangeDone = () => {
+    const _filter = [...appliedFilters];
+    const priceData = _filter?.filter(_fil => _fil?.id === 6);
+    if (priceData && priceData?.length > 0) {
+      priceData[0]?.refineFunction([priceRange?.min, priceRange?.max]);
     }
   };
 
@@ -93,45 +66,27 @@ export const HomeFiltersScreen = props => {
       ? {...prevRange, min: val}
       : {...prevRange, max: val};
     setPriceRange(newRange);
-    const _filter = alteredFilterData
-      ? [...alteredFilterData]
-      : [...appliedFilters];
-    setAlteredFilterData(_filter);
   };
 
   const onFilterPress = filter => {
-    const _filter = alteredFilterData
-      ? [...alteredFilterData]
-      : [...appliedFilters];
-    const newData = _filter.map(data => {
+    const _filter = [...appliedFilters];
+    _filter.map(data => {
       if (data?.id === filter?.parentId) {
-        // data.refineFunction(filter.value);
-        const _new = data?.data?.map(innerData => {
-          if (innerData?.value === filter?.value) {
-            innerData.isRefined = !innerData?.isRefined;
-          }
-          return innerData;
-        });
-        return {...data, data: _new};
+        data.refineFunction(filter.value);
       }
-      return data;
     });
-    setAlteredFilterData(newData);
   };
 
   const removeSelectedBrand = (brand: any) => {
-    const selectedBrandsList = [...selectedBrands];
-    selectedBrandsList.splice(
-      selectedBrandsList.findIndex(el => el?.id === brand?.id),
-      1,
-    );
-    setSelectedBrands(selectedBrandsList);
-    onFilterPress(brand);
+    const _filter = [...appliedFilters];
+    _filter.map(data => {
+      if (data?.id === brand?.id) {
+        data.refineFunction(brand.value);
+      }
+    });
   };
 
-  const updateSelectedItems = (_selectedBrands: any) => {
-    setSelectedBrands(_selectedBrands);
-  };
+  const updateSelectedItems = (_selectedBrands: any) => {};
 
   const renderFilter = (item, filterId) => {
     return (
@@ -167,9 +122,9 @@ export const HomeFiltersScreen = props => {
           updateSelectedItems={updateSelectedItems}
           onItemPress={onFilterPress}
         />
-        {selectedBrands?.length > 0 && <BottomMarginView />}
+        {filter?.selectedBrandData?.length > 0 && <BottomMarginView />}
         <BrandList
-          data={selectedBrands}
+          data={filter?.selectedBrandData}
           renderItem={renderSelectedBrandButton}
         />
       </EmptyView>
@@ -195,6 +150,7 @@ export const HomeFiltersScreen = props => {
               onChangeText={(newPrice: string) =>
                 onPriceChange(newPrice, true, filter?.range)
               }
+              onBlurCall={() => priceChangeDone()}
               value={
                 priceRange
                   ? priceRange?.min?.toString()
@@ -215,6 +171,7 @@ export const HomeFiltersScreen = props => {
               onChangeText={(newPrice: string) =>
                 onPriceChange(newPrice, false, filter?.range)
               }
+              onBlurCall={() => priceChangeDone()}
               value={
                 priceRange
                   ? priceRange?.max?.toString()
@@ -257,7 +214,7 @@ export const HomeFiltersScreen = props => {
       </EmptyView>
     );
   };
-  const filterDataList = alteredFilterData ? alteredFilterData : appliedFilters;
+  const filterDataList = appliedFilters;
   return (
     <Modal transparent={true} animationType="none" visible={isModalOpen}>
       <Container>
@@ -271,16 +228,10 @@ export const HomeFiltersScreen = props => {
             <Divider />
             <ButtonsContainer>
               <LSButton
-                title={'RESET'}
-                size={Size.Medium}
-                type={Type.Grey}
-                onPress={onResetFilterPress}
-              />
-              <LSButton
-                title={'APPLY'}
-                size={Size.Medium}
+                title={'Done'}
+                size={Size.Fit_To_Width}
                 type={Type.Primary}
-                onPress={onApplyFilterPress}
+                onPress={onDoneButtonPress}
               />
             </ButtonsContainer>
             <BottomMarginView />

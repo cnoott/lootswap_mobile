@@ -30,6 +30,7 @@ declare module 'custom_types' {
     data?: Array<SUB_FILTER>;
     canRefine?: boolean;
     range?: PRICE_RANGE_FILTER;
+    selectedBrandData?: Array<SUB_FILTER>;
   };
   export type PROFILE_OPTIONS_TYPE = {
     icon: string;
