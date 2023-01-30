@@ -1,6 +1,6 @@
 /***
-LOOTSWAP - OFFERS MESSAGE HEADER COMPONENT
-***/
+  LOOTSWAP - OFFERS MESSAGE HEADER COMPONENT
+ ***/
 import React, {FC, useState} from 'react';
 import {SvgXml} from 'react-native-svg';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -19,9 +19,6 @@ import {
   OfferStatusText,
   ArrowContainer,
   EmptyColumnView,
-  PendingOfferStatusContainer,
-  OfferYouLabel,
-  OfferPriceText,
   OfferEditedStatusContainer,
   OfferEditedStatusTitleText,
 } from './styles';
@@ -37,7 +34,7 @@ import LSButton from '../LSButton';
 import {Size, Type} from '../../../enums';
 import {LSProfileImageComponent} from '../profileImage';
 import TradeOfferCell from '../../../screens/offers/offerItems/TradeOfferCell';
-import OfferForSellOnlyCell from '../../../screens/offers/offerItems/OfferForSellOnlyCell';
+//import OfferForSellOnlyCell from '../../../screens/offers/offerItems/OfferForSellOnlyCell';
 import {Trade_Status} from 'custom_enums';
 import Collapsible from 'react-native-collapsible';
 
@@ -65,59 +62,11 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     tradeStatus,
   }) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
-    const [accOpen, setAccOpen] = useState(true);
+    const [accOpen, setAccOpen] = useState(false);
     const isTradeEdited = false;
     const isAccepted = tradeStatus === Trade_Status?.Accepted;
     const isCanceled = tradeStatus === Trade_Status?.Canceled;
     const isPending = !isAccepted && !isCanceled;
-    const renderOptions = () => {
-      if (tradeStatus === Trade_Status?.Accepted) {
-        //The trade accepted header will be here
-        return <></>;
-      }
-
-      if (tradeStatus === Trade_Status?.Canceled) {
-        //the cancled header will be here
-        return <></>;
-      }
-
-      if (userData?._id === offerItem?.reciever._id) {
-        return (
-          <>
-            <LSButton
-              title={'Accept'}
-              size={Size.Extra_Small}
-              type={Type.Success}
-              radius={20}
-              onPress={() => onAcceptPress()}
-            />
-            <SpaceRowView />
-            <SpaceRowView />
-            <LSButton
-              title={'Decline'}
-              size={Size.Extra_Small}
-              type={Type.Error}
-              radius={20}
-              onPress={() => onDeclinePress()}
-            />
-            <SpaceRowView />
-          </>
-        );
-      } else {
-        return (
-          <>
-            <LSButton
-              title={'Decline'}
-              size={Size.Extra_Small}
-              type={Type.Error}
-              radius={20}
-              onPress={() => onDeclinePress()}
-            />
-            <SpaceRowView />
-          </>
-        );
-      }
-    };
 
     const renderOfferCellView = () => {
       return (
@@ -125,15 +74,12 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       );
     };
 
-    const renderOfferForSellOnlyView = () => {
-      return <OfferForSellOnlyCell itemData={offerItem?.recieverItem} />;
-    };
-
     const RenderTradeOfferEditedView = () => {
       const name =
         offerItem?.reciever?._id === userData?._id
           ? offerItem?.reciever?.name
           : offerItem?.sender?.name;
+
       return (
         <OfferEditedStatusContainer>
           <OfferEditedStatusTitleText>
@@ -181,44 +127,11 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       );
     };
 
-    const RenderPendingOfferStatusAccrordianView = () => {
-      return (
-        <PendingOfferStatusContainer>
-          <EmptyColumnView>
-            <OfferYouLabel>Offered you</OfferYouLabel>
-            <OfferPriceText>${offerItem?.senderMoneyOffer}</OfferPriceText>
-          </EmptyColumnView>
-          <EmptyRowView>
-            {userData?._id === offerItem?.reciever._id && (
-              <>
-                <LSButton
-                  title={'Accept'}
-                  size={Size.Extra_Small}
-                  type={Type.Success}
-                  radius={20}
-                  onPress={() => onAcceptPress()}
-                />
-                <SpaceRowView />
-                <SpaceRowView />
-              </>
-            )}
-            <LSButton
-              title={'Decline'}
-              size={Size.Extra_Small}
-              type={Type.Error}
-              radius={20}
-              onPress={() => onDeclinePress()}
-            />
-          </EmptyRowView>
-        </PendingOfferStatusContainer>
-      );
-    };
-
     const getOfferStatusView = () => {
       if (isTradeEdited) {
         return <RenderTradeOfferEditedView />; // TODO -> NEED TO ADD RENDER CONDITION
       } else if (isPending) {
-        return <RenderPendingOfferStatusAccrordianView />;
+        return <></>;
       } else {
         return <RenderOfferStatusAccrordianView />;
       }
@@ -229,7 +142,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
         <EmptyColumnView>
           {getOfferStatusView()}
           <Collapsible collapsed={accOpen} renderChildrenCollapsed={true}>
-            {isPending ? renderOfferForSellOnlyView() : renderOfferCellView()}
+            {renderOfferCellView()}
           </Collapsible>
           <ArrowContainer onPress={() => setAccOpen(!accOpen)}>
             <SvgXml
@@ -256,7 +169,28 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
             <OfferChatHeaderText>{title}</OfferChatHeaderText>
           </EmptyRowView>
           <EmptyRowView>
-            {false && renderOptions()}
+            {userData?._id === offerItem?.reciever._id && (
+              <>
+                <LSButton
+                  title={'Accept'}
+                  size={Size.Extra_Small}
+                  type={Type.Success}
+                  radius={20}
+                  onPress={() => onAcceptPress()}
+                />
+                <SpaceRowView />
+                <SpaceRowView />
+              </>
+            )}
+            <LSButton
+              title={'Decline'}
+              size={Size.Extra_Small}
+              type={Type.Error}
+              radius={20}
+              onPress={() => onDeclinePress()}
+            />
+            <SpaceRowView />
+            <SpaceRowView />
             <ProfileLeftTouchable onPress={() => onTrippleDotPress()}>
               <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
             </ProfileLeftTouchable>
