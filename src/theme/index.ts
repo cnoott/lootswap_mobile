@@ -17,6 +17,7 @@ const theme = {
     danger: '#FC0000',
     placeholder: '#818181',
     text: '#101010',
+    textGrey: '#6B657A',
     modalBg: 'rgba(0, 0, 0, 0.2)',
     cancel: '#838078',
     inputBg: '#FAFAFA',

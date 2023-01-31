@@ -6,7 +6,7 @@ import React, {FC, useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
-import {Container, FlatList, SearchContainer, EmptyView} from './styles';
+import {Container, FlatList, SearchContainer} from './styles';
 import algoliasearch from 'algoliasearch/lite';
 import {InstantSearch, useInfiniteHits} from 'react-instantsearch-hooks';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -18,6 +18,7 @@ import {
   LoadingRequest,
   LoadingSuccess,
 } from '../../redux/modules/loading/actions';
+import {scale} from 'react-native-size-matters';
 
 const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 
@@ -53,11 +54,7 @@ export const HomeScreen: FC<{}> = () => {
 
   const renderItem = ({item, index}) => {
     if (index === 0) {
-      return (
-        <EmptyView>
-          <CarouselComponent />
-        </EmptyView>
-      );
+      return <CarouselComponent height={scale(300)} />;
     }
     return <LSProductCard item={item} onPress={() => onProductPress(item)} />;
   };
@@ -99,7 +96,7 @@ export const HomeScreen: FC<{}> = () => {
 
   return (
     <Container>
-      <InHomeHeader />
+      <InHomeHeader isHome={true} />
       <InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
         <InfiniteHits />
         {

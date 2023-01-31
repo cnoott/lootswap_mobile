@@ -165,13 +165,12 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
   };
   const renderSubItems = () => {
     const length = subItem?.senderItems?.length;
-    const isOnlyMoneyOffer = false; // TODO -> NEED TO ADD RENDER CONDITION
     switch (true) {
-      case isOnlyMoneyOffer:
+      case length === 0:
         return renderSingleMoneyOfferView();
       case length === 1 && subItem?.senderMoneyOffer > 0:
         return renderSingleViewWithOffer();
-      case length == 1:
+      case length === 1:
         return renderSingleView();
       case length === 2 && subItem?.senderMoneyOffer > 0:
         return renderDoubleView(true);

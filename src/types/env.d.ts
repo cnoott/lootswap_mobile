@@ -80,3 +80,4 @@ declare module 'custom_types' {
  * Custom Modules declaration
  */
 declare module 'react-native-searchable-dropdown';
+declare module 'react-native-dots-pagination';
