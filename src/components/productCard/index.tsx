@@ -31,7 +31,6 @@ interface LSProductCardProps {
 const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
   const {item, onPress = () => {}, onLikePress = () => {}} = props;
   const theme = useTheme();
-  console.log('item ===', item);
   const renderTradeTags = () => {
     return (
       <TagsContainer>
