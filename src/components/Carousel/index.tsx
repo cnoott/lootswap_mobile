@@ -38,7 +38,11 @@ function CarouselComponent(props: CarouselProps) {
   const renderDots = () => {
     return (
       <DotsContainer>
-        <DotsComponent length={imagesArr?.length} active={activeIndex} />
+        <DotsComponent
+          length={imagesArr?.length}
+          active={activeIndex}
+          isActiveBorder={!isProduct}
+        />
       </DotsContainer>
     );
   };

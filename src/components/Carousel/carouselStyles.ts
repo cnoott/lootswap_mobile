@@ -39,7 +39,15 @@ export const DotsContainer = styled.View.attrs(() => ({}))`
 `;
 
 export const DotsComponent = styled(Dots).attrs(props => ({
-  activeColor: props?.theme?.colors?.black,
+  activeColor: props?.isActiveBorder
+    ? props?.theme?.colors?.white
+    : props?.theme?.colors?.black,
+  activeBorder: props?.isActiveBorder,
+  activeBorderColor: props?.theme?.colors?.black,
+  activeBorderWidth: scale(3),
+  activeDotWidth: scale(props?.isActiveBorder ? 15 : 10),
+  activeDotHeight: scale(props?.isActiveBorder ? 15 : 10),
+  marginHorizontal: scale(4),
 }))`
   ${space}
   ${layout}
