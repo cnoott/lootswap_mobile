@@ -65,6 +65,9 @@ isTradeOrder: isTradeOrder,
 */
   const onPaypalItemPress = () => {
     console.log('WIP');
+    navigation?.navigate('ShippingLabelScreen', {
+      shippingData: {},
+    });
   };
 
   const onTradeItemPress = (tradeOrder: any) => {
