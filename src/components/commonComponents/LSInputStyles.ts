@@ -9,7 +9,9 @@ export const InputContainer = styled.View.attrs(props => ({
   mx: moderateScale(
     props.horizontalSpace ? props.horizontalSpace : props.isHomeSearch ? 0 : 24,
   ),
-  bg: props.isHomeSearch
+  bg: props?.inputBackColor
+    ? props.inputBackColor
+    : props.isHomeSearch
     ? props.theme.colors.commonSearchBack
     : props.theme.colors.inputBg,
   borderRadius: scale(props.inputRadius),

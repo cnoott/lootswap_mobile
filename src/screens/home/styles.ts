@@ -4,7 +4,7 @@ import {moderateScale} from 'react-native-size-matters';
 
 export const Container = styled.View.attrs(props => ({
   flex: 1,
-  backgroundColor: props.theme.colors.secondary,
+  backgroundColor: props.theme.colors.screenBg,
 }))`
   ${space}
   ${layout}
@@ -21,7 +21,7 @@ export const SubContainer = styled.View.attrs(() => ({
 export const SearchContainer = styled.View.attrs(props => ({
   paddingVertical: moderateScale(5),
   paddingHorizontal: moderateScale(10),
-  bg: props.theme.colors.white,
+  bg: props.theme.colors.screenBg,
 }))`
   ${space}
   ${layout}
@@ -31,9 +31,18 @@ export const SearchContainer = styled.View.attrs(props => ({
 export const FlatList = styled.FlatList.attrs(() => ({
   numColumns: 2,
   showsVerticalScrollIndicator: false,
-  contentContainerStyle: {flexGrow: 1},
+  contentContainerStyle: {flexGrow: 1, backgroundColor: 'white'},
 }))`
   ${color}
+  ${space}
+  ${layout}
+`;
+
+export const CarousalContainer = styled.View.attrs(() => ({
+  width: '100%',
+}))`
+  align-items: center;
+  justify-content: center;
   ${space}
   ${layout}
 `;

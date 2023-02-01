@@ -1,15 +1,14 @@
 import {HeaderContainer, LogoImage} from './styles';
 import React, {FC} from 'react';
-// import {useDispatch} from 'react-redux';
 import {HEADERLOGO} from '../../../constants/imageConstants';
-// import {signOutRequest} from '../../../redux/modules';
-// import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 interface HeaderProps {
   title?: string;
+  isHome?: boolean;
 }
 
-export const InHomeHeader: FC<HeaderProps> = React.memo(() => {
+export const InHomeHeader: FC<HeaderProps> = React.memo(props => {
+  const {isHome = false} = props;
   //const dispatch = useDispatch();
   // const {title} = props;
   // const navigation: NavigationProp<any, any> = useNavigation();
@@ -22,11 +21,8 @@ export const InHomeHeader: FC<HeaderProps> = React.memo(() => {
   // };
 
   return (
-    <HeaderContainer>
+    <HeaderContainer isHome={isHome}>
       <LogoImage source={HEADERLOGO} />
-      {/* <BellTouchable onPress={onBellPress}>
-        <BellImage source={NOTIFICATIONS_BOTTOM_TAB} />
-      </BellTouchable> */}
     </HeaderContainer>
   );
 });
