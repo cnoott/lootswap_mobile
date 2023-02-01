@@ -29,7 +29,7 @@ const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
       homeSearch={true}
       rightIcon={HOME_FILTER_ICON}
       onRightIconPress={onRightIconPress}
-      inputBackColor={theme?.colors?.white}
+      inputBackColor={theme?.colors?.screenBg_light}
     />
   );
 });

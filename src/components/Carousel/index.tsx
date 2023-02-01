@@ -59,11 +59,11 @@ function CarouselComponent(props: CarouselProps) {
         height={isProduct ? height - 30 : height - 50}
         parallaxScrollingOffset={50}
         autoPlay={autoPlay}
-        autoPlayInterval={9000}
+        autoPlayInterval={10000}
         keyExtractor={item => item}
         data={imagesArr}
         onSnapToItem={newIndex => setActiveIndex(newIndex)}
-        scrollAnimationDuration={1500}
+        scrollAnimationDuration={400}
         mode={'default'}
         modeConfig={{
           snapDirection: 'left',
