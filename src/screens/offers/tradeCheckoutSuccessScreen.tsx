@@ -2,7 +2,7 @@
 LootSwap - TRADE CHECKOUT SUCESS SCREEN
 ***/
 
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Size, Type} from 'custom_enums';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import LSButton from '../../components/commonComponents/LSButton';
@@ -15,36 +15,50 @@ import {
   DesLabel,
   SuccessImage,
 } from './tradeSuccessScreenStyle';
+import {getOrder} from '../../redux/modules'
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
 
 export const TradeCheckoutSucessScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation();
+  const dispatch = useDispatch();
   const {
     orderData = {},
     total,
     isSale = false,
     paypalOrderData = {},
   } = props?.route?.params;
+  const [latestOrder, setLatestOrder] = useState({});
+
+
+  useEffect(() => {
+    dispatch(
+      getOrder(
+        {orderId: orderData?._id},
+        res => {
+          setLatestOrder(res);
+        },
+        error => {
+          console.log(error);
+        },
+      ),
+    )
+  }, [orderData?._id, dispatch]);
 
   const onPressOptions = () => {
-    if (isSale) {
-      navigation.navigate('Profile', {
-        screen: 'TrackOrderScreen',
-        params: {
-          isTradeOrder: true,
-          item: orderData,
-        },
-      });
-    } else {
-      navigation.navigate('Profile', {
-        screen: 'TrackOrderScreen',
-        params: {
-          isTradeOrder: false,
-          item: paypalOrderData,
-        },
-      });
-    }
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Profile'}],
+    });
+    navigation.navigate('Profile', {
+      screen: 'TrackOrderScreen',
+      params: {
+        isTradeOrder: !isSale,
+        item: isSale ? paypalOrderData : latestOrder,
+      },
+    });
   };
+
 
   return (
     <Container>

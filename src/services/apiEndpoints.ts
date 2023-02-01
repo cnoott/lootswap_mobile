@@ -188,6 +188,13 @@ export const getAllOrdersCall = (reqData: any) => {
   );
 };
 
+export const getOrderCall = (reqData: any) => {
+  return handleResponse(
+    api.get(`/order/mobile-get-order/${reqData?.orderId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const getAllMyMessagesCall = (userId: string) => {
   return handleResponse(
     api.get(`/read-my-messages/${userId}`),

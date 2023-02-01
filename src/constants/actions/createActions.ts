@@ -100,6 +100,10 @@ export const GET_ALL_ORDERS = {
   ...createActionConst(actions.GET_ALL_ORDERS),
 };
 
+export const GET_ORDER = {
+  ...createActionConst(actions.GET_ORDER),
+};
+
 export const GET_ALL_MY_MESSAGES = {
   ...createActionConst(actions.GET_ALL_MY_MESSAGES),
 };

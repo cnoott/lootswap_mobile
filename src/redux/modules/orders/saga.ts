@@ -1,6 +1,6 @@
 import {takeLatest, call, put} from 'redux-saga/effects';
-import {GET_ALL_ORDERS} from '../../../constants/actions';
-import {getAllOrdersCall} from '../../../services/apiEndpoints';
+import {GET_ALL_ORDERS, GET_ORDER} from '../../../constants/actions';
+import {getAllOrdersCall, getOrderCall} from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {getAllOrdersSuccess, getAllOrdersFailure} from '../orders/actions';
 
@@ -28,6 +28,26 @@ export function* getAllOrders(action: any) {
   }
 }
 
+export function* getOrder(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      getOrderCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export default function* ordersSaga() {
   yield takeLatest(GET_ALL_ORDERS.REQUEST, getAllOrders);
+  yield takeLatest(GET_ORDER.REQUEST, getOrder);
 }
