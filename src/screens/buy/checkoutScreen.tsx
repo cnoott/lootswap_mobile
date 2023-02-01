@@ -5,7 +5,8 @@ import {Size, Type} from 'custom_enums';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {WebView} from 'react-native-webview';
-import {StyleSheet, Modal, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, Modal} from 'react-native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {
   Container,
   HorizontalBar,
@@ -37,12 +38,13 @@ import {SvgXml} from 'react-native-svg';
 //TODO:
 //-handle money offer trades
 //- move styles out of file
+//- put url in env
 export const CheckoutScreen: FC<{}> = props => {
   const {productData} = props.route?.params;
+  const navigation: NavigationProp<any, any> = useNavigation();
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state?.auth);
   const {userData, requestedUserDetails} = auth;
-
   const [showGateway, setShowGateway] = useState(false);
 
   useEffect(() => {
@@ -51,15 +53,35 @@ export const CheckoutScreen: FC<{}> = props => {
   }, [userData?._id, dispatch, productData?.userId]);
 
   const renderShippingCost = () => {
-    switch (productData.type) {
-      case 'trade-only':
-        return 0;
+    if (productData.type === 'trade-only') {
+      return 0;
+    }
+    switch (productData.who_pays) {
       case 'buyer-pays':
         return productData.sellerShippingCost;
       case 'seller-pays':
         return 0;
       default:
         return 0;
+    }
+  };
+
+  const total =
+    parseFloat(renderShippingCost()) + parseFloat(productData?.price);
+
+  const onMessage = msg => {
+    const data = JSON.parse(msg.nativeEvent.data);
+    console.log(JSON.stringify(data.info.newOrder));
+    switch (data.status) {
+      case 'success':
+        navigation?.navigate('Offers/Inbox', {
+          screen: 'TradeCheckoutSuccessScreen',
+          params: {
+            isSale: true,
+            total: total,
+            paypalOrderData: data.newOrder,
+          },
+        });
     }
   };
 
@@ -149,22 +171,17 @@ export const CheckoutScreen: FC<{}> = props => {
           animationType={'slide'}
           presentationStyle={'fullScreen'}
           transparent>
-          <View style={styles.webViewCon}>
-            <View style={styles.wbHead}>
-              <TouchableOpacity
-                style={{padding: 30}}
-                onPress={() => setShowGateway(false)}>
-                <Text> Close </Text>
-              </TouchableOpacity>
-            </View>
+          <Container style={styles.webViewCon}>
+            <InStackHeader title={'Checkout'} />
 
             <WebView
               source={{
                 uri: `http://localhost:3000/mobile-checkout?email=${userData?.email}&merchantId=${requestedUserDetails?.paypal_info?.merchantIdInPayPal}&itemId=${productData?._id}&userId=${userData?._id}`,
               }}
+              onMessage={onMessage}
               style={{flex: 1}}
             />
-          </View>
+          </Container>
         </Modal>
       );
     }

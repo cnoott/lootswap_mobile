@@ -63,8 +63,18 @@ isTradeOrder: isTradeOrder,
 });
 };
 */
-  const onPaypalItemPress = () => {
-    console.log('WIP');
+  const onPaypalItemPress = (paypalOrder: any) => {
+    const isSeller = userData?._id === paypalOrder?.sellerId?._id;
+
+    if (isSeller && paypalOrder?.shippingStep === 0) {
+      console.log('WIP');
+      //TODO navigate to seller pay shipping
+    } else {
+      navigation?.navigate('TrackOrderScreen', {
+        isTradeOrder: false,
+        item: paypalOrder,
+      });
+    }
   };
 
   const onTradeItemPress = (tradeOrder: any) => {
@@ -127,7 +137,7 @@ isTradeOrder: isTradeOrder,
         {item?.buyerId?._id === userData?._id && (
           <OrderPurchaseCell
             isSales={item?.sellerId._id === userData?._id}
-            onCellPress={onPaypalItemPress}
+            onCellPress={() => onPaypalItemPress(item)}
             item={item}
             userData={userData}
           />
@@ -142,7 +152,7 @@ isTradeOrder: isTradeOrder,
         {item?.sellerId?._id === userData?._id && (
           <OrderPurchaseCell
             isSales={item?.sellerId._id === userData?._id}
-            onCellPress={onPaypalItemPress}
+            onCellPress={() => onPaypalItemPress(item)}
             item={item}
             userData={userData}
           />

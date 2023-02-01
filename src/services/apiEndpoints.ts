@@ -209,6 +209,13 @@ export const fetchPaymentSheetCall = (reqData: any) => {
   );
 };
 
+export const getOrderFromTradeCall = (reqData: any) => {
+  return handleResponse(
+    api.get(`/get-order-from-trade/${reqData?.userId}/${reqData?.tradeId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
