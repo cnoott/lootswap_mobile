@@ -17,3 +17,6 @@ export const ADD_LOOT_BOTTOM_TAB = require('../assets/images/bottomTab/add-loot.
 
 // Gif's
 export const PAYMENT_SUCCESS_GIF = require('../assets/images/gif/payment_success.gif');
+
+// Images To Remove Later
+export const NIKE_SHOES_IMAGE = require('../assets/images/product/nikeShoes.png');

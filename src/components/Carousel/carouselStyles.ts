@@ -1,12 +1,16 @@
 import styled from 'styled-components/native';
-import {color, layout, space} from 'styled-system';
-import {moderateScale} from 'react-native-size-matters';
+import {border, color, layout, space} from 'styled-system';
+import {moderateScale, scale} from 'react-native-size-matters';
+import Dots from 'react-native-dots-pagination';
 
 export const Container = styled.View.attrs(props => ({
   height: props.height,
+  bg: props?.isProduct ? props.theme.colors.white : props.theme.colors.screenBg,
 }))`
-  align-self: center;
+  align-self: ${props => `${props?.isProduct ? 'center' : 'flex-start'}`};
   ${space}
+  ${color}
+  ${layout}
 `;
 
 export const SubContainer = styled.View.attrs(() => ({
@@ -26,17 +30,61 @@ export const Image = styled.Image.attrs(props => ({
   ${layout}
 `;
 
-export const BottomText = styled.Text.attrs(props => ({
-  color: props.theme.colors.black,
-  width: '80%',
-  my: 10,
+export const DotsContainer = styled.View.attrs(() => ({}))`
+  position: absolute;
+  bottom: 1px;
+  align-self: center;
+  ${space}
+  ${layout}
+`;
+
+export const DotsComponent = styled(Dots).attrs(props => ({
+  activeColor: props?.theme?.colors?.black,
 }))`
-  font-size: ${moderateScale(15)}px;
+  ${space}
+  ${layout}
+`;
+
+export const ItemCenterContainer = styled.View.attrs(() => ({
+  flex: 1,
+}))`
+  align-items: center;
+  justify-content: center;
+  ${space}
+  ${layout}
+`;
+
+export const HomeBottomItemContainer = styled.View.attrs(props => ({
+  px: scale(15),
+  py: scale(10),
+  bg: props?.theme?.colors?.white,
+  borderRadius: scale(8),
+  alignSelf: 'center',
+}))`
+  align-items: center;
+  justify-content: center;
+  ${space}
+  ${layout}
+  ${color}
+  ${border}
+`;
+
+export const BottomText = styled.Text.attrs(props => ({
+  color: props.theme.colors.textGrey,
+  width: '80%',
+}))`
+  font-size: ${moderateScale(18)}px;
   font-family: Inter-Bold;
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
   align-self: center;
   ${color}
   ${space}
   ${layout}
+`;
+
+export const PercentageText = styled.Text.attrs(props => ({
+  color: props.theme.colors.errorColor,
+}))`
+  ${color}
 `;

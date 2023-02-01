@@ -26,6 +26,7 @@ const LSInput: FC<LSInputProps> = React.memo(props => {
     rightIcon,
     horizontalSpace,
     topSpace,
+    inputBackColor,
     onRightIconPress = () => {},
     homeSearch = false,
     filterSearch = false,
@@ -39,7 +40,8 @@ const LSInput: FC<LSInputProps> = React.memo(props => {
         isHomeSearch={homeSearch || filterSearch}
         horizontalSpace={horizontalSpace}
         topSpace={topSpace}
-        inputRadius={inputRadius}>
+        inputRadius={inputRadius}
+        inputBackColor={inputBackColor}>
         {leftIcon && <SvgXml xml={leftIcon} />}
         <TextInput
           {...props}
