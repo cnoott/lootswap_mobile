@@ -24,7 +24,7 @@ const theme = {
     commonSearchBack: '#F5F5F5',
     divider: '#E0E0E0',
     screenBg: '#E7E7E7',
-    screenBg_light: 'rgba(231, 231, 231, 0.2)', //#E7E7E7
+    screenBg_light: 'rgba(231, 231, 231, 0.4)', //#E7E7E7
     tradeBg: '#24C05D',
     tradeText: '#4862B2',
     sellBg: '#F75555',

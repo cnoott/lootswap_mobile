@@ -18,7 +18,8 @@ export const Container = styled.View.attrs(props => ({
 export const HeaderContainer = styled.View.attrs((props: any) => ({
   height: scale(Platform.OS === 'ios' ? 94 : 64),
   pt: moderateScale(Platform.OS === 'ios' ? 34 : 0),
-  bg: props?.isHome ? props.theme.colors.screenBg : props.theme.colors.white,
+  //bg: props?.isHome ? props.theme.colors.screenBg : props.theme.colors.white,
+  bg: props.theme.colors.white,
 }))`
   flex-direction: row;
   align-items: center;

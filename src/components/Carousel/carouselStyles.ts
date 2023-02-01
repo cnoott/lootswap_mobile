@@ -5,7 +5,8 @@ import Dots from 'react-native-dots-pagination';
 
 export const Container = styled.View.attrs(props => ({
   height: props.height,
-  bg: props?.isProduct ? props.theme.colors.white : props.theme.colors.screenBg,
+  //bg: props?.isProduct ? props.theme.colors.white : props.theme.colors.screenBg,
+  bg: props.theme.colors.white,
 }))`
   align-self: ${props => `${props?.isProduct ? 'center' : 'flex-start'}`};
   ${space}
@@ -57,7 +58,7 @@ export const ItemCenterContainer = styled.View.attrs(() => ({
 export const HomeBottomItemContainer = styled.View.attrs(props => ({
   px: scale(15),
   py: scale(10),
-  bg: props?.theme?.colors?.white,
+  bg: props?.theme?.colors?.screenBg_light,
   borderRadius: scale(8),
   alignSelf: 'center',
 }))`

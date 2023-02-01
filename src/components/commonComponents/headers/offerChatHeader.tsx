@@ -63,7 +63,6 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
   }) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
     const [accOpen, setAccOpen] = useState(false);
-    const isTradeEdited = false;
     const isAccepted = tradeStatus === Trade_Status?.Accepted;
     const isCanceled = tradeStatus === Trade_Status?.Canceled;
     const isPending = !isAccepted && !isCanceled;
@@ -149,6 +148,10 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     };
 
     const getOfferStatusView = () => {
+      const isTradeEdited =
+        (isReciever && offerItem?.senderHasEdited) ||
+        (!isReciever && offerItem?.recieverHasEdited);
+
       if (isTradeEdited) {
         return <RenderTradeOfferEditedView />; // TODO -> NEED TO ADD RENDER CONDITION
       } else if (isPending) {
