@@ -111,15 +111,14 @@ export const TradeCheckoutScreen: FC<{}> = props => {
       //alert here
       console.log('error payment sheet', error);
     } else {
-      //TODO: navigate to sucess screen
-      console.log('Success!');
       dispatch(
         getAllOrders({
           userId: userData?._id,
         }),
       );
       navigation.navigate('TradeCheckoutSuccessScreen', {
-        orderId: orderData._id,
+        orderData: orderData,
+        total: total,
       });
     }
   };

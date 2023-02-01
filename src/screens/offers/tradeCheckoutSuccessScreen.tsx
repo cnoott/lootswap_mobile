@@ -13,39 +13,57 @@ import {
   SuccessLabel,
   PriceLabel,
   DesLabel,
-  TransactionContainer,
-  TransactionIDLabel,
-  TransactionIDText,
   SuccessImage,
 } from './tradeSuccessScreenStyle';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
-const dummyData = {
-  totalPrice: '97.43',
-  transId: 'TR4456C668028',
-};
+export const TradeCheckoutSucessScreen: FC<{}> = props => {
+  const navigation: NavigationProp<any, any> = useNavigation();
+  const {
+    orderData = {},
+    total,
+    isSale = false,
+    paypalOrderData = {},
+  } = props?.route?.params;
 
-export const TradeCheckoutSucessScreen: FC<{}> = () => {
+  const onPressOptions = () => {
+    if (isSale) {
+      navigation.navigate('Profile', {
+        screen: 'TrackOrderScreen',
+        params: {
+          isTradeOrder: true,
+          item: orderData,
+        },
+      });
+    } else {
+      navigation.navigate('Profile', {
+        screen: 'TrackOrderScreen',
+        params: {
+          isTradeOrder: false,
+          item: paypalOrderData,
+        },
+      });
+    }
+  };
+
   return (
     <Container>
       <InHomeHeader />
       <SubContainer>
         <SuccessImage source={PAYMENT_SUCCESS_GIF} />
         <SuccessLabel>Payment Success</SuccessLabel>
-        <PriceLabel>${dummyData?.totalPrice}</PriceLabel>
+        <PriceLabel>${total}</PriceLabel>
         <DesLabel>
-          We have successfully received your payment of ${dummyData?.totalPrice}
+          We have successfully received your payment of ${total}
         </DesLabel>
-        <TransactionContainer>
-          <TransactionIDLabel>Transaction ID:</TransactionIDLabel>
-          <TransactionIDText>{dummyData?.transId}</TransactionIDText>
-        </TransactionContainer>
       </SubContainer>
       <LSButton
-        title={'Done'}
+        title={'View Order'}
         size={Size.Fit_To_Width}
         type={Type.Primary}
         radius={20}
         fitToWidth={'90%'}
+        onPress={() => onPressOptions()}
       />
     </Container>
   );

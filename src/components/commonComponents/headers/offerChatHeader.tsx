@@ -67,6 +67,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     const isAccepted = tradeStatus === Trade_Status?.Accepted;
     const isCanceled = tradeStatus === Trade_Status?.Canceled;
     const isPending = !isAccepted && !isCanceled;
+    const isReciever = userData?._id === offerItem?.reciever?._id;
 
     const renderOfferCellView = () => {
       return (
@@ -87,6 +88,26 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
           </OfferEditedStatusTitleText>
         </OfferEditedStatusContainer>
       );
+    };
+
+    const viewOrderPressOptions = () => {
+      //TODO: handle money offer trade
+      if (isReciever && isAccepted) {
+        offerItem.orderId.tradeId = offerItem;
+        let orderData = offerItem.orderId;
+        orderData.tradeId = offerItem;
+        orderData.reciever = offerItem.reciever;
+        orderData.sender = offerItem.sender;
+        navigation.navigate('Profile', {
+          screen: 'TrackOrderScreen',
+          params: {
+            isTradeOrder: true,
+            item: orderData,
+          },
+        });
+      } else if (!isReciever && isAccepted) {
+        //Checkout trade order
+      }
     };
 
     const RenderOfferStatusAccrordianView = () => {
@@ -119,7 +140,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
               size={Size.Extra_Small}
               type={Type.Custom}
               radius={20}
-              onPress={() => {}}
+              onPress={() => viewOrderPressOptions()}
               buttonCustomColor={'#FF981F'}
             />
           </OfferStatusRightView>
@@ -168,33 +189,35 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
             />
             <OfferChatHeaderText>{title}</OfferChatHeaderText>
           </EmptyRowView>
-          <EmptyRowView>
-            {userData?._id === offerItem?.reciever._id && (
-              <>
-                <LSButton
-                  title={'Accept'}
-                  size={Size.Extra_Small}
-                  type={Type.Success}
-                  radius={20}
-                  onPress={() => onAcceptPress()}
-                />
-                <SpaceRowView />
-                <SpaceRowView />
-              </>
-            )}
-            <LSButton
-              title={'Decline'}
-              size={Size.Extra_Small}
-              type={Type.Error}
-              radius={20}
-              onPress={() => onDeclinePress()}
-            />
-            <SpaceRowView />
-            <SpaceRowView />
-            <ProfileLeftTouchable onPress={() => onTrippleDotPress()}>
-              <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
-            </ProfileLeftTouchable>
-          </EmptyRowView>
+          {isPending && (
+            <EmptyRowView>
+              {userData?._id === offerItem?.reciever._id && (
+                <>
+                  <LSButton
+                    title={'Accept'}
+                    size={Size.Extra_Small}
+                    type={Type.Success}
+                    radius={20}
+                    onPress={() => onAcceptPress()}
+                  />
+                  <SpaceRowView />
+                  <SpaceRowView />
+                </>
+              )}
+              <LSButton
+                title={'Decline'}
+                size={Size.Extra_Small}
+                type={Type.Error}
+                radius={20}
+                onPress={() => onDeclinePress()}
+              />
+              <SpaceRowView />
+              <SpaceRowView />
+              <ProfileLeftTouchable onPress={() => onTrippleDotPress()}>
+                <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
+              </ProfileLeftTouchable>
+            </EmptyRowView>
+          )}
         </ProfileHeaderContainer>
         {offerItem && renderOfferStatusContainer()}
       </ChatOfferContainer>

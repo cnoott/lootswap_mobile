@@ -11,15 +11,6 @@ import {
   OrderDataLabel,
   TrackingNumberLabel,
   Image,
-  OrderCellContainer,
-  ImageContainer,
-  OrderImage,
-  OrderDetails,
-  OrderNameLabel,
-  RowView,
-  ColorCircle,
-  OrderSubDetailsText,
-  DetailsVerticalBar,
   FullDivider,
 } from './trackOrderScreenStyle';
 import OrderTrackSteps from '../../components/orderTrack/orderTrackSteps';
@@ -30,7 +21,11 @@ import {Size, Type} from '../../enums';
 import {useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import RNPrint from 'react-native-print';
-//TODO: tracking number is a hyperlink
+import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
+//TODO:
+// - tracking number is a hyperlink
+// - Print label
+// - tracking
 export const TrackOrderScreen: FC<any> = ({route}) => {
   const {isTradeOrder = false, item} = route?.params || {};
   const auth: AuthProps = useSelector(state => state?.auth);
@@ -40,8 +35,8 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
 
   const printLabel = async () => {
     const htmlString = isReciever
-      ? `<img src="data:image/png;base64,${item.recieverUPSShipmentData.toWearhouseLabel}"`
-      : `<img src="data:image/png;base64,${item.senderUPSShipmentData.toWearhouseLabel}"`;
+      ? `<img src="data:image/png;base64,${item?.recieverUPSShipmentData?.toWearhouseLabel}"`
+      : `<img src="data:image/png;base64,${item?.senderUPSShipmentData?.toWearhouseLabel}"`;
     RNPrint.print({
       html: htmlString,
     });
@@ -96,6 +91,9 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
   );
 
   const printLabelRenderOptions = () => {
+    if (!isTradeOrder) {
+      return;
+    }
     if (
       item.recieverPaymentStatus === 'paid' &&
       item.senderPaymentStatus === 'paid'
@@ -131,28 +129,10 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
     return <TradeOfferCell offerItem={item.tradeId} />;
   };
   const renderSingleOrderCell = () => {
-    const color = 'Black';
-    const size = '42';
-    const qty = 1;
-    const price = 105.0;
     return (
-      <OrderCellContainer>
-        <ImageContainer>
-          <OrderImage source={{uri: 'https://picsum.photos/200'}} />
-        </ImageContainer>
-        <OrderDetails>
-          <OrderNameLabel>Air Jordan 3 Retro</OrderNameLabel>
-          <RowView>
-            <ColorCircle />
-            <OrderSubDetailsText>{color}</OrderSubDetailsText>
-            <DetailsVerticalBar />
-            <OrderSubDetailsText>Size = {size}</OrderSubDetailsText>
-            <DetailsVerticalBar />
-            <OrderSubDetailsText>Qty = {qty}</OrderSubDetailsText>
-          </RowView>
-          <OrderNameLabel>${price}</OrderNameLabel>
-        </OrderDetails>
-      </OrderCellContainer>
+      <RowContainer>
+        <TradeCheckoutItemCell itemData={item?.productId} />
+      </RowContainer>
     );
   };
   return (
