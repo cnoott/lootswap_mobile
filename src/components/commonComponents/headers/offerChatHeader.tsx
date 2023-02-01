@@ -67,6 +67,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     const isCanceled = tradeStatus === Trade_Status?.Canceled;
     const isPending = !isAccepted && !isCanceled;
     const isReciever = userData?._id === offerItem?.reciever?._id;
+    const paidByBothUsers = isReciever || offerItem?.orderId?.senderPaymentStatus === 'paid';
 
     const renderOfferCellView = () => {
       return (
@@ -91,12 +92,12 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
 
     const viewOrderPressOptions = () => {
       //TODO: handle money offer trade
-      if (isReciever && isAccepted) {
-        offerItem.orderId.tradeId = offerItem;
-        let orderData = offerItem.orderId;
-        orderData.tradeId = offerItem;
-        orderData.reciever = offerItem.reciever;
-        orderData.sender = offerItem.sender;
+      offerItem.orderId.tradeId = offerItem;
+      let orderData = offerItem.orderId;
+      orderData.tradeId = offerItem;
+      orderData.reciever = offerItem.reciever;
+      orderData.sender = offerItem.sender;
+      if (paidByBothUsers) {
         navigation.navigate('Profile', {
           screen: 'TrackOrderScreen',
           params: {
@@ -104,8 +105,13 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
             item: orderData,
           },
         });
-      } else if (!isReciever && isAccepted) {
+      } else {
         //Checkout trade order
+        navigation?.navigate('TradeCheckoutScreen', {
+          tradeData: offerItem,
+          orderData: orderData,
+        });
+
       }
     };
 
@@ -129,13 +135,15 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
                 }
               />
               <OfferStatusText isAccepted={isAccepted}>{`${
-                isAccepted ? 'Trade Accepted' : 'Trade Declined'
+                isAccepted
+                  ? `Trade Accepted!`
+                  : 'Trade Declined'
               }`}</OfferStatusText>
             </EmptyRowView>
           </OfferStatusLeftView>
           <OfferStatusRightView>
             <LSButton
-              title={'View Order'}
+              title={paidByBothUsers ? 'View Order' : 'Checkout'}
               size={Size.Extra_Small}
               type={Type.Custom}
               radius={20}

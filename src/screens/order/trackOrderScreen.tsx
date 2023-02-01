@@ -22,6 +22,7 @@ import {useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import RNPrint from 'react-native-print';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 //TODO:
 // - tracking number is a hyperlink
 // - Print label
@@ -29,6 +30,7 @@ import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 export const TrackOrderScreen: FC<any> = ({route}) => {
   const {isTradeOrder = false, item} = route?.params || {};
   const auth: AuthProps = useSelector(state => state?.auth);
+  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const {userData} = auth;
 
   const isReciever = userData?._id === item?.reciever?._id;
@@ -67,13 +69,16 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       if (item.senderPaymentStatus === 'processing') {
         return 'Payment processing';
       }
+      if (item.senderPaymentStatus === 'unpaid') {
+        return 'Check back soon for shipping label';
+      }
 
       if (
         item.recieverStep < 3 ||
         typeof item.toRecieverTrackingNumber === 'undefined'
       ) {
-        return recieverUPSShipmentData.toWarehouse.ShipmentResponse
-          .ShipmentResults.PackageResults.TrackingNumber;
+        return recieverUPSShipmentData?.toWarehouse?.ShipmentResponse
+          ?.ShipmentResults?.PackageResults?.TrackingNumber;
       } else {
         return item?.toRecieverTrackingNumber;
       }
@@ -142,6 +147,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
         right={false}
         printLabel={true}
         printLabelButton={printLabelRenderOptions}
+        onBackCall={() => navigation.navigate('ProfileScreen')}
       />
       <SubContainer>
         {renderOrderHeaderDetails()}

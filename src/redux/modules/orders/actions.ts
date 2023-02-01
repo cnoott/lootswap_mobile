@@ -1,9 +1,22 @@
-import {GET_ALL_ORDERS} from '../../../constants/actions';
+import {GET_ALL_ORDERS, GET_ORDER} from '../../../constants/actions';
 
 export const getAllOrders = (reqData: any) => {
   return {
     type: GET_ALL_ORDERS.REQUEST,
     reqData: reqData,
+  };
+};
+
+export const getOrder = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: GET_ORDER.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
   };
 };
 
