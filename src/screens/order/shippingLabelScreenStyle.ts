@@ -76,7 +76,7 @@ export const TipContainer = styled.View.attrs(props => ({
 export const TipLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.primary,
 }))`
-  font-size: ${moderateScale(18)}px;
+  font-size: ${moderateScale(20)}px;
   font-family: Inter-Bold;
   ${space}
   ${layout}
@@ -207,4 +207,68 @@ export const HorizontalSpace = styled.View.attrs(() => ({
   ml: scale(5),
 }))`
   ${space}
+`;
+
+export const ChooseRateContainer = styled.View.attrs(() => ({
+  my: verticalScale(30),
+  ml: scale(5),
+}))`
+  ${space}
+  ${layout}
+  ${color}
+`;
+
+export const RateTouchable = styled.TouchableOpacity.attrs((props: any) => ({
+  mr: scale(10),
+  height: scale(74),
+  width: scale(82),
+  borderRadius: scale(10),
+  borderColor: props?.selected
+    ? props?.theme?.colors?.primary
+    : props?.theme?.colors?.searchBorder,
+  borderWidth: 2,
+}))`
+  align-items: center;
+  justify-content: center;
+  ${space}
+  ${layout}
+  ${color}
+  ${border}
+`;
+
+export const USPSTopView = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const USPSLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+}))`
+  font-size: ${moderateScale(20)}px;
+  font-family: Inter-Bold;
+  ${space}
+  ${layout}
+  ${color}
+`;
+
+export const PriceLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.primary,
+}))`
+  font-size: ${moderateScale(18)}px;
+  font-family: Inter-Bold;
+  ${space}
+  ${layout}
+    ${color}
+`;
+
+export const DesText = styled.Text.attrs(props => ({
+  color: props.theme.colors.greySecondary,
+  mt: verticalScale(10),
+}))`
+  font-size: ${moderateScale(13)}px;
+  font-family: Inter;
+  ${space}
+  ${layout}
+    ${color}
 `;

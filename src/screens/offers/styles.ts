@@ -190,6 +190,7 @@ export const StatusContainerView = styled.View.attrs((props: any) => ({
 }))`
   align-items: center;
   justify-content: center;
+  align-self: flex-start;
   ${color}
   ${space}
   ${layout}

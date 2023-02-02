@@ -68,4 +68,7 @@ declare module 'localsvgimages' {
   export const LIKE_HEART_ICON_WHITE: any;
   export const PAY_PAL_LABEL: any;
   export const LOOT_SWAP_LOGO_LABEL: any;
+  export const UPS_ICON: any;
+  export const FEDEX_ICON: any;
+  export const UNITED_STATE_POSTAL_SERVICE_ICON: any;
 }

@@ -3,6 +3,7 @@ LootSwap - SELLER PAY SHIPPING LABEL SCREEN
 ***/
 
 import React, {FC} from 'react';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from 'custom_enums';
@@ -31,9 +32,13 @@ import {
 
 export const ShippingLabelScreen: FC<any> = ({route}) => {
   const {shippingData} = route?.params || {};
+  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const onCalculateSizePress = () => {
     //TODO
     console.log('shippingData ==', shippingData);
+  };
+  const onSubmitPress = () => {
+    navigation?.navigate('ChooseServiceScreen');
   };
   const renderAddressView = () => {
     return (
@@ -121,12 +126,12 @@ export const ShippingLabelScreen: FC<any> = ({route}) => {
         {renderWeightView()}
       </SubContainer>
       <LSButton
-        title={'Submit'}
+        title={'SUBMIT'}
         size={Size.Fit_To_Width}
         type={Type.Primary}
         radius={15}
         fitToWidth={'90%'}
-        onPress={() => {}}
+        onPress={() => onSubmitPress()}
       />
     </Container>
   );

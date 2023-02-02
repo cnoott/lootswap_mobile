@@ -22,6 +22,7 @@ import TradeCheckoutSuccessScreen from '../screens/offers/tradeCheckoutSuccessSc
 import MyOrdersListScreen from '../screens/order/myOrdersListScreen';
 import TrackOrderScreen from '../screens/order/trackOrderScreen';
 import ShippingLabelScreen from '../screens/order/shippingLabelScreen';
+import ChooseServiceScreen from '../screens/order/chooseServiceScreen';
 import {useTheme} from 'styled-components';
 import {SvgXml} from 'react-native-svg';
 import {useSelector} from 'react-redux';
@@ -85,6 +86,7 @@ const ProfileStackNavigation = () => (
     <Stack.Screen name="MyOrdersListScreen" component={MyOrdersListScreen} />
     <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
     <Stack.Screen name="ShippingLabelScreen" component={ShippingLabelScreen} />
+    <Stack.Screen name="ChooseServiceScreen" component={ChooseServiceScreen} />
   </Stack.Navigator>
 );
 
