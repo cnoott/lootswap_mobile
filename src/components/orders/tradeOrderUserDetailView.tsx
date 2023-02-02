@@ -1,6 +1,10 @@
 import * as React from 'react';
 import {LSProfileImageComponent} from '../commonComponents/profileImage';
-import {daysPast, tradeOrderShippingStatus, printLabel} from '../../utility/utility';
+import {
+  daysPast,
+  tradeOrderShippingStatus,
+  printLabel,
+} from '../../utility/utility';
 import {
   RowView,
   UserLeftView,
@@ -29,9 +33,9 @@ const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
     userData?._id,
     item,
   );
- const base64Img = isReciever
-   ? item.recieverUPSShipmentData.toWarehouseLabel
-   : item.senderUPSShipmentData.toWarehouseLabel;
+  const base64Img = isReciever
+    ? item.recieverUPSShipmentData.toWarehouseLabel
+    : item.senderUPSShipmentData.toWarehouseLabel;
 
   return (
     <RowView>
