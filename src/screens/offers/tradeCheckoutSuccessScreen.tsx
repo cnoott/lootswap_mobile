@@ -15,7 +15,7 @@ import {
   DesLabel,
   SuccessImage,
 } from './tradeSuccessScreenStyle';
-import {getOrder} from '../../redux/modules'
+import {getOrder} from '../../redux/modules';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 
@@ -30,7 +30,6 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
   } = props?.route?.params;
   const [latestOrder, setLatestOrder] = useState({});
 
-
   useEffect(() => {
     dispatch(
       getOrder(
@@ -42,7 +41,7 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
           console.log(error);
         },
       ),
-    )
+    );
   }, [orderData?._id, dispatch]);
 
   const onPressOptions = () => {
@@ -58,7 +57,6 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
       },
     });
   };
-
 
   return (
     <Container>
