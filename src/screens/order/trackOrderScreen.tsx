@@ -25,7 +25,6 @@ import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 //TODO:
 // - tracking number is a hyperlink
-// - Print label
 // - tracking
 export const TrackOrderScreen: FC<any> = ({route}) => {
   const {isTradeOrder = false, item} = route?.params || {};
