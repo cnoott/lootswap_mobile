@@ -13,6 +13,8 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import OrderPurchaseCell from '../../components/orders/orderPurchaseCell';
 import OrderTradeOrdersCell from '../../components/orders/orderTradeOrdersCell';
+import {LSModal} from '../../components/commonComponents/LSModal';
+import ShippingInstructionModalComponent from '../../components/orders/shippingInstructionModalComponent';
 import {
   Container,
   TopTabView,
@@ -34,6 +36,7 @@ export const MyOrdersListScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [index, setIndex] = useState(0);
+  const [isShipInsModalVisible, setShipInsModalVisible] = useState(false);
   const [routes] = React.useState([
     {key: 'first', title: 'Purchases'},
     {key: 'second', title: 'Sales'},
@@ -65,9 +68,16 @@ isTradeOrder: isTradeOrder,
 */
   const onPaypalItemPress = () => {
     console.log('WIP');
-    navigation?.navigate('ShippingLabelScreen', {
-      shippingData: {},
-    });
+    setShipInsModalVisible(true);
+  };
+
+  const goToShippingLabelScreen = () => {
+    setShipInsModalVisible(false);
+    setTimeout(() => {
+      navigation?.navigate('ShippingLabelScreen', {
+        shippingData: {},
+      });
+    }, 300);
   };
 
   const onTradeItemPress = (tradeOrder: any) => {
@@ -122,6 +132,21 @@ isTradeOrder: isTradeOrder,
           });
       }
     }
+  };
+
+  const renderShippingInstructionModal = () => {
+    return (
+      <LSModal isVisible={isShipInsModalVisible}>
+        <LSModal.Container>
+          <ShippingInstructionModalComponent
+            onButtonPress={() => goToShippingLabelScreen()}
+          />
+          <LSModal.CloseButton
+            onCloseButtonPress={() => setShipInsModalVisible(false)}
+          />
+        </LSModal.Container>
+      </LSModal>
+    );
   };
 
   const renderPurchasesItem = ({item}) => {
@@ -223,6 +248,7 @@ isTradeOrder: isTradeOrder,
         onIndexChange={setIndex}
         initialLayout={{width: layout.width}}
       />
+      {renderShippingInstructionModal()}
     </Container>
   );
 };

@@ -71,4 +71,5 @@ declare module 'localsvgimages' {
   export const UPS_ICON: any;
   export const FEDEX_ICON: any;
   export const UNITED_STATE_POSTAL_SERVICE_ICON: any;
+  export const SHIPPING_INS_HEADER_IMG: any;
 }
