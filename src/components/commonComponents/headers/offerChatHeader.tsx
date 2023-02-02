@@ -67,7 +67,8 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     const isCanceled = tradeStatus === Trade_Status?.Canceled;
     const isPending = !isAccepted && !isCanceled;
     const isReciever = userData?._id === offerItem?.reciever?._id;
-    const paidByBothUsers = isReciever || offerItem?.orderId?.senderPaymentStatus === 'paid';
+    const paidByBothUsers =
+      isReciever || offerItem?.orderId?.senderPaymentStatus === 'paid';
 
     const renderOfferCellView = () => {
       return (
@@ -111,7 +112,6 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
           tradeData: offerItem,
           orderData: orderData,
         });
-
       }
     };
 
@@ -135,9 +135,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
                 }
               />
               <OfferStatusText isAccepted={isAccepted}>{`${
-                isAccepted
-                  ? `Trade Accepted!`
-                  : 'Trade Declined'
+                isAccepted ? `Trade Accepted!` : 'Trade Declined'
               }`}</OfferStatusText>
             </EmptyRowView>
           </OfferStatusLeftView>

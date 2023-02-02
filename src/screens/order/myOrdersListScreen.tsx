@@ -7,7 +7,7 @@ import {useWindowDimensions, RefreshControl} from 'react-native';
 import {SceneMap} from 'react-native-tab-view';
 import {useDispatch, useSelector} from 'react-redux';
 import {OrderProps} from '../../redux/modules/orders/reducer';
-import {getAllOrders} from '../../redux/modules';
+import {getAllOrders, acceptTrade} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
@@ -56,13 +56,6 @@ export const MyOrdersListScreen: FC<{}> = () => {
     );
   };
 
-  /* make sales order item press
-     const onItemPress = (isTradeOrder: boolean = false, tradeOrder: any) => {
-     navigation?.navigate('TrackOrderScreen', {
-isTradeOrder: isTradeOrder,
-});
-};
-*/
   const onPaypalItemPress = (paypalOrder: any) => {
     const isSeller = userData?._id === paypalOrder?.sellerId?._id;
 
@@ -77,17 +70,32 @@ isTradeOrder: isTradeOrder,
     }
   };
 
+  const handleAcceptTrade = (tradeData: any) => {
+    console.log(tradeData._id);
+    const reqData = {
+      tradeId: tradeData?._id,
+      userId: userData?._id,
+    };
+    dispatch(
+      acceptTrade(
+        reqData,
+        res => {
+          navigation?.navigate('TradeCheckoutScreen', {
+            tradeData: tradeData,
+            orderData: res,
+          });
+        },
+        error => {
+          console.log('error:', error);
+        },
+      ),
+    );
+  };
+
   const onTradeItemPress = (tradeOrder: any) => {
     const isReciever = userData?._id === tradeOrder?.reciever?._id;
 
     if (isReciever) {
-      if (tradeOrder?.recieverSessionStatus === 'complete') {
-        navigation?.navigate('TrackOrderScreen', {
-          isTradeOrder: true,
-          item: tradeOrder,
-        });
-      }
-
       switch (tradeOrder.recieverPaymentStatus) {
         case 'paid':
         case 'processing':
@@ -97,9 +105,16 @@ isTradeOrder: isTradeOrder,
           });
           break;
         case 'failed':
-          //TODO dispatch accept trade again
-          console.log('failed wip');
-          break;
+          console.log('CALLED');
+          handleAcceptTrade(tradeOrder.tradeId);
+          return;
+      }
+
+      if (tradeOrder?.recieverSessionStatus === 'complete') {
+        navigation?.navigate('TrackOrderScreen', {
+          isTradeOrder: true,
+          item: tradeOrder,
+        });
       }
     } else {
       switch (tradeOrder.senderPaymentStatus) {
@@ -127,6 +142,7 @@ isTradeOrder: isTradeOrder,
               orderData: tradeOrder,
             },
           });
+          break;
       }
     }
   };

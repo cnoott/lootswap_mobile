@@ -900,6 +900,21 @@ export const paypalOrderShippingStatus = (userId: string, paypalOrder: any) => {
 export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
   const {recieverStep, senderStep, reciever} = tradeOrder;
   const isReciever = userId === reciever?._id;
+  if (isReciever && tradeOrder?.recieverPaymentStatus === 'failed') {
+    return {
+      text: 'Payment failed, please try again',
+      backColor: 'rgba(255, 0, 0, 0.1)',
+      labelColor: '#b30000',
+    };
+  }
+  if (!isReciever && tradeOrder?.senderPaymentStatus === 'failed') {
+    return {
+      text: 'Payment failed, please try again',
+      backColor: 'rgba(255, 0, 0, 0.1)',
+      labelColor: '#b30000',
+    };
+  }
+
   if (isReciever && tradeOrder?.recieverPaymentStatus === 'processing') {
     return {
       text: 'Processing payment',
