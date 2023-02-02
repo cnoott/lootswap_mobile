@@ -1002,7 +1002,7 @@ export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
 };
 export const printLabel = async (base64Img: string) => {
   console.log(base64Img);
-  const htmlString = `<img src="data:image/png;base64,${base64Img}"/>`
+  const htmlString = `<img src="data:image/png;base64,${base64Img}"/>`;
   RNPrint.print({
     html: htmlString,
   });
