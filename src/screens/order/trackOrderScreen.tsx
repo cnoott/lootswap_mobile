@@ -20,9 +20,9 @@ import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import RNPrint from 'react-native-print';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {printLabel} from '../../utility/utility';
 //TODO:
 // - tracking number is a hyperlink
 // - tracking
@@ -34,14 +34,9 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
 
   const isReciever = userData?._id === item?.reciever?._id;
 
-  const printLabel = async () => {
-    const htmlString = isReciever
-      ? `<img src="data:image/png;base64,${item?.recieverUPSShipmentData?.toWearhouseLabel}"`
-      : `<img src="data:image/png;base64,${item?.senderUPSShipmentData?.toWearhouseLabel}"`;
-    RNPrint.print({
-      html: htmlString,
-    });
-  };
+  const base64Img = isReciever
+    ? item.recieverUPSShipmentData.toWarehouseLabel
+    : item.senderUPSShipmentData.toWarehouseLabel;
 
   const renderTrackingNumber = () => {
     if (!isTradeOrder) {
@@ -90,7 +85,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       size={Size.Extra_Small}
       type={Type.Primary}
       radius={15}
-      onPress={() => printLabel()}
+      onPress={() => printLabel(base64Img)}
     />
   );
 

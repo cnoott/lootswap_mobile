@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {LSProfileImageComponent} from '../commonComponents/profileImage';
-import {daysPast, tradeOrderShippingStatus} from '../../utility/utility';
+import {daysPast, tradeOrderShippingStatus, printLabel} from '../../utility/utility';
 import {
   RowView,
   UserLeftView,
@@ -14,7 +14,6 @@ import {
   PrintIcon,
   PrintLabel,
 } from './styles';
-import RNPrint from 'react-native-print';
 
 interface TradeOrderUserDetailViewProps {
   item?: any;
@@ -30,15 +29,9 @@ const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
     userData?._id,
     item,
   );
-
-  const printLabel = async () => {
-    const htmlString = isReciever
-      ? `<img src="data:image/png;base64,${item.recieverUPSShipmentData.toWearhouseLabel}"`
-      : `<img src="data:image/png;base64,${item.senderUPSShipmentData.toWearhouseLabel}"`;
-    RNPrint.print({
-      html: htmlString,
-    });
-  };
+ const base64Img = isReciever
+   ? item.recieverUPSShipmentData.toWarehouseLabel
+   : item.senderUPSShipmentData.toWarehouseLabel;
 
   return (
     <RowView>
@@ -66,7 +59,7 @@ const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
         <TimeLabel>{daysPast(item?.createdAt)}</TimeLabel>
         {item.recieverPaymentStatus === 'paid' &&
           item.senderPaymentStatus === 'paid' && (
-            <PrintLabelContainer onPress={() => printLabel()}>
+            <PrintLabelContainer onPress={() => printLabel(base64Img)}>
               <PrintIcon />
               <PrintLabel>Print Label</PrintLabel>
             </PrintLabelContainer>

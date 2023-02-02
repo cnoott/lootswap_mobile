@@ -23,6 +23,7 @@ import {
   Order_Status,
 } from 'custom_enums';
 import {NavigationProp} from '@react-navigation/native';
+import RNPrint from 'react-native-print';
 /*
 On Launch -
 Checking if current session has expired or not. Session is set to 15 minutes
@@ -998,4 +999,11 @@ export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
         labelColor: '#e1b505',
       };
   }
+};
+export const printLabel = async (base64Img: string) => {
+  console.log(base64Img);
+  const htmlString = `<img src="data:image/png;base64,${base64Img}"/>`
+  RNPrint.print({
+    html: htmlString,
+  });
 };
