@@ -64,10 +64,13 @@ const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
       </UserLeftView>
       <UserRightView>
         <TimeLabel>{daysPast(item?.createdAt)}</TimeLabel>
-        <PrintLabelContainer onPress={() => printLabel()}>
-          <PrintIcon />
-          <PrintLabel>Print Label</PrintLabel>
-        </PrintLabelContainer>
+        {item.recieverPaymentStatus === 'paid' &&
+          item.senderPaymentStatus === 'paid' && (
+            <PrintLabelContainer onPress={() => printLabel()}>
+              <PrintIcon />
+              <PrintLabel>Print Label</PrintLabel>
+            </PrintLabelContainer>
+          )}
       </UserRightView>
     </RowView>
   );
