@@ -2,10 +2,11 @@
 LootSwap - SELLER PAY SHIPPING LABEL SCREEN
 ***/
 
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSButton from '../../components/commonComponents/LSButton';
+import LSInput from '../../components/commonComponents/LSInput';
 import {Size, Type} from 'custom_enums';
 import {
   Container,
@@ -21,7 +22,6 @@ import {
   TipText,
   SizeRowView,
   SizeBox,
-  SizeLeftLabel,
   SizeRightLabel,
   DividerText,
   Touchable,
@@ -33,6 +33,11 @@ import {
 export const ShippingLabelScreen: FC<any> = ({route}) => {
   const {shippingData} = route?.params || {};
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
+  const [sizeLength, setLength] = useState(0);
+  const [sizeWidth, setWidth] = useState(0);
+  const [sizeHeight, setHeight] = useState(0);
+  const [lbWeight, setLBWeight] = useState(0);
+  const [ozWeight, setOZWeight] = useState(0);
   const onCalculateSizePress = () => {
     //TODO
     console.log('shippingData ==', shippingData);
@@ -69,40 +74,67 @@ export const ShippingLabelScreen: FC<any> = ({route}) => {
       </TipContainer>
     );
   };
-  const renderSizeBox = (leftVal: string, rightVal: string) => (
-    <SizeBox>
-      <SizeLeftLabel>{leftVal}</SizeLeftLabel>
-      <SizeRightLabel>{rightVal}</SizeRightLabel>
-    </SizeBox>
-  );
+  const renderSizeInput = (
+    leftVal: string,
+    rightVal: string,
+    onChange: Function,
+  ) => {
+    return (
+      <SizeBox>
+        <LSInput
+          onChangeText={onChange}
+          value={leftVal}
+          placeholder={'0'}
+          horizontalLeftPadding={0.1}
+          topSpace={1}
+          rightCustomView={<SizeRightLabel>{rightVal}</SizeRightLabel>}
+          keyboardType={'numeric'}
+          homeSearch={true}
+          maxLength={6}
+        />
+      </SizeBox>
+    );
+  };
   const renderSizeView = () => {
     return (
       <SizeRowView>
         <SubHeaderLabel>Size</SubHeaderLabel>
-        {renderSizeBox('0', 'L')}
+        {renderSizeInput(sizeLength?.toString(), 'L', setLength)}
         <DividerText>X</DividerText>
-        {renderSizeBox('0', 'L')}
+        {renderSizeInput(sizeWidth?.toString(), 'L', setWidth)}
         <DividerText>X</DividerText>
-        {renderSizeBox('0', 'L')}
+        {renderSizeInput(sizeHeight?.toString(), 'L', setHeight)}
       </SizeRowView>
     );
   };
-  const renderWeightBox = (val: string) => (
-    <SizeBox>
-      <SizeRightLabel />
-      <SizeLeftLabel>{val}</SizeLeftLabel>
-    </SizeBox>
-  );
+  const renderWeightInput = (leftVal: string, onChange: Function) => {
+    return (
+      <SizeBox>
+        <LSInput
+          onChangeText={onChange}
+          value={leftVal}
+          placeholder={'0'}
+          horizontalLeftPadding={0.1}
+          horizontalRightPadding={0.1}
+          topSpace={1}
+          keyboardType={'numeric'}
+          homeSearch={true}
+          textAlign={'right'}
+          maxLength={6}
+        />
+      </SizeBox>
+    );
+  };
   const renderWeightView = () => {
     return (
       <WeightRowView>
         <SubHeaderLabel>Weight</SubHeaderLabel>
         <HorizontalSpace />
-        {renderWeightBox('0')}
+        {renderWeightInput(lbWeight?.toString(), setLBWeight)}
         <HorizontalSpace />
         <DividerText>(lb)</DividerText>
         <HorizontalSpace />
-        {renderWeightBox('0')}
+        {renderWeightInput(ozWeight?.toString(), setOZWeight)}
         <HorizontalSpace />
         <DividerText>(oz)</DividerText>
       </WeightRowView>

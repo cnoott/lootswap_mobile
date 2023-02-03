@@ -17,6 +17,10 @@ interface LSInputProps extends TextInputProps {
   keyboardType?: string;
   inputRadius?: number;
   defaultValue?: any;
+  horizontalLeftPadding?: number;
+  rightCustomView?: any;
+  textAlign?: string;
+  maxLength?: number;
 }
 
 const LSInput: FC<LSInputProps> = React.memo(props => {
@@ -33,12 +37,19 @@ const LSInput: FC<LSInputProps> = React.memo(props => {
     onBlurCall = () => {},
     keyboardType = 'default',
     inputRadius = 8.5,
+    horizontalLeftPadding = 10,
+    horizontalRightPadding = 10,
+    rightCustomView = null,
+    textAlign = 'left',
+    maxLength = 10000000,
   } = props;
   return (
     <>
       <InputContainer
         isHomeSearch={homeSearch || filterSearch}
         horizontalSpace={horizontalSpace}
+        horizontalLeftPadding={horizontalLeftPadding}
+        horizontalRightPadding={horizontalRightPadding}
         topSpace={topSpace}
         inputRadius={inputRadius}
         inputBackColor={inputBackColor}>
@@ -49,12 +60,15 @@ const LSInput: FC<LSInputProps> = React.memo(props => {
           onBlur={onBlurCall}
           keyboardType={keyboardType}
           placeholderTextColor={'red'}
+          textAlign={textAlign}
+          maxLength={maxLength}
         />
         {rightIcon && (
           <Touchable onPress={onRightIconPress}>
             <SvgXml xml={rightIcon} />
           </Touchable>
         )}
+        {rightCustomView && rightCustomView}
       </InputContainer>
       {error && <ErrorText>{error}</ErrorText>}
     </>
