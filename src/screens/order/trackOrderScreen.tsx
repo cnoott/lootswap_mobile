@@ -39,7 +39,6 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
     ? item.recieverUPSShipmentData.toWarehouseLabel
     : item.senderUPSShipmentData.toWarehouseLabel;
 
-
   const renderTrackingNumber = () => {
     if (!isTradeOrder) {
       return;
