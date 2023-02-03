@@ -36,8 +36,8 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
   const isReciever = userData?._id === item?.reciever?._id;
 
   const base64Img = isReciever
-    ? item.recieverUPSShipmentData.toWarehouseLabel
-    : item.senderUPSShipmentData.toWarehouseLabel;
+    ? item?.recieverUPSShipmentData?.toWarehouseLabel
+    : item?.senderUPSShipmentData?.toWarehouseLabel;
 
   const renderTrackingNumber = () => {
     if (!isTradeOrder) {
