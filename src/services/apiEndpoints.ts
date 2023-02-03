@@ -223,6 +223,16 @@ export const getOrderFromTradeCall = (reqData: any) => {
   );
 };
 
+export const saleGenerateCarrierRatesCall = (reqData: any) => {
+  return handleResponse(
+    api.post(
+      `/paypal-get-rates/${reqData?.userId}/${reqData?.productId}/${reqData?.paypalOrderId}`,
+      reqData?.dim,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
