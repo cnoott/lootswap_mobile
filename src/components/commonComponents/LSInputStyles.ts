@@ -15,7 +15,8 @@ export const InputContainer = styled.View.attrs(props => ({
     ? props.theme.colors.commonSearchBack
     : props.theme.colors.inputBg,
   borderRadius: scale(props.inputRadius),
-  px: scale(10),
+  pl: scale(props?.horizontalLeftPadding),
+  pr: scale(props?.horizontalRightPadding),
 }))`
   flex-direction: row;
   align-items: center;

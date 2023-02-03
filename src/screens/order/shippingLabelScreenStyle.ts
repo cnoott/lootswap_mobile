@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import {layout, space, color, border} from 'styled-system';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {moderateScale, verticalScale, scale} from 'react-native-size-matters';
 
 export const Container = styled.View.attrs(props => ({
@@ -10,10 +11,14 @@ export const Container = styled.View.attrs(props => ({
   ${layout}
 `;
 
-export const SubContainer = styled.View.attrs(() => ({
-  flex: 1,
+export const SubContainer = styled(KeyboardAwareScrollView).attrs(() => ({
   mx: scale(20),
+  showsVerticalScrollIndicator: false,
+  keyboardShouldPersistTaps: 'handled',
+  flex: 1,
 }))`
+  ${color}
+  ${layout}
   ${space}
 `;
 
@@ -134,7 +139,6 @@ export const SizeBox = styled.View.attrs(props => ({
   width: scale(80),
   bg: props.theme.colors.inputBg,
   borderRadius: scale(10),
-  px: scale(10),
 }))`
   flex-direction: row;
   align-items: center;

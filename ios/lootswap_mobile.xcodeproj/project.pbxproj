@@ -9,24 +9,6 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* lootswap_mobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* lootswap_mobileTests.m */; };
 		028D9915FCE2F6828A4553B5 /* libPods-lootswap_mobile-lootswap_mobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AE0706015DB6B334A458F6B /* libPods-lootswap_mobile-lootswap_mobileTests.a */; };
-		0C75F0D529882A6C0066176C /* Urbanist-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0C329882A6B0066176C /* Urbanist-ExtraBold.ttf */; };
-		0C75F0D629882A6C0066176C /* Urbanist-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0C429882A6B0066176C /* Urbanist-ExtraLight.ttf */; };
-		0C75F0D729882A6C0066176C /* Urbanist-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0C529882A6B0066176C /* Urbanist-Black.ttf */; };
-		0C75F0D829882A6C0066176C /* Urbanist-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0C629882A6B0066176C /* Urbanist-SemiBoldItalic.ttf */; };
-		0C75F0D929882A6C0066176C /* Urbanist-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0C729882A6B0066176C /* Urbanist-ThinItalic.ttf */; };
-		0C75F0DA29882A6C0066176C /* Urbanist-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0C829882A6B0066176C /* Urbanist-BlackItalic.ttf */; };
-		0C75F0DB29882A6C0066176C /* Urbanist-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0C929882A6B0066176C /* Urbanist-BoldItalic.ttf */; };
-		0C75F0DC29882A6C0066176C /* Urbanist-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0CA29882A6C0066176C /* Urbanist-Bold.ttf */; };
-		0C75F0DD29882A6C0066176C /* Urbanist-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0CB29882A6C0066176C /* Urbanist-Light.ttf */; };
-		0C75F0DE29882A6C0066176C /* Urbanist-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0CC29882A6C0066176C /* Urbanist-MediumItalic.ttf */; };
-		0C75F0DF29882A6C0066176C /* Urbanist-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0CD29882A6C0066176C /* Urbanist-ExtraBoldItalic.ttf */; };
-		0C75F0E029882A6C0066176C /* Urbanist-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0CE29882A6C0066176C /* Urbanist-LightItalic.ttf */; };
-		0C75F0E129882A6C0066176C /* Urbanist-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0CF29882A6C0066176C /* Urbanist-Regular.ttf */; };
-		0C75F0E229882A6C0066176C /* Urbanist-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0D029882A6C0066176C /* Urbanist-SemiBold.ttf */; };
-		0C75F0E329882A6C0066176C /* Urbanist-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0D129882A6C0066176C /* Urbanist-Thin.ttf */; };
-		0C75F0E429882A6C0066176C /* Urbanist-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0D229882A6C0066176C /* Urbanist-ExtraLightItalic.ttf */; };
-		0C75F0E529882A6C0066176C /* Urbanist-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0D329882A6C0066176C /* Urbanist-Italic.ttf */; };
-		0C75F0E629882A6C0066176C /* Urbanist-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C75F0D429882A6C0066176C /* Urbanist-Medium.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -44,6 +26,24 @@
 		18163B702935F54600EDA81D /* Inter-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B622935F54600EDA81D /* Inter-Black.otf */; };
 		18163B712935F54600EDA81D /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B632935F54600EDA81D /* Inter-Bold.otf */; };
 		18163B722935F54600EDA81D /* Inter-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B642935F54600EDA81D /* Inter-BlackItalic.otf */; };
+		18FD5A3E298CC97200DD3F63 /* Urbanist-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2C298CC96F00DD3F63 /* Urbanist-BlackItalic.ttf */; };
+		18FD5A3F298CC97200DD3F63 /* Urbanist-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2D298CC96F00DD3F63 /* Urbanist-ExtraLightItalic.ttf */; };
+		18FD5A40298CC97200DD3F63 /* Urbanist-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2E298CC96F00DD3F63 /* Urbanist-Regular.ttf */; };
+		18FD5A41298CC97200DD3F63 /* Urbanist-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2F298CC96F00DD3F63 /* Urbanist-SemiBold.ttf */; };
+		18FD5A42298CC97200DD3F63 /* Urbanist-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A30298CC96F00DD3F63 /* Urbanist-Thin.ttf */; };
+		18FD5A43298CC97200DD3F63 /* Urbanist-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A31298CC96F00DD3F63 /* Urbanist-Italic.ttf */; };
+		18FD5A44298CC97200DD3F63 /* Urbanist-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A32298CC96F00DD3F63 /* Urbanist-Black.ttf */; };
+		18FD5A45298CC97200DD3F63 /* Urbanist-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A33298CC97000DD3F63 /* Urbanist-ExtraLight.ttf */; };
+		18FD5A46298CC97200DD3F63 /* Urbanist-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A34298CC97000DD3F63 /* Urbanist-Light.ttf */; };
+		18FD5A47298CC97200DD3F63 /* Urbanist-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A35298CC97000DD3F63 /* Urbanist-LightItalic.ttf */; };
+		18FD5A48298CC97200DD3F63 /* Urbanist-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A36298CC97000DD3F63 /* Urbanist-Medium.ttf */; };
+		18FD5A49298CC97200DD3F63 /* Urbanist-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A37298CC97000DD3F63 /* Urbanist-MediumItalic.ttf */; };
+		18FD5A4A298CC97200DD3F63 /* Urbanist-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A38298CC97100DD3F63 /* Urbanist-ThinItalic.ttf */; };
+		18FD5A4B298CC97200DD3F63 /* Urbanist-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A39298CC97100DD3F63 /* Urbanist-BoldItalic.ttf */; };
+		18FD5A4C298CC97200DD3F63 /* Urbanist-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A3A298CC97100DD3F63 /* Urbanist-ExtraBoldItalic.ttf */; };
+		18FD5A4D298CC97200DD3F63 /* Urbanist-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A3B298CC97100DD3F63 /* Urbanist-SemiBoldItalic.ttf */; };
+		18FD5A4E298CC97200DD3F63 /* Urbanist-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A3C298CC97100DD3F63 /* Urbanist-ExtraBold.ttf */; };
+		18FD5A4F298CC97200DD3F63 /* Urbanist-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A3D298CC97100DD3F63 /* Urbanist-Bold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		93B1040EFBCDCC5ACEAA9EDF /* libPods-lootswap_mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47B7947F52F8E8F59BBECDA3 /* libPods-lootswap_mobile.a */; };
 /* End PBXBuildFile section */
@@ -62,24 +62,6 @@
 		00E356EE1AD99517003FC87E /* lootswap_mobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lootswap_mobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* lootswap_mobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = lootswap_mobileTests.m; sourceTree = "<group>"; };
-		0C75F0C329882A6B0066176C /* Urbanist-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-ExtraBold.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-ExtraBold.ttf"; sourceTree = "<group>"; };
-		0C75F0C429882A6B0066176C /* Urbanist-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-ExtraLight.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-ExtraLight.ttf"; sourceTree = "<group>"; };
-		0C75F0C529882A6B0066176C /* Urbanist-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Black.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-Black.ttf"; sourceTree = "<group>"; };
-		0C75F0C629882A6B0066176C /* Urbanist-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-SemiBoldItalic.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		0C75F0C729882A6B0066176C /* Urbanist-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-ThinItalic.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-ThinItalic.ttf"; sourceTree = "<group>"; };
-		0C75F0C829882A6B0066176C /* Urbanist-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-BlackItalic.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-BlackItalic.ttf"; sourceTree = "<group>"; };
-		0C75F0C929882A6B0066176C /* Urbanist-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-BoldItalic.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-BoldItalic.ttf"; sourceTree = "<group>"; };
-		0C75F0CA29882A6C0066176C /* Urbanist-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Bold.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-Bold.ttf"; sourceTree = "<group>"; };
-		0C75F0CB29882A6C0066176C /* Urbanist-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Light.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-Light.ttf"; sourceTree = "<group>"; };
-		0C75F0CC29882A6C0066176C /* Urbanist-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-MediumItalic.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-MediumItalic.ttf"; sourceTree = "<group>"; };
-		0C75F0CD29882A6C0066176C /* Urbanist-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-ExtraBoldItalic.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
-		0C75F0CE29882A6C0066176C /* Urbanist-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-LightItalic.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-LightItalic.ttf"; sourceTree = "<group>"; };
-		0C75F0CF29882A6C0066176C /* Urbanist-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Regular.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-Regular.ttf"; sourceTree = "<group>"; };
-		0C75F0D029882A6C0066176C /* Urbanist-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-SemiBold.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-SemiBold.ttf"; sourceTree = "<group>"; };
-		0C75F0D129882A6C0066176C /* Urbanist-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Thin.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-Thin.ttf"; sourceTree = "<group>"; };
-		0C75F0D229882A6C0066176C /* Urbanist-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-ExtraLightItalic.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
-		0C75F0D329882A6C0066176C /* Urbanist-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Italic.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-Italic.ttf"; sourceTree = "<group>"; };
-		0C75F0D429882A6C0066176C /* Urbanist-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Medium.ttf"; path = "../../../../Downloads/Urbanist/static/Urbanist-Medium.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* lootswap_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lootswap_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = lootswap_mobile/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = lootswap_mobile/AppDelegate.mm; sourceTree = "<group>"; };
@@ -100,6 +82,24 @@
 		18163B622935F54600EDA81D /* Inter-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Black.otf"; sourceTree = "<group>"; };
 		18163B632935F54600EDA81D /* Inter-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.otf"; sourceTree = "<group>"; };
 		18163B642935F54600EDA81D /* Inter-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-BlackItalic.otf"; sourceTree = "<group>"; };
+		18FD5A2C298CC96F00DD3F63 /* Urbanist-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-BlackItalic.ttf"; path = "../../assets/fonts/Urbanist-BlackItalic.ttf"; sourceTree = "<group>"; };
+		18FD5A2D298CC96F00DD3F63 /* Urbanist-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-ExtraLightItalic.ttf"; path = "../../assets/fonts/Urbanist-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		18FD5A2E298CC96F00DD3F63 /* Urbanist-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Regular.ttf"; path = "../../assets/fonts/Urbanist-Regular.ttf"; sourceTree = "<group>"; };
+		18FD5A2F298CC96F00DD3F63 /* Urbanist-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-SemiBold.ttf"; path = "../../assets/fonts/Urbanist-SemiBold.ttf"; sourceTree = "<group>"; };
+		18FD5A30298CC96F00DD3F63 /* Urbanist-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Thin.ttf"; path = "../../assets/fonts/Urbanist-Thin.ttf"; sourceTree = "<group>"; };
+		18FD5A31298CC96F00DD3F63 /* Urbanist-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Italic.ttf"; path = "../../assets/fonts/Urbanist-Italic.ttf"; sourceTree = "<group>"; };
+		18FD5A32298CC96F00DD3F63 /* Urbanist-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Black.ttf"; path = "../../assets/fonts/Urbanist-Black.ttf"; sourceTree = "<group>"; };
+		18FD5A33298CC97000DD3F63 /* Urbanist-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-ExtraLight.ttf"; path = "../../assets/fonts/Urbanist-ExtraLight.ttf"; sourceTree = "<group>"; };
+		18FD5A34298CC97000DD3F63 /* Urbanist-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Light.ttf"; path = "../../assets/fonts/Urbanist-Light.ttf"; sourceTree = "<group>"; };
+		18FD5A35298CC97000DD3F63 /* Urbanist-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-LightItalic.ttf"; path = "../../assets/fonts/Urbanist-LightItalic.ttf"; sourceTree = "<group>"; };
+		18FD5A36298CC97000DD3F63 /* Urbanist-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Medium.ttf"; path = "../../assets/fonts/Urbanist-Medium.ttf"; sourceTree = "<group>"; };
+		18FD5A37298CC97000DD3F63 /* Urbanist-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-MediumItalic.ttf"; path = "../../assets/fonts/Urbanist-MediumItalic.ttf"; sourceTree = "<group>"; };
+		18FD5A38298CC97100DD3F63 /* Urbanist-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-ThinItalic.ttf"; path = "../../assets/fonts/Urbanist-ThinItalic.ttf"; sourceTree = "<group>"; };
+		18FD5A39298CC97100DD3F63 /* Urbanist-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-BoldItalic.ttf"; path = "../../assets/fonts/Urbanist-BoldItalic.ttf"; sourceTree = "<group>"; };
+		18FD5A3A298CC97100DD3F63 /* Urbanist-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-ExtraBoldItalic.ttf"; path = "../../assets/fonts/Urbanist-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		18FD5A3B298CC97100DD3F63 /* Urbanist-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-SemiBoldItalic.ttf"; path = "../../assets/fonts/Urbanist-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		18FD5A3C298CC97100DD3F63 /* Urbanist-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-ExtraBold.ttf"; path = "../../assets/fonts/Urbanist-ExtraBold.ttf"; sourceTree = "<group>"; };
+		18FD5A3D298CC97100DD3F63 /* Urbanist-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Bold.ttf"; path = "../../assets/fonts/Urbanist-Bold.ttf"; sourceTree = "<group>"; };
 		267B6764BCF607C3684DCD51 /* Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile-lootswap_mobileTests/Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig"; sourceTree = "<group>"; };
 		292C0ABA223F003B534DFD4C /* Pods-lootswap_mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile.debug.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile.debug.xcconfig"; sourceTree = "<group>"; };
 		47B7947F52F8E8F59BBECDA3 /* libPods-lootswap_mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lootswap_mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,6 +163,24 @@
 		18163B562935F50E00EDA81D /* fonts */ = {
 			isa = PBXGroup;
 			children = (
+				18FD5A32298CC96F00DD3F63 /* Urbanist-Black.ttf */,
+				18FD5A2C298CC96F00DD3F63 /* Urbanist-BlackItalic.ttf */,
+				18FD5A3D298CC97100DD3F63 /* Urbanist-Bold.ttf */,
+				18FD5A39298CC97100DD3F63 /* Urbanist-BoldItalic.ttf */,
+				18FD5A3C298CC97100DD3F63 /* Urbanist-ExtraBold.ttf */,
+				18FD5A3A298CC97100DD3F63 /* Urbanist-ExtraBoldItalic.ttf */,
+				18FD5A33298CC97000DD3F63 /* Urbanist-ExtraLight.ttf */,
+				18FD5A2D298CC96F00DD3F63 /* Urbanist-ExtraLightItalic.ttf */,
+				18FD5A31298CC96F00DD3F63 /* Urbanist-Italic.ttf */,
+				18FD5A34298CC97000DD3F63 /* Urbanist-Light.ttf */,
+				18FD5A35298CC97000DD3F63 /* Urbanist-LightItalic.ttf */,
+				18FD5A36298CC97000DD3F63 /* Urbanist-Medium.ttf */,
+				18FD5A37298CC97000DD3F63 /* Urbanist-MediumItalic.ttf */,
+				18FD5A2E298CC96F00DD3F63 /* Urbanist-Regular.ttf */,
+				18FD5A2F298CC96F00DD3F63 /* Urbanist-SemiBold.ttf */,
+				18FD5A3B298CC97100DD3F63 /* Urbanist-SemiBoldItalic.ttf */,
+				18FD5A30298CC96F00DD3F63 /* Urbanist-Thin.ttf */,
+				18FD5A38298CC97100DD3F63 /* Urbanist-ThinItalic.ttf */,
 				18163B622935F54600EDA81D /* Inter-Black.otf */,
 				18163B642935F54600EDA81D /* Inter-BlackItalic.otf */,
 				18163B632935F54600EDA81D /* Inter-Bold.otf */,
@@ -177,24 +195,6 @@
 				18163B572935F54500EDA81D /* Inter-Medium.otf */,
 				18163B5E2935F54500EDA81D /* Inter-MediumItalic.otf */,
 				18163B5C2935F54500EDA81D /* Inter-Regular.otf */,
-				0C75F0C529882A6B0066176C /* Urbanist-Black.ttf */,
-				0C75F0C829882A6B0066176C /* Urbanist-BlackItalic.ttf */,
-				0C75F0CA29882A6C0066176C /* Urbanist-Bold.ttf */,
-				0C75F0C929882A6B0066176C /* Urbanist-BoldItalic.ttf */,
-				0C75F0C329882A6B0066176C /* Urbanist-ExtraBold.ttf */,
-				0C75F0CD29882A6C0066176C /* Urbanist-ExtraBoldItalic.ttf */,
-				0C75F0C429882A6B0066176C /* Urbanist-ExtraLight.ttf */,
-				0C75F0D229882A6C0066176C /* Urbanist-ExtraLightItalic.ttf */,
-				0C75F0D329882A6C0066176C /* Urbanist-Italic.ttf */,
-				0C75F0CB29882A6C0066176C /* Urbanist-Light.ttf */,
-				0C75F0CE29882A6C0066176C /* Urbanist-LightItalic.ttf */,
-				0C75F0D429882A6C0066176C /* Urbanist-Medium.ttf */,
-				0C75F0CC29882A6C0066176C /* Urbanist-MediumItalic.ttf */,
-				0C75F0CF29882A6C0066176C /* Urbanist-Regular.ttf */,
-				0C75F0D029882A6C0066176C /* Urbanist-SemiBold.ttf */,
-				0C75F0C629882A6B0066176C /* Urbanist-SemiBoldItalic.ttf */,
-				0C75F0D129882A6C0066176C /* Urbanist-Thin.ttf */,
-				0C75F0C729882A6B0066176C /* Urbanist-ThinItalic.ttf */,
 			);
 			path = fonts;
 			sourceTree = "<group>";
@@ -346,40 +346,40 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C75F0E429882A6C0066176C /* Urbanist-ExtraLightItalic.ttf in Resources */,
-				0C75F0E629882A6C0066176C /* Urbanist-Medium.ttf in Resources */,
-				0C75F0D629882A6C0066176C /* Urbanist-ExtraLight.ttf in Resources */,
+				18FD5A44298CC97200DD3F63 /* Urbanist-Black.ttf in Resources */,
+				18FD5A42298CC97200DD3F63 /* Urbanist-Thin.ttf in Resources */,
+				18FD5A4E298CC97200DD3F63 /* Urbanist-ExtraBold.ttf in Resources */,
+				18FD5A3F298CC97200DD3F63 /* Urbanist-ExtraLightItalic.ttf in Resources */,
+				18FD5A4B298CC97200DD3F63 /* Urbanist-BoldItalic.ttf in Resources */,
+				18FD5A4F298CC97200DD3F63 /* Urbanist-Bold.ttf in Resources */,
+				18FD5A46298CC97200DD3F63 /* Urbanist-Light.ttf in Resources */,
 				18163B682935F54600EDA81D /* Inter-Italic.otf in Resources */,
 				18163B6E2935F54600EDA81D /* Inter-BoldItalic.otf in Resources */,
-				0C75F0DD29882A6C0066176C /* Urbanist-Light.ttf in Resources */,
-				0C75F0DC29882A6C0066176C /* Urbanist-Bold.ttf in Resources */,
 				18163B6C2935F54600EDA81D /* Inter-MediumItalic.otf in Resources */,
-				0C75F0DF29882A6C0066176C /* Urbanist-ExtraBoldItalic.ttf in Resources */,
-				0C75F0E029882A6C0066176C /* Urbanist-LightItalic.ttf in Resources */,
 				18163B6D2935F54600EDA81D /* Inter-ExtraLight.otf in Resources */,
-				0C75F0E329882A6C0066176C /* Urbanist-Thin.ttf in Resources */,
+				18FD5A41298CC97200DD3F63 /* Urbanist-SemiBold.ttf in Resources */,
+				18FD5A3E298CC97200DD3F63 /* Urbanist-BlackItalic.ttf in Resources */,
 				18163B6B2935F54600EDA81D /* Inter-Light.otf in Resources */,
 				18163B6A2935F54600EDA81D /* Inter-Regular.otf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				0C75F0D729882A6C0066176C /* Urbanist-Black.ttf in Resources */,
+				18FD5A45298CC97200DD3F63 /* Urbanist-ExtraLight.ttf in Resources */,
 				18163B652935F54600EDA81D /* Inter-Medium.otf in Resources */,
-				0C75F0E129882A6C0066176C /* Urbanist-Regular.ttf in Resources */,
-				0C75F0E229882A6C0066176C /* Urbanist-SemiBold.ttf in Resources */,
-				0C75F0DB29882A6C0066176C /* Urbanist-BoldItalic.ttf in Resources */,
-				0C75F0D929882A6C0066176C /* Urbanist-ThinItalic.ttf in Resources */,
+				18FD5A47298CC97200DD3F63 /* Urbanist-LightItalic.ttf in Resources */,
+				18FD5A4D298CC97200DD3F63 /* Urbanist-SemiBoldItalic.ttf in Resources */,
 				18163B702935F54600EDA81D /* Inter-Black.otf in Resources */,
 				18163B662935F54600EDA81D /* Inter-ExtraLightItalic.otf in Resources */,
+				18FD5A4C298CC97200DD3F63 /* Urbanist-ExtraBoldItalic.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				0C75F0D829882A6C0066176C /* Urbanist-SemiBoldItalic.ttf in Resources */,
+				18FD5A48298CC97200DD3F63 /* Urbanist-Medium.ttf in Resources */,
 				18163B712935F54600EDA81D /* Inter-Bold.otf in Resources */,
-				0C75F0DE29882A6C0066176C /* Urbanist-MediumItalic.ttf in Resources */,
-				0C75F0DA29882A6C0066176C /* Urbanist-BlackItalic.ttf in Resources */,
 				18163B6F2935F54600EDA81D /* Inter-ExtraBoldItalic.otf in Resources */,
 				18163B672935F54600EDA81D /* Inter-LightItalic.otf in Resources */,
-				0C75F0E529882A6C0066176C /* Urbanist-Italic.ttf in Resources */,
+				18FD5A43298CC97200DD3F63 /* Urbanist-Italic.ttf in Resources */,
+				18FD5A40298CC97200DD3F63 /* Urbanist-Regular.ttf in Resources */,
+				18FD5A49298CC97200DD3F63 /* Urbanist-MediumItalic.ttf in Resources */,
 				18163B722935F54600EDA81D /* Inter-BlackItalic.otf in Resources */,
 				18163B692935F54600EDA81D /* Inter-ExtraBold.otf in Resources */,
-				0C75F0D529882A6C0066176C /* Urbanist-ExtraBold.ttf in Resources */,
+				18FD5A4A298CC97200DD3F63 /* Urbanist-ThinItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
