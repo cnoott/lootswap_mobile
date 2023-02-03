@@ -4,6 +4,7 @@ declare module '@env' {
   export const AlgoliaApiKey: string;
   export const ALGOLIA_INDEX_NAME: string;
   export const StripeApiKey: string;
+  export const WEB_APP_URL: string;
 }
 
 declare module 'custom_types' {
