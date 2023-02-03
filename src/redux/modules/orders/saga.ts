@@ -1,5 +1,9 @@
 import {takeLatest, call, put} from 'redux-saga/effects';
-import {GET_ALL_ORDERS, GET_ORDER, SALE_GENERATE_CARRIER_RATES} from '../../../constants/actions';
+import {
+  GET_ALL_ORDERS,
+  GET_ORDER,
+  SALE_GENERATE_CARRIER_RATES,
+} from '../../../constants/actions';
 import {
   getAllOrdersCall,
   getOrderCall,
