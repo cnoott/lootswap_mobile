@@ -28,6 +28,7 @@ declare module 'localsvgimages' {
   export const PROFILE_SIGN_OUT: any;
   export const PROFILE_NOTIFICATION: any;
   export const SEARCH_INPUT_ICON: any;
+  export const HOME_SEARCH_INPUT_ICON: any;
   export const HOME_FILTER_ICON: any;
   export const LEFT_PRIMARY_ARROW: any;
   export const LEFT_BLACK_ARROW: any;
@@ -67,4 +68,8 @@ declare module 'localsvgimages' {
   export const LIKE_HEART_ICON_WHITE: any;
   export const PAY_PAL_LABEL: any;
   export const LOOT_SWAP_LOGO_LABEL: any;
+  export const UPS_ICON: any;
+  export const FEDEX_ICON: any;
+  export const UNITED_STATE_POSTAL_SERVICE_ICON: any;
+  export const SHIPPING_INS_HEADER_IMG: any;
 }

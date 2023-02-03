@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {color, layout, space} from 'styled-system';
+import {border, color, layout, space} from 'styled-system';
 import {moderateScale} from 'react-native-size-matters';
 
 export const Container = styled.View.attrs(props => ({
@@ -22,10 +22,14 @@ export const SearchContainer = styled.View.attrs(props => ({
   paddingVertical: moderateScale(5),
   paddingHorizontal: moderateScale(10),
   bg: props.theme.colors.white,
+  pb: moderateScale(10),
+  borderBottomColor: props.theme.colors.divider,
+  borderBottomWidth: moderateScale(2),
 }))`
   ${space}
   ${layout}
   ${color}
+  ${border}
 `;
 
 export const FlatList = styled.FlatList.attrs(() => ({
