@@ -7,6 +7,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {WebView} from 'react-native-webview';
 import {StyleSheet, Modal} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {WEB_APP_URL} from '@env';
+import {Alert} from 'custom_top_alert';
 import {
   Container,
   HorizontalBar,
@@ -82,6 +84,12 @@ export const CheckoutScreen: FC<{}> = props => {
             paypalOrderData: data.newOrder,
           },
         });
+        break;
+      case 'error':
+        console.log(msg);
+        Alert.showError(
+          'There was an error with your transaction. Please try again',
+        );
     }
   };
 
@@ -176,7 +184,7 @@ export const CheckoutScreen: FC<{}> = props => {
 
             <WebView
               source={{
-                uri: `http://localhost:3000/mobile-checkout?email=${userData?.email}&merchantId=${requestedUserDetails?.paypal_info?.merchantIdInPayPal}&itemId=${productData?._id}&userId=${userData?._id}`,
+                uri: `${WEB_APP_URL}/mobile-checkout?email=${userData?.email}&merchantId=${requestedUserDetails?.paypal_info?.merchantIdInPayPal}&itemId=${productData?._id}&userId=${userData?._id}`,
               }}
               onMessage={onMessage}
               style={{flex: 1}}

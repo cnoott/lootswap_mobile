@@ -52,8 +52,6 @@ type PaymentDetails = {
   total: number;
   userPayout: number;
 };
-//TODO:
-//  > Alert error handling
 export const TradeCheckoutScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation();
   const {tradeData, orderData} = props.route?.params;
@@ -108,7 +106,7 @@ export const TradeCheckoutScreen: FC<{}> = props => {
     const {error} = await presentPaymentSheet();
 
     if (error) {
-      //alert here
+      Alert.showError(`There was an error with your payment: ${error}`);
       console.log('error payment sheet', error);
     } else {
       dispatch(
