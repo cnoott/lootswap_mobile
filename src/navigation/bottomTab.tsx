@@ -67,7 +67,7 @@ const HomeStackNavigation = () => (
 
 const ProfileStackNavigation = () => (
   <Stack.Navigator
-    initialRouteName={'ShippingLabelScreen'}
+    initialRouteName={'ProfileScreen'}
     screenOptions={{
       headerShown: false,
     }}>
