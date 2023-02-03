@@ -23,6 +23,7 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {printLabel} from '../../utility/utility';
+import {Linking} from 'react-native';
 //TODO:
 // - tracking number is a hyperlink
 // - tracking
@@ -37,6 +38,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
   const base64Img = isReciever
     ? item.recieverUPSShipmentData.toWarehouseLabel
     : item.senderUPSShipmentData.toWarehouseLabel;
+
 
   const renderTrackingNumber = () => {
     if (!isTradeOrder) {
@@ -79,6 +81,19 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
     }
   };
 
+  const openTrackingLink = async () => {
+    let trackingNumber = renderTrackingNumber();
+    if (!trackingNumber) {
+      return;
+    }
+
+    const url = `https://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=${trackingNumber}`;
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      await Linking.openURL(url);
+    }
+  };
+
   const printLabelButton = () => (
     <LSButton
       title={'Print Label'}
@@ -107,7 +122,9 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       <>
         <RowContainer>
           <OrderDataLabel>Tracking Number</OrderDataLabel>
-          <TrackingNumberLabel>{renderTrackingNumber()}</TrackingNumberLabel>
+          <TrackingNumberLabel onPress={() => openTrackingLink()}>
+            {renderTrackingNumber()}
+          </TrackingNumberLabel>
         </RowContainer>
         <RowContainer>
           <OrderDataLabel>
