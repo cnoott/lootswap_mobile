@@ -2,7 +2,7 @@ import React, {FC, useState} from 'react';
 import LSInput from '../commonComponents/LSInput';
 import {useSearchBox} from 'react-instantsearch-hooks';
 import {useTheme} from 'styled-components';
-import {SEARCH_INPUT_ICON, HOME_FILTER_ICON} from 'localsvgimages';
+import {HOME_SEARCH_INPUT_ICON, HOME_FILTER_ICON} from 'localsvgimages';
 
 interface LSHomeScreenSearchProps {
   onRightIconPress?: Function;
@@ -25,7 +25,7 @@ const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
       value={inputValue}
       onChangeText={setQuery}
       placeholder={'Search'}
-      leftIcon={SEARCH_INPUT_ICON}
+      leftIcon={HOME_SEARCH_INPUT_ICON}
       homeSearch={true}
       rightIcon={HOME_FILTER_ICON}
       onRightIconPress={onRightIconPress}

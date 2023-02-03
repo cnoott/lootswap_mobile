@@ -13,6 +13,8 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import OrderPurchaseCell from '../../components/orders/orderPurchaseCell';
 import OrderTradeOrdersCell from '../../components/orders/orderTradeOrdersCell';
+import {LSModal} from '../../components/commonComponents/LSModal';
+import ShippingInstructionModalComponent from '../../components/orders/shippingInstructionModalComponent';
 import {
   Container,
   TopTabView,
@@ -34,6 +36,7 @@ export const MyOrdersListScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [index, setIndex] = useState(0);
+  const [isShipInsModalVisible, setShipInsModalVisible] = useState(false);
   const [routes] = React.useState([
     {key: 'first', title: 'Purchases'},
     {key: 'second', title: 'Sales'},
@@ -61,7 +64,7 @@ export const MyOrdersListScreen: FC<{}> = () => {
 
     if (isSeller && paypalOrder?.shippingStep === 0) {
       console.log('WIP');
-      //TODO navigate to seller pay shipping
+      setShipInsModalVisible(true);
     } else {
       navigation?.navigate('TrackOrderScreen', {
         isTradeOrder: false,
@@ -90,6 +93,15 @@ export const MyOrdersListScreen: FC<{}> = () => {
         },
       ),
     );
+  };
+
+  const goToShippingLabelScreen = () => {
+    setShipInsModalVisible(false);
+    setTimeout(() => {
+      navigation?.navigate('ShippingLabelScreen', {
+        shippingData: {},
+      });
+    }, 300);
   };
 
   const onTradeItemPress = (tradeOrder: any) => {
@@ -145,6 +157,21 @@ export const MyOrdersListScreen: FC<{}> = () => {
           break;
       }
     }
+  };
+
+  const renderShippingInstructionModal = () => {
+    return (
+      <LSModal isVisible={isShipInsModalVisible}>
+        <LSModal.Container>
+          <ShippingInstructionModalComponent
+            onButtonPress={() => goToShippingLabelScreen()}
+          />
+          <LSModal.CloseButton
+            onCloseButtonPress={() => setShipInsModalVisible(false)}
+          />
+        </LSModal.Container>
+      </LSModal>
+    );
   };
 
   const renderPurchasesItem = ({item}) => {
@@ -246,6 +273,7 @@ export const MyOrdersListScreen: FC<{}> = () => {
         onIndexChange={setIndex}
         initialLayout={{width: layout.width}}
       />
+      {renderShippingInstructionModal()}
     </Container>
   );
 };
