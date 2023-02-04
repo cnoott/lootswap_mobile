@@ -2,7 +2,7 @@
 LootSwap - SELLER PAY SHIPPING LABEL SCREEN
 ***/
 
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSButton from '../../components/commonComponents/LSButton';
@@ -13,8 +13,6 @@ import {
   SubContainer,
   FullDivider,
   SubHeaderLabel,
-  AddressContainer,
-  AddressText,
   TipContainer,
   TipLabel,
   TipRowView,
@@ -24,35 +22,76 @@ import {
   SizeBox,
   SizeRightLabel,
   DividerText,
-  Touchable,
-  CalculateSizeText,
   WeightRowView,
   HorizontalSpace,
 } from './shippingLabelScreenStyle';
+import {VerticalMargin} from '../offers/tradeCheckoutStyle';
+import {Alert} from 'custom_top_alert';
+import DeliveryAddressComponent from '../../components/orders/deliveryAddressComponent';
+import {AuthProps} from '../../redux/modules/auth/reducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  getMyDetailsRequest,
+  saleGenerateCarrierRates,
+} from '../../redux/modules';
 
 export const ShippingLabelScreen: FC<any> = ({route}) => {
-  const {shippingData} = route?.params || {};
+  const {productId, paypalOrderId} = route?.params || {};
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
-  const [sizeLength, setLength] = useState(0);
-  const [sizeWidth, setWidth] = useState(0);
-  const [sizeHeight, setHeight] = useState(0);
-  const [lbWeight, setLBWeight] = useState(0);
-  const [ozWeight, setOZWeight] = useState(0);
-  const onCalculateSizePress = () => {
-    //TODO
-    console.log('shippingData ==', shippingData);
-  };
+  const dispatch = useDispatch();
+  const auth: AuthProps = useSelector(state => state?.auth);
+  const {userData} = auth;
+
+  const [sizeLength, setLength] = useState(null);
+  const [sizeWidth, setWidth] = useState(null);
+  const [sizeHeight, setHeight] = useState(null);
+  const [lbWeight, setLBWeight] = useState(null);
+  const [ozWeight, setOZWeight] = useState(null);
+
+  useEffect(() => {
+    dispatch(getMyDetailsRequest(userData?._id));
+  }, [userData?._id, dispatch]);
+
   const onSubmitPress = () => {
-    navigation?.navigate('ChooseServiceScreen');
-  };
-  const renderAddressView = () => {
-    return (
-      <AddressContainer>
-        <SubHeaderLabel>Shipping To</SubHeaderLabel>
-        <AddressText>
-          4517 Washington Ave. Manchester, Kentucky 39495
-        </AddressText>
-      </AddressContainer>
+    if (!sizeLength || !sizeWidth || !sizeHeight || !lbWeight || !ozWeight) {
+      Alert.showError('Please fill all inputs');
+      return;
+    }
+
+    const convertedPounds =
+      parseFloat(ozWeight) * 0.0625 + parseFloat(lbWeight);
+    const rounded = convertedPounds.toFixed(4);
+    const dim = {
+      length: sizeLength,
+      width: sizeLength,
+      height: sizeHeight,
+      distance_unit: 'in',
+      weight: rounded,
+      mass_unit: 'lb',
+    };
+    const reqData = {
+      userId: userData?._id,
+      productId: productId,
+      paypalOrderId: paypalOrderId,
+      dim: {dim},
+    };
+
+    console.log('YOSDFDSF', paypalOrderId);
+    dispatch(
+      saleGenerateCarrierRates(
+        reqData,
+        res => {
+          console.log('response', res);
+          navigation?.navigate('ChooseServiceScreen', {
+            ratesDetails: res,
+            paypalOrderId: paypalOrderId,
+          });
+        },
+        error => {
+          //TODO: Alert
+          console.log(error);
+        },
+      ),
     );
   };
   const renderTip = (text: string) => {
@@ -149,16 +188,15 @@ export const ShippingLabelScreen: FC<any> = ({route}) => {
       />
       <FullDivider />
       <SubContainer>
-        {renderAddressView()}
+        <DeliveryAddressComponent userDetails={userData} />
+        <VerticalMargin />
         {renderTipView()}
         {renderSizeView()}
-        <Touchable onPress={() => onCalculateSizePress()}>
-          <CalculateSizeText>Calculate packing size</CalculateSizeText>
-        </Touchable>
+        <VerticalMargin />
         {renderWeightView()}
       </SubContainer>
       <LSButton
-        title={'SUBMIT'}
+        title={'Next'}
         size={Size.Fit_To_Width}
         type={Type.Primary}
         radius={15}

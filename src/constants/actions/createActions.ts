@@ -123,3 +123,7 @@ export const GET_ORDER_FROM_TRADE = {
 export const SALE_GENERATE_CARRIER_RATES = {
   ...createActionConst(actions.SALE_GENERATE_CARRIER_RATES),
 };
+
+export const CHECKOUT_RATE = {
+  ...createActionConst(actions.CHECKOUT_RATE),
+};
