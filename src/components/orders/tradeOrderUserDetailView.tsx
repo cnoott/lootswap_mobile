@@ -34,8 +34,8 @@ const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
     item,
   );
   const base64Img = isReciever
-    ? item.recieverUPSShipmentData.toWarehouseLabel
-    : item.senderUPSShipmentData.toWarehouseLabel;
+    ? item?.recieverUPSShipmentData?.toWarehouseLabel
+    : item?.senderUPSShipmentData?.toWarehouseLabel;
 
   return (
     <RowView>
