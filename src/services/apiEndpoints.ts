@@ -233,6 +233,16 @@ export const saleGenerateCarrierRatesCall = (reqData: any) => {
   );
 };
 
+export const checkoutRateCall = (reqData: any) => {
+  return handleResponse(
+    api.post(
+      `/mobile-paypal-checkout-rate/${reqData?.userId}/${reqData?.paypalOrderId}`,
+      reqData?.rate,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

@@ -2,6 +2,7 @@ import {
   GET_ALL_ORDERS,
   GET_ORDER,
   SALE_GENERATE_CARRIER_RATES,
+  CHECKOUT_RATE,
 } from '../../../constants/actions';
 
 export const getAllOrders = (reqData: any) => {
@@ -45,6 +46,19 @@ export const saleGenerateCarrierRates = (
 ) => {
   return {
     type: SALE_GENERATE_CARRIER_RATES.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const checkoutRate = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: CHECKOUT_RATE.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,

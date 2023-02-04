@@ -3,11 +3,13 @@ import {
   GET_ALL_ORDERS,
   GET_ORDER,
   SALE_GENERATE_CARRIER_RATES,
+  CHECKOUT_RATE,
 } from '../../../constants/actions';
 import {
   getAllOrdersCall,
   getOrderCall,
   saleGenerateCarrierRatesCall,
+  checkoutRateCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {getAllOrdersSuccess, getAllOrdersFailure} from '../orders/actions';
@@ -74,11 +76,31 @@ export function* saleGenerateCarrierRates(action: any) {
   }
 }
 
+export function* checkoutRate(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      checkoutRateCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export default function* ordersSaga() {
   yield takeLatest(GET_ALL_ORDERS.REQUEST, getAllOrders);
   yield takeLatest(GET_ORDER.REQUEST, getOrder);
   yield takeLatest(
     SALE_GENERATE_CARRIER_RATES.REQUEST,
-    saleGenerateCarrierRatesCall,
+    saleGenerateCarrierRates,
   );
+  yield takeLatest(CHECKOUT_RATE.REQUEST, checkoutRate);
 }

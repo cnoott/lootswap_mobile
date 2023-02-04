@@ -1,6 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSButton from '../../components/commonComponents/LSButton';
+import DeliveryAddressComponent from '../../components/orders/deliveryAddressComponent';
 import {Size, Type} from 'custom_enums';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {useDispatch, useSelector} from 'react-redux';
@@ -13,12 +14,6 @@ import {
   Container,
   HorizontalBar,
   ScrollSubContainer,
-  DeliveryAddContainer,
-  DeliveryAddressLabel,
-  DeliveryAddressText,
-  EditLabelContainer,
-  EditLabel,
-  DeliveryAddSubContainer,
   HeadingLabel,
   EmptyView,
   VerticalMargin,
@@ -34,8 +29,6 @@ import {
 } from '../offers/tradeCheckoutStyle';
 import {getMyDetailsRequest, getUsersDetailsRequest} from '../../redux/modules';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
-import {EDIT_PRIMARY_ICON_BOTTOM_LINE} from '../../assets/images/svgs';
-import {SvgXml} from 'react-native-svg';
 
 //TODO:
 //-handle money offer trades
@@ -95,28 +88,6 @@ export const CheckoutScreen: FC<{}> = props => {
 
   const renderHeading = (label: string) => {
     return <HeadingLabel>{label}</HeadingLabel>;
-  };
-
-  const renderDeliveryAddressContainer = () => {
-    return (
-      <DeliveryAddContainer>
-        <DeliveryAddSubContainer>
-          <DeliveryAddressLabel>Delivery Address</DeliveryAddressLabel>
-          <DeliveryAddressText>
-            {userData?.shipping_address?.street1}
-            {', '}
-            {userData?.shipping_address?.street2}
-            {userData?.shipping_address?.city}{' '}
-            {userData?.shipping_address?.state}{' '}
-            {userData?.shipping_address?.zip}
-          </DeliveryAddressText>
-        </DeliveryAddSubContainer>
-        <EditLabelContainer>
-          <SvgXml xml={EDIT_PRIMARY_ICON_BOTTOM_LINE} />
-          <EditLabel>Edit</EditLabel>
-        </EditLabelContainer>
-      </DeliveryAddContainer>
-    );
   };
 
   const renderSummaryDetail = (label: string, value: number) => {
@@ -200,7 +171,7 @@ export const CheckoutScreen: FC<{}> = props => {
       <InStackHeader title={'Checkout'} onlyTitleCenterAlign={true} />
       <HorizontalBar />
       <ScrollSubContainer>
-        {renderDeliveryAddressContainer()}
+        <DeliveryAddressComponent userDetails={userData} />
         {renderItem()}
         <VerticalMargin />
         <HorizontalBar />

@@ -42,6 +42,8 @@ export const MyOrdersListScreen: FC<{}> = () => {
     {key: 'second', title: 'Sales'},
     {key: 'third', title: 'Trade Orders'},
   ]);
+  const [selectedProductId, setSelectedProductId] = useState('');
+  const [selectedPaypalOrderId, setSelectedPaypalOrderId] = useState('');
 
   useEffect(() => {
     dispatch(
@@ -63,8 +65,9 @@ export const MyOrdersListScreen: FC<{}> = () => {
     const isSeller = userData?._id === paypalOrder?.sellerId?._id;
 
     if (isSeller && paypalOrder?.shippingStep === 0) {
-      console.log('WIP');
       setShipInsModalVisible(true);
+      setSelectedProductId(paypalOrder?.productId?._id);
+      setSelectedPaypalOrderId(paypalOrder?._id);
     } else {
       navigation?.navigate('TrackOrderScreen', {
         isTradeOrder: false,
@@ -99,7 +102,8 @@ export const MyOrdersListScreen: FC<{}> = () => {
     setShipInsModalVisible(false);
     setTimeout(() => {
       navigation?.navigate('ShippingLabelScreen', {
-        shippingData: {},
+        productId: selectedProductId,
+        paypalOrderId: selectedPaypalOrderId,
       });
     }, 300);
   };
