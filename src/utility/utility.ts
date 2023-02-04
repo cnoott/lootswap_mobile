@@ -1007,3 +1007,24 @@ export const printLabel = async (base64Img: string) => {
     html: htmlString,
   });
 };
+
+export const getPublicProfileFilters = () => {
+  return [
+    {
+      label: 'All',
+      id: 1,
+    },
+    {
+      label: 'Trade and Sell',
+      id: 2,
+    },
+    {
+      label: 'Sell Only',
+      id: 3,
+    },
+    {
+      label: 'Trade Only',
+      id: 4,
+    },
+  ];
+};

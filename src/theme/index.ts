@@ -39,6 +39,7 @@ const theme = {
     searchInnerBG: '#F6F6F9',
     searchBorder: '#EAEAF3',
     protectionBorder: 'rgba(98, 103, 254, 0.3)',
+    lightBorder: '#EDEDF2',
   },
   width: 50,
   height: 50,
