@@ -1,6 +1,10 @@
 import * as React from 'react';
 import {LSProfileImageComponent} from '../commonComponents/profileImage';
-import {daysPast, paypalOrderShippingStatus, salePrintLabel} from '../../utility/utility';
+import {
+  daysPast,
+  paypalOrderShippingStatus,
+  salePrintLabel,
+} from '../../utility/utility';
 import {
   RowView,
   UserLeftView,
