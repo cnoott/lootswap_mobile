@@ -15,13 +15,16 @@ import {
   DesLabel,
   SuccessImage,
 } from './tradeSuccessScreenStyle';
-import {getOrder} from '../../redux/modules';
+import {getOrder, getAllOrders} from '../../redux/modules';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 
 export const TradeCheckoutSucessScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation();
   const dispatch = useDispatch();
+  const auth: AuthProps = useSelector(state => state?.auth);
+  const {userData} = auth;
   const {
     orderData = {},
     total,
@@ -43,8 +46,14 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
           },
         ),
       );
+    } else {
+      dispatch(
+        getAllOrders({
+          userId: userData?._id,
+        }),
+      );
     }
-  }, [orderData?._id, dispatch, isSale]);
+  }, [orderData?._id, dispatch, isSale, userData?._id]);
 
   const onPressOptions = () => {
     navigation.reset({
