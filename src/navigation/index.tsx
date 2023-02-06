@@ -24,7 +24,7 @@ const Stack = createStackNavigator();
 
 const AppNavigation = () => (
   <Stack.Navigator
-    initialRouteName={'PublicProfileScreen'}
+    initialRouteName={'BottomTabs'}
     screenOptions={{
       headerShown: false,
     }}>
