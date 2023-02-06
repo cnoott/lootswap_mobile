@@ -76,7 +76,6 @@ export const ShippingLabelScreen: FC<any> = ({route}) => {
       dim: {dim},
     };
 
-    console.log('YOSDFDSF', paypalOrderId);
     dispatch(
       saleGenerateCarrierRates(
         reqData,
@@ -88,7 +87,7 @@ export const ShippingLabelScreen: FC<any> = ({route}) => {
           });
         },
         error => {
-          //TODO: Alert
+          Alert.showError('Error choosing box size:', error);
           console.log(error);
         },
       ),

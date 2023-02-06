@@ -156,8 +156,10 @@ export const ChooseServiceScreen: FC<any> = ({route}) => {
           }
         },
         error => {
+          Alert.showError(
+            'There was an error checking out, please try again in a moment.',
+          );
           console.log(error);
-          console.log(loading);
         },
       ),
     );
@@ -180,6 +182,7 @@ export const ChooseServiceScreen: FC<any> = ({route}) => {
         </SubContainer>
         <LSButton
           title={'CHECKOUT'}
+          disabled={!loading}
           size={Size.Fit_To_Width}
           type={Type.Primary}
           radius={15}
