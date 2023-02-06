@@ -54,7 +54,7 @@ export const HomeScreen: FC<{}> = () => {
 
   const renderItem = ({item, index}) => {
     if (index === 0) {
-      return <CarouselComponent height={scale(300)} />;
+      return <CarouselComponent height={scale(400)} isHome={true} />;
     }
     return <LSProductCard item={item} onPress={() => onProductPress(item)} />;
   };
