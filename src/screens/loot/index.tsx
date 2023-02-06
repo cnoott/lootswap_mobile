@@ -48,7 +48,7 @@ export const LootScreen: FC<any> = ({route}) => {
   const dispatch = useDispatch();
   const homeData: HomeProps = useSelector(state => state?.home);
   const swiperRef = useRef<any>(null);
-  const [isPayPalModalVisible, setPayPalModalVisible] = useState(false);
+  const [isPayPalModalVisible, setPayPalModalVisible] = useState(true);
   const {addProductData} = homeData;
   const {
     isFromEdit = false,
@@ -58,7 +58,6 @@ export const LootScreen: FC<any> = ({route}) => {
   const [currIndex, setCurrIndex] = useState(
     isFromEdit && editIndex ? editIndex - 1 : 0,
   );
-  console.log('addProductData ===', addProductData);
   const updateProductData = (proData: ADD_PRODUCT_TYPE) => {
     dispatch(UpdateAddProductData(proData));
   };
@@ -74,7 +73,7 @@ export const LootScreen: FC<any> = ({route}) => {
     Keyboard.dismiss();
     const canGoNext = validateCreateProductData(currIndex + 1, addProductData);
     if (canGoNext) {
-      // setPayPalModalVisible(true);
+      setPayPalModalVisible(true);
       if (currIndex === 4) {
         navigation.navigate('AddProductOverviewScreen');
       }

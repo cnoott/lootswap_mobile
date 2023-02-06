@@ -23,8 +23,6 @@ export const SearchContainer = styled.View.attrs(props => ({
   paddingHorizontal: moderateScale(10),
   bg: props.theme.colors.white,
   pb: moderateScale(10),
-  borderBottomColor: props.theme.colors.divider,
-  borderBottomWidth: moderateScale(2),
 }))`
   ${space}
   ${layout}

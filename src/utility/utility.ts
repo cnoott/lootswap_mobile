@@ -1007,3 +1007,53 @@ export const printLabel = async (base64Img: string) => {
     html: htmlString,
   });
 };
+
+export const getPublicProfileFilters = () => {
+  return [
+    {
+      label: 'All',
+      id: 1,
+    },
+    {
+      label: 'Trade and Sell',
+      id: 2,
+    },
+    {
+      label: 'Sell Only',
+      id: 3,
+    },
+    {
+      label: 'Trade Only',
+      id: 4,
+    },
+  ];
+};
+
+export const getProfileReviewsFilters = () => {
+  return [
+    {
+      label: `${'\u2605'} All`,
+      id: 1,
+    },
+    {
+      label: `${'\u2605'} 1`,
+      id: 2,
+    },
+    {
+      label: `${'\u2605'} 2`,
+      id: 3,
+    },
+    {
+      label: `${'\u2605'} 3`,
+      id: 4,
+    },
+    {
+      label: `${'\u2605'} 4`,
+      id: 5,
+    },
+    {
+      label: `${'\u2605'} 5`,
+      id: 6,
+    },
+  ];
+};
