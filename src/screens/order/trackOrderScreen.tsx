@@ -141,7 +141,8 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
         </RowContainer>
         <RowContainer>
           <OrderDataLabel>
-            Shipping Carrier: {isTradeOrder ? 'UPS' : item?.shippoRate?.provider}
+            Shipping Carrier:{' '}
+            {isTradeOrder ? 'UPS' : item?.shippoRate?.provider}
           </OrderDataLabel>
           {isTradeOrder && (
             <Image
