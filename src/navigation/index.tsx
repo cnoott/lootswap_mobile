@@ -18,12 +18,13 @@ import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import CheckoutScreen from '../screens/buy/checkoutScreen';
 import PublicProfileScreen from '../screens/profile/publicProfileScreen';
+import ProfileReviewsScreen from '../screens/profile/profileReviewsScreen';
 
 const Stack = createStackNavigator();
 
 const AppNavigation = () => (
   <Stack.Navigator
-    initialRouteName={'BottomTabs'}
+    initialRouteName={'PublicProfileScreen'}
     screenOptions={{
       headerShown: false,
     }}>
@@ -41,6 +42,10 @@ const AppNavigation = () => (
     <Stack.Screen name="UserChatScreen" component={UserChatScreen} />
     <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
     <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
+    <Stack.Screen
+      name="ProfileReviewsScreen"
+      component={ProfileReviewsScreen}
+    />
   </Stack.Navigator>
 );
 

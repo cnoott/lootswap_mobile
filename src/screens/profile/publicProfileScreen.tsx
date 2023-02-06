@@ -62,7 +62,7 @@ export const PublicProfileScreen: FC<{}> = () => {
     setSelectedFilter(id);
   };
   const goToRatingsScreen = () => {
-    navigation?.navigate('screen');
+    navigation?.navigate('ProfileReviewsScreen');
     setProfileUrl('');
   };
   const renderProfileView = () => {

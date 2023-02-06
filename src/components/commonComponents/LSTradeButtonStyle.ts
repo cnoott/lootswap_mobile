@@ -3,8 +3,8 @@ import {layout, space, color, border} from 'styled-system';
 import {moderateScale, scale} from 'react-native-size-matters';
 
 export const TradeButton = styled.TouchableOpacity.attrs((props: any) => ({
-  px: scale(15),
-  py: scale(8),
+  px: scale(props?.paddingX),
+  py: scale(props?.paddingY),
   borderRadius: scale(20),
   bg: props?.selected ? props.theme.colors.black : props.theme.colors.white,
   my: scale(5),
