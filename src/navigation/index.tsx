@@ -16,7 +16,6 @@ import {isReadyRef, navigationRef} from './navigationHelper';
 import UserChatScreen from '../screens/message';
 import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
-import CheckoutScreen from '../screens/buy/checkoutScreen';
 
 const Stack = createStackNavigator();
 
@@ -38,7 +37,6 @@ const AppNavigation = () => (
       options={{presentation: 'modal'}}
     />
     <Stack.Screen name="UserChatScreen" component={UserChatScreen} />
-    <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
   </Stack.Navigator>
 );
 

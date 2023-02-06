@@ -8,6 +8,7 @@ import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from 'custom_enums';
 import {SvgXml} from 'react-native-svg';
 import {StripeApiKey, MerchantIdentifier} from '@env';
+import {getAllOrders} from '../../redux/modules';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {StripeProvider, useStripe} from '@stripe/stripe-react-native';
 import {checkoutRate} from '../../redux/modules';
@@ -142,13 +143,15 @@ export const ChooseServiceScreen: FC<any> = ({route}) => {
           if (result.error) {
             Alert.showError(`There was an error with your payment: ${error}`);
           } else {
-            navigation.navigate('Offers/Inbox', {
-              screen: 'TradeCheckoutSuccessScreen',
-              params: {
-                isSale: true,
-                total: chosenRate?.amount,
-                paypalOrderData: res.paypalOrder,
-              },
+            dispatch(
+              getAllOrders({
+                userId: userData?._id,
+              }),
+            );
+            navigation.navigate('TradeCheckoutSuccessScreen', {
+              isSale: true,
+              total: chosenRate?.amount,
+              paypalOrderData: res.paypalOrder,
             });
           }
         },
