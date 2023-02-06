@@ -66,7 +66,6 @@ export const CheckoutScreen: FC<{}> = props => {
 
   const onMessage = msg => {
     const data = JSON.parse(msg.nativeEvent.data);
-    console.log(JSON.stringify(data.info.paypalOrder));
     switch (data.status) {
       case 'success':
         setShowGateway(false);
