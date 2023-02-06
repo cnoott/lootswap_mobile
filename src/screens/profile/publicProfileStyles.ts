@@ -199,5 +199,5 @@ export const ItemsListView = styled.FlatList.attrs(() => ({
 }))`
   ${color}
   ${space}
-    ${layout}
+  ${layout}
 `;
