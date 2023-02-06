@@ -7,6 +7,12 @@ export const BELL = require('../assets/images/bell.png');
 export const BLACKLOGO = require('../assets/images/logoblack.png');
 export const USDT_COIN = require('../assets/images/usdt_coin.png');
 export const USDC_COIN = require('../assets/images/usdc_coin.png');
+export const HOME_CAROUSEL_SHOE_ONE = require('../assets/images/home/home_carousel_shoe_one.png');
+export const HOME_CAROUSEL_SHOE_TWO = require('../assets/images/home/home_carousel_shoe_two.png');
+export const HOME_CAROUSEL_CLOTH_ONE = require('../assets/images/home/home_carousel_cloth_one.png');
+export const HOME_CAROUSEL_CLOTH_TWO = require('../assets/images/home/home_carousel_cloth_two.png');
+export const VERIFY_TRADES = require('../assets/images/home/verify_trades.png');
+export const CASH_BALENCE = require('../assets/images/home/cash_balence.png');
 
 // Bottom Tab Icons
 export const HOME_BOTTOM_TAB = require('../assets/images/bottomTab/home.png');

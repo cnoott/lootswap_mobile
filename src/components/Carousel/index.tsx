@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Dimensions} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import {verticalScale, moderateScale} from 'react-native-size-matters';
+import {LSHomeStepOneCarouselItem} from './HomeItems/StepOneHomeItem';
 import {NIKE_SHOES_IMAGE} from '../../constants/imageConstants';
 import {
   Container,
@@ -17,6 +18,7 @@ import {
 interface CarouselProps {
   height?: number;
   isProduct?: boolean;
+  isHome?: boolean;
   imagesArr?: Array<string>;
   showDummy?: boolean;
   autoPlay?: boolean;
@@ -29,6 +31,7 @@ function CarouselComponent(props: CarouselProps) {
     imagesArr = [...new Array(3).keys()],
     height = verticalScale(width / 2 - (props?.isProduct ? 50 : 20)),
     isProduct = false,
+    isHome = false,
     showDummy = true,
     autoPlay = true,
     loop = true,
@@ -60,7 +63,7 @@ function CarouselComponent(props: CarouselProps) {
       <Carousel
         loop={loop}
         width={isProduct ? w : width}
-        height={isProduct ? height - 30 : height - 50}
+        height={isProduct ? height - 30 : height - 5}
         parallaxScrollingOffset={50}
         autoPlay={autoPlay}
         autoPlayInterval={10000}
@@ -75,26 +78,30 @@ function CarouselComponent(props: CarouselProps) {
           parallaxScrollingScale: 0.94,
           parallaxScrollingOffset: 50,
         }}
-        renderItem={({index, item}) => (
-          <>
-            <ItemCenterContainer>
-              <Image
-                width={isProduct ? w - 10 : width - 30}
-                height={height - (isProduct ? 0 : 120)}
-                source={
-                  isProduct
-                    ? {
-                        uri: showDummy
-                          ? `https://picsum.photos/id/${index * 20}/200/300`
-                          : item,
-                      }
-                    : NIKE_SHOES_IMAGE
-                }
-              />
-            </ItemCenterContainer>
-            {!isProduct && homeBottomView()}
-          </>
-        )}
+        renderItem={({index, item}) =>
+          isHome ? (
+            <LSHomeStepOneCarouselItem />
+          ) : (
+            <>
+              <ItemCenterContainer>
+                <Image
+                  width={isProduct ? w - 10 : width - 30}
+                  height={height - (isProduct ? 0 : 120)}
+                  source={
+                    isProduct
+                      ? {
+                          uri: showDummy
+                            ? `https://picsum.photos/id/${index * 20}/200/300`
+                            : item,
+                        }
+                      : NIKE_SHOES_IMAGE
+                  }
+                />
+              </ItemCenterContainer>
+              {!isProduct && homeBottomView()}
+            </>
+          )
+        }
       />
       {renderDots()}
     </Container>

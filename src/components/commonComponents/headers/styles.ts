@@ -85,7 +85,9 @@ export const OfferChatHeaderText = styled.Text.attrs(props => ({
   ${layout}
 `;
 
-export const ProfileRightTouchable = styled.TouchableOpacity`
+export const ProfileRightTouchable = styled.TouchableOpacity.attrs(() => ({
+  hitSlop: {top: 10, left: 10, right: 10, bottom: 10},
+}))`
   margin-left: ${scale(5)}px;
 `;
 

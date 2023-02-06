@@ -158,7 +158,7 @@ export const Image = styled.Image.attrs(() => ({
     ${layout}
 `;
 
-export const DetailsContainer = styled.TouchableOpacity.attrs(() => ({
+export const DetailsContainer = styled.View.attrs(() => ({
   mt: scale(20),
   flex: 1,
 }))`
