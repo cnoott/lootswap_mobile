@@ -31,18 +31,20 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
   const [latestOrder, setLatestOrder] = useState({});
 
   useEffect(() => {
-    dispatch(
-      getOrder(
-        {orderId: orderData?._id},
-        res => {
-          setLatestOrder(res);
-        },
-        error => {
-          console.log(error);
-        },
-      ),
-    );
-  }, [orderData?._id, dispatch]);
+    if (!isSale) {
+      dispatch(
+        getOrder(
+          {orderId: orderData?._id},
+          res => {
+            setLatestOrder(res);
+          },
+          error => {
+            console.log(error);
+          },
+        ),
+      );
+    }
+  }, [orderData?._id, dispatch, isSale]);
 
   const onPressOptions = () => {
     navigation.reset({

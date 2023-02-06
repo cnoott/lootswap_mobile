@@ -66,15 +66,20 @@ export const CheckoutScreen: FC<{}> = props => {
 
   const onMessage = msg => {
     const data = JSON.parse(msg.nativeEvent.data);
-    console.log(JSON.stringify(data.info.newOrder));
+    console.log(JSON.stringify(data.info.paypalOrder));
     switch (data.status) {
       case 'success':
-        navigation?.navigate('Offers/Inbox', {
+        setShowGateway(false);
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'HomeScreen'}],
+        });
+        navigation?.navigate('Profile', {
           screen: 'TradeCheckoutSuccessScreen',
           params: {
             isSale: true,
             total: total,
-            paypalOrderData: data.newOrder,
+            paypalOrderData: data.info.paypalOrder,
           },
         });
         break;
@@ -83,6 +88,7 @@ export const CheckoutScreen: FC<{}> = props => {
         Alert.showError(
           'There was an error with your transaction. Please try again',
         );
+        break;
     }
   };
 
@@ -149,7 +155,7 @@ export const CheckoutScreen: FC<{}> = props => {
           onRequestClose={() => setShowGateway(false)}
           animationType={'slide'}
           presentationStyle={'fullScreen'}
-          transparent>
+          transparent={true}>
           <Container style={styles.webViewCon}>
             <InStackHeader title={'Checkout'} />
 
