@@ -1,6 +1,7 @@
-import {HeaderContainer, LogoImage} from './styles';
 import React, {FC} from 'react';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {HEADERLOGO} from '../../../constants/imageConstants';
+import {HeaderContainer, LogoImage} from './styles';
 
 interface HeaderProps {
   title?: string;
@@ -9,6 +10,8 @@ interface HeaderProps {
 
 export const InHomeHeader: FC<HeaderProps> = React.memo(props => {
   const {isHome = false} = props;
+  const insets = useSafeAreaInsets();
+  const statusBarHeight = insets?.top;
   //const dispatch = useDispatch();
   // const {title} = props;
   // const navigation: NavigationProp<any, any> = useNavigation();
@@ -21,7 +24,7 @@ export const InHomeHeader: FC<HeaderProps> = React.memo(props => {
   // };
 
   return (
-    <HeaderContainer isHome={isHome}>
+    <HeaderContainer isHome={isHome} topPadding={statusBarHeight}>
       <LogoImage source={HEADERLOGO} />
     </HeaderContainer>
   );

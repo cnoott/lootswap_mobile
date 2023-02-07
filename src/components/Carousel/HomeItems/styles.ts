@@ -22,6 +22,50 @@ export const HeaderText = styled.Text.attrs(props => ({
   font-weight: 900;
   font-size: ${scale(24)}px;
   font-family: Inter-Black;
+  text-align: center;
+  ${color}
+  ${space}
+`;
+
+export const HeaderPrimaryText = styled.Text.attrs(props => ({
+  color: props.theme.colors.primary,
+}))`
+  ${color}
+`;
+
+export const HeaderBottomText = styled.Text.attrs(props => ({
+  color: props.theme.colors.greyLabel,
+  mt: scale(10),
+}))`
+  font-weight: 600;
+  font-size: ${scale(21)}px;
+  font-family: Inter-Bold;
+  text-align: center;
+  ${color}
+  ${space}
+`;
+
+export const OnlyText = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  mt: scale(50),
+}))`
+  font-weight: 700;
+  font-size: ${scale(28)}px;
+  font-family: Inter;
+  text-align: center;
+  ${color}
+  ${space}
+`;
+
+export const PayPalDesText = styled.Text.attrs(() => ({
+  color: '#9F9F9F',
+  mt: scale(5),
+  mb: scale(70),
+}))`
+  font-weight: 500;
+  font-size: ${scale(10)}px;
+  font-family: Inter;
+  text-align: center;
   ${color}
   ${space}
 `;
@@ -100,3 +144,65 @@ export const VerticalSpace = styled.View.attrs((props: any) => ({
 }))`
   ${space};
 `;
+
+export const FirstLeftImage = styled.View.attrs(() => ({}))`
+  position: absolute;
+  left: 0px;
+  bottom: 170px;
+  ${space};
+`;
+
+export const FirstRightImage = styled.View.attrs(() => ({}))`
+  position: absolute;
+  right: 0px;
+  bottom: 175px;
+  ${space};
+`;
+
+export const SecondLeftImage = styled.View.attrs(() => ({}))`
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  ${space};
+`;
+
+export const SecondRightImage = styled.View.attrs(() => ({}))`
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  ${space};
+`;
+
+export const StepThreeHeaderText = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  ml: scale(10),
+}))`
+  font-weight: 900;
+  font-size: ${scale(24)}px;
+  font-family: Inter-Black;
+  ${color}
+  ${space}
+`;
+
+export const ExecutivePerksText = styled.Text.attrs(() => ({
+  color: '#9F9F9F',
+  mt: scale(20),
+  mb: scale(20),
+}))`
+  font-weight: 500;
+  font-size: ${scale(10)}px;
+  font-family: Inter;
+  text-align: center;
+  ${color}
+  ${space}
+`;
+
+export const DiscordContainer = styled.View.attrs(() => ({}))`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  ${color}
+`;
+
+export const EmptyView = styled.View``;

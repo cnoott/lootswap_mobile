@@ -11,8 +11,14 @@ export const HOME_CAROUSEL_SHOE_ONE = require('../assets/images/home/home_carous
 export const HOME_CAROUSEL_SHOE_TWO = require('../assets/images/home/home_carousel_shoe_two.png');
 export const HOME_CAROUSEL_CLOTH_ONE = require('../assets/images/home/home_carousel_cloth_one.png');
 export const HOME_CAROUSEL_CLOTH_TWO = require('../assets/images/home/home_carousel_cloth_two.png');
+export const HOME_CAROUSEL_SHOE_THREE = require('../assets/images/home/home_carousel_shoe_three.png');
+export const HOME_CAROUSEL_SHOE_FOUR = require('../assets/images/home/home_carousel_shoe_four.png');
+export const HOME_CAROUSEL_CLOTH_THREE = require('../assets/images/home/home_carousel_cloth_three.png');
+export const HOME_CAROUSEL_CLOTH_FOUR = require('../assets/images/home/home_carousel_cloth_four.png');
 export const VERIFY_TRADES = require('../assets/images/home/verify_trades.png');
 export const CASH_BALENCE = require('../assets/images/home/cash_balence.png');
+export const DISCORD_LOGO = require('../assets/images/home/discordLogo.png');
+export const DISCORD_SCREENSHOT = require('../assets/images/home/discord_screenshot.png');
 
 // Bottom Tab Icons
 export const HOME_BOTTOM_TAB = require('../assets/images/bottomTab/home.png');

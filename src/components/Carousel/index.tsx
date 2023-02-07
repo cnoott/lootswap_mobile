@@ -3,6 +3,8 @@ import {Dimensions} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import {verticalScale, moderateScale} from 'react-native-size-matters';
 import {LSHomeStepOneCarouselItem} from './HomeItems/StepOneHomeItem';
+import {LSHomeStepTwoCarouselItem} from './HomeItems/StepTwoHomeItem';
+import {LSHomeStepThreeCarouselItem} from './HomeItems/StepThreeHomeItem';
 import {NIKE_SHOES_IMAGE} from '../../constants/imageConstants';
 import {
   Container,
@@ -58,6 +60,18 @@ function CarouselComponent(props: CarouselProps) {
       </HomeBottomItemContainer>
     );
   };
+  const getHomeCarouselStep = (index: number) => {
+    switch (index) {
+      case 1:
+        return <LSHomeStepOneCarouselItem />;
+      case 2:
+        return <LSHomeStepTwoCarouselItem />;
+      case 3:
+        return <LSHomeStepThreeCarouselItem />;
+      default:
+        return <LSHomeStepOneCarouselItem />;
+    }
+  };
   return (
     <Container height={height} isProduct={isProduct}>
       <Carousel
@@ -80,7 +94,7 @@ function CarouselComponent(props: CarouselProps) {
         }}
         renderItem={({index, item}) =>
           isHome ? (
-            <LSHomeStepOneCarouselItem />
+            getHomeCarouselStep(index + 1)
           ) : (
             <>
               <ItemCenterContainer>
