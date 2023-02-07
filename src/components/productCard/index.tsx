@@ -63,7 +63,6 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
           <EmptyRowView>
             <HeaderTextMain>{item.brand}</HeaderTextMain>
           </EmptyRowView>
-          <TimeText>{moment(item.unixTimeStamp).fromNow()}</TimeText>
         </BottomHeaderView>
         <BottomHeaderView isMiddle={true}>
           <EmptyRowView>

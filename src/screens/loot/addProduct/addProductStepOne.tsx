@@ -13,7 +13,6 @@ import {
 } from '../../../utility/utility';
 import {StepOneContainer} from './styles';
 import {HomeProps} from '../../../redux/modules/home/reducer';
-
 interface ProductStep {
   updateProductData: Function;
 }
@@ -21,6 +20,7 @@ interface ProductStep {
 export const AddProductStepOne: FC<ProductStep> = props => {
   const homeData: HomeProps = useSelector(state => state?.home);
   const {addProductData} = homeData;
+
   const [categoryData, setCategoryData] = useState(
     addProductData?.stepOne?.category || null,
   );
@@ -34,7 +34,6 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     addProductData?.stepOne?.condition || null,
   );
   const {updateProductData} = props;
-
   const updateData = (newData: any = {}) => {
     updateProductData({
       ...addProductData,
@@ -44,7 +43,6 @@ export const AddProductStepOne: FC<ProductStep> = props => {
       },
     });
   };
-
   const onSetCategoryData = (item: any) => {
     setCategoryData(item);
     updateData({category: item});
@@ -61,6 +59,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     setConditionData(item);
     updateData({condition: item});
   };
+
   const renderDropdown = (
     dropdownLabel: string,
     isSearch: boolean,
@@ -111,5 +110,4 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     </StepOneContainer>
   );
 };
-
 export default AddProductStepOne;

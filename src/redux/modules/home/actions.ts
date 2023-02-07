@@ -4,6 +4,8 @@ import {
   GET_PRODUCT_LISTED_ITEMS,
   SEND_TRADE_OFFER,
   CREATE_NEW_PRODUCT,
+  GENERATE_LINK_PAYPAL,
+  SAVE_PAYPAL,
 } from '../../../constants/actions';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 
@@ -84,5 +86,31 @@ export const createNewProductSuccess = () => {
 export const createNewProductFailure = () => {
   return {
     type: CREATE_NEW_PRODUCT.FAILURE,
+  };
+};
+
+export const generateLinkPaypal = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: GENERATE_LINK_PAYPAL.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const savePaypal = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: SAVE_PAYPAL.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
   };
 };

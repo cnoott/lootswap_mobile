@@ -127,3 +127,11 @@ export const SALE_GENERATE_CARRIER_RATES = {
 export const CHECKOUT_RATE = {
   ...createActionConst(actions.CHECKOUT_RATE),
 };
+
+export const GENERATE_LINK_PAYPAL = {
+  ...createActionConst(actions.GENERATE_LINK_PAYPAL),
+};
+
+export const SAVE_PAYPAL = {
+  ...createActionConst(actions.SAVE_PAYPAL),
+};

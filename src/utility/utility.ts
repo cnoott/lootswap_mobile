@@ -1008,6 +1008,7 @@ export const printLabel = async (base64Img: string) => {
 };
 
 export const salePrintLabel = async (imgUrl: string) => {
+  console.log(imgUrl);
   const htmlString = `<img src=${imgUrl} />`;
   RNPrint.print({
     html: htmlString,
