@@ -223,7 +223,8 @@ export const BottomTabs: FC<{}> = () => {
       <Tab.Screen
         name="List loot"
         component={LootStackNavigation}
-        options={{unmountOnBlur: true}}/>
+        options={{unmountOnBlur: true}}
+      />
       <Tab.Screen name="Profile" component={ProfileStackNavigation} />
       <Tab.Screen name="Notifications" component={NotificationsScreen} />
       <Tab.Screen name="Offers/Inbox" component={OffersStackNavigation} />

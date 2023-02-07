@@ -30,4 +30,3 @@ export const TopMaxMargin = styled.View.attrs(() => ({
 }))`
   ${space}
 `;
-
