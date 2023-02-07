@@ -1,9 +1,13 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Modal} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {WEB_APP_URL} from '@env';
 import {WebView} from 'react-native-webview';
-import {NavigationProp, useNavigation, useIsFocused} from '@react-navigation/native';
+import {
+  NavigationProp,
+  useNavigation,
+  useIsFocused,
+} from '@react-navigation/native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {
   generateLinkPaypal,
@@ -39,7 +43,6 @@ export const PayPalLinkModal = () => {
     if (!userData?.paypal_onboarded) {
       setPayPalModalVisible(true);
     }
-
   }, [userData?._id, dispatch, userData?.paypal_onboarded]);
 
   const onMessage = msg => {
@@ -75,11 +78,12 @@ export const PayPalLinkModal = () => {
           <Container style={styles.webViewCon}>
             <InStackHeader
               title={'Link Paypal'}
-              onBackCall={() => setShowGateway(false)}/>
+              onBackCall={() => setShowGateway(false)}
+            />
             <WebView
               source={{uri: paypalUri}}
               onMessage={onMessage}
-              style={{flex:1}}
+              style={{flex: 1}}
             />
           </Container>
         </Modal>

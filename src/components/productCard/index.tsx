@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import {useTheme} from 'styled-components';
-import moment from 'moment';
 import {SvgXml} from 'react-native-svg';
 import {getProductTags} from '../../utility/utility';
 import {LIKE_HEART_ICON_WHITE} from 'localsvgimages';
@@ -18,7 +17,6 @@ import {
   TagView,
   TagLabel,
   EmptyView,
-  TimeText,
   LikeTouchable,
 } from './styles';
 
