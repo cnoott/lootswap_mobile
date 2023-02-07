@@ -13,7 +13,6 @@ import AddProductStepThree from './addProduct/addProductStepThree';
 import AddProductStepFour from './addProduct/addProductStepFour';
 import AddProductStepFive from './addProduct/addProductStepFive';
 import LSButton from '../../components/commonComponents/LSButton';
-import {SvgXml} from 'react-native-svg';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {
   Container,
@@ -26,35 +25,33 @@ import {
   CurrentStepText,
   ProgressBar,
   ButtonContainer,
-  TopMargin,
-  TopMinMargin,
-  PayPalSubContainer,
-  TopMaxMargin,
 } from './styles';
 import {Size, Type} from '../../enums';
-import {LSModal} from '../../components/commonComponents/LSModal';
-import {PAY_PAL_IMAGE, LINK_PAYPAL_TEXT} from 'localsvgimages';
 import {
   getAddProductTitle,
   validateCreateProductData,
 } from '../../utility/utility';
 import {HomeProps} from '../../redux/modules/home/reducer';
-import {UpdateAddProductData} from '../../redux/modules';
+import {
+  UpdateAddProductData,
+  //getUsersDetailsRequest,
+} from '../../redux/modules';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 import {Alert} from 'custom_top_alert';
+import PayPalLinkModal from '../../components/paypalLinkModal';
 
 export const LootScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const dispatch = useDispatch();
   const homeData: HomeProps = useSelector(state => state?.home);
   const swiperRef = useRef<any>(null);
-  const [isPayPalModalVisible, setPayPalModalVisible] = useState(true);
   const {addProductData} = homeData;
   const {
     isFromEdit = false,
     editIndex = null,
     isLootEdit = false,
   } = route?.params || {};
+
   const [currIndex, setCurrIndex] = useState(
     isFromEdit && editIndex ? editIndex - 1 : 0,
   );
@@ -73,7 +70,6 @@ export const LootScreen: FC<any> = ({route}) => {
     Keyboard.dismiss();
     const canGoNext = validateCreateProductData(currIndex + 1, addProductData);
     if (canGoNext) {
-      setPayPalModalVisible(true);
       if (currIndex === 4) {
         navigation.navigate('AddProductOverviewScreen');
       }
@@ -87,12 +83,7 @@ export const LootScreen: FC<any> = ({route}) => {
       swiperRef?.current?.scrollTo(currIndex - 1);
     }
   }, [currIndex]);
-  const handleLinkPayPal = () => {
-    setPayPalModalVisible(false);
-  };
-  const handleCancelPayPalModal = () => {
-    setPayPalModalVisible(false);
-  };
+
   const renderTopView = () => {
     return (
       <EmptyView>
@@ -104,36 +95,6 @@ export const LootScreen: FC<any> = ({route}) => {
         </TopViewContainer>
         <ProgressBar progress={(currIndex + 1) / 5} />
       </EmptyView>
-    );
-  };
-  const renderPayPalModalView = () => {
-    return (
-      <LSModal isVisible={isPayPalModalVisible}>
-        <LSModal.Container>
-          <PayPalSubContainer>
-            <TopMargin />
-            <SvgXml xml={PAY_PAL_IMAGE} />
-            <TopMargin />
-            <SvgXml xml={LINK_PAYPAL_TEXT} />
-            <TopMaxMargin />
-            <LSButton
-              title={'Link PayPal account'}
-              size={Size.Fit_To_Width}
-              type={Type.Primary}
-              radius={20}
-              onPress={handleLinkPayPal}
-            />
-            <TopMinMargin />
-            <LSButton
-              title={'Cancel'}
-              size={Size.Fit_To_Width}
-              type={Type.Grey}
-              radius={20}
-              onPress={handleCancelPayPalModal}
-            />
-          </PayPalSubContainer>
-        </LSModal.Container>
-      </LSModal>
     );
   };
   const renderBottomButtonView = () => {
@@ -220,9 +181,8 @@ export const LootScreen: FC<any> = ({route}) => {
         </SwiperComponent>
       </KeyboardAwareScrollView>
       {renderBottomButtonView()}
-      {renderPayPalModalView()}
+      <PayPalLinkModal />
     </Container>
   );
 };
-
 export default LootScreen;

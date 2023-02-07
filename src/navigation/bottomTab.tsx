@@ -220,7 +220,10 @@ export const BottomTabs: FC<{}> = () => {
       initialRouteName={'Home'}
       tabBar={props => <MyCustomTabBar {...props} />}>
       <Tab.Screen name="Home" component={HomeStackNavigation} />
-      <Tab.Screen name="List loot" component={LootStackNavigation} />
+      <Tab.Screen
+        name="List loot"
+        component={LootStackNavigation}
+        options={{unmountOnBlur: true}}/>
       <Tab.Screen name="Profile" component={ProfileStackNavigation} />
       <Tab.Screen name="Notifications" component={NotificationsScreen} />
       <Tab.Screen name="Offers/Inbox" component={OffersStackNavigation} />
