@@ -65,12 +65,16 @@ export const AddressText = styled.Text.attrs(props => ({
     ${color}
 `;
 
-export const TipContainer = styled.View.attrs(props => ({
+export const TipContainer = styled.TouchableOpacity.attrs(props => ({
   p: verticalScale(15),
   mb: verticalScale(20),
   bg: props.theme.colors.commonSearchBack,
   borderRadius: scale(10),
   alignSelf: 'stretch',
+  borderColor: props?.selected
+    ? props?.theme?.colors?.primary
+    : props?.theme?.colors?.searchBorder,
+  borderWidth: 2,
 }))`
   ${space}
   ${layout}

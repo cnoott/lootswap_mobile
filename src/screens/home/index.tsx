@@ -56,9 +56,10 @@ export const HomeScreen: FC<{}> = () => {
     if (index === 0) {
       return <CarouselComponent height={scale(400)} isHome={true} />;
     }
+    //console.log('item', item);
     return <LSProductCard item={item} onPress={() => onProductPress(item)} />;
   };
-  /* Commenting out for development purposes
+  /* TODO: Commenting out for development purposes
   const transformItems = items => {
     return items.filter(item => item.isVisible && item.isVirtuallyVerified);
   };

@@ -199,3 +199,59 @@ export const OrderPrice: any = styled.Text.attrs(props => ({
   ${space}
         ${layout}
 `;
+
+export const DeliveryAddContainer = styled.View.attrs(props => ({
+  backgroundColor: props.theme.colors.commonSearchBack,
+  alignSelf: 'stretch',
+  p: scale(20),
+  borderRadius: scale(10),
+  flex: 1,
+}))`
+  flex-direction: row 
+  justify-content: space-between;
+  ${space} ${layout} ${border};
+`;
+
+export const DeliveryAddressLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  mb: scale(5),
+}))`
+  font-size: ${moderateScale(16)}px;
+  font-family: Urbanist-Bold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const DeliveryAddSubContainer = styled.View.attrs(() => ({
+  flex: 1,
+}))``;
+
+export const DeliveryAddressText = styled.Text.attrs(props => ({
+  color: props.theme.colors.greySecondary,
+  width: '90%',
+}))`
+  font-size: ${moderateScale(16)}px;
+  font-family: Urbanist-Medium;
+  text-align: left;
+  line-height: ${moderateScale(22)}px;
+  ${color}
+  ${space}
+    ${layout}
+`;
+
+export const EditLabelContainer = styled.TouchableOpacity.attrs(() => ({}))`
+  flex-direction: row;
+  ${space} ${layout};
+`;
+
+export const EditLabel: any = styled.Text.attrs(props => ({
+  color: props.theme.colors.primary,
+  ml: scale(5),
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-family: Urbanist-Bold;
+  ${color}
+  ${space}
+  ${layout}
+`;

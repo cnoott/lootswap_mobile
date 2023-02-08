@@ -119,3 +119,23 @@ export const FETCH_PAYMENT_SHEET = {
 export const GET_ORDER_FROM_TRADE = {
   ...createActionConst(actions.GET_ORDER_FROM_TRADE),
 };
+
+export const SALE_GENERATE_CARRIER_RATES = {
+  ...createActionConst(actions.SALE_GENERATE_CARRIER_RATES),
+};
+
+export const CHECKOUT_RATE = {
+  ...createActionConst(actions.CHECKOUT_RATE),
+};
+
+export const GENERATE_LINK_PAYPAL = {
+  ...createActionConst(actions.GENERATE_LINK_PAYPAL),
+};
+
+export const SAVE_PAYPAL = {
+  ...createActionConst(actions.SAVE_PAYPAL),
+};
+
+export const GET_PAYPAL_ORDER = {
+  ...createActionConst(actions.GET_PAYPAL_ORDER),
+};

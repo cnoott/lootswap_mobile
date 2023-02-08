@@ -22,7 +22,7 @@ import {useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {printLabel} from '../../utility/utility';
+import {printLabel, salePrintLabel} from '../../utility/utility';
 import {Linking} from 'react-native';
 //TODO:
 // - tracking number is a hyperlink
@@ -39,9 +39,17 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
     ? item?.recieverUPSShipmentData?.toWarehouseLabel
     : item?.senderUPSShipmentData?.toWarehouseLabel;
 
+  const shippingStepOptions = () => {
+    if (isTradeOrder) {
+      return isReciever ? item?.senderStep : item?.recieverStep;
+    } else {
+      return item?.shippingStep;
+    }
+  };
+
   const renderTrackingNumber = () => {
-    if (!isTradeOrder) {
-      return;
+    if (!isTradeOrder && item?.shippingStep > 0) {
+      return item?.shippoData?.tracking_number;
     }
 
     const {recieverUPSShipmentData, senderUPSShipmentData} = item;
@@ -86,7 +94,9 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       return;
     }
 
-    const url = `https://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=${trackingNumber}`;
+    const url = isTradeOrder
+      ? `https://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=${trackingNumber}`
+      : item?.shippoData?.tracking_url_provider;
     const supported = await Linking.canOpenURL(url);
     if (supported) {
       await Linking.openURL(url);
@@ -99,13 +109,17 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       size={Size.Extra_Small}
       type={Type.Primary}
       radius={15}
-      onPress={() => printLabel(base64Img)}
+      onPress={() =>
+        isTradeOrder
+          ? printLabel(base64Img)
+          : salePrintLabel(item?.shippoData?.label_url)
+      }
     />
   );
 
   const printLabelRenderOptions = () => {
-    if (!isTradeOrder) {
-      return;
+    if (!isTradeOrder && item?.shippingStep > 0) {
+      return printLabelButton();
     }
     if (
       item.recieverPaymentStatus === 'paid' &&
@@ -127,7 +141,8 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
         </RowContainer>
         <RowContainer>
           <OrderDataLabel>
-            Shipping Carrier: {isTradeOrder ? 'UPS' : 'USPS'}
+            Shipping Carrier:{' '}
+            {isTradeOrder ? 'UPS' : item?.shippoRate?.provider}
           </OrderDataLabel>
           {isTradeOrder && (
             <Image
@@ -163,7 +178,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
         {renderOrderHeaderDetails()}
         {isTradeOrder ? renderMultipleOrderCell() : renderSingleOrderCell()}
         <OrderTrackSteps
-          currStep={isReciever ? item?.senderStep : item?.recieverStep}
+          currStep={shippingStepOptions()}
           isTradeOrder={isTradeOrder}
         />
         <FullDivider />

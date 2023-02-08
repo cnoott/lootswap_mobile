@@ -15,13 +15,16 @@ import {
   DesLabel,
   SuccessImage,
 } from './tradeSuccessScreenStyle';
-import {getOrder} from '../../redux/modules';
+import {getOrder, getPaypalOrder, getAllOrders} from '../../redux/modules';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 
 export const TradeCheckoutSucessScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation();
   const dispatch = useDispatch();
+  const auth: AuthProps = useSelector(state => state?.auth);
+  const {userData} = auth;
   const {
     orderData = {},
     total,
@@ -29,20 +32,41 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
     paypalOrderData = {},
   } = props?.route?.params;
   const [latestOrder, setLatestOrder] = useState({});
+  const [paypalOrder, setPaypalOrder] = useState({});
 
   useEffect(() => {
-    dispatch(
-      getOrder(
-        {orderId: orderData?._id},
-        res => {
-          setLatestOrder(res);
-        },
-        error => {
-          console.log(error);
-        },
-      ),
-    );
-  }, [orderData?._id, dispatch]);
+    if (!isSale) {
+      dispatch(
+        getOrder(
+          {orderId: orderData?._id},
+          res => {
+            setLatestOrder(res);
+          },
+          error => {
+            console.log(error);
+          },
+        ),
+      );
+    } else {
+      dispatch(
+        getAllOrders({
+          userId: userData?._id,
+        }),
+      );
+      dispatch(
+        getPaypalOrder(
+          {paypalOrderId: paypalOrderData?._id},
+          res => {
+            setPaypalOrder(res);
+          },
+          error => {
+            //TODO Alert error handling
+            console.log(error);
+          },
+        ),
+      );
+    }
+  }, [orderData?._id, dispatch, isSale, userData?._id, paypalOrderData?._id]);
 
   const onPressOptions = () => {
     navigation.reset({
@@ -53,7 +77,7 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
       screen: 'TrackOrderScreen',
       params: {
         isTradeOrder: !isSale,
-        item: isSale ? paypalOrderData : latestOrder,
+        item: isSale ? paypalOrder : latestOrder,
       },
     });
   };

@@ -19,6 +19,7 @@ import OffersScreen from '../screens/offers';
 import OffersMessageScreen from '../screens/offers/offerMessageScreen';
 import TradeCheckoutScreen from '../screens/offers/tradeCheckoutScreen';
 import TradeCheckoutSuccessScreen from '../screens/offers/tradeCheckoutSuccessScreen';
+import CheckoutScreen from '../screens/buy/checkoutScreen';
 import MyOrdersListScreen from '../screens/order/myOrdersListScreen';
 import TrackOrderScreen from '../screens/order/trackOrderScreen';
 import ShippingLabelScreen from '../screens/order/shippingLabelScreen';
@@ -62,6 +63,7 @@ const HomeStackNavigation = () => (
       name="ProductDetailsScreen"
       component={ProductDetailsScreen}
     />
+    <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
   </Stack.Navigator>
 );
 
@@ -87,6 +89,10 @@ const ProfileStackNavigation = () => (
     <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
     <Stack.Screen name="ShippingLabelScreen" component={ShippingLabelScreen} />
     <Stack.Screen name="ChooseServiceScreen" component={ChooseServiceScreen} />
+    <Stack.Screen
+      name="TradeCheckoutSuccessScreen"
+      component={TradeCheckoutSuccessScreen}
+    />
   </Stack.Navigator>
 );
 
@@ -214,7 +220,11 @@ export const BottomTabs: FC<{}> = () => {
       initialRouteName={'Home'}
       tabBar={props => <MyCustomTabBar {...props} />}>
       <Tab.Screen name="Home" component={HomeStackNavigation} />
-      <Tab.Screen name="List loot" component={LootStackNavigation} />
+      <Tab.Screen
+        name="List loot"
+        component={LootStackNavigation}
+        options={{unmountOnBlur: true}}
+      />
       <Tab.Screen name="Profile" component={ProfileStackNavigation} />
       <Tab.Screen name="Notifications" component={NotificationsScreen} />
       <Tab.Screen name="Offers/Inbox" component={OffersStackNavigation} />
