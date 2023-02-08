@@ -15,7 +15,7 @@ import {
   DesLabel,
   SuccessImage,
 } from './tradeSuccessScreenStyle';
-import {getOrder, getAllOrders} from '../../redux/modules';
+import {getOrder, getPaypalOrder, getAllOrders} from '../../redux/modules';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
@@ -32,6 +32,7 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
     paypalOrderData = {},
   } = props?.route?.params;
   const [latestOrder, setLatestOrder] = useState({});
+  const [paypalOrder, setPaypalOrder] = useState({});
 
   useEffect(() => {
     if (!isSale) {
@@ -47,13 +48,27 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
         ),
       );
     } else {
+
       dispatch(
         getAllOrders({
           userId: userData?._id,
         }),
       );
+      dispatch(
+        getPaypalOrder(
+          {paypalOrderId: paypalOrderData?._id},
+          res => {
+            console.log('RESPONSE',res);
+            setPaypalOrder(res);
+          },
+          error => {
+            //TODO Alert error handling
+            console.log(error);
+          },
+        ),
+      );
     }
-  }, [orderData?._id, dispatch, isSale, userData?._id]);
+  }, [orderData?._id, dispatch, isSale, userData?._id, paypalOrderData?._id]);
 
   const onPressOptions = () => {
     navigation.reset({
@@ -64,7 +79,7 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
       screen: 'TrackOrderScreen',
       params: {
         isTradeOrder: !isSale,
-        item: isSale ? paypalOrderData : latestOrder,
+        item: isSale ? paypalOrder : latestOrder,
       },
     });
   };

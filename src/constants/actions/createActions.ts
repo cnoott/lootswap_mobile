@@ -135,3 +135,7 @@ export const GENERATE_LINK_PAYPAL = {
 export const SAVE_PAYPAL = {
   ...createActionConst(actions.SAVE_PAYPAL),
 };
+
+export const GET_PAYPAL_ORDER = {
+  ...createActionConst(actions.GET_PAYPAL_ORDER),
+};
