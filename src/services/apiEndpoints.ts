@@ -264,6 +264,13 @@ export const savePaypalCall = (reqData: any) => {
   );
 };
 
+export const getPaypalOrderCall = (reqData: any) => {
+  return handleResponse(
+    api.get(`/mobile-read-paypal-order/${reqData?.paypalOrderId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
