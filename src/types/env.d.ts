@@ -58,6 +58,12 @@ declare module 'custom_types' {
     productName?: string;
     productDescription?: string;
   };
+  export type PRODUCT_STEP_THREE_TYPE = {
+    sourceURL?: string;
+    isServerImage?: boolean;
+    type?: string;
+    uri?: string;
+  };
   export type PRODUCT_STEP_FOUR_TYPE = {
     tradeOptions?: TRADE_TYPE;
     tradeDescription?: string;
@@ -71,7 +77,7 @@ declare module 'custom_types' {
   export type ADD_PRODUCT_TYPE = {
     stepOne?: PRODUCT_STEP_ONE_TYPE;
     stepTwo?: PRODUCT_STEP_TWO_TYPE;
-    stepThree?: Array<string>;
+    stepThree?: Array<PRODUCT_STEP_THREE_TYPE>;
     stepFour?: PRODUCT_STEP_FOUR_TYPE;
     stepFive?: PRODUCT_STEP_FIVE_TYPE;
   };

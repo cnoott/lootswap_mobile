@@ -18,19 +18,20 @@ export const Container = styled.View.attrs(props => ({
 export const HeaderContainer = styled.View.attrs((props: any) => ({
   height: scale(Platform.OS === 'ios' ? 84 : 64),
   pt: moderateScale(Platform.OS === 'ios' ? props?.topPadding || 34 : 0),
-  //bg: props?.isHome ? props.theme.colors.screenBg : props.theme.colors.white,
   bg: props.theme.colors.white,
+  px: scale(10),
 }))`
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: ${props =>
+    `${props?.centerAligned ? 'center' : 'space-between'}`};
   ${color}
   ${space}
   ${layout}
 `;
 
 export const ProfileHeaderContainer = styled.View.attrs(() => ({
-  height: scale(Platform.OS === 'ios' ? 94 : 64),
+  height: scale(Platform.OS === 'ios' ? 84 : 64),
   pt: moderateScale(Platform.OS === 'ios' ? 34 : 0),
   px: scale(10),
 }))`
@@ -392,7 +393,9 @@ export const ModalItemContainer = styled.TouchableOpacity.attrs(props => ({
   ${border}
 `;
 
-export const TouchableOpacity = styled.TouchableOpacity``;
+export const TouchableOpacity = styled.TouchableOpacity.attrs({
+  hitSlop: {top: 10, left: 10, right: 10, bottom: 10},
+})``;
 
 export const EmptyRowView = styled.View`
   flex-direction: row;
