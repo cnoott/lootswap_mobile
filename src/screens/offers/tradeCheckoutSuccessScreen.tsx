@@ -48,7 +48,6 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
         ),
       );
     } else {
-
       dispatch(
         getAllOrders({
           userId: userData?._id,
@@ -58,7 +57,6 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
         getPaypalOrder(
           {paypalOrderId: paypalOrderData?._id},
           res => {
-            console.log('RESPONSE',res);
             setPaypalOrder(res);
           },
           error => {
