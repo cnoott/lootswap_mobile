@@ -19,6 +19,7 @@ import {
   LoadingSuccess,
 } from '../../redux/modules/loading/actions';
 import {scale} from 'react-native-size-matters';
+import {LIKE_HEART_ICON} from 'localsvgimages';
 
 const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 
@@ -97,7 +98,12 @@ export const HomeScreen: FC<{}> = () => {
 
   return (
     <Container>
-      <InHomeHeader isHome={true} />
+      <InHomeHeader
+        isHome={true}
+        rightIcon={LIKE_HEART_ICON}
+        centerAligned={false}
+        onRightItemPress={() => {}}
+      />
       <InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
         <InfiniteHits />
         {

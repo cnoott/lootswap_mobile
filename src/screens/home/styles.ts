@@ -4,7 +4,7 @@ import {moderateScale} from 'react-native-size-matters';
 
 export const Container = styled.View.attrs(props => ({
   flex: 1,
-  backgroundColor: props.theme.colors.screenBg,
+  backgroundColor: props.theme.colors.white,
 }))`
   ${space}
   ${layout}

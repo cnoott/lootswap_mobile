@@ -38,8 +38,13 @@ import {
 import {PRODUCT_EDIT_PRIMARY} from 'localsvgimages';
 import {HomeProps} from '../../redux/modules/home/reducer';
 import {AuthProps} from '../../redux/modules/auth/reducer';
+import {
+  LoadingRequest,
+  LoadingSuccess,
+} from '../../redux/modules/loading/actions';
 import {getSelectedTradeData} from '../../utility/utility';
-import {createNewProduct} from '../../redux/modules';
+// import {createNewProduct} from '../../redux/modules';
+import {getSignedRequest, uploadFile} from '../../services/imageUploadService';
 
 export const AddProductOverviewScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -51,9 +56,78 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
   const {stepOne, stepTwo, stepThree, stepFour, stepFive} = addProductData;
   const {isFromEdit = false, productId} = route?.params || {};
   const tradeData = getSelectedTradeData(stepFour?.tradeOptions);
-  console.log('addProductData ====', addProductData);
-  const addProduct = (isUpdateCall: boolean = false) => {
-    const images = stepThree?.map((_img: string) => {
+
+  // const uploadImage = (fileData: any) => {
+  //   getSignedRequest(fileData)
+  //     .then(signedReqData => {
+  //       uploadFile(fileData, signedReqData?.signedRequest, signedReqData?.url)
+  //         .then(url => {
+  //           if (url) {
+  //             // successCallBack(url);
+  //             return url;
+  //           }
+  //         })
+  //         .catch(() => {
+  //           dispatch(LoadingSuccess());
+  //         });
+  //     })
+  //     .catch(() => {
+  //       dispatch(LoadingSuccess());
+  //     });
+  // };
+
+  function uploadImage(fileData: any) {
+    return new Promise(resolve => {
+      getSignedRequest(fileData)
+        .then(signedReqData => {
+          uploadFile(fileData, signedReqData?.signedRequest, signedReqData?.url)
+            .then(url => {
+              if (url) {
+                // successCallBack(url);
+                resolve(url);
+              }
+            })
+            .catch(() => {
+              dispatch(LoadingSuccess());
+            });
+        })
+        .catch(() => {
+          dispatch(LoadingSuccess());
+        });
+    });
+  }
+
+  // const getUploadedImages = async (imagesArr: any) => {
+  //   dispatch(LoadingRequest());
+  //   const myPromise = new Promise(async resolve => {
+  //     const newImgArr = await imagesArr?.map(async (imgData: any) => {
+  //       if (!imgData?.isServerImage) {
+  //         const url = await uploadImage(imgData);
+  //         return {sourceURL: url, isServerImage: true};
+  //       } else {
+  //         return imgData;
+  //       }
+  //     });
+  //     dispatch(LoadingSuccess());
+  //     resolve(newImgArr);
+  //   });
+  // };
+  const addProduct = async (isUpdateCall: boolean = false) => {
+    dispatch(LoadingRequest());
+    const uploadedImgsArr = new Promise(async resolve => {
+      const newImgArr = [...stepThree]?.map(async (imgData: any) => {
+        if (!imgData?.isServerImage) {
+          const url = await uploadImage(imgData);
+          return {sourceURL: url, isServerImage: true};
+        } else {
+          return imgData;
+        }
+      });
+      dispatch(LoadingSuccess());
+      resolve(newImgArr);
+    });
+    console.log('uploadedImgsArr ====', uploadedImgsArr);
+    const images = uploadedImgsArr?.map((_img: string) => {
       const _data = {
         src: _img,
       };
@@ -79,7 +153,7 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
     if (isUpdateCall) {
       reqData.productIdToUpdate = productId;
     }
-    dispatch(createNewProduct(reqData, isUpdateCall));
+    // dispatch(createNewProduct(reqData, isUpdateCall));
   };
   const onBackCall = () => {
     if (isFromEdit) {
@@ -146,7 +220,7 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
   const renderImageView = ({item}: any) => {
     return (
       <ImageContainer>
-        <Image source={{uri: item}} />
+        <Image source={{uri: item?.sourceURL}} />
       </ImageContainer>
     );
   };
