@@ -134,6 +134,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       goToLogin();
       return;
     }
+
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'ProductDetailsScreen'}],
+    });
     navigation.navigate('CheckoutScreen', {
       productData: selectedProductDetails,
     });

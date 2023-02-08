@@ -4,23 +4,16 @@ LootSwap - TRADE CHECKOUT SCREEN
 ***/
 
 import React, {FC, useEffect, useState, useCallback} from 'react';
-import {SvgXml} from 'react-native-svg';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
+import DeliveryAddressComponent from '../../components/orders/deliveryAddressComponent';
 import TradeCheckoutItemCell from './offerItems/TradeCheckoutItemCell';
 import {StripeApiKey, MerchantIdentifier} from '@env';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from 'custom_enums';
-import {EDIT_PRIMARY_ICON_BOTTOM_LINE} from '../../assets/images/svgs';
 import {
   Container,
   HorizontalBar,
   ScrollSubContainer,
-  DeliveryAddContainer,
-  DeliveryAddressLabel,
-  DeliveryAddressText,
-  EditLabelContainer,
-  EditLabel,
-  DeliveryAddSubContainer,
   HeadingLabel,
   EmptyView,
   VerticalMargin,
@@ -38,7 +31,7 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {Alert} from 'custom_top_alert';
 import {
-  getUsersDetailsRequest,
+  getMyDetailsRequest,
   fetchPaymentSheet,
   getAllOrders,
 } from '../../redux/modules';
@@ -57,7 +50,7 @@ export const TradeCheckoutScreen: FC<{}> = props => {
   const {tradeData, orderData} = props.route?.params;
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state?.auth);
-  const {requestedUserDetails, userData} = auth;
+  const {userData} = auth;
   const [paymentDetails, setPaymentDetails] = useState<PaymentDetails>({
     platformFee: 0,
     toUserRate: 0,
@@ -122,33 +115,12 @@ export const TradeCheckoutScreen: FC<{}> = props => {
   };
 
   useEffect(() => {
-    dispatch(getUsersDetailsRequest(userData?._id));
+    dispatch(getMyDetailsRequest(userData?._id));
     initializePaymentSheet();
   }, [userData?._id, dispatch, initializePaymentSheet]);
 
   const renderHeading = (label: string) => {
     return <HeadingLabel>{label}</HeadingLabel>;
-  };
-  const renderDeliveryAddressContainer = () => {
-    return (
-      <DeliveryAddContainer>
-        <DeliveryAddSubContainer>
-          <DeliveryAddressLabel>Delivery Address</DeliveryAddressLabel>
-          <DeliveryAddressText>
-            {requestedUserDetails?.shipping_address?.street1}
-            {', '}
-            {requestedUserDetails?.shipping_address?.street2}
-            {requestedUserDetails?.shipping_address?.city}{' '}
-            {requestedUserDetails?.shipping_address?.state}{' '}
-            {requestedUserDetails?.shipping_address?.zip}
-          </DeliveryAddressText>
-        </DeliveryAddSubContainer>
-        <EditLabelContainer>
-          <SvgXml xml={EDIT_PRIMARY_ICON_BOTTOM_LINE} />
-          <EditLabel>Edit</EditLabel>
-        </EditLabelContainer>
-      </DeliveryAddContainer>
-    );
   };
   const renderYourItems = () => {
     return (
@@ -245,7 +217,7 @@ export const TradeCheckoutScreen: FC<{}> = props => {
         <InStackHeader title={'Trade Checkout'} onlyTitleCenterAlign={true} />
         <HorizontalBar />
         <ScrollSubContainer>
-          {renderDeliveryAddressContainer()}
+          <DeliveryAddressComponent userDetails={userData} />
           {renderYourItems()}
           {renderSendersItems()}
           <VerticalMargin />

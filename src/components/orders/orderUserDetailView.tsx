@@ -3,7 +3,7 @@ import {LSProfileImageComponent} from '../commonComponents/profileImage';
 import {
   daysPast,
   paypalOrderShippingStatus,
-  tradeOrderShippingStatus,
+  salePrintLabel,
 } from '../../utility/utility';
 import {
   RowView,
@@ -26,17 +26,19 @@ interface OrderUserDetailViewProps {
 }
 
 const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
-  const {item = {}, isSales = false, userData} = props;
-  const {labelColor, backColor, text} = isSales
-    ? paypalOrderShippingStatus(userData?._id, item)
-    : tradeOrderShippingStatus(userData?._id, item);
+  const {item = {}, userData} = props;
+  const {labelColor, backColor, text} = paypalOrderShippingStatus(
+    userData?._id,
+    item,
+  );
+  const isSeller = userData?._id === item?.sellerId?._id;
 
   return (
     <RowView>
       <UserLeftView>
         <LSProfileImageComponent
           profileUrl={
-            isSales
+            isSeller
               ? item?.buyerId?.profile_picture
               : item?.sellerId?.profile_picture
           }
@@ -46,9 +48,7 @@ const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
         />
         <OwnerDetailsView>
           <NameLabel>
-            {item?.isGuest && isSales
-              ? item?.buyerId?.name
-              : item?.sellerId?.name}
+            {isSeller ? item?.buyerId?.name : item?.sellerId?.name}
             {item?.isGuest && 'Guest'}
           </NameLabel>
           <StatusContainerView bgColor={backColor} borderColor={labelColor}>
@@ -58,10 +58,13 @@ const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
       </UserLeftView>
       <UserRightView>
         <TimeLabel>{daysPast(item?.createdAt)}</TimeLabel>
-        <PrintLabelContainer>
-          <PrintIcon />
-          <PrintLabel>Print Label</PrintLabel>
-        </PrintLabelContainer>
+        {isSeller && item?.shippingStep > 0 && (
+          <PrintLabelContainer
+            onPress={() => salePrintLabel(item?.shippoData?.label_url)}>
+            <PrintIcon />
+            <PrintLabel>Print Label</PrintLabel>
+          </PrintLabelContainer>
+        )}
       </UserRightView>
     </RowView>
   );

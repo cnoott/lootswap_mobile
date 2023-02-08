@@ -223,6 +223,54 @@ export const getOrderFromTradeCall = (reqData: any) => {
   );
 };
 
+export const saleGenerateCarrierRatesCall = (reqData: any) => {
+  return handleResponse(
+    api.post(
+      `/paypal-get-rates/${reqData?.userId}/${reqData?.productId}/${reqData?.paypalOrderId}`,
+      reqData?.dim,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const checkoutRateCall = (reqData: any) => {
+  return handleResponse(
+    api.post(
+      `/mobile-paypal-checkout-rate/${reqData?.userId}/${reqData?.paypalOrderId}`,
+      reqData?.rate,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const generateLinkPaypalCall = (reqData: any) => {
+  const {email, redirectUrl, _id} = reqData;
+  return handleResponse(
+    api.post('/generate-signin', {
+      email,
+      redirectUrl,
+      _id,
+    }),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const savePaypalCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/save-paypal/${reqData?.userId}`, {
+      paypalInfo: reqData?.paypalInfo,
+    }),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const getPaypalOrderCall = (reqData: any) => {
+  return handleResponse(
+    api.get(`/mobile-read-paypal-order/${reqData?.paypalOrderId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
