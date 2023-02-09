@@ -271,6 +271,13 @@ export const getPaypalOrderCall = (reqData: any) => {
   );
 };
 
+export const setRegTokenCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/user/add-reg-token/${reqData?.userId}`, {token: reqData?.token}),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
