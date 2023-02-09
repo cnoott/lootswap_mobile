@@ -11,21 +11,61 @@ export const Container = styled.View.attrs(props => ({
 `;
 
 export const HeaderContainer = styled.View.attrs({
-  mt: verticalScale(100),
-  mb: verticalScale(46),
+  mt: verticalScale(30),
+  mb: verticalScale(40),
+  ml: scale(12),
 })`
-  align-self: stretch;
-  align-items: center;
   ${space}
 `;
 
 export const HeaderLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  mb: verticalScale(56),
+  ml: scale(15),
 }))`
   font-size: ${scale(25)}px;
+  font-family: Inter-Black;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const HeaderDesLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.greySecondary,
+  mt: scale(2),
+  mb: verticalScale(46),
+  ml: scale(15),
+}))`
+  font-size: ${scale(12)}px;
   font-family: Inter-Bold;
+  font-weight: 600;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const TermsLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.greySecondary,
+  my: scale(20),
+}))`
+  font-size: ${scale(11)}px;
+  font-family: Inter;
   align-self: center;
+  text-align: center;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const TermsLabelDark = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  my: scale(20),
+}))`
+  font-size: ${scale(12)}px;
+  font-family: Inter;
+  font-weight: 600;
+  align-self: center;
+  text-align: center;
+  text-decoration: underline;
   ${color}
   ${space}
   ${layout}
@@ -77,12 +117,11 @@ export const EditIconContainer = styled.TouchableOpacity.attrs(() => ({
 `;
 
 export const BottomButton = styled.TouchableOpacity.attrs(() => ({
-  mb: 60,
+  mb: verticalScale(35),
 }))`
   align-items: center;
   justify-content: center;
   align-self: center;
-  flex-direction: row;
   ${layout}
   ${color}
   ${border}
@@ -100,7 +139,7 @@ export const ButtonText1 = styled.Text.attrs(props => ({
 `;
 
 export const ButtonText2 = styled.Text.attrs(props => ({
-  color: props.theme.colors.text,
+  color: props.theme.colors.primary,
 }))`
   font-size: ${scale(13)}px;
   font-family: 'Inter-Bold';
