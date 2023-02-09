@@ -29,7 +29,6 @@ export const HomeScreen: FC<{}> = () => {
       dispatch(LoadingSuccess());
     }, 2500);
     */
-    console.log('yo');
   }, []);
 
   const onProductPress = (product: any) => {
