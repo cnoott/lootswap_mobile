@@ -67,8 +67,6 @@ export const LootScreen: FC<any> = ({route}) => {
     }
   };
   const handleNext = useCallback(async () => {
-    navigation.navigate('AddProductOverviewScreen');
-    return;
     Keyboard.dismiss();
     const canGoNext = validateCreateProductData(currIndex + 1, addProductData);
     if (canGoNext) {
@@ -137,9 +135,7 @@ export const LootScreen: FC<any> = ({route}) => {
       return [1, 2, 3, 4, 5].map(data => {
         switch (data) {
           case 1:
-            return (
-              <AddProductStepThree updateProductData={updateProductData} />
-            );
+            return <AddProductStepOne updateProductData={updateProductData} />;
           case 2:
             return <AddProductStepTwo updateProductData={updateProductData} />;
           case 3:
