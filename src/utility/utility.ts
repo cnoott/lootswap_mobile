@@ -578,6 +578,22 @@ const getStepOneDataFromLists = (arrayData: any, catValue: string) => {
   return filteredCategory[0] || arrayData[0];
 };
 
+const getStepThreeDataFromLists = (lootData: any) => {
+  const allPhotos = lootData?.secondary_photos?.map((photo: string) => {
+    return {
+      sourceURL: photo,
+      isServerImage: true,
+    };
+  });
+  return [
+    {
+      sourceURL: lootData?.primary_photo,
+      isServerImage: true,
+    },
+    ...allPhotos,
+  ];
+};
+
 const getTradeDataForConfigure = (trade: string) => {
   const tradeData = {
     isTradeAndSell: false,
@@ -624,11 +640,7 @@ export const configureAndGetLootData = (lootData: any) => {
   newLootData.stepTwo.productName = lootData?.name;
   newLootData.stepTwo.productDescription = lootData?.description;
   // Configure STEP 3
-  const secPhotosList =
-    lootData?.secondary_photos && lootData?.secondary_photos?.length > 0
-      ? [...lootData?.secondary_photos]
-      : [];
-  newLootData.stepThree = [lootData?.primary_photo, ...secPhotosList];
+  newLootData.stepThree = getStepThreeDataFromLists(lootData);
   // Configure STEP 4
   newLootData.stepFour.tradeOptions = getTradeDataForConfigure(lootData?.type);
   newLootData.stepFour.tradeDescription = lootData?.interestedIn;
