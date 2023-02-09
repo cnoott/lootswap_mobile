@@ -139,3 +139,11 @@ export const SAVE_PAYPAL = {
 export const GET_PAYPAL_ORDER = {
   ...createActionConst(actions.GET_PAYPAL_ORDER),
 };
+
+export const SAVE_NOTIF_PERMISSION = {
+  ...createActionConst(actions.SAVE_NOTIF_PERMISSION),
+};
+
+export const SET_REG_TOKEN = {
+  ...createActionConst(actions.SET_REG_TOKEN),
+};

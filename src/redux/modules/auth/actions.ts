@@ -5,6 +5,8 @@ import {
   PROFILE_IMG_UPLOAD,
   GET_USER_DETAILS,
   GET_MY_DETAILS,
+  SAVE_NOTIF_PERMISSION,
+  SET_REG_TOKEN,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -142,5 +144,33 @@ export const getMyDetailsFailure = (error: any) => {
   return {
     type: GET_MY_DETAILS.FAILURE,
     error,
+  };
+};
+
+export const saveNotifPermissions = (status: boolean) => {
+  return {
+    type: SAVE_NOTIF_PERMISSION.SUCCESS,
+    status,
+  };
+};
+
+export const setRegTokenRequest = (reqData: any) => {
+  return {
+    type: SET_REG_TOKEN.REQUEST,
+    reqData,
+  };
+};
+
+export const setRegTokenSuccess = (payload: any) => {
+  return {
+    type: SET_REG_TOKEN.SUCCESS,
+    payload,
+  };
+};
+
+export const setRegTokenFailure = (payload: any) => {
+  return {
+    type: SET_REG_TOKEN.FAILURE,
+    payload,
   };
 };
