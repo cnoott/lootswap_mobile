@@ -10,8 +10,8 @@ import {
   SET_REG_TOKEN,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
-import messaging from '@react-native-firebase/messaging';
-import {setRegTokenRequest} from '../../../redux/modules';
+//import messaging from '@react-native-firebase/messaging';
+//import {setRegTokenRequest} from '../../../redux/modules';
 
 export interface AuthProps {
   isLoading?: boolean;
@@ -46,7 +46,7 @@ export const InitialState: AuthProps = {
   isLogedIn: false,
 };
 
-export default async function auth(state = InitialState, action: ActionProps) {
+export default function auth(state = InitialState, action: ActionProps) {
   const {type, payload, error, clearOldData = true} = action;
 
   switch (type) {
@@ -58,11 +58,14 @@ export default async function auth(state = InitialState, action: ActionProps) {
       };
     }
     case SIGN_IN_DATA.SUCCESS: {
+      /*
       const authStatus = await messaging().requestPermission();
       console.log(authStatus);
       await messaging().registerDeviceForRemoteMessages();
       const token = await messaging().getToken();
       setRegTokenRequest({userId: payload?.user?._id, token});
+      */
+      console.log(payload);
       return {
         ...state,
         isLoading: false,
@@ -214,7 +217,6 @@ export default async function auth(state = InitialState, action: ActionProps) {
     case SET_REG_TOKEN.SUCCESS: {
       return {
         ...state,
-        userData: {...state.userData},
       };
     }
     case SET_REG_TOKEN.FAILURE: {
