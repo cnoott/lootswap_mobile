@@ -11,20 +11,33 @@ export const Container = styled.View.attrs(props => ({
 `;
 
 export const HeaderContainer = styled.View.attrs({
-  mt: verticalScale(100),
-  mb: verticalScale(46),
+  mt: verticalScale(30),
+  mb: verticalScale(50),
+  ml: scale(12),
 })`
-  align-items: center;
   ${space}
 `;
 
 export const HeaderLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  mb: verticalScale(46),
+  ml: scale(15),
 }))`
   font-size: ${scale(25)}px;
+  font-family: Inter-Black;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const HeaderDesLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.greySecondary,
+  mt: scale(2),
+  mb: verticalScale(46),
+  ml: scale(15),
+}))`
+  font-size: ${scale(12)}px;
   font-family: Inter-Bold;
-  align-self: center;
+  font-weight: 600;
   ${color}
   ${space}
   ${layout}
@@ -36,11 +49,12 @@ export const Touchable = styled.TouchableOpacity.attrs({
 
 export const ForgotPassLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  mb: verticalScale(20),
-  mt: verticalScale(20),
+  mb: verticalScale(30),
+  mt: verticalScale(30),
 }))`
   font-size: 16px;
   font-family: Inter-Bold;
+  font-weight: 500;
   align-self: center;
   ${color}
   ${space}
@@ -54,12 +68,11 @@ export const FullView = styled.View.attrs({
 })``;
 
 export const BottomButton = styled.TouchableOpacity.attrs(() => ({
-  mb: 60,
+  mb: verticalScale(35),
 }))`
   align-items: center;
   justify-content: center;
   align-self: center;
-  flex-direction: row;
   ${layout}
   ${color}
   ${border}
@@ -77,7 +90,7 @@ export const ButtonText1 = styled.Text.attrs(props => ({
 `;
 
 export const ButtonText2 = styled.Text.attrs(props => ({
-  color: props.theme.colors.text,
+  color: props.theme.colors.primary,
 }))`
   font-size: ${moderateScale(13)}px;
   font-family: 'Inter-Bold';

@@ -28,7 +28,9 @@ import {
   FullView,
   Touchable,
   ForgotPassLabel,
+  HeaderDesLabel,
 } from './styles';
+import {scale} from 'react-native-size-matters';
 
 type FormProps = {
   emailUsername: string;
@@ -85,7 +87,7 @@ export const AuthScreen: FC<{}> = () => {
           navigation.navigate('CreateAccountScreen');
         }}>
         <ButtonText1>Don’t have an account?</ButtonText1>
-        <ButtonText2> Sign Up</ButtonText2>
+        <ButtonText2>Create Account</ButtonText2>
       </BottomButton>
     );
   };
@@ -107,7 +109,7 @@ export const AuthScreen: FC<{}> = () => {
               <LSInput
                 onChangeText={handleChange('emailUsername')}
                 value={values.emailUsername}
-                placeholder={'Email/Username'}
+                placeholder={'Email'}
                 error={errors.emailUsername}
                 leftIcon={EMAIL_ICON}
               />
@@ -127,9 +129,11 @@ export const AuthScreen: FC<{}> = () => {
                 <ForgotPassLabel>Forgot the password?</ForgotPassLabel>
               </Touchable>
               <LSButton
-                title={'Sign in'}
-                size={Size.Large}
+                title={'Login'}
+                size={Size.Fit_To_Width}
                 type={Type.Primary}
+                fitToWidth={'90%'}
+                radius={20}
                 onPress={handleSubmit}
               />
             </FullView>
@@ -142,7 +146,7 @@ export const AuthScreen: FC<{}> = () => {
   const renderHeaderLogo = () => {
     return (
       <HeaderContainer>
-        <SvgXml xml={LOOT_SWAP_LOGO} />
+        <SvgXml xml={LOOT_SWAP_LOGO} height={scale(30)} width={scale(160)} />
       </HeaderContainer>
     );
   };
@@ -155,7 +159,8 @@ export const AuthScreen: FC<{}> = () => {
         contentContainerStyle={Innercontainer}
         keyboardShouldPersistTaps={'handled'}>
         {renderHeaderLogo()}
-        <HeaderLabel>Login to your account</HeaderLabel>
+        <HeaderLabel>Login</HeaderLabel>
+        <HeaderDesLabel>Welcome back lootswap member.</HeaderDesLabel>
         {renderBody()}
         {renderBottomView()}
       </KeyboardAwareScrollView>

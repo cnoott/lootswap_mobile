@@ -36,6 +36,9 @@ import {
   ProfileContainerView,
   Image,
   ImageUploadIndicator,
+  HeaderDesLabel,
+  TermsLabel,
+  TermsLabelDark,
 } from './styles';
 import {
   getSignedRequest,
@@ -156,7 +159,7 @@ export const CreateAccountScreen: FC<{}> = () => {
           navigation.navigate('SignInScreen');
         }}>
         <ButtonText1>Already have an account?</ButtonText1>
-        <ButtonText2> Sign In</ButtonText2>
+        <ButtonText2>Sign in</ButtonText2>
       </BottomButton>
     );
   };
@@ -207,6 +210,7 @@ export const CreateAccountScreen: FC<{}> = () => {
         {({handleChange, handleSubmit, errors, values}) => {
           return (
             <FullView>
+              {renderProfileUploadView()}
               <LSInput
                 onChangeText={handleChange('email')}
                 value={values.email}
@@ -233,11 +237,22 @@ export const CreateAccountScreen: FC<{}> = () => {
                 onRightIconPress={() => setPasswordHidden(!isPasswordHidden)}
                 secureTextEntry={isPasswordHidden}
               />
-              {renderProfileUploadView()}
+              <TermsLabel>
+                {'By Creating an account you agree to our\n'}
+                <TermsLabelDark onPress={() => {}}>
+                  Terms and Service
+                </TermsLabelDark>{' '}
+                and{' '}
+                <TermsLabelDark onPress={() => {}}>
+                  Privacy Policy
+                </TermsLabelDark>
+              </TermsLabel>
               <LSButton
-                title={'Sign up'}
-                size={Size.Large}
+                title={'Create Account'}
+                size={Size.Fit_To_Width}
                 type={Type.Primary}
+                fitToWidth={'90%'}
+                radius={20}
                 onPress={handleSubmit}
               />
             </FullView>
@@ -250,7 +265,7 @@ export const CreateAccountScreen: FC<{}> = () => {
   const renderHeaderLogo = () => {
     return (
       <HeaderContainer>
-        <SvgXml xml={LOOT_SWAP_LOGO} />
+        <SvgXml xml={LOOT_SWAP_LOGO} height={scale(30)} width={scale(160)} />
       </HeaderContainer>
     );
   };
@@ -263,7 +278,10 @@ export const CreateAccountScreen: FC<{}> = () => {
         contentContainerStyle={Innercontainer}
         keyboardShouldPersistTaps={'handled'}>
         {renderHeaderLogo()}
-        <HeaderLabel>Create Your Account</HeaderLabel>
+        <HeaderLabel>Create your account</HeaderLabel>
+        <HeaderDesLabel>
+          Create your account & Join the lootswap community!
+        </HeaderDesLabel>
         {renderBody()}
         {renderBottomView()}
       </KeyboardAwareScrollView>
