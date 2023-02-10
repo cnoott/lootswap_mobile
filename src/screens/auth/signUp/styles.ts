@@ -94,11 +94,9 @@ export const FullView = styled.View.attrs({
 })``;
 
 export const ProfileContainerView = styled.View.attrs({
-  width: scale(60),
-  height: scale(60),
-  ml: moderateScale(24),
-  my: verticalScale(5),
-  mb: verticalScale(10),
+  width: scale(100),
+  height: scale(100),
+  ml: moderateScale(10),
 })`
   align-items: center;
   justify-content: center;
@@ -106,7 +104,10 @@ export const ProfileContainerView = styled.View.attrs({
   ${color}
 `;
 
-export const ProfileUploadView = styled.TouchableOpacity``;
+export const ProfileUploadView = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: center;
+`;
 
 export const EditIconContainer = styled.TouchableOpacity.attrs(() => ({
   zIndex: 1000,
@@ -149,9 +150,10 @@ export const ButtonText2 = styled.Text.attrs(props => ({
 `;
 
 export const Image = styled.Image.attrs({
-  width: scale(54),
-  height: scale(54),
-  borderRadius: scale(27),
+  width: scale(90),
+  height: scale(90),
+  borderRadius: scale(47),
+  zIndex: 1000,
 })`
   position: absolute;
   align-self: center;
@@ -161,7 +163,7 @@ ${layout}
 `;
 
 export const ImageUploadIndicator = styled.ActivityIndicator.attrs(props => ({
-  size: scale(25),
+  size: scale(30),
   color: props.theme.colors.primary,
 }))`
   position: absolute;
@@ -174,3 +176,59 @@ ${layout}
 export const Innercontainer: ViewStyle = {
   flex: 1,
 };
+
+export const ProfileRightView = styled.View.attrs(() => ({
+  ml: scale(10),
+}))`
+  flex-direction: column;
+  ${space}
+`;
+
+export const ProfileText = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  mb: scale(5),
+}))`
+  font-size: ${scale(16)}px;
+  font-family: 'Inter-Bold';
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const HorizontalSpace = styled.View.attrs((props: any) => ({
+  width: scale(props?.space || 10),
+}))`
+  ${space}
+`;
+
+export const Button = styled.TouchableOpacity.attrs((props: any) => ({
+  px: scale(10),
+  py: scale(8),
+  bg: props?.primary
+    ? props?.theme?.colors?.primary
+    : props?.theme?.colors?.black,
+  borderRadius: scale(15),
+}))`
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  ${color}
+  ${space}
+  ${border}
+`;
+
+export const ButtonText = styled.Text.attrs(props => ({
+  color: props.theme.colors.white,
+  ml: scale(5),
+}))`
+  font-size: ${scale(12)}px;
+  font-family: 'Inter';
+  font-weight: 600;
+  ${color}
+  ${space}
+`;
+
+export const EmptyRowView = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
