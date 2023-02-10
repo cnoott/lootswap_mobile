@@ -11,8 +11,9 @@ import {
   LOCK_ICON,
   ADD_USER_ICON,
   PROFILE_PLACEHOLDER_ICON,
-  EDIT_PROFILE_ICON,
   SHOW_PASS_ICON,
+  SYNC_WHITE_ICON,
+  UPLOAD_WHITE_ICON,
 } from 'localsvgimages';
 import {Formik} from 'formik';
 import * as yup from 'yup';
@@ -31,7 +32,6 @@ import {
   ButtonText2,
   Innercontainer,
   FullView,
-  EditIconContainer,
   ProfileUploadView,
   ProfileContainerView,
   Image,
@@ -39,12 +39,18 @@ import {
   HeaderDesLabel,
   TermsLabel,
   TermsLabelDark,
+  EmptyRowView,
+  ProfileRightView,
+  ProfileText,
+  HorizontalSpace,
+  Button,
+  ButtonText,
 } from './styles';
 import {
   getSignedRequest,
   uploadFile,
 } from '../../../services/imageUploadService';
-import {Alert, Text} from 'react-native';
+import {Alert} from 'react-native';
 import {scale} from 'react-native-size-matters';
 
 type FormProps = {
@@ -60,12 +66,6 @@ export const CreateAccountScreen: FC<{}> = () => {
   const [isImageUploading, setImageUploading] = useState(false);
   const [profileUrl, setProfileUrl] = useState('');
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-
-  useEffect(() => {
-    const seed = Math.floor(Math.random() * 999999);
-    const defaultProfileUrl = `https://avatars.dicebear.com/api/micah/${seed}.png`;
-    setProfileUrl(defaultProfileUrl);
-  }, []);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -133,8 +133,6 @@ export const CreateAccountScreen: FC<{}> = () => {
             ? image?.sourceURL
             : image?.sourceURL?.replace('file://', ''),
       };
-      // dispatch(profileImgUploadRequest(fileData));
-
       getSignedRequest(fileData)
         .then(signedReqData => {
           uploadFile(fileData, signedReqData?.signedRequest, signedReqData?.url)
@@ -172,26 +170,33 @@ export const CreateAccountScreen: FC<{}> = () => {
 
   const renderProfileUploadView = () => {
     return (
-      <ProfileContainerView>
-        <ProfileUploadView onPress={onEditProfilePress}>
-          <SvgXml
-            xml={PROFILE_PLACEHOLDER_ICON}
-            height={scale(54)}
-            width={scale(54)}
-          />
-          <EditIconContainer onPress={onEditProfilePress} style={{zIndex: 3}}>
-            <SvgXml xml={EDIT_PROFILE_ICON} />
-          </EditIconContainer>
-          {profileUrl && (
-            <Image style={{zIndex: 1}} source={{uri: profileUrl}} />
-          )}
-        </ProfileUploadView>
-        {isImageUploading && <ImageUploadIndicator />}
-        <Text onPress={randomizeProfileUrl} style={{color: 'blue'}}>
-          {' '}
-          Random{' '}
-        </Text>
-      </ProfileContainerView>
+      <EmptyRowView>
+        <ProfileContainerView>
+          <ProfileUploadView onPress={onEditProfilePress}>
+            <SvgXml
+              xml={PROFILE_PLACEHOLDER_ICON}
+              height={scale(100)}
+              width={scale(100)}
+            />
+            {profileUrl && <Image source={{uri: profileUrl}} />}
+          </ProfileUploadView>
+          {isImageUploading && <ImageUploadIndicator />}
+        </ProfileContainerView>
+        <ProfileRightView>
+          <ProfileText>Profile Picture</ProfileText>
+          <EmptyRowView>
+            <Button onPress={() => randomizeProfileUrl()}>
+              <SvgXml xml={SYNC_WHITE_ICON} />
+              <ButtonText>Randomize</ButtonText>
+            </Button>
+            <HorizontalSpace />
+            <Button onPress={() => onEditProfilePress()} primary={true}>
+              <SvgXml xml={UPLOAD_WHITE_ICON} />
+              <ButtonText>Upload</ButtonText>
+            </Button>
+          </EmptyRowView>
+        </ProfileRightView>
+      </EmptyRowView>
     );
   };
 
@@ -212,18 +217,18 @@ export const CreateAccountScreen: FC<{}> = () => {
             <FullView>
               {renderProfileUploadView()}
               <LSInput
-                onChangeText={handleChange('email')}
-                value={values.email}
-                placeholder={'Email'}
-                error={errors.email}
-                leftIcon={EMAIL_ICON}
-              />
-              <LSInput
                 onChangeText={handleChange('username')}
                 value={values.username}
                 placeholder={'Username'}
                 error={errors.username}
                 leftIcon={ADD_USER_ICON}
+              />
+              <LSInput
+                onChangeText={handleChange('email')}
+                value={values.email}
+                placeholder={'Email'}
+                error={errors.email}
+                leftIcon={EMAIL_ICON}
               />
               <LSInput
                 onChangeText={handleChange('password')}
