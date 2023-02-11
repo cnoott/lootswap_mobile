@@ -35,7 +35,11 @@ import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 //- move styles out of file
 //- put url in env
 export const CheckoutScreen: FC<{}> = props => {
-  const {productData} = props.route?.params;
+  const {
+    productData,
+    isMoneyOffer = false,
+    tradeData = {},
+  } = props.route?.params;
   const navigation: NavigationProp<any, any> = useNavigation();
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state?.auth);
@@ -48,7 +52,7 @@ export const CheckoutScreen: FC<{}> = props => {
   }, [userData?._id, dispatch, productData?.userId]);
 
   const renderShippingCost = () => {
-    if (productData.type === 'trade-only') {
+    if (productData.type === 'trade-only' || isMoneyOffer) {
       return 0;
     }
     switch (productData.who_pays) {
@@ -61,8 +65,13 @@ export const CheckoutScreen: FC<{}> = props => {
     }
   };
 
-  const total =
-    parseFloat(renderShippingCost()) + parseFloat(productData?.price);
+  const renderTotal = () => {
+    if (isMoneyOffer) {
+      return tradeData?.senderMoneyOffer;
+    } else {
+      return parseFloat(renderShippingCost()) + parseFloat(productData?.price);
+    }
+  };
 
   const onMessage = msg => {
     const data = JSON.parse(msg.nativeEvent.data);
@@ -77,7 +86,7 @@ export const CheckoutScreen: FC<{}> = props => {
           screen: 'TradeCheckoutSuccessScreen',
           params: {
             isSale: true,
-            total: total,
+            total: renderTotal(),
             paypalOrderData: data.info.paypalOrder,
           },
         });
@@ -108,7 +117,10 @@ export const CheckoutScreen: FC<{}> = props => {
       <EmptyView>
         {renderHeading('Purchase Summary')}
         {renderSummaryDetail('Shipping', renderShippingCost())}
-        {renderSummaryDetail('Product cost', productData?.price)}
+        {renderSummaryDetail(
+          'Product cost',
+          isMoneyOffer ? tradeData?.senderMoneyOffer : productData?.price,
+        )}
         {/*renderSummaryDetail('Taxes and fees', paymentDetails?.)*/}
       </EmptyView>
     );
@@ -117,12 +129,20 @@ export const CheckoutScreen: FC<{}> = props => {
     return (
       <StretchedRowView>
         <HeadingLabel>Total</HeadingLabel>
-        <HeadingLabel isBlack={true}>
-          ${parseFloat(renderShippingCost()) + parseFloat(productData?.price)}
-        </HeadingLabel>
+        <HeadingLabel isBlack={true}>${renderTotal()}</HeadingLabel>
       </StretchedRowView>
     );
   };
+  const webViewUri =
+    `${WEB_APP_URL}/mobile-checkout?` +
+    `email=${encodeURIComponent(userData?.email)}` +
+    `&merchantId=${encodeURIComponent(
+      requestedUserDetails?.paypal_info?.merchantIdInPayPal,
+    )}` +
+    `&itemId=${encodeURIComponent(productData?._id)}` +
+    `&userId=${encodeURIComponent(userData?._id)}` +
+    `&isMoneyOffer=${encodeURIComponent(isMoneyOffer)}` +
+    `&tradeId=${isMoneyOffer && encodeURIComponent(tradeData?._id)}`;
 
   const renderCheckOutButton = () => {
     return (
@@ -132,7 +152,10 @@ export const CheckoutScreen: FC<{}> = props => {
         type={Type.Primary}
         radius={20}
         fitToWidth={'100%'}
-        onPress={() => setShowGateway(true)}
+        onPress={() => {
+          setShowGateway(true);
+          console.log(webViewUri);
+        }}
       />
     );
   };
@@ -160,7 +183,7 @@ export const CheckoutScreen: FC<{}> = props => {
 
             <WebView
               source={{
-                uri: `${WEB_APP_URL}/mobile-checkout?email=${userData?.email}&merchantId=${requestedUserDetails?.paypal_info?.merchantIdInPayPal}&itemId=${productData?._id}&userId=${userData?._id}`,
+                uri: webViewUri,
               }}
               onMessage={onMessage}
               style={{flex: 1}}

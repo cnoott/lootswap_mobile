@@ -92,12 +92,37 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     };
 
     const viewOrderPressOptions = () => {
-      //TODO: handle money offer trade
+      const moneyOfferOnly =
+        offerItem.senderItems.length === 0 && offerItem.senderMoneyOffer > 0;
+      if (moneyOfferOnly) {
+        if (isReciever || offerItem?.paypalOrderId) {
+          navigation.navigate('Profile', {
+            screen: 'TrackOrderScreen',
+            params: {
+              isTradeOrder: false,
+              item: offerItem?.paypalOrderId,
+            },
+          });
+        } else {
+          //checkout
+          navigation.navigate('Home', {
+            screen: 'CheckoutScreen',
+            params: {
+              productData: offerItem.recieverItem,
+              isMoneyOffer: true,
+              tradeData: offerItem,
+            },
+          });
+          //if paid navigate to track order screen
+        }
+        return;
+      }
       offerItem.orderId.tradeId = offerItem;
       let orderData = offerItem.orderId;
       orderData.tradeId = offerItem;
       orderData.reciever = offerItem.reciever;
       orderData.sender = offerItem.sender;
+
       if (paidByBothUsers) {
         navigation.navigate('Profile', {
           screen: 'TrackOrderScreen',
@@ -120,12 +145,14 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
         offerItem?.reciever?._id === userData?._id
           ? offerItem?.reciever?.name
           : offerItem?.sender?.name;
+
+      const acceptDeclineText = isReciever
+        ? `You have ${isAccepted ? 'accepted' : 'declined'} the offer!`
+        : `${name} has ${isAccepted ? 'accepted' : 'declined'} your offer!`;
       return (
         <OfferStatusContainer isAccepted={isAccepted}>
           <OfferStatusLeftView>
-            <OfferStatusTitleText>
-              {name} has {`${isAccepted ? 'accepted' : 'declined'}`} your offer!
-            </OfferStatusTitleText>
+            <OfferStatusTitleText>{acceptDeclineText}</OfferStatusTitleText>
             <EmptyRowView>
               <SvgXml
                 xml={
@@ -141,7 +168,11 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
           </OfferStatusLeftView>
           <OfferStatusRightView>
             <LSButton
-              title={paidByBothUsers ? 'View Order' : 'Checkout'}
+              title={
+                paidByBothUsers || offerItem?.paypalOrderId
+                  ? 'View Order'
+                  : 'Checkout'
+              }
               size={Size.Extra_Small}
               type={Type.Custom}
               radius={20}

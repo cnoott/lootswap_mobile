@@ -80,6 +80,10 @@ export const ACCEPT_TRADE = {
   ...createActionConst(actions.ACCEPT_TRADE),
 };
 
+export const ACCEPT_MONEY_OFFER_TRADE = {
+  ...createActionConst(actions.ACCEPT_MONEY_OFFER_TRADE),
+};
+
 export const CANCEL_TRADE = {
   ...createActionConst(actions.CANCEL_TRADE),
 };
