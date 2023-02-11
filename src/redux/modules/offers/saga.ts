@@ -3,6 +3,7 @@ import {
   GET_TRADES_HISTORY,
   GET_TRADE,
   ACCEPT_TRADE,
+  ACCEPT_MONEY_OFFER_TRADE,
   CANCEL_TRADE,
   ADD_ITEMS,
   REMOVE_ITEMS,
@@ -14,6 +15,7 @@ import {
   getTradesHistoryCall,
   getTradeCall,
   acceptTradeCall,
+  acceptMoneyOfferTradeCall,
   cancelTradeCall,
   addItemsCall,
   removeItemsCall,
@@ -77,6 +79,25 @@ export function* acceptTrade(action: any) {
   try {
     const response: APIResponseProps = yield call(
       acceptTradeCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
+export function* acceptMoneyOfferTrade(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      acceptMoneyOfferTradeCall,
       action?.reqData,
     );
     yield put(LoadingSuccess());
@@ -209,6 +230,7 @@ export default function* offersSaga() {
   yield takeLatest(GET_TRADES_HISTORY.REQUEST, getTradesHistory);
   yield takeLatest(GET_TRADE.REQUEST, getTrade);
   yield takeLatest(ACCEPT_TRADE.REQUEST, acceptTrade);
+  yield takeLatest(ACCEPT_MONEY_OFFER_TRADE.REQUEST, acceptMoneyOfferTrade);
   yield takeLatest(CANCEL_TRADE.REQUEST, cancelTrade);
   yield takeLatest(ADD_ITEMS.REQUEST, addItems);
   yield takeLatest(REMOVE_ITEMS.REQUEST, removeItems);

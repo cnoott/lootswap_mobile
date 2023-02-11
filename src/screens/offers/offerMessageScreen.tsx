@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {
   acceptTrade,
+  acceptMoneyOfferTrade,
   cancelTrade,
   getTrade,
   getTradesHistory,
@@ -225,23 +226,46 @@ export const OffersMessageScreen: FC<{}> = props => {
       tradeId: tradeId,
       userId: userData?._id,
     };
-    dispatch(
-      acceptTrade(
-        reqData,
-        res => {
-          closeModal();
-          setTimeout(() => {
-            navigation?.navigate('TradeCheckoutScreen', {
-              tradeData: offerItem,
-              orderData: res,
-            });
-          }, 100);
-        },
-        error => {
-          console.log('error:', error);
-        },
-      ),
-    );
+
+    const moneyOfferOnly =
+      offerItem.senderItems.length === 0 && offerItem.senderMoneyOffer > 0;
+    if (moneyOfferOnly) {
+      dispatch(
+        acceptMoneyOfferTrade(
+          reqData,
+          () => {
+            closeModal();
+            dispatch(
+              getTrade({
+                userId: userData?._id,
+                tradeId: tradeId,
+              }),
+            );
+          },
+          () => {
+            Alert.showError('Error accepting trade!');
+          },
+        ),
+      );
+    } else {
+      dispatch(
+        acceptTrade(
+          reqData,
+          res => {
+            closeModal();
+            setTimeout(() => {
+              navigation?.navigate('TradeCheckoutScreen', {
+                tradeData: offerItem,
+                orderData: res,
+              });
+            }, 100);
+          },
+          error => {
+            console.log('error:', error);
+          },
+        ),
+      );
+    }
   };
   const handleCancelTrade = () => {
     const reqData = {
