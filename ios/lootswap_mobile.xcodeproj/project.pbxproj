@@ -10,7 +10,6 @@
 		00E356F31AD99517003FC87E /* lootswap_mobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* lootswap_mobileTests.m */; };
 		028D9915FCE2F6828A4553B5 /* libPods-lootswap_mobile-lootswap_mobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AE0706015DB6B334A458F6B /* libPods-lootswap_mobile-lootswap_mobileTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		18163B652935F54600EDA81D /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B572935F54500EDA81D /* Inter-Medium.otf */; };
 		18163B662935F54600EDA81D /* Inter-ExtraLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B582935F54500EDA81D /* Inter-ExtraLightItalic.otf */; };
@@ -26,6 +25,7 @@
 		18163B702935F54600EDA81D /* Inter-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B622935F54600EDA81D /* Inter-Black.otf */; };
 		18163B712935F54600EDA81D /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B632935F54600EDA81D /* Inter-Bold.otf */; };
 		18163B722935F54600EDA81D /* Inter-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B642935F54600EDA81D /* Inter-BlackItalic.otf */; };
+		18710E5B299698BD00F98191 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		18FD5A3E298CC97200DD3F63 /* Urbanist-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2C298CC96F00DD3F63 /* Urbanist-BlackItalic.ttf */; };
 		18FD5A3F298CC97200DD3F63 /* Urbanist-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2D298CC96F00DD3F63 /* Urbanist-ExtraLightItalic.ttf */; };
 		18FD5A40298CC97200DD3F63 /* Urbanist-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2E298CC96F00DD3F63 /* Urbanist-Regular.ttf */; };
@@ -346,6 +346,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18710E5B299698BD00F98191 /* Images.xcassets in Resources */,
 				18FD5A44298CC97200DD3F63 /* Urbanist-Black.ttf in Resources */,
 				18FD5A42298CC97200DD3F63 /* Urbanist-Thin.ttf in Resources */,
 				18FD5A4E298CC97200DD3F63 /* Urbanist-ExtraBold.ttf in Resources */,
@@ -369,7 +370,6 @@
 				18163B702935F54600EDA81D /* Inter-Black.otf in Resources */,
 				18163B662935F54600EDA81D /* Inter-ExtraLightItalic.otf in Resources */,
 				18FD5A4C298CC97200DD3F63 /* Urbanist-ExtraBoldItalic.ttf in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				18FD5A48298CC97200DD3F63 /* Urbanist-Medium.ttf in Resources */,
 				18163B712935F54600EDA81D /* Inter-Bold.otf in Resources */,
 				18163B6F2935F54600EDA81D /* Inter-ExtraBoldItalic.otf in Resources */,
@@ -622,6 +622,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = lootswap_mobile/Images.xcassets;
 				DEVELOPMENT_TEAM = 6P22K9PRC6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = lootswap_mobile/Info.plist;
@@ -649,6 +650,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = lootswap_mobile/Images.xcassets;
 				DEVELOPMENT_TEAM = 6P22K9PRC6;
 				INFOPLIST_FILE = lootswap_mobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
