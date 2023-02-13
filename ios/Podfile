@@ -3,6 +3,10 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '13.0'
 install! 'cocoapods', :deterministic_uuids => false
+ pod 'Firebase', :modular_headers => true
+ pod 'FirebaseCore', :modular_headers => true
+ pod 'GoogleUtilities', :modular_headers => true
+ $RNFirebaseAsStaticFramework = true
 
 target 'lootswap_mobile' do
   config = use_native_modules!

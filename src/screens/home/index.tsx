@@ -3,7 +3,6 @@
  ***/
 
 import React, {FC, useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
 import {Container, FlatList, SearchContainer} from './styles';
@@ -14,10 +13,6 @@ import LSHomeScreenSearch from '../../components/filterSearch/homeScreenSearch';
 import {AlgoliaAppId, AlgoliaApiKey, ALGOLIA_INDEX_NAME} from '@env';
 import LSProductCard from '../../components/productCard';
 import HomeFiltersScreen from './homeFilters';
-import {
-  LoadingRequest,
-  LoadingSuccess,
-} from '../../redux/modules/loading/actions';
 import {scale} from 'react-native-size-matters';
 import {LIKE_HEART_ICON} from 'localsvgimages';
 
@@ -25,16 +20,17 @@ const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 
 export const HomeScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
-  const dispatch = useDispatch();
   const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     // For Loader handling
+    /*
     dispatch(LoadingRequest());
     setTimeout(() => {
       dispatch(LoadingSuccess());
     }, 2500);
-  });
+    */
+  }, []);
 
   const onProductPress = (product: any) => {
     navigation.navigate('ProductDetailsScreen', {
