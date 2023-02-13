@@ -6,10 +6,11 @@ import React, {FC} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/home';
-// import HomeFiltersScreen from '../screens/home/homeFilters';
+import LikedProductScreen from '../screens/home/likedProductScreen';
 import ProfileScreen from '../screens/profile';
 import EditProfileScreen from '../screens/profile/editProfile';
 import NotificationSettingScreen from '../screens/profile/notificationSettings';
+import WalletScreen from '../screens/profile/walletScreen';
 import ProductDetailsScreen from '../screens/productDetails';
 import LootScreen from '../screens/loot';
 import MyLootScreen from '../screens/loot/myLoot';
@@ -58,7 +59,7 @@ const HomeStackNavigation = () => (
       headerShown: false,
     }}>
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
-    {/* <Stack.Screen name="HomeFiltersScreen" component={HomeFiltersScreen} /> */}
+    <Stack.Screen name="LikedProductScreen" component={LikedProductScreen} />
     <Stack.Screen
       name="ProductDetailsScreen"
       component={ProductDetailsScreen}
@@ -93,6 +94,7 @@ const ProfileStackNavigation = () => (
       name="TradeCheckoutSuccessScreen"
       component={TradeCheckoutSuccessScreen}
     />
+    <Stack.Screen name="WalletScreen" component={WalletScreen} />
   </Stack.Navigator>
 );
 

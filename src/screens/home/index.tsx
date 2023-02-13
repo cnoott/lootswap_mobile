@@ -38,9 +38,14 @@ export const HomeScreen: FC<{}> = () => {
     });
   };
 
+  const goToLikedProducts = (productsList: any) => {
+    navigation.navigate('LikedProductScreen', {
+      productsList: productsList,
+    });
+  };
+
   const onRightIconPress = () => {
     onToggleModal();
-    // navigation.navigate('HomeFiltersScreen');
   };
 
   const onEndReached = (isLastPage: boolean, showMore: Function = () => {}) => {
@@ -67,24 +72,32 @@ export const HomeScreen: FC<{}> = () => {
       ...props,
     });
     return (
-      <FlatList
-        data={hits}
-        renderItem={renderItem}
-        keyExtractor={item => item.objectID}
-        onEndReached={() => onEndReached(isLastPage, showMore)}
-        ListHeaderComponent={
-          <SearchContainer>
-            <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
-          </SearchContainer>
-        }
-        stickyHeaderIndices={[0]}
-        getItemLayout={(data, index) => ({
-          length: 100,
-          offset: 100 * index,
-          index,
-          data,
-        })}
-      />
+      <>
+        <InHomeHeader
+          isHome={true}
+          rightIcon={LIKE_HEART_ICON}
+          centerAligned={false}
+          onRightItemPress={() => goToLikedProducts(hits)}
+        />
+        <FlatList
+          data={hits}
+          renderItem={renderItem}
+          keyExtractor={item => item.objectID}
+          onEndReached={() => onEndReached(isLastPage, showMore)}
+          ListHeaderComponent={
+            <SearchContainer>
+              <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
+            </SearchContainer>
+          }
+          stickyHeaderIndices={[0]}
+          getItemLayout={(data, index) => ({
+            length: 100,
+            offset: 100 * index,
+            index,
+            data,
+          })}
+        />
+      </>
     );
   };
 
@@ -94,12 +107,6 @@ export const HomeScreen: FC<{}> = () => {
 
   return (
     <Container>
-      <InHomeHeader
-        isHome={true}
-        rightIcon={LIKE_HEART_ICON}
-        centerAligned={false}
-        onRightItemPress={() => {}}
-      />
       <InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
         <InfiniteHits />
         {
