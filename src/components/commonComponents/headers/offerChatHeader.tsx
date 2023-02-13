@@ -70,7 +70,8 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     const paidByBothUsers =
       isReciever || offerItem?.orderId?.senderPaymentStatus === 'paid';
 
-    const isMoneyOffer = offerItem?.senderMoneyOffer > 0 && offerItem?.senderItems.length === 0;
+    const isMoneyOffer =
+      offerItem?.senderMoneyOffer > 0 && offerItem?.senderItems.length === 0;
 
     const renderOfferCellView = () => {
       return (
@@ -101,7 +102,6 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
         if (isReciever && !offerItem?.paypalOrderId) {
           return 'Waiting for checkout';
         }
-
       } else {
         if (paidByBothUsers) {
           return 'View Order';
