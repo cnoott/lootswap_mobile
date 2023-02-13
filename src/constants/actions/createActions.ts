@@ -80,6 +80,10 @@ export const ACCEPT_TRADE = {
   ...createActionConst(actions.ACCEPT_TRADE),
 };
 
+export const ACCEPT_MONEY_OFFER_TRADE = {
+  ...createActionConst(actions.ACCEPT_MONEY_OFFER_TRADE),
+};
+
 export const CANCEL_TRADE = {
   ...createActionConst(actions.CANCEL_TRADE),
 };
@@ -138,4 +142,12 @@ export const SAVE_PAYPAL = {
 
 export const GET_PAYPAL_ORDER = {
   ...createActionConst(actions.GET_PAYPAL_ORDER),
+};
+
+export const SAVE_NOTIF_PERMISSION = {
+  ...createActionConst(actions.SAVE_NOTIF_PERMISSION),
+};
+
+export const SET_REG_TOKEN = {
+  ...createActionConst(actions.SET_REG_TOKEN),
 };

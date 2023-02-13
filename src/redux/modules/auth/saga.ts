@@ -6,6 +6,7 @@ import {
   SIGN_UP_DATA,
   GET_USER_DETAILS,
   GET_MY_DETAILS,
+  SET_REG_TOKEN,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -19,6 +20,8 @@ import {
   getUsersDetailsFailure,
   getMyDetailsSuccess,
   getMyDetailsFailure,
+  setRegTokenSuccess,
+  setRegTokenFailure,
 } from './actions';
 import {
   signIn,
@@ -26,6 +29,7 @@ import {
   getProfileImageSignedURL,
   uploadProfileImage,
   getRequestedUserDetailsCall,
+  setRegTokenCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
@@ -141,6 +145,24 @@ export function* getMyDetails(action: any) {
   }
 }
 
+export function* setRegToken(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      setRegTokenCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      yield put(setRegTokenSuccess(response.data));
+    } else {
+      yield put(setRegTokenFailure(response.error));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
@@ -148,4 +170,5 @@ export default function* authSaga() {
   yield takeLatest(PROFILE_IMG_UPLOAD.REQUEST, uploadProfileImgAPI);
   yield takeLatest(GET_USER_DETAILS.REQUEST, getRequestedUserDetails);
   yield takeLatest(GET_MY_DETAILS.REQUEST, getMyDetails);
+  yield takeLatest(SET_REG_TOKEN.REQUEST, setRegToken);
 }

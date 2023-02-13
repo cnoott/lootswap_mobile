@@ -8,6 +8,7 @@ import {
   CHANGE_MONEY_OFFER,
   GET_TRADE_SHIPPING_RATES,
   FETCH_PAYMENT_SHEET,
+  ACCEPT_MONEY_OFFER_TRADE,
 } from '../../../constants/actions';
 
 export const getTradesHistory = (reqData: any) => {
@@ -73,6 +74,19 @@ export const acceptTrade = (
 ) => {
   return {
     type: ACCEPT_TRADE.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const acceptMoneyOfferTrade = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: ACCEPT_MONEY_OFFER_TRADE.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,

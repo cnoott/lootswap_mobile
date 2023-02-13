@@ -147,6 +147,13 @@ export const acceptTradeCall = (reqData: any) => {
   );
 };
 
+export const acceptMoneyOfferTradeCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/accept-money-offer-trade/${reqData?.userId}/${reqData?.tradeId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const cancelTradeCall = (reqData: any) => {
   return handleResponse(
     api.put(`/cancel-trade/${reqData?.userId}/${reqData?.tradeId}`),
@@ -267,6 +274,13 @@ export const savePaypalCall = (reqData: any) => {
 export const getPaypalOrderCall = (reqData: any) => {
   return handleResponse(
     api.get(`/mobile-read-paypal-order/${reqData?.paypalOrderId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const setRegTokenCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/user/add-reg-token/${reqData?.userId}`, {token: reqData?.token}),
     API_RESPONSE.CODE200,
   );
 };

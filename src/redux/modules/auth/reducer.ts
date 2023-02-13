@@ -7,8 +7,11 @@ import {
   PROFILE_IMG_UPLOAD,
   GET_USER_DETAILS,
   GET_MY_DETAILS,
+  SET_REG_TOKEN,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
+//import messaging from '@react-native-firebase/messaging';
+//import {setRegTokenRequest} from '../../../redux/modules';
 
 export interface AuthProps {
   isLoading?: boolean;
@@ -55,6 +58,14 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case SIGN_IN_DATA.SUCCESS: {
+      /*
+      const authStatus = await messaging().requestPermission();
+      console.log(authStatus);
+      await messaging().registerDeviceForRemoteMessages();
+      const token = await messaging().getToken();
+      setRegTokenRequest({userId: payload?.user?._id, token});
+      */
+      console.log(payload);
       return {
         ...state,
         isLoading: false,
@@ -194,6 +205,21 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case GET_MY_DETAILS.FAILURE: {
+      return {
+        ...state,
+      };
+    }
+    case SET_REG_TOKEN.REQUEST: {
+      return {
+        ...state,
+      };
+    }
+    case SET_REG_TOKEN.SUCCESS: {
+      return {
+        ...state,
+      };
+    }
+    case SET_REG_TOKEN.FAILURE: {
       return {
         ...state,
       };
