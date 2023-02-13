@@ -83,7 +83,6 @@ export const TradeCheckoutScreen: FC<{}> = props => {
     );
   };
 
-
   const initializePaymentSheet = useCallback(() => {
     const reqData = {
       userId: userData?._id,
