@@ -172,7 +172,13 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
         right={false}
         printLabel={true}
         printLabelButton={printLabelRenderOptions}
-        onBackCall={() => navigation.navigate('MyOrdersListScreen')}
+        onBackCall={() => {
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'ProfileScreen'}],
+          });
+          navigation.navigate('MyOrdersListScreen')
+        }}
       />
       <SubContainer>
         {renderOrderHeaderDetails()}
