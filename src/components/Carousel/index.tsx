@@ -75,6 +75,9 @@ function CarouselComponent(props: CarouselProps) {
   return (
     <Container height={height} isProduct={isProduct}>
       <Carousel
+        panGestureHandlerProps={{
+          activeOffsetX: [-10, 10],
+        }}
         loop={loop}
         width={isProduct ? w : width}
         height={isProduct ? height - 30 : height - 5}
