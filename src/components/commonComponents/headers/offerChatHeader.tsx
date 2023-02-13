@@ -70,6 +70,8 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     const paidByBothUsers =
       isReciever || offerItem?.orderId?.senderPaymentStatus === 'paid';
 
+    const isMoneyOffer = offerItem?.senderMoneyOffer > 0 && offerItem?.senderItems.length === 0;
+
     const renderOfferCellView = () => {
       return (
         <TradeOfferCell offerItem={offerItem} topMargin={5} isInTrade={true} />
@@ -89,6 +91,24 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
           </OfferEditedStatusTitleText>
         </OfferEditedStatusContainer>
       );
+    };
+
+    const viewOrderTextOptions = () => {
+      if (isMoneyOffer) {
+        if (offerItem?.paypalOrderId) {
+          return 'View Order';
+        }
+        if (isReciever && !offerItem?.paypalOrderId) {
+          return 'Waiting for checkout';
+        }
+
+      } else {
+        if (paidByBothUsers) {
+          return 'View Order';
+        } else {
+          return 'Checkout';
+        }
+      }
     };
 
     const viewOrderPressOptions = () => {
@@ -168,11 +188,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
           </OfferStatusLeftView>
           <OfferStatusRightView>
             <LSButton
-              title={
-                paidByBothUsers || offerItem?.paypalOrderId
-                  ? 'View Order'
-                  : 'Checkout'
-              }
+              title={viewOrderTextOptions()}
               size={Size.Extra_Small}
               type={Type.Custom}
               radius={20}
