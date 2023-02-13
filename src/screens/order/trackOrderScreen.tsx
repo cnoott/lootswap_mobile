@@ -177,7 +177,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
             index: 0,
             routes: [{name: 'ProfileScreen'}],
           });
-          navigation.navigate('MyOrdersListScreen')
+          navigation.navigate('MyOrdersListScreen');
         }}
       />
       <SubContainer>

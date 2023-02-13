@@ -19,10 +19,11 @@ import {
 
 interface OrderUserDetailViewProps {
   onButtonPress: Function;
+  isTradeOrder?: Boolean;
 }
 
 const ShippingInstructionModalComponent = (props: OrderUserDetailViewProps) => {
-  const {onButtonPress} = props;
+  const {onButtonPress, isTradeOrder = false} = props;
   const renderStepView = (
     stepNum: string,
     stepTitle: string,
@@ -52,8 +53,10 @@ const ShippingInstructionModalComponent = (props: OrderUserDetailViewProps) => {
       <StepView>
         {renderStepView(
           '01',
-          'UPS location',
-          'Make sure you drop the package off at whichever shipping carrier you chose within 3 business days from when the Purchase happended',
+          isTradeOrder ? 'UPS location' : 'Location & Time',
+          isTradeOrder
+            ? 'Make sure you drop this off at any UPS location within 3 business days from when the trade was accepted'
+            : 'Make sure you drop the package off at whichever shipping carrier you chose within 3 business days from when the Purchase happended',
         )}
         {renderStepView(
           '02',
