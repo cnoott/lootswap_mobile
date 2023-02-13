@@ -98,7 +98,8 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       );
     };
 
-    const renderShippingInstructionModal = () => { //remove
+    const renderShippingInstructionModal = () => {
+      //remove
       return (
         <LSModal isVisible={isShipInsModalVisible}>
           <LSModal.Container>
