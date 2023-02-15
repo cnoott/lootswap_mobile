@@ -8,7 +8,7 @@ import {Platform, Dimensions} from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import FastImage from 'react-native-fast-image';
 import {
-  Container,
+  ImagesContainer,
   AddProductsList,
   ImageContainerUpload,
   ImageContainerNew,
@@ -16,6 +16,7 @@ import {
   PlusContainer,
   PlusSign,
   AddImageLabel,
+  AddImageSubText,
   Touchable,
   DeleteContainer,
   CellIndexContainer,
@@ -49,6 +50,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       ? [...addProductData?.stepThree, imageLastItem]
       : [imageLastItem];
   const [productImagesArr, setProductImagesArr] = useState<any>(preFilledData); // Always adding 1 element to show add images component at last
+  const [enableScroll, setEnableScroll] = useState(true);
   const {updateProductData} = props;
   const updateImagesData = (newImages: Array<string>) => {
     updateProductData({
@@ -107,6 +109,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
             <PlusSign>+</PlusSign>
           </PlusContainer>
           <AddImageLabel>+Add Images</AddImageLabel>
+          <AddImageSubText>Press and hold to reorder</AddImageSubText>
         </ImageContainerNew>
       </Touchable>
     );
@@ -141,18 +144,20 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     );
   };
   return (
-    <Container>
+    <ImagesContainer enableScroll={enableScroll}>
       <AddProductsList
         data={productImagesArr}
         renderItem={renderProductImageContainer}
+        onDragging={() => setEnableScroll(false)}
         onDragRelease={data => {
           setProductImagesArr(data);
           updateImagesData(data?.slice(0, -1)); // Updating Reducer Data
+          setEnableScroll(true);
         }}
         dragStartAnimation={true}
         itemHeight={scale(productImageWidth)}
       />
-    </Container>
+    </ImagesContainer>
   );
 };
 
