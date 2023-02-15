@@ -66,6 +66,7 @@ declare module 'localsvgimages' {
   export const OFFER_REJECTED_HEADER_ICON: any;
   export const LIKE_HEART_ICON: any;
   export const LIKE_HEART_ICON_WHITE: any;
+  export const LIKE_HEART_ICON_RED: any;
   export const PAY_PAL_LABEL: any;
   export const LOOT_SWAP_LOGO_LABEL: any;
   export const UPS_ICON: any;
@@ -74,4 +75,5 @@ declare module 'localsvgimages' {
   export const SHIPPING_INS_HEADER_IMG: any;
   export const SYNC_WHITE_ICON: any;
   export const UPLOAD_WHITE_ICON: any;
+  export const WALLET_BACKGROUND: any;
 }

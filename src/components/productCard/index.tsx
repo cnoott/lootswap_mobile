@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {useTheme} from 'styled-components';
 import {SvgXml} from 'react-native-svg';
 import {getProductTags} from '../../utility/utility';
-import {LIKE_HEART_ICON_WHITE} from 'localsvgimages';
+import {LIKE_HEART_ICON_WHITE, LIKE_HEART_ICON_RED} from 'localsvgimages';
 import {
   ItemContainer,
   Image,
@@ -24,10 +24,16 @@ interface LSProductCardProps {
   onPress?: Function;
   onLikePress?: Function;
   item: any;
+  liked?: boolean;
 }
 
 const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
-  const {item, onPress = () => {}, onLikePress = () => {}} = props;
+  const {
+    item,
+    onPress = () => {},
+    onLikePress = () => {},
+    liked = false,
+  } = props;
   const theme = useTheme();
   const renderTradeTags = () => {
     return (
@@ -53,7 +59,10 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
           </FreeShipingContainer>
         )}
         <LikeTouchable onPress={() => onLikePress()}>
-          <SvgXml xml={LIKE_HEART_ICON_WHITE} color={'white'} />
+          <SvgXml
+            xml={liked ? LIKE_HEART_ICON_RED : LIKE_HEART_ICON_WHITE}
+            color={'white'}
+          />
         </LikeTouchable>
       </EmptyView>
       <CellBottomView>
