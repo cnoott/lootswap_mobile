@@ -41,10 +41,10 @@ import {FlatList} from 'react-native';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 export const OffersMessageScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
+  const messageListref = useRef(null);
   const tradeId = props.route?.params.item._id;
   const tradeData: TradeProps = useSelector(state => state.offers);
-  const offerItem = tradeData?.trade;
-  //const offerItem = props.route?.params?.item;
+  let offerItem = tradeData?.trade;
 
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -53,16 +53,14 @@ export const OffersMessageScreen: FC<{}> = props => {
   const {userData} = auth;
   const {socketObj, isConnected}: any = useMessagingService(
     {
-      tradeId: offerItem?._id,
+      tradeId: tradeId,
       userId: userData?._id,
     },
     true,
   );
   const [messageText, setMessageText] = useState('');
 
-  const [messagesList, setMessagesList] = useState<any>(
-    offerItem?.messages || [],
-  );
+  const [messagesList, setMessagesList] = useState<any>([]);
   const [isAcceptDeclineModalVisible, setAcceptDeclineModalVisible] =
     useState(false);
   const [isDecline, setDecline] = useState(false);
@@ -73,7 +71,7 @@ export const OffersMessageScreen: FC<{}> = props => {
     useState(false);
   const [isChangeOfferModalVisible, setChangeOfferModalVisible] =
     useState(false);
-  var messagesListRaw: any = useRef(offerItem?.messages || []);
+  var messagesListRaw: any = useRef([]);
 
   useEffect(() => {
     dispatch(
@@ -96,15 +94,29 @@ export const OffersMessageScreen: FC<{}> = props => {
   }, [socketObj, isConnected]);
 
   useEffect(() => {
+    if (tradeData?.trade) {
+      offerItem = tradeData?.trade;
+      setMessagesList([...tradeData?.trade?.messages]);
+      messagesListRaw.current = tradeData?.trade?.messages || [];
+    }
+    scrollListToEnd();
+  }, [tradeData]);
+
+  useEffect(() => {
     return () => {
-      socketObj?.off('connect');
-      socketObj?.emit('disconnect');
-      socketObj?.off('private message');
       socketObj?.disconnect();
       socketObj?.removeAllListeners();
       socketObj?.close();
     };
   }, []);
+
+  const scrollListToEnd = () => {
+    if (messageListref?.current) {
+      setTimeout(() => {
+        messageListref?.current?.scrollToEnd({animating: true});
+      }, 500);
+    }
+  };
 
   const initSocket = (_socketObj: any) => {
     _socketObj.on('private message', ({content, from}: any) => {
@@ -123,6 +135,7 @@ export const OffersMessageScreen: FC<{}> = props => {
       // if (content.message === `trade-accepted-message`) {
       //     setTradeStatus('accepted');
       // }
+      scrollListToEnd();
     });
   };
 
@@ -294,11 +307,19 @@ export const OffersMessageScreen: FC<{}> = props => {
     return (
       <ChatContainer>
         <FlatList
+          ref={messageListref}
+          initialScrollIndex={messageListref?.length - 1}
           data={messagesList}
           extraData={messagesList}
           renderItem={({item}) =>
             renderMessage(item?.userName === userData?.name, item)
           }
+          getItemLayout={(data, index) => ({
+            length: 100,
+            offset: 100 * index,
+            index,
+            data,
+          })}
         />
       </ChatContainer>
     );
