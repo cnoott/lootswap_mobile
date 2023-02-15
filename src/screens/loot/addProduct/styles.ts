@@ -2,7 +2,7 @@ import {moderateScale, verticalScale, scale} from 'react-native-size-matters';
 import styled from 'styled-components/native';
 import {layout, space, color, border} from 'styled-system';
 import {Dimensions} from 'react-native';
-import DraggableFlatList from 'react-native-draggable-flatlist';
+import {DraggableGrid} from 'react-native-draggable-grid';
 import FastImage from 'react-native-fast-image';
 
 const width = Dimensions.get('window').width;
@@ -51,14 +51,10 @@ export const ButtonContainer = styled.View.attrs(() => ({
   ${layout}
 `;
 
-export const AddProductsList = styled(DraggableFlatList).attrs(() => ({
-  // numColumns: 2,
-  showsVerticalScrollIndicator: false,
-  contentContainerStyle: {
-    flexGrow: 1,
-    alignItems: 'flex-start',
-  },
-  ml: scale(10),
+export const AddProductsList = styled(DraggableGrid).attrs(() => ({
+  numColumns: 2,
+  height: '100%',
+  width: '100%',
 }))`
   ${color}
   ${space}
@@ -77,9 +73,9 @@ export const ImageContainer = styled.View.attrs(props => ({
   ${layout} ${color} ${space};
 `;
 
-export const ImageContainerUpload = styled.TouchableOpacity.attrs(props => ({
+export const ImageContainerUpload = styled.View.attrs(props => ({
   height: scale(productImageWidth),
-  width: scale(productUploadImageWidth),
+  width: scale(productImageWidth),
   borderRadius: scale(20),
   bg: props.theme.colors.grey,
   m: scale(5),
@@ -91,11 +87,10 @@ export const ImageContainerUpload = styled.TouchableOpacity.attrs(props => ({
 
 export const ImageContainerNew = styled.View.attrs((props: any) => ({
   height: scale(productImageWidth),
-  width: scale(productUploadImageWidth),
+  width: scale(productImageWidth),
   borderRadius: scale(20),
   bg: props.theme.colors.grey,
   m: scale(5),
-  ml: scale(8),
 }))`
   align-items: center;
   justify-content: center;
@@ -145,7 +140,7 @@ export const Image = styled.Image.attrs(() => ({
 `;
 
 export const ImageUpload = styled(FastImage).attrs(() => ({
-  width: scale(productUploadImageWidth),
+  width: scale(productImageWidth),
   height: scale(productImageWidth),
   borderRadius: scale(20),
 }))`
@@ -272,6 +267,30 @@ export const FreeShippingDes = styled.Text.attrs(props => ({
   font-size: ${moderateScale(14)}px;
   font-family: Inter;
   font-weight: 300 ${color} ${space};
+`;
+
+export const CellIndexContainer = styled.View.attrs(props => ({
+  height: scale(24),
+  borderRadius: scale(5),
+  bg: props.theme.colors.black,
+  top: 10,
+  left: 10,
+  px: scale(12),
+}))`
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  ${layout} ${color} ${space} ${border};
+`;
+
+export const IndexLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.white,
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-family: Inter-Bold;
+  font-weight: 600 ${color} ${space};
 `;
 
 export const DropdownStyle = {

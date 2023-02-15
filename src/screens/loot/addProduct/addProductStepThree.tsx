@@ -4,14 +4,9 @@ LootSwap - ADD_PRODUCT STEP 1
 
 import React, {FC, useState} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
-import {Platform} from 'react-native';
+import {Platform, Dimensions} from 'react-native';
 import {SvgXml} from 'react-native-svg';
-import {ScaleDecorator} from 'react-native-draggable-flatlist';
 import FastImage from 'react-native-fast-image';
-// import {
-//   getSignedRequest,
-//   uploadFile,
-// } from '../../../services/imageUploadService';
 import {
   Container,
   AddProductsList,
@@ -23,23 +18,36 @@ import {
   AddImageLabel,
   Touchable,
   DeleteContainer,
+  CellIndexContainer,
+  IndexLabel,
 } from './styles';
 import {useSelector} from 'react-redux';
 import {TRASH_WHITE_ICON} from 'localsvgimages';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 import {Alert} from 'custom_top_alert';
+import {scale} from 'react-native-size-matters';
+
+const width = Dimensions.get('window').width;
+const productImageWidth = width / 2 - 40;
 
 interface ProductStep {
   updateProductData: Function;
 }
 
+const imageLastItem = {
+  key: 'last',
+  disabledDrag: true,
+  disabledReSorted: true,
+};
+
 export const AddProductStepThree: FC<ProductStep> = props => {
-  // const dispatch = useDispatch();
   const addProductData: ADD_PRODUCT_TYPE = useSelector(
     state => state?.home?.addProductData,
   );
   const preFilledData =
-    addProductData?.stepThree?.length > 0 ? [...addProductData?.stepThree] : [];
+    addProductData?.stepThree?.length > 0
+      ? [...addProductData?.stepThree, imageLastItem]
+      : [imageLastItem];
   const [productImagesArr, setProductImagesArr] = useState<any>(preFilledData); // Always adding 1 element to show add images component at last
   const {updateProductData} = props;
   const updateImagesData = (newImages: Array<string>) => {
@@ -72,44 +80,14 @@ export const AddProductStepThree: FC<ProductStep> = props => {
                   : imgData?.sourceURL?.replace('file://', ''),
               sourceURL: imgData?.sourceURL,
               isServerImage: false,
+              key: `${Math.random() * 100}`,
             };
             oldImagesData?.unshift(fileData);
           });
           const newArr = [...oldImagesData];
           setProductImagesArr(newArr);
-          updateImagesData(newArr);
+          updateImagesData(newArr.slice(0, -1));
         }
-        // dispatch(LoadingRequest());
-        // const fileData = {
-        //   ...image,
-        //   type: image?.mime,
-        //   uri:
-        //     Platform.OS === 'android'
-        //       ? image?.sourceURL
-        //       : image?.sourceURL?.replace('file://', ''),
-        // };
-        // getSignedRequest(fileData)
-        //   .then(signedReqData => {
-        //     uploadFile(
-        //       fileData,
-        //       signedReqData?.signedRequest,
-        //       signedReqData?.url,
-        //     )
-        //       .then(url => {
-        //         dispatch(LoadingSuccess());
-        //         if (url) {
-        //           const newArr = [url, ...productImagesArr];
-        //           setProductImagesArr(newArr); // Local Update
-        //           updateImagesData(newArr.slice(0, -1)); // Reducer Update
-        //         }
-        //       })
-        //       .catch(() => {
-        //         dispatch(LoadingSuccess());
-        //       });
-        //   })
-        //   .catch(() => {
-        //     dispatch(LoadingSuccess());
-        //   });
       });
     } else {
       Alert.showError('Maximum images added');
@@ -123,7 +101,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   };
   const renderAddImageContainer = () => {
     return (
-      <Touchable activeOpacity={0.6} onPress={onAddImage}>
+      <Touchable activeOpacity={0.6} onPress={onAddImage} disabledDrag={true}>
         <ImageContainerNew>
           <PlusContainer>
             <PlusSign>+</PlusSign>
@@ -140,24 +118,26 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       </DeleteContainer>
     );
   };
-  const renderProductImageContainer = ({
-    item,
-    getIndex,
-    drag,
-    isActive,
-  }: any) => {
+  const renderNumberView = (imageIndex: number) => {
     return (
-      <ScaleDecorator key={getIndex() + Math.random() * 100}>
-        <ImageContainerUpload
-          key={getIndex()}
-          onLongPress={drag}
-          disabled={isActive}>
-          <ImageUpload
-            source={{uri: item?.sourceURL, priority: FastImage.priority.high}}
-          />
-          {renderDeleteView(getIndex())}
-        </ImageContainerUpload>
-      </ScaleDecorator>
+      <CellIndexContainer>
+        <IndexLabel>{imageIndex}</IndexLabel>
+      </CellIndexContainer>
+    );
+  };
+  const renderProductImageContainer = (item: any, order: number) => {
+    const isFooter = order + 1 === productImagesArr?.length;
+    if (isFooter) {
+      return renderAddImageContainer();
+    }
+    return (
+      <ImageContainerUpload key={item?.key}>
+        <ImageUpload
+          source={{uri: item?.sourceURL, priority: FastImage.priority.high}}
+        />
+        {renderDeleteView(0)}
+        {renderNumberView(order + 1)}
+      </ImageContainerUpload>
     );
   };
   return (
@@ -165,9 +145,12 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       <AddProductsList
         data={productImagesArr}
         renderItem={renderProductImageContainer}
-        keyExtractor={item => item?.sourceURL}
-        onDragEnd={({data}) => setProductImagesArr(data)}
-        ListFooterComponent={renderAddImageContainer}
+        onDragRelease={data => {
+          setProductImagesArr(data);
+          updateImagesData(data?.slice(0, -1)); // Updating Reducer Data
+        }}
+        dragStartAnimation={true}
+        itemHeight={scale(productImageWidth)}
       />
     </Container>
   );

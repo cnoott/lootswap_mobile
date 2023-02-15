@@ -37,6 +37,7 @@
     "react-native-dashed-line": "^1.1.0",
     "react-native-dots-pagination": "^0.2.0",
     "react-native-draggable-flatlist": "^4.0.0",
+    "react-native-draggable-grid": "^2.1.7",
     "react-native-dropdownalert": "^4.5.1",
     "react-native-element-dropdown": "^2.5.1",
     "react-native-fast-image": "^8.6.3",
