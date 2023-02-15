@@ -84,15 +84,21 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     };
 
     const RenderTradeOfferEditedView = () => {
-      const name =
-        offerItem?.reciever?._id === userData?._id
-          ? offerItem?.reciever?.name
-          : offerItem?.sender?.name;
+      let name;
+      if (isReciever) {
+        name = offerItem?.recieverHasEdited
+          ? 'You have'
+          : offerItem?.reciever?.name;
+      } else {
+        name = offerItem?.senderHasEdited
+          ? 'You have'
+          : offerItem?.reciever?.name;
+      }
 
       return (
         <OfferEditedStatusContainer>
           <OfferEditedStatusTitleText>
-            {name} has edited their trade offer
+            {name} changed the trade offer.
           </OfferEditedStatusTitleText>
         </OfferEditedStatusContainer>
       );
