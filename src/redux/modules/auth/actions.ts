@@ -7,6 +7,7 @@ import {
   GET_MY_DETAILS,
   SAVE_NOTIF_PERMISSION,
   SET_REG_TOKEN,
+  SET_FCM_TOKEN,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -157,7 +158,7 @@ export const saveNotifPermissions = (status: boolean) => {
 export const setRegTokenRequest = (reqData: any) => {
   return {
     type: SET_REG_TOKEN.REQUEST,
-    reqData,
+    reqData: reqData,
   };
 };
 
@@ -172,5 +173,12 @@ export const setRegTokenFailure = (payload: any) => {
   return {
     type: SET_REG_TOKEN.FAILURE,
     payload,
+  };
+};
+
+export const setFCMTokenRequest = (fcmToken: any) => {
+  return {
+    type: SET_FCM_TOKEN.REQUEST,
+    fcmToken: fcmToken,
   };
 };
