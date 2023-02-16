@@ -60,13 +60,14 @@ export const AddProductStepThree: FC<ProductStep> = props => {
    * You can add Min 2 & Max 13 images
    */
   const onAddImage = () => {
-    if (productImagesArr?.length <= 14) {
+    if (productImagesArr?.length < 14) {
       // Checking for 1 extra due to footer component
       ImagePicker.openPicker({
         width: 300,
         height: 400,
         cropping: true,
         multiple: true,
+        maxFiles: 14 - productImagesArr?.length, // At first you can select 13 images & will reduce if selected some images already
       }).then(images => {
         if (images?.length > 0) {
           const oldImagesData = [...productImagesArr];

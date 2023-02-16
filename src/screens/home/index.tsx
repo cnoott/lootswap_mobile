@@ -15,10 +15,12 @@ import LSProductCard from '../../components/productCard';
 import HomeFiltersScreen from './homeFilters';
 import {scale} from 'react-native-size-matters';
 import {LIKE_HEART_ICON} from 'localsvgimages';
+import useFCMNotifications from '../../utility/customHooks/useFCMNotifications';
 
 const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 
 export const HomeScreen: FC<{}> = () => {
+  useFCMNotifications();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isModalOpen, setModalOpen] = useState(false);
 

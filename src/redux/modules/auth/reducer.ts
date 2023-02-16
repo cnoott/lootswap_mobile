@@ -8,6 +8,7 @@ import {
   GET_USER_DETAILS,
   GET_MY_DETAILS,
   SET_REG_TOKEN,
+  SET_FCM_TOKEN,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
 //import messaging from '@react-native-firebase/messaging';
@@ -24,6 +25,7 @@ export interface AuthProps {
   profileImgData?: any;
   requestedUserDetails?: any;
   isLogedIn?: boolean;
+  fcmToken?: any;
 }
 
 type ActionProps = {
@@ -31,6 +33,7 @@ type ActionProps = {
   error: any;
   payload: any;
   clearOldData?: boolean;
+  fcmToken?: any;
 };
 
 export const InitialState: AuthProps = {
@@ -44,10 +47,11 @@ export const InitialState: AuthProps = {
   profileImgData: null,
   requestedUserDetails: null,
   isLogedIn: false,
+  fcmToken: null,
 };
 
 export default function auth(state = InitialState, action: ActionProps) {
-  const {type, payload, error, clearOldData = true} = action;
+  const {type, payload, error, clearOldData = true, fcmToken} = action;
 
   switch (type) {
     case SIGN_IN_DATA.REQUEST: {
@@ -58,14 +62,6 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case SIGN_IN_DATA.SUCCESS: {
-      /*
-      const authStatus = await messaging().requestPermission();
-      console.log(authStatus);
-      await messaging().registerDeviceForRemoteMessages();
-      const token = await messaging().getToken();
-      setRegTokenRequest({userId: payload?.user?._id, token});
-      */
-      console.log(payload);
       return {
         ...state,
         isLoading: false,
@@ -222,6 +218,12 @@ export default function auth(state = InitialState, action: ActionProps) {
     case SET_REG_TOKEN.FAILURE: {
       return {
         ...state,
+      };
+    }
+    case SET_FCM_TOKEN.REQUEST: {
+      return {
+        ...state,
+        fcmToken: fcmToken,
       };
     }
     default:

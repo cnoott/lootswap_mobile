@@ -151,3 +151,7 @@ export const SAVE_NOTIF_PERMISSION = {
 export const SET_REG_TOKEN = {
   ...createActionConst(actions.SET_REG_TOKEN),
 };
+
+export const SET_FCM_TOKEN = {
+  ...createActionConst(actions.SET_FCM_TOKEN),
+};
