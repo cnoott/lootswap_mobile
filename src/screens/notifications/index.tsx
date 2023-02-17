@@ -38,7 +38,7 @@ export const NotificationsScreen: FC<{}> = () => {
     dispatch(getUsersDetailsRequest(userData?._id, false));
   };
   const svgOptions = (type: string) => {
-    switch(type) {
+    switch (type) {
       case 'trade':
         return BOTTOM_TAB_OFFERS;
       default:
@@ -55,6 +55,17 @@ export const NotificationsScreen: FC<{}> = () => {
         screen: 'OffersMessageScreen',
         params: {
           item: JSON.parse(item?.notifData),
+        },
+      });
+    } else if (item.notifType === 'message') {
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Offers/Inbox'}],
+      });
+      navigation.navigate('Offers/Inbox', {
+        screen: 'UserChatScreen',
+        params: {
+          ...message.data.notifData,
         },
       });
     }

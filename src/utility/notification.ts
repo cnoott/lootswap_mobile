@@ -20,7 +20,7 @@ export const handleNavigation = (navigation: any, message: any) => {
       navigation.navigate('Offers/Inbox', {
         screen: 'UserChatScreen',
         params: {
-          ...message.data.notifData,
+          messageParams: JSON.parse(message.data.notifData),
         },
       });
     //TODO default case

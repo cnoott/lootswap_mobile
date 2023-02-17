@@ -45,7 +45,10 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
         ) : (
           <EmptyRowView>
             <ProfileRightTouchable onPress={onTrippleDotPress}>
-              <PhoneIcon size={moderateScale(20)} color={theme?.colors?.black} />
+              <PhoneIcon
+                size={moderateScale(20)}
+                color={theme?.colors?.black}
+              />
             </ProfileRightTouchable>
             <ProfileRightTouchable onPress={onTrippleDotPress}>
               <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
@@ -54,5 +57,5 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
         )}
       </ProfileHeaderContainer>
     );
-  }
+  },
 );
