@@ -22,6 +22,7 @@ import {
   Touchable,
 } from './styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {handleNavigation} from '../../utility/notification';
 
 export const NotificationsScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
@@ -31,7 +32,6 @@ export const NotificationsScreen: FC<{}> = () => {
   useFocusEffect(
     React.useCallback(() => {
       dispatch(getMyDetailsRequest(userData?._id));
-      console.log(userData?.notifications);
     }, [userData?._id, dispatch]),
   );
   const onNotificationRefresh = () => {
@@ -46,29 +46,12 @@ export const NotificationsScreen: FC<{}> = () => {
     }
   };
   const handleNotifPress = (item: any) => {
-    if (item.notifType === 'trade') {
-      navigation.reset({
-        index: 0,
-        routes: [{name: 'Offers/Inbox'}],
-      });
-      navigation.navigate('Offers/Inbox', {
-        screen: 'OffersMessageScreen',
-        params: {
-          item: JSON.parse(item?.notifData),
-        },
-      });
-    } else if (item.notifType === 'message') {
-      navigation.reset({
-        index: 0,
-        routes: [{name: 'Offers/Inbox'}],
-      });
-      navigation.navigate('Offers/Inbox', {
-        screen: 'UserChatScreen',
-        params: {
-          ...message.data.notifData,
-        },
-      });
-    }
+    const message = {
+      data: {
+        ...item,
+      },
+    };
+    handleNavigation(navigation, message);
   };
 
   const renderNotifListItem = ({item}: any) => {
