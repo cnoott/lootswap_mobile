@@ -39,13 +39,16 @@ const AppNavigation = () => {
     messaging()
       .getInitialNotification()
       .then(remoteMessage => {
-        if(remoteMessage) {
-          console.log('TEST: notificaiton opened from quit state', remoteMessage.notification);
+        if (remoteMessage) {
+          console.log(
+            'TEST: notificaiton opened from quit state',
+            remoteMessage.notification,
+          );
           handleNavigation(navigation, remoteMessage);
         }
         setLoading(false);
       });
-  },[navigation]);
+  }, [navigation]);
 
   if (loading) {
     return null;
@@ -70,7 +73,10 @@ const AppNavigation = () => {
       />
       <Stack.Screen name="UserChatScreen" component={UserChatScreen} />
       <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
-      <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
+      <Stack.Screen
+        name="PublicProfileScreen"
+        component={PublicProfileScreen}
+      />
       <Stack.Screen
         name="ProfileReviewsScreen"
         component={ProfileReviewsScreen}
