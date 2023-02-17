@@ -28,18 +28,20 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
 import {getMessagesHistory} from '../../redux/modules/message/actions';
 import {getConfiguredMessageData} from '../../utility/utility';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 export const UserChatScreen: FC<any> = ({route}) => {
-  const {messageId, productOwnerId, productOwnerName} = route?.params;
+  const {messageParams} = route?.params;
+  const navigation: NavigationProp<any, any> = useNavigation();
   const theme = useTheme();
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const messageData: MessageProps = useSelector(state => state.message);
   const {userData} = auth;
   const {socketObj, isConnected}: any = useMessagingService({
-    messageId: messageId,
+    messageId: messageParams?._id,
     userId: userData?._id,
-    targetId: productOwnerId,
+    targetId: messageParams?.product?.userId,
   });
   const insets = useSafeAreaInsets();
   const messageListref = useRef(null);
@@ -49,12 +51,14 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const [messageDoc, setMessageDoc] = useState(null);
   var messagesListRaw: any = useRef([]);
   const {historyMessages} = messageData;
+  const isReciever = messageParams?.reciever?._id === userData?._id;
 
   useEffect(() => {
+    console.log('mesageId', messageParams);
     dispatch(
       getMessagesHistory({
         userId: userData?._id,
-        messageId: messageId,
+        messageId: messageParams?._id,
       }),
     );
     return () => {
@@ -105,7 +109,6 @@ export const UserChatScreen: FC<any> = ({route}) => {
     if (messageText === '') {
       return;
     }
-    const isReciever = messageDoc?.reciever?._id === userData?._id;
     const messageObj = {
       message: messageText,
       userName: userData?.name,
@@ -115,7 +118,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
     try {
       socketObj.emit('send message', {
         content: messageObj,
-        to: messageId,
+        to: messageParams?._id,
       });
       setMessageText('');
     } catch (error) {
@@ -185,7 +188,21 @@ export const UserChatScreen: FC<any> = ({route}) => {
   };
   return (
     <Container>
-      <InUserChatHeader title={productOwnerName} />
+      <InUserChatHeader
+        title={
+          isReciever
+            ? messageParams?.sender?.name
+            : messageParams?.reciever?.name
+        }
+        onItemPress={() =>
+          navigation.navigate('ProductDetailsScreen', {
+            productData: {
+              ...messageParams?.product,
+              objectID: messageParams?.product?._id,
+            },
+          })
+        }
+      />
       <KeyboardAvoidingView>
         <SubContainer>{renderMessagesListView()}</SubContainer>
         <InputContainer bottomSpace={insets.bottom - 10}>
