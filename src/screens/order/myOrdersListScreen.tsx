@@ -269,7 +269,11 @@ export const MyOrdersListScreen: FC<{}> = () => {
   });
   return (
     <Container>
-      <InStackHeader onlyTitleCenterAlign={true} title={'My Orders'} />
+      <InStackHeader
+        onlyTitleCenterAlign={true}
+        title={'My Orders'}
+        onBackCall={() => navigation.navigate('ProfileScreen')}
+      />
       <TopTabView
         navigationState={{index, routes}}
         renderTabBar={renderTabBar}

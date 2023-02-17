@@ -37,6 +37,8 @@ import {
 } from '../../redux/modules';
 import {StripeProvider, useStripe} from '@stripe/stripe-react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {LSModal} from '../../components/commonComponents/LSModal';
+import ShippingInstructionModalComponent from '../../components/orders/shippingInstructionModalComponent';
 
 type PaymentDetails = {
   platformFee: number;
@@ -61,8 +63,25 @@ export const TradeCheckoutScreen: FC<{}> = props => {
   const {platformFee, toUserRate, toWarehouseRate, total, userPayout} =
     paymentDetails;
 
+  const [isShipInsModalVisible, setShipInsModalVisible] = useState(true);
   const {initPaymentSheet, presentPaymentSheet} = useStripe();
   const [loading, setLoading] = useState(false);
+
+  const renderShippingInstructionModal = () => {
+    return (
+      <LSModal isVisible={isShipInsModalVisible}>
+        <LSModal.Container>
+          <ShippingInstructionModalComponent
+            onButtonPress={() => setShipInsModalVisible(false)}
+            isTradeOrder={true}
+          />
+          <LSModal.CloseButton
+            onCloseButtonPress={() => setShipInsModalVisible(false)}
+          />
+        </LSModal.Container>
+      </LSModal>
+    );
+  };
 
   const initializePaymentSheet = useCallback(() => {
     const reqData = {
@@ -234,6 +253,7 @@ export const TradeCheckoutScreen: FC<{}> = props => {
           <VerticalMargin margin={20} />
         </ScrollSubContainer>
       </Container>
+      {renderShippingInstructionModal()}
     </StripeProvider>
   );
 };
