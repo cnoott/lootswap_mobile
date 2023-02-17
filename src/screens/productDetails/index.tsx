@@ -110,12 +110,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       createFirstMessage(
         reqObj,
         (res: any) => {
-          const url = res?.url;
-          const urlData = url.split('/');
+          console.log('RESPONSE', res);
           navigation.navigate('UserChatScreen', {
-            messageId: urlData[2],
-            productOwnerId: productData?.userId,
-            productOwnerName: requestedUserDetails?.name || 'Owner',
+            messageParams: res.messageData,
           });
         },
         (error: any) => {
@@ -160,9 +157,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             initiateFirstMessage();
           } else {
             navigation.navigate('UserChatScreen', {
-              messageId: res?.messageDoc?._id,
-              productOwnerId: productData?.userId,
-              productOwnerName: requestedUserDetails?.name || 'Owner',
+              messageParams: res.messageData,
             });
           }
         },
@@ -207,7 +202,12 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       sendTradeOffer(
         reqData,
         res => {
-          navigation.navigate('OffersMessageScreen', {item: res});
+          navigation.navigate('Offers/Inbox', {
+            screen: 'OffersMessageScreen',
+            params: {
+              item: res,
+            },
+          });
           setSendOfferModalVisible(false);
           dispatch(
             getTradesHistory({

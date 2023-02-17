@@ -28,10 +28,10 @@ export const Image = styled.Image.attrs({
   ${border}
 `;
 
-export const FreeShipingContainer = styled.View.attrs(props => ({
+export const FreeShipingContainer = styled.View.attrs(() => ({
   px: moderateScale(10),
   py: moderateScale(6),
-  bg: props.theme.colors.white,
+  bg: 'rgba(0,0,0,0.5)',
   borderRadius: scale(5),
 }))`
   position: absolute;
@@ -47,9 +47,9 @@ export const ShippingText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
   fontsize: ${() => moderateScale(14)}px;
-  font-family: 'Inter-Bold';
+  font-family: 'Urbanist-Semibold';
   font-weight: 600;
-  ${color}
+  color: white;
   ${space}
   ${layout}
 `;
@@ -77,7 +77,7 @@ export const HeaderTextMain = styled.Text.attrs(props => ({
   numberOfLines: 1,
 }))`
   fontsize: ${() => moderateScale(14)}px;
-  font-family: 'Inter-Bold';
+  font-family: 'Urbanist-Bold';
   ${color}
   ${space}
   ${layout}
@@ -103,7 +103,7 @@ export const HeaderDes = styled.Text.attrs(props => ({
   numberOfLines: 1,
 }))`
   fontsize: ${() => moderateScale(14)}px;
-  font-family: 'Inter-Bold';
+  font-family: 'Urbanist-Medium';
   font-weight: 500;
   ${color}
   ${space}
@@ -146,7 +146,7 @@ export const TagLabel = styled.Text.attrs(props => ({
   color: props?.tagColor,
 }))`
   font-size: ${moderateScale(10)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Semibold;
   font-weight: 600;
   ${color}
   ${space}

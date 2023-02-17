@@ -9,8 +9,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {SvgXml} from 'react-native-svg';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {getUsersDetailsRequest} from '../../redux/modules';
-import {NOTIF_MESSAGE} from '../../assets/images/svgs';
+import {getMyDetailsRequest, getUsersDetailsRequest} from '../../redux/modules';
+import {NOTIF_MESSAGE, BOTTOM_TAB_OFFERS} from '../../assets/images/svgs';
 import {
   Container,
   FlastList,
@@ -21,29 +21,66 @@ import {
   ActionText,
   Touchable,
 } from './styles';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 export const NotificationsScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
+  const navigation: NavigationProp<any, any> = useNavigation();
   const dispatch = useDispatch();
-  const {userData, requestedUserDetails} = auth;
+  const {userData} = auth;
   useFocusEffect(
     React.useCallback(() => {
-      dispatch(getUsersDetailsRequest(userData?._id));
+      dispatch(getMyDetailsRequest(userData?._id));
+      console.log(userData?.notifications);
     }, [userData?._id, dispatch]),
   );
   const onNotificationRefresh = () => {
     dispatch(getUsersDetailsRequest(userData?._id, false));
   };
+  const svgOptions = (type: string) => {
+    switch (type) {
+      case 'trade':
+        return BOTTOM_TAB_OFFERS;
+      default:
+        return NOTIF_MESSAGE;
+    }
+  };
+  const handleNotifPress = (item: any) => {
+    if (item.notifType === 'trade') {
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Offers/Inbox'}],
+      });
+      navigation.navigate('Offers/Inbox', {
+        screen: 'OffersMessageScreen',
+        params: {
+          item: JSON.parse(item?.notifData),
+        },
+      });
+    } else if (item.notifType === 'message') {
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Offers/Inbox'}],
+      });
+      navigation.navigate('Offers/Inbox', {
+        screen: 'UserChatScreen',
+        params: {
+          ...message.data.notifData,
+        },
+      });
+    }
+  };
+
   const renderNotifListItem = ({item}: any) => {
     return (
-      <Touchable>
+      <Touchable onPress={() => handleNotifPress(item)}>
         <NotifItemContainer>
           <IconContainer>
-            <SvgXml xml={NOTIF_MESSAGE} />
+            <SvgXml xml={svgOptions(item.notifType)} />
           </IconContainer>
           <EmptyView>
             <NotifTitle>{item?.title}</NotifTitle>
-            <ActionText>{item?.description}</ActionText>
+            <ActionText>{item?.body}</ActionText>
           </EmptyView>
         </NotifItemContainer>
       </Touchable>
@@ -53,7 +90,7 @@ export const NotificationsScreen: FC<{}> = () => {
     <Container>
       <InStackHeader back={true} title={'Notifications'} />
       <FlastList
-        data={requestedUserDetails?.notifications || []}
+        data={userData?.notifications.reverse() || []}
         renderItem={renderNotifListItem}
         refreshControl={
           <RefreshControl

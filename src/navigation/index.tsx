@@ -2,7 +2,7 @@
 LOOTSWAP - NAVIGATION STACK CLASS
 ***/
 
-import React, {FC, useRef} from 'react';
+import React, {FC, useRef, useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import DropdownAlert from 'react-native-dropdownalert';
 import AuthScreen from '../screens/auth/signIn';
@@ -19,35 +19,71 @@ import SplashScreen from 'react-native-splash-screen';
 import CheckoutScreen from '../screens/buy/checkoutScreen';
 import PublicProfileScreen from '../screens/profile/publicProfileScreen';
 import ProfileReviewsScreen from '../screens/profile/profileReviewsScreen';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {handleNavigation} from '../utility/notification';
+import messaging from '@react-native-firebase/messaging';
 
 const Stack = createStackNavigator();
 
-const AppNavigation = () => (
-  <Stack.Navigator
-    initialRouteName={'BottomTabs'}
-    screenOptions={{
-      headerShown: false,
-    }}>
-    <Stack.Screen name="BottomTabs" component={BottomTabs} />
-    <Stack.Screen
-      name="SignInScreen"
-      component={AuthScreen}
-      options={{presentation: 'modal'}}
-    />
-    <Stack.Screen
-      name="CreateAccountScreen"
-      component={CreateAccountScreen}
-      options={{presentation: 'modal'}}
-    />
-    <Stack.Screen name="UserChatScreen" component={UserChatScreen} />
-    <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
-    <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
-    <Stack.Screen
-      name="ProfileReviewsScreen"
-      component={ProfileReviewsScreen}
-    />
-  </Stack.Navigator>
-);
+const AppNavigation = () => {
+  const navigation: NavigationProp<any, any> = useNavigation();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    messaging().onNotificationOpenedApp(remoteMessage => {
+      console.log('TEST: opened from bg state:', remoteMessage);
+      //TODO: HANDLE NAVIGATION HERE
+      handleNavigation(navigation, remoteMessage);
+    });
+
+    messaging()
+      .getInitialNotification()
+      .then(remoteMessage => {
+        if (remoteMessage) {
+          console.log(
+            'TEST: notificaiton opened from quit state',
+            remoteMessage.notification,
+          );
+          handleNavigation(navigation, remoteMessage);
+        }
+        setLoading(false);
+      });
+  }, [navigation]);
+
+  if (loading) {
+    return null;
+  }
+
+  return (
+    <Stack.Navigator
+      initialRouteName={'BottomTabs'}
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="BottomTabs" component={BottomTabs} />
+      <Stack.Screen
+        name="SignInScreen"
+        component={AuthScreen}
+        options={{presentation: 'modal'}}
+      />
+      <Stack.Screen
+        name="CreateAccountScreen"
+        component={CreateAccountScreen}
+        options={{presentation: 'modal'}}
+      />
+      <Stack.Screen name="UserChatScreen" component={UserChatScreen} />
+      <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
+      <Stack.Screen
+        name="PublicProfileScreen"
+        component={PublicProfileScreen}
+      />
+      <Stack.Screen
+        name="ProfileReviewsScreen"
+        component={ProfileReviewsScreen}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const StackNavigator: FC<{}> = () => {
   const loading: LoadingProps = useSelector(state => state.loading);

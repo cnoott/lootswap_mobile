@@ -78,14 +78,8 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const goToMessageScreen = (msgData: any) => {
-    const prodOwnerName =
-      msgData?.product?.userId === msgData.reciever._id
-        ? msgData.reciever.name
-        : msgData.sender.name;
     const params = {
-      messageId: msgData?._id,
-      productOwnerId: msgData?.product?.userId,
-      productOwnerName: prodOwnerName || 'Owner',
+      messageParams: msgData,
     };
     navigation.navigate('UserChatScreen', params);
   };

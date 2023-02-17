@@ -7,11 +7,21 @@ import FastImage from 'react-native-fast-image';
 
 const width = Dimensions.get('window').width;
 const productImageWidth = width / 2 - 60;
-const productUploadImageWidth = width - 80;
+//const productUploadImageWidth = width - 80;
 
 export const Container = styled.View.attrs(props => ({
   flex: 1,
   backgroundColor: props.theme.colors.secondary,
+}))`
+  ${space}
+  ${layout}
+`;
+
+export const ImagesContainer = styled.ScrollView.attrs(props => ({
+  marginVertical: moderateScale(5),
+  marginHorizontal: moderateScale(15),
+  showsVerticalScrollIndicator: false,
+  scrollEnabled: props.enableScroll,
 }))`
   ${space}
   ${layout}
@@ -175,8 +185,17 @@ export const PlusSign = styled.Text.attrs(props => ({
 export const AddImageLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
 }))`
-  font-size: ${moderateScale(16)}px;
-  font-family: Inter-Bold;
+  font-size: ${moderateScale(15)}px;
+  font-family: Urbanist-Bold;
+  ${color}
+  ${space}
+`;
+
+export const AddImageSubText = styled.Text.attrs(props => ({
+  color: props.theme.colors.black,
+}))`
+  font-size: ${moderateScale(12)}px;
+  font-family: Urbanist-Medium;
   ${color}
   ${space}
 `;
@@ -269,10 +288,10 @@ export const FreeShippingDes = styled.Text.attrs(props => ({
   font-weight: 300 ${color} ${space};
 `;
 
-export const CellIndexContainer = styled.View.attrs(props => ({
+export const CellIndexContainer = styled.View.attrs(() => ({
   height: scale(24),
   borderRadius: scale(5),
-  bg: props.theme.colors.black,
+  bg: 'rgba(0,0,0,0.7)',
   top: 10,
   left: 10,
   px: scale(12),

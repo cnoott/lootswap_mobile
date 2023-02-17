@@ -3,6 +3,7 @@
  ***/
 import React, {FC, useState} from 'react';
 import {SvgXml} from 'react-native-svg';
+import {Alert} from 'custom_top_alert';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {
   OfferChatHeaderText,
@@ -37,6 +38,8 @@ import TradeOfferCell from '../../../screens/offers/offerItems/TradeOfferCell';
 //import OfferForSellOnlyCell from '../../../screens/offers/offerItems/OfferForSellOnlyCell';
 import {Trade_Status} from 'custom_enums';
 import Collapsible from 'react-native-collapsible';
+import {LSModal} from '../LSModal';
+import ShippingInstructionModalComponent from '../../orders/shippingInstructionModalComponent';
 
 interface HeaderProps {
   profilePicture: string;
@@ -63,6 +66,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
   }) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
     const [accOpen, setAccOpen] = useState(false);
+    const [isShipInsModalVisible, setShipInsModalVisible] = useState(false);
     const isAccepted = tradeStatus === Trade_Status?.Accepted;
     const isCanceled = tradeStatus === Trade_Status?.Canceled;
     const isPending = !isAccepted && !isCanceled;
@@ -80,27 +84,61 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     };
 
     const RenderTradeOfferEditedView = () => {
-      const name =
-        offerItem?.reciever?._id === userData?._id
-          ? offerItem?.reciever?.name
-          : offerItem?.sender?.name;
+      let name;
+      if (isReciever) {
+        name = offerItem?.recieverHasEdited
+          ? 'You have'
+          : offerItem?.reciever?.name;
+      } else {
+        name = offerItem?.senderHasEdited
+          ? 'You have'
+          : offerItem?.reciever?.name;
+      }
 
       return (
         <OfferEditedStatusContainer>
           <OfferEditedStatusTitleText>
-            {name} has edited their trade offer
+            {name} changed the trade offer.
           </OfferEditedStatusTitleText>
         </OfferEditedStatusContainer>
       );
     };
 
+    const renderShippingInstructionModal = () => {
+      //remove
+      return (
+        <LSModal isVisible={isShipInsModalVisible}>
+          <LSModal.Container>
+            <ShippingInstructionModalComponent
+              onButtonPress={() => goToShippingLabelScreen()}
+            />
+            <LSModal.CloseButton
+              onCloseButtonPress={() => setShipInsModalVisible(false)}
+            />
+          </LSModal.Container>
+        </LSModal>
+      );
+    };
+
+    const goToShippingLabelScreen = () => {
+      setShipInsModalVisible(false);
+      navigation?.navigate('Profile', {
+        screen: 'ShippingLabelScreen',
+        params: {
+          productId: offerItem?.paypalOrderId?.productId?._id,
+          paypalOrderId: offerItem?.paypalOrderId?._id,
+        },
+      });
+    };
+
     const viewOrderTextOptions = () => {
       if (isMoneyOffer) {
-        if (offerItem?.paypalOrderId) {
+        if (!isReciever && !offerItem?.paypalOrderId) {
+          return 'Checkout';
+        } else if (isReciever && offerItem?.paypalOrderId?.shippingStep < 1) {
+          return 'Ship Item';
+        } else {
           return 'View Order';
-        }
-        if (isReciever && !offerItem?.paypalOrderId) {
-          return 'Waiting for checkout';
         }
       } else {
         if (paidByBothUsers) {
@@ -115,7 +153,17 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       const moneyOfferOnly =
         offerItem.senderItems.length === 0 && offerItem.senderMoneyOffer > 0;
       if (moneyOfferOnly) {
-        if (isReciever || offerItem?.paypalOrderId) {
+        if (isReciever && !offerItem?.paypalOrderId) {
+          Alert.showError(
+            `${offerItem?.sender?.name} must checkout in order to view order. Check back soon`,
+          );
+          return;
+        } else if (isReciever && offerItem?.paypalOrderId?.shippingStep < 1) {
+          setShipInsModalVisible(true);
+          return;
+        }
+
+        if (offerItem?.paypalOrderId) {
           navigation.navigate('Profile', {
             screen: 'TrackOrderScreen',
             params: {
@@ -276,6 +324,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
           )}
         </ProfileHeaderContainer>
         {offerItem && renderOfferStatusContainer()}
+        {renderShippingInstructionModal()}
       </ChatOfferContainer>
     );
   },
