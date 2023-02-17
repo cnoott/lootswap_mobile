@@ -8,7 +8,7 @@ export const handleNavigation = (navigation: any, message: any) => {
       navigation.navigate('Offers/Inbox', {
         screen: 'OffersMessageScreen',
         params: {
-          item: JSON.parse(message.data.notifData),
+          item: {_id: message?.data?.objectId},
         },
       });
       break;
@@ -20,9 +20,8 @@ export const handleNavigation = (navigation: any, message: any) => {
       navigation.navigate('Offers/Inbox', {
         screen: 'UserChatScreen',
         params: {
-          messageParams: JSON.parse(message.data.notifData),
+          messageId: message?.data?.objectId,
         },
       });
-    //TODO default case
   }
 };

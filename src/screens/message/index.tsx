@@ -31,18 +31,14 @@ import {getConfiguredMessageData} from '../../utility/utility';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 export const UserChatScreen: FC<any> = ({route}) => {
-  const {messageParams} = route?.params;
+  const {messageId} = route?.params;
   const navigation: NavigationProp<any, any> = useNavigation();
   const theme = useTheme();
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const messageData: MessageProps = useSelector(state => state.message);
   const {userData} = auth;
-  const {socketObj, isConnected}: any = useMessagingService({
-    messageId: messageParams?._id,
-    userId: userData?._id,
-    targetId: messageParams?.product?.userId,
-  });
+
   const insets = useSafeAreaInsets();
   const messageListref = useRef(null);
   const [messageText, setMessageText] = useState('');
@@ -51,14 +47,18 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const [messageDoc, setMessageDoc] = useState(null);
   var messagesListRaw: any = useRef([]);
   const {historyMessages} = messageData;
-  const isReciever = messageParams?.reciever?._id === userData?._id;
+  const isReciever = historyMessages?.reciever?._id === userData?._id;
+  const {socketObj, isConnected}: any = useMessagingService({
+    messageId: messageId,
+    userId: userData?._id,
+    targetId: historyMessages?.product?.userId,
+  });
 
   useEffect(() => {
-    console.log('mesageId', messageParams);
     dispatch(
       getMessagesHistory({
         userId: userData?._id,
-        messageId: messageParams?._id,
+        messageId: messageId,
       }),
     );
     return () => {
@@ -118,7 +118,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
     try {
       socketObj.emit('send message', {
         content: messageObj,
-        to: messageParams?._id,
+        to: messageId,
       });
       setMessageText('');
     } catch (error) {
@@ -191,14 +191,14 @@ export const UserChatScreen: FC<any> = ({route}) => {
       <InUserChatHeader
         title={
           isReciever
-            ? messageParams?.sender?.name
-            : messageParams?.reciever?.name
+            ? historyMessages?.sender?.name
+            : historyMessages?.reciever?.name
         }
         onItemPress={() =>
           navigation.navigate('ProductDetailsScreen', {
             productData: {
-              ...messageParams?.product,
-              objectID: messageParams?.product?._id,
+              ...historyMessages?.product,
+              objectID: historyMessages?.product?._id,
             },
           })
         }

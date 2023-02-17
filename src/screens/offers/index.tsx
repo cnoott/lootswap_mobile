@@ -78,10 +78,7 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const goToMessageScreen = (msgData: any) => {
-    const params = {
-      messageParams: msgData,
-    };
-    navigation.navigate('UserChatScreen', params);
+    navigation.navigate('UserChatScreen', {messageId: msgData._id});
   };
 
   const RenderUserDetails = ({item}) => {

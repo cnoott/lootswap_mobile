@@ -112,7 +112,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
         (res: any) => {
           console.log('RESPONSE', res);
           navigation.navigate('UserChatScreen', {
-            messageParams: res.messageData,
+            messageId: res.messageId,
           });
         },
         (error: any) => {
@@ -157,7 +157,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             initiateFirstMessage();
           } else {
             navigation.navigate('UserChatScreen', {
-              messageParams: res.messageData,
+              messageId: res.messageId,
             });
           }
         },
