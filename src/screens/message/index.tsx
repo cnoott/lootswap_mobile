@@ -194,14 +194,17 @@ export const UserChatScreen: FC<any> = ({route}) => {
             ? historyMessages?.sender?.name
             : historyMessages?.reciever?.name
         }
-        onItemPress={() =>
-          navigation.navigate('ProductDetailsScreen', {
-            productData: {
-              ...historyMessages?.product,
-              objectID: historyMessages?.product?._id,
+        onItemPress={() => {
+          navigation.navigate('Home', {
+            screen: 'ProductDetailsScreen',
+            params: {
+              productData: {
+                ...historyMessages?.product,
+                objectID: historyMessages?.product?._id,
+              },
             },
-          })
-        }
+          });
+        }}
       />
       <KeyboardAvoidingView>
         <SubContainer>{renderMessagesListView()}</SubContainer>
