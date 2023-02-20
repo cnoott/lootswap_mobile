@@ -74,8 +74,8 @@ export const SendOfferModal: FC<SendOfferModalProp> = props => {
   const onSendOfferPress = () => {
     const offerItems = [...itemsData];
     const selectedItems = offerItems?.filter(_fil => _fil?.isSelected);
-    if (selectedItems?.length === 0 || offerPrice === 0) {
-      Alert.showError('Please add mendatory details');
+    if (selectedItems?.length === 0 && offerPrice === 0) {
+      Alert.showError('Please select items and or a money offer.');
     } else {
       sendFinalOffer(selectedItems, offerPrice);
     }
