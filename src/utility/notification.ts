@@ -1,4 +1,4 @@
-import {getOrder} from '../redux/modules';
+import {getOrder, getPaypalOrder} from '../redux/modules';
 
 export const handleNavigation = (
   navigation: any,
@@ -53,7 +53,41 @@ export const handleNavigation = (
           },
         ),
       );
-    //TODO: rate notif type
-    //TODO: paypal-order notif type
+      break;
+
+    case 'new-paypal-order':
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Profile'}],
+      });
+      navigation.navigate('Profile', {
+        screen: 'MyOrdersListScreen',
+        params: {
+          initialState: 1,
+        },
+      });
+      break;
+    case 'paypal-order':
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Profile'}],
+      });
+      dispatch(
+        getPaypalOrder(
+          {paypalOrderId: message?.data?.objectId},
+          res => {
+            navigation.navigate('Profile', {
+              screen: 'TrackOrderScreen',
+              params: {
+                isTradeOrder: false,
+                item: res,
+              },
+            });
+          },
+          error => {
+            console.log(error);
+          },
+        ),
+      );
   }
 };

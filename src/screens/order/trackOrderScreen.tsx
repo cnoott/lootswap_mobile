@@ -24,9 +24,7 @@ import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {printLabel, salePrintLabel} from '../../utility/utility';
 import {Linking} from 'react-native';
-//TODO:
-// - tracking number is a hyperlink
-// - tracking
+
 export const TrackOrderScreen: FC<any> = ({route}) => {
   const {isTradeOrder = false, item} = route?.params || {};
   const auth: AuthProps = useSelector(state => state?.auth);
