@@ -34,7 +34,6 @@ import {scale} from 'react-native-size-matters';
 import {Linking} from 'react-native';
 import {WEB_APP_URL} from '@env';
 
-
 type FormProps = {
   emailUsername: string;
   password: string;
