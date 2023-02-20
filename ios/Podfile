@@ -34,6 +34,11 @@ target 'lootswap_mobile' do
     inherit! :complete
     # Pods for testing
   end
+  
+  target 'lootswap_mobile_development' do
+    inherit! :complete
+    # Pods for development
+  end
 
   post_install do |installer|
     react_native_post_install(

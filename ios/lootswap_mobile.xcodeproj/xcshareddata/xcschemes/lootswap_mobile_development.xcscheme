@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1210"
+   LastUpgradeVersion = "1400"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -10,13 +10,13 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "cp &quot;${PROJECT_DIR}/../.env.production&quot; &quot;${PROJECT_DIR}/../.env&quot;&#10;&#10;echo &#x201c;.env.production&#x201d; &gt; /tmp/envfile&#10;&#10;touch &quot;${PROJECT_DIR}/../node_modules/react-native-config/ios/ReactNativeConfig/BuildDotenvConfig.rb&quot;&#10;">
+               scriptText = "cp &quot;${PROJECT_DIR}/../.env.development&quot; &quot;${PROJECT_DIR}/../.env&quot;&#10;&#10;echo &#x201c;.env.development&#x201d; &gt; /tmp/envfile&#10;&#10;touch &quot;${PROJECT_DIR}/../node_modules/react-native-config/ios/ReactNativeConfig/BuildDotenvConfig.rb&quot;&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
-                     BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-                     BuildableName = "lootswap_mobile.app"
-                     BlueprintName = "lootswap_mobile"
+                     BlueprintIdentifier = "187F057C29A277BB006ADA87"
+                     BuildableName = "lootswap_mobile_development.app"
+                     BlueprintName = "lootswap_mobile_development"
                      ReferencedContainer = "container:lootswap_mobile.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
@@ -32,9 +32,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "lootswap_mobile.app"
-               BlueprintName = "lootswap_mobile"
+               BlueprintIdentifier = "187F057C29A277BB006ADA87"
+               BuildableName = "lootswap_mobile_development.app"
+               BlueprintName = "lootswap_mobile_development"
                ReferencedContainer = "container:lootswap_mobile.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,16 +46,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "lootswap_mobileTests.xctest"
-               BlueprintName = "lootswap_mobileTests"
-               ReferencedContainer = "container:lootswap_mobile.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -72,9 +62,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "lootswap_mobile.app"
-            BlueprintName = "lootswap_mobile"
+            BlueprintIdentifier = "187F057C29A277BB006ADA87"
+            BuildableName = "lootswap_mobile_development.app"
+            BlueprintName = "lootswap_mobile_development"
             ReferencedContainer = "container:lootswap_mobile.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -89,9 +79,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "lootswap_mobile.app"
-            BlueprintName = "lootswap_mobile"
+            BlueprintIdentifier = "187F057C29A277BB006ADA87"
+            BuildableName = "lootswap_mobile_development.app"
+            BlueprintName = "lootswap_mobile_development"
             ReferencedContainer = "container:lootswap_mobile.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
