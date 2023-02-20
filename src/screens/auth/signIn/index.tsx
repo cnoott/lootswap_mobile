@@ -31,6 +31,9 @@ import {
   HeaderDesLabel,
 } from './styles';
 import {scale} from 'react-native-size-matters';
+import {Linking} from 'react-native';
+import {WEB_APP_URL} from '@env';
+
 
 type FormProps = {
   emailUsername: string;
@@ -92,6 +95,14 @@ export const AuthScreen: FC<{}> = () => {
     );
   };
 
+  const handlePressForgotPass = async () => {
+    const url = `${WEB_APP_URL}/password-reset-request`;
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      await Linking.openURL(url);
+    }
+  };
+
   const renderBody = () => {
     return (
       <Formik
@@ -125,7 +136,7 @@ export const AuthScreen: FC<{}> = () => {
                 onRightIconPress={() => setPasswordHidden(!isPasswordHidden)}
                 secureTextEntry={isPasswordHidden}
               />
-              <Touchable>
+              <Touchable onPress={() => handlePressForgotPass()}>
                 <ForgotPassLabel>Forgot the password?</ForgotPassLabel>
               </Touchable>
               <LSButton
