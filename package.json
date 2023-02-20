@@ -10,7 +10,14 @@
     "prettier": "prettier \"src/**/*.+(js|jsx|ts|tsx|json)\"",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "validate": "yarn prettier --write --check && yarn lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "android:dev": "react-native run-android --variant=developmentdebug",
+    "android:dev-release": "react-native run-android --variant=developmentrelease",
+    "android:prod": "react-native run-android --variant=productiondebug",
+    "android:prod-release": "react-native run-android --variant=productionrelease",
+    "ios:dev": "react-native run-ios --scheme 'lootswap_mobile'",
+    "ios:prod": "react-native run-ios --scheme 'lootswap_mobile-development'"
+
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.11",
