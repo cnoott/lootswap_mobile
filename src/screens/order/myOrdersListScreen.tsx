@@ -26,7 +26,8 @@ import {
   TradeOrdersListView,
 } from './myOrdersStyle';
 
-export const MyOrdersListScreen: FC<{}> = () => {
+export const MyOrdersListScreen: FC<any> = ({route}) => {
+  const {initialState = 0} = route?.params || {};
   const dispatch = useDispatch();
   const orders: OrderProps = useSelector(state => state.orders);
   const {paypalOrders, tradeOrders} = orders;
@@ -35,7 +36,7 @@ export const MyOrdersListScreen: FC<{}> = () => {
 
   const layout = useWindowDimensions();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(initialState);
   const [isShipInsModalVisible, setShipInsModalVisible] = useState(false);
   const [routes] = React.useState([
     {key: 'first', title: 'Purchases'},
@@ -46,12 +47,13 @@ export const MyOrdersListScreen: FC<{}> = () => {
   const [selectedPaypalOrderId, setSelectedPaypalOrderId] = useState('');
 
   useEffect(() => {
+    setIndex(initialState);
     dispatch(
       getAllOrders({
         userId: userData?._id,
       }),
     );
-  }, [dispatch, userData?._id]);
+  }, [dispatch, userData?._id, initialState]);
 
   const onRefresh = () => {
     dispatch(
