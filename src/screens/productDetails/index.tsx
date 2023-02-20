@@ -202,6 +202,10 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       sendTradeOffer(
         reqData,
         res => {
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'Offers/Inbox'}],
+          });
           navigation.navigate('Offers/Inbox', {
             screen: 'OffersMessageScreen',
             params: {

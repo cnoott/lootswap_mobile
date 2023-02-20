@@ -51,7 +51,7 @@ export const NotificationsScreen: FC<{}> = () => {
         ...item,
       },
     };
-    handleNavigation(navigation, message);
+    handleNavigation(navigation, message, dispatch);
   };
 
   const renderNotifListItem = ({item}: any) => {
