@@ -34,6 +34,7 @@
     "react-native": "0.70.6",
     "react-native-bouncy-checkbox": "^3.0.6",
     "react-native-collapsible": "^1.6.0",
+    "react-native-config": "^1.5.0",
     "react-native-dashed-line": "^1.1.0",
     "react-native-dots-pagination": "^0.2.0",
     "react-native-draggable-flatlist": "^4.0.0",

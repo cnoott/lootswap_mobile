@@ -2,6 +2,7 @@ import {useEffect} from 'react';
 import messaging from '@react-native-firebase/messaging';
 import {useDispatch} from 'react-redux';
 import {setFCMTokenRequest} from '../../redux/modules';
+import Config from 'react-native-config';
 
 const checkForPermissionGranted = (status: any) => {
   return (
@@ -14,6 +15,7 @@ const useFCMNotifications = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     configureNotifPermission();
+    console.log('Environment ====', Config?.ENV);
   }, []);
   const configureNotifPermission = async () => {
     const permissionStatus = await messaging().hasPermission();
