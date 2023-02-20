@@ -33,6 +33,7 @@ const useFCMNotifications = () => {
   const registerDeviceAndGetToken = async () => {
     await messaging().registerDeviceForRemoteMessages();
     const token = await messaging().getToken();
+    console.log('FCM Token ====', token);
     if (token) {
       dispatch(setFCMTokenRequest(token));
     }

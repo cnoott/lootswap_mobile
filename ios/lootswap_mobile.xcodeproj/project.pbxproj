@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* lootswap_mobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* lootswap_mobileTests.m */; };
-		0C1A406C29940CF800C9E695 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		18163B652935F54600EDA81D /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B572935F54500EDA81D /* Inter-Medium.otf */; };
@@ -55,7 +54,6 @@
 		187F059D29A277BB006ADA87 /* Urbanist-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A36298CC97000DD3F63 /* Urbanist-Medium.ttf */; };
 		187F059E29A277BB006ADA87 /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B632935F54600EDA81D /* Inter-Bold.otf */; };
 		187F059F29A277BB006ADA87 /* Inter-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B612935F54600EDA81D /* Inter-ExtraBoldItalic.otf */; };
-		187F05A029A277BB006ADA87 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */; };
 		187F05A129A277BB006ADA87 /* Inter-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B592935F54500EDA81D /* Inter-LightItalic.otf */; };
 		187F05A229A277BB006ADA87 /* Urbanist-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A31298CC96F00DD3F63 /* Urbanist-Italic.ttf */; };
 		187F05A329A277BB006ADA87 /* Urbanist-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2E298CC96F00DD3F63 /* Urbanist-Regular.ttf */; };
@@ -63,6 +61,8 @@
 		187F05A529A277BB006ADA87 /* Inter-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B642935F54600EDA81D /* Inter-BlackItalic.otf */; };
 		187F05A629A277BB006ADA87 /* Inter-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B5B2935F54500EDA81D /* Inter-ExtraBold.otf */; };
 		187F05A729A277BB006ADA87 /* Urbanist-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A38298CC97100DD3F63 /* Urbanist-ThinItalic.ttf */; };
+		187F05B729A3AF05006ADA87 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 187F05B629A3AF05006ADA87 /* GoogleService-Info.plist */; };
+		187F05B829A3AF05006ADA87 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 187F05B629A3AF05006ADA87 /* GoogleService-Info.plist */; };
 		18FD5A3E298CC97200DD3F63 /* Urbanist-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2C298CC96F00DD3F63 /* Urbanist-BlackItalic.ttf */; };
 		18FD5A3F298CC97200DD3F63 /* Urbanist-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2D298CC96F00DD3F63 /* Urbanist-ExtraLightItalic.ttf */; };
 		18FD5A40298CC97200DD3F63 /* Urbanist-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2E298CC96F00DD3F63 /* Urbanist-Regular.ttf */; };
@@ -107,6 +107,7 @@
 		00E356F21AD99517003FC87E /* lootswap_mobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = lootswap_mobileTests.m; sourceTree = "<group>"; };
 		0C1A40682994092C00C9E695 /* lootswap_mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = lootswap_mobile.entitlements; path = lootswap_mobile/lootswap_mobile.entitlements; sourceTree = "<group>"; };
 		0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		12BE555E78FDEDDF2CDD4310 /* libPods-lootswap_mobile-lootswap_mobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lootswap_mobile-lootswap_mobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* lootswap_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lootswap_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = lootswap_mobile/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = lootswap_mobile/AppDelegate.mm; sourceTree = "<group>"; };
@@ -130,6 +131,9 @@
 		187F05AF29A277BB006ADA87 /* lootswap_mobile_development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lootswap_mobile_development.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		187F05B029A277BC006ADA87 /* lootswap_mobile_development-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "lootswap_mobile_development-Info.plist"; path = "/Users/apple/Documents/RN_Projects/LootSwap/lootswap_mobile/ios/lootswap_mobile_development-Info.plist"; sourceTree = "<absolute>"; };
 		187F05B129A28330006ADA87 /* libPods-lootswap_mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-lootswap_mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		187F05B629A3AF05006ADA87 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "lootswap_mobile/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		187F05BB29A3D89D006ADA87 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		187F05BD29A3D89D006ADA87 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		18FD5A2C298CC96F00DD3F63 /* Urbanist-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-BlackItalic.ttf"; path = "../../assets/fonts/Urbanist-BlackItalic.ttf"; sourceTree = "<group>"; };
 		18FD5A2D298CC96F00DD3F63 /* Urbanist-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-ExtraLightItalic.ttf"; path = "../../assets/fonts/Urbanist-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		18FD5A2E298CC96F00DD3F63 /* Urbanist-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Regular.ttf"; path = "../../assets/fonts/Urbanist-Regular.ttf"; sourceTree = "<group>"; };
@@ -218,7 +222,7 @@
 		13B07FAE1A68108700A75B9A /* lootswap_mobile */ = {
 			isa = PBXGroup;
 			children = (
-				0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */,
+				187F05B629A3AF05006ADA87 /* GoogleService-Info.plist */,
 				0C1A40682994092C00C9E695 /* lootswap_mobile.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -226,6 +230,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				187F05B929A3D89D006ADA87 /* Firebase */,
 			);
 			name = lootswap_mobile;
 			sourceTree = "<group>";
@@ -267,6 +272,32 @@
 				18163B5C2935F54500EDA81D /* Inter-Regular.otf */,
 			);
 			path = fonts;
+			sourceTree = "<group>";
+		};
+		187F05B929A3D89D006ADA87 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				187F05BA29A3D89D006ADA87 /* Development */,
+				187F05BC29A3D89D006ADA87 /* Production */,
+			);
+			name = Firebase;
+			path = lootswap_mobile/Firebase;
+			sourceTree = "<group>";
+		};
+		187F05BA29A3D89D006ADA87 /* Development */ = {
+			isa = PBXGroup;
+			children = (
+				187F05BB29A3D89D006ADA87 /* GoogleService-Info.plist */,
+			);
+			path = Development;
+			sourceTree = "<group>";
+		};
+		187F05BC29A3D89D006ADA87 /* Production */ = {
+			isa = PBXGroup;
+			children = (
+				187F05BD29A3D89D006ADA87 /* GoogleService-Info.plist */,
+			);
+			path = Production;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -479,7 +510,7 @@
 				18FD5A48298CC97200DD3F63 /* Urbanist-Medium.ttf in Resources */,
 				18163B712935F54600EDA81D /* Inter-Bold.otf in Resources */,
 				18163B6F2935F54600EDA81D /* Inter-ExtraBoldItalic.otf in Resources */,
-				0C1A406C29940CF800C9E695 /* GoogleService-Info.plist in Resources */,
+				187F05B729A3AF05006ADA87 /* GoogleService-Info.plist in Resources */,
 				18163B672935F54600EDA81D /* Inter-LightItalic.otf in Resources */,
 				18FD5A43298CC97200DD3F63 /* Urbanist-Italic.ttf in Resources */,
 				18FD5A40298CC97200DD3F63 /* Urbanist-Regular.ttf in Resources */,
@@ -521,7 +552,7 @@
 				187F059D29A277BB006ADA87 /* Urbanist-Medium.ttf in Resources */,
 				187F059E29A277BB006ADA87 /* Inter-Bold.otf in Resources */,
 				187F059F29A277BB006ADA87 /* Inter-ExtraBoldItalic.otf in Resources */,
-				187F05A029A277BB006ADA87 /* GoogleService-Info.plist in Resources */,
+				187F05B829A3AF05006ADA87 /* GoogleService-Info.plist in Resources */,
 				187F05A129A277BB006ADA87 /* Inter-LightItalic.otf in Resources */,
 				187F05A229A277BB006ADA87 /* Urbanist-Italic.ttf in Resources */,
 				187F05A329A277BB006ADA87 /* Urbanist-Regular.ttf in Resources */,
@@ -965,11 +996,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = lootswap_mobile/lootswap_mobile.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Akhilesh Mourya (S9D5KNCAAF)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Akhilesh Mourya (S9D5KNCAAF)";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = lootswap_mobile/Images.xcassets;
-				DEVELOPMENT_TEAM = 6P22K9PRC6;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6P22K9PRC6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = lootswap_mobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -984,6 +1017,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = lootswap_mobile;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = LootSwap_Production_Provisioning;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -998,11 +1032,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = lootswap_mobile/lootswap_mobile.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Akhilesh Mourya (S9D5KNCAAF)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Akhilesh Mourya (S9D5KNCAAF)";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = lootswap_mobile/Images.xcassets;
-				DEVELOPMENT_TEAM = 6P22K9PRC6;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6P22K9PRC6;
 				INFOPLIST_FILE = lootswap_mobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1016,6 +1052,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = lootswap_mobile;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = LootSwap_Production_Provisioning;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1028,8 +1065,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = lootswap_mobile/lootswap_mobile.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Akhilesh Mourya (S9D5KNCAAF)";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = lootswap_mobile/Images.xcassets;
 				DEVELOPMENT_TEAM = 6P22K9PRC6;
@@ -1044,9 +1081,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lootswap.development;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = LootSwap_Devlopment_Provisioning;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1060,8 +1097,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = lootswap_mobile/lootswap_mobile.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Akhilesh Mourya (S9D5KNCAAF)";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = lootswap_mobile/Images.xcassets;
 				DEVELOPMENT_TEAM = 6P22K9PRC6;
@@ -1075,9 +1112,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lootswap.development;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = LootSwap_Devlopment_Provisioning;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
