@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* lootswap_mobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* lootswap_mobileTests.m */; };
+		0C1A406C29940CF800C9E695 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		18163B652935F54600EDA81D /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B572935F54500EDA81D /* Inter-Medium.otf */; };
@@ -54,6 +55,7 @@
 		187F059D29A277BB006ADA87 /* Urbanist-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A36298CC97000DD3F63 /* Urbanist-Medium.ttf */; };
 		187F059E29A277BB006ADA87 /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B632935F54600EDA81D /* Inter-Bold.otf */; };
 		187F059F29A277BB006ADA87 /* Inter-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B612935F54600EDA81D /* Inter-ExtraBoldItalic.otf */; };
+		187F05A029A277BB006ADA87 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */; };
 		187F05A129A277BB006ADA87 /* Inter-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B592935F54500EDA81D /* Inter-LightItalic.otf */; };
 		187F05A229A277BB006ADA87 /* Urbanist-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A31298CC96F00DD3F63 /* Urbanist-Italic.ttf */; };
 		187F05A329A277BB006ADA87 /* Urbanist-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2E298CC96F00DD3F63 /* Urbanist-Regular.ttf */; };
@@ -61,8 +63,6 @@
 		187F05A529A277BB006ADA87 /* Inter-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B642935F54600EDA81D /* Inter-BlackItalic.otf */; };
 		187F05A629A277BB006ADA87 /* Inter-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B5B2935F54500EDA81D /* Inter-ExtraBold.otf */; };
 		187F05A729A277BB006ADA87 /* Urbanist-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A38298CC97100DD3F63 /* Urbanist-ThinItalic.ttf */; };
-		187F05B729A3AF05006ADA87 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 187F05B629A3AF05006ADA87 /* GoogleService-Info.plist */; };
-		187F05B829A3AF05006ADA87 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 187F05B629A3AF05006ADA87 /* GoogleService-Info.plist */; };
 		18FD5A3E298CC97200DD3F63 /* Urbanist-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2C298CC96F00DD3F63 /* Urbanist-BlackItalic.ttf */; };
 		18FD5A3F298CC97200DD3F63 /* Urbanist-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2D298CC96F00DD3F63 /* Urbanist-ExtraLightItalic.ttf */; };
 		18FD5A40298CC97200DD3F63 /* Urbanist-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2E298CC96F00DD3F63 /* Urbanist-Regular.ttf */; };
@@ -81,8 +81,6 @@
 		18FD5A4D298CC97200DD3F63 /* Urbanist-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A3B298CC97100DD3F63 /* Urbanist-SemiBoldItalic.ttf */; };
 		18FD5A4E298CC97200DD3F63 /* Urbanist-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A3C298CC97100DD3F63 /* Urbanist-ExtraBold.ttf */; };
 		18FD5A4F298CC97200DD3F63 /* Urbanist-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A3D298CC97100DD3F63 /* Urbanist-Bold.ttf */; };
-		3B8D18C1CC05AD7CFA321DA4 /* libPods-lootswap_mobile-lootswap_mobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A973851AD92EE393616A5B7 /* libPods-lootswap_mobile-lootswap_mobileTests.a */; };
-		78DDB1B1E7D190D0BD6EE86F /* libPods-lootswap_mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B2AE1FFB7664FD9E58A331 /* libPods-lootswap_mobile.a */; };
 		3A9FB75269E8D2F2CC71E1EC /* libPods-lootswap_mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72435276DCEFFEAA5DE6DC05 /* libPods-lootswap_mobile.a */; };
 		4CCA334B27E148DEC306428E /* libPods-lootswap_mobile-lootswap_mobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12BE555E78FDEDDF2CDD4310 /* libPods-lootswap_mobile-lootswap_mobileTests.a */; };
 		4E118126A0205788C449992E /* libPods-lootswap_mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 187F05B129A28330006ADA87 /* libPods-lootswap_mobile.a */; };
@@ -107,7 +105,6 @@
 		00E356F21AD99517003FC87E /* lootswap_mobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = lootswap_mobileTests.m; sourceTree = "<group>"; };
 		0C1A40682994092C00C9E695 /* lootswap_mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = lootswap_mobile.entitlements; path = lootswap_mobile/lootswap_mobile.entitlements; sourceTree = "<group>"; };
 		0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		12BE555E78FDEDDF2CDD4310 /* libPods-lootswap_mobile-lootswap_mobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lootswap_mobile-lootswap_mobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* lootswap_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lootswap_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = lootswap_mobile/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = lootswap_mobile/AppDelegate.mm; sourceTree = "<group>"; };
@@ -131,9 +128,6 @@
 		187F05AF29A277BB006ADA87 /* lootswap_mobile_development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lootswap_mobile_development.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		187F05B029A277BC006ADA87 /* lootswap_mobile_development-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "lootswap_mobile_development-Info.plist"; path = "/Users/apple/Documents/RN_Projects/LootSwap/lootswap_mobile/ios/lootswap_mobile_development-Info.plist"; sourceTree = "<absolute>"; };
 		187F05B129A28330006ADA87 /* libPods-lootswap_mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-lootswap_mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		187F05B629A3AF05006ADA87 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "lootswap_mobile/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		187F05BB29A3D89D006ADA87 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		187F05BD29A3D89D006ADA87 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		18FD5A2C298CC96F00DD3F63 /* Urbanist-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-BlackItalic.ttf"; path = "../../assets/fonts/Urbanist-BlackItalic.ttf"; sourceTree = "<group>"; };
 		18FD5A2D298CC96F00DD3F63 /* Urbanist-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-ExtraLightItalic.ttf"; path = "../../assets/fonts/Urbanist-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		18FD5A2E298CC96F00DD3F63 /* Urbanist-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Regular.ttf"; path = "../../assets/fonts/Urbanist-Regular.ttf"; sourceTree = "<group>"; };
@@ -152,13 +146,6 @@
 		18FD5A3B298CC97100DD3F63 /* Urbanist-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-SemiBoldItalic.ttf"; path = "../../assets/fonts/Urbanist-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		18FD5A3C298CC97100DD3F63 /* Urbanist-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-ExtraBold.ttf"; path = "../../assets/fonts/Urbanist-ExtraBold.ttf"; sourceTree = "<group>"; };
 		18FD5A3D298CC97100DD3F63 /* Urbanist-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Bold.ttf"; path = "../../assets/fonts/Urbanist-Bold.ttf"; sourceTree = "<group>"; };
-		1A973851AD92EE393616A5B7 /* libPods-lootswap_mobile-lootswap_mobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lootswap_mobile-lootswap_mobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		291260C690D8A470B3C5CAF3 /* Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile-lootswap_mobileTests/Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig"; sourceTree = "<group>"; };
-		4798AE4E2E4BE4D6222748F2 /* Pods-lootswap_mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile.debug.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile.debug.xcconfig"; sourceTree = "<group>"; };
-		76C6CE865E8A2BBBA241C580 /* Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile-lootswap_mobileTests/Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig"; sourceTree = "<group>"; };
-		79B2AE1FFB7664FD9E58A331 /* libPods-lootswap_mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lootswap_mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = lootswap_mobile/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		BFDE66E43D3FB2D0004C991F /* Pods-lootswap_mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile.release.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile.release.xcconfig"; sourceTree = "<group>"; };
 		20C4306D1BF78C2D557B24D5 /* Pods-lootswap_mobile-lootswap_mobile_development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile-lootswap_mobile_development.release.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development.release.xcconfig"; sourceTree = "<group>"; };
 		27B2EC55A7A59C57837EA099 /* Pods-lootswap_mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile.release.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile.release.xcconfig"; sourceTree = "<group>"; };
 		373F3344E4F6983AE8AB34C6 /* Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile-lootswap_mobileTests/Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -184,7 +171,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78DDB1B1E7D190D0BD6EE86F /* libPods-lootswap_mobile.a in Frameworks */,
 				5C69144F8F4C3D5A11E3ABC1 /* libPods-lootswap_mobile.a in Frameworks */,
 				3A9FB75269E8D2F2CC71E1EC /* libPods-lootswap_mobile.a in Frameworks */,
 				4E118126A0205788C449992E /* libPods-lootswap_mobile.a in Frameworks */,
@@ -222,7 +208,7 @@
 		13B07FAE1A68108700A75B9A /* lootswap_mobile */ = {
 			isa = PBXGroup;
 			children = (
-				187F05B629A3AF05006ADA87 /* GoogleService-Info.plist */,
+				0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */,
 				0C1A40682994092C00C9E695 /* lootswap_mobile.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -230,7 +216,6 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				187F05B929A3D89D006ADA87 /* Firebase */,
 			);
 			name = lootswap_mobile;
 			sourceTree = "<group>";
@@ -274,39 +259,11 @@
 			path = fonts;
 			sourceTree = "<group>";
 		};
-		187F05B929A3D89D006ADA87 /* Firebase */ = {
-			isa = PBXGroup;
-			children = (
-				187F05BA29A3D89D006ADA87 /* Development */,
-				187F05BC29A3D89D006ADA87 /* Production */,
-			);
-			name = Firebase;
-			path = lootswap_mobile/Firebase;
-			sourceTree = "<group>";
-		};
-		187F05BA29A3D89D006ADA87 /* Development */ = {
-			isa = PBXGroup;
-			children = (
-				187F05BB29A3D89D006ADA87 /* GoogleService-Info.plist */,
-			);
-			path = Development;
-			sourceTree = "<group>";
-		};
-		187F05BC29A3D89D006ADA87 /* Production */ = {
-			isa = PBXGroup;
-			children = (
-				187F05BD29A3D89D006ADA87 /* GoogleService-Info.plist */,
-			);
-			path = Production;
-			sourceTree = "<group>";
-		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				187F05B129A28330006ADA87 /* libPods-lootswap_mobile.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				79B2AE1FFB7664FD9E58A331 /* libPods-lootswap_mobile.a */,
-				1A973851AD92EE393616A5B7 /* libPods-lootswap_mobile-lootswap_mobileTests.a */,
 				72435276DCEFFEAA5DE6DC05 /* libPods-lootswap_mobile.a */,
 				12BE555E78FDEDDF2CDD4310 /* libPods-lootswap_mobile-lootswap_mobileTests.a */,
 				AADF98DAAB52BB4E3FEF24A3 /* libPods-lootswap_mobile-lootswap_mobile_development.a */,
@@ -351,10 +308,6 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4798AE4E2E4BE4D6222748F2 /* Pods-lootswap_mobile.debug.xcconfig */,
-				BFDE66E43D3FB2D0004C991F /* Pods-lootswap_mobile.release.xcconfig */,
-				76C6CE865E8A2BBBA241C580 /* Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig */,
-				291260C690D8A470B3C5CAF3 /* Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig */,
 				5EB0643448988469325EDABA /* Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig */,
 				373F3344E4F6983AE8AB34C6 /* Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig */,
 				F9E519DAA4828C1C33C781F7 /* Pods-lootswap_mobile.debug.xcconfig */,
@@ -510,7 +463,7 @@
 				18FD5A48298CC97200DD3F63 /* Urbanist-Medium.ttf in Resources */,
 				18163B712935F54600EDA81D /* Inter-Bold.otf in Resources */,
 				18163B6F2935F54600EDA81D /* Inter-ExtraBoldItalic.otf in Resources */,
-				187F05B729A3AF05006ADA87 /* GoogleService-Info.plist in Resources */,
+				0C1A406C29940CF800C9E695 /* GoogleService-Info.plist in Resources */,
 				18163B672935F54600EDA81D /* Inter-LightItalic.otf in Resources */,
 				18FD5A43298CC97200DD3F63 /* Urbanist-Italic.ttf in Resources */,
 				18FD5A40298CC97200DD3F63 /* Urbanist-Regular.ttf in Resources */,
@@ -552,7 +505,7 @@
 				187F059D29A277BB006ADA87 /* Urbanist-Medium.ttf in Resources */,
 				187F059E29A277BB006ADA87 /* Inter-Bold.otf in Resources */,
 				187F059F29A277BB006ADA87 /* Inter-ExtraBoldItalic.otf in Resources */,
-				187F05B829A3AF05006ADA87 /* GoogleService-Info.plist in Resources */,
+				187F05A029A277BB006ADA87 /* GoogleService-Info.plist in Resources */,
 				187F05A129A277BB006ADA87 /* Inter-LightItalic.otf in Resources */,
 				187F05A229A277BB006ADA87 /* Urbanist-Italic.ttf in Resources */,
 				187F05A329A277BB006ADA87 /* Urbanist-Regular.ttf in Resources */,
@@ -582,7 +535,6 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		30F8DB589C7F6F81EA782F4F /* [CP] Check Pods Manifest.lock */ = {
 		187F057E29A277BB006ADA87 /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -748,25 +700,12 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8E1B727B4C2D4743D4EE11B0 /* [CP] Embed Pods Frameworks */ = {
 		CB155B30127BCC1B993F339C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9BC8AC75A6D5D26D81ADB402 /* [CP] Check Pods Manifest.lock */ = {
 				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -784,23 +723,6 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-lootswap_mobile-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9DA5138261C4330273AD5313 /* [CP] Embed Pods Frameworks */ = {
 				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -990,19 +912,16 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4798AE4E2E4BE4D6222748F2 /* Pods-lootswap_mobile.debug.xcconfig */;
 			baseConfigurationReference = F9E519DAA4828C1C33C781F7 /* Pods-lootswap_mobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = lootswap_mobile/lootswap_mobile.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Akhilesh Mourya (S9D5KNCAAF)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Akhilesh Mourya (S9D5KNCAAF)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = lootswap_mobile/Images.xcassets;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6P22K9PRC6;
+				DEVELOPMENT_TEAM = 6P22K9PRC6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = lootswap_mobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1017,7 +936,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = lootswap_mobile;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = LootSwap_Production_Provisioning;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1026,19 +944,16 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BFDE66E43D3FB2D0004C991F /* Pods-lootswap_mobile.release.xcconfig */;
 			baseConfigurationReference = 27B2EC55A7A59C57837EA099 /* Pods-lootswap_mobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = lootswap_mobile/lootswap_mobile.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Akhilesh Mourya (S9D5KNCAAF)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Akhilesh Mourya (S9D5KNCAAF)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = lootswap_mobile/Images.xcassets;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 6P22K9PRC6;
+				DEVELOPMENT_TEAM = 6P22K9PRC6;
 				INFOPLIST_FILE = lootswap_mobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1052,7 +967,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = lootswap_mobile;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = LootSwap_Production_Provisioning;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1065,8 +979,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = lootswap_mobile/lootswap_mobile.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Akhilesh Mourya (S9D5KNCAAF)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = lootswap_mobile/Images.xcassets;
 				DEVELOPMENT_TEAM = 6P22K9PRC6;
@@ -1081,9 +995,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lootswap.development;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = LootSwap_Devlopment_Provisioning;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1097,8 +1011,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = lootswap_mobile/lootswap_mobile.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Akhilesh Mourya (S9D5KNCAAF)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = lootswap_mobile/Images.xcassets;
 				DEVELOPMENT_TEAM = 6P22K9PRC6;
@@ -1112,9 +1026,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lootswap.development;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = LootSwap_Devlopment_Provisioning;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
