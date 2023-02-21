@@ -84,9 +84,9 @@ export const AddProductStepFour: FC<ProductStep> = props => {
           <TradeButtonText selected={isSelected}>{label}</TradeButtonText>
         </TradeButton>
         {label === 'Trade and Sell' && (
-        <RecTagContainer>
-          <FreeTag>Recommended</FreeTag>
-        </RecTagContainer>
+          <RecTagContainer>
+            <FreeTag>Recommended</FreeTag>
+          </RecTagContainer>
         )}
       </TouchableRowTradeOptions>
     );
