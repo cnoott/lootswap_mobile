@@ -10,8 +10,10 @@ import {
   TradeOptionsText,
   TradeButton,
   TradeButtonText,
-  Touchable,
+  RecTagContainer,
+  FreeTag,
   EmptyView,
+  TouchableRowTradeOptions,
 } from './styles';
 import {useSelector} from 'react-redux';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
@@ -77,11 +79,16 @@ export const AddProductStepFour: FC<ProductStep> = props => {
     onPress: Function,
   ) => {
     return (
-      <Touchable onPress={onPress}>
+      <TouchableRowTradeOptions onPress={onPress}>
         <TradeButton selected={isSelected}>
           <TradeButtonText selected={isSelected}>{label}</TradeButtonText>
         </TradeButton>
-      </Touchable>
+        {label === 'Trade and Sell' && (
+        <RecTagContainer>
+          <FreeTag>Recommended</FreeTag>
+        </RecTagContainer>
+        )}
+      </TouchableRowTradeOptions>
     );
   };
   const renderTradeView = () => {

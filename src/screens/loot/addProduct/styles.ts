@@ -138,6 +138,10 @@ export const TouchableRow = styled.TouchableOpacity`
   flex-direction: row;
 `;
 
+export const TouchableRowTradeOptions = styled.TouchableOpacity`
+  flex-direction: row;
+`;
+
 export const Image = styled.Image.attrs(() => ({
   width: scale(productImageWidth),
   height: scale(productImageWidth),
@@ -195,7 +199,7 @@ export const AddImageLabel = styled.Text.attrs(props => ({
 export const AddImageSubText = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
 }))`
-  font-size: ${moderateScale(13)}px;
+  font-size: ${moderateScale(13, 0.1)}px;
   font-family: Urbanist-Medium;
   ${color}
   ${space}
@@ -260,10 +264,22 @@ export const ShippingDes = styled.Text.attrs(props => ({
 
 export const FreeTagContainer = styled.View.attrs(() => ({
   height: verticalScale(22),
-  width: scale(40),
+  width: scale(76),
   borderRadius: scale(8),
   bg: '#b6eccb',
   ml: scale(10),
+}))`
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start ${layout} ${color} ${space};
+`;
+export const RecTagContainer = styled.View.attrs(() => ({
+  height: verticalScale(22),
+  width: scale(76),
+  borderRadius: scale(8),
+  bg: '#b6eccb',
+  ml: scale(10),
+  mt: 2,
 }))`
   align-items: center;
   justify-content: center;

@@ -94,7 +94,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
           />
           <ShippingOptionsText>Provide Free Shipping</ShippingOptionsText>
           <FreeTagContainer>
-            <FreeTag>Free</FreeTag>
+            <FreeTag>Recommended</FreeTag>
           </FreeTagContainer>
         </TouchableRow>
         <FreeShippingDes>
