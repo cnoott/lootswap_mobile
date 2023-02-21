@@ -33,15 +33,19 @@ We have 2 environment -> 1) Production 2) Development
 1. To Run Production Environemnt, run -> `yarn ios:prod`
 2. To Run Development Environemnt, run -> `yarn ios:dev`
 
-You can also run from xcode directly by changing schema
+You can also run from xcode directly by changing schema & run
+
 ![ScreenShot](https://i.postimg.cc/k43tjWpg/Screenshot-2023-02-21-at-2-59-18-PM.png)
 
 # Run Specific Environment(android)
 We have 2 environment -> 1) Production 2) Development
 (All run commands are specified in package.json file)
-
 1. To Run Production Environemnt, run -> `yarn android:prod`
 2. To Run Development Environemnt, run -> `yarn android:dev`
+
+You can also run from androis studio directly by changing build varient
+
+![ScreenShot](https://i.postimg.cc/XvzXhd1C/Screenshot-2023-02-21-at-3-11-24-PM.png)
 
 # Change in Specific environment file
 If you want to change any environment variable like changing `APP_URL` or need to add New one then you have to make changes in environment specific files
