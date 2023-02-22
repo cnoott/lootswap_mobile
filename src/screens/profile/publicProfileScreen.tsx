@@ -26,44 +26,47 @@ import {
   TitleText,
   EmptyScrollView,
   ItemsListView,
+  ItemContainer,
 } from './publicProfileStyles';
 import {PROFILE_PLACEHOLDER_ICON} from 'localsvgimages';
 import {scale} from 'react-native-size-matters';
-import {useSelector} from 'react-redux';
-import {AuthProps} from '../../redux/modules/auth/reducer';
 import StarRatings from '../../components/starRatings';
 import {LSTradeButton} from '../../components/commonComponents/LSTradeButton';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {getPublicProfileFilters} from '../../utility/utility';
 
-const dummyItem = [
-  {
-    brand: 'Puma',
-    name: 'Puma XP500 ',
-    condition: 'New with box',
-    size: 'M',
-  },
-  {
-    brand: 'Puma',
-    name: 'Puma XP500 ',
-    condition: 'New with box',
-    size: 'M',
-  },
-];
-
-export const PublicProfileScreen: FC<{}> = () => {
-  const auth: AuthProps = useSelector(state => state.auth);
+export const PublicProfileScreen: FC<{}> = ({route}) => {
+  const {requestedUserDetails} = route?.params;
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
-  const [profileUrl, setProfileUrl] = useState('');
   const [selectedFilterId, setSelectedFilter] = useState(1);
-  const {userData} = auth;
+
+  const [showAll, setShowAll] = useState(true);
+  const [filterItem, setFilterItem] = useState('trade-sell');
+
   const onFilterPress = (id: number) => {
     setSelectedFilter(id);
+    switch(id) {
+      case 1:
+        setShowAll(true);
+        break;
+      case 2:
+        setShowAll(false);
+        setFilterItem('trade-sell');
+        break;
+      case 3:
+        setShowAll(false);
+        setFilterItem('sell-only');
+        break;
+      case 4:
+        setShowAll(false);
+        setFilterItem('trade-only');
+        break;
+    }
   };
   const goToRatingsScreen = () => {
+    return; //TODO add screen
     navigation?.navigate('ProfileReviewsScreen');
-    setProfileUrl('');
   };
   const renderProfileView = () => {
     return (
@@ -74,37 +77,43 @@ export const PublicProfileScreen: FC<{}> = () => {
             height={scale(100)}
             width={scale(100)}
           />
-          {profileUrl ? (
-            <Image source={{uri: userData?.profileUrl}} />
-          ) : (
-            <Image source={{uri: userData?.profile_picture}} />
-          )}
+          <Image source={{uri: requestedUserDetails?.profile_picture}} />
         </ProfileUploadView>
       </ProfileContainerView>
     );
   };
   const renderRatingsView = () => (
     <RatingsContainer onPress={() => goToRatingsScreen()}>
-      <StarRatings rating={4.9} starColor={'#FF5726'} />
-      <RatingText>4.9</RatingText>
+      {requestedUserDetails?.ratings.length > 0 ? (
+        <>
+          <StarRatings rating={4.9} starColor={'#FF5726'} />
+          <RatingText>4.9</RatingText>
+        </>
+      ) : (
+        <ActivityName>No Ratings</ActivityName>
+      )}
     </RatingsContainer>
   );
   const renderActivityView = () => (
     <ActivityContainer>
       <ActivityItem>
-        <ActivityCount>03</ActivityCount>
+        <ActivityCount>{requestedUserDetails?.trades.length}</ActivityCount>
         <ActivityName>Trades</ActivityName>
       </ActivityItem>
       <EmptyRowView>
         <FullHeightDivider />
         <ActivityItem>
-          <ActivityCount>03</ActivityCount>
+          <ActivityCount>
+            {requestedUserDetails?.paypalOrders?.length}
+          </ActivityCount>
           <ActivityName>Transactions</ActivityName>
         </ActivityItem>
         <FullHeightDivider />
       </EmptyRowView>
       <ActivityItem>
-        <ActivityCount>10</ActivityCount>
+        <ActivityCount>
+          {requestedUserDetails?.my_items.filter(item => item.isVisible).length}
+        </ActivityCount>
         <ActivityName>Items</ActivityName>
       </ActivityItem>
     </ActivityContainer>
@@ -113,17 +122,29 @@ export const PublicProfileScreen: FC<{}> = () => {
     return (
       <>
         {renderProfileView()}
-        <UserNameText>{userData?.name}</UserNameText>
-        <MemberTimeText>Member since 2022</MemberTimeText>
+        <UserNameText>{requestedUserDetails?.name}</UserNameText>
+        <MemberTimeText>
+          Member since {new Date(requestedUserDetails.createdAt).getFullYear()}
+        </MemberTimeText>
         {renderRatingsView()}
         {renderActivityView()}
       </>
     );
   };
+  const renderTradeItem = (item: any) => (
+    <ItemContainer
+      onPress={() =>
+        navigation?.push('ProductDetailsScreen', {
+          productData: {...item, objectID: item._id},
+        })
+      }>
+      <TradeCheckoutItemCell itemData={item} />
+    </ItemContainer>
+  );
   const renderItemsView = () => {
     return (
       <>
-        <TitleText>{'10'} Items Available </TitleText>
+        <TitleText>Items Available</TitleText>
         <EmptyScrollView>
           {getPublicProfileFilters().map(data => {
             return (
@@ -136,8 +157,10 @@ export const PublicProfileScreen: FC<{}> = () => {
           })}
         </EmptyScrollView>
         <ItemsListView
-          data={dummyItem}
-          renderItem={({item}) => <TradeCheckoutItemCell itemData={item} />}
+          data={requestedUserDetails?.my_items.filter(
+            item => showAll || item.type === filterItem
+          )}
+          renderItem={({item}) => renderTradeItem(item)}
         />
       </>
     );

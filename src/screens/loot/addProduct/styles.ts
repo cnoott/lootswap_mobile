@@ -6,7 +6,7 @@ import {DraggableGrid} from 'react-native-draggable-grid';
 import FastImage from 'react-native-fast-image';
 
 const width = Dimensions.get('window').width;
-const productImageWidth = width / 2 - 60;
+const productImageWidth = width / 3 - 40;
 //const productUploadImageWidth = width - 80;
 
 export const Container = styled.View.attrs(props => ({
@@ -18,7 +18,8 @@ export const Container = styled.View.attrs(props => ({
 `;
 
 export const ImagesContainer = styled.ScrollView.attrs(props => ({
-  marginVertical: moderateScale(5),
+  marginVertical: moderateScale(0),
+  paddingVertical: scale(10),
   marginHorizontal: moderateScale(15),
   showsVerticalScrollIndicator: false,
   scrollEnabled: props.enableScroll,
@@ -62,7 +63,7 @@ export const ButtonContainer = styled.View.attrs(() => ({
 `;
 
 export const AddProductsList = styled(DraggableGrid).attrs(() => ({
-  numColumns: 2,
+  numColumns: 3,
   height: '100%',
   width: '100%',
 }))`
@@ -137,6 +138,10 @@ export const TouchableRow = styled.TouchableOpacity`
   flex-direction: row;
 `;
 
+export const TouchableRowTradeOptions = styled.TouchableOpacity`
+  flex-direction: row;
+`;
+
 export const Image = styled.Image.attrs(() => ({
   width: scale(productImageWidth),
   height: scale(productImageWidth),
@@ -152,7 +157,7 @@ export const Image = styled.Image.attrs(() => ({
 export const ImageUpload = styled(FastImage).attrs(() => ({
   width: scale(productImageWidth),
   height: scale(productImageWidth),
-  borderRadius: scale(20),
+  borderRadius: scale(6),
 }))`
   position: absolute;
   align-self: center;
@@ -162,11 +167,11 @@ export const ImageUpload = styled(FastImage).attrs(() => ({
 `;
 
 export const PlusContainer = styled.View.attrs(props => ({
-  height: scale(48),
-  width: scale(48),
-  borderRadius: scale(24),
+  height: scale(24),
+  width: scale(24),
+  borderRadius: scale(20),
+  mb: 2,
   bg: props.theme.colors.white,
-  mb: scale(10),
 }))`
   align-items: center;
   justify-content: center;
@@ -176,8 +181,8 @@ export const PlusContainer = styled.View.attrs(props => ({
 export const PlusSign = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
 }))`
-  font-size: ${moderateScale(20)}px;
-  font-family: Inter-Bold;
+  font-size: ${moderateScale(15)}px;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
 `;
@@ -194,7 +199,7 @@ export const AddImageLabel = styled.Text.attrs(props => ({
 export const AddImageSubText = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
 }))`
-  font-size: ${moderateScale(12)}px;
+  font-size: ${moderateScale(13, 0.1)}px;
   font-family: Urbanist-Medium;
   ${color}
   ${space}
@@ -259,10 +264,22 @@ export const ShippingDes = styled.Text.attrs(props => ({
 
 export const FreeTagContainer = styled.View.attrs(() => ({
   height: verticalScale(22),
-  width: scale(40),
+  width: scale(76),
   borderRadius: scale(8),
   bg: '#b6eccb',
   ml: scale(10),
+}))`
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start ${layout} ${color} ${space};
+`;
+export const RecTagContainer = styled.View.attrs(() => ({
+  height: verticalScale(22),
+  width: scale(76),
+  borderRadius: scale(8),
+  bg: '#b6eccb',
+  ml: scale(10),
+  mt: 2,
 }))`
   align-items: center;
   justify-content: center;
@@ -290,11 +307,11 @@ export const FreeShippingDes = styled.Text.attrs(props => ({
 
 export const CellIndexContainer = styled.View.attrs(() => ({
   height: scale(24),
-  borderRadius: scale(5),
+  borderRadius: scale(2),
   bg: 'rgba(0,0,0,0.7)',
-  top: 10,
-  left: 10,
-  px: scale(12),
+  top: 6,
+  left: 6,
+  px: scale(9),
 }))`
   align-items: center;
   justify-content: center;

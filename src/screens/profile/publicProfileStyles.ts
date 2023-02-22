@@ -48,7 +48,7 @@ export const UserNameText = styled.Text.attrs(props => ({
   mt: scale(10),
 }))`
   font-size: ${moderateScale(24)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   align-self: center;
   ${color}
   ${space}
@@ -61,7 +61,7 @@ export const MemberTimeText = styled.Text.attrs(props => ({
   mt: scale(2),
 }))`
   font-size: ${moderateScale(16)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   align-self: center;
   ${color}
   ${space}
@@ -100,7 +100,13 @@ export const RatingText = styled.Text.attrs(props => ({
   ml: scale(5),
 }))`
   font-size: ${moderateScale(16)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const ItemContainer = styled.TouchableOpacity.attrs(() => ({}))`
   ${color}
   ${space}
   ${layout}
@@ -131,7 +137,7 @@ export const ActivityCount = styled.Text.attrs(props => ({
   mb: scale(5),
 }))`
   font-size: ${moderateScale(18)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
@@ -141,7 +147,7 @@ export const ActivityName = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   ${color}
   ${space}
   ${layout}
@@ -170,7 +176,7 @@ export const TitleText = styled.Text.attrs(props => ({
   my: scale(10),
 }))`
   font-size: ${moderateScale(18)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}

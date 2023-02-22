@@ -29,7 +29,7 @@ import {Alert} from 'custom_top_alert';
 import {scale} from 'react-native-size-matters';
 
 const width = Dimensions.get('window').width;
-const productImageWidth = width / 2 - 40;
+const productImageWidth = width / 3 - 30;
 
 interface ProductStep {
   updateProductData: Function;
@@ -110,7 +110,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
             <PlusSign>+</PlusSign>
           </PlusContainer>
           <AddImageLabel>+Add Images</AddImageLabel>
-          <AddImageSubText>Press and hold to reorder</AddImageSubText>
+          <AddImageSubText>Hold & drag to reorder.</AddImageSubText>
         </ImageContainerNew>
       </Touchable>
     );

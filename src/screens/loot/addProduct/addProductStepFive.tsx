@@ -65,8 +65,8 @@ export const AddProductStepFive: FC<ProductStep> = props => {
         <Divider />
         <TradeOptionsText>Shipping</TradeOptionsText>
         <ShippingDes>
-          This option only applies if someone buys your item, not for trades
-          shipping will use USPS Priority service.
+          This option only applies if someone buys your item, not for trades.
+          You will have your choice of these carriers UPS, USPS, and FedEx.
         </ShippingDes>
         <TouchableRow
           onPress={() =>
@@ -94,7 +94,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
           />
           <ShippingOptionsText>Provide Free Shipping</ShippingOptionsText>
           <FreeTagContainer>
-            <FreeTag>Free</FreeTag>
+            <FreeTag>Recommended</FreeTag>
           </FreeTagContainer>
         </TouchableRow>
         <FreeShippingDes>
