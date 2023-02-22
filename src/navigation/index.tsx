@@ -8,7 +8,7 @@ import DropdownAlert from 'react-native-dropdownalert';
 import AuthScreen from '../screens/auth/signIn';
 import CreateAccountScreen from '../screens/auth/signUp';
 import BottomTabs from './bottomTab';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import LSLoader from '../components/commonComponents/LSLoader';
 import {LoadingProps} from '../redux/modules/loading/reducer';
 import {Alert} from 'custom_top_alert';
@@ -27,13 +27,14 @@ const Stack = createStackNavigator();
 
 const AppNavigation = () => {
   const navigation: NavigationProp<any, any> = useNavigation();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     messaging().onNotificationOpenedApp(remoteMessage => {
       console.log('TEST: opened from bg state:', remoteMessage);
       //TODO: HANDLE NAVIGATION HERE
-      handleNavigation(navigation, remoteMessage);
+      handleNavigation(navigation, remoteMessage, dispatch);
     });
 
     messaging()
@@ -44,11 +45,11 @@ const AppNavigation = () => {
             'TEST: notificaiton opened from quit state',
             remoteMessage.notification,
           );
-          handleNavigation(navigation, remoteMessage);
+          handleNavigation(navigation, remoteMessage, dispatch);
         }
         setLoading(false);
       });
-  }, [navigation]);
+  }, [navigation, dispatch]);
 
   if (loading) {
     return null;
