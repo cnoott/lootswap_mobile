@@ -80,7 +80,7 @@ export const HomeFiltersScreen = props => {
   const removeSelectedBrand = (brand: any) => {
     const _filter = [...appliedFilters];
     _filter.map(data => {
-      if (data?.id === brand?.id) {
+      if (data?.id === 2) {
         data.refineFunction(brand.value);
       }
     });
@@ -219,7 +219,7 @@ export const HomeFiltersScreen = props => {
     <Modal transparent={true} animationType="none" visible={isModalOpen}>
       <Container>
         <InStackHeader title="Filters" onBackCall={() => onToggleModal()} />
-        {filterDataList?.length > 0 && hasData && (
+        {filterDataList?.length > 0 && true && (
           <SubContainer>
             {filterDataList.map((filter: FILTER_TYPE, index: number) => {
               return renderFilterItem(filter, index);
@@ -237,7 +237,7 @@ export const HomeFiltersScreen = props => {
             <BottomMarginView />
           </SubContainer>
         )}
-        {!hasData && <LSLoader isVisible={true} />}
+        {/* {!hasData && <LSLoader isVisible={true} />} */}
       </Container>
     </Modal>
   );
