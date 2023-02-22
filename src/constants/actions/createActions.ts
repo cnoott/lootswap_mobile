@@ -32,6 +32,10 @@ export const GET_MY_DETAILS = {
   ...createActionConst(actions.GET_MY_DETAILS),
 };
 
+export const GET_MY_DETAILS_NO_LOAD = {
+  ...createActionConst(actions.GET_MY_DETAILS_NO_LOAD),
+};
+
 export const GET_PRODUCT_DETAILS = {
   ...createActionConst(actions.GET_PRODUCT_DETAILS),
 };
@@ -150,4 +154,12 @@ export const SAVE_NOTIF_PERMISSION = {
 
 export const SET_REG_TOKEN = {
   ...createActionConst(actions.SET_REG_TOKEN),
+};
+
+export const LIKE_PRODUCT = {
+  ...createActionConst(actions.LIKE_PRODUCT),
+};
+
+export const UNLIKE_PRODUCT = {
+  ...createActionConst(actions.UNLIKE_PRODUCT),
 };

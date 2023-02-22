@@ -22,22 +22,6 @@ export const HomeScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isModalOpen, setModalOpen] = useState(false);
 
-  useEffect(() => {
-    // For Loader handling
-    /*
-    dispatch(LoadingRequest());
-    setTimeout(() => {
-      dispatch(LoadingSuccess());
-    }, 2500);
-    */
-  }, []);
-
-  const onProductPress = (product: any) => {
-    navigation.navigate('ProductDetailsScreen', {
-      productData: product,
-    });
-  };
-
   const goToLikedProducts = (productsList: any) => {
     navigation.navigate('LikedProductScreen', {
       productsList: productsList,
@@ -59,7 +43,7 @@ export const HomeScreen: FC<{}> = () => {
       return <CarouselComponent height={scale(400)} isHome={true} />;
     }
     //console.log('item', item);
-    return <LSProductCard item={item} onPress={() => onProductPress(item)} />;
+    return <LSProductCard item={item} />;
   };
   /* TODO: Commenting out for development purposes
   const transformItems = items => {

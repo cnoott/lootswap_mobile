@@ -7,6 +7,9 @@ import {
   GET_MY_DETAILS,
   SAVE_NOTIF_PERMISSION,
   SET_REG_TOKEN,
+  GET_MY_DETAILS_NO_LOAD,
+  LIKE_PRODUCT,
+  UNLIKE_PRODUCT,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -147,6 +150,27 @@ export const getMyDetailsFailure = (error: any) => {
   };
 };
 
+export const getMyDetailsNoLoadRequest = (userId: string) => {
+  return {
+    type: GET_MY_DETAILS_NO_LOAD.REQUEST,
+    userId,
+  };
+};
+
+export const getMyDetailsNoLoadSuccess = (payload: any) => {
+  return {
+    type: GET_MY_DETAILS_NO_LOAD.SUCCESS,
+    payload,
+  };
+};
+
+export const getMyDetailsNoLoadFailure = (error: any) => {
+  return {
+    type: GET_MY_DETAILS_NO_LOAD.FAILURE,
+    error,
+  };
+};
+
 export const saveNotifPermissions = (status: boolean) => {
   return {
     type: SAVE_NOTIF_PERMISSION.SUCCESS,
@@ -172,5 +196,44 @@ export const setRegTokenFailure = (payload: any) => {
   return {
     type: SET_REG_TOKEN.FAILURE,
     payload,
+  };
+};
+
+export const likeProduct = (reqData: any) => {
+  return {
+    type: LIKE_PRODUCT.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const likeProductSuccess = (payload: any) => {
+  return {
+    type: LIKE_PRODUCT.SUCCESS,
+    payload: payload,
+  };
+};
+
+export const likeProductFailure = () => {
+  return {
+    type: LIKE_PRODUCT.FAILURE,
+  };
+};
+
+export const unlikeProduct = (reqData: any) => {
+  return {
+    type: UNLIKE_PRODUCT.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const unlikeProductSuccess = () => {
+  return {
+    type: UNLIKE_PRODUCT.SUCCESS,
+  };
+};
+
+export const unlikeProductFailure = () => {
+  return {
+    type: UNLIKE_PRODUCT.FAILURE,
   };
 };
