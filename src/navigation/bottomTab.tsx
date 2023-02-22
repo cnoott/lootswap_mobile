@@ -68,6 +68,7 @@ const HomeStackNavigation = () => (
     />
     <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
     <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
+    <Stack.Screen name="AddressScreenBuyCheckout" component={AddressScreen} />
   </Stack.Navigator>
 );
 
