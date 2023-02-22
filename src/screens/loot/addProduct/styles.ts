@@ -75,7 +75,7 @@ export const AddProductsList = styled(DraggableGrid).attrs(() => ({
 export const ImageContainer = styled.View.attrs(props => ({
   height: scale(productImageWidth),
   width: scale(productImageWidth),
-  borderRadius: scale(20),
+  borderRadius: scale(16),
   bg: props.theme.colors.grey,
   m: scale(5),
 }))`
@@ -87,7 +87,7 @@ export const ImageContainer = styled.View.attrs(props => ({
 export const ImageContainerUpload = styled.View.attrs(props => ({
   height: scale(productImageWidth),
   width: scale(productImageWidth),
-  borderRadius: scale(20),
+  borderRadius: scale(16),
   bg: props.theme.colors.grey,
   m: scale(5),
 }))`
@@ -99,7 +99,7 @@ export const ImageContainerUpload = styled.View.attrs(props => ({
 export const ImageContainerNew = styled.View.attrs((props: any) => ({
   height: scale(productImageWidth),
   width: scale(productImageWidth),
-  borderRadius: scale(20),
+  borderRadius: scale(16),
   bg: props.theme.colors.grey,
   m: scale(5),
 }))`
@@ -109,19 +109,19 @@ export const ImageContainerNew = styled.View.attrs((props: any) => ({
 `;
 
 export const DeleteContainer = styled.TouchableOpacity.attrs(props => ({
-  height: scale(24),
-  width: scale(24),
-  borderRadius: scale(12),
+  height: scale(20),
+  width: scale(20),
+  borderRadius: scale(10),
   bg: props.theme.colors.black,
-  top: 10,
-  right: 10,
+  top: 6,
+  right: 6,
   hitSlop: {top: 10, left: 10, right: 10, bottom: 10},
 }))`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 6px;
+  right: 6px;
   ${layout} ${color} ${space} ${border};
 `;
 
@@ -190,7 +190,7 @@ export const PlusSign = styled.Text.attrs(props => ({
 export const AddImageLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
 }))`
-  font-size: ${moderateScale(15)}px;
+  font-size: ${moderateScale(12)}px;
   font-family: Urbanist-Bold;
   ${color}
   ${space}
@@ -199,8 +199,9 @@ export const AddImageLabel = styled.Text.attrs(props => ({
 export const AddImageSubText = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
 }))`
-  font-size: ${moderateScale(13, 0.1)}px;
+  font-size: ${moderateScale(11, 0.1)}px;
   font-family: Urbanist-Medium;
+  text-align: center;
   ${color}
   ${space}
 `;
@@ -306,25 +307,25 @@ export const FreeShippingDes = styled.Text.attrs(props => ({
 `;
 
 export const CellIndexContainer = styled.View.attrs(() => ({
-  height: scale(24),
-  borderRadius: scale(2),
+  height: scale(20),
+  borderRadius: scale(4),
   bg: 'rgba(0,0,0,0.7)',
   top: 6,
   left: 6,
-  px: scale(9),
+  px: scale(6),
 }))`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 6px;
+  left: 6px;
   ${layout} ${color} ${space} ${border};
 `;
 
 export const IndexLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.white,
 }))`
-  font-size: ${moderateScale(14)}px;
+  font-size: ${moderateScale(12)}px;
   font-family: Inter-Bold;
   font-weight: 600 ${color} ${space};
 `;

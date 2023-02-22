@@ -10,6 +10,7 @@ import {
   GET_MY_DETAILS_NO_LOAD,
   LIKE_PRODUCT,
   UNLIKE_PRODUCT,
+  SET_FCM_TOKEN,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -178,10 +179,14 @@ export const saveNotifPermissions = (status: boolean) => {
   };
 };
 
-export const setRegTokenRequest = (reqData: any) => {
+export const setRegTokenRequest = (
+  reqData: any,
+  isRemoveToken: boolean = false,
+) => {
   return {
     type: SET_REG_TOKEN.REQUEST,
-    reqData,
+    reqData: reqData,
+    isRemoveToken: isRemoveToken,
   };
 };
 
@@ -235,5 +240,11 @@ export const unlikeProductSuccess = () => {
 export const unlikeProductFailure = () => {
   return {
     type: UNLIKE_PRODUCT.FAILURE,
+};
+
+export const setFCMTokenRequest = (fcmToken: any) => {
+  return {
+    type: SET_FCM_TOKEN.REQUEST,
+    fcmToken: fcmToken,
   };
 };

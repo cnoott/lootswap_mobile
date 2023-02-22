@@ -303,6 +303,13 @@ export const unlikeProductCall = (reqData: any) => {
   );
 };
 
+export const removeRegTokenCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/user/remove-reg-token/${reqData?.userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
