@@ -240,7 +240,7 @@ export const DescriptionLabel = styled.Text.attrs(props => ({
   ${layout}
 `;
 
-export const RatingsContainer = styled.View.attrs(() => ({
+export const RatingsContainer = styled.TouchableOpacity.attrs(() => ({
   mt: verticalScale(10),
 }))`
   flex-direction: row ${space};

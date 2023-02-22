@@ -46,11 +46,13 @@ import {
   NewSellerLabel,
   DescriptionContainerView,
 } from './styles';
+import {LikeTouchable} from '../../components/productCard/styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {SvgXml} from 'react-native-svg';
 import {
   SHIELD_ICON,
   LIKE_HEART_ICON,
+  LIKE_HEART_ICON_RED,
   PAY_PAL_LABEL,
   LOOT_SWAP_LOGO_LABEL,
 } from 'localsvgimages';
@@ -66,6 +68,9 @@ import {
   sendTradeOffer,
   getTradesHistory,
   UpdateAddProductData,
+  likeProduct,
+  unlikeProduct,
+  getMyDetailsNoLoadRequest,
 } from '../../redux/modules';
 import {getProductTags, configureAndGetLootData} from '../../utility/utility';
 import {Alert} from 'custom_top_alert';
@@ -86,8 +91,18 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const {requestedUserDetails, userData, isLogedIn} = auth;
   const {selectedProductDetails} = homeStates;
   const {productData = {}} = route?.params;
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
+    if (
+      isLogedIn &&
+      userData?.likedProducts.some(prod => {
+        return prod?._id === productData?.objectID;
+      })
+    ) {
+      setLiked(true);
+    }
+
     if (productData?.userId) {
       dispatch(getUsersDetailsRequest(productData?.userId));
       dispatch(getProductDetails(productData?.objectID));
@@ -97,7 +112,35 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
         }),
       );
     }
-  }, [dispatch, productData?.userId, productData?.objectID, userData?._id]);
+  }, [
+    dispatch,
+    productData?.userId,
+    productData?.objectID,
+    userData?._id,
+    isLogedIn,
+    userData?.likedProducts,
+  ]);
+
+  const onLikePress = () => {
+    if (!isLogedIn) {
+      return;
+    }
+    const reqData = {
+      userId: userData?._id,
+      productId: productData?.objectID,
+    };
+    setLiked(true);
+    dispatch(likeProduct(reqData));
+  };
+
+  const onUnlikePress = () => {
+    const reqData = {
+      userId: userData?._id,
+      productId: productData?.objectID,
+    };
+    setLiked(false);
+    dispatch(unlikeProduct(reqData));
+  };
 
   const initiateFirstMessage = () => {
     const reqObj = {
@@ -353,7 +396,12 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     return (
       <>
         <SellerInfoLabel>SELLER INFO :</SellerInfoLabel>
-        <RatingsContainer>
+        <RatingsContainer
+          onPress={() =>
+            navigation.navigate('PublicProfileScreen', {
+              requestedUserDetails: requestedUserDetails,
+            })
+          }>
           <LSProfileImageComponent
             profileUrl={requestedUserDetails?.profile_picture}
             imageHeight={57}
@@ -424,14 +472,17 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                     </ShippingLabel>
                   )}
               </DetailsLeftView>
-              {requestedUserDetails?.likedProducts?.length > 0 && (
-                <DetailsRightView>
-                  <SvgXml xml={LIKE_HEART_ICON} />
-                  <ProductDetails>
-                    {requestedUserDetails?.likedProducts?.length}
-                  </ProductDetails>
-                </DetailsRightView>
-              )}
+              <DetailsRightView>
+                <LikeTouchable
+                  onPress={() => {
+                    liked ? onUnlikePress() : onLikePress();
+                  }}>
+                  <SvgXml
+                    xml={liked ? LIKE_HEART_ICON_RED : LIKE_HEART_ICON}
+                    color={'white'}
+                  />
+                </LikeTouchable>
+              </DetailsRightView>
             </DetailsContainer>
             <HorizontalBar />
             {renderProtectionView()}

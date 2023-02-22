@@ -48,6 +48,7 @@ import {
   TabItemContainer,
   TabItemText,
 } from './styles';
+import PublicProfileScreen from '../screens/profile/publicProfileScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -63,6 +64,10 @@ const HomeStackNavigation = () => (
     <Stack.Screen
       name="ProductDetailsScreen"
       component={ProductDetailsScreen}
+    />
+    <Stack.Screen 
+      name="PublicProfileScreen" 
+      component={PublicProfileScreen}
     />
     <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
   </Stack.Navigator>
