@@ -65,10 +65,7 @@ const HomeStackNavigation = () => (
       name="ProductDetailsScreen"
       component={ProductDetailsScreen}
     />
-    <Stack.Screen 
-      name="PublicProfileScreen" 
-      component={PublicProfileScreen}
-    />
+    <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
     <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
   </Stack.Navigator>
 );
@@ -130,6 +127,10 @@ const OffersStackNavigation = () => (
     <Stack.Screen
       name="TradeCheckoutSuccessScreen"
       component={TradeCheckoutSuccessScreen}
+    />
+    <Stack.Screen
+      name="ProductDetailsScreen"
+      component={ProductDetailsScreen}
     />
   </Stack.Navigator>
 );

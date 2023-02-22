@@ -163,3 +163,7 @@ export const LIKE_PRODUCT = {
 export const UNLIKE_PRODUCT = {
   ...createActionConst(actions.UNLIKE_PRODUCT),
 };
+
+export const SET_FCM_TOKEN = {
+  ...createActionConst(actions.SET_FCM_TOKEN),
+};

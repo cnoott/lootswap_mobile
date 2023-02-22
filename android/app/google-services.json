@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "243371662211",
+    "project_id": "lootswap-231f7",
+    "storage_bucket": "lootswap-231f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243371662211:android:7bbd69ec720fac761cf4b6",
+        "android_client_info": {
+          "package_name": "com.lootswap_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243371662211-18pjcomg5am7fbkplqad6jci8rmjjlp6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9bHrMWPerJwwvmwABTtYXExkm7NNegN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243371662211-18pjcomg5am7fbkplqad6jci8rmjjlp6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "243371662211-7up2nd9330vcqt9ehsdfik5iom4ej05i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lootswap.development"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243371662211:android:068298ab1fe3fd421cf4b6",
+        "android_client_info": {
+          "package_name": "com.lootswap_mobile.development"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243371662211-18pjcomg5am7fbkplqad6jci8rmjjlp6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9bHrMWPerJwwvmwABTtYXExkm7NNegN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243371662211-18pjcomg5am7fbkplqad6jci8rmjjlp6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "243371662211-7up2nd9330vcqt9ehsdfik5iom4ej05i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lootswap.development"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

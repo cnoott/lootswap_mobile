@@ -3,9 +3,9 @@ import _ from 'lodash';
 import ReduxStore from '../redux/store/store';
 //import {API} from '@env';
 
-export const baseURL = 'http://dev.lootswap.com:8000/api';
-export const baseURLMessage = 'http://dev.lootswap.com:8000/messages';
-export const baseURLPriveteMessage = 'http://dev.lootswap.com:8000';
+export const baseURL = 'http://192.168.0.104:8000/api';
+export const baseURLMessage = 'http://192.168.0.104:8000/messages';
+export const baseURLPriveteMessage = 'http://192.168.0.104:8000';
 
 const TIME_OUT = 30000;
 export const createAxiosInstanceWithHeader = () => {
