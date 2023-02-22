@@ -33,20 +33,8 @@ export const LikedProductScreen: FC<any> = props => {
     }
   }, [userData?.likedProducts, productsList]);
 
-  const onProductPress = (product: any) => {
-    navigation.navigate('ProductDetailsScreen', {
-      productData: {...product, objectID: product._id},
-    });
-  };
-
   const renderItem = ({item}) => {
-    return (
-      <LSProductCard
-        item={item}
-        onPress={() => onProductPress(item)}
-        liked={true}
-      />
-    );
+    return <LSProductCard item={{...item, objectID: item._id}} liked={true} />;
   };
 
   return (
