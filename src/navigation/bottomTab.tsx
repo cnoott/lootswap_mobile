@@ -126,6 +126,7 @@ const OffersStackNavigation = () => (
     <Stack.Screen name="OffersScreen" component={OffersScreen} />
     <Stack.Screen name="OffersMessageScreen" component={OffersMessageScreen} />
     <Stack.Screen name="TradeCheckoutScreen" component={TradeCheckoutScreen} />
+    <Stack.Screen name="AddressScreenCheckout" component={AddressScreen} />
     <Stack.Screen
       name="TradeCheckoutSuccessScreen"
       component={TradeCheckoutSuccessScreen}

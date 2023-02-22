@@ -40,6 +40,7 @@ export const AddressScreen: FC<{}> = () => {
         reqData,
         () => {
           Alert.showSuccess('Saved!');
+          dispatch(getMyDetailsRequest(userData?._id));
         },
         error => {
           Alert.showError(error);
