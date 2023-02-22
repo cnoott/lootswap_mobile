@@ -10,6 +10,7 @@ import {
   GET_MY_DETAILS_NO_LOAD,
   LIKE_PRODUCT,
   UNLIKE_PRODUCT,
+  EDIT_SHIPPING_ADDR,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -41,6 +42,7 @@ import {
   likeProductCall,
   unlikeProductCall,
   removeRegTokenCall,
+  editShippingAddrCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
@@ -222,7 +224,7 @@ export function* likeProduct(action: any) {
     if (response?.success) {
       yield put(likeProductSuccess(response.data));
     } else {
-      yield put(action?.likeProductFailure(action.error));
+      yield put(likeProductFailure());
     }
   } catch (e) {
     console.log(e);
@@ -246,6 +248,25 @@ export function* unlikeProduct(action: any) {
   }
 }
 
+export function* editShippingAddr(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      editShippingAddrCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
@@ -257,4 +278,5 @@ export default function* authSaga() {
   yield takeLatest(SET_REG_TOKEN.REQUEST, setRegToken);
   yield takeLatest(LIKE_PRODUCT.REQUEST, likeProduct);
   yield takeLatest(UNLIKE_PRODUCT.REQUEST, unlikeProduct);
+  yield takeLatest(EDIT_SHIPPING_ADDR.REQUEST, editShippingAddr);
 }

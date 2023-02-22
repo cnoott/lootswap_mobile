@@ -167,3 +167,7 @@ export const UNLIKE_PRODUCT = {
 export const SET_FCM_TOKEN = {
   ...createActionConst(actions.SET_FCM_TOKEN),
 };
+
+export const EDIT_SHIPPING_ADDR = {
+  ...createActionConst(actions.EDIT_SHIPPING_ADDR),
+};
