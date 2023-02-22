@@ -8,6 +8,7 @@ import {
   GET_USER_DETAILS,
   GET_MY_DETAILS,
   SET_REG_TOKEN,
+  GET_MY_DETAILS_NO_LOAD,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
 //import messaging from '@react-native-firebase/messaging';
@@ -205,6 +206,22 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case GET_MY_DETAILS.FAILURE: {
+      return {
+        ...state,
+      };
+    }
+    case GET_MY_DETAILS_NO_LOAD.REQUEST: {
+      return {
+        ...state,
+      };
+    }
+    case GET_MY_DETAILS_NO_LOAD.SUCCESS: {
+      return {
+        ...state,
+        userData: {...state.userData, ...payload},
+      };
+    }
+    case GET_MY_DETAILS_NO_LOAD.FAILURE: {
       return {
         ...state,
       };
