@@ -9,6 +9,7 @@ import HomeScreen from '../screens/home';
 import LikedProductScreen from '../screens/home/likedProductScreen';
 import ProfileScreen from '../screens/profile';
 import EditProfileScreen from '../screens/profile/editProfile';
+import AddressScreen from '../screens/profile/addressScreen';
 import NotificationSettingScreen from '../screens/profile/notificationSettings';
 import WalletScreen from '../screens/profile/walletScreen';
 import ProductDetailsScreen from '../screens/productDetails';
@@ -78,6 +79,7 @@ const ProfileStackNavigation = () => (
     }}>
     <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
     <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+    <Stack.Screen name="AddressScreen" component={AddressScreen} />
     <Stack.Screen name="MyLootScreen" component={MyLootScreen} />
     <Stack.Screen
       name="NotificationSettingScreen"

@@ -310,6 +310,15 @@ export const removeRegTokenCall = (reqData: any) => {
   );
 };
 
+export const editShippingAddrCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/user/${reqData?.userId}/update-shipping`, {
+      addr: {...reqData?.address, country: 'US'},
+    }),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
