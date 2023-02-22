@@ -16,7 +16,7 @@ export const LikedProductScreen: FC<any> = props => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const dispatch = useDispatch();
-  const [likedProdList, setLikedProdList] = useState([]); 
+  const [likedProdList, setLikedProdList] = useState([]);
   const {productsList} = props.route?.params;
   useEffect(() => {
     if (userData?._id) {
