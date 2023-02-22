@@ -46,7 +46,7 @@ export const PublicProfileScreen: FC<{}> = ({route}) => {
 
   const onFilterPress = (id: number) => {
     setSelectedFilter(id);
-    switch(id) {
+    switch (id) {
       case 1:
         setShowAll(true);
         break;
@@ -158,7 +158,7 @@ export const PublicProfileScreen: FC<{}> = ({route}) => {
         </EmptyScrollView>
         <ItemsListView
           data={requestedUserDetails?.my_items.filter(
-            item => showAll || item.type === filterItem
+            item => showAll || item.type === filterItem,
           )}
           renderItem={({item}) => renderTradeItem(item)}
         />
