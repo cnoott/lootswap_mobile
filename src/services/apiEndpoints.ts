@@ -285,6 +285,24 @@ export const setRegTokenCall = (reqData: any) => {
   );
 };
 
+export const likeProductCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/user/like-product/${reqData?.userId}`, {
+      productId: reqData?.productId,
+    }),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const unlikeProductCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/user/unlike-product/${reqData?.userId}`, {
+      productId: reqData?.productId,
+    }),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const removeRegTokenCall = (reqData: any) => {
   return handleResponse(
     api.put(`/user/remove-reg-token/${reqData?.userId}`),
