@@ -155,10 +155,14 @@ export const saveNotifPermissions = (status: boolean) => {
   };
 };
 
-export const setRegTokenRequest = (reqData: any) => {
+export const setRegTokenRequest = (
+  reqData: any,
+  isRemoveToken: boolean = false,
+) => {
   return {
     type: SET_REG_TOKEN.REQUEST,
     reqData: reqData,
+    isRemoveToken: isRemoveToken,
   };
 };
 

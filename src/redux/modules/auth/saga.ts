@@ -31,6 +31,7 @@ import {
   uploadProfileImage,
   getRequestedUserDetailsCall,
   setRegTokenCall,
+  removeRegTokenCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
@@ -122,7 +123,7 @@ export function* signOutAPI() {
   try {
     let authData = yield select(getAuthData);
     yield put(
-      setRegTokenRequest({userId: authData?.userData?._id, token: ''}), // Setting Token empty
+      setRegTokenRequest({userId: authData?.userData?._id, token: ''}, true), // Remove FCM Token Call
     );
     yield delay(500);
     yield put(signOutSuccess());
@@ -173,7 +174,7 @@ export function* getMyDetails(action: any) {
 export function* setRegToken(action: any) {
   try {
     const response: APIResponseProps = yield call(
-      setRegTokenCall,
+      action?.isRemoveToken ? removeRegTokenCall : setRegTokenCall,
       action?.reqData,
     );
     if (response?.success) {
