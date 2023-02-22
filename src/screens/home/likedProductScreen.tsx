@@ -16,7 +16,7 @@ export const LikedProductScreen: FC<any> = props => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const dispatch = useDispatch();
-  const [likedProdList, setLikedProdList] = useState([]);
+  const [likedProdList, setLikedProdList] = useState([]); 
   const {productsList} = props.route?.params;
   useEffect(() => {
     if (userData?._id) {
@@ -35,7 +35,7 @@ export const LikedProductScreen: FC<any> = props => {
 
   const onProductPress = (product: any) => {
     navigation.navigate('ProductDetailsScreen', {
-      productData: product,
+      productData: {...product, objectID: product._id},
     });
   };
 
@@ -54,7 +54,7 @@ export const LikedProductScreen: FC<any> = props => {
       <InStackHeader title={'Likes/Wishlist'} back onlyTitleCenterAlign />
       <SubContainer>
         <FlatList
-          data={likedProdList}
+          data={userData?.likedProducts}
           renderItem={renderItem}
           keyExtractor={item => item.objectID}
         />

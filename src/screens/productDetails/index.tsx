@@ -90,14 +90,17 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const [sendOfferItems, setSendOfferItems] = useState([]);
   const {requestedUserDetails, userData, isLogedIn} = auth;
   const {selectedProductDetails} = homeStates;
-  const {productData = {}} = route?.params;
-  const [liked, setLiked] = useState(false);
+  const {productData = {}, likedParam} = route?.params;
+  const [liked, setLiked] = useState(likedParam);
 
   useEffect(() => {
+    if (likedParam) {
+      setLiked(true);
+    }
     if (
       isLogedIn &&
       userData?.likedProducts.some(prod => {
-        return prod?._id === productData?.objectID;
+        return prod?._id === productData?.objectID || prod?._id === productData?._id
       })
     ) {
       setLiked(true);
@@ -116,9 +119,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     dispatch,
     productData?.userId,
     productData?.objectID,
-    userData?._id,
     isLogedIn,
     userData?.likedProducts,
+    userData?._id,
+    likedParam,
+    productData?._id,
   ]);
 
   const onLikePress = () => {
@@ -131,6 +136,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     };
     setLiked(true);
     dispatch(likeProduct(reqData));
+    dispatch(getMyDetailsNoLoadRequest(userData?._id));
   };
 
   const onUnlikePress = () => {
@@ -140,6 +146,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     };
     setLiked(false);
     dispatch(unlikeProduct(reqData));
+    dispatch(getMyDetailsNoLoadRequest(userData?._id));
   };
 
   const initiateFirstMessage = () => {

@@ -7,6 +7,9 @@ import {
   GET_USER_DETAILS,
   GET_MY_DETAILS,
   SET_REG_TOKEN,
+  GET_MY_DETAILS_NO_LOAD,
+  LIKE_PRODUCT,
+  UNLIKE_PRODUCT,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -22,6 +25,10 @@ import {
   getMyDetailsFailure,
   setRegTokenSuccess,
   setRegTokenFailure,
+  likeProductSuccess,
+  likeProductFailure,
+  unlikeProductSuccess,
+  unlikeProductFailure
   setRegTokenRequest,
 } from './actions';
 import {
@@ -31,6 +38,8 @@ import {
   uploadProfileImage,
   getRequestedUserDetailsCall,
   setRegTokenCall,
+  likeProductCall,
+  unlikeProductCall,
   removeRegTokenCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
@@ -171,6 +180,22 @@ export function* getMyDetails(action: any) {
   }
 }
 
+export function* getMyDetailsNoLoad(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      getRequestedUserDetailsCall,
+      action?.userId,
+    );
+    if (response?.success) {
+      yield put(getMyDetailsSuccess(response.data));
+    } else {
+      yield put(getMyDetailsFailure(response.error));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function* setRegToken(action: any) {
   try {
     const response: APIResponseProps = yield call(
@@ -187,6 +212,40 @@ export function* setRegToken(action: any) {
   }
 }
 
+export function* likeProduct(action: any) {
+  //No loading request
+  try {
+    const response: APIResponseProps = yield call(
+      likeProductCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      yield put(likeProductSuccess(response.data));
+    } else {
+      yield put(action?.likeProductFailure(action.error));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* unlikeProduct(action: any) {
+  //No loading request
+  try {
+    const response: APIResponseProps = yield call(
+      unlikeProductCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      yield put(unlikeProductSuccess());
+    } else {
+      yield put(unlikeProductFailure());
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
@@ -194,5 +253,8 @@ export default function* authSaga() {
   yield takeLatest(PROFILE_IMG_UPLOAD.REQUEST, uploadProfileImgAPI);
   yield takeLatest(GET_USER_DETAILS.REQUEST, getRequestedUserDetails);
   yield takeLatest(GET_MY_DETAILS.REQUEST, getMyDetails);
+  yield takeLatest(GET_MY_DETAILS_NO_LOAD.REQUEST, getMyDetailsNoLoad);
   yield takeLatest(SET_REG_TOKEN.REQUEST, setRegToken);
+  yield takeLatest(LIKE_PRODUCT.REQUEST, likeProduct);
+  yield takeLatest(UNLIKE_PRODUCT.REQUEST, unlikeProduct);
 }
