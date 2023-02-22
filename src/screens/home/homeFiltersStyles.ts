@@ -10,6 +10,7 @@ export const Container = styled.View.attrs(props => ({
   flex: 1,
   bg: props.theme.colors.white,
   pb: verticalScale(20),
+  width: '100%',
 }))`
   align-items: flex-start ${space} ${layout} ${color};
 `;
@@ -22,6 +23,7 @@ export const SubContainer = styled(KeyboardAwareScrollView).attrs(() => ({
   px: moderateScale(20),
   showsVerticalScrollIndicator: false,
   keyboardShouldPersistTaps: 'handled',
+  width: '100%',
 }))`
   ${color}
   ${layout}
