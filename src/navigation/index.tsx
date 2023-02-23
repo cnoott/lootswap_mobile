@@ -22,6 +22,7 @@ import ProfileReviewsScreen from '../screens/profile/profileReviewsScreen';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {handleNavigation} from '../utility/notification';
 import messaging from '@react-native-firebase/messaging';
+import ProductDetailsScreen from '../screens/productDetails';
 
 const Stack = createStackNavigator();
 
@@ -73,6 +74,7 @@ const AppNavigation = () => {
         options={{presentation: 'modal'}}
       />
       <Stack.Screen name="UserChatScreen" component={UserChatScreen} />
+      <Stack.Screen name="ProductDetailsChatScreen" component={ProductDetailsScreen} />
       <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
       <Stack.Screen
         name="PublicProfileScreen"

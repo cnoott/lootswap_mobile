@@ -195,13 +195,10 @@ export const UserChatScreen: FC<any> = ({route}) => {
             : historyMessages?.reciever?.name
         }
         onItemPress={() => {
-          navigation.navigate('Home', {
-            screen: 'ProductDetailsScreen',
-            params: {
-              productData: {
-                ...historyMessages?.product,
-                objectID: historyMessages?.product?._id,
-              },
+          navigation.navigate('ProductDetailsChatScreen', {
+            productData: {
+              ...historyMessages?.product,
+              objectID: historyMessages?.product?._id,
             },
           });
         }}
