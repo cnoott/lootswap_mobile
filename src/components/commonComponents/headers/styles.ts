@@ -81,6 +81,7 @@ export const OfferChatHeaderText = styled.Text.attrs(props => ({
 }))`
   font-size: ${moderateScale(14)}px;
   font-family: Inter-Bold;
+  align-self: center;
   ${color}
   ${space}
   ${layout}
@@ -395,7 +396,9 @@ export const ModalItemContainer = styled.TouchableOpacity.attrs(props => ({
 
 export const TouchableOpacity = styled.TouchableOpacity.attrs({
   hitSlop: {top: 10, left: 10, right: 10, bottom: 10},
-})``;
+})`
+  flex-direction: row;
+`;
 
 export const EmptyRowView = styled.View`
   flex-direction: row;
