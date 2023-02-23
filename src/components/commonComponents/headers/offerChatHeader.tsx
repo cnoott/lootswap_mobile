@@ -285,6 +285,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <SvgXml xml={LEFT_BLACK_ARROW} />
             </TouchableOpacity>
+            <TouchableOpacity>
             <LSProfileImageComponent
               profileUrl={profilePicture}
               imageHeight={34}
@@ -292,6 +293,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
               imageRadius={17}
             />
             <OfferChatHeaderText>{title}</OfferChatHeaderText>
+              </TouchableOpacity>
           </EmptyRowView>
           {isPending && (
             <EmptyRowView>
