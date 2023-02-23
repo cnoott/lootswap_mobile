@@ -240,6 +240,7 @@ export const unlikeProductSuccess = () => {
 export const unlikeProductFailure = () => {
   return {
     type: UNLIKE_PRODUCT.FAILURE,
+  };
 };
 
 export const setFCMTokenRequest = (fcmToken: any) => {
