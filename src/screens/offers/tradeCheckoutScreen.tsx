@@ -34,6 +34,7 @@ import {
   getMyDetailsRequest,
   fetchPaymentSheet,
   getAllOrders,
+  getTrade,
 } from '../../redux/modules';
 import {StripeProvider, useStripe} from '@stripe/stripe-react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -126,7 +127,13 @@ export const TradeCheckoutScreen: FC<{}> = props => {
           userId: userData?._id,
         }),
       );
-      navigation.navigate('TradeCheckoutSuccessScreen', {
+      dispatch(
+        getTrade({
+          userId: userData?._id,
+          tradeId: tradeData?._id,
+        }),
+      );
+      navigation.replace('TradeCheckoutSuccessScreen', {
         orderData: orderData,
         total: total,
       });
