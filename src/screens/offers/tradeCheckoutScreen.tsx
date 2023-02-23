@@ -199,9 +199,7 @@ export const TradeCheckoutScreen: FC<{}> = props => {
       <EmptyView>
         {renderHeading('Purchase Summary')}
         <StretchedRowView>
-          <ItemSubLabel>
-            Platform fee <PromoAppliedLabel>{'100'}% off!</PromoAppliedLabel>
-          </ItemSubLabel>
+          <ItemSubLabel>Platform fee</ItemSubLabel>
           <SummaryText>+${platformFee}</SummaryText>
         </StretchedRowView>
         {renderSummaryDetail(
@@ -218,7 +216,7 @@ export const TradeCheckoutScreen: FC<{}> = props => {
     return (
       <StretchedRowView>
         <HeadingLabel>Total</HeadingLabel>
-        <HeadingLabel isBlack={true}>${total}</HeadingLabel>
+        <HeadingLabel isBlack={true}>${total.toFixed(2)}</HeadingLabel>
       </StretchedRowView>
     );
   };
