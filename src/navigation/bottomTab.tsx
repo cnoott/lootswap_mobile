@@ -9,6 +9,7 @@ import HomeScreen from '../screens/home';
 import LikedProductScreen from '../screens/home/likedProductScreen';
 import ProfileScreen from '../screens/profile';
 import EditProfileScreen from '../screens/profile/editProfile';
+import AddressScreen from '../screens/profile/addressScreen';
 import NotificationSettingScreen from '../screens/profile/notificationSettings';
 import WalletScreen from '../screens/profile/walletScreen';
 import ProductDetailsScreen from '../screens/productDetails';
@@ -67,6 +68,7 @@ const HomeStackNavigation = () => (
     />
     <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
     <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
+    <Stack.Screen name="AddressScreenBuyCheckout" component={AddressScreen} />
   </Stack.Navigator>
 );
 
@@ -78,6 +80,7 @@ const ProfileStackNavigation = () => (
     }}>
     <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
     <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+    <Stack.Screen name="AddressScreen" component={AddressScreen} />
     <Stack.Screen name="MyLootScreen" component={MyLootScreen} />
     <Stack.Screen
       name="NotificationSettingScreen"
@@ -123,7 +126,9 @@ const OffersStackNavigation = () => (
     }}>
     <Stack.Screen name="OffersScreen" component={OffersScreen} />
     <Stack.Screen name="OffersMessageScreen" component={OffersMessageScreen} />
+    <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
     <Stack.Screen name="TradeCheckoutScreen" component={TradeCheckoutScreen} />
+    <Stack.Screen name="AddressScreenCheckout" component={AddressScreen} />
     <Stack.Screen
       name="TradeCheckoutSuccessScreen"
       component={TradeCheckoutSuccessScreen}

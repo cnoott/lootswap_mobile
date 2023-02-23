@@ -11,6 +11,7 @@ import {
   LIKE_PRODUCT,
   UNLIKE_PRODUCT,
   SET_FCM_TOKEN,
+  EDIT_SHIPPING_ADDR,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -247,5 +248,18 @@ export const setFCMTokenRequest = (fcmToken: any) => {
   return {
     type: SET_FCM_TOKEN.REQUEST,
     fcmToken: fcmToken,
+  };
+};
+
+export const editShippingAddr = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: EDIT_SHIPPING_ADDR.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
   };
 };

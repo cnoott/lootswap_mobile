@@ -12,10 +12,11 @@ import {EDIT_PRIMARY_ICON_BOTTOM_LINE} from '../../assets/images/svgs';
 
 interface DeliveryAddressProps {
   userDetails: any;
+  onPress: Function;
 }
 
 function DeliveryAddressComponent(props: DeliveryAddressProps) {
-  const {userDetails} = props;
+  const {userDetails, onPress} = props;
   return (
     <DeliveryAddContainer>
       <DeliveryAddSubContainer>
@@ -29,7 +30,7 @@ function DeliveryAddressComponent(props: DeliveryAddressProps) {
           {userDetails?.shipping_address?.zip}
         </DeliveryAddressText>
       </DeliveryAddSubContainer>
-      <EditLabelContainer>
+      <EditLabelContainer onPress={() => onPress()}>
         <SvgXml xml={EDIT_PRIMARY_ICON_BOTTOM_LINE} />
         <EditLabel>Edit</EditLabel>
       </EditLabelContainer>

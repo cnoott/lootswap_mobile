@@ -1,4 +1,4 @@
-# LootSwap
+# lootswap mobile
 
 # M1 Mac Setup Instructions for running on iOS simulator
 (Set up is different for M1 arch)
