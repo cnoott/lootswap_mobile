@@ -28,7 +28,7 @@ import {
   likeProductSuccess,
   likeProductFailure,
   unlikeProductSuccess,
-  unlikeProductFailure
+  unlikeProductFailure,
   setRegTokenRequest,
 } from './actions';
 import {
