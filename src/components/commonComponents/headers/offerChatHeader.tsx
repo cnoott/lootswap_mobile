@@ -173,15 +173,11 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
           });
         } else {
           //checkout
-          navigation.navigate('Home', {
-            screen: 'CheckoutScreen',
-            params: {
-              productData: offerItem.recieverItem,
-              isMoneyOffer: true,
-              tradeData: offerItem,
-            },
+          navigation.navigate('MoneyOfferCheckoutScreen', {
+            productData: offerItem.recieverItem,
+            isMoneyOffer: true,
+            tradeData: offerItem,
           });
-          //if paid navigate to track order screen
         }
         return;
       }
@@ -289,8 +285,10 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
               onPress={() =>
                 navigation.navigate('PublicProfileScreen', {
                   requestedUserDetails: isReciever
-                    ? offerItem.sender : offerItem.reciever,
-                })}>
+                    ? offerItem.sender
+                    : offerItem.reciever,
+                })
+              }>
               <LSProfileImageComponent
                 profileUrl={profilePicture}
                 imageHeight={34}

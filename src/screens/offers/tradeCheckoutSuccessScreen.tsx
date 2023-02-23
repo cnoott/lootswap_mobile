@@ -4,7 +4,7 @@ LootSwap - TRADE CHECKOUT SUCESS SCREEN
 
 import React, {FC, useEffect, useState} from 'react';
 import {Size, Type} from 'custom_enums';
-import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
+import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSButton from '../../components/commonComponents/LSButton';
 import {PAYMENT_SUCCESS_GIF} from '../../constants/imageConstants';
 import {
@@ -84,7 +84,7 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
 
   return (
     <Container>
-      <InHomeHeader />
+      <InStackHeader title={''}/>
       <SubContainer>
         <SuccessImage source={PAYMENT_SUCCESS_GIF} />
         <SuccessLabel>Payment Success</SuccessLabel>
