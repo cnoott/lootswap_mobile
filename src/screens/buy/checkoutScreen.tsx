@@ -199,7 +199,10 @@ export const CheckoutScreen: FC<{}> = props => {
       <InStackHeader title={'Checkout'} onlyTitleCenterAlign={true} />
       <HorizontalBar />
       <ScrollSubContainer>
-        <DeliveryAddressComponent userDetails={userData} />
+        <DeliveryAddressComponent
+          userDetails={userData}
+          onPress={() => navigation?.navigate('AddressScreenBuyCheckout')}
+        />
         {renderItem()}
         <VerticalMargin />
         <HorizontalBar />

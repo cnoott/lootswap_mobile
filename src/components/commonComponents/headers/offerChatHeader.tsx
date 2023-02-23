@@ -285,13 +285,20 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <SvgXml xml={LEFT_BLACK_ARROW} />
             </TouchableOpacity>
-            <LSProfileImageComponent
-              profileUrl={profilePicture}
-              imageHeight={34}
-              imageWidth={34}
-              imageRadius={17}
-            />
-            <OfferChatHeaderText>{title}</OfferChatHeaderText>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('PublicProfileScreen', {
+                  requestedUserDetails: isReciever
+                    ? offerItem.sender : offerItem.reciever,
+                })}>
+              <LSProfileImageComponent
+                profileUrl={profilePicture}
+                imageHeight={34}
+                imageWidth={34}
+                imageRadius={17}
+              />
+              <OfferChatHeaderText>{title}</OfferChatHeaderText>
+            </TouchableOpacity>
           </EmptyRowView>
           {isPending && (
             <EmptyRowView>

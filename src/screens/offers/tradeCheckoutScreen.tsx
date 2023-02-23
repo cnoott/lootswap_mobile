@@ -236,7 +236,9 @@ export const TradeCheckoutScreen: FC<{}> = props => {
         <InStackHeader title={'Trade Checkout'} onlyTitleCenterAlign={true} />
         <HorizontalBar />
         <ScrollSubContainer>
-          <DeliveryAddressComponent userDetails={userData} />
+          <DeliveryAddressComponent
+            userDetails={userData}
+            onPress={() => navigation.navigate('AddressScreenCheckout')}/>
           {renderYourItems()}
           {renderSendersItems()}
           <VerticalMargin />
