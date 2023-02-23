@@ -67,9 +67,11 @@ export const CheckoutScreen: FC<{}> = props => {
 
   const renderTotal = () => {
     if (isMoneyOffer) {
-      return tradeData?.senderMoneyOffer;
+      return tradeData?.senderMoneyOffer.toFixed(2);
     } else {
-      return parseFloat(renderShippingCost()) + parseFloat(productData?.price);
+      return (
+        parseFloat(renderShippingCost()) + parseFloat(productData?.price)
+      ).toFixed(2);
     }
   };
 
@@ -116,10 +118,12 @@ export const CheckoutScreen: FC<{}> = props => {
     return (
       <EmptyView>
         {renderHeading('Purchase Summary')}
-        {renderSummaryDetail('Shipping', renderShippingCost())}
+        {renderSummaryDetail('Shipping', renderShippingCost().toFixed(2))}
         {renderSummaryDetail(
           'Product cost',
-          isMoneyOffer ? tradeData?.senderMoneyOffer : productData?.price,
+          isMoneyOffer
+            ? tradeData?.senderMoneyOffer.toFixed(2)
+            : productData?.price.toFixed(2),
         )}
         {/*renderSummaryDetail('Taxes and fees', paymentDetails?.)*/}
       </EmptyView>
