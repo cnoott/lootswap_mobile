@@ -27,7 +27,7 @@ import {
   ItemSubLabel,
   SummaryText,
 } from '../offers/tradeCheckoutStyle';
-import {getMyDetailsRequest, getUsersDetailsRequest} from '../../redux/modules';
+import {getMyDetailsRequest, getUsersDetailsRequest, getTrade} from '../../redux/modules';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 
 //TODO:
@@ -80,18 +80,26 @@ export const CheckoutScreen: FC<{}> = props => {
     switch (data.status) {
       case 'success':
         setShowGateway(false);
-        navigation.reset({
-          index: 0,
-          routes: [{name: 'HomeScreen'}],
-        });
-        navigation?.navigate('Profile', {
-          screen: 'TradeCheckoutSuccessScreen',
-          params: {
+      if (isMoneyOffer) {
+        dispatch(
+          getTrade({
+            userId: userData?._id,
+            tradeId: tradeData?._id,
+          }),
+        );
+        navigation?.replace('TradeCheckoutSuccessScreen', {
             isSale: true,
             total: renderTotal(),
             paypalOrderData: data.info.paypalOrder,
-          },
-        });
+          });
+
+      } else {
+          navigation?.replace('BuyCheckoutSuccessScreen', {
+            isSale: true,
+            total: renderTotal(),
+            paypalOrderData: data.info.paypalOrder,
+          });
+      }
         break;
       case 'error':
         console.log(msg);
