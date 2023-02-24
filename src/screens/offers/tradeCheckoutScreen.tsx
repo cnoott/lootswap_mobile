@@ -34,6 +34,7 @@ import {
   getMyDetailsRequest,
   fetchPaymentSheet,
   getAllOrders,
+  getTrade,
 } from '../../redux/modules';
 import {StripeProvider, useStripe} from '@stripe/stripe-react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -126,7 +127,13 @@ export const TradeCheckoutScreen: FC<{}> = props => {
           userId: userData?._id,
         }),
       );
-      navigation.navigate('TradeCheckoutSuccessScreen', {
+      dispatch(
+        getTrade({
+          userId: userData?._id,
+          tradeId: tradeData?._id,
+        }),
+      );
+      navigation.replace('TradeCheckoutSuccessScreen', {
         orderData: orderData,
         total: total,
       });
@@ -192,9 +199,7 @@ export const TradeCheckoutScreen: FC<{}> = props => {
       <EmptyView>
         {renderHeading('Purchase Summary')}
         <StretchedRowView>
-          <ItemSubLabel>
-            Platform fee <PromoAppliedLabel>{'100'}% off!</PromoAppliedLabel>
-          </ItemSubLabel>
+          <ItemSubLabel>Platform fee</ItemSubLabel>
           <SummaryText>+${platformFee}</SummaryText>
         </StretchedRowView>
         {renderSummaryDetail(
@@ -211,7 +216,7 @@ export const TradeCheckoutScreen: FC<{}> = props => {
     return (
       <StretchedRowView>
         <HeadingLabel>Total</HeadingLabel>
-        <HeadingLabel isBlack={true}>${total}</HeadingLabel>
+        <HeadingLabel isBlack={true}>${total.toFixed(2)}</HeadingLabel>
       </StretchedRowView>
     );
   };
