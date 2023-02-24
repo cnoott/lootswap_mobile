@@ -27,7 +27,7 @@ import {
   ItemSubLabel,
   SummaryText,
 } from '../offers/tradeCheckoutStyle';
-import {getMyDetailsRequest, getUsersDetailsRequest} from '../../redux/modules';
+import {getMyDetailsRequest, getUsersDetailsRequest, getTrade} from '../../redux/modules';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 
 //TODO:
@@ -67,9 +67,11 @@ export const CheckoutScreen: FC<{}> = props => {
 
   const renderTotal = () => {
     if (isMoneyOffer) {
-      return tradeData?.senderMoneyOffer;
+      return tradeData?.senderMoneyOffer.toFixed(2);
     } else {
-      return parseFloat(renderShippingCost()) + parseFloat(productData?.price);
+      return (
+        parseFloat(renderShippingCost()) + parseFloat(productData?.price)
+      ).toFixed(2);
     }
   };
 
@@ -78,18 +80,26 @@ export const CheckoutScreen: FC<{}> = props => {
     switch (data.status) {
       case 'success':
         setShowGateway(false);
-        navigation.reset({
-          index: 0,
-          routes: [{name: 'HomeScreen'}],
-        });
-        navigation?.navigate('Profile', {
-          screen: 'TradeCheckoutSuccessScreen',
-          params: {
+      if (isMoneyOffer) {
+        dispatch(
+          getTrade({
+            userId: userData?._id,
+            tradeId: tradeData?._id,
+          }),
+        );
+        navigation?.replace('TradeCheckoutSuccessScreen', {
             isSale: true,
             total: renderTotal(),
             paypalOrderData: data.info.paypalOrder,
-          },
-        });
+          });
+
+      } else {
+          navigation?.replace('BuyCheckoutSuccessScreen', {
+            isSale: true,
+            total: renderTotal(),
+            paypalOrderData: data.info.paypalOrder,
+          });
+      }
         break;
       case 'error':
         console.log(msg);
@@ -116,10 +126,12 @@ export const CheckoutScreen: FC<{}> = props => {
     return (
       <EmptyView>
         {renderHeading('Purchase Summary')}
-        {renderSummaryDetail('Shipping', renderShippingCost())}
+        {renderSummaryDetail('Shipping', renderShippingCost().toFixed(2))}
         {renderSummaryDetail(
           'Product cost',
-          isMoneyOffer ? tradeData?.senderMoneyOffer : productData?.price,
+          isMoneyOffer
+            ? tradeData?.senderMoneyOffer.toFixed(2)
+            : productData?.price.toFixed(2),
         )}
         {/*renderSummaryDetail('Taxes and fees', paymentDetails?.)*/}
       </EmptyView>

@@ -19,7 +19,6 @@ import {
   InputView,
   SectionList,
 } from './styles';
-import {MEDIA_UPLOAD_GREY_ICON} from 'localsvgimages';
 import {PaperAirplaneIcon} from 'react-native-heroicons/solid';
 import {moderateScale} from 'react-native-size-matters';
 import MessageCell from '../../components/message/messageCell';
@@ -145,7 +144,6 @@ export const UserChatScreen: FC<any> = ({route}) => {
           onChangeText={setMessageText}
           value={messageText}
           placeholder={'Message..'}
-          rightIcon={MEDIA_UPLOAD_GREY_ICON}
           homeSearch={true}
           multiline
         />

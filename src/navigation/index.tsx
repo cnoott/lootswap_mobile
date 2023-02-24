@@ -74,7 +74,10 @@ const AppNavigation = () => {
         options={{presentation: 'modal'}}
       />
       <Stack.Screen name="UserChatScreen" component={UserChatScreen} />
-      <Stack.Screen name="ProductDetailsChatScreen" component={ProductDetailsScreen} />
+      <Stack.Screen
+        name="ProductDetailsChatScreen"
+        component={ProductDetailsScreen}
+      />
       <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
       <Stack.Screen
         name="PublicProfileScreen"
