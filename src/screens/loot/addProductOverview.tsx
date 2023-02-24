@@ -114,7 +114,11 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
     if (isUpdateCall) {
       reqData.productIdToUpdate = productId;
     }
-    dispatch(createNewProduct(reqData, isUpdateCall));
+    dispatch(
+      createNewProduct(reqData, isUpdateCall, () => {
+        navigation?.navigate('ListLootSuccessScreen');
+      }),
+    );
   };
   const onBackCall = () => {
     if (isFromEdit) {
