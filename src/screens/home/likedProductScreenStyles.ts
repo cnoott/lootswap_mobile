@@ -13,6 +13,7 @@ export const Container = styled.View.attrs(props => ({
 export const SubContainer = styled.View.attrs(() => ({
   marginVertical: moderateScale(5),
   marginHorizontal: moderateScale(10),
+  flex: 1,
 }))`
   ${space}
   ${layout}
