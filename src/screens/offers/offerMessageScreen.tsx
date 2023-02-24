@@ -71,6 +71,7 @@ export const OffersMessageScreen: FC<{}> = props => {
     useState(false);
   const [isChangeOfferModalVisible, setChangeOfferModalVisible] =
     useState(false);
+  const [isListnerAdded, setIsListnerAdded] = useState(false);
   var messagesListRaw: any = useRef([]);
 
   useEffect(() => {
@@ -88,7 +89,8 @@ export const OffersMessageScreen: FC<{}> = props => {
   }, [dispatch, userData?._id]);
 
   useEffect(() => {
-    if (socketObj && isConnected) {
+    if (socketObj && isConnected && !isListnerAdded) {
+      setIsListnerAdded(true);
       initSocket(socketObj);
     }
   }, [socketObj, isConnected]);
@@ -107,6 +109,7 @@ export const OffersMessageScreen: FC<{}> = props => {
       socketObj?.disconnect();
       socketObj?.removeAllListeners();
       socketObj?.close();
+      setIsListnerAdded(false);
     };
   }, []);
 
