@@ -24,7 +24,6 @@ import {
   savePaypalCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
-import {resetRoute} from '../../../navigation/navigationHelper';
 import {Alert} from 'custom_top_alert';
 
 type APIResponseProps = {
@@ -98,6 +97,9 @@ export function* createNewProduct(action: any) {
     );
     yield put(LoadingSuccess());
     if (response?.success) {
+      if (!action?.isUpdateCall) {
+        action?.successCallBack();
+      }
       Alert.showSuccess(
         action?.isUpdateCall
           ? 'Product updated successfully..'
@@ -105,7 +107,6 @@ export function* createNewProduct(action: any) {
       );
       yield put(createNewProductSuccess());
       yield put(resetAddProductData());
-      resetRoute();
     } else {
       yield put(createNewProductFailure());
     }

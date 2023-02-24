@@ -50,6 +50,7 @@ import {
   TabItemText,
 } from './styles';
 import PublicProfileScreen from '../screens/profile/publicProfileScreen';
+import ListLootSuccessScreen from '../screens/loot/listLootSuccessScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -118,6 +119,10 @@ const LootStackNavigation = () => (
     <Stack.Screen
       name="AddProductOverviewScreen"
       component={AddProductOverviewScreen}
+    />
+    <Stack.Screen
+      name="ListLootSuccessScreen"
+      component={ListLootSuccessScreen}
     />
   </Stack.Navigator>
 );
