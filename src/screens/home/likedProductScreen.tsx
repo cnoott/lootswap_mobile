@@ -9,6 +9,8 @@ import {getMyDetailsRequest} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSProductCard from '../../components/productCard';
+import LSEmptyListComponent from '../../components/commonComponents/LSEmptyListComponent';
+import {EMPTY_TRADE_OFFERS_ICON} from 'localsvgimages';
 import {Container, SubContainer, FlatList} from './likedProductScreenStyles';
 
 export const LikedProductScreen: FC<any> = props => {
@@ -44,7 +46,13 @@ export const LikedProductScreen: FC<any> = props => {
         <FlatList
           data={userData?.likedProducts}
           renderItem={renderItem}
-          keyExtractor={item => item.objectID}
+          keyExtractor={item => item?.objectID}
+          ListEmptyComponent={() => (
+            <LSEmptyListComponent
+              emptyMsg={'Your wishlist is empty, Go & add some..'}
+              svgImg={EMPTY_TRADE_OFFERS_ICON}
+            />
+          )}
         />
       </SubContainer>
     </Container>
