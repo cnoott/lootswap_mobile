@@ -99,7 +99,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     }
     if (
       isLogedIn &&
-      userData?.likedProducts.some(prod => {
+      userData?.likedProducts?.some(prod => {
         return (
           prod?._id === productData?.objectID || prod?._id === productData?._id
         );

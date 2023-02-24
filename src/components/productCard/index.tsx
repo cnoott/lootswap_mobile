@@ -46,7 +46,7 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
   useEffect(() => {
     if (
       isLogedIn &&
-      userData?.likedProducts.some(prod => {
+      userData?.likedProducts?.some(prod => {
         return prod?._id === item?.objectID || prod?._id === item?._id;
       })
     ) {
