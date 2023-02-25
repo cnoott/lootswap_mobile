@@ -61,7 +61,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
         item.senderStep < 3 ||
         typeof item.toSenderTrackingNumber === 'undefined'
       ) {
-        return senderUPSShipmentData.toWarehouse.ShipmentResponse
+        return senderUPSShipmentData?.toWarehouse?.ShipmentResponse
           .ShipmentResults.PackageResults.TrackingNumber;
       } else {
         return item?.toSenderTrackingNumber;
@@ -170,13 +170,6 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
         right={false}
         printLabel={true}
         printLabelButton={printLabelRenderOptions}
-        onBackCall={() => {
-          navigation.reset({
-            index: 0,
-            routes: [{name: 'ProfileScreen'}],
-          });
-          navigation.navigate('MyOrdersListScreen');
-        }}
       />
       <SubContainer>
         {renderOrderHeaderDetails()}
