@@ -101,17 +101,17 @@ export const getCombinedRatings = (ratingsArr = []) => {
 
 export const getProductTags = (tagType = 'trade-sell', theme: any) => {
   const tradeItem = {
-    label: 'Trade-Only',
+    label: 'Trade Only',
     labelColor: theme?.colors.white,
-    backColor: theme?.colors.tradeBg,
+    backColor: theme?.colors.tradeOnlyBg,
   };
   const saleItem = {
-    label: 'Sale-Only',
+    label: 'Sell Only',
     labelColor: theme?.colors.white,
     backColor: theme?.colors.sellBg,
   };
   const saleAndTradeItem = {
-    label: 'Trade & Sale',
+    label: 'Trade & Sell',
     labelColor: theme?.colors.white,
     backColor: theme?.colors.tradeBg,
   };
