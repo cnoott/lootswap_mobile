@@ -69,16 +69,9 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
   }, [orderData?._id, dispatch, isSale, userData?._id, paypalOrderData?._id]);
 
   const onPressOptions = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{name: 'Profile'}],
-    });
-    navigation.navigate('Profile', {
-      screen: 'TrackOrderScreen',
-      params: {
-        isTradeOrder: !isSale,
-        item: isSale ? paypalOrder : latestOrder,
-      },
+    navigation.navigate('TrackOrderScreen', {
+      isTradeOrder: !isSale,
+      item: isSale ? paypalOrder : latestOrder,
     });
   };
 
