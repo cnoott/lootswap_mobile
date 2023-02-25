@@ -164,12 +164,9 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
         }
 
         if (offerItem?.paypalOrderId) {
-          navigation.navigate('Profile', {
-            screen: 'TrackOrderScreen',
-            params: {
-              isTradeOrder: false,
-              item: offerItem?.paypalOrderId,
-            },
+          navigation.navigate('TrackOrderScreen', {
+            isTradeOrder: false,
+            item: offerItem?.paypalOrderId,
           });
         } else {
           //checkout
@@ -188,12 +185,9 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       orderData.sender = offerItem.sender;
 
       if (paidByBothUsers) {
-        navigation.navigate('Profile', {
-          screen: 'TrackOrderScreen',
-          params: {
-            isTradeOrder: true,
-            item: orderData,
-          },
+        navigation.navigate('TrackOrderScreen', {
+          isTradeOrder: true,
+          item: orderData,
         });
       } else {
         //Checkout trade order
