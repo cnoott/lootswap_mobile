@@ -10,12 +10,16 @@ interface LSMessageCellProps {
 const MessageCell: FC<LSMessageCellProps> = React.memo(props => {
   const {item, onPress = () => {}, self = false} = props;
 
-  return (
-    <MessageBoxContainer self={self} onPress={onPress}>
-      <MessageText self={self}>{item}</MessageText>
-      <TimeText />
-    </MessageBoxContainer>
-  );
+  if (item === 'trade-update') {
+    return;
+  } else {
+    return (
+      <MessageBoxContainer self={self} onPress={onPress}>
+        <MessageText self={self}>{item}</MessageText>
+        <TimeText />
+      </MessageBoxContainer>
+    );
+  }
 });
 
 export default MessageCell;
