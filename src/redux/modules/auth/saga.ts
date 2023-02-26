@@ -11,6 +11,7 @@ import {
   LIKE_PRODUCT,
   UNLIKE_PRODUCT,
   EDIT_SHIPPING_ADDR,
+  UPDATE_USER,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -31,6 +32,8 @@ import {
   unlikeProductSuccess,
   unlikeProductFailure,
   setRegTokenRequest,
+  updateUserSuccess,
+  updateUserFailure,
 } from './actions';
 import {
   signIn,
@@ -43,6 +46,7 @@ import {
   unlikeProductCall,
   removeRegTokenCall,
   editShippingAddrCall,
+  updateUserCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
@@ -266,6 +270,23 @@ export function* editShippingAddr(action: any) {
     console.log(e);
   }
 }
+export function* updateUser(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      updateUserCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack();
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
@@ -279,4 +300,5 @@ export default function* authSaga() {
   yield takeLatest(LIKE_PRODUCT.REQUEST, likeProduct);
   yield takeLatest(UNLIKE_PRODUCT.REQUEST, unlikeProduct);
   yield takeLatest(EDIT_SHIPPING_ADDR.REQUEST, editShippingAddr);
+  yield takeLatest(UPDATE_USER.REQUEST, updateUser);
 }
