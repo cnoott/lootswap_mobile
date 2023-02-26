@@ -12,6 +12,7 @@ import {
   UNLIKE_PRODUCT,
   SET_FCM_TOKEN,
   EDIT_SHIPPING_ADDR,
+  UPDATE_USER,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -261,5 +262,25 @@ export const editShippingAddr = (
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
+  };
+};
+
+export const updateUser = (reqData: any) => {
+  return {
+    type: UPDATE_USER.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const updateUserSuccess = (payload: any) => {
+  return {
+    type: UPDATE_USER.SUCCESS,
+    reqData: payload,
+  };
+};
+
+export const updateUserFailure = () => {
+  return {
+    type: UPDATE_USER.FAILURE,
   };
 };

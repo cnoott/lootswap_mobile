@@ -2,8 +2,8 @@
 LootSwap - FIRST TAB SCREEN
 ***/
 
-import React, {FC, useState} from 'react';
-// import {Platform} from 'react-native';
+import React, {FC, useState, useEffect} from 'react';
+import {Platform} from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {
@@ -33,10 +33,14 @@ import {
 import {scale} from 'react-native-size-matters';
 import {useSelector, useDispatch} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
-import {signOutRequest} from '../../redux/modules';
+import {signOutRequest, updateUser} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {getProfileOptions} from '../../utility/utility';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {
+  getSignedRequest,
+  uploadFile,
+} from '../../services/imageUploadService';
 
 type Option = {
   icon: string;
@@ -51,6 +55,7 @@ export const ProfileScreen: FC<{}> = () => {
   const [profileUrl, setProfileUrl] = useState('');
   const [isImageUploading, setImageUploading] = useState(false);
   const {userData} = auth;
+
   const onProfileOptionPress = (index: Number) => {
     switch (index) {
       case 1:
@@ -77,23 +82,40 @@ export const ProfileScreen: FC<{}> = () => {
   };
   const onEditProfilePress = () => {
     ImagePicker.openPicker({
-      width: 300,
-      height: 400,
+      width: 500,
+      height: 500,
       cropping: true,
+      compressImageQuality: 0.01,
+      compressImageMaxHeight: 500,
     }).then(image => {
-      // setImageUploading(true);
-      // const fileData = {
-      //   ...image,
-      //   type: image?.mime,
-      //   uri:
-      //     Platform.OS === 'android'
-      //       ? image?.sourceURL
-      //       : image?.sourceURL?.replace('file://', ''),
-      // };
-
-      // Unwanted code
-      setProfileUrl(image.path);
-      setImageUploading(false);
+      image.sourceURL = 'file://' + image.path;
+      setImageUploading(true);
+      const fileData = {
+        ...image,
+        type: image?.mime,
+        uri:
+          Platform.OS === 'android'
+            ? image?.sourceURL
+            : image?.sourceURL?.replace('file://', ''),
+      };
+      getSignedRequest(fileData)
+        .then(signedReqData => {
+          uploadFile(fileData, signedReqData?.signedRequest, signedReqData?.url)
+            .then(url => {
+              setImageUploading(false);
+              dispatch(updateUser({
+                userId: userData?._id,
+                userData: {profile_picture: url},
+              }));
+              setProfileUrl(url);
+            })
+            .catch(() => {
+              setImageUploading(false);
+            });
+        })
+        .catch(() => {
+          setImageUploading(false);
+        });
     });
   };
   const onSignoutPress = () => {
@@ -109,7 +131,7 @@ export const ProfileScreen: FC<{}> = () => {
             width={scale(100)}
           />
           {profileUrl ? (
-            <Image source={{uri: userData?.profileUrl}} />
+            <Image source={{uri: profileUrl}} />
           ) : (
             <Image source={{uri: userData?.profile_picture}} />
           )}
