@@ -76,9 +76,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         if (images?.length > 0) {
           const oldImagesData = [...productImagesArr];
           images?.map(imgData => {
-            console.log('IMG DATA BEFORE  >>', imgData.path, imgData.sourceURL);
             imgData.sourceURL = 'file://' + imgData.path;
-            console.log('IMG DATA AFTER >>', imgData.path, imgData.sourceURL);
             const fileData = {
               ...imgData,
               type: imgData?.mime,
