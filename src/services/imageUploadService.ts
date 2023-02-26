@@ -6,7 +6,7 @@ import {API_METHOD} from 'custom_enums';
 import {baseURL} from './apiHelpers';
 
 export const getSignedRequest = (file: any) => {
-  const newName = Math.floor(Math.random() * 9999) + encodeURIComponent('test');
+  const newName = encodeURIComponent('mobile_upload') + Math.floor(Math.random() * 9999);
   return fetch(
     `${baseURL}/sign-s3?file-name=${newName}&file-type=${file.type}`,
     {
