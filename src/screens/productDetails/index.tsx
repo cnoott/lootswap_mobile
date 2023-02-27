@@ -107,15 +107,16 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     ) {
       setLiked(true);
     }
-
-    if (productData?.userId) {
-      dispatch(getUsersDetailsRequest(productData?.userId));
-      dispatch(getProductDetails(productData?.objectID));
+    if (isLogedIn) {
       dispatch(
         getTradesHistory({
           userId: userData?._id,
         }),
       );
+    }
+    if (productData?.userId) {
+      dispatch(getUsersDetailsRequest(productData?.userId));
+      dispatch(getProductDetails(productData?.objectID));
     }
   }, [
     dispatch,
@@ -296,7 +297,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     );
   };
   const renderButtons = () => {
-    if (userData?._id === requestedUserDetails?._id) {
+    if (isLogedIn && userData?._id === requestedUserDetails?._id) {
       return (
         <TopSpace>
           <LSButton
@@ -473,13 +474,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                 {productData?.type !== Trade_Options?.TradeOnly && (
                   <PriceLabel>${productData?.price}</PriceLabel>
                 )}
-                {productData?.type !== Trade_Options?.TradeOnly &&
-                  selectedProductDetails?.sellerShippingCost && (
-                    <ShippingLabel>
-                      +${selectedProductDetails?.sellerShippingCost} Shipping
-                      Cost
-                    </ShippingLabel>
-                  )}
+                {selectedProductDetails?.type !== Trade_Options?.TradeOnly && (
+                  <ShippingLabel>
+                    +${selectedProductDetails?.sellerShippingCost} Shipping Cost
+                  </ShippingLabel>
+                )}
               </DetailsLeftView>
               <DetailsRightView>
                 <LikeTouchable
