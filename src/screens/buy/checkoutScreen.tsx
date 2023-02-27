@@ -232,7 +232,7 @@ export const CheckoutScreen: FC<{}> = props => {
     </Container>
   );
 };
-
+//For modal
 const styles = StyleSheet.create({
   webViewCon: {
     position: 'absolute',
