@@ -200,6 +200,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
             },
           });
         }}
+        productData={historyMessages?.product}
       />
       <KeyboardAvoidingView>
         <SubContainer>{renderMessagesListView()}</SubContainer>

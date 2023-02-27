@@ -485,6 +485,31 @@ export const ArrowContainer = styled.TouchableOpacity.attrs((props: any) => ({
   ${color}
 `;
 
+export const ArrowContainerProductChat = styled.TouchableOpacity.attrs(() => ({
+  activeOpacity: 1,
+}))`
+  align-items: center;
+  justify-content: center;
+  ${color}
+`;
+
+export const ArrowIconContainer = styled.View.attrs(() => ({
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 1,
+  },
+  shadowOpacity: 0.2,
+  shadowRadius: 1.41,
+  elevation: 2,
+}))`
+  align-items: center;
+  justify-content: center;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
 export const PendingOfferStatusContainer = styled.View.attrs(() => ({
   px: scale(15),
   alignSelf: 'stretch',
