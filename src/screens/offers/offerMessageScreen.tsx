@@ -134,10 +134,15 @@ export const OffersMessageScreen: FC<{}> = props => {
       messagesListRaw.current = messagesData;
       setMessagesList(messagesData);
 
-      // ToDO
-      // if (content.message === `trade-accepted-message`) {
-      //     setTradeStatus('accepted');
-      // }
+      if (content.message === 'trade-accepted-message') {
+        // Getting Trade data again
+        dispatch(
+          getTrade({
+            userId: userData?._id,
+            tradeId: tradeId,
+          }),
+        );
+      }
       scrollListToEnd();
     });
   };

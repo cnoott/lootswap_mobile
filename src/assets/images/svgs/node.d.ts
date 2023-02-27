@@ -62,6 +62,8 @@ declare module 'localsvgimages' {
   export const NOTIF_PROFILE: any;
   export const ACCORDIAN_DOWN_ELLIPSE: any;
   export const ACCORDIAN_UP_ELLIPSE: any;
+  export const ACCORDIAN_DOWN_ELLIPSE_SHADOW: any;
+  export const ACCORDIAN_UP_ELLIPSE_SHADOW: any;
   export const OFFER_ACCEPTED_HEADER_ICON: any;
   export const OFFER_REJECTED_HEADER_ICON: any;
   export const LIKE_HEART_ICON: any;

@@ -21,6 +21,7 @@ import {
   ActionText,
   Touchable,
 } from './styles';
+import {LSModal} from '../../components/commonComponents/LSModal';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {handleNavigation} from '../../utility/notification';
 
@@ -65,6 +66,7 @@ export const NotificationsScreen: FC<{}> = () => {
             <NotifTitle>{item?.title}</NotifTitle>
             <ActionText>{item?.body}</ActionText>
           </EmptyView>
+          <LSModal.CloseButton onCloseButtonPress={() => {}} />
         </NotifItemContainer>
       </Touchable>
     );
@@ -73,7 +75,7 @@ export const NotificationsScreen: FC<{}> = () => {
     <Container>
       <InStackHeader back={true} title={'Notifications'} />
       <FlastList
-        data={userData?.notifications.reverse() || []}
+        data={userData?.notifications?.reverse() || []}
         renderItem={renderNotifListItem}
         refreshControl={
           <RefreshControl

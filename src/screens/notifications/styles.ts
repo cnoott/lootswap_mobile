@@ -21,6 +21,7 @@ export const FlastList = styled.FlatList.attrs(() => ({
 export const NotifItemContainer = styled.View.attrs(props => ({
   backgroundColor: props.theme.colors.white,
   p: scale(15),
+  pr: scale(5),
   borderRadius: scale(20),
   shadowColor: '#171717',
   shadowOffset: {width: 0, height: 0},
@@ -50,6 +51,8 @@ export const IconContainer = styled.View.attrs(props => ({
 
 export const NotifTitle: any = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
+  mt: verticalScale(6),
+  maxWidth: '85%',
 }))`
   font-size: ${moderateScale(17)}px;
   font-family: Inter;
@@ -62,7 +65,7 @@ export const NotifTitle: any = styled.Text.attrs(props => ({
 
 export const ActionText: any = styled.Text.attrs(props => ({
   color: props.theme.colors.greySubDetails,
-  mt: verticalScale(10),
+  mt: verticalScale(4),
 }))`
   font-size: ${moderateScale(13)}px;
   font-family: Inter-Bold;
@@ -74,7 +77,7 @@ export const ActionText: any = styled.Text.attrs(props => ({
 `;
 
 export const EmptyView = styled.View`
-  margin-left: ${scale(10)}px;
+  margin-left: ${scale(6)}px;
   flex: 1;
 `;
 
