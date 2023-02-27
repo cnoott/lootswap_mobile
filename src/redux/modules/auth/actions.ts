@@ -275,7 +275,7 @@ export const updateUser = (reqData: any) => {
 export const updateUserSuccess = (payload: any) => {
   return {
     type: UPDATE_USER.SUCCESS,
-    reqData: payload,
+    payload: payload,
   };
 };
 
