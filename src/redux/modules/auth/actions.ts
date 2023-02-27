@@ -13,6 +13,7 @@ import {
   SET_FCM_TOKEN,
   EDIT_SHIPPING_ADDR,
   UPDATE_USER,
+  CHECK_STRIPE_LINK,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -282,5 +283,18 @@ export const updateUserSuccess = (payload: any) => {
 export const updateUserFailure = () => {
   return {
     type: UPDATE_USER.FAILURE,
+  };
+};
+
+export const checkStripeLink = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: CHECK_STRIPE_LINK.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
   };
 };

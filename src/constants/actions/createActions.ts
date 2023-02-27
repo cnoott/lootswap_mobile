@@ -175,3 +175,7 @@ export const EDIT_SHIPPING_ADDR = {
 export const UPDATE_USER = {
   ...createActionConst(actions.UPDATE_USER),
 };
+
+export const CHECK_STRIPE_LINK = {
+  ...createActionConst(actions.CHECK_STRIPE_LINK),
+};

@@ -328,6 +328,13 @@ export const updateUserCall = (reqData: any) => {
   );
 };
 
+export const checkStripeLinkCall = (reqData: any) => {
+  return handleResponse(
+    api.get(`/user/check-stripe/${reqData?.userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
