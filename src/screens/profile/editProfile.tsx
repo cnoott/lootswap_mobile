@@ -3,12 +3,13 @@ LootSwap - EDIT PROFILE SCREEN
 ***/
 
 import React, {FC} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSInput from '../../components/commonComponents/LSInput';
 import LSButton from '../../components/commonComponents/LSButton';
 import {AuthProps} from '../../redux/modules/auth/reducer';
+import {updateUser} from '../../redux/modules';
 import {
   Container,
   EmptyTopView,
@@ -24,9 +25,10 @@ import * as yup from 'yup';
 export const EditProfileScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
+  const dispatch = useDispatch();
 
   const profileValidationSchema = yup.object().shape({
-    username: yup
+    name: yup
       .string()
       .required('Please enter username')
       .matches(/^[a-zA-Z0-9]+$/, 'Please enter valid username'),
@@ -37,8 +39,13 @@ export const EditProfileScreen: FC<{}> = () => {
   });
 
   const onSubmit = (values: FormProps) => {
-    //TODO: user update 
-    console.log('Values ===', values);
+    console.log(values);
+    dispatch(
+      updateUser({
+        userId: userData?._id,
+        userData: values,
+      }),
+    );
   };
 
   return (
@@ -49,7 +56,7 @@ export const EditProfileScreen: FC<{}> = () => {
       keyboardShouldPersistTaps={'handled'}>
       <Formik
         initialValues={{
-          username: userData?.name,
+          name: userData?.name,
           email: userData?.email,
         }}
         validationSchema={profileValidationSchema}
@@ -62,9 +69,9 @@ export const EditProfileScreen: FC<{}> = () => {
               <EmptyTopView>
                 <InStackHeader title="Edit Profile" />
                 <LSInput
-                  onChangeText={handleChange('username')}
-                  value={values.username}
-                  error={errors.username}
+                  onChangeText={handleChange('name')}
+                  value={values.name}
+                  error={errors.name}
                   placeholder={'Username'}
                 />
                 <LSInput

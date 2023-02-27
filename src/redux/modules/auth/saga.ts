@@ -50,6 +50,7 @@ import {
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
+import {Alert} from 'custom_top_alert';
 
 type APIResponseProps = {
   success: boolean;
@@ -279,9 +280,10 @@ export function* updateUser(action: any) {
     );
     yield put(LoadingSuccess());
     if (response?.success) {
-      action?.successCallBack(response.data);
+      yield put(updateUserSuccess(response.data));
+      Alert.showSuccess('Updated successfully!');
     } else {
-      action?.errorCallBack();
+      yield put(updateUserFailure());
     }
   } catch (e) {
     console.log(e);
