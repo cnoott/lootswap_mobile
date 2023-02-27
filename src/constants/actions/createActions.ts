@@ -171,3 +171,7 @@ export const SET_FCM_TOKEN = {
 export const EDIT_SHIPPING_ADDR = {
   ...createActionConst(actions.EDIT_SHIPPING_ADDR),
 };
+
+export const UPDATE_USER = {
+  ...createActionConst(actions.UPDATE_USER),
+};

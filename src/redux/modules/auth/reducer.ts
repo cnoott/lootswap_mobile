@@ -1,5 +1,6 @@
 // @flow
 
+import { UPS_ICON } from '../../../assets/images/svgs';
 import {
   SIGN_IN_DATA,
   SIGN_UP_DATA,
@@ -10,6 +11,7 @@ import {
   SET_REG_TOKEN,
   GET_MY_DETAILS_NO_LOAD,
   SET_FCM_TOKEN,
+  UPDATE_USER,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
 //import messaging from '@react-native-firebase/messaging';
@@ -241,6 +243,22 @@ export default function auth(state = InitialState, action: ActionProps) {
       return {
         ...state,
         fcmToken: fcmToken,
+      };
+    }
+    case UPDATE_USER.REQUEST: {
+      return {
+        ...state,
+      };
+    }
+    case UPDATE_USER.SUCCESS: {
+      return {
+        ...state,
+        userData: {...state.userData, ...payload},
+      };
+    }
+    case UPDATE_USER.FAILURE: {
+      return {
+        ...state,
       };
     }
     default:

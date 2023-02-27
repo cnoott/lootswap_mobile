@@ -319,6 +319,15 @@ export const editShippingAddrCall = (reqData: any) => {
   );
 };
 
+export const updateUserCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/user/${reqData?.userId}`, {
+      userData: reqData?.userData,
+    }),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

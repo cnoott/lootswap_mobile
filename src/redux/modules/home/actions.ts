@@ -69,11 +69,16 @@ export const sendTradeOffer = (
   };
 };
 
-export const createNewProduct = (reqData: any, isUpdateCall: boolean) => {
+export const createNewProduct = (
+  reqData: any,
+  isUpdateCall: boolean,
+  successCallBack: Function,
+) => {
   return {
     type: CREATE_NEW_PRODUCT.REQUEST,
     reqData: reqData,
     isUpdateCall: isUpdateCall,
+    successCallBack: successCallBack,
   };
 };
 
