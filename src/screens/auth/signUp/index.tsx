@@ -120,10 +120,13 @@ export const CreateAccountScreen: FC<{}> = () => {
 
   const onEditProfilePress = () => {
     ImagePicker.openPicker({
-      width: 300,
-      height: 400,
+      width: 500,
+      height: 500,
+      compressImageQuality: 0.01,
+      compressImageMaxHeight: 500,
       cropping: true,
     }).then(image => {
+      image.sourceURL = 'file://' + image.path;
       setImageUploading(true);
       const fileData = {
         ...image,

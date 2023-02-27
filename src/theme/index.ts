@@ -26,7 +26,8 @@ const theme = {
     divider: '#E0E0E0',
     screenBg: '#E7E7E7',
     screenBg_light: 'rgba(231, 231, 231, 0.4)', //#E7E7E7
-    tradeBg: '#24C05D',
+    tradeBg: '#6267FE',
+    tradeOnlyBg: '#24C05D',
     tradeText: '#4862B2',
     sellBg: '#F75555',
     sellText: '#723B13',

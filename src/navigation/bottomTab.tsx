@@ -50,6 +50,7 @@ import {
   TabItemText,
 } from './styles';
 import PublicProfileScreen from '../screens/profile/publicProfileScreen';
+import ListLootSuccessScreen from '../screens/loot/listLootSuccessScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -119,6 +120,10 @@ const LootStackNavigation = () => (
       name="AddProductOverviewScreen"
       component={AddProductOverviewScreen}
     />
+    <Stack.Screen
+      name="ListLootSuccessScreen"
+      component={ListLootSuccessScreen}
+    />
   </Stack.Navigator>
 );
 
@@ -132,6 +137,7 @@ const OffersStackNavigation = () => (
     <Stack.Screen name="OffersMessageScreen" component={OffersMessageScreen} />
     <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
     <Stack.Screen name="TradeCheckoutScreen" component={TradeCheckoutScreen} />
+    <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
     <Stack.Screen name="MoneyOfferCheckoutScreen" component={CheckoutScreen} />
     <Stack.Screen name="AddressScreenCheckout" component={AddressScreen} />
     <Stack.Screen

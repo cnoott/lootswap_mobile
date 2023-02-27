@@ -67,6 +67,8 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       ImagePicker.openPicker({
         width: 300,
         height: 400,
+        compressImageMaxHeight: 1200,
+        compressImageQuality: 0.01,
         cropping: true,
         multiple: true,
         maxFiles: 14 - productImagesArr?.length, // At first you can select 13 images & will reduce if selected some images already
@@ -74,6 +76,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         if (images?.length > 0) {
           const oldImagesData = [...productImagesArr];
           images?.map(imgData => {
+            imgData.sourceURL = 'file://' + imgData.path;
             const fileData = {
               ...imgData,
               type: imgData?.mime,
