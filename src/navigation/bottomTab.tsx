@@ -28,7 +28,7 @@ import ShippingLabelScreen from '../screens/order/shippingLabelScreen';
 import ChooseServiceScreen from '../screens/order/chooseServiceScreen';
 import {useTheme} from 'styled-components';
 import {SvgXml} from 'react-native-svg';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {getInitialRoute} from '../utility/utility';
 import {AuthProps} from '../redux/modules/auth/reducer';
 import {
@@ -53,8 +53,7 @@ import PublicProfileScreen from '../screens/profile/publicProfileScreen';
 import ListLootSuccessScreen from '../screens/loot/listLootSuccessScreen';
 import PayPalLinkModal from '../components/paypalLinkModal';
 import LinkPaypalScreen from '../screens/profile/linkPaypalScreen';
-import { getMyDetails } from '../redux/modules/auth/saga';
-import { getMyDetailsRequest } from '../redux/modules';
+import LootEditAddressScreen from '../screens/loot/lootEditAddressScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -68,6 +67,10 @@ const HomeStackNavigation = () => (
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
     <Stack.Screen name="LikedProductScreen" component={LikedProductScreen} />
     <Stack.Screen name="LinkPaypalScreen" component={LinkPaypalScreen} />
+    <Stack.Screen
+      name="LootEditAddressScreen"
+      component={LootEditAddressScreen}
+    />
     <Stack.Screen
       name="ProductDetailsScreen"
       component={ProductDetailsScreen}
@@ -190,7 +193,6 @@ export const BottomTabs: FC<{}> = () => {
    */
   const MyCustomTabBar = ({state, descriptors, navigation}) => {
     const auth: AuthProps = useSelector(reduxState => reduxState.auth);
-    const dispatch = useDispatch();
     const {isLoggedIn} = getInitialRoute(auth.userData);
     const [isPayPalModalVisible, setPayPalModalVisible] = useState(false);
     return (
@@ -211,6 +213,11 @@ export const BottomTabs: FC<{}> = () => {
                 navigation.navigate('SignInScreen');
               } else if (index === 1 && !auth.userData?.paypal_onboarded) {
                 setPayPalModalVisible(true);
+              } else if (
+                index === 1 &&
+                auth.userData?.shipping_address?.street1 === ''
+              ) {
+                navigation.navigate('LootEditAddressScreen');
               } else {
                 navigation.navigate({name: route.name, merge: true});
               }
