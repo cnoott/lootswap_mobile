@@ -2,7 +2,7 @@
 LootSwap - BOTTOM TABS SCREEN
 ***/
 
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/home';
@@ -28,7 +28,7 @@ import ShippingLabelScreen from '../screens/order/shippingLabelScreen';
 import ChooseServiceScreen from '../screens/order/chooseServiceScreen';
 import {useTheme} from 'styled-components';
 import {SvgXml} from 'react-native-svg';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getInitialRoute} from '../utility/utility';
 import {AuthProps} from '../redux/modules/auth/reducer';
 import {
@@ -51,6 +51,10 @@ import {
 } from './styles';
 import PublicProfileScreen from '../screens/profile/publicProfileScreen';
 import ListLootSuccessScreen from '../screens/loot/listLootSuccessScreen';
+import PayPalLinkModal from '../components/paypalLinkModal';
+import LinkPaypalScreen from '../screens/profile/linkPaypalScreen';
+import { getMyDetails } from '../redux/modules/auth/saga';
+import { getMyDetailsRequest } from '../redux/modules';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -63,6 +67,7 @@ const HomeStackNavigation = () => (
     }}>
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
     <Stack.Screen name="LikedProductScreen" component={LikedProductScreen} />
+    <Stack.Screen name="LinkPaypalScreen" component={LinkPaypalScreen} />
     <Stack.Screen
       name="ProductDetailsScreen"
       component={ProductDetailsScreen}
@@ -185,7 +190,9 @@ export const BottomTabs: FC<{}> = () => {
    */
   const MyCustomTabBar = ({state, descriptors, navigation}) => {
     const auth: AuthProps = useSelector(reduxState => reduxState.auth);
+    const dispatch = useDispatch();
     const {isLoggedIn} = getInitialRoute(auth.userData);
+    const [isPayPalModalVisible, setPayPalModalVisible] = useState(false);
     return (
       <TabBarContainer>
         {state.routes.map((route, index) => {
@@ -202,6 +209,8 @@ export const BottomTabs: FC<{}> = () => {
               // The `merge: true` option makes sure that the params inside the tab screen are preserved
               if (!isLoggedIn && [1, 2, 3, 4].includes(index)) {
                 navigation.navigate('SignInScreen');
+              } else if (index === 1 && !auth.userData?.paypal_onboarded) {
+                setPayPalModalVisible(true);
               } else {
                 navigation.navigate({name: route.name, merge: true});
               }
@@ -227,6 +236,10 @@ export const BottomTabs: FC<{}> = () => {
                 {getTabBarIcon(isFocused, route.name)}
                 <TabItemText isActive={isFocused}>{route.name}</TabItemText>
               </TabItemContainer>
+              <PayPalLinkModal
+                isPayPalModalVisible={isPayPalModalVisible}
+                setPayPalModalVisible={setPayPalModalVisible}
+              />
             </TabItemTouchable>
           );
         })}
