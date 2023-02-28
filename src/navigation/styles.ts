@@ -41,7 +41,7 @@ export const TabItemText = styled.Text.attrs(props => ({
   marginTop: moderateScale(2),
 }))`
   font-weight: ${props => `${props.isActive ? 600 : 400}`};
-  font-size: ${moderateScale(12)}px;
+  font-size: ${moderateScale(10)}px;
   font-family: Urbanist-Bold;
   ${color}
   ${space}
