@@ -179,3 +179,7 @@ export const UPDATE_USER = {
 export const CHECK_STRIPE_LINK = {
   ...createActionConst(actions.CHECK_STRIPE_LINK),
 };
+
+export const PAYOUT_USER = {
+  ...createActionConst(actions.PAYOUT_USER),
+};

@@ -335,6 +335,13 @@ export const checkStripeLinkCall = (reqData: any) => {
   );
 };
 
+export const payoutUserCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/user/payout/${reqData?.userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
