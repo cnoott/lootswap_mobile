@@ -68,7 +68,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         width: 300,
         height: 400,
         compressImageMaxHeight: 1200,
-        compressImageQuality: 0.01,
+        compressImageQuality: 0.1,
         cropping: true,
         multiple: true,
         maxFiles: 14 - productImagesArr?.length, // At first you can select 13 images & will reduce if selected some images already

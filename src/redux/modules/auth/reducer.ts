@@ -1,6 +1,5 @@
 // @flow
 
-import { UPS_ICON } from '../../../assets/images/svgs';
 import {
   SIGN_IN_DATA,
   SIGN_UP_DATA,
