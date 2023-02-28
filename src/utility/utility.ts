@@ -159,11 +159,13 @@ export const getProfileOptions = (userData: any) => {
       title: userData?.paypal_onboarded ? 'Re-link paypal' : 'Link paypal',
       index: 6,
     },
+    /*
     {
       icon: PROFILE_NOTIFICATION,
       title: 'Notification settings',
       index: 7,
     },
+    */
     {
       icon: PROFILE_SUPPORT,
       title: 'Support/FAQ',
