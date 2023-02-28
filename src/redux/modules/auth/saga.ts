@@ -12,6 +12,8 @@ import {
   UNLIKE_PRODUCT,
   EDIT_SHIPPING_ADDR,
   UPDATE_USER,
+  CHECK_STRIPE_LINK,
+  PAYOUT_USER,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -47,6 +49,8 @@ import {
   removeRegTokenCall,
   editShippingAddrCall,
   updateUserCall,
+  checkStripeLinkCall,
+  payoutUserCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
@@ -290,6 +294,42 @@ export function* updateUser(action: any) {
   }
 }
 
+export function* checkStripeLink(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      checkStripeLinkCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* payoutUser(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      payoutUserCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
@@ -303,4 +343,6 @@ export default function* authSaga() {
   yield takeLatest(UNLIKE_PRODUCT.REQUEST, unlikeProduct);
   yield takeLatest(EDIT_SHIPPING_ADDR.REQUEST, editShippingAddr);
   yield takeLatest(UPDATE_USER.REQUEST, updateUser);
+  yield takeLatest(CHECK_STRIPE_LINK.REQUEST, checkStripeLink);
+  yield takeLatest(PAYOUT_USER.REQUEST, payoutUser);
 }

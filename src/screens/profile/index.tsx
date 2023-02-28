@@ -37,10 +37,7 @@ import {signOutRequest, updateUser} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {getProfileOptions} from '../../utility/utility';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {
-  getSignedRequest,
-  uploadFile,
-} from '../../services/imageUploadService';
+import {getSignedRequest, uploadFile} from '../../services/imageUploadService';
 
 type Option = {
   icon: string;
