@@ -161,12 +161,12 @@ export const getProfileOptions = (userData: any) => {
     },
     {
       icon: PROFILE_NOTIFICATION,
-      title: 'Notifications',
+      title: 'Notification settings',
       index: 7,
     },
     {
       icon: PROFILE_SUPPORT,
-      title: 'Customer support/Privacy Policy',
+      title: 'Support/FAQ',
       index: 8,
     },
   ];
