@@ -1,5 +1,5 @@
 /***
-LootSwap - EDIT ADDRESS SCREEN
+LootSwap - ADD LOOT EDIT ADDRESS SCREEN
 ***/
 
 import React, {FC, useEffect} from 'react';
@@ -10,27 +10,36 @@ import LSInput from '../../components/commonComponents/LSInput';
 import LSButton from '../../components/commonComponents/LSButton';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {getMyDetailsRequest, editShippingAddr} from '../../redux/modules';
+import {SvgXml} from 'react-native-svg';
+import {BOTTOM_TAB_HOME} from 'localsvgimages';
+
+import {Size, Type} from '../../enums';
+import {Formik} from 'formik';
+import {Alert} from 'custom_top_alert';
 import {
   Container,
   EmptyTopView,
   EmptyBottomView,
   Innercontainer,
-} from './editProfileStyles';
-import {Size, Type} from '../../enums';
-import {Formik} from 'formik';
-import {Alert} from 'custom_top_alert';
+} from '../profile/editProfileStyles';
+import {
+  GuarenteedView,
+  GuarenteedDesView,
+  ProtectionTopLabel,
+  ProtectionBottomLabel,
+  ProtectionIconStyle,
+} from '../productDetails/styles';
+import {useNavigation, NavigationProp} from '@react-navigation/native';
 
-export const AddressScreen: FC<{}> = () => {
+//TODO: "Buyer prodteciton badge" for expalning that addr is req
+
+export const LootEditAddressScreen: FC<{}> = () => {
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
-
-  useEffect(() => {
-    dispatch(getMyDetailsRequest(userData?._id));
-  }, [userData?._id, dispatch]);
+  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
 
   const onSubmit = (values: FormProps) => {
-    console.log('VALUEZ');
     const reqData = {
       userId: userData?._id,
       address: values,
@@ -41,6 +50,13 @@ export const AddressScreen: FC<{}> = () => {
         () => {
           Alert.showSuccess('Saved!');
           dispatch(getMyDetailsRequest(userData?._id));
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'Home'}],
+          });
+          navigation.navigate('List loot', {
+            screen: 'LootScreen',
+          });
         },
         error => {
           Alert.showError(error);
@@ -71,7 +87,15 @@ export const AddressScreen: FC<{}> = () => {
           return (
             <Container>
               <EmptyTopView>
-                <InStackHeader title="Edit Shipping Address" />
+                <InStackHeader title="Shipping Address" />
+                <GuarenteedView style={{marginHorizontal: 20}}>
+                <SvgXml xml={BOTTOM_TAB_HOME} style={ProtectionIconStyle} />
+                  <GuarenteedDesView>
+                    <ProtectionBottomLabel>
+                      In order to continue listing an item, you must enter your shipping info
+                    </ProtectionBottomLabel>
+                  </GuarenteedDesView>
+                </GuarenteedView>
                 <LSInput
                   onChangeText={handleChange('name')}
                   value={values.name}
@@ -105,7 +129,7 @@ export const AddressScreen: FC<{}> = () => {
               </EmptyTopView>
               <EmptyBottomView>
                 <LSButton
-                  title={'Save'}
+                  title={'Continue'}
                   size={Size.Full}
                   type={Type.Primary}
                   radius={20}
@@ -120,4 +144,4 @@ export const AddressScreen: FC<{}> = () => {
   );
 };
 
-export default AddressScreen;
+export default LootEditAddressScreen;

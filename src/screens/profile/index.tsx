@@ -71,6 +71,9 @@ export const ProfileScreen: FC<{}> = () => {
         navigation.navigate('WalletScreen');
         break;
       case 6:
+        navigation.navigate('LinkPaypalScreen', {goToListLoot: false});
+        break;
+      case 7:
         navigation.navigate('NotificationSettingScreen');
         break;
       default:
@@ -160,7 +163,7 @@ export const ProfileScreen: FC<{}> = () => {
   const renderOptions = () => {
     return (
       <OptionsContainer>
-        {getProfileOptions().map((item, index) => {
+        {getProfileOptions(userData).map((item, index) => {
           return renderOptionItem(item, index);
         })}
       </OptionsContainer>
