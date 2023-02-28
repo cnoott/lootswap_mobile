@@ -46,7 +46,7 @@ export const NotificationSettingScreen: FC<{}> = () => {
   };
   return (
     <Container>
-      <InStackHeader title={'Notifications'} />
+      <InStackHeader title={'Notification Settings'} />
       <SubContainer>
         {settingsData?.map(data => {
           return renderItems(data);
