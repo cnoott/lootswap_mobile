@@ -57,12 +57,12 @@ export const AddressScreen: FC<{}> = () => {
       keyboardShouldPersistTaps={'handled'}>
       <Formik
         initialValues={{
-          street1: userData?.shipping_address.street1,
-          street2: userData?.shipping_address.street2,
-          name: userData?.shipping_address.name,
-          city: userData?.shipping_address.city,
-          state: userData?.shipping_address.state,
-          zip: userData?.shipping_address.zip,
+          street1: userData?.shipping_address?.street1,
+          street2: userData?.shipping_address?.street2,
+          name: userData?.shipping_address?.name,
+          city: userData?.shipping_address?.city,
+          state: userData?.shipping_address?.state,
+          zip: userData?.shipping_address?.zip,
         }}
         validateOnChange={false}
         validateOnBlur={true}
@@ -73,6 +73,11 @@ export const AddressScreen: FC<{}> = () => {
               <EmptyTopView>
                 <InStackHeader title="Edit Shipping Address" />
                 <LSInput
+                  onChangeText={handleChange('name')}
+                  value={values.name}
+                  placeholder={'Full Name'}
+                />
+                <LSInput
                   onChangeText={handleChange('street1')}
                   value={values.street1}
                   placeholder={'Street 1'}
@@ -81,11 +86,6 @@ export const AddressScreen: FC<{}> = () => {
                   onChangeText={handleChange('street2')}
                   value={values.street2}
                   placeholder={'Apartment/Unit (optional)'}
-                />
-                <LSInput
-                  onChangeText={handleChange('name')}
-                  value={values.name}
-                  placeholder={'Full Name'}
                 />
                 <LSInput
                   onChangeText={handleChange('city')}
