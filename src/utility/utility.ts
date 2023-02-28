@@ -127,7 +127,7 @@ export const getProductTags = (tagType = 'trade-sell', theme: any) => {
   }
 };
 
-export const getProfileOptions = () => {
+export const getProfileOptions = (userData: any) => {
   const optionsList: Array<PROFILE_OPTIONS_TYPE> = [
     {
       icon: BOTTOM_TAB_PROFILE,
@@ -146,7 +146,7 @@ export const getProfileOptions = () => {
     },
     {
       icon: PROFILE_ORDERS,
-      title: 'Orders/Archive',
+      title: 'Orders',
       index: 4,
     },
     {
@@ -155,13 +155,13 @@ export const getProfileOptions = () => {
       index: 5,
     },
     {
-      icon: PROFILE_NOTIFICATION,
-      title: 'Notifications',
+      icon: PROFILE_WALLET,
+      title: userData?.paypal_onboarded ? 'Re-link paypal' : 'Link paypal',
       index: 6,
     },
     {
-      icon: PROFILE_REFERRAL,
-      title: 'Referral program',
+      icon: PROFILE_NOTIFICATION,
+      title: 'Notifications',
       index: 7,
     },
     {

@@ -67,7 +67,7 @@ export const LinkPaypalScreen: FC<{}> = props => {
               screen: 'LootScreen',
             });
           } else {
-            navigation.navigate('Profile');
+            navigation.goBack();
           }
         },
         error => {
