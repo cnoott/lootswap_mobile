@@ -14,6 +14,7 @@ import {
   EDIT_SHIPPING_ADDR,
   UPDATE_USER,
   CHECK_STRIPE_LINK,
+  PAYOUT_USER,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -293,6 +294,19 @@ export const checkStripeLink = (
 ) => {
   return {
     type: CHECK_STRIPE_LINK.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const payoutUser = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: PAYOUT_USER.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,

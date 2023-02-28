@@ -12,7 +12,7 @@ import {WALLET_BACKGROUND} from '../../assets/images/svgs';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Type, Size} from 'custom_enums';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {getMyDetailsRequest, checkStripeLink} from '../../redux/modules';
+import {getMyDetailsRequest, checkStripeLink, payoutUser} from '../../redux/modules';
 import {WEB_APP_URL} from '@env';
 import {
   Container,
@@ -22,6 +22,7 @@ import {
   BalenceLabel,
   DesLabel,
 } from './walletScreenStyles';
+import {BottomView} from './styles';
 import {Alert} from 'custom_top_alert';
 
 export const WalletScreen: FC<{}> = () => {
@@ -77,7 +78,7 @@ export const WalletScreen: FC<{}> = () => {
           presentationStyle={'fullScreen'}
           transparent={true}>
           <Container style={styles.webViewCon}>
-            <InStackHeader title={'Checkout'} />
+            <InStackHeader title={'Link Stripe'} />
             <WebView
               source={{
                 uri: webViewUri,
@@ -87,6 +88,26 @@ export const WalletScreen: FC<{}> = () => {
             />
           </Container>
         </Modal>
+      );
+    }
+  };
+
+  const handlePayout = () => {
+    if (userData?.payoutBalance === 0) {
+      Alert.showError('You do not have a balance to transfer');
+    } else {
+      dispatch(
+        payoutUser(
+          {userId: userData?._id},
+          () => {
+            Alert.showSuccess('Balance transfer started!')
+            dispatch(getMyDetailsRequest(userData?._id));
+          },
+          error => {
+            Alert.showError('There was an error. If problem persists please contact support@lootswap.com');
+            console.log(error);
+          },
+        ),
       );
     }
   };
@@ -106,14 +127,25 @@ export const WalletScreen: FC<{}> = () => {
           in the coming days.
         </DesLabel>
         {capabilities.transfers === 'active' ? (
-          <LSButton
-            title={'Account Linked! Tap to relink'}
-            size={Size.Fit_To_Width}
-            type={Type.Success}
-            radius={25}
-            fitToWidth={'90%'}
-            onPress={() => setShowGateway(true)}
-          />
+          <>
+            <LSButton
+              title={'Account Linked! Tap to relink'}
+              size={Size.Fit_To_Width}
+              type={Type.Success}
+              radius={25}
+              fitToWidth={'90%'}
+              onPress={() => setShowGateway(true)}
+            />
+            <BottomView/>
+            <LSButton
+              title={'Transfer funds'}
+              size={Size.Fit_To_Width}
+              type={Type.Primary}
+              radius={25}
+              fitToWidth={'90%'}
+              onPress={() => handlePayout()}
+            />
+          </>
         ) : (
           <LSButton
             title={'Link Bank Account/Debit Card'}
