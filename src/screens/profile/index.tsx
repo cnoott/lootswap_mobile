@@ -38,6 +38,8 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 import {getProfileOptions} from '../../utility/utility';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {getSignedRequest, uploadFile} from '../../services/imageUploadService';
+import {WEB_APP_URL} from '@env';
+import {Linking} from 'react-native';
 
 type Option = {
   icon: string;
@@ -75,6 +77,9 @@ export const ProfileScreen: FC<{}> = () => {
         break;
       case 7:
         navigation.navigate('NotificationSettingScreen');
+        break;
+      case 8:
+        Linking.openURL(`${WEB_APP_URL}/faq`);
         break;
       default:
         break;
@@ -179,7 +184,7 @@ export const ProfileScreen: FC<{}> = () => {
   };
   return (
     <Container>
-      <InStackHeader back={false} right={true} />
+      <InStackHeader back={false} />
       <SubContainer>
         {renderProfileUploadView()}
         <UserNameText>{userData?.name}</UserNameText>

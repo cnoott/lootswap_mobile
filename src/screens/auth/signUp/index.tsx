@@ -22,6 +22,8 @@ import LSInput from '../../../components/commonComponents/LSInput';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {Size, Type} from '../../../enums';
 import {signUpRequest} from '../../../redux/modules';
+import {WEB_APP_URL} from '@env';
+import {Linking} from 'react-native';
 
 import {
   Container,
@@ -86,6 +88,14 @@ export const CreateAccountScreen: FC<{}> = () => {
       keyboardDidShowListener.remove();
     };
   }, []);
+
+  const handleLinkPress = async (link: string) => {
+    const url = `${WEB_APP_URL}/${link}`;
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      await Linking.openURL(url);
+    }
+  }
 
   const loginValidationSchema = yup.object().shape({
     email: yup
@@ -247,11 +257,11 @@ export const CreateAccountScreen: FC<{}> = () => {
               />
               <TermsLabel>
                 {'By Creating an account you agree to our\n'}
-                <TermsLabelDark onPress={() => {}}>
+                <TermsLabelDark onPress={() => handleLinkPress('TOS')}>
                   Terms and Service
                 </TermsLabelDark>{' '}
                 and{' '}
-                <TermsLabelDark onPress={() => {}}>
+                <TermsLabelDark onPress={() => handleLinkPress('privacy')}>
                   Privacy Policy
                 </TermsLabelDark>
               </TermsLabel>

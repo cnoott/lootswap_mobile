@@ -38,9 +38,7 @@ export const ErrorText = styled.Text.attrs(props => ({
 
 export const TextInput = styled.TextInput.attrs(props => ({
   color: props.theme.colors.black,
-  placeholderTextColor: props.isHomeSearch
-    ? props.theme.colors.black
-    : props.theme.colors.placeholder,
+  placeholderTextColor: '#404040',
   minHeight: scale(props?.height || 47),
   maxHeight: scale(240),
   shadowColor: props.theme.colors.primary,
@@ -50,7 +48,8 @@ export const TextInput = styled.TextInput.attrs(props => ({
     height: 1,
     width: 1,
   },
-  fontSize: moderateScale(props.isHomeSearch ? 17 : 15),
+  fontSize: moderateScale(props.isHomeSearch ? 13 : 10),
+  fontFamily: 'Urbanist',
   mx: scale(10),
   flex: 1,
   py: verticalScale(props.multiline ? 12 : 0),

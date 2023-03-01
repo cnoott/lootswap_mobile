@@ -39,7 +39,6 @@ export const EditProfileScreen: FC<{}> = () => {
   });
 
   const onSubmit = (values: FormProps) => {
-    console.log(values);
     dispatch(
       updateUser({
         userId: userData?._id,
@@ -82,6 +81,7 @@ export const EditProfileScreen: FC<{}> = () => {
                   rightIcon={EDIT_PROFILE_EMAIL_ICON}
                 />
                 <TopSpaceView>
+                  {/*
                   <LSButton
                     title={'Change Password'}
                     size={Size.Full}
@@ -89,6 +89,7 @@ export const EditProfileScreen: FC<{}> = () => {
                     radius={20}
                     onPress={() => {}}
                   />
+                  */}
                 </TopSpaceView>
               </EmptyTopView>
               <EmptyBottomView>

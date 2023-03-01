@@ -119,7 +119,7 @@ export const HeaderText = styled.Text.attrs(props => ({
 
 export const LogoImage = styled.Image.attrs({
   width: scale(160),
-  height: scale(27),
+  height: scale(32),
   mr: moderateScale(10),
 })`
   align-self: center;
