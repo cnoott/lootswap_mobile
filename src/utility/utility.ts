@@ -978,7 +978,7 @@ export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
       };
     case 1:
       return {
-        text: 'Waiting for other user to ship',
+        text: 'Waiting for user to ship',
         backColor: 'rgba(250, 204, 21, 0.1)',
         labelColor: '#e1b505',
       };
