@@ -184,7 +184,7 @@ export const ProfileScreen: FC<{}> = () => {
   };
   return (
     <Container>
-      <InStackHeader back={false} right={true} />
+      <InStackHeader back={false} />
       <SubContainer>
         {renderProfileUploadView()}
         <UserNameText>{userData?.name}</UserNameText>
