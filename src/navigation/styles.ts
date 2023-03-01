@@ -35,14 +35,12 @@ export const TabItemContainer = styled.View`
 `;
 
 export const TabItemText = styled.Text.attrs(props => ({
-  color: props.isActive
-    ? props.theme.colors.primary
-    : props.theme.colors.placeholder,
+  color: 'black',
   marginTop: moderateScale(2),
 }))`
   font-weight: ${props => `${props.isActive ? 600 : 400}`};
-  font-size: ${moderateScale(12)}px;
-  font-family: Urbanist-Bold;
+  font-size: ${moderateScale(10)}px;
+  font-family: ${props => `${props.isActive ? 'Urbanist-ExtraBold' : 'Urbanist-Medium'}`};
   ${color}
   ${space}
 `;

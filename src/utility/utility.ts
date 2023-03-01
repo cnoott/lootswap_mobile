@@ -159,14 +159,16 @@ export const getProfileOptions = (userData: any) => {
       title: userData?.paypal_onboarded ? 'Re-link paypal' : 'Link paypal',
       index: 6,
     },
+    /*
     {
       icon: PROFILE_NOTIFICATION,
-      title: 'Notifications',
+      title: 'Notification settings',
       index: 7,
     },
+    */
     {
       icon: PROFILE_SUPPORT,
-      title: 'Customer support/Privacy Policy',
+      title: 'Support/FAQ',
       index: 8,
     },
   ];
@@ -976,7 +978,7 @@ export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
       };
     case 1:
       return {
-        text: 'Waiting for other user to ship',
+        text: 'Waiting for user to ship',
         backColor: 'rgba(250, 204, 21, 0.1)',
         labelColor: '#e1b505',
       };
