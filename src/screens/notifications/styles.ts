@@ -38,7 +38,7 @@ export const NotifItemContainer = styled.View.attrs(props => ({
 `;
 
 export const IconContainer = styled.View.attrs(props => ({
-  backgroundColor: props.theme.colors.text,
+  backgroundColor: props.theme.colors.white,
   height: scale(64),
   width: scale(64),
   borderRadius: scale(31),

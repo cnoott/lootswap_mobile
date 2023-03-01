@@ -9,8 +9,12 @@ import {useSelector, useDispatch} from 'react-redux';
 import {SvgXml} from 'react-native-svg';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {getMyDetailsRequest, getUsersDetailsRequest} from '../../redux/modules';
-import {NOTIF_MESSAGE, BOTTOM_TAB_OFFERS} from '../../assets/images/svgs';
+import {getMyDetailsRequest, getUsersDetailsRequest, deleteNotifRequest} from '../../redux/modules';
+import {
+  BOTTOM_TAB_OFFERS,
+  CHAT_NOTIF,
+  PROFILE_ORDERS,
+} from '../../assets/images/svgs';
 import {
   Container,
   FlastList,
@@ -42,8 +46,14 @@ export const NotificationsScreen: FC<{}> = () => {
     switch (type) {
       case 'trade':
         return BOTTOM_TAB_OFFERS;
+      case 'message':
+        return CHAT_NOTIF;
+      case 'trade-order':
+      case 'new-paypal-order':
+      case 'paypal-order':
+        return PROFILE_ORDERS;
       default:
-        return NOTIF_MESSAGE;
+        return BOTTOM_TAB_OFFERS;
     }
   };
   const handleNotifPress = (item: any) => {
@@ -66,7 +76,11 @@ export const NotificationsScreen: FC<{}> = () => {
             <NotifTitle>{item?.title}</NotifTitle>
             <ActionText>{item?.body}</ActionText>
           </EmptyView>
-          <LSModal.CloseButton onCloseButtonPress={() => {}} />
+          <LSModal.CloseButton
+            onCloseButtonPress={() =>
+              dispatch(deleteNotifRequest({userId: userData?._id, notif: item}))
+            }
+          />
         </NotifItemContainer>
       </Touchable>
     );
