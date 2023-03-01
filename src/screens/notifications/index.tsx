@@ -9,9 +9,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import {SvgXml} from 'react-native-svg';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {getMyDetailsRequest, getUsersDetailsRequest} from '../../redux/modules';
+import {getMyDetailsRequest, getUsersDetailsRequest, deleteNotifRequest} from '../../redux/modules';
 import {
-  NOTIF_MESSAGE,
   BOTTOM_TAB_OFFERS,
   CHAT_NOTIF,
   PROFILE_ORDERS,
@@ -77,7 +76,11 @@ export const NotificationsScreen: FC<{}> = () => {
             <NotifTitle>{item?.title}</NotifTitle>
             <ActionText>{item?.body}</ActionText>
           </EmptyView>
-          <LSModal.CloseButton onCloseButtonPress={() => {}} />
+          <LSModal.CloseButton
+            onCloseButtonPress={() =>
+              dispatch(deleteNotifRequest({userId: userData?._id, notif: item}))
+            }
+          />
         </NotifItemContainer>
       </Touchable>
     );
