@@ -342,6 +342,15 @@ export const payoutUserCall = (reqData: any) => {
   );
 };
 
+export const deleteNotifCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/user/delete-notification/${reqData?.userId}`, {
+      ...reqData?.notif,
+    }),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
