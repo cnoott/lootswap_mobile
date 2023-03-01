@@ -183,3 +183,7 @@ export const CHECK_STRIPE_LINK = {
 export const PAYOUT_USER = {
   ...createActionConst(actions.PAYOUT_USER),
 };
+
+export const DELETE_NOTIF = {
+  ...createActionConst(actions.DELETE_NOTIF),
+};

@@ -103,14 +103,16 @@ export const BOTTOM_TAB_NOTIFICATION_SELECTED = `
 </svg>
 `;
 
-export const BOTTOM_TAB_OFFERS = `<svg width="21" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="#000000">
-<path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+export const BOTTOM_TAB_OFFERS = `
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.9033 8.85156L13.46 12.4646C12.6205 13.1306 11.4394 13.1306 10.5999 12.4646L6.11914 8.85156" stroke="#404040" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M16.9089 21C19.9502 21.0084 22 18.5095 22 15.4384V8.57001C22 5.49883 19.9502 3 16.9089 3H7.09114C4.04979 3 2 5.49883 2 8.57001V15.4384C2 18.5095 4.04979 21.0084 7.09114 21H16.9089Z" stroke="#404040" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
-
 `;
 
-export const BOTTOM_TAB_OFFERS_SELECTED = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M16.9395 3C18.2805 3 19.5705 3.53 20.5195 4.481C21.4695 5.43 22.0005 6.71 22.0005 8.05V15.95C22.0005 18.74 19.7305 21 16.9395 21H7.06049C4.26949 21 2.00049 18.74 2.00049 15.95V8.05C2.00049 5.26 4.25949 3 7.06049 3H16.9395ZM18.5305 9.54L18.6105 9.46C18.8495 9.17 18.8495 8.75 18.5995 8.46C18.4605 8.311 18.2695 8.22 18.0705 8.2C17.8605 8.189 17.6605 8.26 17.5095 8.4L13.0005 12C12.4205 12.481 11.5895 12.481 11.0005 12L6.50049 8.4C6.18949 8.17 5.75949 8.2 5.50049 8.47C5.23049 8.74 5.20049 9.17 5.42949 9.47L5.56049 9.6L10.1105 13.15C10.6705 13.59 11.3495 13.83 12.0605 13.83C12.7695 13.83 13.4605 13.59 14.0195 13.15L18.5305 9.54Z" fill="#212121"/>
+export const BOTTOM_TAB_OFFERS_SELECTED = `
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M16.939 3C18.28 3 19.57 3.53 20.519 4.481C21.469 5.43 22 6.71 22 8.05V15.95C22 18.74 19.73 21 16.939 21H7.06C4.269 21 2 18.74 2 15.95V8.05C2 5.26 4.259 3 7.06 3H16.939ZM18.53 9.54L18.61 9.46C18.849 9.17 18.849 8.75 18.599 8.46C18.46 8.311 18.269 8.22 18.07 8.2C17.86 8.189 17.66 8.26 17.509 8.4L13 12C12.42 12.481 11.589 12.481 11 12L6.5 8.4C6.189 8.17 5.759 8.2 5.5 8.47C5.23 8.74 5.2 9.17 5.429 9.47L5.56 9.6L10.11 13.15C10.67 13.59 11.349 13.83 12.06 13.83C12.769 13.83 13.46 13.59 14.019 13.15L18.53 9.54Z" fill="#212121"/>
 </svg>
 `;
 
@@ -725,3 +727,16 @@ export const ACCORDIAN_UP_ELLIPSE_SHADOW = `<svg width="64" height="33" viewBox=
 </filter>
 </defs>
 </svg>`;
+
+export const CHAT_NOTIF = `
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Iconly/Light/Chat">
+<g id="Group">
+<path id="Vector" fill-rule="evenodd" clip-rule="evenodd" d="M19.0714 19.0699C16.0152 22.1263 11.4898 22.7867 7.78642 21.074C7.23971 20.8539 6.79148 20.676 6.36537 20.676C5.17849 20.683 3.70117 21.8339 2.93336 21.067C2.16555 20.2991 3.31726 18.8206 3.31726 17.6266C3.31726 17.2004 3.14642 16.7602 2.92632 16.2124C1.21283 12.5096 1.87411 7.98269 4.93026 4.92721C8.8316 1.02443 15.17 1.02443 19.0714 4.9262C22.9797 8.83501 22.9727 15.1681 19.0714 19.0699Z" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Line" d="M15.9393 12.413H15.9483" stroke="#212121" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Line_2" d="M11.9303 12.413H11.9393" stroke="#212121" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Line_3" d="M7.92128 12.413H7.93028" stroke="#212121" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>
+`;

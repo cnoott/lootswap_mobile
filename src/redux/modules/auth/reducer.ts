@@ -11,6 +11,8 @@ import {
   GET_MY_DETAILS_NO_LOAD,
   SET_FCM_TOKEN,
   UPDATE_USER,
+  DELETE_NOTIF,
+  CANCEL_TRADE,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
 //import messaging from '@react-native-firebase/messaging';
@@ -256,6 +258,27 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case UPDATE_USER.FAILURE: {
+      return {
+        ...state,
+      };
+    }
+    case DELETE_NOTIF.REQUEST: {
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          notifications: state.userData.notifications.filter(
+            notif => notif._id !== action.reqData.notif._id
+          ),
+        },
+      };
+    }
+    case DELETE_NOTIF.SUCCESS: {
+      return {
+        ...state,
+      };
+    }
+    case DELETE_NOTIF.FAILURE: {
       return {
         ...state,
       };
