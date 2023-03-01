@@ -19,7 +19,7 @@ export const ItemContainer = styled.TouchableOpacity.attrs(() => ({
 `;
 
 export const Image = styled.Image.attrs({
-  height: scale(230),
+  height: scale(185),
   borderRadius: scale(productRadius),
 })`
   ${color}
