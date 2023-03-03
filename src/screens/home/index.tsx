@@ -52,7 +52,7 @@ export const HomeScreen: FC<{}> = () => {
     // so I need to duplicate them.
     items.unshift(items[0]);
     items.unshift(items[0]);
-    return items.filter(item => item.isVisible && item.isVirtuallyVerified);
+    return items.filter(item => item?.isVisible && item?.isVirtuallyVerified);
   };
 
   const InfiniteHits = ({...props}) => {
@@ -98,7 +98,7 @@ export const HomeScreen: FC<{}> = () => {
 
   return (
     <Container>
-      <InstantSearch indexName={'prod_lootswap'} searchClient={searchClient}>
+      <InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
         <InfiniteHits />
         {
           <HomeFiltersScreen

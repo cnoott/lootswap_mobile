@@ -161,7 +161,6 @@ const OffersStackNavigation = () => (
 );
 
 const getTabBarIcon = (isFocused?: boolean, route?: string, userData: any) => {
-  const {newNotification} = userData;
   let _source = BOTTOM_TAB_HOME;
   switch (route) {
     case 'Home':
@@ -174,8 +173,8 @@ const getTabBarIcon = (isFocused?: boolean, route?: string, userData: any) => {
       _source = isFocused ? BOTTOM_TAB_PROFILE_SELECTED : BOTTOM_TAB_PROFILE;
       break;
     case 'Notifications':
-      console.log('new notif', userData.newNotification);
-      if (userData.newNotification) {
+      console.log('new notif', userData?.newNotification);
+      if (userData?.newNotification) {
         _source = BOTTOM_TAB_NOTIFICATION_NEW;
         break;
       }
