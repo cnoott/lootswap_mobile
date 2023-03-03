@@ -48,7 +48,7 @@ export const TextInput = styled.TextInput.attrs(props => ({
     height: 1,
     width: 1,
   },
-  fontSize: moderateScale(props.isHomeSearch ? 13 : 10),
+  fontSize: moderateScale(props.isHomeSearch ? 14 : 15),
   fontFamily: 'Urbanist',
   mx: scale(10),
   flex: 1,
