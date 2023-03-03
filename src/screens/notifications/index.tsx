@@ -89,7 +89,7 @@ export const NotificationsScreen: FC<{}> = () => {
     <Container>
       <InStackHeader back={true} title={'Notifications'} />
       <FlastList
-        data={userData?.notifications?.reverse() || []}
+        data={userData?.notifications|| []}
         renderItem={renderNotifListItem}
         refreshControl={
           <RefreshControl
