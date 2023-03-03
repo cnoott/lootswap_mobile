@@ -34,28 +34,31 @@ export const HomeScreen: FC<{}> = () => {
     onToggleModal();
   };
 
-  const onEndReached = (isLastPage: boolean, showMore: Function = () => {}) => {
-    if (isLastPage) {
-      showMore();
-    }
+  const onEndReached = (showMore: Function = () => {}) => {
+    showMore();
   };
 
   const renderItem = ({item, index}) => {
     if (index === 0) {
       return <CarouselComponent height={scale(400)} isHome={true} />;
     }
-    //console.log('item', item);
+    console.log('item', item.name);
     return <LSProductCard item={item} />;
   };
-  /* TODO: Commenting out for development purposes
+
   const transformItems = items => {
-    return items.filter(item => item.isVisible && item.isVirtuallyVerified);
+    // XXX Weird workaround.
+    // This is due to the CarouselComponent render item hiding the first two elements
+    // so I need to duplicate them.
+    items.unshift(items[0]);
+    items.unshift(items[0]);
+    return items.filter(item => item?.isVisible && item?.isVirtuallyVerified);
   };
-  */
 
   const InfiniteHits = ({...props}) => {
-    const {hits, isLastPage, showMore} = useInfiniteHits({
+    const {hits, showMore} = useInfiniteHits({
       ...props,
+      transformItems: transformItems,
     });
     return (
       <>
@@ -69,11 +72,13 @@ export const HomeScreen: FC<{}> = () => {
           data={hits}
           renderItem={renderItem}
           keyExtractor={item => item.objectID}
-          onEndReached={() => onEndReached(isLastPage, showMore)}
+          onEndReached={() => onEndReached(showMore)}
           ListHeaderComponent={
+            <>
             <SearchContainer>
               <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
             </SearchContainer>
+            </>
           }
           stickyHeaderIndices={[0]}
           getItemLayout={(data, index) => ({

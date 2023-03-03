@@ -13,6 +13,7 @@ import {
   UPDATE_USER,
   DELETE_NOTIF,
   CANCEL_TRADE,
+  NEW_NOTIF_FALSE,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
 //import messaging from '@react-native-firebase/messaging';
@@ -279,6 +280,25 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case DELETE_NOTIF.FAILURE: {
+      return {
+        ...state,
+      };
+    }
+    case NEW_NOTIF_FALSE.REQUEST: {
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          newNotification: false,
+        },
+      };
+    }
+    case NEW_NOTIF_FALSE.SUCCESS: {
+      return {
+        ...state,
+      };
+    }
+    case NEW_NOTIF_FALSE.FAILURE: {
       return {
         ...state,
       };
