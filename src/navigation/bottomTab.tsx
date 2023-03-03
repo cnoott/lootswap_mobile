@@ -54,6 +54,7 @@ import ListLootSuccessScreen from '../screens/loot/listLootSuccessScreen';
 import PayPalLinkModal from '../components/paypalLinkModal';
 import LinkPaypalScreen from '../screens/profile/linkPaypalScreen';
 import LootEditAddressScreen from '../screens/loot/lootEditAddressScreen';
+import { BOTTOM_TAB_NOTIFICATION_NEW } from '../assets/images/svgs';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -159,7 +160,8 @@ const OffersStackNavigation = () => (
   </Stack.Navigator>
 );
 
-const getTabBarIcon = (isFocused?: boolean, route?: string) => {
+const getTabBarIcon = (isFocused?: boolean, route?: string, userData: any) => {
+  const {newNotification} = userData;
   let _source = BOTTOM_TAB_HOME;
   switch (route) {
     case 'Home':
@@ -172,6 +174,11 @@ const getTabBarIcon = (isFocused?: boolean, route?: string) => {
       _source = isFocused ? BOTTOM_TAB_PROFILE_SELECTED : BOTTOM_TAB_PROFILE;
       break;
     case 'Notifications':
+      console.log('new notif', userData.newNotification);
+      if (userData.newNotification) {
+        _source = BOTTOM_TAB_NOTIFICATION_NEW;
+        break;
+      }
       _source = isFocused
         ? BOTTOM_TAB_NOTIFICATION_SELECTED
         : BOTTOM_TAB_NOTIFICATION;
@@ -240,7 +247,7 @@ export const BottomTabs: FC<{}> = () => {
               onLongPress={onLongPress}
               key={index}>
               <TabItemContainer>
-                {getTabBarIcon(isFocused, route.name)}
+                {getTabBarIcon(isFocused, route.name, auth.userData)}
                 <TabItemText isActive={isFocused}>{route.name}</TabItemText>
               </TabItemContainer>
               <PayPalLinkModal

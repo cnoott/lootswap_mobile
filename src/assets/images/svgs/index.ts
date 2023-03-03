@@ -103,6 +103,10 @@ export const BOTTOM_TAB_NOTIFICATION_SELECTED = `
 </svg>
 `;
 
+export const BOTTOM_TAB_NOTIFICATION_NEW = `
+<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.17 22.44"><path d="M12,17.85c5.64,0,8.25-.73,8.5-3.63,0-2.9-1.82-2.71-1.82-6.27C18.68,5.16,16.05,2,12,2S5.32,5.16,5.32,8c0,3.56-1.82,3.37-1.82,6.27C3.75,17.14,6.36,17.85,12,17.85Z" transform="translate(-2.75 -0.31)" fill="none" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M14.39,20.86a3.17,3.17,0,0,1-4.87,0Z" transform="translate(-2.75 -0.31)" fill="none" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><circle cx="14.11" cy="5.06" r="4.56" fill="#f75555" stroke="#f75555" stroke-miterlimit="10"/></svg>
+`;
+
 export const BOTTOM_TAB_OFFERS = `
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M17.9033 8.85156L13.46 12.4646C12.6205 13.1306 11.4394 13.1306 10.5999 12.4646L6.11914 8.85156" stroke="#404040" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
