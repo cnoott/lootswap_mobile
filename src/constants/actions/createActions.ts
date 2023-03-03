@@ -187,3 +187,7 @@ export const PAYOUT_USER = {
 export const DELETE_NOTIF = {
   ...createActionConst(actions.DELETE_NOTIF),
 };
+
+export const NEW_NOTIF_FALSE = {
+  ...createActionConst(actions.NEW_NOTIF_FALSE),
+};

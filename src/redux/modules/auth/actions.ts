@@ -16,6 +16,7 @@ import {
   CHECK_STRIPE_LINK,
   PAYOUT_USER,
   DELETE_NOTIF,
+  NEW_NOTIF_FALSE,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -331,5 +332,24 @@ export const deleteNotifSuccess = (payload: any) => {
 export const deleteNotifFailure = () => {
   return {
     type: DELETE_NOTIF.FAILURE,
+  };
+};
+
+export const newNotifFalseRequest = (userId: string) => {
+  return {
+    type: NEW_NOTIF_FALSE.REQUEST,
+    userId: userId,
+  };
+};
+
+export const newNotifFalseSuccess = () => {
+  return {
+    type: NEW_NOTIF_FALSE.SUCCESS,
+  };
+};
+
+export const newNotifFalseFailure = () => {
+  return {
+    type: NEW_NOTIF_FALSE.FAILURE,
   };
 };
