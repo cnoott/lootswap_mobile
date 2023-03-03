@@ -9,7 +9,12 @@ import {useSelector, useDispatch} from 'react-redux';
 import {SvgXml} from 'react-native-svg';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {getMyDetailsRequest, getUsersDetailsRequest, deleteNotifRequest} from '../../redux/modules';
+import {
+  getMyDetailsRequest,
+  getUsersDetailsRequest,
+  deleteNotifRequest,
+  newNotifFalseRequest,
+} from '../../redux/modules';
 import {
   BOTTOM_TAB_OFFERS,
   CHAT_NOTIF,
@@ -37,10 +42,12 @@ export const NotificationsScreen: FC<{}> = () => {
   useFocusEffect(
     React.useCallback(() => {
       dispatch(getMyDetailsRequest(userData?._id));
+      dispatch(newNotifFalseRequest(userData?._id));
     }, [userData?._id, dispatch]),
   );
   const onNotificationRefresh = () => {
     dispatch(getUsersDetailsRequest(userData?._id, false));
+    dispatch(newNotifFalseRequest(userData?._id));
   };
   const svgOptions = (type: string) => {
     switch (type) {

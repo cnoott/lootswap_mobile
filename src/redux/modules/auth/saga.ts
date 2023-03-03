@@ -15,6 +15,7 @@ import {
   CHECK_STRIPE_LINK,
   PAYOUT_USER,
   DELETE_NOTIF,
+  NEW_NOTIF_FALSE,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -40,6 +41,9 @@ import {
   deleteNotifRequest,
   deleteNotifSuccess,
   deleteNotifFailure,
+  newNotifFalseRequest,
+  newNotifFalseSuccess,
+  newNotifFalseFailure,
 } from './actions';
 import {
   signIn,
@@ -56,6 +60,7 @@ import {
   checkStripeLinkCall,
   payoutUserCall,
   deleteNotifCall,
+  newNotifFalseCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
@@ -351,6 +356,22 @@ export function* deleteNotif(action: any) {
   }
 }
 
+export function* newNotifFalse(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      newNotifFalseCall,
+      action?.userId,
+    );
+    if (response?.success) {
+      yield put(newNotifFalseSuccess());
+    } else {
+      yield put(newNotifFalseFailure());
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
@@ -367,4 +388,5 @@ export default function* authSaga() {
   yield takeLatest(CHECK_STRIPE_LINK.REQUEST, checkStripeLink);
   yield takeLatest(PAYOUT_USER.REQUEST, payoutUser);
   yield takeLatest(DELETE_NOTIF.REQUEST, deleteNotif);
+  yield takeLatest(NEW_NOTIF_FALSE.REQUEST, newNotifFalse);
 }
