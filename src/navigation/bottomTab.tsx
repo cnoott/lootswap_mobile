@@ -54,7 +54,7 @@ import ListLootSuccessScreen from '../screens/loot/listLootSuccessScreen';
 import PayPalLinkModal from '../components/paypalLinkModal';
 import LinkPaypalScreen from '../screens/profile/linkPaypalScreen';
 import LootEditAddressScreen from '../screens/loot/lootEditAddressScreen';
-import { BOTTOM_TAB_NOTIFICATION_NEW } from '../assets/images/svgs';
+import {BOTTOM_TAB_NOTIFICATION_NEW} from '../assets/images/svgs';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();

@@ -1,11 +1,11 @@
 import axios from 'axios';
 import _ from 'lodash';
 import ReduxStore from '../redux/store/store';
-//import {API} from '@env';
+import {API, SOCKET_API} from '@env';
 
-export const baseURL = 'http://dev.lootswap.com:8000/api';
-export const baseURLMessage = 'http://dev.lootswap.com:8000/messages';
-export const baseURLPriveteMessage = 'http://dev.lootswap.com:8000';
+export const baseURL = API;
+export const baseURLMessage = `${SOCKET_API}/messages`
+export const baseURLPriveteMessage = SOCKET_API;
 
 const TIME_OUT = 30000;
 export const createAxiosInstanceWithHeader = () => {
