@@ -29,13 +29,7 @@ export const WalletScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const [showGateway, setShowGateway] = useState(false);
-  const {
-    userData,
-    authToken,
-    userData: {
-      stripeAccData: {capabilities},
-    },
-  } = auth;
+  const {userData, authToken} = auth;
 
   const webViewUri =
     `${WEB_APP_URL}/link-stripe-mobile?` +
@@ -126,7 +120,7 @@ export const WalletScreen: FC<{}> = () => {
           Note: Transfers take 3-5 business. You will receive a sms notification
           in the coming days.
         </DesLabel>
-        {capabilities.transfers === 'active' ? (
+        {userData?.stripeAccData?.capabilities?.transfers === 'active' ? (
           <>
             <LSButton
               title={'Account Linked! Tap to relink'}
