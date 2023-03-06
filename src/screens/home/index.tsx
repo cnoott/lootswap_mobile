@@ -2,7 +2,7 @@
   LootSwap - FIRST TAB HOME SCREEN
  ***/
 
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useState} from 'react';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
 import {Container, FlatList, SearchContainer} from './styles';
@@ -40,7 +40,7 @@ export const HomeScreen: FC<{}> = () => {
 
   const renderItem = ({item, index}) => {
     if (index === 0) {
-      return <CarouselComponent height={scale(400)} isHome={true} />;
+      return <CarouselComponent height={scale(320)} isHome={true} />;
     }
     console.log('item', item.name);
     return <LSProductCard item={item} />;
@@ -75,9 +75,9 @@ export const HomeScreen: FC<{}> = () => {
           onEndReached={() => onEndReached(showMore)}
           ListHeaderComponent={
             <>
-            <SearchContainer>
-              <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
-            </SearchContainer>
+              <SearchContainer>
+                <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
+              </SearchContainer>
             </>
           }
           stickyHeaderIndices={[0]}

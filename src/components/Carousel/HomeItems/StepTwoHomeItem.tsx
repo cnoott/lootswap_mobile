@@ -30,16 +30,16 @@ export const LSHomeStepTwoCarouselItem: FC<HeaderProps> = React.memo(() => {
     return (
       <>
         <FirstLeftImage>
-          <Image source={HOME_CAROUSEL_SHOE_THREE} width={160} height={115} />
+          <Image source={HOME_CAROUSEL_SHOE_THREE} width={110} height={105} />
         </FirstLeftImage>
         <FirstRightImage>
-          <Image source={HOME_CAROUSEL_SHOE_FOUR} width={160} height={115} />
+          <Image source={HOME_CAROUSEL_SHOE_FOUR} width={110} height={105} />
         </FirstRightImage>
         <SecondLeftImage>
-          <Image source={HOME_CAROUSEL_CLOTH_THREE} width={150} height={85} />
+          <Image source={HOME_CAROUSEL_CLOTH_THREE} width={100} height={85} />
         </SecondLeftImage>
         <SecondRightImage>
-          <Image source={HOME_CAROUSEL_CLOTH_FOUR} width={100} height={80} />
+          <Image source={HOME_CAROUSEL_CLOTH_FOUR} width={90} height={70} />
         </SecondRightImage>
       </>
     );
@@ -48,10 +48,10 @@ export const LSHomeStepTwoCarouselItem: FC<HeaderProps> = React.memo(() => {
     <Container>
       <HeaderText>
         <HeaderPrimaryText>Lowest</HeaderPrimaryText>{' '}
-        {'seller fees in\n the Game'}
+        {'seller fees in the Game'}
       </HeaderText>
       <HeaderBottomText>
-        {"that's more profit for you\nto keep."}
+        {"that's more profit for you to keep."}
       </HeaderBottomText>
       <OnlyText>ONLY A</OnlyText>
       <LSButton
@@ -60,8 +60,8 @@ export const LSHomeStepTwoCarouselItem: FC<HeaderProps> = React.memo(() => {
         type={Type.Primary}
         radius={10}
         onPress={() => {}}
-        fitToWidth={'55%'}
-        sizeFont={24}
+        fitToWidth={'42%'}
+        sizeFont={18}
       />
       <PayPalDesText>{'*Does not include PayPal processing fee'}</PayPalDesText>
       {renderImages()}
