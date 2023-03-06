@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {SvgXml} from 'react-native-svg';
 import LSButton from '../../commonComponents/LSButton';
 import {Size, Type} from 'custom_enums';
-import {SWAP_ICON} from 'localsvgimages';
+import {SWAP_ICON_HOME_CAROASAL} from 'localsvgimages';
 import {
   Container,
   HeaderText,
@@ -31,22 +31,22 @@ export const LSHomeStepOneCarouselItem: FC<HeaderProps> = React.memo(() => {
   const renderSwapTopView = () => {
     return (
       <SwapContainer>
-        <Image source={HOME_CAROUSEL_SHOE_ONE} width={125} height={82} />
+        <Image source={HOME_CAROUSEL_SHOE_ONE} width={110} height={74} />
         <SwapIconContainer>
-          <SvgXml xml={SWAP_ICON} />
+          <SvgXml xml={SWAP_ICON_HOME_CAROASAL} />
         </SwapIconContainer>
-        <Image source={HOME_CAROUSEL_SHOE_TWO} width={125} height={82} />
+        <Image source={HOME_CAROUSEL_SHOE_TWO} width={110} height={74} />
       </SwapContainer>
     );
   };
   const renderSwapBottomView = () => {
     return (
       <SwapContainer>
-        <Image source={HOME_CAROUSEL_CLOTH_ONE} width={95} height={115} />
+        <Image source={HOME_CAROUSEL_CLOTH_ONE} width={87} height={100} />
         <SwapIconContainer>
-          <SvgXml xml={SWAP_ICON} />
+          <SvgXml xml={SWAP_ICON_HOME_CAROASAL} />
         </SwapIconContainer>
-        <Image source={HOME_CAROUSEL_CLOTH_TWO} width={95} height={115} />
+        <Image source={HOME_CAROUSEL_CLOTH_TWO} width={87} height={100} />
       </SwapContainer>
     );
   };
@@ -65,17 +65,18 @@ export const LSHomeStepOneCarouselItem: FC<HeaderProps> = React.memo(() => {
   return (
     <Container>
       <HeaderText>Swap Sneakers & Clothing</HeaderText>
-      <VerticalSpace />
+      <VerticalSpace space={5} />
       <LSButton
         title={'Safely & Securely'}
-        size={Size.Fit_To_Width}
+        size={Size.Custom}
         type={Type.Primary}
-        radius={10}
+        radius={6}
         onPress={() => {}}
-        fitToWidth={'45%'}
-        sizeFont={18}
+        sizeFont={14}
+        customWidth={130}
+        customHeight={34}
       />
-      <VerticalSpace />
+      <VerticalSpace space={5} />
       {renderSwapTopView()}
       {renderSwapBottomView()}
       <SwapContainer>

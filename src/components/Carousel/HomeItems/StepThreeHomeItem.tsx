@@ -34,17 +34,17 @@ export const LSHomeStepThreeCarouselItem: FC<HeaderProps> = React.memo(() => {
           <HeaderPrimaryText>Discord community</HeaderPrimaryText>
         </StepThreeHeaderText>
       </DiscordContainer>
-      <VerticalSpace space={30} />
-      <Image source={DISCORD_SCREENSHOT} width={300} height={140} />
+      <VerticalSpace space={10} />
+      <Image source={DISCORD_SCREENSHOT} width={280} height={110} />
       <ExecutivePerksText>{'*Get Exclusive Perks'}</ExecutivePerksText>
       <LSButton
         title={'Join Now'}
         size={Size.Fit_To_Width}
         type={Type.Primary}
-        radius={10}
+        radius={16}
         onPress={() => Linking.openURL('https://discord.gg/z6EH4zAfxt')}
-        fitToWidth={'37%'}
-        sizeFont={24}
+        fitToWidth={'35%'}
+        sizeFont={22}
       />
       <VerticalSpace space={20} />
     </Container>

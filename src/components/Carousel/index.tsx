@@ -69,7 +69,7 @@ function CarouselComponent(props: CarouselProps) {
       case 3:
         return <LSHomeStepThreeCarouselItem />;
       default:
-        return <LSHomeStepOneCarouselItem />;
+        return <LSHomeStepThreeCarouselItem />;
     }
   };
   return (
@@ -78,11 +78,11 @@ function CarouselComponent(props: CarouselProps) {
         panGestureHandlerProps={{
           activeOffsetX: [-10, 10],
         }}
-        loop={loop}
+        // loop={loop}
         width={isProduct ? w : width}
         height={isProduct ? height - 30 : height - 5}
         parallaxScrollingOffset={50}
-        autoPlay={autoPlay}
+        autoPlay={false}
         autoPlayInterval={10000}
         keyExtractor={item => item}
         data={imagesArr}

@@ -333,6 +333,16 @@ export const SWAP_ICON = `<svg width="20" height="20" viewBox="0 0 20 20" fill="
 </svg>
 `;
 
+export const SWAP_ICON_HOME_CAROASAL = `<svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="1.24902" y="0.517578" width="39" height="39" rx="19.5" fill="#F2F2F2"/>
+<path d="M28.9132 15.1778L15.2954 15.1778" stroke="#101010" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M24.8174 11.1003L28.914 15.1781L24.8174 19.2559" stroke="#101010" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.582 25.1066L26.1998 25.1066" stroke="#101010" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16.6782 29.1841L12.5815 25.1063L16.6782 21.0285" stroke="#101010" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="1.24902" y="0.517578" width="39" height="39" rx="19.5" stroke="#C9C9C9"/>
+</svg>
+`;
+
 export const TRADE_MODAL_CLOSE_BUTTON = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M0.4375 12.0001C0.4375 20.6714 3.32875 23.5626 12 23.5626C20.6712 23.5626 23.5625 20.6714 23.5625 12.0001C23.5625 3.32887 20.6712 0.437622 12 0.437622C3.32875 0.437622 0.4375 3.32887 0.4375 12.0001Z" fill="#E7E7E7"/>
 <path d="M14.9926 8.99353L9.00256 14.9835" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

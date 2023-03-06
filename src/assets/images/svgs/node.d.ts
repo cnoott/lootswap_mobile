@@ -46,6 +46,7 @@ declare module 'localsvgimages' {
   export const TRASH_WHITE_ICON: any;
   export const PRODUCT_EDIT_PRIMARY: any;
   export const SWAP_ICON: any;
+  export const SWAP_ICON_HOME_CAROASAL: any;
   export const TRADE_MODAL_CLOSE_BUTTON: any;
   export const ORDER_TRACK_STEP_SELECTED: any;
   export const ORDER_TRACK_STEP_UNSELECTED: any;
