@@ -2,13 +2,15 @@
 LootSwap - EDIT PROFILE SCREEN
 ***/
 
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSInput from '../../components/commonComponents/LSInput';
+import {LSModal} from '../../components/commonComponents/LSModal';
 import LSButton from '../../components/commonComponents/LSButton';
 import {AuthProps} from '../../redux/modules/auth/reducer';
+import {ModalContainerView, ModalHeaderText, TopMargin} from '../offers/styles';
 import {updateUser} from '../../redux/modules';
 import {
   Container,
@@ -26,6 +28,9 @@ export const EditProfileScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const dispatch = useDispatch();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const onCloseModal = () => setIsModalVisible(false);
+  const [pressedYes, setPressedYes] = useState(false);
 
   const profileValidationSchema = yup.object().shape({
     name: yup
@@ -37,6 +42,10 @@ export const EditProfileScreen: FC<{}> = () => {
       .email('Please enter valid email')
       .required('Please enter email'),
   });
+
+  const onDeleteAccount = () => {
+    setIsModalVisible(true);
+  };
 
   const onSubmit = (values: FormProps) => {
     dispatch(
@@ -65,6 +74,46 @@ export const EditProfileScreen: FC<{}> = () => {
         {({handleChange, handleSubmit, errors, values}) => {
           return (
             <Container>
+              <LSModal isVisible={isModalVisible} onBackdropPress={() => onCloseModal()}>
+                <LSModal.BottomContainer>
+                  <TopMargin />
+                  <ModalHeaderText>
+                    {pressedYes
+                      ? 'Press yes again to confirm '
+                      : 'Are you sure you want to delete your account?'}
+                  </ModalHeaderText>
+                  <TopMargin />
+                  {pressedYes ? (
+                    <LSButton
+                      title={'YES!!!!'}
+                      size={Size.Fit_To_Width}
+                      type={Type.Primary}
+                      radius={20}
+                      fitToWidth={'90%'}
+                      onPress={() => {}}
+                    />
+                  ) : (
+                    <LSButton
+                      title={"Yes, I'm sure"}
+                      size={Size.Fit_To_Width}
+                      type={Type.Primary}
+                      radius={20}
+                      fitToWidth={'90%'}
+                      onPress={() => setPressedYes(true)}
+                    />
+                  )}
+                  <TopMargin margin={2} />
+                  <LSButton
+                    title={'Cancel'}
+                    size={Size.Fit_To_Width}
+                    type={Type.Grey}
+                    radius={20}
+                    fitToWidth={'90%'}
+                    onPress={() => onCloseModal()}
+                  />
+                  <LSModal.CloseButton onCloseButtonPress={() => onCloseModal()} />
+                </LSModal.BottomContainer>
+              </LSModal>
               <EmptyTopView>
                 <InStackHeader title="Edit Profile" />
                 <LSInput
@@ -81,6 +130,13 @@ export const EditProfileScreen: FC<{}> = () => {
                   rightIcon={EDIT_PROFILE_EMAIL_ICON}
                 />
                 <TopSpaceView>
+                  <LSButton
+                    title={'Delete Account'}
+                    size={Size.Full}
+                    type={Type.Error}
+                    radius={20}
+                    onPress={() => onDeleteAccount()}
+                  />
                   {/*
                   <LSButton
                     title={'Change Password'}
