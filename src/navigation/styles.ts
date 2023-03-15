@@ -40,7 +40,8 @@ export const TabItemText = styled.Text.attrs(props => ({
 }))`
   font-weight: ${props => `${props.isActive ? 600 : 400}`};
   font-size: ${moderateScale(10)}px;
-  font-family: ${props => `${props.isActive ? 'Urbanist-ExtraBold' : 'Urbanist-Medium'}`};
+  font-family: ${props =>
+    `${props.isActive ? 'Urbanist-ExtraBold' : 'Urbanist-Medium'}`};
   ${color}
   ${space}
 `;

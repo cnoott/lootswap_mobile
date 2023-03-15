@@ -269,7 +269,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         userData: {
           ...state.userData,
           notifications: state.userData.notifications.filter(
-            notif => notif._id !== action.reqData.notif._id
+            notif => notif._id !== action.reqData.notif._id,
           ),
         },
       };

@@ -75,9 +75,9 @@ export const HomeScreen: FC<{}> = () => {
           onEndReached={() => onEndReached(showMore)}
           ListHeaderComponent={
             <>
-            <SearchContainer>
-              <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
-            </SearchContainer>
+              <SearchContainer>
+                <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
+              </SearchContainer>
             </>
           }
           stickyHeaderIndices={[0]}
