@@ -74,7 +74,9 @@ export const EditProfileScreen: FC<{}> = () => {
         {({handleChange, handleSubmit, errors, values}) => {
           return (
             <Container>
-              <LSModal isVisible={isModalVisible} onBackdropPress={() => onCloseModal()}>
+              <LSModal
+                isVisible={isModalVisible}
+                onBackdropPress={() => onCloseModal()}>
                 <LSModal.BottomContainer>
                   <TopMargin />
                   <ModalHeaderText>
@@ -111,7 +113,9 @@ export const EditProfileScreen: FC<{}> = () => {
                     fitToWidth={'90%'}
                     onPress={() => onCloseModal()}
                   />
-                  <LSModal.CloseButton onCloseButtonPress={() => onCloseModal()} />
+                  <LSModal.CloseButton
+                    onCloseButtonPress={() => onCloseModal()}
+                  />
                 </LSModal.BottomContainer>
               </LSModal>
               <EmptyTopView>

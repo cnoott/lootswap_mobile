@@ -4,7 +4,7 @@ import ReduxStore from '../redux/store/store';
 import {API, SOCKET_API} from '@env';
 
 export const baseURL = API;
-export const baseURLMessage = `${SOCKET_API}/messages`
+export const baseURLMessage = `${SOCKET_API}/messages`;
 export const baseURLPriveteMessage = SOCKET_API;
 
 const TIME_OUT = 30000;

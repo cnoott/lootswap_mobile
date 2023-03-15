@@ -108,10 +108,12 @@ export const ProfileScreen: FC<{}> = () => {
           uploadFile(fileData, signedReqData?.signedRequest, signedReqData?.url)
             .then(url => {
               setImageUploading(false);
-              dispatch(updateUser({
-                userId: userData?._id,
-                userData: {profile_picture: url},
-              }));
+              dispatch(
+                updateUser({
+                  userId: userData?._id,
+                  userData: {profile_picture: url},
+                }),
+              );
               setProfileUrl(url);
             })
             .catch(() => {
