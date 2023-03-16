@@ -17,6 +17,7 @@ import {
   PAYOUT_USER,
   DELETE_NOTIF,
   NEW_NOTIF_FALSE,
+  DELETE_USER,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -351,5 +352,24 @@ export const newNotifFalseSuccess = () => {
 export const newNotifFalseFailure = () => {
   return {
     type: NEW_NOTIF_FALSE.FAILURE,
+  };
+};
+
+export const deleteUserRequest = (userId: string) => {
+  return {
+    type: DELETE_USER.REQUEST,
+    userId: userId,
+  };
+};
+
+export const deleteUserSuccess = () => {
+  return {
+    type: DELETE_USER.SUCCESS,
+  };
+};
+
+export const deleteUserFailure = () => {
+  return {
+    type: DELETE_USER.FAILURE,
   };
 };

@@ -12,7 +12,11 @@ import {WALLET_BACKGROUND} from '../../assets/images/svgs';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Type, Size} from 'custom_enums';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {getMyDetailsRequest, checkStripeLink, payoutUser} from '../../redux/modules';
+import {
+  getMyDetailsRequest,
+  checkStripeLink,
+  payoutUser,
+} from '../../redux/modules';
 import {WEB_APP_URL} from '@env';
 import {
   Container,
@@ -55,7 +59,7 @@ export const WalletScreen: FC<{}> = () => {
         error => {
           Alert.showSuccess('Account could not be linked, please try again');
           console.log(error);
-        }
+        },
       ),
     );
     setShowGateway(false);
@@ -94,11 +98,13 @@ export const WalletScreen: FC<{}> = () => {
         payoutUser(
           {userId: userData?._id},
           () => {
-            Alert.showSuccess('Balance transfer started!')
+            Alert.showSuccess('Balance transfer started!');
             dispatch(getMyDetailsRequest(userData?._id));
           },
           error => {
-            Alert.showError('There was an error. If problem persists please contact support@lootswap.com');
+            Alert.showError(
+              'There was an error. If problem persists please contact support@lootswap.com',
+            );
             console.log(error);
           },
         ),
@@ -130,7 +136,7 @@ export const WalletScreen: FC<{}> = () => {
               fitToWidth={'90%'}
               onPress={() => setShowGateway(true)}
             />
-            <BottomView/>
+            <BottomView />
             <LSButton
               title={'Transfer funds'}
               size={Size.Fit_To_Width}
@@ -154,7 +160,8 @@ export const WalletScreen: FC<{}> = () => {
     </Container>
   );
 };
-const styles = StyleSheet.create({ //For modal XXX repeating code in checkoutScreen.tsx
+const styles = StyleSheet.create({
+  //For modal XXX repeating code in checkoutScreen.tsx
   webViewCon: {
     position: 'absolute',
     top: 0,

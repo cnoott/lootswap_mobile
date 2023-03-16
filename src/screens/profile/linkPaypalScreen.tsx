@@ -14,7 +14,10 @@ import {
   getMyDetailsRequest,
 } from '../../redux/modules';
 import {useNavigation, NavigationProp} from '@react-navigation/native';
-import {LoadingRequest, LoadingSuccess} from '../../redux/modules/loading/actions';
+import {
+  LoadingRequest,
+  LoadingSuccess,
+} from '../../redux/modules/loading/actions';
 //TODO:
 //      - LoadingRequest
 export const LinkPaypalScreen: FC<{}> = props => {
@@ -79,7 +82,7 @@ export const LinkPaypalScreen: FC<{}> = props => {
 
   return (
     <Container>
-      <InStackHeader title={'Link Paypal'}/>
+      <InStackHeader title={'Link Paypal'} />
       {!loading && (
         <WebView
           onLoad={() => dispatch(LoadingSuccess())}

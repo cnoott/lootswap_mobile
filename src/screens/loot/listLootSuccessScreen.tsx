@@ -19,12 +19,13 @@ const ListLootSuccessScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation();
   return (
     <Container>
-      <InStackHeader title={''}/>
+      <InStackHeader title={''} />
       <SubContainer>
         <SuccessImage source={PAYMENT_SUCCESS_GIF} />
         <SuccessLabel>Success!</SuccessLabel>
         <DesLabel>
-          Our team will verify your Item and will notify you when your item is live.
+          Our team will verify your Item and will notify you when your item is
+          live.
         </DesLabel>
       </SubContainer>
       <LSButton

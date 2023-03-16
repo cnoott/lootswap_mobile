@@ -95,7 +95,7 @@ export const CreateAccountScreen: FC<{}> = () => {
     if (supported) {
       await Linking.openURL(url);
     }
-  }
+  };
 
   const loginValidationSchema = yup.object().shape({
     email: yup
