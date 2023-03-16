@@ -69,7 +69,7 @@ function CarouselComponent(props: CarouselProps) {
       case 3:
         return <LSHomeStepThreeCarouselItem />;
       default:
-        return <LSHomeStepOneCarouselItem />;
+        return <LSHomeStepThreeCarouselItem />;
     }
   };
   return (
