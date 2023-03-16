@@ -59,9 +59,6 @@ export const HomeScreen: FC<{}> = () => {
           centerAligned={false}
           onRightItemPress={() => goToLikedProducts(hits)}
         />
-        <SearchContainer>
-          <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
-        </SearchContainer>
         <FlatList
           data={hits}
           renderItem={renderItem}

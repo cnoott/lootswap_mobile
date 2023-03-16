@@ -62,6 +62,7 @@ const LSInput: FC<LSInputProps> = React.memo(props => {
           placeholderTextColor={'red'}
           textAlign={textAlign}
           maxLength={maxLength}
+          autoCapitalize={false}
         />
         {rightIcon && (
           <Touchable onPress={onRightIconPress}>
