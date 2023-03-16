@@ -2,7 +2,7 @@
   LootSwap - FIRST TAB HOME SCREEN
  ***/
 
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useState} from 'react';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
 import {Container, FlatList, SearchContainer} from './styles';
@@ -38,20 +38,11 @@ export const HomeScreen: FC<{}> = () => {
     showMore();
   };
 
-  const renderItem = ({item, index}) => {
-    if (index === 0) {
-      return <CarouselComponent height={scale(400)} isHome={true} />;
-    }
-    console.log('item', item.name);
+  const renderItem = ({item}: any) => {
     return <LSProductCard item={item} />;
   };
 
-  const transformItems = items => {
-    // XXX Weird workaround.
-    // This is due to the CarouselComponent render item hiding the first two elements
-    // so I need to duplicate them.
-    items.unshift(items[0]);
-    items.unshift(items[0]);
+  const transformItems = (items: any) => {
     return items.filter(item => item?.isVisible && item?.isVirtuallyVerified);
   };
 
@@ -68,6 +59,9 @@ export const HomeScreen: FC<{}> = () => {
           centerAligned={false}
           onRightItemPress={() => goToLikedProducts(hits)}
         />
+        <SearchContainer>
+          <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
+        </SearchContainer>
         <FlatList
           data={hits}
           renderItem={renderItem}
@@ -78,9 +72,9 @@ export const HomeScreen: FC<{}> = () => {
               <SearchContainer>
                 <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
               </SearchContainer>
+              <CarouselComponent height={scale(320)} isHome={true} />
             </>
           }
-          stickyHeaderIndices={[0]}
           getItemLayout={(data, index) => ({
             length: 100,
             offset: 100 * index,

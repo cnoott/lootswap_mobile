@@ -5,6 +5,7 @@ export enum Size {
   Large = 'lg',
   Full = 'fl',
   Fit_To_Width = 'ftw',
+  Custom = 'cst',
 }
 export enum Type {
   Primary = 'primary',

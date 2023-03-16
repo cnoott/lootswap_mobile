@@ -20,7 +20,7 @@ export const HeaderText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
   font-weight: 900;
-  font-size: ${scale(24)}px;
+  font-size: ${scale(19)}px;
   font-family: Inter-Black;
   text-align: center;
   ${color}
@@ -35,10 +35,11 @@ export const HeaderPrimaryText = styled.Text.attrs(props => ({
 
 export const HeaderBottomText = styled.Text.attrs(props => ({
   color: props.theme.colors.greyLabel,
-  mt: scale(10),
+  mt: scale(5),
+  mb: scale(30),
 }))`
   font-weight: 600;
-  font-size: ${scale(21)}px;
+  font-size: ${scale(15)}px;
   font-family: Inter-Bold;
   text-align: center;
   ${color}
@@ -47,10 +48,11 @@ export const HeaderBottomText = styled.Text.attrs(props => ({
 
 export const OnlyText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  mt: scale(50),
+  mt: scale(30),
+  mb: scale(6),
 }))`
   font-weight: 700;
-  font-size: ${scale(28)}px;
+  font-size: ${scale(18)}px;
   font-family: Inter;
   text-align: center;
   ${color}
@@ -78,11 +80,10 @@ export const SwapContainer = styled.View.attrs(() => ({}))`
   ${color}
 `;
 
-export const SwapIconContainer = styled.View.attrs(props => ({
+export const SwapIconContainer = styled.View.attrs(() => ({
   height: scale(40),
   width: scale(40),
   borderRadius: scale(20),
-  bg: props.theme.colors.screenBg,
   activeOpacity: 0.8,
   mb: scale(20),
 }))`
@@ -94,6 +95,7 @@ export const SwapIconContainer = styled.View.attrs(props => ({
 export const Image = styled.Image.attrs((props: any) => ({
   height: scale(props?.height),
   width: scale(props?.width),
+  borderRadius: scale(12),
 }))`
   ${color}
   ${space}
@@ -101,11 +103,8 @@ export const Image = styled.Image.attrs((props: any) => ({
 `;
 
 export const BottomLeftContainer = styled.View.attrs(() => ({
-  height: scale(68),
+  height: scale(38),
   width: scale(150),
-  borderRadius: scale(12),
-  borderTopRightRadius: 0.1,
-  bg: 'rgba(98, 103, 254, 0.1)',
   mb: scale(20),
 }))`
   align-items: center;
@@ -115,11 +114,8 @@ export const BottomLeftContainer = styled.View.attrs(() => ({
 `;
 
 export const BottomRightContainer = styled.View.attrs(() => ({
-  height: scale(68),
+  height: scale(38),
   width: scale(150),
-  borderRadius: scale(12),
-  borderTopLeftRadius: 0.1,
-  bg: '#CCFCDD',
   mb: scale(20),
 }))`
   align-items: center;
@@ -175,10 +171,10 @@ export const SecondRightImage = styled.View.attrs(() => ({}))`
 
 export const StepThreeHeaderText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  ml: scale(10),
+  ml: scale(5),
 }))`
   font-weight: 900;
-  font-size: ${scale(24)}px;
+  font-size: ${scale(18)}px;
   font-family: Inter-Black;
   ${color}
   ${space}
@@ -186,7 +182,7 @@ export const StepThreeHeaderText = styled.Text.attrs(props => ({
 
 export const ExecutivePerksText = styled.Text.attrs(() => ({
   color: '#9F9F9F',
-  mt: scale(20),
+  mt: scale(5),
   mb: scale(20),
 }))`
   font-weight: 500;
