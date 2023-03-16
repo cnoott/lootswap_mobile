@@ -352,9 +352,15 @@ export const deleteNotifCall = (reqData: any) => {
 };
 
 export const newNotifFalseCall = (userId: string) => {
-  console.log('asdfsadf',userId);
   return handleResponse(
     api.put(`/user/new-notif-false/${userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const deleteUserCall = (userId: string) => {
+  return handleResponse(
+    api.put(`/user/delete-account/${userId}`),
     API_RESPONSE.CODE200,
   );
 };

@@ -77,7 +77,7 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
 
   return (
     <Container>
-      <InStackHeader title={''}/>
+      <InStackHeader title={''} />
       <SubContainer>
         <SuccessImage source={PAYMENT_SUCCESS_GIF} />
         <SuccessLabel>Payment Success</SuccessLabel>

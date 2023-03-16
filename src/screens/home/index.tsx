@@ -69,6 +69,9 @@ export const HomeScreen: FC<{}> = () => {
           onEndReached={() => onEndReached(showMore)}
           ListHeaderComponent={
             <>
+              <SearchContainer>
+                <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
+              </SearchContainer>
               <CarouselComponent height={scale(320)} isHome={true} />
             </>
           }

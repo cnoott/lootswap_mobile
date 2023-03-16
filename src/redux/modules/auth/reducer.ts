@@ -13,6 +13,7 @@ import {
   UPDATE_USER,
   DELETE_NOTIF,
   CANCEL_TRADE,
+  DELETE_USER,
   NEW_NOTIF_FALSE,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
@@ -269,7 +270,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         userData: {
           ...state.userData,
           notifications: state.userData.notifications.filter(
-            notif => notif._id !== action.reqData.notif._id
+            notif => notif._id !== action.reqData.notif._id,
           ),
         },
       };
@@ -299,6 +300,26 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case NEW_NOTIF_FALSE.FAILURE: {
+      return {
+        ...state,
+      };
+    }
+    case DELETE_USER.REQUEST: {
+      return {
+        ...state,
+      };
+    }
+    case DELETE_USER.SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        userData: null,
+        authToken: null,
+        isLogedIn: false,
+        error: null,
+      };
+    }
+    case DELETE_USER.FAILURE: {
       return {
         ...state,
       };

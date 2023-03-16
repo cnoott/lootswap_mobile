@@ -243,7 +243,8 @@ export const TradeCheckoutScreen: FC<{}> = props => {
         <ScrollSubContainer>
           <DeliveryAddressComponent
             userDetails={userData}
-            onPress={() => navigation.navigate('AddressScreenCheckout')}/>
+            onPress={() => navigation.navigate('AddressScreenCheckout')}
+          />
           {renderYourItems()}
           {renderSendersItems()}
           <VerticalMargin />

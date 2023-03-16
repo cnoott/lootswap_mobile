@@ -89,10 +89,11 @@ export const LootEditAddressScreen: FC<{}> = () => {
               <EmptyTopView>
                 <InStackHeader title="Shipping Address" />
                 <GuarenteedView style={{marginHorizontal: 20}}>
-                <SvgXml xml={BOTTOM_TAB_HOME} style={ProtectionIconStyle} />
+                  <SvgXml xml={BOTTOM_TAB_HOME} style={ProtectionIconStyle} />
                   <GuarenteedDesView>
                     <ProtectionBottomLabel>
-                      In order to continue listing an item, you must enter your shipping info
+                      In order to continue listing an item, you must enter your
+                      shipping info
                     </ProtectionBottomLabel>
                   </GuarenteedDesView>
                 </GuarenteedView>
