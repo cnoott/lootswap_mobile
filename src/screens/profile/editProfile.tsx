@@ -11,7 +11,7 @@ import {LSModal} from '../../components/commonComponents/LSModal';
 import LSButton from '../../components/commonComponents/LSButton';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {ModalContainerView, ModalHeaderText, TopMargin} from '../offers/styles';
-import {updateUser} from '../../redux/modules';
+import {updateUser, deleteUserRequest} from '../../redux/modules';
 import {
   Container,
   EmptyTopView,
@@ -56,6 +56,10 @@ export const EditProfileScreen: FC<{}> = () => {
     );
   };
 
+  const confirmDelete = () => {
+    dispatch(deleteUserRequest(userData?._id));
+  };
+
   return (
     <KeyboardAwareScrollView
       scrollEnabled={false}
@@ -92,7 +96,7 @@ export const EditProfileScreen: FC<{}> = () => {
                       type={Type.Primary}
                       radius={20}
                       fitToWidth={'90%'}
-                      onPress={() => {}}
+                      onPress={() => confirmDelete()}
                     />
                   ) : (
                     <LSButton
