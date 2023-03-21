@@ -327,6 +327,20 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     );
   };
   const renderButtons = () => {
+
+    if (!productData?.isVisible) {
+      return (
+        <TopSpace>
+          <LSButton
+            title={'Item No Longer Avaliable'}
+            size={Size.Full}
+            type={Type.Secondary}
+            onPress={() => {}}
+          />
+        </TopSpace>
+      );
+    }
+
     if (isLogedIn && userData?._id === requestedUserDetails?._id) {
       return (
         <TopSpace>
@@ -364,7 +378,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             title={'Already Trading'}
             size={Size.Full}
             type={Type.Secondary}
-            onPress={onBuyNowPress}
+            onPress={() => {}}
           />
         </TopSpace>
       );
