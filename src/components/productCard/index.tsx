@@ -126,7 +126,9 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
           <EmptyRowView>
             <HeaderDes>{item.name}</HeaderDes>
           </EmptyRowView>
-          <HeaderTextMain>${item.price}</HeaderTextMain>
+          {item.type !== 'trade-only' && (
+            <HeaderTextMain>${item.price}</HeaderTextMain>
+          )}
         </BottomHeaderView>
         <EmptyRowView>
           <HeaderTextMain>Size {item.size}</HeaderTextMain>

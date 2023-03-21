@@ -29,14 +29,14 @@ export const MessageBoxContainer = styled.View.attrs(props => ({
 `;
 
 export const MessageText = styled.Text.attrs(props => ({
-  color: props?.self ? props.theme.colors.white : props.theme.colors.lightGrey,
+  color: props?.self ? props.theme.colors.white : props.theme.colors.text_light,
   flex: 1,
   flexWrap: 'wrap',
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-ExtraBold;
   font-weight: 400;
-  text-align: left;
+  text-align: left
   ${color}
   ${space}
   ${layout}
@@ -46,7 +46,7 @@ export const TimeText = styled.Text.attrs(props => ({
   color: props.theme.colors.lightGrey,
 }))`
   font-size: ${moderateScale(10)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist;
   position: absolute;
   right: 10px;
   bottom: 20px;
