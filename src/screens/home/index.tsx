@@ -59,6 +59,9 @@ export const HomeScreen: FC<{}> = () => {
           centerAligned={false}
           onRightItemPress={() => goToLikedProducts(hits)}
         />
+        <SearchContainer>
+          <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
+        </SearchContainer>
         <FlatList
           data={hits}
           renderItem={renderItem}
@@ -66,9 +69,6 @@ export const HomeScreen: FC<{}> = () => {
           onEndReached={() => onEndReached(showMore)}
           ListHeaderComponent={
             <>
-              <SearchContainer>
-                <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
-              </SearchContainer>
               <CarouselComponent height={scale(320)} isHome={true} />
             </>
           }

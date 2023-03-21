@@ -365,6 +365,13 @@ export const deleteUserCall = (userId: string) => {
   );
 };
 
+export const deleteProductCall = (reqData: any) => {
+  return handleResponse(
+    api.delete(`/product/${reqData?.productId}/${reqData?.userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
