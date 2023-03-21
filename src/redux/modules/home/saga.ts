@@ -6,6 +6,7 @@ import {
   CREATE_NEW_PRODUCT,
   GENERATE_LINK_PAYPAL,
   SAVE_PAYPAL,
+  DELETE_PRODUCT,
 } from '../../../constants/actions';
 import {
   getProductDetailsSuccess,
@@ -22,9 +23,11 @@ import {
   updateProductCall,
   generateLinkPaypalCall,
   savePaypalCall,
+  deleteProductCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {Alert} from 'custom_top_alert';
+import {resetRoute} from '../../../navigation/navigationHelper';
 
 type APIResponseProps = {
   success: boolean;
@@ -60,6 +63,7 @@ export function* getProductListedItemsForOffer(action: any) {
     yield put(LoadingSuccess());
     if (response?.success) {
       action?.successCallBack(response.data);
+
     } else {
       action?.errorCallBack(response.error);
     }
@@ -154,6 +158,26 @@ export function* savePaypal(action: any) {
   }
 }
 
+export function* deleteProduct(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      deleteProductCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+      resetRoute();
+    } else {
+      action?.errorCallBack(action.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(GET_PRODUCT_DETAILS.REQUEST, getSelectedProductDetails);
   yield takeLatest(
@@ -164,4 +188,5 @@ export default function* authSaga() {
   yield takeLatest(CREATE_NEW_PRODUCT.REQUEST, createNewProduct);
   yield takeLatest(GENERATE_LINK_PAYPAL.REQUEST, generateLinkPaypal);
   yield takeLatest(SAVE_PAYPAL.REQUEST, savePaypal);
+  yield takeLatest(DELETE_PRODUCT.REQUEST, deleteProduct);
 }

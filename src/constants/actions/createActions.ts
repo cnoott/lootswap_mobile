@@ -195,3 +195,7 @@ export const NEW_NOTIF_FALSE = {
 export const DELETE_USER = {
   ...createActionConst(actions.DELETE_USER),
 };
+
+export const DELETE_PRODUCT = {
+  ...createActionConst(actions.DELETE_PRODUCT),
+};

@@ -6,6 +6,7 @@ import {
   CREATE_NEW_PRODUCT,
   GENERATE_LINK_PAYPAL,
   SAVE_PAYPAL,
+  DELETE_PRODUCT,
 } from '../../../constants/actions';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 
@@ -114,6 +115,19 @@ export const savePaypal = (
 ) => {
   return {
     type: SAVE_PAYPAL.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const deleteProduct = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: DELETE_PRODUCT.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,

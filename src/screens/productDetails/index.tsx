@@ -3,7 +3,7 @@
  ***/
 
 import React, {FC, useEffect, useState} from 'react';
-import {Dimensions} from 'react-native';
+import {Dimensions, Alert as NativeAlert} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {useTheme} from 'styled-components';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
@@ -71,6 +71,7 @@ import {
   likeProduct,
   unlikeProduct,
   getMyDetailsNoLoadRequest,
+  deleteProduct,
 } from '../../redux/modules';
 import {getProductTags, configureAndGetLootData} from '../../utility/utility';
 import {Alert} from 'custom_top_alert';
@@ -150,6 +151,35 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     setLiked(false);
     dispatch(unlikeProduct(reqData));
     dispatch(getMyDetailsNoLoadRequest(userData?._id));
+  };
+
+  const handleYouSureDeleteProduct = () => {
+    NativeAlert.alert('Are you sure?', 'You cannot undo deleting a product', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: "I'm sure", onPress: () => handleDeleteProduct()},
+    ]);
+  };
+
+  const handleDeleteProduct = () => {
+    const reqData = {
+      userId: userData?._id,
+      productId: productData?.objectID,
+    };
+    dispatch(
+      deleteProduct(
+        reqData,
+        () => {
+          console.log('successfully delete item');
+        },
+        err => {
+          console.log('There was an error in deleteing an item: ', err);
+        },
+      ),
+    );
   };
 
   const initiateFirstMessage = () => {
@@ -318,7 +348,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             title={'Delete Item'}
             size={Size.Full}
             type={Type.Error}
-            onPress={() => {}}
+            onPress={() => handleYouSureDeleteProduct()}
           />
         </TopSpace>
       );
