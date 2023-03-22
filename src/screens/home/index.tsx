@@ -2,7 +2,7 @@
   LootSwap - FIRST TAB HOME SCREEN
  ***/
 
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
 import {Container, FlatList, SearchContainer} from './styles';
@@ -14,6 +14,7 @@ import {AlgoliaAppId, AlgoliaApiKey, ALGOLIA_INDEX_NAME} from '@env';
 import LSProductCard from '../../components/productCard';
 import HomeFiltersScreen from './homeFilters';
 import {scale} from 'react-native-size-matters';
+import {RefreshControl} from 'react-native';
 import {LIKE_HEART_ICON} from 'localsvgimages';
 import useFCMNotifications from '../../utility/customHooks/useFCMNotifications';
 
@@ -23,6 +24,13 @@ export const HomeScreen: FC<{}> = () => {
   useFCMNotifications();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isModalOpen, setModalOpen] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const handleRefresh = async () => {
+    searchClient.clearCache();
+    setRefreshing(true);
+    await new Promise(resolve => setTimeout(resolve, 1)); // simulate async call
+    setRefreshing(false);
+  };
 
   const goToLikedProducts = (productsList: any) => {
     navigation.navigate('LikedProductScreen', {
@@ -65,8 +73,13 @@ export const HomeScreen: FC<{}> = () => {
         <FlatList
           data={hits}
           renderItem={renderItem}
+          onRefresh={handleRefresh}
+          refreshing={refreshing}
           keyExtractor={item => item.objectID}
           onEndReached={() => onEndReached(showMore)}
+          refreshControl={
+            <RefreshControl refreshing={false} onRefresh={() => handleRefresh()}/>
+          }
           ListHeaderComponent={
             <>
               <CarouselComponent height={scale(320)} isHome={true} />
