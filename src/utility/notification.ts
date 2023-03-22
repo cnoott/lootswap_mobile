@@ -61,5 +61,15 @@ export const handleNavigation = (
           },
         ),
       );
+      break;
+    case 'product':
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Profile'}],
+      });
+      navigation.navigate('Profile', {
+        screen: 'MyLootScreen',
+      });
+      break;
   }
 };
