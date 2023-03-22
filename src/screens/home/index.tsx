@@ -17,6 +17,7 @@ import {scale} from 'react-native-size-matters';
 import {RefreshControl, AppState} from 'react-native';
 import {LIKE_HEART_ICON} from 'localsvgimages';
 import useFCMNotifications from '../../utility/customHooks/useFCMNotifications';
+import {useScrollToTop} from '@react-navigation/native';
 
 const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 
@@ -27,6 +28,8 @@ export const HomeScreen: FC<{}> = () => {
   const [refreshing, setRefreshing] = useState(false);
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
+  const scrollRef = React.useRef(null);
+  useScrollToTop(scrollRef);
 
   const handleRefresh = async () => {
     searchClient.clearCache();
@@ -93,6 +96,7 @@ export const HomeScreen: FC<{}> = () => {
           <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
         </SearchContainer>
         <FlatList
+          ref={scrollRef}
           data={hits}
           renderItem={renderItem}
           keyExtractor={item => item.objectID}
