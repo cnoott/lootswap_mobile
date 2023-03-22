@@ -2,7 +2,7 @@
   LootSwap - FIRST TAB HOME SCREEN
  ***/
 
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState, useEffect, useRef} from 'react';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
 import {Container, FlatList, SearchContainer} from './styles';
@@ -14,7 +14,7 @@ import {AlgoliaAppId, AlgoliaApiKey, ALGOLIA_INDEX_NAME} from '@env';
 import LSProductCard from '../../components/productCard';
 import HomeFiltersScreen from './homeFilters';
 import {scale} from 'react-native-size-matters';
-import {RefreshControl} from 'react-native';
+import {RefreshControl, AppState} from 'react-native';
 import {LIKE_HEART_ICON} from 'localsvgimages';
 import useFCMNotifications from '../../utility/customHooks/useFCMNotifications';
 
@@ -25,12 +25,34 @@ export const HomeScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isModalOpen, setModalOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
+
   const handleRefresh = async () => {
     searchClient.clearCache();
     setRefreshing(true);
-    await new Promise(resolve => setTimeout(resolve, 1)); // simulate async call
+    await new Promise(resolve => setTimeout(resolve, 100)); // simulate async call
     setRefreshing(false);
   };
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        handleRefresh();
+      }
+
+      appState.current = nextAppState;
+      setAppStateVisible(appState.current);
+      console.log('AppState', appState.current);
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   const goToLikedProducts = (productsList: any) => {
     navigation.navigate('LikedProductScreen', {
@@ -73,12 +95,10 @@ export const HomeScreen: FC<{}> = () => {
         <FlatList
           data={hits}
           renderItem={renderItem}
-          onRefresh={handleRefresh}
-          refreshing={refreshing}
           keyExtractor={item => item.objectID}
           onEndReached={() => onEndReached(showMore)}
           refreshControl={
-            <RefreshControl refreshing={false} onRefresh={() => handleRefresh()}/>
+            <RefreshControl refreshing={false} onRefresh={handleRefresh}/>
           }
           ListHeaderComponent={
             <>
