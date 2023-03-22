@@ -15,10 +15,12 @@ import {ThemeProvider} from 'styled-components';
 import ReduxStore from './src/redux/store/store';
 import theme from './src/theme';
 import StackNavigator from './src/navigation';
+import {StatusBar} from 'react-native';
 
 const App = () => {
   return (
     <Provider store={ReduxStore.store}>
+      <StatusBar barStyle={'dark-content'} />
       <PersistGate loading={null} persistor={ReduxStore.persistor}>
         <ThemeProvider theme={theme}>
           <StackNavigator />
