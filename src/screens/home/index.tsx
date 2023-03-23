@@ -20,6 +20,8 @@ import useFCMNotifications from '../../utility/customHooks/useFCMNotifications';
 import {useScrollToTop} from '@react-navigation/native';
 import {LoadingRequest, LoadingSuccess} from '../../redux/modules/loading/actions';
 import {useDispatch} from 'react-redux';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+
 
 const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 
@@ -33,6 +35,7 @@ export const HomeScreen: FC<{}> = () => {
   useScrollToTop(scrollRef);
 
   const handleRefresh = async () => {
+    ReactNativeHapticFeedback.trigger('impactMedium');
     dispatch(LoadingRequest());
     searchClient.clearCache();
     setRefreshing(true);

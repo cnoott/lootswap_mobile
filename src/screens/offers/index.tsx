@@ -18,6 +18,7 @@ import TradeOfferCell from './offerItems/TradeOfferCell';
 import NoOffersView from './offerItems/NoOffersView';
 import {getTradeStatusColor, daysPast} from '../../utility/utility';
 import NoMessagesView from './offerItems/NoMessagesView';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {
   Container,
   TopTabView,
@@ -66,6 +67,7 @@ export const OffersScreen: FC<{}> = () => {
   );
 
   const onTradeOffersRefresh = () => {
+    ReactNativeHapticFeedback.trigger('impactMedium');
     dispatch(
       getTradesHistory({
         userId: userData?._id,
@@ -74,6 +76,7 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const onMessagesRefresh = () => {
+    ReactNativeHapticFeedback.trigger('impactMedium');
     dispatch(getAllMyMessages(userData?._id));
   };
 
