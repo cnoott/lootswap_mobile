@@ -36,10 +36,7 @@ export const MessageText = styled.Text.attrs(props => ({
   font-size: ${moderateScale(14)}px;
   font-family: Urbanist-ExtraBold;
   font-weight: 400;
-  text-align: left
-  ${color}
-  ${space}
-  ${layout}
+  text-align: left ${color} ${space} ${layout};
 `;
 
 export const TimeText = styled.Text.attrs(props => ({

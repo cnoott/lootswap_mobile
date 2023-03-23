@@ -327,7 +327,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     );
   };
   const renderButtons = () => {
-
     if (!productData?.isVisible) {
       return (
         <TopSpace>
