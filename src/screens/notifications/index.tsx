@@ -33,6 +33,7 @@ import {
 import {LSModal} from '../../components/commonComponents/LSModal';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {handleNavigation} from '../../utility/notification';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 export const NotificationsScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
@@ -46,6 +47,7 @@ export const NotificationsScreen: FC<{}> = () => {
     }, [userData?._id, dispatch]),
   );
   const onNotificationRefresh = () => {
+    ReactNativeHapticFeedback.trigger('impactMedium');
     dispatch(getUsersDetailsRequest(userData?._id, false));
     dispatch(newNotifFalseRequest(userData?._id));
   };
