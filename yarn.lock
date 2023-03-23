@@ -7011,6 +7011,11 @@ react-native-gradle-plugin@^0.70.3:
   resolved "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.70.3.tgz"
   integrity sha512-oOanj84fJEXUg9FoEAQomA8ISG+DVIrTZ3qF7m69VQUJyOGYyDZmPqKcjvRku4KXlEH6hWO9i4ACLzNBh8gC0A==
 
+react-native-haptic-feedback@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-haptic-feedback/-/react-native-haptic-feedback-2.0.2.tgz#2da1a5d28fee5c3470c41c0d05f3565715c93fa7"
+  integrity sha512-amt0zw5UYNtEj3a8eb7Do/brOmbvdTEeEhSDqfhlyg1BNSSrkfwQAy69iDXtxPP+83zO9by3swJuhrFRMMqbUA==
+
 react-native-heroicons@^3.2.0:
   version "3.2.0"
   resolved "https://registry.npmjs.org/react-native-heroicons/-/react-native-heroicons-3.2.0.tgz"
