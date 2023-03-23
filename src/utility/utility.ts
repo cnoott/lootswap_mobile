@@ -488,8 +488,8 @@ export const getAddProductRawData = () => {
     stepFive: {
       productPrice: 0.0,
       shippingCost: 0.0,
-      isShippingPrice: true,
-      isFreeShipping: false,
+      isShippingPrice: false,
+      isFreeShipping: true,
     },
   };
   return addProductData;
