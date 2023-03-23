@@ -47,6 +47,15 @@ export const MyLootScreen: FC<{}> = () => {
     getLootData(userData?._id);
   };
 
+  const navigateToProduct = ({item}: any) => {
+    navigation.navigate('ProductDetailsChatScreen', {
+      productData: {
+        ...item,
+        objectID: item?._id,
+      },
+    });
+  };
+
   const onEditLootPress = ({item}: any) => {
     const prodData = configureAndGetLootData(item);
     dispatch(UpdateAddProductData(prodData));
@@ -66,6 +75,7 @@ export const MyLootScreen: FC<{}> = () => {
             <MyLootCell
               item={item}
               onEditLootPress={() => onEditLootPress(item)}
+              onPress={() => navigateToProduct(item)}
             />
           )}
           refreshControl={
