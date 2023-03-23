@@ -2,7 +2,7 @@
   LootSwap - FIRST TAB HOME SCREEN
  ***/
 
-import React, {FC, useState, useEffect, useRef} from 'react';
+import React, {FC, useState} from 'react';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
 import {Container, FlatList, SearchContainer} from './styles';
@@ -14,48 +14,32 @@ import {AlgoliaAppId, AlgoliaApiKey, ALGOLIA_INDEX_NAME} from '@env';
 import LSProductCard from '../../components/productCard';
 import HomeFiltersScreen from './homeFilters';
 import {scale} from 'react-native-size-matters';
-import {RefreshControl, AppState} from 'react-native';
+import {RefreshControl} from 'react-native';
 import {LIKE_HEART_ICON} from 'localsvgimages';
 import useFCMNotifications from '../../utility/customHooks/useFCMNotifications';
 import {useScrollToTop} from '@react-navigation/native';
+import {LoadingRequest, LoadingSuccess} from '../../redux/modules/loading/actions';
+import {useDispatch} from 'react-redux';
 
 const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 
 export const HomeScreen: FC<{}> = () => {
   useFCMNotifications();
+  const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isModalOpen, setModalOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const appState = useRef(AppState.currentState);
-  const [appStateVisible, setAppStateVisible] = useState(appState.current);
   const scrollRef = React.useRef(null);
   useScrollToTop(scrollRef);
 
   const handleRefresh = async () => {
+    dispatch(LoadingRequest());
     searchClient.clearCache();
     setRefreshing(true);
     await new Promise(resolve => setTimeout(resolve, 100)); // simulate async call
     setRefreshing(false);
+    dispatch(LoadingSuccess());
   };
-
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
-      if (
-        appState.current.match(/inactive|background/) &&
-        nextAppState === 'active'
-      ) {
-        handleRefresh();
-      }
-
-      appState.current = nextAppState;
-      setAppStateVisible(appState.current);
-      console.log('AppState', appState.current);
-    });
-
-    return () => {
-      subscription.remove();
-    };
-  }, []);
 
   const goToLikedProducts = (productsList: any) => {
     navigation.navigate('LikedProductScreen', {
