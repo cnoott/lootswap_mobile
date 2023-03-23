@@ -102,7 +102,7 @@ export const HomeScreen: FC<{}> = () => {
           keyExtractor={item => item.objectID}
           onEndReached={() => onEndReached(showMore)}
           refreshControl={
-            <RefreshControl refreshing={false} onRefresh={handleRefresh}/>
+            <RefreshControl refreshing={false} onRefresh={handleRefresh} />
           }
           ListHeaderComponent={
             <>
