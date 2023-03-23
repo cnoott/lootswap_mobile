@@ -327,7 +327,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     );
   };
   const renderButtons = () => {
-    if (!productData?.isVisible) {
+    if (!selectedProductDetails?.isVisible) {
       return (
         <TopSpace>
           <LSButton
