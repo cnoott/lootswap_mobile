@@ -18,6 +18,8 @@
 
 #import <react/config/ReactNativeConfig.h>
 
+#import "Branch.h"
+
 static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 
 @interface AppDelegate () <RCTCxxBridgeDelegate, RCTTurboModuleManagerDelegate> {
@@ -30,6 +32,36 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 #endif
 
 @implementation AppDelegate
+
+
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  // if you are using the TEST key
+  [Branch setUseTestBranchKey:YES];
+  // listener for Branch Deep Link data
+  [[Branch getInstance] initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary * _Nonnull params, NSError * _Nullable error) {
+    // do stuff with deep link data (nav to page, display content, etc)
+    NSLog(@"%@", params);
+  }];
+  return YES;
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+  [[Branch getInstance] application:app openURL:url options:options];
+  return YES;
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+  // handler for Push Notifications
+  [[Branch getInstance] handlePushNotification:userInfo];
+}
+
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
+  // handler for Universal Links
+  [[Branch getInstance] continueUserActivity:userActivity];
+  return YES;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
