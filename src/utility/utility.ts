@@ -155,9 +155,14 @@ export const getProfileOptions = (userData: any) => {
       index: 5,
     },
     {
+      icon: PROFILE_REFERRAL,
+      title: 'Referral program',
+      index: 6,
+    },
+    {
       icon: PROFILE_WALLET,
       title: userData?.paypal_onboarded ? 'Re-link paypal' : 'Link paypal',
-      index: 6,
+      index: 7,
     },
     /*
     {
@@ -169,7 +174,7 @@ export const getProfileOptions = (userData: any) => {
     {
       icon: PROFILE_SUPPORT,
       title: 'Support/FAQ',
-      index: 8,
+      index: 9,
     },
   ];
   return optionsList;
