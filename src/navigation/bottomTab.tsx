@@ -12,6 +12,7 @@ import EditProfileScreen from '../screens/profile/editProfile';
 import AddressScreen from '../screens/profile/addressScreen';
 import NotificationSettingScreen from '../screens/profile/notificationSettings';
 import WalletScreen from '../screens/profile/walletScreen';
+import ReferralScreen from '../screens/profile/referralScreen';
 import ProductDetailsScreen from '../screens/productDetails';
 import LootScreen from '../screens/loot';
 import MyLootScreen from '../screens/loot/myLoot';
@@ -114,6 +115,7 @@ const ProfileStackNavigation = () => (
       component={TradeCheckoutSuccessScreen}
     />
     <Stack.Screen name="WalletScreen" component={WalletScreen} />
+    <Stack.Screen name="ReferralScreen" component={ReferralScreen} />
   </Stack.Navigator>
 );
 
