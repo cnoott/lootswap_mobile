@@ -9,12 +9,11 @@ install! 'cocoapods', :deterministic_uuids => false
  $RNFirebaseAsStaticFramework = true
 
 target 'lootswap_mobile' do
+  pod 'react-native-branch', :path => '../node_modules/react-native-branch'
   config = use_native_modules!
 
   # Flags change depending on the env values.
   flags = get_default_flags()
-
-  pod 'Branch'
 
   use_react_native!(
     :path => config[:reactNativePath],

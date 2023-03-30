@@ -1,4 +1,5 @@
 #import "AppDelegate.h"
+#import <RNBranch/RNBranch.h>
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
@@ -18,7 +19,6 @@
 
 #import <react/config/ReactNativeConfig.h>
 
-#import "Branch.h"
 
 static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 
@@ -33,38 +33,14 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 
 @implementation AppDelegate
 
-
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  // if you are using the TEST key
-  [Branch setUseTestBranchKey:YES];
-  // listener for Branch Deep Link data
-  [[Branch getInstance] initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary * _Nonnull params, NSError * _Nullable error) {
-    // do stuff with deep link data (nav to page, display content, etc)
-    NSLog(@"%@", params);
-  }];
-  return YES;
-}
-
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-  [[Branch getInstance] application:app openURL:url options:options];
-  return YES;
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-  // handler for Push Notifications
-  [[Branch getInstance] handlePushNotification:userInfo];
-}
-
-
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler {
-  // handler for Universal Links
-  [[Branch getInstance] continueUserActivity:userActivity];
-  return YES;
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  
+  // Uncomment this line to use the test key instead of the live one.
+  // [RNBranch useTestInstance];
+  [RNBranch initSessionWithLaunchOptions:launchOptions isReferrable:YES];
+  NSURL *jsCodeLocation;
+  
   RCTAppSetupPrepareApp(application);
   [FIRApp configure];
   //self.initialProps = [RNFBMessagingModule addCustomPropsToUserProps:nil withLaunchOptions:launchOptions];
@@ -105,6 +81,16 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    [RNBranch application:app openURL:url options:options];
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
+   [RNBranch continueUserActivity:userActivity];
+   return YES;
 }
 
 /// This method controls whether the `concurrentRoot`feature of React18 is turned on or off.
