@@ -372,6 +372,10 @@ export const deleteProductCall = (reqData: any) => {
   );
 };
 
+export const versionCheckCall = () => {
+  return handleResponse(api.get('/get-latest-version'), API_RESPONSE.CODE200);
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

@@ -18,6 +18,7 @@ import {
   DELETE_NOTIF,
   NEW_NOTIF_FALSE,
   DELETE_USER,
+  VERSION_CHECK,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -371,5 +372,16 @@ export const deleteUserSuccess = () => {
 export const deleteUserFailure = () => {
   return {
     type: DELETE_USER.FAILURE,
+  };
+};
+
+export const versionCheck = (
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: VERSION_CHECK.REQUEST,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
   };
 };

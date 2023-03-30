@@ -11,6 +11,7 @@ import BottomTabs from './bottomTab';
 import {useSelector, useDispatch} from 'react-redux';
 import LSLoader from '../components/commonComponents/LSLoader';
 import {LoadingProps} from '../redux/modules/loading/reducer';
+import {versionCheck} from '../redux/modules';
 import {Alert} from 'custom_top_alert';
 import {isReadyRef, navigationRef} from './navigationHelper';
 import UserChatScreen from '../screens/message';
@@ -25,6 +26,9 @@ import messaging from '@react-native-firebase/messaging';
 import ProductDetailsScreen from '../screens/productDetails';
 import OffersMessageScreen from '../screens/offers/offerMessageScreen';
 import TrackOrderScreen from '../screens/order/trackOrderScreen';
+import DeviceInfo from 'react-native-device-info';
+import {Alert as AlertModal} from 'react-native';
+import {Linking} from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -34,9 +38,31 @@ const AppNavigation = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    dispatch(
+      versionCheck(
+        latestVersionRes => {
+          if (latestVersionRes !== DeviceInfo.getVersion()) {
+            AlertModal.alert(
+              'Update Avaliable',
+              'In order to continue using lootswap, you must update to the latest version', [
+              {
+                text: 'Update',
+                onPress: () => Linking.openURL('https://apps.apple.com/us/app/lootswap/id6445904189'),
+                style:'default',
+                cancelable: false,
+              },
+            ],
+            );
+          }
+        },
+        error => {
+          console.log('err in fetching version: ', error);
+        }
+      ),
+    );
+
     messaging().onNotificationOpenedApp(remoteMessage => {
       console.log('TEST: opened from bg state:', remoteMessage);
-      //TODO: HANDLE NAVIGATION HERE
       handleNavigation(navigation, remoteMessage, dispatch);
     });
 

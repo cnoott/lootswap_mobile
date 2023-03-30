@@ -199,3 +199,7 @@ export const DELETE_USER = {
 export const DELETE_PRODUCT = {
   ...createActionConst(actions.DELETE_PRODUCT),
 };
+
+export const VERSION_CHECK = {
+  ...createActionConst(actions.VERSION_CHECK),
+};
