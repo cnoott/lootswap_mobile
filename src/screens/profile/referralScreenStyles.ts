@@ -30,7 +30,6 @@ export const TopTextHeader = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
   font-size: ${moderateScale(18)}px;
-  text-align: center;
   font-family: Urbanist-Bold;
   ${color}
   ${space}
