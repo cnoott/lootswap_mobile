@@ -27,11 +27,37 @@ import {Size, Type} from '../../enums';
 import {useSelector, useDispatch} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import branch from 'react-native-branch';
+import Clipboard from '@react-native-clipboard/clipboard';
+import {Alert} from 'custom_top_alert';
+import {Share} from 'react-native';
 
 export const ReferralScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const {userData} = auth;
+
+  const copyToClipboard = () => {
+    Clipboard.setString(userData?.referralLink);
+    Alert.showSuccess('Copied!');
+  };
+
+  const onShare = async () => {
+    if (!userData?.referralLink) {
+      return;
+    }
+
+    try {
+      const result = await Share.share({
+        message: `${userData.referralLink}`,
+        url: `${userData.referralLink}`,
+      });
+      if (result.action === Share.sharedAction) {
+        Alert.showSuccess('Thanks for sharing!');
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
 
   const generateReferralLink = useCallback(async () => {
     if (!userData?.referralLink) {
@@ -92,10 +118,9 @@ export const ReferralScreen: FC<{}> = () => {
 
         <LinkSectionContainer>
           <LinkHeader>Your Custom Referral Link</LinkHeader>
-
           <LinkContainer>
-            <LinkText>www.download.lootswap.com/liam</LinkText>
-            <Touchable>
+            <LinkText>{userData?.referralLink}</LinkText>
+            <Touchable onPress={() => copyToClipboard()}>
               <SvgXml xml={COPY_ICON} />
             </Touchable>
           </LinkContainer>
@@ -107,7 +132,7 @@ export const ReferralScreen: FC<{}> = () => {
           size={Size.Full}
           type={Type.Primary}
           radius={20}
-          onPress={() => console.log('pressed')}
+          onPress={() => onShare()}
         />
       </ShareButtonContainer>
     </Container>
