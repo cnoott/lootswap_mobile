@@ -130,35 +130,36 @@ export const getProductTags = (tagType = 'trade-sell', theme: any) => {
 export const getProfileOptions = (userData: any) => {
   const optionsList: Array<PROFILE_OPTIONS_TYPE> = [
     {
+      icon: PROFILE_REFERRAL,
+      title: 'Referral program',
+      index: 1,
+    },
+    {
       icon: BOTTOM_TAB_PROFILE,
       title: 'Edit Profile',
-      index: 1,
+      index: 2,
     },
     {
       icon: PROFILE_ADDRESS,
       title: 'Address',
-      index: 2,
+      index: 3,
     },
     {
       icon: PROFILE_MY_LOOT,
       title: 'My loot',
-      index: 3,
+      index: 4,
     },
     {
       icon: PROFILE_ORDERS,
       title: 'Orders',
-      index: 4,
+      index: 5,
     },
     {
       icon: PROFILE_WALLET,
       title: 'Wallet',
-      index: 5,
-    },
-    {
-      icon: PROFILE_REFERRAL,
-      title: 'Referral program',
       index: 6,
     },
+
     {
       icon: PROFILE_WALLET,
       title: userData?.paypal_onboarded ? 'Re-link paypal' : 'Link paypal',
