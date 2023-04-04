@@ -1,9 +1,10 @@
-import {getOrder, getPaypalOrder} from '../redux/modules';
+import {getOrder, getPaypalOrder, getMessagesHistory} from '../redux/modules';
 
 export const handleNavigation = (
   navigation: any,
   message: any,
   dispatch: any,
+  userData: any,
 ) => {
   switch (message.data.notifType) {
     case 'trade':
@@ -12,6 +13,12 @@ export const handleNavigation = (
       });
       break;
     case 'message':
+      dispatch(
+        getMessagesHistory({
+          userId: userData?._id,
+          messageId: message?.data?.objectId,
+        }),
+      );
       navigation.navigate('UserChatScreen', {
         messageId: message?.data?.objectId,
       });

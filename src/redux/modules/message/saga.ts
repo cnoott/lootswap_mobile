@@ -64,13 +64,13 @@ export function* createFirstMessage(action: any) {
 }
 
 export function* getMessageHistory(action: any) {
-  yield put(LoadingRequest());
+  //yield put(LoadingRequest());
   try {
     const response: APIResponseProps = yield call(
       getMessageHistoryCall,
       action?.reqData,
     );
-    yield put(LoadingSuccess());
+    //yield put(LoadingSuccess());
     if (response?.success) {
       yield put(getMessagesHistorySuccess(response.data));
     } else {
