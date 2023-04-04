@@ -14,15 +14,36 @@ import {AlgoliaAppId, AlgoliaApiKey, ALGOLIA_INDEX_NAME} from '@env';
 import LSProductCard from '../../components/productCard';
 import HomeFiltersScreen from './homeFilters';
 import {scale} from 'react-native-size-matters';
+import {RefreshControl} from 'react-native';
 import {LIKE_HEART_ICON} from 'localsvgimages';
 import useFCMNotifications from '../../utility/customHooks/useFCMNotifications';
+import {useScrollToTop} from '@react-navigation/native';
+import {
+  LoadingRequest,
+  LoadingSuccess,
+} from '../../redux/modules/loading/actions';
+import {useDispatch} from 'react-redux';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 
 export const HomeScreen: FC<{}> = () => {
   useFCMNotifications();
+  const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isModalOpen, setModalOpen] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [hitsKey, setHitsKey] = useState(0); //we incriment the key to manually remount component to refresh products
+  const scrollRef = React.useRef(null);
+  useScrollToTop(scrollRef);
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    ReactNativeHapticFeedback.trigger('impactMedium');
+    await searchClient.clearCache();
+    setHitsKey(hitsKey + 1);
+    setRefreshing(false);
+  };
 
   const goToLikedProducts = (productsList: any) => {
     navigation.navigate('LikedProductScreen', {
@@ -63,10 +84,15 @@ export const HomeScreen: FC<{}> = () => {
           <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
         </SearchContainer>
         <FlatList
+          ref={scrollRef}
           data={hits}
           renderItem={renderItem}
           keyExtractor={item => item.objectID}
           onEndReached={() => onEndReached(showMore)}
+          refreshing={refreshing}
+          refreshControl={
+            <RefreshControl refreshing={false} onRefresh={handleRefresh} />
+          }
           ListHeaderComponent={
             <>
               <CarouselComponent height={scale(320)} isHome={true} />
@@ -90,7 +116,7 @@ export const HomeScreen: FC<{}> = () => {
   return (
     <Container>
       <InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
-        <InfiniteHits />
+        <InfiniteHits key={hitsKey} />
         {
           <HomeFiltersScreen
             isModalOpen={isModalOpen}

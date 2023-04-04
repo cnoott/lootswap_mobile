@@ -54,6 +54,8 @@ import {
 } from '../../../services/imageUploadService';
 import {Alert} from 'react-native';
 import {scale} from 'react-native-size-matters';
+import branch from 'react-native-branch';
+import {Alert as AlertModal} from 'react-native';
 
 type FormProps = {
   email: string;
@@ -68,8 +70,17 @@ export const CreateAccountScreen: FC<{}> = () => {
   const [isImageUploading, setImageUploading] = useState(false);
   const [profileUrl, setProfileUrl] = useState('');
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const [referringUserId, setReferringUserId] = useState('');
+
+  const getReferringUserId = async () => {
+    let installParams = await branch.getFirstReferringParams();
+    console.log(installParams);
+    setReferringUserId(`${installParams?.userId}`);
+    //Alert.alert(`${installParams?.userId}`);
+  };
 
   useEffect(() => {
+    getReferringUserId();
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       () => {
@@ -121,6 +132,7 @@ export const CreateAccountScreen: FC<{}> = () => {
           password: values?.password,
           profile_picture: profileUrl,
           fromMobile: true,
+          referringUserId: referringUserId,
         }),
       );
     } else {

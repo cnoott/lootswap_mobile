@@ -305,7 +305,9 @@ export const unlikeProductCall = (reqData: any) => {
 
 export const removeRegTokenCall = (reqData: any) => {
   return handleResponse(
-    api.put(`/user/remove-reg-token/${reqData?.userId}`),
+    api.put(`/user/remove-reg-token/${reqData?.userId}`, {
+      token: reqData?.fcmToken,
+    }),
     API_RESPONSE.CODE200,
   );
 };
@@ -368,6 +370,19 @@ export const deleteUserCall = (userId: string) => {
 export const deleteProductCall = (reqData: any) => {
   return handleResponse(
     api.delete(`/product/${reqData?.productId}/${reqData?.userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const versionCheckCall = () => {
+  return handleResponse(api.get('/get-latest-version'), API_RESPONSE.CODE200);
+};
+
+export const saveReferralLinkCall = (payload: any) => {
+  return handleResponse(
+    api.post(`/save-referral-link/${payload?.userId}`, {
+      referralLink: payload?.referralLink,
+    }),
     API_RESPONSE.CODE200,
   );
 };

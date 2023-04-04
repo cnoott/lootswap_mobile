@@ -16,10 +16,11 @@ import LSButton from '../../components/commonComponents/LSButton';
 interface LSMyLootCellProps {
   onEditLootPress?: Function;
   item?: any;
+  onPress?: Function;
 }
 
 const MyLootCell: FC<LSMyLootCellProps> = React.memo(props => {
-  const {onEditLootPress = () => {}} = props;
+  const {onEditLootPress = () => {}, onPress = () => {}} = props;
   const item = props.item.item;
 
   const renderImageView = () => {
@@ -48,7 +49,7 @@ const MyLootCell: FC<LSMyLootCellProps> = React.memo(props => {
   };
 
   return (
-    <CellTouchable disabled={true}>
+    <CellTouchable onPress={() => onPress()}>
       <ItemContainer>
         {renderImageView()}
         {renderDescription()}

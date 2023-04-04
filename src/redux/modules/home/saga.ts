@@ -63,7 +63,6 @@ export function* getProductListedItemsForOffer(action: any) {
     yield put(LoadingSuccess());
     if (response?.success) {
       action?.successCallBack(response.data);
-
     } else {
       action?.errorCallBack(response.error);
     }

@@ -79,4 +79,5 @@ declare module 'localsvgimages' {
   export const SYNC_WHITE_ICON: any;
   export const UPLOAD_WHITE_ICON: any;
   export const WALLET_BACKGROUND: any;
+  export const COPY_ICON: any;
 }

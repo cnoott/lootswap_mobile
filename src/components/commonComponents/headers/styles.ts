@@ -55,7 +55,7 @@ export const ProfileHeaderText = styled.Text.attrs(props => ({
   mr: moderateScale(2),
 }))`
   font-size: ${moderateScale(22)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   align-self: center;
   ${color}
   ${space}
@@ -67,7 +67,7 @@ export const StackHeaderText = styled.Text.attrs(props => ({
   ml: moderateScale(10),
 }))`
   font-size: ${moderateScale(20)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
@@ -80,7 +80,7 @@ export const OfferChatHeaderText = styled.Text.attrs(props => ({
   numberOfLines: 1,
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   align-self: center;
   ${color}
   ${space}
@@ -449,7 +449,7 @@ export const OfferStatusTitleText = styled.Text.attrs(props => ({
   mb: scale(5),
 }))`
   font-size: ${scale(14)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
 `;
@@ -461,7 +461,7 @@ export const OfferStatusText = styled.Text.attrs((props: any) => ({
   ml: scale(2),
 }))`
   font-size: ${scale(12)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
 `;
@@ -470,7 +470,7 @@ export const OfferEditedStatusTitleText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
   font-size: ${scale(14)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   text-align: center;
   ${color}
   ${space}
@@ -528,7 +528,7 @@ export const OfferYouLabel = styled.Text.attrs((props: any) => ({
   mb: scale(2),
 }))`
   font-size: ${scale(12)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
 `;
@@ -537,7 +537,7 @@ export const OfferPriceText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
   font-size: ${scale(13)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
 `;
