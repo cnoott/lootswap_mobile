@@ -305,7 +305,9 @@ export const unlikeProductCall = (reqData: any) => {
 
 export const removeRegTokenCall = (reqData: any) => {
   return handleResponse(
-    api.put(`/user/remove-reg-token/${reqData?.userId}`),
+    api.put(`/user/remove-reg-token/${reqData?.userId}`, {
+      token: reqData?.fcmToken,
+    }),
     API_RESPONSE.CODE200,
   );
 };
