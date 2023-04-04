@@ -764,4 +764,4 @@ export const COPY_ICON = `
 <path d="M21.9999 8V14.19C21.9999 15.74 20.7399 17 19.1899 17" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M22 8H19C16.75 8 16 7.25 16 5V2L22 8Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
-`
+`;

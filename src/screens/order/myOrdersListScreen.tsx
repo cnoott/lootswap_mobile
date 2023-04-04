@@ -15,7 +15,7 @@ import OrderPurchaseCell from '../../components/orders/orderPurchaseCell';
 import OrderTradeOrdersCell from '../../components/orders/orderTradeOrdersCell';
 import {LSModal} from '../../components/commonComponents/LSModal';
 import ShippingInstructionModalComponent from '../../components/orders/shippingInstructionModalComponent';
-import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {
   Container,
   TopTabView,
