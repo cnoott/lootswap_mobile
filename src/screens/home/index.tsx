@@ -18,10 +18,12 @@ import {RefreshControl} from 'react-native';
 import {LIKE_HEART_ICON} from 'localsvgimages';
 import useFCMNotifications from '../../utility/customHooks/useFCMNotifications';
 import {useScrollToTop} from '@react-navigation/native';
-import {LoadingRequest, LoadingSuccess} from '../../redux/modules/loading/actions';
+import {
+  LoadingRequest,
+  LoadingSuccess,
+} from '../../redux/modules/loading/actions';
 import {useDispatch} from 'react-redux';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-
 
 const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 

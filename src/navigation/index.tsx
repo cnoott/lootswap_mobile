@@ -48,20 +48,24 @@ const AppNavigation = () => {
           if (latestVersionRes !== DeviceInfo.getVersion()) {
             AlertModal.alert(
               'Update Avaliable',
-              'In order to continue using lootswap, you must update to the latest version', [
-              {
-                text: 'Update',
-                onPress: () => Linking.openURL('https://apps.apple.com/us/app/lootswap/id6445904189'),
-                style:'default',
-                cancelable: false,
-              },
-            ],
+              'In order to continue using lootswap, you must update to the latest version',
+              [
+                {
+                  text: 'Update',
+                  onPress: () =>
+                    Linking.openURL(
+                      'https://apps.apple.com/us/app/lootswap/id6445904189',
+                    ),
+                  style: 'default',
+                  cancelable: false,
+                },
+              ],
             );
           }
         },
         error => {
           console.log('err in fetching version: ', error);
-        }
+        },
       ),
     );
 
@@ -140,7 +144,7 @@ const StackNavigator: FC<{}> = () => {
   const linking = {
     prefixes: ['lootswap://'],
     subscribe() {
-      const unsubscribe = branch.subscribe(({ error, params }) => {
+      const unsubscribe = branch.subscribe(({error, params}) => {
         if (error) {
           console.error('Error from Branch: ' + error);
           return;
@@ -160,7 +164,6 @@ const StackNavigator: FC<{}> = () => {
       return () => {
         unsubscribe();
       };
-
     },
     config: {
       screens: {

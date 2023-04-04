@@ -2,7 +2,6 @@
   LootSwap - WALLET SCREEN
  ***/
 
-
 import React, {FC, useEffect, useCallback} from 'react';
 import {
   TopContainer,
@@ -66,7 +65,8 @@ export const ReferralScreen: FC<{}> = () => {
         `referral_${userData?._id}`,
         {
           title: 'lootswap referral link',
-          contentDescription: 'Share and get paid $5 for every new member you refer!',
+          contentDescription:
+            'Share and get paid $5 for every new member you refer!',
           contentMetadata: {
             customMetadata: {
               userId: userData?._id,

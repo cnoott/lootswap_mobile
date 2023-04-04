@@ -33,7 +33,11 @@ import {
 import {scale} from 'react-native-size-matters';
 import {useSelector, useDispatch} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
-import {signOutRequest, updateUser, getMyDetailsNoLoadRequest} from '../../redux/modules';
+import {
+  signOutRequest,
+  updateUser,
+  getMyDetailsNoLoadRequest,
+} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {getProfileOptions} from '../../utility/utility';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
