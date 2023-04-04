@@ -29,12 +29,16 @@ import TrackOrderScreen from '../screens/order/trackOrderScreen';
 import DeviceInfo from 'react-native-device-info';
 import {Alert as AlertModal} from 'react-native';
 import {Linking} from 'react-native';
+import branch from 'react-native-branch';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 
 const Stack = createStackNavigator();
 
 const AppNavigation = () => {
   const navigation: NavigationProp<any, any> = useNavigation();
   const dispatch = useDispatch();
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData} = auth;
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -63,7 +67,7 @@ const AppNavigation = () => {
 
     messaging().onNotificationOpenedApp(remoteMessage => {
       console.log('TEST: opened from bg state:', remoteMessage);
-      handleNavigation(navigation, remoteMessage, dispatch);
+      handleNavigation(navigation, remoteMessage, dispatch, userData);
     });
 
     messaging()
@@ -74,7 +78,7 @@ const AppNavigation = () => {
             'TEST: notificaiton opened from quit state',
             remoteMessage.notification,
           );
-          handleNavigation(navigation, remoteMessage, dispatch);
+          handleNavigation(navigation, remoteMessage, dispatch, userData);
         }
         setLoading(false);
       });
@@ -132,8 +136,56 @@ const StackNavigator: FC<{}> = () => {
     navRef.current = navigationRef.current.getCurrentRoute().name;
     isReadyRef.current = true;
   };
+
+  const linking = {
+    prefixes: ['lootswap://'],
+    subscribe() {
+      const unsubscribe = branch.subscribe(({ error, params }) => {
+        if (error) {
+          console.error('Error from Branch: ' + error);
+          return;
+        }
+
+        if (params['+non_branch_link']) {
+          // Non-Branch link
+          return;
+        }
+
+        if (!params['+clicked_branch_link']) {
+          // Not a Branch link
+          return;
+        }
+      });
+
+      return () => {
+        unsubscribe();
+      };
+
+    },
+    config: {
+      screens: {
+        AppScreens: {
+          screens: {
+            BottomTabs: {
+              screens: {
+                Profile: {
+                  screens: {
+                    ProfileScreen: 'profile',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  };
+
   return (
-    <NavigationContainer ref={navigationRef} onReady={onNavigationReady}>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={onNavigationReady}
+      linking={linking}>
       <Stack.Navigator
         initialRouteName={'AppScreens'}
         screenOptions={{
