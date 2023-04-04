@@ -26,6 +26,7 @@ import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {useSelector, useDispatch} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
+import {saveReferralLinkRequest} from '../../redux/modules/';
 import branch from 'react-native-branch';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {Alert} from 'custom_top_alert';
@@ -87,10 +88,14 @@ export const ReferralScreen: FC<{}> = () => {
       };
 
       const {url} = await buo.generateShortUrl(linkProperties, controlParams);
-      console.log('URL GENERATED: ', url);
+      const payload = {
+        userId: userData?._id,
+        referralLink: url,
+      };
+      dispatch(saveReferralLinkRequest(payload));
       //save url here
     }
-  }, [userData?._id, userData?.referralLink]);
+  }, [userData?._id, userData?.referralLink, dispatch]);
 
   useEffect(() => {
     generateReferralLink();

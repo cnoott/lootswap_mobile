@@ -15,6 +15,7 @@ import {
   CANCEL_TRADE,
   DELETE_USER,
   NEW_NOTIF_FALSE,
+  SAVE_REFERRAL_LINK,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
 //import messaging from '@react-native-firebase/messaging';
@@ -322,6 +323,16 @@ export default function auth(state = InitialState, action: ActionProps) {
     case DELETE_USER.FAILURE: {
       return {
         ...state,
+      };
+    }
+    case SAVE_REFERRAL_LINK.REQUEST: {
+      console.log('ACTION!', action?.payload);
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          referralLink: action?.payload.referralLink,
+        },
       };
     }
     default:

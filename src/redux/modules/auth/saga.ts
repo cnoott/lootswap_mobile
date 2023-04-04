@@ -18,6 +18,7 @@ import {
   NEW_NOTIF_FALSE,
   DELETE_USER,
   VERSION_CHECK,
+  SAVE_REFERRAL_LINK,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -49,6 +50,9 @@ import {
   deleteUserRequest,
   deleteUserSuccess,
   deleteUserFailure,
+  saveReferralLinkRequest,
+  saveReferralLinkSuccess,
+  saveReferralLinkFailure,
 } from './actions';
 import {
   signIn,
@@ -68,6 +72,7 @@ import {
   newNotifFalseCall,
   deleteUserCall,
   versionCheckCall,
+  saveReferralLinkCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
@@ -411,6 +416,23 @@ export function* versionCheck(action: any) {
   }
 }
 
+export function* saveReferralLink(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      saveReferralLinkCall,
+      action?.payload,
+    );
+    if (response?.success) {
+      yield put(saveReferralLinkSuccess());
+    } else {
+      yield put(saveReferralLinkFailure());
+    }
+  } catch (e) {
+    console.log(e);
+    saveReferralLinkFailure();
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
@@ -430,4 +452,5 @@ export default function* authSaga() {
   yield takeLatest(NEW_NOTIF_FALSE.REQUEST, newNotifFalse);
   yield takeLatest(DELETE_USER.REQUEST, deleteUser);
   yield takeLatest(VERSION_CHECK.REQUEST, versionCheck);
+  yield takeLatest(SAVE_REFERRAL_LINK.REQUEST, saveReferralLink);
 }
