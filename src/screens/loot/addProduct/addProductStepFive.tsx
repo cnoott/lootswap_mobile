@@ -70,19 +70,6 @@ export const AddProductStepFive: FC<ProductStep> = props => {
         </ShippingDes>
         <TouchableRow
           onPress={() =>
-            onButtonPress({isShippingPrice: true, isFreeShipping: false})
-          }>
-          <SvgXml
-            xml={
-              stepFive?.isShippingPrice
-                ? RADIO_BUTTON_SELECTED
-                : RADIO_BUTTON_UNSELECTED
-            }
-          />
-          <ShippingOptionsText>Set Shipping Price</ShippingOptionsText>
-        </TouchableRow>
-        <TouchableRow
-          onPress={() =>
             onButtonPress({isFreeShipping: true, isShippingPrice: false})
           }>
           <SvgXml
@@ -97,6 +84,20 @@ export const AddProductStepFive: FC<ProductStep> = props => {
             <FreeTag>Recommended</FreeTag>
           </FreeTagContainer>
         </TouchableRow>
+
+        <TouchableRow
+          onPress={() =>
+            onButtonPress({isShippingPrice: true, isFreeShipping: false})
+          }>
+          <SvgXml
+            xml={
+              stepFive?.isShippingPrice
+                ? RADIO_BUTTON_SELECTED
+                : RADIO_BUTTON_UNSELECTED
+            }
+          />
+          <ShippingOptionsText>Set Shipping Price</ShippingOptionsText>
+        </TouchableRow>
         <FreeShippingDes>
           Pay shipping costs based on buyers location
         </FreeShippingDes>
@@ -110,7 +111,6 @@ export const AddProductStepFive: FC<ProductStep> = props => {
       </HorizontalSpace>
       <LSInput
         onChangeText={setPrice}
-        defaultValue={String(price)}
         placeholder={'0.00'}
         horizontalSpace={20}
         topSpace={1}
@@ -127,7 +127,6 @@ export const AddProductStepFive: FC<ProductStep> = props => {
           </HorizontalSpace>
           <LSInput
             onChangeText={setShippingCost}
-            defaultValue={String(shippingCost)}
             placeholder={'0.00'}
             horizontalSpace={20}
             topSpace={1}

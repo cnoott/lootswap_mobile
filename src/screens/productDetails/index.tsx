@@ -327,8 +327,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     );
   };
   const renderButtons = () => {
-
-    if (!productData?.isVisible) {
+    if (!selectedProductDetails?.isVisible) {
       return (
         <TopSpace>
           <LSButton
@@ -385,20 +384,28 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     } else {
       return (
         <TopSpace>
-          <LSButton
-            title={'Buy Now'}
-            size={Size.Full}
-            type={Type.Secondary}
-            onPress={onBuyNowPress}
-          />
-          <TopSpace />
-          <LSButton
-            title={'Send Offer'}
-            size={Size.Full}
-            type={Type.Primary}
-            onPress={() => onSendOfferPress()}
-          />
-          <TopSpace />
+          {selectedProductDetails.type !== 'trade-only' && (
+            <>
+              <LSButton
+                title={'Buy Now'}
+                size={Size.Full}
+                type={Type.Secondary}
+                onPress={onBuyNowPress}
+              />
+              <TopSpace />
+            </>
+          )}
+          {selectedProductDetails.type !== 'sell-only' && (
+            <>
+              <LSButton
+                title={'Send Offer'}
+                size={Size.Full}
+                type={Type.Primary}
+                onPress={() => onSendOfferPress()}
+              />
+              <TopSpace />
+            </>
+          )}
           <LSButton
             title={'Message'}
             size={Size.Full}

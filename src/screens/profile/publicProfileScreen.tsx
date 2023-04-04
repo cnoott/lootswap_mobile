@@ -158,7 +158,9 @@ export const PublicProfileScreen: FC<{}> = ({route}) => {
         </EmptyScrollView>
         <ItemsListView
           data={requestedUserDetails?.my_items.filter(
-            item => showAll || item.type === filterItem,
+            item =>
+              (showAll || item.type === filterItem) &&
+              item.isVirtuallyVerified == true,
           )}
           renderItem={({item}) => renderTradeItem(item)}
         />

@@ -18,6 +18,8 @@ import {
   DELETE_NOTIF,
   NEW_NOTIF_FALSE,
   DELETE_USER,
+  VERSION_CHECK,
+  SAVE_REFERRAL_LINK,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -371,5 +373,35 @@ export const deleteUserSuccess = () => {
 export const deleteUserFailure = () => {
   return {
     type: DELETE_USER.FAILURE,
+  };
+};
+
+export const versionCheck = (
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: VERSION_CHECK.REQUEST,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const saveReferralLinkRequest = (payload: any) => {
+  return {
+    type: SAVE_REFERRAL_LINK.REQUEST,
+    payload: payload,
+  };
+};
+
+export const saveReferralLinkSuccess = () => {
+  return {
+    type: SAVE_REFERRAL_LINK.SUCCESS,
+  };
+};
+
+export const saveReferralLinkFailure = () => {
+  return {
+    type: SAVE_REFERRAL_LINK.FAILURE,
   };
 };

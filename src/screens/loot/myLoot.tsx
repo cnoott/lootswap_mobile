@@ -14,6 +14,7 @@ import {Alert} from 'custom_top_alert';
 import MyLootCell from '../../components/loot/myLootItemCell';
 import {UpdateAddProductData} from '../../redux/modules';
 import {configureAndGetLootData} from '../../utility/utility';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 export const MyLootScreen: FC<{}> = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,17 @@ export const MyLootScreen: FC<{}> = () => {
   };
 
   const onMyLootRefresh = () => {
+    ReactNativeHapticFeedback.trigger('impactMedium');
     getLootData(userData?._id);
+  };
+
+  const navigateToProduct = ({item}: any) => {
+    navigation.navigate('ProductDetailsChatScreen', {
+      productData: {
+        ...item,
+        objectID: item?._id,
+      },
+    });
   };
 
   const onEditLootPress = ({item}: any) => {
@@ -66,6 +77,7 @@ export const MyLootScreen: FC<{}> = () => {
             <MyLootCell
               item={item}
               onEditLootPress={() => onEditLootPress(item)}
+              onPress={() => navigateToProduct(item)}
             />
           )}
           refreshControl={

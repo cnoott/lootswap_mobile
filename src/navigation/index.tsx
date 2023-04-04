@@ -11,6 +11,7 @@ import BottomTabs from './bottomTab';
 import {useSelector, useDispatch} from 'react-redux';
 import LSLoader from '../components/commonComponents/LSLoader';
 import {LoadingProps} from '../redux/modules/loading/reducer';
+import {versionCheck} from '../redux/modules';
 import {Alert} from 'custom_top_alert';
 import {isReadyRef, navigationRef} from './navigationHelper';
 import UserChatScreen from '../screens/message';
@@ -25,19 +26,52 @@ import messaging from '@react-native-firebase/messaging';
 import ProductDetailsScreen from '../screens/productDetails';
 import OffersMessageScreen from '../screens/offers/offerMessageScreen';
 import TrackOrderScreen from '../screens/order/trackOrderScreen';
+import DeviceInfo from 'react-native-device-info';
+import {Alert as AlertModal} from 'react-native';
+import {Linking} from 'react-native';
+import branch from 'react-native-branch';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 
 const Stack = createStackNavigator();
 
 const AppNavigation = () => {
   const navigation: NavigationProp<any, any> = useNavigation();
   const dispatch = useDispatch();
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData} = auth;
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    dispatch(
+      versionCheck(
+        latestVersionRes => {
+          if (latestVersionRes !== DeviceInfo.getVersion()) {
+            AlertModal.alert(
+              'Update Avaliable',
+              'In order to continue using lootswap, you must update to the latest version',
+              [
+                {
+                  text: 'Update',
+                  onPress: () =>
+                    Linking.openURL(
+                      'https://apps.apple.com/us/app/lootswap/id6445904189',
+                    ),
+                  style: 'default',
+                  cancelable: false,
+                },
+              ],
+            );
+          }
+        },
+        error => {
+          console.log('err in fetching version: ', error);
+        },
+      ),
+    );
+
     messaging().onNotificationOpenedApp(remoteMessage => {
       console.log('TEST: opened from bg state:', remoteMessage);
-      //TODO: HANDLE NAVIGATION HERE
-      handleNavigation(navigation, remoteMessage, dispatch);
+      handleNavigation(navigation, remoteMessage, dispatch, userData);
     });
 
     messaging()
@@ -48,7 +82,7 @@ const AppNavigation = () => {
             'TEST: notificaiton opened from quit state',
             remoteMessage.notification,
           );
-          handleNavigation(navigation, remoteMessage, dispatch);
+          handleNavigation(navigation, remoteMessage, dispatch, userData);
         }
         setLoading(false);
       });
@@ -106,8 +140,55 @@ const StackNavigator: FC<{}> = () => {
     navRef.current = navigationRef.current.getCurrentRoute().name;
     isReadyRef.current = true;
   };
+
+  const linking = {
+    prefixes: ['lootswap://'],
+    subscribe() {
+      const unsubscribe = branch.subscribe(({error, params}) => {
+        if (error) {
+          console.error('Error from Branch: ' + error);
+          return;
+        }
+
+        if (params['+non_branch_link']) {
+          // Non-Branch link
+          return;
+        }
+
+        if (!params['+clicked_branch_link']) {
+          // Not a Branch link
+          return;
+        }
+      });
+
+      return () => {
+        unsubscribe();
+      };
+    },
+    config: {
+      screens: {
+        AppScreens: {
+          screens: {
+            BottomTabs: {
+              screens: {
+                Profile: {
+                  screens: {
+                    ProfileScreen: 'profile',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  };
+
   return (
-    <NavigationContainer ref={navigationRef} onReady={onNavigationReady}>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={onNavigationReady}
+      linking={linking}>
       <Stack.Navigator
         initialRouteName={'AppScreens'}
         screenOptions={{

@@ -17,6 +17,8 @@ import {
   DELETE_NOTIF,
   NEW_NOTIF_FALSE,
   DELETE_USER,
+  VERSION_CHECK,
+  SAVE_REFERRAL_LINK,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -48,6 +50,9 @@ import {
   deleteUserRequest,
   deleteUserSuccess,
   deleteUserFailure,
+  saveReferralLinkRequest,
+  saveReferralLinkSuccess,
+  saveReferralLinkFailure,
 } from './actions';
 import {
   signIn,
@@ -66,6 +71,8 @@ import {
   deleteNotifCall,
   newNotifFalseCall,
   deleteUserCall,
+  versionCheckCall,
+  saveReferralLinkCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
@@ -158,7 +165,13 @@ export function* signOutAPI() {
   try {
     let authData = yield select(getAuthData);
     yield put(
-      setRegTokenRequest({userId: authData?.userData?._id, token: ''}, true), // Remove FCM Token Call
+      setRegTokenRequest(
+        {
+          userId: authData?.userData?._id,
+          token: authData?.fcmToken,
+        },
+        true,
+      ), // Remove FCM Token Call
     );
     yield delay(500);
     yield put(signOutSuccess());
@@ -396,6 +409,36 @@ export function* deleteUser(action: any) {
   }
 }
 
+export function* versionCheck(action: any) {
+  try {
+    const response: APIResponseProps = yield call(versionCheckCall);
+    if (response?.success) {
+      action?.successCallBack(response?.data?.version_num);
+    } else {
+      action?.errorCallBack();
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* saveReferralLink(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      saveReferralLinkCall,
+      action?.payload,
+    );
+    if (response?.success) {
+      yield put(saveReferralLinkSuccess());
+    } else {
+      yield put(saveReferralLinkFailure());
+    }
+  } catch (e) {
+    console.log(e);
+    saveReferralLinkFailure();
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
@@ -414,4 +457,6 @@ export default function* authSaga() {
   yield takeLatest(DELETE_NOTIF.REQUEST, deleteNotif);
   yield takeLatest(NEW_NOTIF_FALSE.REQUEST, newNotifFalse);
   yield takeLatest(DELETE_USER.REQUEST, deleteUser);
+  yield takeLatest(VERSION_CHECK.REQUEST, versionCheck);
+  yield takeLatest(SAVE_REFERRAL_LINK.REQUEST, saveReferralLink);
 }

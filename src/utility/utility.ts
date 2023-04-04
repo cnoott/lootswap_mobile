@@ -130,34 +130,40 @@ export const getProductTags = (tagType = 'trade-sell', theme: any) => {
 export const getProfileOptions = (userData: any) => {
   const optionsList: Array<PROFILE_OPTIONS_TYPE> = [
     {
+      icon: PROFILE_REFERRAL,
+      title: 'Referral program',
+      index: 1,
+    },
+    {
       icon: BOTTOM_TAB_PROFILE,
       title: 'Edit Profile',
-      index: 1,
+      index: 2,
     },
     {
       icon: PROFILE_ADDRESS,
       title: 'Address',
-      index: 2,
+      index: 3,
     },
     {
       icon: PROFILE_MY_LOOT,
       title: 'My loot',
-      index: 3,
+      index: 4,
     },
     {
       icon: PROFILE_ORDERS,
       title: 'Orders',
-      index: 4,
-    },
-    {
-      icon: PROFILE_WALLET,
-      title: 'Wallet',
       index: 5,
     },
     {
       icon: PROFILE_WALLET,
-      title: userData?.paypal_onboarded ? 'Re-link paypal' : 'Link paypal',
+      title: 'Wallet',
       index: 6,
+    },
+
+    {
+      icon: PROFILE_WALLET,
+      title: userData?.paypal_onboarded ? 'Re-link paypal' : 'Link paypal',
+      index: 7,
     },
     /*
     {
@@ -169,7 +175,7 @@ export const getProfileOptions = (userData: any) => {
     {
       icon: PROFILE_SUPPORT,
       title: 'Support/FAQ',
-      index: 8,
+      index: 9,
     },
   ];
   return optionsList;
@@ -488,8 +494,8 @@ export const getAddProductRawData = () => {
     stepFive: {
       productPrice: 0.0,
       shippingCost: 0.0,
-      isShippingPrice: true,
-      isFreeShipping: false,
+      isShippingPrice: false,
+      isFreeShipping: true,
     },
   };
   return addProductData;

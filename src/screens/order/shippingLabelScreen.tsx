@@ -45,15 +45,15 @@ export const ShippingLabelScreen: FC<any> = ({route}) => {
   const [sizeLength, setLength] = useState(null);
   const [sizeWidth, setWidth] = useState(null);
   const [sizeHeight, setHeight] = useState(null);
-  const [lbWeight, setLBWeight] = useState(null);
-  const [ozWeight, setOZWeight] = useState(null);
+  const [lbWeight, setLBWeight] = useState(0);
+  const [ozWeight, setOZWeight] = useState(0);
 
   useEffect(() => {
     dispatch(getMyDetailsRequest(userData?._id));
   }, [userData?._id, dispatch]);
 
   const onSubmitPress = () => {
-    if (!sizeLength || !sizeWidth || !sizeHeight || !lbWeight || !ozWeight) {
+    if (!sizeLength || !sizeWidth || !sizeHeight || !lbWeight) {
       Alert.showError('Please fill all inputs');
       return;
     }
@@ -122,7 +122,6 @@ export const ShippingLabelScreen: FC<any> = ({route}) => {
         <LSInput
           onChangeText={onChange}
           value={leftVal}
-          placeholder={'0'}
           horizontalLeftPadding={0.1}
           topSpace={1}
           rightCustomView={<SizeRightLabel>{rightVal}</SizeRightLabel>}
@@ -139,9 +138,9 @@ export const ShippingLabelScreen: FC<any> = ({route}) => {
         <SubHeaderLabel>Size</SubHeaderLabel>
         {renderSizeInput(sizeLength?.toString(), 'L', setLength)}
         <DividerText>X</DividerText>
-        {renderSizeInput(sizeWidth?.toString(), 'L', setWidth)}
+        {renderSizeInput(sizeWidth?.toString(), 'W', setWidth)}
         <DividerText>X</DividerText>
-        {renderSizeInput(sizeHeight?.toString(), 'L', setHeight)}
+        {renderSizeInput(sizeHeight?.toString(), 'H', setHeight)}
       </SizeRowView>
     );
   };

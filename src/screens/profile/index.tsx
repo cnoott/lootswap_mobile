@@ -33,7 +33,11 @@ import {
 import {scale} from 'react-native-size-matters';
 import {useSelector, useDispatch} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
-import {signOutRequest, updateUser} from '../../redux/modules';
+import {
+  signOutRequest,
+  updateUser,
+  getMyDetailsNoLoadRequest,
+} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {getProfileOptions} from '../../utility/utility';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -55,30 +59,37 @@ export const ProfileScreen: FC<{}> = () => {
   const [isImageUploading, setImageUploading] = useState(false);
   const {userData} = auth;
 
+  useEffect(() => {
+    dispatch(getMyDetailsNoLoadRequest(userData?._id));
+  }, [dispatch, userData?._id]);
+
   const onProfileOptionPress = (index: Number) => {
     switch (index) {
       case 1:
-        navigation.navigate('EditProfileScreen');
+        navigation.navigate('ReferralScreen');
         break;
       case 2:
-        navigation.navigate('AddressScreen');
+        navigation.navigate('EditProfileScreen');
         break;
       case 3:
-        navigation.navigate('MyLootScreen');
+        navigation.navigate('AddressScreen');
         break;
       case 4:
-        navigation.navigate('MyOrdersListScreen');
+        navigation.navigate('MyLootScreen');
         break;
       case 5:
-        navigation.navigate('WalletScreen');
+        navigation.navigate('MyOrdersListScreen');
         break;
       case 6:
-        navigation.navigate('LinkPaypalScreen', {goToListLoot: false});
+        navigation.navigate('WalletScreen');
         break;
       case 7:
-        navigation.navigate('NotificationSettingScreen');
+        navigation.navigate('LinkPaypalScreen', {goToListLoot: false});
         break;
       case 8:
+        navigation.navigate('NotificationSettingScreen');
+        break;
+      case 9:
         Linking.openURL(`${WEB_APP_URL}/faq`);
         break;
       default:

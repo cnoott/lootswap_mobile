@@ -204,11 +204,11 @@ export const UserChatScreen: FC<any> = ({route}) => {
       />
       <KeyboardAvoidingView>
         <SubContainer>{renderMessagesListView()}</SubContainer>
-        <InputContainer bottomSpace={insets.bottom - 10}>
-          {renderLeftInputView()}
-          {renderRightInputView()}
-        </InputContainer>
       </KeyboardAvoidingView>
+      <InputContainer bottomSpace={insets.bottom - 10}>
+        {renderLeftInputView()}
+        {renderRightInputView()}
+      </InputContainer>
     </Container>
   );
 };
