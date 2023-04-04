@@ -376,6 +376,15 @@ export const versionCheckCall = () => {
   return handleResponse(api.get('/get-latest-version'), API_RESPONSE.CODE200);
 };
 
+export const saveReferralLinkCall = (payload: any) => {
+  return handleResponse(
+    api.post(`/save-referral-link/${payload?.userId}`, {
+      referralLink: payload?.referralLink,
+    }),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

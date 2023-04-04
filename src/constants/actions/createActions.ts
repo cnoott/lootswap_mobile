@@ -203,3 +203,7 @@ export const DELETE_PRODUCT = {
 export const VERSION_CHECK = {
   ...createActionConst(actions.VERSION_CHECK),
 };
+
+export const SAVE_REFERRAL_LINK = {
+  ...createActionConst(actions.SAVE_REFERRAL_LINK),
+};
