@@ -20,8 +20,8 @@ import {
   //  AppliedPromoContainer,
   //  PromoText,
   //  AppliedLabel,
-  //  PromoContainer,
-  //  PromoDes,
+  PromoContainer,
+  PromoDes,
   PromoAppliedLabel,
   StretchedRowView,
   ItemSubLabel,
@@ -248,6 +248,12 @@ export const TradeCheckoutScreen: FC<{}> = props => {
           {renderYourItems()}
           {renderSendersItems()}
           <VerticalMargin />
+          {!userData?.usedInitialPromo && (
+            <PromoContainer>
+              <PromoDes>50% off Platform Fee</PromoDes>
+              <PromoAppliedLabel>Promo applied </PromoAppliedLabel>
+            </PromoContainer>
+          )}
           <HorizontalBar />
           <VerticalMargin />
           <HorizontalBar />
