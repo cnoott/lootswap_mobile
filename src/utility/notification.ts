@@ -78,5 +78,14 @@ export const handleNavigation = (
         screen: 'MyLootScreen',
       });
       break;
+    case 'wallet':
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Profile'}],
+      });
+      navigation.navigate('Profile', {
+        screen: 'WalletScreen',
+      });
+      break;
   }
 };
