@@ -223,11 +223,11 @@ export const BottomTabs: FC<{}> = () => {
               // The `merge: true` option makes sure that the params inside the tab screen are preserved
               if (!isLoggedIn && [1, 2, 3, 4].includes(index)) {
                 navigation.navigate('SignInScreen');
-              } else if (index === 1 && !auth.userData?.paypal_onboarded) {
+              } else if (index === 1 && !auth?.userData?.paypal_onboarded) {
                 setPayPalModalVisible(true);
               } else if (
                 index === 1 &&
-                auth.userData?.shipping_address?.street1 === ''
+                Object.keys(auth.userData?.shipping_address).length < 3
               ) {
                 navigation.navigate('LootEditAddressScreen');
               } else {

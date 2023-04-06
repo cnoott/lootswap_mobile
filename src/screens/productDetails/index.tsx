@@ -557,7 +557,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       <SendOfferModal
         isModalVisible={isSendOfferModalVisible}
         onCloseModal={() => setSendOfferModalVisible(false)}
-        itemsData={sendOfferItems || []}
+        itemsData={sendOfferItems.filter(item => item?.isVisible && item?.isVirtuallyVerified) || []}
         updateOfferData={updateOfferData}
         sendFinalOffer={sendFinalOffer}
       />

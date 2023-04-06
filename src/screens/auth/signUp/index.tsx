@@ -75,7 +75,9 @@ export const CreateAccountScreen: FC<{}> = () => {
   const getReferringUserId = async () => {
     let installParams = await branch.getFirstReferringParams();
     console.log(installParams);
-    setReferringUserId(`${installParams?.userId}`);
+    if (installParams?.userId) {
+      setReferringUserId(`${installParams?.userId}`);
+    }
     //Alert.alert(`${installParams?.userId}`);
   };
 
