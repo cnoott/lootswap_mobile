@@ -16,8 +16,21 @@ import ReduxStore from './src/redux/store/store';
 import theme from './src/theme';
 import StackNavigator from './src/navigation';
 import {StatusBar} from 'react-native';
+import branch from 'react-native-branch'
 
 const App = () => {
+  useEffect(() => {
+    branch.subscribe(async ({ error, params }) => {
+      if (error) {
+        console.error('Error from Branch: ' + error)
+        return
+      }
+      // params will never be null if error is null
+      let installParams = await branch.getFirstReferringParams();
+      console.log('from app.js', installParams);
+    })
+  }, []);
+
   return (
     <Provider store={ReduxStore.store}>
       <StatusBar barStyle={'dark-content'} />
