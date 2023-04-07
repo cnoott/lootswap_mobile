@@ -77,6 +77,7 @@ export const CreateAccountScreen: FC<{}> = () => {
     console.log(installParams);
     if (installParams?.userId) {
       setReferringUserId(`${installParams?.userId}`);
+      console.log(installParams, 'from signup');
       //Alert.alert(`${installParams?.userId}`);
     }
   };
