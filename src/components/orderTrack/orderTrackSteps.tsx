@@ -66,7 +66,7 @@ const OrderTrackSteps: FC<any> = React.memo(props => {
   return (
     <Container>
       {stepsList?.map(stepData => {
-        const isStepCompleted = stepData?.index <= currStep;
+        const isStepCompleted = stepData?.index <= currStep + 1;
         return (
           <StepOuterContainer key={stepData?.index}>
             {renderStep(stepData, isStepCompleted)}
