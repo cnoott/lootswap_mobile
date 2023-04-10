@@ -756,13 +756,13 @@ export const getMultipleOrderStepsList = () => {
     {
       index: 2,
       label: 'In Transit',
-      selectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
+      selectedIcon: ORDER_TRACK_IN_TRANSIT_SELECTED,
       unSelectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
     },
     {
       index: 3,
       label: 'Verified Center',
-      selectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
+      selectedIcon: ORDER_TRACK_IN_TRANSIT_SELECTED,
       unSelectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
     },
     {
