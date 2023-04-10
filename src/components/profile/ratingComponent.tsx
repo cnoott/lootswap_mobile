@@ -9,7 +9,6 @@ import {
   EmptyRowView,
   UserNameText,
   RatingText,
-  TimeText,
 } from './styles';
 import {scale} from 'react-native-size-matters';
 
@@ -24,32 +23,25 @@ const RatingComponent = (props: RatingComponentProps) => {
       <TopView>
         <EmptyRowView>
           <LSProfileImageComponent
-            profileUrl={''}
+            profileUrl={ratingData.userId.profile_picture}
             imageHeight={48}
             imageWidth={48}
             imageRadius={24}
           />
-          <UserNameText>Darlene Robertson</UserNameText>
+          <UserNameText>{ratingData.userId.name}</UserNameText>
         </EmptyRowView>
         <EmptyRowView>
           <LSTradeButton
-            label={`${'\u2605'} ${ratingData}`}
+            label={`${'\u2605'} ${ratingData.rating}`}
             isSelected={false}
             paddingX={8}
             paddingY={3}
           />
-          <SvgXml
-            xml={PROFILE_TRIPPLE_DOT_ICON}
-            height={scale(20)}
-            width={scale(20)}
-          />
         </EmptyRowView>
       </TopView>
       <RatingText>
-        The item is very good, my son likes it very much and wearing it every
-        day 💯💯💯{' '}
+        {ratingData.description}
       </RatingText>
-      <TimeText>6 days ago</TimeText>
     </Container>
   );
 };

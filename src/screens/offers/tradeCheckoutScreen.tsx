@@ -101,6 +101,9 @@ export const TradeCheckoutScreen: FC<{}> = props => {
             customerId: customer,
             customerEphemeralKeySecret: ephemeralKey,
             paymentIntentClientSecret: paymentIntent,
+            applePay: {
+              merchantCountryCode: 'US',
+            },
           });
           if (!error) {
             setLoading(true);

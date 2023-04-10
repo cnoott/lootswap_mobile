@@ -15,7 +15,10 @@ import {LSTradeButton} from '../../components/commonComponents/LSTradeButton';
 import RatingComponent from '../../components/profile/ratingComponent';
 import {getProfileReviewsFilters} from '../../utility/utility';
 
-export const ProfileReviewsScreen: FC<{}> = () => {
+
+
+export const ProfileReviewsScreen: FC<{}> = ({route}) => {
+  const {requestedUserDetails: {ratings}} = route?.params;
   const [selectedFilterId, setSelectedFilter] = useState(1);
   const onFilterPress = (filterId: any) => {
     setSelectedFilter(filterId);
@@ -37,11 +40,12 @@ export const ProfileReviewsScreen: FC<{}> = () => {
   );
   return (
     <Container>
-      <LSStackHeaderWithSearch title={'4.8 (5,775 reviews)'} />
+      <LSStackHeaderWithSearch
+        title={`${(ratings.reduce((total, next) => total += next.rating, 0) / ratings.length).toFixed(2)} Rating Average`}
+      />
       <SubContainer>
-        {renderFilterButtons()}
         <ItemsListView
-          data={[1, 2, 3, 4]}
+          data={ratings}
           renderItem={({item}) => <RatingComponent ratingData={item} />}
         />
         <BottomView />

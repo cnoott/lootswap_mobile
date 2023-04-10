@@ -5,6 +5,7 @@ import {
   SALE_GENERATE_CARRIER_RATES,
   CHECKOUT_RATE,
   GET_PAYPAL_ORDER,
+  NEW_RATING,
 } from '../../../constants/actions';
 import {
   getAllOrdersCall,
@@ -12,6 +13,7 @@ import {
   getPaypalOrderCall,
   saleGenerateCarrierRatesCall,
   checkoutRateCall,
+  newRatingCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {getAllOrdersSuccess, getAllOrdersFailure} from '../orders/actions';
@@ -116,6 +118,25 @@ export function* getPaypalOrder(action: any) {
   }
 }
 
+export function* newRating(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      newRatingCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack();
+    } else {
+      action?.errorCallBack();
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export default function* ordersSaga() {
   yield takeLatest(GET_ALL_ORDERS.REQUEST, getAllOrders);
   yield takeLatest(GET_ORDER.REQUEST, getOrder);
@@ -125,4 +146,5 @@ export default function* ordersSaga() {
   );
   yield takeLatest(CHECKOUT_RATE.REQUEST, checkoutRate);
   yield takeLatest(GET_PAYPAL_ORDER.REQUEST, getPaypalOrder);
+  yield takeLatest(NEW_RATING.REQUEST, newRating);
 }

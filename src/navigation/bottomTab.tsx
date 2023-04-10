@@ -25,6 +25,7 @@ import TradeCheckoutSuccessScreen from '../screens/offers/tradeCheckoutSuccessSc
 import CheckoutScreen from '../screens/buy/checkoutScreen';
 import MyOrdersListScreen from '../screens/order/myOrdersListScreen';
 import TrackOrderScreen from '../screens/order/trackOrderScreen';
+import SubmitReviewScreen from '../screens/order/submitReviewScreen';
 import ShippingLabelScreen from '../screens/order/shippingLabelScreen';
 import ChooseServiceScreen from '../screens/order/chooseServiceScreen';
 import {useTheme} from 'styled-components';
@@ -108,6 +109,7 @@ const ProfileStackNavigation = () => (
     />
     <Stack.Screen name="MyOrdersListScreen" component={MyOrdersListScreen} />
     <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
+    <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
     <Stack.Screen name="ShippingLabelScreen" component={ShippingLabelScreen} />
     <Stack.Screen name="ChooseServiceScreen" component={ChooseServiceScreen} />
     <Stack.Screen
@@ -153,6 +155,7 @@ const OffersStackNavigation = () => (
     <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
     <Stack.Screen name="TradeCheckoutScreen" component={TradeCheckoutScreen} />
     <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
+    <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
     <Stack.Screen name="MoneyOfferCheckoutScreen" component={CheckoutScreen} />
     <Stack.Screen name="AddressScreenCheckout" component={AddressScreen} />
     <Stack.Screen
