@@ -207,3 +207,7 @@ export const VERSION_CHECK = {
 export const SAVE_REFERRAL_LINK = {
   ...createActionConst(actions.SAVE_REFERRAL_LINK),
 };
+
+export const NEW_RATING = {
+  ...createActionConst(actions.NEW_RATING),
+};

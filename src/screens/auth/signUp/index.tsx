@@ -77,12 +77,15 @@ export const CreateAccountScreen: FC<{}> = () => {
     console.log(installParams);
     if (installParams?.userId) {
       setReferringUserId(`${installParams?.userId}`);
+      console.log(installParams, 'from signup');
+      //Alert.alert(`${installParams?.userId}`);
     }
-    //Alert.alert(`${installParams?.userId}`);
   };
 
   useEffect(() => {
-    getReferringUserId();
+    const timeoutId = setTimeout(() => {
+      getReferringUserId();
+    }, 1000);
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       () => {
@@ -99,6 +102,7 @@ export const CreateAccountScreen: FC<{}> = () => {
     return () => {
       keyboardDidHideListener.remove();
       keyboardDidShowListener.remove();
+      clearTimeout(timeoutId);
     };
   }, []);
 

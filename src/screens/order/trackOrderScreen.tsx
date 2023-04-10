@@ -32,6 +32,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
   const {userData} = auth;
 
   const isReciever = userData?._id === item?.reciever?._id;
+  const isSeller = userData?._id === item?.sellerId?._id;
 
   const base64Img = isReciever
     ? item?.recieverUPSShipmentData?.toWarehouseLabel
@@ -115,7 +116,44 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
     />
   );
 
+  const rateUserButton = () => {
+    if (isTradeOrder && isReciever && item?.recieverHasRated) {
+      return <> </>;
+    }
+    if (isTradeOrder && !isReciever && item?.senderHasRated) {
+      return <></>;
+    }
+    if (!isTradeOrder && isSeller && item?.sellerHasRated) {
+      return <></>;
+    }
+    if (!isTradeOrder && !isSeller && item?.buyerHasRated) {
+      return <></>;
+    }
+    return (
+      <LSButton
+        title={'Rate User'}
+        size={Size.Extra_Small}
+        type={Type.Success}
+        radius={15}
+        onPress={() =>
+          navigation.navigate('SubmitReviewScreen', {
+            orderDetails: item,
+            isTradeOrder: isTradeOrder,
+          })
+        }
+      />
+    );
+  };
+
   const printLabelRenderOptions = () => {
+    if (!isTradeOrder && item?.shippingStep == 3) {
+      return rateUserButton();
+    }
+
+    if (isTradeOrder && item?.recieverStep == 5 && item?.senderStep === 5) {
+      return rateUserButton();
+    }
+
     if (!isTradeOrder && item?.shippingStep > 0) {
       return printLabelButton();
     }
