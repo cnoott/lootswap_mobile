@@ -13,7 +13,9 @@ import {
   ORDER_TRACK_PURCHASED,
   ORDER_TRACK_SHIPPED_SELECTED,
   ORDER_TRACK_IN_TRANSIT_UNSELECTED,
+  ORDER_TRACK_IN_TRANSIT_SELECTED,
   ORDER_TRACK_DELIVERED_UNSELECTED,
+  ORDER_TRACK_DELIVERED_SELECTED,
 } from 'localsvgimages';
 import {PROFILE_OPTIONS_TYPE, GET_PRODUCT_DETAILS} from 'custom_types';
 import {
@@ -723,20 +725,20 @@ export const getSingleOrderStepsList = () => {
     },
     {
       index: 2,
-      label: 'Shipped',
+      label: 'Label Generated',
       selectedIcon: ORDER_TRACK_SHIPPED_SELECTED,
       unSelectedIcon: ORDER_TRACK_SHIPPED_SELECTED,
     },
     {
       index: 3,
       label: 'In Transit',
-      selectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
+      selectedIcon: ORDER_TRACK_IN_TRANSIT_SELECTED,
       unSelectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
     },
     {
       index: 4,
       label: 'Delivered',
-      selectedIcon: ORDER_TRACK_DELIVERED_UNSELECTED,
+      selectedIcon: ORDER_TRACK_DELIVERED_SELECTED,
       unSelectedIcon: ORDER_TRACK_DELIVERED_UNSELECTED,
     },
   ];
@@ -766,13 +768,13 @@ export const getMultipleOrderStepsList = () => {
     {
       index: 4,
       label: 'Shipped to you\n(transit)',
-      selectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
+      selectedIcon: ORDER_TRACK_IN_TRANSIT_SELECTED,
       unSelectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
     },
     {
       index: 5,
       label: 'Delivered',
-      selectedIcon: ORDER_TRACK_DELIVERED_UNSELECTED,
+      selectedIcon: ORDER_TRACK_DELIVERED_SELECTED,
       unSelectedIcon: ORDER_TRACK_DELIVERED_UNSELECTED,
     },
   ];
