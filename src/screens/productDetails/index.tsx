@@ -474,16 +474,18 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               <ProductOwnerLabel>
                 {requestedUserDetails?.name}
               </ProductOwnerLabel>
-              {requestedUserDetails?.combinedRatings > 0 ? null : (
+              {requestedUserDetails?.ratings.length > 0 ? null : (
                 <NewSellerTagView>
                   <NewSellerLabel>New Seller</NewSellerLabel>
                 </NewSellerTagView>
               )}
             </EmptyRowView>
             <EmptyRowView>
-              {requestedUserDetails?.combinedRatings > 0 ? (
+              {requestedUserDetails?.ratings.length > 0 ? (
                 <>
-                  <StarRatings rating={requestedUserDetails?.combinedRatings} />
+                  <StarRatings
+                    rating={Math.floor(requestedUserDetails.ratings.reduce((total, next) => total += next.rating, 0) / requestedUserDetails.ratings.length)}
+                  />
                   <ShippingLabel>
                     {` (${requestedUserDetails?.ratings?.length} Reviews)`}
                   </ShippingLabel>
