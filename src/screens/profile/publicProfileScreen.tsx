@@ -37,7 +37,7 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {getPublicProfileFilters} from '../../utility/utility';
 
 export const PublicProfileScreen: FC<{}> = ({route}) => {
-  const {requestedUserDetails} = route?.params;
+  const {requestedUserDetails, requestedUserDetails: {ratings}} = route?.params;
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [selectedFilterId, setSelectedFilter] = useState(1);
 
@@ -65,8 +65,9 @@ export const PublicProfileScreen: FC<{}> = ({route}) => {
     }
   };
   const goToRatingsScreen = () => {
-    return; //TODO add screen
-    navigation?.navigate('ProfileReviewsScreen');
+    navigation?.navigate('ProfileReviewsScreen', {
+      requestedUserDetails: requestedUserDetails,
+    });
   };
   const renderProfileView = () => {
     return (
@@ -86,8 +87,13 @@ export const PublicProfileScreen: FC<{}> = ({route}) => {
     <RatingsContainer onPress={() => goToRatingsScreen()}>
       {requestedUserDetails?.ratings.length > 0 ? (
         <>
-          <StarRatings rating={4.9} starColor={'#FF5726'} />
-          <RatingText>4.9</RatingText>
+          <StarRatings
+            rating={Math.floor(ratings.reduce((total, next) => total += next.rating, 0) / ratings.length)}
+            starColor={'#FF5726'}
+          />
+          <RatingText>
+            {(ratings.reduce((total, next) => total += next.rating, 0) / ratings.length).toFixed(2)}
+          </RatingText>
         </>
       ) : (
         <ActivityName>No Ratings</ActivityName>
