@@ -133,6 +133,9 @@ export const ChooseServiceScreen: FC<any> = ({route}) => {
             customerId: customer,
             customerEphemeralKeySecret: ephemeralKey,
             paymentIntentClientSecret: paymentIntent,
+            applePay: {
+              merchantCountryCode: 'US',
+            },
           });
           if (!error) {
             setLoading(true);
