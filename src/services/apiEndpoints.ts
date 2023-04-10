@@ -387,6 +387,17 @@ export const saveReferralLinkCall = (payload: any) => {
   );
 };
 
+export const newRatingCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/user/new-rating/${reqData?.userId}`, {
+      otherUserId: reqData?.otherUserId,
+      orderId: reqData?.orderId,
+      ratingData: reqData?.ratingData,
+    }),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
