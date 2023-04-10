@@ -67,7 +67,7 @@ export const UserNameText = styled.Text.attrs(props => ({
   my: 10,
 }))`
   font-size: ${moderateScale(24)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   align-self: center;
   ${color}
   ${space}
