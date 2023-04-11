@@ -159,6 +159,15 @@ export const CheckoutScreen: FC<{}> = props => {
     `&isMoneyOffer=${encodeURIComponent(isMoneyOffer)}` +
     `&tradeId=${isMoneyOffer && encodeURIComponent(tradeData?._id)}`;
 
+  const showWebView = () => {
+    if (Object.keys(userData?.shipping_address).length < 5) {
+      Alert.showError('Please fill out shipping info at the top');
+    } else {
+      setShowGateway(true);
+      console.log(webViewUri);
+    }
+  };
+
   const renderCheckOutButton = () => {
     return (
       <LSButton
@@ -167,10 +176,7 @@ export const CheckoutScreen: FC<{}> = props => {
         type={Type.Primary}
         radius={20}
         fitToWidth={'100%'}
-        onPress={() => {
-          setShowGateway(true);
-          console.log(webViewUri);
-        }}
+        onPress={() => showWebView()}
       />
     );
   };
