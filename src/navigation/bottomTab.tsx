@@ -234,7 +234,7 @@ export const BottomTabs: FC<{}> = () => {
                 setPayPalModalVisible(true);
               } else if (
                 index === 1 &&
-                Object.keys(auth.userData?.shipping_address).length < 3
+                Object.keys(auth.userData?.shipping_address).length < 4
               ) {
                 navigation.navigate('LootEditAddressScreen');
               } else {

@@ -22,6 +22,9 @@ function DeliveryAddressComponent(props: DeliveryAddressProps) {
       <DeliveryAddSubContainer>
         <DeliveryAddressLabel>Delivery Address</DeliveryAddressLabel>
         <DeliveryAddressText>
+          {Object.keys(userDetails?.shipping_address).length < 5 && (
+            <>Please fill out address to continue checking out</>
+          )}
           {userDetails?.shipping_address?.street1}
           {', '}
           {userDetails?.shipping_address?.street2}
