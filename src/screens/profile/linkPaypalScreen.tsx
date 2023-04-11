@@ -66,9 +66,15 @@ export const LinkPaypalScreen: FC<{}> = props => {
               index: 0,
               routes: [{name: 'Home'}],
             });
-            navigation.navigate('List loot', {
-              screen: 'LootScreen',
-            });
+            if (Object.keys(userData?.shipping_address).length < 3) {
+              navigation.navigate('List loot', {
+                screen: 'LootEditAddressScreen',
+              });
+            } else {
+              navigation.navigate('List loot', {
+                screen: 'LootScreen',
+              });
+            }
           } else {
             navigation.goBack();
           }
