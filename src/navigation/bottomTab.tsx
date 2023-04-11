@@ -130,6 +130,10 @@ const LootStackNavigation = () => (
     <Stack.Screen name="LootScreen" component={LootScreen} />
     <Stack.Screen name="MyLootScreen" component={MyLootScreen} />
     <Stack.Screen
+      name="LootEditAddressScreen"
+      component={LootEditAddressScreen}
+    />
+    <Stack.Screen
       name="ProductDetailsMyLootScreen"
       component={ProductDetailsScreen}
     />
