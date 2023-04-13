@@ -124,11 +124,15 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
     if (isFromEdit) {
       navigation.goBack();
     } else {
-      navigation.navigate('LootScreen', {
-        isFromEdit: false,
-        editIndex: 0,
-        isLootEdit: false,
-      });
+      if (stepFour?.tradeOptions?.isTradeOnly) {
+        navigation.goBack();
+      } else {
+        navigation.navigate('LootScreen', {
+          isFromEdit: false,
+          editIndex: 0,
+          isLootEdit: false,
+        });
+      }
     }
   };
   const renderEditButton = (index: Number) => {
@@ -266,7 +270,7 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
         <Divider />
         {renderTradeTypeView()}
         <Divider />
-        {renderProductPriceView()}
+        {!stepFour?.tradeOptions?.isTradeOnly && renderProductPriceView()}
         <TopSpace />
         <TopSpace />
         <LSButton
