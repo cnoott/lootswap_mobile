@@ -109,6 +109,7 @@ const ProfileStackNavigation = () => (
     />
     <Stack.Screen name="MyOrdersListScreen" component={MyOrdersListScreen} />
     <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
+    <Stack.Screen name="TradeCheckoutScreen" component={TradeCheckoutScreen} />
     <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
     <Stack.Screen name="ShippingLabelScreen" component={ShippingLabelScreen} />
     <Stack.Screen name="ChooseServiceScreen" component={ChooseServiceScreen} />

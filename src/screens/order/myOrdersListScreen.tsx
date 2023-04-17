@@ -146,21 +146,15 @@ export const MyOrdersListScreen: FC<any> = ({route}) => {
           });
           break;
         case 'unpaid':
-          navigation?.navigate('Offers/Inbox', {
-            screen: 'TradeCheckoutScreen',
-            params: {
-              tradeData: tradeOrder.tradeId,
-              orderData: tradeOrder,
-            },
+          navigation?.navigate('TradeCheckoutScreen', {
+            tradeData: tradeOrder.tradeId,
+            orderData: tradeOrder,
           });
           break;
         case 'failed':
-          navigation?.navigate('Offers/Inbox', {
-            screen: 'TradeCheckoutScreen',
-            params: {
-              tradeData: tradeOrder.tradeId,
-              orderData: tradeOrder,
-            },
+          navigation?.navigate('TradeCheckoutScreen', {
+            tradeData: tradeOrder.tradeId,
+            orderData: tradeOrder,
           });
           break;
       }
