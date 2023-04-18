@@ -29,6 +29,7 @@ import {
   Touchable,
   ForgotPassLabel,
   HeaderDesLabel,
+  Spacing,
 } from './styles';
 import {scale} from 'react-native-size-matters';
 import {Linking} from 'react-native';
@@ -135,17 +136,20 @@ export const AuthScreen: FC<{}> = () => {
                 onRightIconPress={() => setPasswordHidden(!isPasswordHidden)}
                 secureTextEntry={isPasswordHidden}
               />
+
+              <Spacing>
+                <LSButton
+                  title={'Login'}
+                  size={Size.Fit_To_Width}
+                  type={Type.Primary}
+                  fitToWidth={'90%'}
+                  radius={20}
+                  onPress={handleSubmit}
+                />
+              </Spacing>
               <Touchable onPress={() => handlePressForgotPass()}>
                 <ForgotPassLabel>Forgot the password?</ForgotPassLabel>
               </Touchable>
-              <LSButton
-                title={'Login'}
-                size={Size.Fit_To_Width}
-                type={Type.Primary}
-                fitToWidth={'90%'}
-                radius={20}
-                onPress={handleSubmit}
-              />
             </FullView>
           );
         }}
