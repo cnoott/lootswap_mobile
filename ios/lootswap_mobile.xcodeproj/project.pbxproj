@@ -11,6 +11,8 @@
 		0C1A406C29940CF800C9E695 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */; };
 		0CCDBBC629DE73C80026B4DB /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 0CCDBBC529DE73C80026B4DB /* branch.json */; };
 		0CCDBBC729DE73C80026B4DB /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 0CCDBBC529DE73C80026B4DB /* branch.json */; };
+		0CCDBBC929F1EECD0026B4DB /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CCDBBC829F1EECD0026B4DB /* Mont-Heavy.ttf */; };
+		0CCDBBCA29F1EECD0026B4DB /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CCDBBC829F1EECD0026B4DB /* Mont-Heavy.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		18163B652935F54600EDA81D /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B572935F54500EDA81D /* Inter-Medium.otf */; };
@@ -107,6 +109,7 @@
 		0C1A40682994092C00C9E695 /* lootswap_mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = lootswap_mobile.entitlements; path = lootswap_mobile/lootswap_mobile.entitlements; sourceTree = "<group>"; };
 		0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0CCDBBC529DE73C80026B4DB /* branch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = branch.json; path = ../../../Desktop/branch.json; sourceTree = "<group>"; };
+		0CCDBBC829F1EECD0026B4DB /* Mont-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Mont-Heavy.ttf"; path = "../../assets/fonts/Mont-Heavy.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* lootswap_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lootswap_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = lootswap_mobile/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = lootswap_mobile/AppDelegate.mm; sourceTree = "<group>"; };
@@ -237,6 +240,7 @@
 				18FD5A37298CC97000DD3F63 /* Urbanist-MediumItalic.ttf */,
 				18FD5A2E298CC96F00DD3F63 /* Urbanist-Regular.ttf */,
 				18FD5A2F298CC96F00DD3F63 /* Urbanist-SemiBold.ttf */,
+				0CCDBBC829F1EECD0026B4DB /* Mont-Heavy.ttf */,
 				18FD5A3B298CC97100DD3F63 /* Urbanist-SemiBoldItalic.ttf */,
 				18FD5A30298CC96F00DD3F63 /* Urbanist-Thin.ttf */,
 				18FD5A38298CC97100DD3F63 /* Urbanist-ThinItalic.ttf */,
@@ -439,6 +443,7 @@
 				18FD5A44298CC97200DD3F63 /* Urbanist-Black.ttf in Resources */,
 				18FD5A42298CC97200DD3F63 /* Urbanist-Thin.ttf in Resources */,
 				18FD5A4E298CC97200DD3F63 /* Urbanist-ExtraBold.ttf in Resources */,
+				0CCDBBC929F1EECD0026B4DB /* Mont-Heavy.ttf in Resources */,
 				18FD5A3F298CC97200DD3F63 /* Urbanist-ExtraLightItalic.ttf in Resources */,
 				18FD5A4B298CC97200DD3F63 /* Urbanist-BoldItalic.ttf in Resources */,
 				18FD5A4F298CC97200DD3F63 /* Urbanist-Bold.ttf in Resources */,
@@ -482,6 +487,7 @@
 				187F058629A277BB006ADA87 /* Urbanist-Black.ttf in Resources */,
 				187F058729A277BB006ADA87 /* Urbanist-Thin.ttf in Resources */,
 				187F058829A277BB006ADA87 /* Urbanist-ExtraBold.ttf in Resources */,
+				0CCDBBCA29F1EECD0026B4DB /* Mont-Heavy.ttf in Resources */,
 				187F058929A277BB006ADA87 /* Urbanist-ExtraLightItalic.ttf in Resources */,
 				187F058A29A277BB006ADA87 /* Urbanist-BoldItalic.ttf in Resources */,
 				187F058B29A277BB006ADA87 /* Urbanist-Bold.ttf in Resources */,
