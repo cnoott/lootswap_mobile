@@ -542,6 +542,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                     xml={liked ? LIKE_HEART_ICON_RED : LIKE_HEART_ICON}
                     color={'white'}
                   />
+                  <ProductDetails>
+                    {selectedProductDetails?.timesLiked}
+                  </ProductDetails>
                 </LikeTouchable>
               </DetailsRightView>
             </DetailsContainer>
