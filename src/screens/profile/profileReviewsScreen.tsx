@@ -3,7 +3,7 @@ LootSwap - PROFILE REVIEWS SCREEN
 ***/
 
 import React, {FC, useState} from 'react';
-import {LSStackHeaderWithSearch} from '../../components/commonComponents/headers/stackHeaderWithSearch';
+import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {
   Container,
   SubContainer,
@@ -14,7 +14,7 @@ import {
 import {LSTradeButton} from '../../components/commonComponents/LSTradeButton';
 import RatingComponent from '../../components/profile/ratingComponent';
 import {getProfileReviewsFilters} from '../../utility/utility';
-
+import {EmptyListContainer, NoOffersMessage} from '../offers/styles';
 
 
 export const ProfileReviewsScreen: FC<{}> = ({route}) => {
@@ -40,14 +40,27 @@ export const ProfileReviewsScreen: FC<{}> = ({route}) => {
   );
   return (
     <Container>
-      <LSStackHeaderWithSearch
-        title={`${(ratings.reduce((total, next) => total += next.rating, 0) / ratings.length).toFixed(2)} Rating Average`}
-      />
-      <SubContainer>
-        <ItemsListView
-          data={ratings}
-          renderItem={({item}) => <RatingComponent ratingData={item} />}
+      {ratings.length === 0 ? (
+        <InStackHeader
+          title={'Ratings'}
         />
+      ) : (
+        <InStackHeader
+          title={`${(ratings.reduce((total, next) => total += next.rating, 0) / ratings.length).toFixed(2)} Rating Average`}
+        />
+      )}
+      <SubContainer>
+        {ratings.length === 0 ? (
+        <EmptyListContainer>
+          <NoOffersMessage>No Ratings</NoOffersMessage>
+        </EmptyListContainer>
+        ) : (
+          <ItemsListView
+            data={ratings}
+            renderItem={({item}) => <RatingComponent ratingData={item} />}
+          />
+        )}
+
         <BottomView />
       </SubContainer>
     </Container>
