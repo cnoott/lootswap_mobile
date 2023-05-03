@@ -64,7 +64,7 @@
 	<string>This app requires access to the photo library to upload product images for your listing. For example, when uploading a product listing, you are required to submit images.</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>MontHEAVY.ttf</string>
+		<string>Mont-Heavy.ttf</string>
 		<string>Inter-Black.otf</string>
 		<string>Inter-Bold.otf</string>
 		<string>Inter-Light.otf</string>
