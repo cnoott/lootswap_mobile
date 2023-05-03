@@ -8,9 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* lootswap_mobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* lootswap_mobileTests.m */; };
+		0C01A7322A03010C00E53601 /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C01A7312A03010C00E53601 /* branch.json */; };
+		0C01A7332A03010C00E53601 /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C01A7312A03010C00E53601 /* branch.json */; };
+		0C01A7342A03010C00E53601 /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C01A7312A03010C00E53601 /* branch.json */; };
 		0C1A406C29940CF800C9E695 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */; };
-		0CCDBBC629DE73C80026B4DB /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 0CCDBBC529DE73C80026B4DB /* branch.json */; };
-		0CCDBBC729DE73C80026B4DB /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 0CCDBBC529DE73C80026B4DB /* branch.json */; };
+		0C9F530E2A02FDE90013D568 /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C9F530D2A02FDE90013D568 /* Mont-Heavy.ttf */; };
+		0C9F530F2A02FDE90013D568 /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C9F530D2A02FDE90013D568 /* Mont-Heavy.ttf */; };
+		0C9F53102A02FDE90013D568 /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C9F530D2A02FDE90013D568 /* Mont-Heavy.ttf */; };
+		0CCDBBC929F1EECD0026B4DB /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CCDBBC829F1EECD0026B4DB /* Mont-Heavy.ttf */; };
+		0CCDBBCA29F1EECD0026B4DB /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CCDBBC829F1EECD0026B4DB /* Mont-Heavy.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		18163B652935F54600EDA81D /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B572935F54500EDA81D /* Inter-Medium.otf */; };
@@ -104,9 +110,11 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* lootswap_mobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = lootswap_mobileTests.m; sourceTree = "<group>"; };
 		0769A4E28FBB4E3863221BCE /* Pods-lootswap_mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile.debug.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile.debug.xcconfig"; sourceTree = "<group>"; };
+		0C01A7312A03010C00E53601 /* branch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = branch.json; path = ../branch.json; sourceTree = "<group>"; };
 		0C1A40682994092C00C9E695 /* lootswap_mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = lootswap_mobile.entitlements; path = lootswap_mobile/lootswap_mobile.entitlements; sourceTree = "<group>"; };
 		0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		0CCDBBC529DE73C80026B4DB /* branch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = branch.json; path = ../../../Desktop/branch.json; sourceTree = "<group>"; };
+		0C9F530D2A02FDE90013D568 /* Mont-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Mont-Heavy.ttf"; path = "../../assets/fonts/Mont-Heavy.ttf"; sourceTree = "<group>"; };
+		0CCDBBC829F1EECD0026B4DB /* Mont-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Mont-Heavy.ttf"; path = "../../assets/fonts/Mont-Heavy.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* lootswap_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lootswap_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = lootswap_mobile/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = lootswap_mobile/AppDelegate.mm; sourceTree = "<group>"; };
@@ -222,6 +230,7 @@
 		18163B562935F50E00EDA81D /* fonts */ = {
 			isa = PBXGroup;
 			children = (
+				0C9F530D2A02FDE90013D568 /* Mont-Heavy.ttf */,
 				18FD5A32298CC96F00DD3F63 /* Urbanist-Black.ttf */,
 				18FD5A2C298CC96F00DD3F63 /* Urbanist-BlackItalic.ttf */,
 				18FD5A3D298CC97100DD3F63 /* Urbanist-Bold.ttf */,
@@ -230,13 +239,14 @@
 				18FD5A3A298CC97100DD3F63 /* Urbanist-ExtraBoldItalic.ttf */,
 				18FD5A33298CC97000DD3F63 /* Urbanist-ExtraLight.ttf */,
 				18FD5A2D298CC96F00DD3F63 /* Urbanist-ExtraLightItalic.ttf */,
-				18FD5A31298CC96F00DD3F63 /* Urbanist-Italic.ttf */,
 				18FD5A34298CC97000DD3F63 /* Urbanist-Light.ttf */,
+				18FD5A31298CC96F00DD3F63 /* Urbanist-Italic.ttf */,
 				18FD5A35298CC97000DD3F63 /* Urbanist-LightItalic.ttf */,
 				18FD5A36298CC97000DD3F63 /* Urbanist-Medium.ttf */,
 				18FD5A37298CC97000DD3F63 /* Urbanist-MediumItalic.ttf */,
 				18FD5A2E298CC96F00DD3F63 /* Urbanist-Regular.ttf */,
 				18FD5A2F298CC96F00DD3F63 /* Urbanist-SemiBold.ttf */,
+				0CCDBBC829F1EECD0026B4DB /* Mont-Heavy.ttf */,
 				18FD5A3B298CC97100DD3F63 /* Urbanist-SemiBoldItalic.ttf */,
 				18FD5A30298CC96F00DD3F63 /* Urbanist-Thin.ttf */,
 				18FD5A38298CC97100DD3F63 /* Urbanist-ThinItalic.ttf */,
@@ -279,7 +289,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				0CCDBBC529DE73C80026B4DB /* branch.json */,
+				0C01A7312A03010C00E53601 /* branch.json */,
 				18163B562935F50E00EDA81D /* fonts */,
 				13B07FAE1A68108700A75B9A /* lootswap_mobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -428,6 +438,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C9F530F2A02FDE90013D568 /* Mont-Heavy.ttf in Resources */,
+				0C01A7332A03010C00E53601 /* branch.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,6 +451,8 @@
 				18FD5A44298CC97200DD3F63 /* Urbanist-Black.ttf in Resources */,
 				18FD5A42298CC97200DD3F63 /* Urbanist-Thin.ttf in Resources */,
 				18FD5A4E298CC97200DD3F63 /* Urbanist-ExtraBold.ttf in Resources */,
+				0C9F530E2A02FDE90013D568 /* Mont-Heavy.ttf in Resources */,
+				0CCDBBC929F1EECD0026B4DB /* Mont-Heavy.ttf in Resources */,
 				18FD5A3F298CC97200DD3F63 /* Urbanist-ExtraLightItalic.ttf in Resources */,
 				18FD5A4B298CC97200DD3F63 /* Urbanist-BoldItalic.ttf in Resources */,
 				18FD5A4F298CC97200DD3F63 /* Urbanist-Bold.ttf in Resources */,
@@ -452,13 +466,13 @@
 				18163B6B2935F54600EDA81D /* Inter-Light.otf in Resources */,
 				18163B6A2935F54600EDA81D /* Inter-Regular.otf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				0CCDBBC629DE73C80026B4DB /* branch.json in Resources */,
 				18FD5A45298CC97200DD3F63 /* Urbanist-ExtraLight.ttf in Resources */,
 				18163B652935F54600EDA81D /* Inter-Medium.otf in Resources */,
 				18FD5A47298CC97200DD3F63 /* Urbanist-LightItalic.ttf in Resources */,
 				18FD5A4D298CC97200DD3F63 /* Urbanist-SemiBoldItalic.ttf in Resources */,
 				18163B702935F54600EDA81D /* Inter-Black.otf in Resources */,
 				18163B662935F54600EDA81D /* Inter-ExtraLightItalic.otf in Resources */,
+				0C01A7322A03010C00E53601 /* branch.json in Resources */,
 				18FD5A4C298CC97200DD3F63 /* Urbanist-ExtraBoldItalic.ttf in Resources */,
 				18FD5A48298CC97200DD3F63 /* Urbanist-Medium.ttf in Resources */,
 				18163B712935F54600EDA81D /* Inter-Bold.otf in Resources */,
@@ -482,6 +496,8 @@
 				187F058629A277BB006ADA87 /* Urbanist-Black.ttf in Resources */,
 				187F058729A277BB006ADA87 /* Urbanist-Thin.ttf in Resources */,
 				187F058829A277BB006ADA87 /* Urbanist-ExtraBold.ttf in Resources */,
+				0C9F53102A02FDE90013D568 /* Mont-Heavy.ttf in Resources */,
+				0CCDBBCA29F1EECD0026B4DB /* Mont-Heavy.ttf in Resources */,
 				187F058929A277BB006ADA87 /* Urbanist-ExtraLightItalic.ttf in Resources */,
 				187F058A29A277BB006ADA87 /* Urbanist-BoldItalic.ttf in Resources */,
 				187F058B29A277BB006ADA87 /* Urbanist-Bold.ttf in Resources */,
@@ -495,13 +511,13 @@
 				187F059329A277BB006ADA87 /* Inter-Light.otf in Resources */,
 				187F059429A277BB006ADA87 /* Inter-Regular.otf in Resources */,
 				187F059529A277BB006ADA87 /* LaunchScreen.storyboard in Resources */,
-				0CCDBBC729DE73C80026B4DB /* branch.json in Resources */,
 				187F059629A277BB006ADA87 /* Urbanist-ExtraLight.ttf in Resources */,
 				187F059729A277BB006ADA87 /* Inter-Medium.otf in Resources */,
 				187F059829A277BB006ADA87 /* Urbanist-LightItalic.ttf in Resources */,
 				187F059929A277BB006ADA87 /* Urbanist-SemiBoldItalic.ttf in Resources */,
 				187F059A29A277BB006ADA87 /* Inter-Black.otf in Resources */,
 				187F059B29A277BB006ADA87 /* Inter-ExtraLightItalic.otf in Resources */,
+				0C01A7342A03010C00E53601 /* branch.json in Resources */,
 				187F059C29A277BB006ADA87 /* Urbanist-ExtraBoldItalic.ttf in Resources */,
 				187F059D29A277BB006ADA87 /* Urbanist-Medium.ttf in Resources */,
 				187F059E29A277BB006ADA87 /* Inter-Bold.otf in Resources */,

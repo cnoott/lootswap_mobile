@@ -70,6 +70,10 @@ export const LootScreen: FC<any> = ({route}) => {
     Keyboard.dismiss();
     const canGoNext = validateCreateProductData(currIndex + 1, addProductData);
     if (canGoNext) {
+      if (currIndex === 3 && addProductData?.stepFour?.tradeOptions?.isTradeOnly) {
+        navigation.navigate('AddProductOverviewScreen');
+        return;
+      }
       if (currIndex === 4) {
         navigation.navigate('AddProductOverviewScreen');
       }

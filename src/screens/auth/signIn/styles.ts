@@ -49,8 +49,7 @@ export const Touchable = styled.TouchableOpacity.attrs({
 
 export const ForgotPassLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  mb: verticalScale(30),
-  mt: verticalScale(30),
+  mt: verticalScale(45),
 }))`
   font-size: 16px;
   font-family: Inter-Bold;
@@ -102,3 +101,9 @@ export const ButtonText2 = styled.Text.attrs(props => ({
 export const Innercontainer: ViewStyle = {
   flex: 1,
 };
+
+export const Spacing = styled.View.attrs(() => ({
+}))`
+  margin-top: ${verticalScale(25)}px;
+  ${color}
+`;
