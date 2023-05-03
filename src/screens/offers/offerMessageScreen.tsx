@@ -134,7 +134,7 @@ export const OffersMessageScreen: FC<{}> = props => {
       messagesListRaw.current = messagesData;
       setMessagesList(messagesData);
 
-      if (content.message === 'trade-accepted-message') {
+      if (content.message === 'trade-accepted-message' || content.message === 'Trade-update') {
         // Getting Trade data again
         dispatch(
           getTrade({

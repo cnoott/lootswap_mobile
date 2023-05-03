@@ -140,7 +140,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     };
     setLiked(true);
     dispatch(likeProduct(reqData));
-    dispatch(getMyDetailsNoLoadRequest(userData?._id));
+    //dispatch(getMyDetailsNoLoadRequest(userData?._id)); //causes rerender which is undesireable
   };
 
   const onUnlikePress = () => {
@@ -150,7 +150,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     };
     setLiked(false);
     dispatch(unlikeProduct(reqData));
-    dispatch(getMyDetailsNoLoadRequest(userData?._id));
+    //dispatch(getMyDetailsNoLoadRequest(userData?._id)); //this causes rerender which is undesireable
   };
 
   const handleYouSureDeleteProduct = () => {
@@ -542,6 +542,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                     xml={liked ? LIKE_HEART_ICON_RED : LIKE_HEART_ICON}
                     color={'white'}
                   />
+                  <ProductDetails>
+                    {selectedProductDetails?.timesLiked}
+                  </ProductDetails>
                 </LikeTouchable>
               </DetailsRightView>
             </DetailsContainer>

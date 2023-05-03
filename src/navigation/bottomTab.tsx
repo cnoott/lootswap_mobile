@@ -109,6 +109,7 @@ const ProfileStackNavigation = () => (
     />
     <Stack.Screen name="MyOrdersListScreen" component={MyOrdersListScreen} />
     <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
+    <Stack.Screen name="TradeCheckoutScreen" component={TradeCheckoutScreen} />
     <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
     <Stack.Screen name="ShippingLabelScreen" component={ShippingLabelScreen} />
     <Stack.Screen name="ChooseServiceScreen" component={ChooseServiceScreen} />
@@ -129,6 +130,10 @@ const LootStackNavigation = () => (
     }}>
     <Stack.Screen name="LootScreen" component={LootScreen} />
     <Stack.Screen name="MyLootScreen" component={MyLootScreen} />
+    <Stack.Screen
+      name="LootEditAddressScreen"
+      component={LootEditAddressScreen}
+    />
     <Stack.Screen
       name="ProductDetailsMyLootScreen"
       component={ProductDetailsScreen}
@@ -230,7 +235,7 @@ export const BottomTabs: FC<{}> = () => {
                 setPayPalModalVisible(true);
               } else if (
                 index === 1 &&
-                Object.keys(auth.userData?.shipping_address).length < 3
+                Object.keys(auth.userData?.shipping_address).length < 4
               ) {
                 navigation.navigate('LootEditAddressScreen');
               } else {
