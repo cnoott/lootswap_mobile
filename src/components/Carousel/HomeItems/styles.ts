@@ -21,7 +21,7 @@ export const HeaderText = styled.Text.attrs(props => ({
 }))`
   font-weight: 900;
   font-size: ${scale(19)}px;
-  font-family: Inter-Black;
+  font-family: Mont;
   text-align: center;
   ${color}
   ${space}
@@ -30,6 +30,7 @@ export const HeaderText = styled.Text.attrs(props => ({
 export const HeaderPrimaryText = styled.Text.attrs(props => ({
   color: props.theme.colors.primary,
 }))`
+  font-family: Mont;
   ${color}
 `;
 
