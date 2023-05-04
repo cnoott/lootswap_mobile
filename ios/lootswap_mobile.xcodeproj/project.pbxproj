@@ -89,10 +89,10 @@
 		18FD5A4D298CC97200DD3F63 /* Urbanist-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A3B298CC97100DD3F63 /* Urbanist-SemiBoldItalic.ttf */; };
 		18FD5A4E298CC97200DD3F63 /* Urbanist-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A3C298CC97100DD3F63 /* Urbanist-ExtraBold.ttf */; };
 		18FD5A4F298CC97200DD3F63 /* Urbanist-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A3D298CC97100DD3F63 /* Urbanist-Bold.ttf */; };
-		30CEBD7E1A08E1448458CDC0 /* libPods-lootswap_mobile-lootswap_mobile_development.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F27117AF4E6DE464247E944 /* libPods-lootswap_mobile-lootswap_mobile_development.a */; };
-		5465DAB3DA10127BE5074BFD /* libPods-lootswap_mobile-lootswap_mobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEEC49959936A31B49B50D2 /* libPods-lootswap_mobile-lootswap_mobileTests.a */; };
+		378A71A037557C7455843869 /* libPods-lootswap_mobile-lootswap_mobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBF72F979F748DBA3A039416 /* libPods-lootswap_mobile-lootswap_mobileTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		FBD1016A636286B60F96D50B /* libPods-lootswap_mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71B3F2A4EA879AC6C86F7FD4 /* libPods-lootswap_mobile.a */; };
+		A887BF66C6D2B44E87A8A685 /* libPods-lootswap_mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EA92F2468CC8B3481D4CB8D /* libPods-lootswap_mobile.a */; };
+		AA46E0A0B872022F86D2F2A2 /* libPods-lootswap_mobile-lootswap_mobile_development.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB51BB41D23517C3A1755C23 /* libPods-lootswap_mobile-lootswap_mobile_development.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,7 +109,6 @@
 		00E356EE1AD99517003FC87E /* lootswap_mobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = lootswap_mobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* lootswap_mobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = lootswap_mobileTests.m; sourceTree = "<group>"; };
-		0769A4E28FBB4E3863221BCE /* Pods-lootswap_mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile.debug.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile.debug.xcconfig"; sourceTree = "<group>"; };
 		0C01A7312A03010C00E53601 /* branch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = branch.json; path = ../branch.json; sourceTree = "<group>"; };
 		0C1A40682994092C00C9E695 /* lootswap_mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = lootswap_mobile.entitlements; path = lootswap_mobile/lootswap_mobile.entitlements; sourceTree = "<group>"; };
 		0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -155,16 +154,17 @@
 		18FD5A3B298CC97100DD3F63 /* Urbanist-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-SemiBoldItalic.ttf"; path = "../../assets/fonts/Urbanist-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		18FD5A3C298CC97100DD3F63 /* Urbanist-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-ExtraBold.ttf"; path = "../../assets/fonts/Urbanist-ExtraBold.ttf"; sourceTree = "<group>"; };
 		18FD5A3D298CC97100DD3F63 /* Urbanist-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Urbanist-Bold.ttf"; path = "../../assets/fonts/Urbanist-Bold.ttf"; sourceTree = "<group>"; };
-		30A1C5E9BCAA2E921C7FF9C7 /* Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile-lootswap_mobileTests/Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig"; sourceTree = "<group>"; };
-		47124D631FD5C7F466364E6F /* Pods-lootswap_mobile-lootswap_mobile_development.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile-lootswap_mobile_development.debug.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development.debug.xcconfig"; sourceTree = "<group>"; };
-		4F27117AF4E6DE464247E944 /* libPods-lootswap_mobile-lootswap_mobile_development.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lootswap_mobile-lootswap_mobile_development.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		508698EFBD557A60219AB0A4 /* Pods-lootswap_mobile-lootswap_mobile_development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile-lootswap_mobile_development.release.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development.release.xcconfig"; sourceTree = "<group>"; };
-		71B3F2A4EA879AC6C86F7FD4 /* libPods-lootswap_mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lootswap_mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		77508BEA84C73FB0797537E2 /* Pods-lootswap_mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile.release.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile.release.xcconfig"; sourceTree = "<group>"; };
+		1E505320FD239CDA9393D264 /* Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile-lootswap_mobileTests/Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig"; sourceTree = "<group>"; };
+		380C1886BC70EC0180313F2A /* Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile-lootswap_mobileTests/Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = lootswap_mobile/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		E46305F8660292872C1417C3 /* Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile-lootswap_mobileTests/Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig"; sourceTree = "<group>"; };
+		8D4C5B0BE042F48C601290F4 /* Pods-lootswap_mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile.debug.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile.debug.xcconfig"; sourceTree = "<group>"; };
+		8EA92F2468CC8B3481D4CB8D /* libPods-lootswap_mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lootswap_mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACE1D3D454D123915EF58838 /* Pods-lootswap_mobile-lootswap_mobile_development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile-lootswap_mobile_development.release.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development.release.xcconfig"; sourceTree = "<group>"; };
+		B8CAD0D1A3121F5C7C9E5E1C /* Pods-lootswap_mobile-lootswap_mobile_development.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile-lootswap_mobile_development.debug.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development.debug.xcconfig"; sourceTree = "<group>"; };
+		CBF72F979F748DBA3A039416 /* libPods-lootswap_mobile-lootswap_mobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lootswap_mobile-lootswap_mobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		FAEEC49959936A31B49B50D2 /* libPods-lootswap_mobile-lootswap_mobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lootswap_mobile-lootswap_mobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4CFC67570772F697EDA3556 /* Pods-lootswap_mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lootswap_mobile.release.xcconfig"; path = "Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile.release.xcconfig"; sourceTree = "<group>"; };
+		FB51BB41D23517C3A1755C23 /* libPods-lootswap_mobile-lootswap_mobile_development.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lootswap_mobile-lootswap_mobile_development.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,7 +172,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5465DAB3DA10127BE5074BFD /* libPods-lootswap_mobile-lootswap_mobileTests.a in Frameworks */,
+				378A71A037557C7455843869 /* libPods-lootswap_mobile-lootswap_mobileTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,7 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBD1016A636286B60F96D50B /* libPods-lootswap_mobile.a in Frameworks */,
+				A887BF66C6D2B44E87A8A685 /* libPods-lootswap_mobile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,7 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30CEBD7E1A08E1448458CDC0 /* libPods-lootswap_mobile-lootswap_mobile_development.a in Frameworks */,
+				AA46E0A0B872022F86D2F2A2 /* libPods-lootswap_mobile-lootswap_mobile_development.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,9 +272,9 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				71B3F2A4EA879AC6C86F7FD4 /* libPods-lootswap_mobile.a */,
-				FAEEC49959936A31B49B50D2 /* libPods-lootswap_mobile-lootswap_mobileTests.a */,
-				4F27117AF4E6DE464247E944 /* libPods-lootswap_mobile-lootswap_mobile_development.a */,
+				8EA92F2468CC8B3481D4CB8D /* libPods-lootswap_mobile.a */,
+				CBF72F979F748DBA3A039416 /* libPods-lootswap_mobile-lootswap_mobileTests.a */,
+				FB51BB41D23517C3A1755C23 /* libPods-lootswap_mobile-lootswap_mobile_development.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -317,12 +317,12 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0769A4E28FBB4E3863221BCE /* Pods-lootswap_mobile.debug.xcconfig */,
-				77508BEA84C73FB0797537E2 /* Pods-lootswap_mobile.release.xcconfig */,
-				30A1C5E9BCAA2E921C7FF9C7 /* Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig */,
-				E46305F8660292872C1417C3 /* Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig */,
-				47124D631FD5C7F466364E6F /* Pods-lootswap_mobile-lootswap_mobile_development.debug.xcconfig */,
-				508698EFBD557A60219AB0A4 /* Pods-lootswap_mobile-lootswap_mobile_development.release.xcconfig */,
+				8D4C5B0BE042F48C601290F4 /* Pods-lootswap_mobile.debug.xcconfig */,
+				F4CFC67570772F697EDA3556 /* Pods-lootswap_mobile.release.xcconfig */,
+				1E505320FD239CDA9393D264 /* Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig */,
+				380C1886BC70EC0180313F2A /* Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig */,
+				B8CAD0D1A3121F5C7C9E5E1C /* Pods-lootswap_mobile-lootswap_mobile_development.debug.xcconfig */,
+				ACE1D3D454D123915EF58838 /* Pods-lootswap_mobile-lootswap_mobile_development.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -334,12 +334,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "lootswap_mobileTests" */;
 			buildPhases = (
-				CB20EAAA7D29EB45CC2E6BDA /* [CP] Check Pods Manifest.lock */,
+				B30C11F59D7BACC2D0CFACEA /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C465B71CDD41C5A3B79F6BDA /* [CP] Embed Pods Frameworks */,
-				38755417D8E44AAE4A08838E /* [CP] Copy Pods Resources */,
+				AA061AB2FFDD6312114304BA /* [CP] Embed Pods Frameworks */,
+				42B3895E0D8EB923A3E362A4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -355,15 +355,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "lootswap_mobile" */;
 			buildPhases = (
-				4050564F17BAEBFDBF918FA5 /* [CP] Check Pods Manifest.lock */,
+				3BB3F07EE6CD693586B3A30F /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				A2A28191EB2AB8441D902E41 /* [CP] Embed Pods Frameworks */,
-				F42BD4A1262C968D3DA0C60B /* [CP] Copy Pods Resources */,
-				A030CC370F929AF4C5179D39 /* [CP-User] [RNFB] Core Configuration */,
+				E9AA32226E0A8B51D4F0227B /* [CP] Embed Pods Frameworks */,
+				B33D03807FE21D5C7A091B0F /* [CP] Copy Pods Resources */,
+				746C3714E6E189E1C48B65F4 /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
@@ -378,14 +378,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 187F05AC29A277BB006ADA87 /* Build configuration list for PBXNativeTarget "lootswap_mobile_development" */;
 			buildPhases = (
-				FE97893F7FA101CCB4C098F7 /* [CP] Check Pods Manifest.lock */,
+				2D012859B0FABA611DCA018F /* [CP] Check Pods Manifest.lock */,
 				187F057E29A277BB006ADA87 /* Start Packager */,
 				187F057F29A277BB006ADA87 /* Sources */,
 				187F058229A277BB006ADA87 /* Frameworks */,
 				187F058429A277BB006ADA87 /* Resources */,
 				187F05A829A277BB006ADA87 /* Bundle React Native code and images */,
-				2D03E60FC8E5441F94FF50F6 /* [CP] Embed Pods Frameworks */,
-				10F9CC5D4BD4EE1B522870E2 /* [CP] Copy Pods Resources */,
+				F1CC95479E698311EC5D1463 /* [CP] Embed Pods Frameworks */,
+				808A8D1DC65272443B45855D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -552,23 +552,6 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		10F9CC5D4BD4EE1B522870E2 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		187F057E29A277BB006ADA87 /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -604,41 +587,29 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		2D03E60FC8E5441F94FF50F6 /* [CP] Embed Pods Frameworks */ = {
+		2D012859B0FABA611DCA018F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-lootswap_mobile-lootswap_mobile_development-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		38755417D8E44AAE4A08838E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobileTests/Pods-lootswap_mobile-lootswap_mobileTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobileTests/Pods-lootswap_mobile-lootswap_mobileTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobileTests/Pods-lootswap_mobile-lootswap_mobileTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4050564F17BAEBFDBF918FA5 /* [CP] Check Pods Manifest.lock */ = {
+		3BB3F07EE6CD693586B3A30F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -660,7 +631,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A030CC370F929AF4C5179D39 /* [CP-User] [RNFB] Core Configuration */ = {
+		42B3895E0D8EB923A3E362A4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobileTests/Pods-lootswap_mobile-lootswap_mobileTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobileTests/Pods-lootswap_mobile-lootswap_mobileTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobileTests/Pods-lootswap_mobile-lootswap_mobileTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		746C3714E6E189E1C48B65F4 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -673,24 +661,24 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | /usr/bin/head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  _RN_ROOT_EXISTS=$(ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\" || echo '')\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    if ! python3 --version >/dev/null 2>&1; then echo \"python3 not found, firebase.json file processing error.\" && exit 1; fi\n    _JSON_OUTPUT_BASE64=$(python3 -c 'import json,sys,base64;print(base64.b64encode(bytes(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"', '\"'rb'\"').read())['${_JSON_ROOT}']), '\"'utf-8'\"')).decode())' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.app_data_collection_default_enabled\n  _APP_DATA_COLLECTION_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_data_collection_default_enabled\")\n  if [[ $_APP_DATA_COLLECTION_ENABLED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseDataCollectionDefaultEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_DATA_COLLECTION_ENABLED\")\")\n  fi\n\n  # config.analytics_auto_collection_enabled\n  _ANALYTICS_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_auto_collection_enabled\")\n  if [[ $_ANALYTICS_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_COLLECTION\")\")\n  fi\n\n  # config.analytics_collection_deactivated\n  _ANALYTICS_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_collection_deactivated\")\n  if [[ $_ANALYTICS_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_DEACTIVATED\")\")\n  fi\n\n  # config.analytics_idfv_collection_enabled\n  _ANALYTICS_IDFV_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_idfv_collection_enabled\")\n  if [[ $_ANALYTICS_IDFV_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_IDFV_COLLECTION\")\")\n  fi\n\n  # config.analytics_default_allow_ad_personalization_signals\n  _ANALYTICS_PERSONALIZATION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_personalization_signals\")\n  if [[ $_ANALYTICS_PERSONALIZATION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_PERSONALIZATION\")\")\n  fi\n\n  # config.analytics_registration_with_ad_network_enabled\n  _ANALYTICS_REGISTRATION_WITH_AD_NETWORK=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_registration_with_ad_network_enabled\")\n  if [[ $_ANALYTICS_REGISTRATION_WITH_AD_NETWORK ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_REGISTRATION_WITH_AD_NETWORK_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_REGISTRATION_WITH_AD_NETWORK\")\")\n  fi\n\n  # config.google_analytics_automatic_screen_reporting_enabled\n  _ANALYTICS_AUTO_SCREEN_REPORTING=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_automatic_screen_reporting_enabled\")\n  if [[ $_ANALYTICS_AUTO_SCREEN_REPORTING ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAutomaticScreenReportingEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_SCREEN_REPORTING\")\")\n  fi\n\n  # config.perf_auto_collection_enabled\n  _PERF_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_auto_collection_enabled\")\n  if [[ $_PERF_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_enabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_AUTO_COLLECTION\")\")\n  fi\n\n  # config.perf_collection_deactivated\n  _PERF_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_collection_deactivated\")\n  if [[ $_PERF_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_deactivated\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_DEACTIVATED\")\")\n  fi\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.in_app_messaging_auto_colllection_enabled\n  _FIAM_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"in_app_messaging_auto_collection_enabled\")\n  if [[ $_FIAM_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseInAppMessagingAutomaticDataCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_FIAM_AUTO_INIT\")\")\n  fi\n\n  # config.app_check_token_auto_refresh\n  _APP_CHECK_TOKEN_AUTO_REFRESH=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_check_token_auto_refresh\")\n  if [[ $_APP_CHECK_TOKEN_AUTO_REFRESH ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAppCheckTokenAutoRefreshEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_CHECK_TOKEN_AUTO_REFRESH\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
 		};
-		A2A28191EB2AB8441D902E41 /* [CP] Embed Pods Frameworks */ = {
+		808A8D1DC65272443B45855D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C465B71CDD41C5A3B79F6BDA /* [CP] Embed Pods Frameworks */ = {
+		AA061AB2FFDD6312114304BA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -707,7 +695,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobileTests/Pods-lootswap_mobile-lootswap_mobileTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CB20EAAA7D29EB45CC2E6BDA /* [CP] Check Pods Manifest.lock */ = {
+		B30C11F59D7BACC2D0CFACEA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -729,7 +717,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F42BD4A1262C968D3DA0C60B /* [CP] Copy Pods Resources */ = {
+		B33D03807FE21D5C7A091B0F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -744,6 +732,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E9AA32226E0A8B51D4F0227B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile/Pods-lootswap_mobile-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F1CC95479E698311EC5D1463 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lootswap_mobile-lootswap_mobile_development/Pods-lootswap_mobile-lootswap_mobile_development-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -763,28 +785,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		FE97893F7FA101CCB4C098F7 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-lootswap_mobile-lootswap_mobile_development-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -829,7 +829,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30A1C5E9BCAA2E921C7FF9C7 /* Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig */;
+			baseConfigurationReference = 1E505320FD239CDA9393D264 /* Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = "";
@@ -857,7 +857,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E46305F8660292872C1417C3 /* Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig */;
+			baseConfigurationReference = 380C1886BC70EC0180313F2A /* Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -882,7 +882,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0769A4E28FBB4E3863221BCE /* Pods-lootswap_mobile.debug.xcconfig */;
+			baseConfigurationReference = 8D4C5B0BE042F48C601290F4 /* Pods-lootswap_mobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -916,7 +916,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 77508BEA84C73FB0797537E2 /* Pods-lootswap_mobile.release.xcconfig */;
+			baseConfigurationReference = F4CFC67570772F697EDA3556 /* Pods-lootswap_mobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -948,7 +948,7 @@
 		};
 		187F05AD29A277BB006ADA87 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 47124D631FD5C7F466364E6F /* Pods-lootswap_mobile-lootswap_mobile_development.debug.xcconfig */;
+			baseConfigurationReference = B8CAD0D1A3121F5C7C9E5E1C /* Pods-lootswap_mobile-lootswap_mobile_development.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -980,7 +980,7 @@
 		};
 		187F05AE29A277BB006ADA87 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 508698EFBD557A60219AB0A4 /* Pods-lootswap_mobile-lootswap_mobile_development.release.xcconfig */;
+			baseConfigurationReference = ACE1D3D454D123915EF58838 /* Pods-lootswap_mobile-lootswap_mobile_development.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
