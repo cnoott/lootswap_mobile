@@ -225,14 +225,16 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
             </EmptyRowView>
           </OfferStatusLeftView>
           <OfferStatusRightView>
-            <LSButton
-              title={viewOrderTextOptions()}
-              size={Size.Extra_Small}
-              type={Type.Custom}
-              radius={20}
-              onPress={() => viewOrderPressOptions()}
-              buttonCustomColor={'#FF981F'}
-            />
+            {!isCanceled && (
+              <LSButton
+                title={viewOrderTextOptions()}
+                size={Size.Extra_Small}
+                type={Type.Custom}
+                radius={20}
+                onPress={() => viewOrderPressOptions()}
+                buttonCustomColor={'#FF981F'}
+              />
+            )}
           </OfferStatusRightView>
         </OfferStatusContainer>
       );
