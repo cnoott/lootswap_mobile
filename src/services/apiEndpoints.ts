@@ -409,7 +409,9 @@ const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
         res.status === 422 ||
         res.status === 400 ||
         res.status === 409 ||
-        res.status === 401
+        res.status === 401 ||
+        res.status === 403 ||
+        res.status === 500
       ) {
         const errorObj = {
           status: res.status,
@@ -421,7 +423,7 @@ const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
         return errorObj;
       } else if (res.status === 401) {
         return;
-      } else if (res.status === 500) {
+      } else if (res.status === 500) { //XXX not being called
         var debounce_fun = _.debounce(() => {
           const err = ApiHelper.retrieveDetailMessageFromResponse(res);
           if (err === 'Token is expire!' && !isTokenExpired) {
