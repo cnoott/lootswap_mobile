@@ -81,9 +81,9 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
       <SubContainer>
         <SuccessImage source={PAYMENT_SUCCESS_GIF} />
         <SuccessLabel>Payment Success</SuccessLabel>
-        <PriceLabel>${total.toFixed(2)}</PriceLabel>
+        <PriceLabel>${total?.toFixed(2)}</PriceLabel>
         <DesLabel>
-          We have successfully received your payment of ${total.toFixed(2)}
+          We have successfully received your payment of ${total?.toFixed(2)}
         </DesLabel>
       </SubContainer>
       <LSButton
