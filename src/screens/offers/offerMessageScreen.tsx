@@ -37,7 +37,7 @@ import {
   InputRightButtonView,
   InputView,
 } from './styles';
-import {FlatList} from 'react-native';
+import {FlatList, AppState} from 'react-native';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 export const OffersMessageScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -59,6 +59,7 @@ export const OffersMessageScreen: FC<{}> = props => {
     true,
   );
   const [messageText, setMessageText] = useState('');
+  const appState = useRef(AppState.currentState);
 
   const [messagesList, setMessagesList] = useState<any>([]);
   const [isAcceptDeclineModalVisible, setAcceptDeclineModalVisible] =
@@ -75,6 +76,22 @@ export const OffersMessageScreen: FC<{}> = props => {
   var messagesListRaw: any = useRef([]);
 
   useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (appState.current === 'background' && nextAppState === 'active') {
+        console.log('back from bg!')
+        dispatch(
+          getTrade({
+            userId: userData?._id,
+            tradeId: tradeId,
+          }),
+        );
+
+        scrollListToEnd();
+      }
+      appState.current = nextAppState;
+    });
+
+
     dispatch(
       getTrade({
         userId: userData?._id,
@@ -86,6 +103,9 @@ export const OffersMessageScreen: FC<{}> = props => {
         userId: userData?._id,
       }),
     );
+    return () => {
+      subscription.remove();
+    };
   }, [dispatch, userData?._id]);
 
   useEffect(() => {
