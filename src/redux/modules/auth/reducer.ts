@@ -15,6 +15,7 @@ import {
   CANCEL_TRADE,
   DELETE_USER,
   NEW_NOTIF_FALSE,
+  NEW_NOTIF_TRUE,
   SAVE_REFERRAL_LINK,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
@@ -303,6 +304,15 @@ export default function auth(state = InitialState, action: ActionProps) {
     case NEW_NOTIF_FALSE.FAILURE: {
       return {
         ...state,
+      };
+    }
+    case NEW_NOTIF_TRUE.SUCCESS: {
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          newNotification: true,
+        },
       };
     }
     case DELETE_USER.REQUEST: {
