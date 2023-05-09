@@ -48,7 +48,7 @@ export default function loading(state = InitialState, action: ActionProps) {
       console.log('TRADE SUCCESS', payload[0]);
       return {
         ...state,
-        trade: payload[0],
+        trade: payload,
       };
     }
     case GET_TRADE.FAILURE: {
