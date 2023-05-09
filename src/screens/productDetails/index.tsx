@@ -256,18 +256,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       goToLogin();
       return;
     }
-    dispatch(
-      getProductListedItemsForOffer(
-        userData?._id,
-        (response: any) => {
-          setSendOfferItems(response);
-          setSendOfferModalVisible(true);
-        },
-        () => {
-          Alert.showError('Something went wrong!');
-        },
-      ),
-    );
+    navigation.navigate('StartTradeScreen', {
+      requestedUserDetails: requestedUserDetails,
+    });
   };
 
   const sendFinalOffer = (selectedItems: Array<any>, price: any) => {
