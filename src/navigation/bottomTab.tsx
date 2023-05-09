@@ -57,6 +57,7 @@ import PayPalLinkModal from '../components/paypalLinkModal';
 import LinkPaypalScreen from '../screens/profile/linkPaypalScreen';
 import LootEditAddressScreen from '../screens/loot/lootEditAddressScreen';
 import {BOTTOM_TAB_NOTIFICATION_NEW} from '../assets/images/svgs';
+import StartTradeScreen from '../screens/offers/startTrade';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -78,6 +79,7 @@ const HomeStackNavigation = () => (
       name="ProductDetailsScreen"
       component={ProductDetailsScreen}
     />
+    <Stack.Screen name="StartTradeScreen" component={StartTradeScreen} />
     <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
     <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
     <Stack.Screen name="AddressScreenBuyCheckout" component={AddressScreen} />
