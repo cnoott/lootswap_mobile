@@ -88,6 +88,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
     );
 
     return () => {
+      subscription.remove();
       socketObj?.removeAllListeners();
       socketObj?.close();
       socketObj?.disconnect();
