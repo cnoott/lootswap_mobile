@@ -24,7 +24,7 @@ export const MainLabel = styled.Text.attrs(props => ({
   ml: scale(20),
 }))`
   font-size: ${moderateScale(20)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 600;
   ${space}
   ${layout}
