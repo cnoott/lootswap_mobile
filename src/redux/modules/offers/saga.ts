@@ -64,7 +64,6 @@ export function* getTrade(action: any) {
     );
     yield put(LoadingSuccess());
     if (response?.success) {
-      console.log('DAATA', response.data);
       yield put(getTradeSuccess(response.data));
     } else {
       yield put(getTradeFailure(response.error));
