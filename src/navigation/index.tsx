@@ -11,7 +11,7 @@ import BottomTabs from './bottomTab';
 import {useSelector, useDispatch} from 'react-redux';
 import LSLoader from '../components/commonComponents/LSLoader';
 import {LoadingProps} from '../redux/modules/loading/reducer';
-import {versionCheck} from '../redux/modules';
+import {versionCheck, newNotifTrueSuccess} from '../redux/modules';
 import {Alert} from 'custom_top_alert';
 import {isReadyRef, navigationRef} from './navigationHelper';
 import UserChatScreen from '../screens/message';
@@ -74,6 +74,11 @@ const AppNavigation = () => {
       handleNavigation(navigation, remoteMessage, dispatch, userData);
     });
 
+    messaging().onMessage(async () => {
+      console.log('NEW MESSAGE!!!');
+      dispatch(newNotifTrueSuccess());
+    });
+
     messaging()
     .getInitialNotification()
     .then(remoteMessage => {
@@ -86,6 +91,7 @@ const AppNavigation = () => {
       }
       setLoading(false);
     });
+
   }, [navigation, dispatch, userData]);
 
   if (loading) {

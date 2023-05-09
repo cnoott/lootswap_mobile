@@ -17,6 +17,7 @@ import {
   PAYOUT_USER,
   DELETE_NOTIF,
   NEW_NOTIF_FALSE,
+  NEW_NOTIF_TRUE,
   DELETE_USER,
   VERSION_CHECK,
   SAVE_REFERRAL_LINK,
@@ -354,6 +355,12 @@ export const newNotifFalseSuccess = () => {
 export const newNotifFalseFailure = () => {
   return {
     type: NEW_NOTIF_FALSE.FAILURE,
+  };
+};
+
+export const newNotifTrueSuccess = () => {
+  return {
+    type: NEW_NOTIF_TRUE.SUCCESS,
   };
 };
 
