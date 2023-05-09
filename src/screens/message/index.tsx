@@ -27,7 +27,7 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
 import {getMessagesHistory} from '../../redux/modules/message/actions';
 import {getConfiguredMessageData} from '../../utility/utility';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation, useIsFocused} from '@react-navigation/native';
 import {AppState} from 'react-native';
 
 export const UserChatScreen: FC<any> = ({route}) => {
@@ -38,6 +38,8 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const auth: AuthProps = useSelector(state => state.auth);
   const messageData: MessageProps = useSelector(state => state.message);
   const {userData} = auth;
+
+  const isFocused = useIsFocused();
 
   const insets = useSafeAreaInsets();
   const messageListref = useRef(null);
@@ -77,9 +79,25 @@ export const UserChatScreen: FC<any> = ({route}) => {
           }),
         );
         scrollListToEnd();
+      } else if (
+        appState.current === 'active' && nextAppState === 'background'
+      ) {
+        console.log('bg!');
+        subscription.remove();
+        socketObj?.removeAllListeners();
+        socketObj?.close();
+        socketObj?.disconnect();
       }
       appState.current = nextAppState;
     });
+    if (!isFocused) {
+      
+      subscription.remove();
+      socketObj?.removeAllListeners();
+      socketObj?.close();
+      socketObj?.disconnect();
+
+    }
     dispatch(
       getMessagesHistory({
         userId: userData?._id,
@@ -93,7 +111,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
       socketObj?.close();
       socketObj?.disconnect();
     };
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     if (historyMessages && historyMessages?.messages) {
