@@ -28,6 +28,10 @@ export const GET_USER_DETAILS = {
   ...createActionConst(actions.GET_USER_DETAILS),
 };
 
+export const PRESELECT_CHOSEN_ITEM = {
+  ...createActionConst(actions.PRESELECT_CHOSEN_ITEM),
+};
+
 export const GET_MY_DETAILS = {
   ...createActionConst(actions.GET_MY_DETAILS),
 };

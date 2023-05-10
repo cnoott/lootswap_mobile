@@ -21,6 +21,7 @@ import {
   DELETE_USER,
   VERSION_CHECK,
   SAVE_REFERRAL_LINK,
+  PRESELECT_CHOSEN_ITEM,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -123,6 +124,13 @@ export const getUsersDetailsRequest = (
     type: GET_USER_DETAILS.REQUEST,
     userId,
     clearOldData: clearOldData,
+  };
+};
+
+export const preselectChosenItem = (productId: string) => {
+  return {
+    type: PRESELECT_CHOSEN_ITEM.SUCCESS,
+    productId,
   };
 };
 
