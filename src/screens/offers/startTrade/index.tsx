@@ -1,21 +1,15 @@
 import React, {FC, useRef, useState} from 'react';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {LSStartTradeHeader} from '../../../components/commonComponents/headers/startTradeHeader';
-import {
-  Container,
-  SelectLootText,
-  SelectedLootText,
-  ButtonContainer,
-} from './styles';
+import {Container, ButtonContainer} from './styles';
 import {ProgressBar, SwiperComponent} from '../../loot/styles';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {Size, Type} from '../../../enums';
 import {StartTradeStepOne} from './startTradeStepOne';
 import {StartTradeStepTwo} from './startTradeStepTwo';
 import {ReviewTrade} from './reviewTrade';
-import { current } from '@reduxjs/toolkit';
 import {useSelector} from 'react-redux';
-import {AuthProps} from '../../redux/modules/auth/reducer';
+import {AuthProps} from '../../../redux/modules/auth/reducer';
 import {Alert} from 'custom_top_alert';
 
 export const StartTradeScreen: FC<any> = ({route}) => {
