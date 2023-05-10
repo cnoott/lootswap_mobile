@@ -41,6 +41,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
         title={header.title}
         profilePicture={header.profilePicture}
         isReview={currIndex === 2}
+        onBackPress={handleBack}
       />
       <ProgressBar progress={(currIndex + 1) / 3} />
     </>
@@ -62,18 +63,19 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       });
     }
     swiperRef?.current?.scrollTo(currIndex + 1);
-
   };
 
   const handleBack = () => {
+    if (currIndex === 0) {
+      navigation?.goBack();
+    } else {
+      swiperRef?.current?.scrollTo(currIndex - 1);
+    }
     if (currIndex - 1 === 0) {
       setHeader({
         title: `${requestedUserDetails?.name}'s Loot`,
         profilePicture: requestedUserDetails?.profile_picture,
       });
-    }
-    if (currIndex !== 0) {
-      swiperRef?.current?.scrollTo(currIndex - 1);
     }
   };
 
@@ -93,18 +95,9 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   const renderBottomButtonView = () => {
     return (
       <ButtonContainer>
-        {currIndex > 0 && (
-          <LSButton
-            title={'Back'}
-            size={Size.Medium}
-            type={Type.Grey}
-            radius={20}
-            onPress={handleBack}
-          />
-        )}
         <LSButton
           title={currIndex === 2 ? 'Checkout & Submit' : 'Next'}
-          size={currIndex > 0 ? Size.Medium : Size.Large}
+          size={Size.Large}
           type={Type.Primary}
           radius={20}
           onPress={handleNext}

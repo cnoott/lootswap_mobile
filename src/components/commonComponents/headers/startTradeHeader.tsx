@@ -18,17 +18,17 @@ interface HeaderProps {
   profilePicture: string;
   title: string;
   isReview: boolean;
+  onBackPress: Function;
 }
 
 export const LSStartTradeHeader: FC<HeaderProps> = React.memo(
-  ({profilePicture, title, isReview}) => {
-    const navigation: NavigationProp<any, any> = useNavigation();
+  ({profilePicture, title, isReview, onBackPress}) => {
 
     return (
       <ChatOfferContainer>
         <StartTradeHeaderContainer>
           <EmptyRowView>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity onPress={() => onBackPress()}>
               <SvgXml xml={LEFT_BLACK_ARROW}/>
             </TouchableOpacity>
           </EmptyRowView>
