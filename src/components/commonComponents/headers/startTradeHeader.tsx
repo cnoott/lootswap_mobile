@@ -17,10 +17,11 @@ import {LSProfileImageComponent} from '../profileImage';
 interface HeaderProps {
   profilePicture: string;
   title: string;
+  isReview: boolean;
 }
 
 export const LSStartTradeHeader: FC<HeaderProps> = React.memo(
-  ({profilePicture, title}) => {
+  ({profilePicture, title, isReview}) => {
     const navigation: NavigationProp<any, any> = useNavigation();
 
     return (
@@ -32,13 +33,15 @@ export const LSStartTradeHeader: FC<HeaderProps> = React.memo(
             </TouchableOpacity>
           </EmptyRowView>
           <EmptyRowView>
-            <LSProfileImageComponent
-              profileUrl={profilePicture}
-              imageHeight={34}
-              imageWidth={34}
-              imageRadius={17}
-            />
-            <StartTradeText>{title}</StartTradeText>
+            {!isReview && (
+              <LSProfileImageComponent
+                profileUrl={profilePicture}
+                imageHeight={34}
+                imageWidth={34}
+                imageRadius={17}
+              />
+            )}
+            <StartTradeText isReview={isReview}>{title}</StartTradeText>
             </EmptyRowView>
           <EmptyRowView />
         </StartTradeHeaderContainer>
