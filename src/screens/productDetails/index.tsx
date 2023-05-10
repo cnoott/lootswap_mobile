@@ -58,19 +58,15 @@ import {
 } from 'localsvgimages';
 import StarRatings from '../../components/starRatings';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
-import SendOfferModal from '../offers/offerItems/SendOfferModal';
 import {
   getUsersDetailsRequest,
   getProductDetails,
   getMessageInitiatedStatus,
   createFirstMessage,
-  getProductListedItemsForOffer,
-  sendTradeOffer,
   getTradesHistory,
   UpdateAddProductData,
   likeProduct,
   unlikeProduct,
-  getMyDetailsNoLoadRequest,
   deleteProduct,
   preselectChosenItem,
 } from '../../redux/modules';
@@ -88,8 +84,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const tradesData: TradeProps = useSelector(state => state.offers);
   const {historyTrades} = tradesData;
   const theme = useTheme();
-  const [isSendOfferModalVisible, setSendOfferModalVisible] = useState(false);
-  const [sendOfferItems, setSendOfferItems] = useState([]);
   const {requestedUserDetails, userData, isLogedIn} = auth;
   const {selectedProductDetails} = homeStates;
   const {productData = {}, likedParam} = route?.params;
@@ -263,48 +257,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     });
   };
 
-  const sendFinalOffer = (selectedItems: Array<any>, price: any) => {
-    const idsList = selectedItems?.map(offerItem => {
-      return offerItem?._id;
-    });
-    const reqData = {
-      reciever: productData?.userId,
-      recieverItem: productData.objectID,
-      sender: userData?._id,
-      senderItems: idsList,
-      senderMoneyOffer: price,
-    };
-    dispatch(
-      sendTradeOffer(
-        reqData,
-        res => {
-          navigation.reset({
-            index: 0,
-            routes: [{name: 'Offers/Inbox'}],
-          });
-          navigation.navigate('Offers/Inbox', {
-            screen: 'OffersMessageScreen',
-            params: {
-              item: res,
-            },
-          });
-          setSendOfferModalVisible(false);
-          dispatch(
-            getTradesHistory({
-              userId: userData?._id,
-            }),
-          );
-        },
-        error => {
-          console.log('error ====', error);
-        },
-      ),
-    );
-  };
 
-  const updateOfferData = (newData: Array<any>) => {
-    setSendOfferItems([...newData]);
-  };
 
   const renderTags = () => {
     return (
@@ -552,13 +505,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           </SubContainer>
         </ScrollContainer>
       )}
-      <SendOfferModal
-        isModalVisible={isSendOfferModalVisible}
-        onCloseModal={() => setSendOfferModalVisible(false)}
-        itemsData={sendOfferItems.filter(item => item?.isVisible && item?.isVirtuallyVerified) || []}
-        updateOfferData={updateOfferData}
-        sendFinalOffer={sendFinalOffer}
-      />
     </Container>
   );
 };
