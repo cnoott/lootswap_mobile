@@ -6,6 +6,7 @@ import {
   SIGN_OUT,
   PROFILE_IMG_UPLOAD,
   GET_USER_DETAILS,
+  PRESELECT_CHOSEN_ITEM,
   GET_MY_DETAILS,
   SET_REG_TOKEN,
   GET_MY_DETAILS_NO_LOAD,
@@ -195,6 +196,23 @@ export default function auth(state = InitialState, action: ActionProps) {
       return {
         ...state,
         requestedUserDetails: null,
+      };
+    }
+    case PRESELECT_CHOSEN_ITEM.SUCCESS: {
+      let items = [...state.requestedUserDetails.my_items];
+      const productId = action?.productId;
+      const foundItemIndex = items?.findIndex(item => item?._id === productId);
+      const foundItem = items[foundItemIndex];
+      foundItem.isSelected = true;
+      items = items.filter(item => item?._id !== productId);
+
+      items.unshift(foundItem);
+      return {
+        ...state,
+        requestedUserDetails: {
+          ...state.requestedUserDetails,
+          my_items: items,
+        },
       };
     }
     case GET_MY_DETAILS.REQUEST: {
