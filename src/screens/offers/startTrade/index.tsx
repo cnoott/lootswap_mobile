@@ -61,6 +61,16 @@ export const StartTradeScreen: FC<any> = ({route}) => {
 
   const handleBack = () => {
     if (currIndex === 0) {
+      let resetMyItems = [...myItems];
+      let resetOtherUserItems = [...otherUserItems];
+      resetMyItems.forEach((item, index, array) => {
+        array[index] = item.isSelected = false;
+      });
+      resetOtherUserItems.forEach((item, index, array) => {
+        array[index] = item.isSelected = false;
+      });
+      setMyItems(resetMyItems);
+      setOtherUserItems(resetOtherUserItems);
       navigation?.goBack();
     } else {
       swiperRef?.current?.scrollTo(currIndex - 1);
