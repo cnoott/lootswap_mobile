@@ -65,10 +65,11 @@ export const StartTradeHeaderContainer = styled.View.attrs(() => ({
 `;
 export const StartTradeText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  pr: moderateScale(50),
+  pr: props?.isReview ? moderateScale(40) : moderateScale(50),
   ml: moderateScale(8),
   numberOfLines: 1,
 }))`
+  text-align: center;
   font-size: ${moderateScale(19)}px;
   font-family: Urbanist-Bold;
   ${color}

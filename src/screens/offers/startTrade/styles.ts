@@ -35,6 +35,32 @@ export const SelectedLootText = styled.Text.attrs(props => ({
   ${color}
 `;
 
+export const TradeReviewText = styled.Text.attrs(props => ({
+  color: props.theme.colors.black,
+  mt: verticalScale(3),
+  ml: scale(15),
+}))`
+  font-size: ${moderateScale(18)}px;
+  font-family: Urbanist-Bold;
+  font-weight: 700;
+  ${space}
+  ${layout}
+  ${color}
+`;
+
+export const TradeReviewTextTwo = styled.Text.attrs(props => ({
+  color: props.theme.colors.black,
+  mt: verticalScale(10),
+  ml: scale(15),
+}))`
+  font-size: ${moderateScale(18)}px;
+  font-family: Urbanist-Bold;
+  font-weight: 700;
+  ${space}
+  ${layout}
+  ${color}
+`;
+
 export const ButtonContainer = styled.View.attrs(() => ({
   mb: verticalScale(5),
 }))`
@@ -47,3 +73,53 @@ export const ButtonContainer = styled.View.attrs(() => ({
   ${layout}
 `;
 
+export const FlatList = styled.FlatList.attrs(() => ({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {flexGrow: 1},
+}))`
+  ${space}
+  ${layout}
+`;
+
+export const ScrollSubContainer = styled.ScrollView.attrs(() => ({
+  flex: 1,
+  showsVerticalScrollIndicator: false,
+}))`
+  ${space}
+  ${layout}
+`;
+
+export const AddMoneyContainer = styled.View.attrs(() => ({
+  flex: 1,
+  py: scale(5),
+  px: scale(15),
+}))`
+  flex-direction: row;
+  justify-content: flex-start;
+  ${space}
+  ${layout}
+`;
+
+export const EditMoneyContainer = styled.View.attrs(() => ({
+  flex: 1,
+  py: scale(5),
+  px: scale(15),
+}))`
+  flex-direction: row;
+  justify-content: space-between;
+  ${space}
+  ${layout}
+`;
+
+export const MoneyOfferText = styled.Text.attrs(props => ({
+  color: props.theme.colors.successColor,
+  mt: verticalScale(10),
+  ml: scale(15),
+}))`
+  font-size: ${moderateScale(18)}px;
+  font-family: Urbanist-Bold;
+  font-weight: 700;
+  ${space}
+  ${layout}
+  ${color}
+`;
