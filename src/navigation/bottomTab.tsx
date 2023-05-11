@@ -80,6 +80,7 @@ const HomeStackNavigation = () => (
       component={ProductDetailsScreen}
     />
     <Stack.Screen name="StartTradeScreen" component={StartTradeScreen} />
+    <Stack.Screen name="AddressScreenCheckout" component={AddressScreen} />
     <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
     <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
     <Stack.Screen name="AddressScreenBuyCheckout" component={AddressScreen} />
