@@ -26,7 +26,7 @@ import {
   StretchedRowView,
   ItemSubLabel,
   SummaryText,
-} from '../offers/tradeCheckoutStyle';
+} from '../../components/offers/tradeCheckoutStyle';
 import {
   getMyDetailsRequest,
   getUsersDetailsRequest,

@@ -10,7 +10,7 @@ import {
   ItemCategoryText,
   ItemSubLabel,
   OfferCellOnlyRightView,
-} from '../tradeCheckoutStyle';
+} from '../../../components/offers/tradeCheckoutStyle';
 
 interface TradeCheckoutItemProp {
   itemData?: any;
