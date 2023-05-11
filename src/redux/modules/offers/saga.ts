@@ -31,8 +31,6 @@ import {
   getTradesHistoryFailure,
   getTradeSuccess,
   getTradeFailure,
-  startTradeCheckoutSuccess,
-  startTradeCheckoutFailure,
 } from '../offers/actions';
 
 type APIResponseProps = {
@@ -68,9 +66,9 @@ export function* startTradeCheckout(action: any) {
     );
     yield put(LoadingSuccess());
     if (response?.success) {
-      yield put(startTradeCheckoutSuccess(response.data));
+      action?.successCallBack(response.data);
     } else {
-      yield put(startTradeCheckoutFailure(response.error));
+      action?.errorCallBack(response.error);
     }
   } catch (e) {
     console.log(e);
@@ -251,6 +249,7 @@ export default function* offersSaga() {
   yield takeLatest(GET_TRADES_HISTORY.REQUEST, getTradesHistory);
   yield takeLatest(GET_TRADE.REQUEST, getTrade);
   yield takeLatest(ACCEPT_TRADE.REQUEST, acceptTrade);
+  yield takeLatest(START_TRADE_CHECKOUT.REQUEST, startTradeCheckout);
   yield takeLatest(ACCEPT_MONEY_OFFER_TRADE.REQUEST, acceptMoneyOfferTrade);
   yield takeLatest(CANCEL_TRADE.REQUEST, cancelTrade);
   yield takeLatest(ADD_ITEMS.REQUEST, addItems);
