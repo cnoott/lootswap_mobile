@@ -72,6 +72,10 @@ export const SEND_TRADE_OFFER = {
   ...createActionConst(actions.SEND_TRADE_OFFER),
 };
 
+export const START_TRADE_CHECKOUT = {
+  ...createActionConst(actions.START_TRADE_CHECKOUT),
+};
+
 export const GET_TRADES_HISTORY = {
   ...createActionConst(actions.GET_TRADES_HISTORY),
 };

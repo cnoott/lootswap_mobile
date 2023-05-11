@@ -9,6 +9,7 @@ import {
   GET_TRADE_SHIPPING_RATES,
   FETCH_PAYMENT_SHEET,
   ACCEPT_MONEY_OFFER_TRADE,
+  START_TRADE_CHECKOUT,
 } from '../../../constants/actions';
 
 export const getTradesHistory = (reqData: any) => {
@@ -63,6 +64,27 @@ export const acceptTradeSuccess = (payload: any) => {
 export const acceptTradeFailure = (error: any) => {
   return {
     type: ACCEPT_TRADE.FAILURE,
+    error,
+  };
+};
+
+export const startTradeCheckout = (reqData: any) => {
+  return {
+    type: START_TRADE_CHECKOUT.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const startTradeCheckoutSuccess = (payload: any) => {
+  return {
+    type: START_TRADE_CHECKOUT.SUCCESS,
+    payload,
+  };
+};
+
+export const startTradeCheckoutFailure = (error: any) => {
+  return {
+    type: START_TRADE_CHECKOUT.FAILURE,
     error,
   };
 };

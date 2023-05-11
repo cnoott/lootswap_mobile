@@ -10,8 +10,10 @@ import {
   CHANGE_MONEY_OFFER,
   GET_TRADE_SHIPPING_RATES,
   FETCH_PAYMENT_SHEET,
+  START_TRADE_CHECKOUT,
 } from '../../../constants/actions';
 import {
+  startTradeCheckoutCall,
   getTradesHistoryCall,
   getTradeCall,
   acceptTradeCall,
@@ -29,6 +31,8 @@ import {
   getTradesHistoryFailure,
   getTradeSuccess,
   getTradeFailure,
+  startTradeCheckoutSuccess,
+  startTradeCheckoutFailure,
 } from '../offers/actions';
 
 type APIResponseProps = {
@@ -49,6 +53,24 @@ export function* getTradesHistory(action: any) {
       yield put(getTradesHistorySuccess(response.data));
     } else {
       yield put(getTradesHistoryFailure(response.error));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* startTradeCheckout(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      startTradeCheckoutCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      yield put(startTradeCheckoutSuccess(response.data));
+    } else {
+      yield put(startTradeCheckoutFailure(response.error));
     }
   } catch (e) {
     console.log(e);

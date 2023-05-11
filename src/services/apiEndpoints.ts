@@ -110,6 +110,12 @@ export const sendTradeOfferCall = (reqData: any) => {
   );
 };
 
+export const startTradeCheckoutCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`start-trade-checkout/${reqData?.userId}`, reqData),
+    API_RESPONSE.CODE200,
+  );
+};
 export const createNewProductCall = (reqData: any) => {
   return handleResponse(
     api.post(`/product/create/${reqData?.userId}`, reqData),
