@@ -50,7 +50,7 @@ export const ReviewTrade: FC<ReviewTradeProps> = props => {
   const showOtherUserLoot = () => (
     <>
       <TradeReviewTextTwo>
-        {requestedUserDetails.name}'s loot
+        For {requestedUserDetails.name}'s loot
       </TradeReviewTextTwo>
       {otherUserItems.filter(item => item?.isSelected).map(item => (
         <StartTradeItemCell item={item} isReview={true} />
