@@ -25,7 +25,7 @@ import {
   WeightRowView,
   HorizontalSpace,
 } from './shippingLabelScreenStyle';
-import {VerticalMargin} from '../offers/tradeCheckoutStyle';
+import {VerticalMargin} from '../../components/offers/tradeCheckoutStyle';
 import {Alert} from 'custom_top_alert';
 import DeliveryAddressComponent from '../../components/orders/deliveryAddressComponent';
 import {AuthProps} from '../../redux/modules/auth/reducer';
