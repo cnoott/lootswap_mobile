@@ -1086,3 +1086,20 @@ export const getProfileReviewsFilters = () => {
     },
   ];
 };
+
+export const isAlreadyTrading = (
+  historyTrades: Array<any>,
+  productId: string,
+) => {
+  console.log('history', historyTrades);
+  for (const trade of historyTrades) {
+    if (
+      trade.recieverItems.some(
+        recieverItem => recieverItem._id === productId
+      )
+    ) {
+      return trade;
+    }
+  }
+  return false;
+};

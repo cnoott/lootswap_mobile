@@ -70,7 +70,11 @@ import {
   deleteProduct,
   preselectChosenItem,
 } from '../../redux/modules';
-import {getProductTags, configureAndGetLootData} from '../../utility/utility';
+import {
+  getProductTags,
+  configureAndGetLootData,
+  isAlreadyTrading,
+} from '../../utility/utility';
 import {Alert} from 'custom_top_alert';
 import {Trade_Options} from 'custom_enums';
 
@@ -104,12 +108,12 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       setLiked(true);
     }
     if (isLogedIn) {
-      console.log('USER HISTORY', userData);
       dispatch(
         getTradesHistory({
           userId: userData?._id,
         }),
       );
+      console.log('USER HISTORY', historyTrades);
     }
     if (productData?.userId) {
       dispatch(getUsersDetailsRequest(productData?.userId));
@@ -148,6 +152,13 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     setLiked(false);
     dispatch(unlikeProduct(reqData));
     //dispatch(getMyDetailsNoLoadRequest(userData?._id)); //this causes rerender which is undesireable
+  };
+
+  const handleGoToTrade = () => {
+    const trade = isAlreadyTrading(historyTrades, productData?.objectID);
+    if (trade) {
+      navigation?.navigate('OffersMessageScreen', {item: trade});
+    }
   };
 
   const handleYouSureDeleteProduct = () => {
@@ -315,17 +326,16 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       );
     } else if (
       isLogedIn &&
-      historyTrades?.some(
-        trade => trade.recieverItem._id === productData?.objectID,
-      )
+      historyTrades &&
+      isAlreadyTrading(historyTrades, productData?.objectID)
     ) {
       return (
         <TopSpace>
           <LSButton
-            title={'Already Trading'}
+            title={'Go To Trade'}
             size={Size.Full}
-            type={Type.Secondary}
-            onPress={() => {}}
+            type={Type.Primary}
+            onPress={() => handleGoToTrade()}
           />
         </TopSpace>
       );
