@@ -104,6 +104,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       setLiked(true);
     }
     if (isLogedIn) {
+      console.log('USER HISTORY', userData);
       dispatch(
         getTradesHistory({
           userId: userData?._id,
@@ -115,6 +116,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       dispatch(getProductDetails(productData?.objectID));
     }
   }, [
+    userData,
     dispatch,
     productData?.userId,
     productData?.objectID,
