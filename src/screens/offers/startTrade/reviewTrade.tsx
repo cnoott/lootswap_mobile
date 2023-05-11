@@ -17,12 +17,22 @@ interface ReviewTradeProps {
   otherUserItems: any;
   myItems: any;
   requestedUserDetails: any;
+  requestedMoneyOffer: Number;
+  setRequestedMoneyOffer: Function;
+  myMoneyOffer: Number;
+  setMyMoneyOffer: Function;
 }
 
 export const ReviewTrade: FC<ReviewTradeProps> = props => {
-  const {otherUserItems, myItems, requestedUserDetails} = props;
-  const [myMoneyOffer, setMyMoneyOffer] = useState(0);
-  const [requestedMoneyOffer, setRequestedMoneyOffer] = useState(0);
+  const {
+    otherUserItems,
+    myItems,
+    requestedUserDetails,
+    requestedMoneyOffer,
+    setRequestedMoneyOffer,
+    myMoneyOffer,
+    setMyMoneyOffer,
+  } = props;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isMyMoneyOffer, setIsMyMoneyOffer] = useState(true);
   const onCloseModal = () => setIsModalVisible(false);
@@ -39,7 +49,9 @@ export const ReviewTrade: FC<ReviewTradeProps> = props => {
 
   const showOtherUserLoot = () => (
     <>
-      <TradeReviewTextTwo>{requestedUserDetails.name}'s loot </TradeReviewTextTwo>
+      <TradeReviewTextTwo>
+        {requestedUserDetails.name}'s loot
+      </TradeReviewTextTwo>
       {otherUserItems.filter(item => item?.isSelected).map(item => (
         <StartTradeItemCell item={item} isReview={true} />
       ))}

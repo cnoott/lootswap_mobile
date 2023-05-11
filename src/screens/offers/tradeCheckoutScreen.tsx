@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /***
-LootSwap - TRADE CHECKOUT SCREEN
-***/
+  LootSwap - TRADE CHECKOUT SCREEN
+ ***/
 
 import React, {FC, useEffect, useState, useCallback} from 'react';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
@@ -26,7 +26,7 @@ import {
   StretchedRowView,
   ItemSubLabel,
   SummaryText,
-} from './tradeCheckoutStyle';
+} from '../../components/offers/tradeCheckoutStyle';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {Alert} from 'custom_top_alert';
@@ -41,6 +41,7 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {LSModal} from '../../components/commonComponents/LSModal';
 import ShippingInstructionModalComponent from '../../components/orders/shippingInstructionModalComponent';
 
+
 type PaymentDetails = {
   platformFee: number;
   toUserRate: number;
@@ -48,9 +49,15 @@ type PaymentDetails = {
   total: number;
   userPayout: number;
 };
+
 export const TradeCheckoutScreen: FC<{}> = props => {
-  const navigation: NavigationProp<any, any> = useNavigation();
-  const {tradeData, orderData} = props.route?.params;
+  const {
+    recieverItems,
+    senderItems,
+    tradeData = {},
+    isFromStartTrade = false,
+  } = props?.route.params;
+
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state?.auth);
   const {userData} = auth;
@@ -64,93 +71,15 @@ export const TradeCheckoutScreen: FC<{}> = props => {
   const {platformFee, toUserRate, toWarehouseRate, total, userPayout} =
     paymentDetails;
 
-  const [isShipInsModalVisible, setShipInsModalVisible] = useState(true);
   const {initPaymentSheet, presentPaymentSheet} = useStripe();
   const [loading, setLoading] = useState(false);
 
-  const renderShippingInstructionModal = () => {
-    return (
-      <LSModal isVisible={isShipInsModalVisible}>
-        <LSModal.Container>
-          <ShippingInstructionModalComponent
-            onButtonPress={() => setShipInsModalVisible(false)}
-            isTradeOrder={true}
-          />
-          <LSModal.CloseButton
-            onCloseButtonPress={() => setShipInsModalVisible(false)}
-          />
-        </LSModal.Container>
-      </LSModal>
-    );
-  };
-
-  const initializePaymentSheet = useCallback(() => {
-    const reqData = {
-      userId: userData?._id,
-      orderId: orderData?._id,
-    };
-    dispatch(
-      fetchPaymentSheet(
-        reqData,
-        async res => {
-          setPaymentDetails(res.rateData);
-          const {paymentIntent, ephemeralKey, customer} = res.stripeData;
-
-          const {error} = await initPaymentSheet({
-            merchantDisplayName: 'lootswap, Inc.',
-            customerId: customer,
-            customerEphemeralKeySecret: ephemeralKey,
-            paymentIntentClientSecret: paymentIntent,
-            applePay: {
-              merchantCountryCode: 'US',
-            },
-          });
-          if (!error) {
-            setLoading(true);
-          }
-        },
-        error => {
-          Alert.showError(
-            `Error getting rates data! Please restart app and try again: ${error}`,
-          );
-        },
-      ),
-    );
-  }, [dispatch, orderData?._id, userData?._id, initPaymentSheet]);
-
-  const openPaymentSheet = async () => {
-    const {error} = await presentPaymentSheet();
-
-    if (error) {
-      Alert.showError(`There was an error with your payment: ${error}`);
-      console.log('error payment sheet', error);
-    } else {
-      dispatch(
-        getAllOrders({
-          userId: userData?._id,
-        }),
-      );
-      dispatch(
-        getTrade({
-          userId: userData?._id,
-          tradeId: tradeData?._id,
-        }),
-      );
-      navigation.replace('TradeCheckoutSuccessScreen', {
-        orderData: orderData,
-        total: total,
-      });
-    }
-  };
-
-  useEffect(() => {
-    dispatch(getMyDetailsRequest(userData?._id));
-    initializePaymentSheet();
-  }, [userData?._id, dispatch, initializePaymentSheet]);
+  //TODO INIT PAYMENT SHEET USE EFFECT
 
   const renderHeading = (label: string) => {
     return <HeadingLabel>{label}</HeadingLabel>;
   };
+
   const renderYourItems = () => {
     return (
       <EmptyView>
@@ -188,7 +117,6 @@ export const TradeCheckoutScreen: FC<{}> = props => {
     );
   };
   */
-
   const renderSummaryDetail = (label: string, value: number) => {
     return (
       <StretchedRowView topMargin={5}>
@@ -273,6 +201,8 @@ export const TradeCheckoutScreen: FC<{}> = props => {
       {renderShippingInstructionModal()}
     </StripeProvider>
   );
+
+
 };
 
 export default TradeCheckoutScreen;
