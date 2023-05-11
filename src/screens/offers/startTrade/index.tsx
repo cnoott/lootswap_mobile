@@ -49,29 +49,30 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     total: 0,
     userPayout: 0,
   });
+  const [trade, setTrade] = useState({});
 
   const headerTitleOptions = () => {
     switch (currIndex) {
       case 0:
         return {
-        title: `${requestedUserDetails?.name}'s loot`,
-        profilePicture: requestedUserDetails?.profile_picture,
-      }
+          title: `${requestedUserDetails?.name}'s loot`,
+          profilePicture: requestedUserDetails?.profile_picture,
+        };
       case 1:
         return {
-        title: 'Your loot',
-        profilePicture: userData.profile_picture,
-      }
+          title: 'Your loot',
+          profilePicture: userData.profile_picture,
+        };
       case 2:
         return {
-        title: 'Review Order',
-        profilePicture: '',
-      }
+          title: 'Review Order',
+          profilePicture: '',
+        };
       case 3:
         return {
-        title: 'Checkout & Submit Offer',
-        profilePicture: '',
-      }
+          title: 'Checkout & Submit Offer',
+          profilePicture: '',
+       };
     }
 
   };
@@ -118,7 +119,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
           if (!error) {
             setLoading(true);
           }
-
+          setTrade(res.trade);
         },
         error => {
           Alert.showError('Error in checking out')
@@ -134,7 +135,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       Alert.showError(`There was an error with your payment: ${error}`);
       console.log('error payment sheet', error);
     } else {
-      console.log("SUCCESS");
+      navigation?.replace('OffersMessageScreen', {item: trade});
     }
   };
 
