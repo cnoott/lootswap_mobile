@@ -68,26 +68,19 @@ export const acceptTradeFailure = (error: any) => {
   };
 };
 
-export const startTradeCheckout = (reqData: any) => {
+export const startTradeCheckout = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
   return {
     type: START_TRADE_CHECKOUT.REQUEST,
     reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
   };
 };
 
-export const startTradeCheckoutSuccess = (payload: any) => {
-  return {
-    type: START_TRADE_CHECKOUT.SUCCESS,
-    payload,
-  };
-};
-
-export const startTradeCheckoutFailure = (error: any) => {
-  return {
-    type: START_TRADE_CHECKOUT.FAILURE,
-    error,
-  };
-};
 
 export const acceptTrade = (
   reqData: any,
