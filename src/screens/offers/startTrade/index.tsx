@@ -132,7 +132,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     const {error} = await presentPaymentSheet();
 
     if (error) {
-      Alert.showError(`There was an error with your payment: ${error}`);
+      Alert.showError(error?.message);
       console.log('error payment sheet', error);
     } else {
       navigation?.replace('OffersMessageScreen', {item: trade});
