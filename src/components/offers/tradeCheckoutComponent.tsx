@@ -3,7 +3,7 @@
   LootSwap - TRADE CHECKOUT COMPONENT
  ***/
 
-import React, {FC, useEffect, useState, useCallback} from 'react';
+import React, {FC} from 'react';
 import DeliveryAddressComponent from '../../components/orders/deliveryAddressComponent';
 import TradeCheckoutItemCell from '../../screens/offers/offerItems/TradeCheckoutItemCell';
 import {StripeApiKey, MerchantIdentifier} from '@env';
@@ -27,7 +27,7 @@ import {
   SummaryText,
 } from './tradeCheckoutStyle';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {StripeProvider} from '@stripe/stripe-react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
@@ -55,7 +55,6 @@ export const TradeCheckoutComponent: FC<
   } = props;
 
   const navigation: NavigationProp<any, any> = useNavigation();
-  const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state?.auth);
   const {userData} = auth;
   const {platformFee, toUserRate, toWarehouseRate, total, userPayout} =
@@ -192,4 +191,3 @@ export const TradeCheckoutComponent: FC<
 };
 
 export default TradeCheckoutComponent;
-
