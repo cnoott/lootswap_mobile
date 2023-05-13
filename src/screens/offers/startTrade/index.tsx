@@ -12,7 +12,11 @@ import {ReviewTrade} from './reviewTrade';
 import {useDispatch, useSelector} from 'react-redux';
 import {AuthProps} from '../../../redux/modules/auth/reducer';
 import {useStripe} from '@stripe/stripe-react-native';
-import {getMyDetailsNoLoadRequest, startTradeCheckout} from '../../../redux/modules';
+import {
+  getMyDetailsNoLoadRequest,
+  startTradeCheckout,
+  undoTradeCheckout,
+} from '../../../redux/modules';
 import {Alert} from 'custom_top_alert';
 
 type PaymentDetails = {
@@ -101,6 +105,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
         senderItems: myItems.filter(item => item?.isSelected),
       },
     };
+    console.log("CALLIGN DIS");
     dispatch(
       startTradeCheckout(
         reqData,
@@ -165,6 +170,9 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       setMyItems(resetMyItems);
       setOtherUserItems(resetOtherUserItems);
       navigation?.goBack();
+    } else if (currIndex === 3) {
+      //undoTradeCheckout call is broken here, will skip for now
+      swiperRef?.current?.scrollTo(currIndex - 1);
     } else {
       swiperRef?.current?.scrollTo(currIndex - 1);
     }
