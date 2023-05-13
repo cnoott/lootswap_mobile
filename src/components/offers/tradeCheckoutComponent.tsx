@@ -25,11 +25,17 @@ import {
   StretchedRowView,
   ItemSubLabel,
   SummaryText,
+  TradeAcceptanceContainer,
+  TradeAcceptanceDesView,
+  TradeAcceptanceLabel,
+  TradeAcceptanceIconStyle,
 } from './tradeCheckoutStyle';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {useSelector} from 'react-redux';
 import {StripeProvider} from '@stripe/stripe-react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {ORDER_TRACK_PURCHASED} from 'localsvgimages';
+import {SvgXml} from 'react-native-svg';
 
 interface TradeCheckoutComponentProps {
   recieverItems: Array<any>;
@@ -42,7 +48,7 @@ interface TradeCheckoutComponentProps {
 }
 
 export const TradeCheckoutComponent: FC<
-  TradeCheckoutComponentProps
+TradeCheckoutComponentProps
 > = props => {
   const {
     recieverItems,
@@ -90,22 +96,22 @@ export const TradeCheckoutComponent: FC<
     );
   };
   /*
-  const renderPromoCodeView = () => {
-    return (
-      <EmptyView>
-        {renderHeading('Promocode')}
-        <AppliedPromoContainer>
-          <PromoText>PROMOCODE50</PromoText>
-          <AppliedLabel>Applied</AppliedLabel>
-        </AppliedPromoContainer>
-        <PromoContainer>
-          <PromoDes>50% off Platform Fee</PromoDes>
-          <PromoAppliedLabel>Promo code Applied</PromoAppliedLabel>
-        </PromoContainer>
-      </EmptyView>
-    );
-  };
-  */
+     const renderPromoCodeView = () => {
+     return (
+     <EmptyView>
+     {renderHeading('Promocode')}
+     <AppliedPromoContainer>
+     <PromoText>PROMOCODE50</PromoText>
+     <AppliedLabel>Applied</AppliedLabel>
+     </AppliedPromoContainer>
+     <PromoContainer>
+     <PromoDes>50% off Platform Fee</PromoDes>
+     <PromoAppliedLabel>Promo code Applied</PromoAppliedLabel>
+     </PromoContainer>
+     </EmptyView>
+     );
+     };
+     */
   const renderSummaryDetail = (label: string, value: number) => {
     return (
       <StretchedRowView topMargin={5}>
@@ -153,6 +159,19 @@ export const TradeCheckoutComponent: FC<
       />
     );
   };
+  const renderNoChargeDisclaimer = () => {
+    return isFromStartTrade && (
+      <TradeAcceptanceContainer style={{marginHorizontal: 20}}>
+        <SvgXml xml={ORDER_TRACK_PURCHASED} style={TradeAcceptanceIconStyle} />
+        <TradeAcceptanceDesView>
+          <TradeAcceptanceLabel>
+            You will not be charged until the trade is accepted.
+          </TradeAcceptanceLabel>
+        </TradeAcceptanceDesView>
+      </TradeAcceptanceContainer>
+    );
+  };
+
   return (
     <StripeProvider
       publishableKey={StripeApiKey}
@@ -174,7 +193,7 @@ export const TradeCheckoutComponent: FC<
             </PromoContainer>
           )}
           <HorizontalBar />
-          <VerticalMargin />
+          {renderNoChargeDisclaimer()}
           <HorizontalBar />
           {renderPurchaseSummary()}
           <VerticalMargin />
