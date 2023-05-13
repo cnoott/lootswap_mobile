@@ -105,7 +105,6 @@ export const StartTradeScreen: FC<any> = ({route}) => {
         senderItems: myItems.filter(item => item?.isSelected),
       },
     };
-    console.log("CALLIGN DIS");
     dispatch(
       startTradeCheckout(
         reqData,
