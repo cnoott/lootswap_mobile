@@ -135,7 +135,7 @@ export const ReviewTrade: FC<ReviewTradeProps> = props => {
         isModalVisible={isModalVisible}
         onCloseModal={onCloseModal}
       />
-      <ScrollSubContainer>
+      <ScrollSubContainer contentInset={{bottom: 80}}>
         {showMyLoot()}
         {renderMoneyOffer(true)}
         {showOtherUserLoot()}

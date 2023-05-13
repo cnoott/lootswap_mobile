@@ -67,7 +67,7 @@ export const ButtonContainer = styled.View.attrs(() => ({
   flex-direction: row;
   justify-content: space-around;
   position: absolute;
-  bottom: 10;
+  bottom: 10px;
   width: 100%;
   ${space}
   ${layout}
