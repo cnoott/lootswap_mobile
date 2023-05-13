@@ -51,6 +51,7 @@ export const OffersMessageScreen: FC<{}> = props => {
   const insets = useSafeAreaInsets();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
+  const isReciever = props.route?.params.item.reciever._id === userData?._id
   const {socketObj, isConnected}: any = useMessagingService(
     {
       tradeId: tradeId,
@@ -68,6 +69,7 @@ export const OffersMessageScreen: FC<{}> = props => {
   const [isEditTradeModalVisible, setEditTradeModalVisible] = useState(false);
   const [isAddItem, setAddItem] = useState(false);
   const [editTradeItems, setEditTradeItems] = useState([]);
+  const [removeTradeItems, setRemoveTradeItems] = useState([]);
   const [isAddRemoveItemModalVisible, setAddRemoveItemModalVisible] =
     useState(false);
   const [isChangeOfferModalVisible, setChangeOfferModalVisible] =
@@ -178,10 +180,17 @@ export const OffersMessageScreen: FC<{}> = props => {
 
   const onAddItemPress = () => {
     closeModal();
-    if (offerItem?.senderItems.length >= 3) {
+    if (!isReciever && offerItem?.senderItems.length >= 3) {
       Alert.showError('You cannot add more than 3 items to a trade');
       return;
     }
+    if (isReciever && offerItem?.recieverItems.length >= 3) {
+      Alert.showError('You cannot add more than 3 items to a trade');
+      return;
+    }
+    let itemsToFilterOut = isReciever
+      ? offerItem?.recieverItems
+      : offerItem?.senderItems
     dispatch(
       getProductListedItemsForOffer(
         userData?._id,
@@ -191,8 +200,8 @@ export const OffersMessageScreen: FC<{}> = props => {
             // Filters out items already in the trade
             // and items that are not avalibale
             if (
-              !offerItem?.senderItems.some(
-                senderItem => senderItem._id === item._id,
+              !itemsToFilterOut.some(
+                filterItem => filterItem._id === item._id,
               ) &&
               item.isVisible &&
               item.isVirtuallyVerified
@@ -214,6 +223,9 @@ export const OffersMessageScreen: FC<{}> = props => {
     }, 400);
   };
   const onRemoveItemPress = () => {
+    setRemoveTradeItems(
+      isReciever ? offerItem?.recieverItems : offerItem?.senderItems,
+    );
     closeModal();
     setTimeout(() => {
       setAddRemoveItemModalVisible(true);
@@ -402,7 +414,7 @@ export const OffersMessageScreen: FC<{}> = props => {
         isModalVisible={isAddRemoveItemModalVisible}
         isAddItem={isAddItem}
         onCloseModal={closeModal}
-        itemsData={isAddItem ? editTradeItems : offerItem?.senderItems}
+        itemsData={isAddItem ? editTradeItems : removeTradeItems}
         offerItem={offerItem}
         userData={userData}
       />
