@@ -116,6 +116,17 @@ export const startTradeCheckoutCall = (reqData: any) => {
     API_RESPONSE.CODE200,
   );
 };
+
+export const undoTradeCheckoutCall = (reqData: any) => {
+  return handleResponse(
+    api.delete(
+      `undo-trade-checkout/${reqData?.userId}/${reqData?.tradeId}`,
+      reqData,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const createNewProductCall = (reqData: any) => {
   return handleResponse(
     api.post(`/product/create/${reqData?.userId}`, reqData),

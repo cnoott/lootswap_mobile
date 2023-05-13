@@ -81,6 +81,18 @@ export const startTradeCheckout = (
   };
 };
 
+export const undoTradeCheckout = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: START_TRADE_CHECKOUT.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
 
 export const acceptTrade = (
   reqData: any,
