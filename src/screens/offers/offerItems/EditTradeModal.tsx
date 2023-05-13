@@ -1,6 +1,6 @@
 /***
-LootSwap - EDIT TRADE MODAL
-***/
+  LootSwap - EDIT TRADE MODAL
+ ***/
 
 import React, {FC} from 'react';
 import {LSModal} from '../../../components/commonComponents/LSModal';
@@ -42,28 +42,26 @@ export const EditTradeModal: FC<EditTradeModalProp> = props => {
         <TradeModalContainerView>
           <ModalHeaderText>Edit Trade Options</ModalHeaderText>
           <TopMargin />
-          {userData?._id === offerItem?.sender?._id && (
-            <>
-              <LSButton
-                title={'Add Items'}
-                size={Size.Fit_To_Width}
-                type={Type.Primary}
-                radius={20}
-                fitToWidth={'90%'}
-                onPress={() => onAddItemPress()}
-              />
-              <TopMargin margin={2} />
-              <LSButton
-                title={'Remove Items'}
-                size={Size.Fit_To_Width}
-                type={Type.Error}
-                radius={20}
-                fitToWidth={'90%'}
-                onPress={() => onRemoveItemPress()}
-              />
-              <TopMargin margin={2} />
-            </>
-          )}
+          <>
+            <LSButton
+              title={'Add Items'}
+              size={Size.Fit_To_Width}
+              type={Type.Primary}
+              radius={20}
+              fitToWidth={'90%'}
+              onPress={() => onAddItemPress()}
+            />
+            <TopMargin margin={2} />
+            <LSButton
+              title={'Remove Items'}
+              size={Size.Fit_To_Width}
+              type={Type.Error}
+              radius={20}
+              fitToWidth={'90%'}
+              onPress={() => onRemoveItemPress()}
+            />
+            <TopMargin margin={2} />
+          </>
           <LSButton
             title={'Add/Change Money Offer'}
             size={Size.Fit_To_Width}
