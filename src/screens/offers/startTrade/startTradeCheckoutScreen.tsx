@@ -3,7 +3,7 @@
 LootSwap - START TRADE CHECKOUT SCREEN
 ***/
 
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import TradeCheckoutComponent from '../../../components/offers/tradeCheckoutComponent';
 
 interface StartTradeCheckoutScreenProps {
@@ -22,8 +22,13 @@ interface StartTradeCheckoutScreenProps {
 export const StartTradeCheckoutScreen: FC<
   StartTradeCheckoutScreenProps
 > = props => {
-  const {recieverItems, senderItems, recieverMoneyOffer, senderMoneyOffer, paymentDetails, loading, openPaymentSheet} =
-    props;
+  const {
+    recieverItems,
+    senderItems,
+    paymentDetails,
+    loading,
+    openPaymentSheet
+  } = props;
 
   return (
     <>
