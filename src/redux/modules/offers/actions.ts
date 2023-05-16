@@ -1,7 +1,7 @@
 import {
   GET_TRADES_HISTORY,
   GET_TRADE,
-  ACCEPT_TRADE,
+  ACCEPT_TRADE_CHECKOUT,
   CANCEL_TRADE,
   ADD_ITEMS,
   REMOVE_ITEMS,
@@ -56,14 +56,14 @@ export const getTradeFailure = (error: any) => {
 
 export const acceptTradeSuccess = (payload: any) => {
   return {
-    type: ACCEPT_TRADE.SUCCESS,
+    type: ACCEPT_TRADE_CHECKOUT.SUCCESS,
     payload,
   };
 };
 
 export const acceptTradeFailure = (error: any) => {
   return {
-    type: ACCEPT_TRADE.FAILURE,
+    type: ACCEPT_TRADE_CHECKOUT.FAILURE,
     error,
   };
 };
@@ -94,13 +94,13 @@ export const undoTradeCheckout = (
   };
 };
 
-export const acceptTrade = (
+export const acceptTradeCheckout = (
   reqData: any,
   successCallBack: Function,
   errorCallBack: Function,
 ) => {
   return {
-    type: ACCEPT_TRADE.REQUEST,
+    type: ACCEPT_TRADE_CHECKOUT.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
