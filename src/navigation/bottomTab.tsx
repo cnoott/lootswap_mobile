@@ -20,7 +20,7 @@ import AddProductOverviewScreen from '../screens/loot/addProductOverview';
 import NotificationsScreen from '../screens/notifications';
 import OffersScreen from '../screens/offers';
 import OffersMessageScreen from '../screens/offers/offerMessageScreen';
-import TradeCheckoutScreen from '../screens/offers/tradeCheckoutScreen';
+import AcceptTradeCheckoutScreen from '../screens/offers/acceptTradeCheckoutScreen';
 import TradeCheckoutSuccessScreen from '../screens/offers/tradeCheckoutSuccessScreen';
 import CheckoutScreen from '../screens/buy/checkoutScreen';
 import MyOrdersListScreen from '../screens/order/myOrdersListScreen';
@@ -113,7 +113,10 @@ const ProfileStackNavigation = () => (
     />
     <Stack.Screen name="MyOrdersListScreen" component={MyOrdersListScreen} />
     <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
-    <Stack.Screen name="TradeCheckoutScreen" component={TradeCheckoutScreen} />
+    <Stack.Screen
+      name="AcceptTradeCheckoutScreen"
+      component={AcceptTradeCheckoutScreen}
+    />
     <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
     <Stack.Screen name="ShippingLabelScreen" component={ShippingLabelScreen} />
     <Stack.Screen name="ChooseServiceScreen" component={ChooseServiceScreen} />
@@ -162,7 +165,10 @@ const OffersStackNavigation = () => (
     <Stack.Screen name="OffersScreen" component={OffersScreen} />
     <Stack.Screen name="OffersMessageScreen" component={OffersMessageScreen} />
     <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
-    <Stack.Screen name="TradeCheckoutScreen" component={TradeCheckoutScreen} />
+    <Stack.Screen
+      name="AcceptTradeCheckoutScreen"
+      component={AcceptTradeCheckoutScreen}
+    />
     <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
     <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
     <Stack.Screen name="MoneyOfferCheckoutScreen" component={CheckoutScreen} />

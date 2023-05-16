@@ -157,9 +157,11 @@ export const getTradeCall = (reqData: any) => {
   );
 };
 
-export const acceptTradeCall = (reqData: any) => {
+export const acceptTradeCheckoutCall = (reqData: any) => {
   return handleResponse(
-    api.post(`/order/create/${reqData?.userId}/${reqData?.tradeId}`),
+    api.post(
+      `/trade/accept-trade-checkout/${reqData?.userId}/${reqData?.tradeId}`,
+    ),
     API_RESPONSE.CODE200,
   );
 };

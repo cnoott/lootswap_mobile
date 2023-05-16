@@ -2,7 +2,7 @@ import {takeLatest, call, put} from 'redux-saga/effects';
 import {
   GET_TRADES_HISTORY,
   GET_TRADE,
-  ACCEPT_TRADE,
+  ACCEPT_TRADE_CHECKOUT,
   ACCEPT_MONEY_OFFER_TRADE,
   CANCEL_TRADE,
   ADD_ITEMS,
@@ -18,7 +18,7 @@ import {
   undoTradeCheckoutCall,
   getTradesHistoryCall,
   getTradeCall,
-  acceptTradeCall,
+  acceptTradeCheckoutCall,
   acceptMoneyOfferTradeCall,
   cancelTradeCall,
   addItemsCall,
@@ -113,11 +113,11 @@ export function* getTrade(action: any) {
   }
 }
 
-export function* acceptTrade(action: any) {
+export function* acceptTradeCheckout(action: any) {
   yield put(LoadingRequest());
   try {
     const response: APIResponseProps = yield call(
-      acceptTradeCall,
+      acceptTradeCheckoutCall,
       action?.reqData,
     );
     yield put(LoadingSuccess());
@@ -268,7 +268,7 @@ export function* fetchPaymentSheet(action: any) {
 export default function* offersSaga() {
   yield takeLatest(GET_TRADES_HISTORY.REQUEST, getTradesHistory);
   yield takeLatest(GET_TRADE.REQUEST, getTrade);
-  yield takeLatest(ACCEPT_TRADE.REQUEST, acceptTrade);
+  yield takeLatest(ACCEPT_TRADE_CHECKOUT.REQUEST, acceptTradeCheckout);
   yield takeLatest(START_TRADE_CHECKOUT.REQUEST, startTradeCheckout);
   yield takeLatest(UNDO_TRADE_CHECKOUT.REQUEST, undoTradeCheckout);
   yield takeLatest(ACCEPT_MONEY_OFFER_TRADE.REQUEST, acceptMoneyOfferTrade);

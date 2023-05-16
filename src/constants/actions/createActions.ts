@@ -92,8 +92,8 @@ export const CREATE_NEW_PRODUCT = {
   ...createActionConst(actions.CREATE_NEW_PRODUCT),
 };
 
-export const ACCEPT_TRADE = {
-  ...createActionConst(actions.ACCEPT_TRADE),
+export const ACCEPT_TRADE_CHECKOUT = {
+  ...createActionConst(actions.ACCEPT_TRADE_CHECKOUT),
 };
 
 export const ACCEPT_MONEY_OFFER_TRADE = {

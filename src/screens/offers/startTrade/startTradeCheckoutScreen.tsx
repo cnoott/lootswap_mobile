@@ -9,16 +9,11 @@ import TradeCheckoutComponent from '../../../components/offers/tradeCheckoutComp
 interface StartTradeCheckoutScreenProps {
   recieverItems: Array<any>;
   senderItems: Array<any>;
-  recieverMoneyOffer: number;
-  senderMoneyOffer: number;
   paymentDetails: any;
   loading: boolean;
   openPaymentSheet: Function;
 }
-//TODO
-// - setPaymentDetails moneyoffer
-// - initializePaymentSheet
-// - openPaymentSheet
+
 export const StartTradeCheckoutScreen: FC<
   StartTradeCheckoutScreenProps
 > = props => {
@@ -27,7 +22,7 @@ export const StartTradeCheckoutScreen: FC<
     senderItems,
     paymentDetails,
     loading,
-    openPaymentSheet
+    openPaymentSheet,
   } = props;
 
   return (
