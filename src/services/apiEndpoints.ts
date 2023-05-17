@@ -417,6 +417,13 @@ export const newRatingCall = (reqData: any) => {
   );
 };
 
+export const setFirstTimeOpenFalseCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/set-first-time-open-false/${reqData.userId}/${reqData.orderId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
