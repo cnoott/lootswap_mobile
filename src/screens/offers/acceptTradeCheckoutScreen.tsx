@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useStripe} from '@stripe/stripe-react-native';
-import {acceptTradeCheckout} from '../../redux/modules';
+import {acceptTradeCheckout, getTrade} from '../../redux/modules';
 import {Alert} from 'custom_top_alert';
 
 interface AcceptTradeCheckoutProps {
@@ -31,9 +31,11 @@ AcceptTradeCheckoutProps
   const {trade} = props.route.params;
   const auth: AuthProps = useSelector(state => state.auth);
   const dispatch = useDispatch();
+  const navigation: NavigationProp<any, any> = useNavigation();
   const {userData} = auth;
   const {initPaymentSheet, presentPaymentSheet} = useStripe();
   const [loading, setLoading] = useState(false);
+  const [order, setOrder] = useState({});
 
   const [paymentDetails, setPaymentDetails] = useState<PaymentDetails>({
     platformFee: 0,
@@ -53,6 +55,7 @@ AcceptTradeCheckoutProps
         reqData,
         async res => {
           setPaymentDetails(res.rateData);
+          setOrder(res.order);
           const {paymentIntent, ephemeralKey, customer} = res.stripeData;
           const {error} = await initPaymentSheet({
             merchantDisplayName: 'lootswap, Inc.',
@@ -81,8 +84,17 @@ AcceptTradeCheckoutProps
       Alert.showError(error?.message);
       console.log('error payment sheet', error);
     } else {
-      //go to success screen here
-      console.log("SUCCESSSFULLL");
+      dispatch(
+        getTrade({
+          userId: userData?._id,
+          tradeId: trade?._id,
+        }),
+      );
+
+      navigation?.replace('TradeCheckoutSuccessScreen', {
+        orderData: order,
+        total: paymentDetails.total,
+      });
     }
   };
 

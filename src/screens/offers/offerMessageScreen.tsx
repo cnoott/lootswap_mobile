@@ -275,6 +275,7 @@ export const OffersMessageScreen: FC<{}> = props => {
     return <MessageCell self={isSelf} item={item?.message} />;
   };
   const handleAcceptTrade = () => {
+    setAcceptDeclineModalVisible(false);
     const reqData = {
       tradeId: tradeId,
       userId: userData?._id,
