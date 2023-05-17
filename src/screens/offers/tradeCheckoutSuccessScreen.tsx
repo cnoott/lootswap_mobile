@@ -19,6 +19,7 @@ import {getOrder, getPaypalOrder, getAllOrders} from '../../redux/modules';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
+import {LoadingRequest} from '../../redux/modules/loading/actions';
 
 export const TradeCheckoutSucessScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation();
@@ -35,19 +36,7 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
   const [paypalOrder, setPaypalOrder] = useState({});
 
   useEffect(() => {
-    if (!isSale) {
-      dispatch(
-        getOrder(
-          {orderId: orderData?._id},
-          res => {
-            setLatestOrder(res);
-          },
-          error => {
-            console.log(error);
-          },
-        ),
-      );
-    } else {
+    if (isSale) {
       dispatch(
         getAllOrders({
           userId: userData?._id,
@@ -68,11 +57,36 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
     }
   }, [orderData?._id, dispatch, isSale, userData?._id, paypalOrderData?._id]);
 
-  const onPressOptions = () => {
-    navigation.navigate('TrackOrderScreen', {
-      isTradeOrder: !isSale,
-      item: isSale ? paypalOrder : latestOrder,
-    });
+  // We use setTimeout() here so that when the user
+  // goes to the order screen, the shipping label is
+  // there because webhook that checks for
+  // payment was called.
+  const onPressOptions = async () => {
+    if (!isSale) {
+      dispatch(LoadingRequest());
+      setTimeout(() => {
+        dispatch(
+          getOrder(
+            {orderId: orderData?._id},
+            res => {
+              setLatestOrder(res);
+              navigation.navigate('TrackOrderScreen', {
+                isTradeOrder: true,
+                item: res,
+              });
+            },
+            error => {
+              console.log(error);
+            },
+          ),
+        );
+      }, 1400);
+    } else {
+      navigation.navigate('TrackOrderScreen', {
+        isTradeOrder: false,
+        item: paypalOrder,
+      });
+    }
   };
 
   return (
