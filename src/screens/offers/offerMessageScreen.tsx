@@ -12,7 +12,6 @@ import {LSOfferChatHeader} from '../../components/commonComponents/headers/offer
 import {useDispatch, useSelector} from 'react-redux';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {
-  acceptTrade,
   acceptMoneyOfferTrade,
   cancelTrade,
   getTrade,

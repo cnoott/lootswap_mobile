@@ -226,3 +226,7 @@ export const SAVE_REFERRAL_LINK = {
 export const NEW_RATING = {
   ...createActionConst(actions.NEW_RATING),
 };
+
+export const SET_FIRST_TIME_OPEN_FALSE = {
+  ...createActionConst(actions.SET_FIRST_TIME_OPEN_FALSE),
+};
