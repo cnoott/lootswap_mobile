@@ -69,6 +69,7 @@ import {
   unlikeProduct,
   deleteProduct,
   preselectChosenItem,
+  getMyDetailsNoLoadRequest,
 } from '../../redux/modules';
 import {
   getProductTags,
@@ -264,6 +265,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       goToLogin();
       return;
     }
+    dispatch(getMyDetailsNoLoadRequest(userData?._id));
     dispatch(preselectChosenItem(productData?.objectID));
     navigation.navigate('StartTradeScreen', {
       requestedUserDetails: requestedUserDetails,
