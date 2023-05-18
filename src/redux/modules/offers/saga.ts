@@ -11,6 +11,7 @@ import {
   GET_TRADE_SHIPPING_RATES,
   FETCH_PAYMENT_SHEET,
   START_TRADE_CHECKOUT,
+  SENDER_EDIT_TRADE_CHECKOUT,
   UNDO_TRADE_CHECKOUT,
 } from '../../../constants/actions';
 import {
@@ -19,6 +20,7 @@ import {
   getTradesHistoryCall,
   getTradeCall,
   acceptTradeCheckoutCall,
+  senderEditTradeCheckoutCall,
   acceptMoneyOfferTradeCall,
   cancelTradeCall,
   addItemsCall,
@@ -64,6 +66,24 @@ export function* startTradeCheckout(action: any) {
   try {
     const response: APIResponseProps = yield call(
       startTradeCheckoutCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* senderEditTradeCheckout(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      senderEditTradeCheckoutCall,
       action?.reqData,
     );
     yield put(LoadingSuccess());
@@ -270,6 +290,7 @@ export default function* offersSaga() {
   yield takeLatest(GET_TRADE.REQUEST, getTrade);
   yield takeLatest(ACCEPT_TRADE_CHECKOUT.REQUEST, acceptTradeCheckout);
   yield takeLatest(START_TRADE_CHECKOUT.REQUEST, startTradeCheckout);
+  yield takeLatest(SENDER_EDIT_TRADE_CHECKOUT.REQUEST, senderEditTradeCheckout);
   yield takeLatest(UNDO_TRADE_CHECKOUT.REQUEST, undoTradeCheckout);
   yield takeLatest(ACCEPT_MONEY_OFFER_TRADE.REQUEST, acceptMoneyOfferTrade);
   yield takeLatest(CANCEL_TRADE.REQUEST, cancelTrade);
