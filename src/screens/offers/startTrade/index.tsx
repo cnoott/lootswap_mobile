@@ -35,12 +35,8 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation();
   const swiperRef = useRef<any>(null);
   const [currIndex, setCurrIndex] = useState(0);
-  const [otherUserItems, setOtherUserItems] = useState(
-    requestedUserDetails.my_items.filter(item => item.isVisible && item.isVirtuallyVerified)
-  );
-  const [myItems, setMyItems] = useState(
-    userData?.my_items.filter(item => item.isVisible && item.isVirtuallyVerified)
-  );
+  const [otherUserItems, setOtherUserItems] = useState(requestedUserDetails.my_items);
+  const [myItems, setMyItems] = useState(userData?.my_items);
   const [myMoneyOffer, setMyMoneyOffer] = useState(0);
   const [requestedMoneyOffer, setRequestedMoneyOffer] = useState(0);
 
@@ -192,17 +188,18 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     return true;
   };
 
-  const renderBottomButtonView = () => currIndex !== 3 && (
-    <ButtonContainer>
-      <LSButton
-        title={currIndex === 2 ? 'Checkout & Submit' : 'Next'}
-        size={Size.Large}
-        type={Type.Primary}
-        radius={20}
-        onPress={handleNext}
-      />
-    </ButtonContainer>
-  );
+  const renderBottomButtonView = () =>
+    currIndex !== 3 && (
+      <ButtonContainer>
+        <LSButton
+          title={currIndex === 2 ? 'Checkout & Submit' : 'Next'}
+          size={Size.Large}
+          type={Type.Primary}
+          radius={20}
+          onPress={handleNext}
+        />
+      </ButtonContainer>
+    );
 
   const renderSteps = () => {
     return [1, 2, 3, 4].map(data => {
@@ -213,11 +210,11 @@ export const StartTradeScreen: FC<any> = ({route}) => {
               otherUserItems={otherUserItems}
               setOtherUserItems={setOtherUserItems}
             />
-        );
+          );
         case 2:
           return (
             <StartTradeStepTwo myItems={myItems} setMyItems={setMyItems} />
-        );
+          );
         case 3:
           return (
             <ReviewTrade
@@ -229,7 +226,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
               myMoneyOffer={myMoneyOffer}
               setMyMoneyOffer={setMyMoneyOffer}
             />
-        );
+          );
         case 4:
           return (
             <StartTradeCheckoutScreen
@@ -241,7 +238,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
               loading={loading}
               openPaymentSheet={openPaymentSheet}
             />
-        );
+          );
       }
     });
   };

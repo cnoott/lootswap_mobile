@@ -177,16 +177,23 @@ export const OffersMessageScreen: FC<{}> = props => {
     setMessageText('');
   };
 
+  //TODO make a new one of these for the sender only
   const onAddItemPress = () => {
     closeModal();
-    if (!isReciever && offerItem?.senderItems.length >= 3) {
-      Alert.showError('You cannot add more than 3 items to a trade');
+
+    if (!isReciever) {
+      //TODO: dispatch get users items to get latest my_items
+      navigation.navigate('EditTradeScreen', {
+        trade: offerItem,
+      });
       return;
     }
+
     if (isReciever && offerItem?.recieverItems.length >= 3) {
       Alert.showError('You cannot add more than 3 items to a trade');
       return;
     }
+
     let itemsToFilterOut = isReciever
       ? offerItem?.recieverItems
       : offerItem?.senderItems

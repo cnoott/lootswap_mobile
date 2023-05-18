@@ -119,8 +119,9 @@ export const startTradeCheckoutCall = (reqData: any) => {
 
 export const senderEditTradeCheckoutCall = (reqData: any) => {
   return handleResponse(
-    api.post(
+    api.put(
       `/trade/sender-edit-checkout/${reqData?.userId}/${reqData?.tradeId}`,
+      reqData,
     ),
     API_RESPONSE.CODE200,
   );
