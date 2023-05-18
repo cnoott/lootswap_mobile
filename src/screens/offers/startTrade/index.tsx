@@ -36,9 +36,11 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   const swiperRef = useRef<any>(null);
   const [currIndex, setCurrIndex] = useState(0);
   const [otherUserItems, setOtherUserItems] = useState(
-    requestedUserDetails.my_items
+    requestedUserDetails.my_items.filter(item => item.isVisible && item.isVirtuallyVerified)
   );
-  const [myItems, setMyItems] = useState(userData?.my_items);
+  const [myItems, setMyItems] = useState(
+    userData?.my_items.filter(item => item.isVisible && item.isVirtuallyVerified)
+  );
   const [myMoneyOffer, setMyMoneyOffer] = useState(0);
   const [requestedMoneyOffer, setRequestedMoneyOffer] = useState(0);
 
