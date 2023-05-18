@@ -117,6 +117,15 @@ export const startTradeCheckoutCall = (reqData: any) => {
   );
 };
 
+export const senderEditTradeCheckoutCall = (reqData: any) => {
+  return handleResponse(
+    api.post(
+      `/trade/sender-edit-checkout/${reqData?.userId}/${reqData?.tradeId}`,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const undoTradeCheckoutCall = (reqData: any) => {
   return handleResponse(
     api.delete(

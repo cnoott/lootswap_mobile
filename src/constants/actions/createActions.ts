@@ -76,6 +76,10 @@ export const START_TRADE_CHECKOUT = {
   ...createActionConst(actions.START_TRADE_CHECKOUT),
 };
 
+export const SENDER_EDIT_TRADE_CHECKOUT = {
+  ...createActionConst(actions.SENDER_EDIT_TRADE_CHECKOUT),
+};
+
 export const UNDO_TRADE_CHECKOUT = {
   ...createActionConst(actions.UNDO_TRADE_CHECKOUT),
 };
