@@ -121,13 +121,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       dispatch(getProductDetails(productData?.objectID));
     }
   }, [
-    userData,
-    dispatch,
     productData?.userId,
     productData?.objectID,
     isLogedIn,
-    userData?.likedProducts,
-    userData?._id,
     likedParam,
     productData?._id,
   ]);
