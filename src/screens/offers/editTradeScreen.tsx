@@ -1,4 +1,4 @@
-import React, {FC, useState, useRef} from 'react';
+import React, {FC, useState, useRef, useEffect} from 'react';
 import {ProgressBar, SwiperComponent} from '../loot/styles';
 import {LSStartTradeHeader} from '../../components/commonComponents/headers/startTradeHeader';
 import {Container, ButtonContainer} from './startTrade/styles';
@@ -46,7 +46,7 @@ export const EditTradeScreen: FC<any> = ({route}) => {
 
   const [myItems, setMyItems] = useState(() => {
     const selectedItems = trade.senderItems.map(item => ({ ...item, isSelected: true }));
-    const combinedItems = [...selectedItems, ...userData?.my_items];
+    const combinedItems = [...selectedItems, ...trade.sender.my_items];
 
     const uniqueItems = combinedItems.reduce((acc, item) => {
       if(!acc.some(accItem => accItem._id === item._id)) {

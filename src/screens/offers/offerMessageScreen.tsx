@@ -168,10 +168,9 @@ export const OffersMessageScreen: FC<{}> = props => {
     setMessageText('');
   };
 
-  const onEditTradePress = () => {
+  const onEditTradePress = async () => {
     closeModal();
     if (!isReciever) {
-      //TODO: dispatch get users items to get latest my_items
       navigation.navigate('EditTradeScreen', {
         trade: offerItem,
       });
