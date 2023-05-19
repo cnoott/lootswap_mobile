@@ -16,14 +16,11 @@ import {
   cancelTrade,
   getTrade,
   getTradesHistory,
-  getProductListedItemsForOffer,
 } from '../../redux/modules';
 import LSInput from '../../components/commonComponents/LSInput';
 import MessageCell from '../../components/message/messageCell';
 import EditTradeModal from './offerItems/EditTradeModal';
 import AcceptDeclineModal from './offerItems/AcceptDeclineModal';
-import ItemAddRemoveModal from './offerItems/ItemAddRemoveModal';
-import ChangeOfferModal from './offerItems/ChangeOfferModal';
 import useMessagingService from '../../services/useMessagingService';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {Alert} from 'custom_top_alert';
@@ -66,13 +63,7 @@ export const OffersMessageScreen: FC<{}> = props => {
     useState(false);
   const [isDecline, setDecline] = useState(false);
   const [isEditTradeModalVisible, setEditTradeModalVisible] = useState(false);
-  const [isAddItem, setAddItem] = useState(false);
-  const [editTradeItems, setEditTradeItems] = useState([]);
-  const [removeTradeItems, setRemoveTradeItems] = useState([]);
-  const [isAddRemoveItemModalVisible, setAddRemoveItemModalVisible] =
-    useState(false);
-  const [isChangeOfferModalVisible, setChangeOfferModalVisible] =
-    useState(false);
+
   const [isListnerAdded, setIsListnerAdded] = useState(false);
   var messagesListRaw: any = useRef([]);
 
@@ -177,79 +168,18 @@ export const OffersMessageScreen: FC<{}> = props => {
     setMessageText('');
   };
 
-  //TODO make a new one of these for the sender only
-  const onAddItemPress = () => {
+  const onEditTradePress = () => {
     closeModal();
-
     if (!isReciever) {
       //TODO: dispatch get users items to get latest my_items
       navigation.navigate('EditTradeScreen', {
         trade: offerItem,
       });
-      return;
     }
-
-    if (isReciever && offerItem?.recieverItems.length >= 3) {
-      Alert.showError('You cannot add more than 3 items to a trade');
-      return;
-    }
-
-    let itemsToFilterOut = isReciever
-      ? offerItem?.recieverItems
-      : offerItem?.senderItems
-    dispatch(
-      getProductListedItemsForOffer(
-        userData?._id,
-        (response: any) => {
-          const filtered = [];
-          response.forEach(item => {
-            // Filters out items already in the trade
-            // and items that are not avalibale
-            if (
-              !itemsToFilterOut.some(
-                filterItem => filterItem._id === item._id,
-              ) &&
-              item.isVisible &&
-              item.isVirtuallyVerified
-            ) {
-              filtered.push(item);
-            }
-          });
-          console.log(filtered);
-          setEditTradeItems(filtered);
-        },
-        () => {
-          Alert.showError('Could not load items!');
-        },
-      ),
-    );
-    setTimeout(() => {
-      setAddItem(true);
-      setAddRemoveItemModalVisible(true);
-    }, 400);
-  };
-  const onRemoveItemPress = () => {
-    setRemoveTradeItems(
-      isReciever ? offerItem?.recieverItems : offerItem?.senderItems,
-    );
-    closeModal();
-    setTimeout(() => {
-      setAddRemoveItemModalVisible(true);
-    }, 600);
-  };
-  const onChangeOfferPress = () => {
-    closeModal();
-    setTimeout(() => {
-      setChangeOfferModalVisible(true);
-    }, 600);
   };
   const closeModal = () => {
     setDecline(false);
-    setAddItem(false);
-    setAcceptDeclineModalVisible(false);
     setEditTradeModalVisible(false);
-    setAddRemoveItemModalVisible(false);
-    setChangeOfferModalVisible(false);
   };
   const renderRightInputView = () => {
     return (
@@ -397,23 +327,7 @@ export const OffersMessageScreen: FC<{}> = props => {
       <EditTradeModal
         isModalVisible={isEditTradeModalVisible}
         onCloseModal={closeModal}
-        onAddItemPress={onAddItemPress}
-        onRemoveItemPress={onRemoveItemPress}
-        onChangeOfferPress={onChangeOfferPress}
-        offerItem={offerItem}
-        userData={userData}
-      />
-      <ItemAddRemoveModal
-        isModalVisible={isAddRemoveItemModalVisible}
-        isAddItem={isAddItem}
-        onCloseModal={closeModal}
-        itemsData={isAddItem ? editTradeItems : removeTradeItems}
-        offerItem={offerItem}
-        userData={userData}
-      />
-      <ChangeOfferModal
-        isModalVisible={isChangeOfferModalVisible}
-        onCloseModal={closeModal}
+        onEditTradePress={onEditTradePress}
         offerItem={offerItem}
         userData={userData}
       />
