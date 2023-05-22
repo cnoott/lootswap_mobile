@@ -178,6 +178,7 @@ export const OffersMessageScreen: FC<{}> = props => {
   const closeModal = () => {
     setDecline(false);
     setEditTradeModalVisible(false);
+    setAcceptDeclineModalVisible(false);
   };
   const renderRightInputView = () => {
     return (
