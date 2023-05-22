@@ -10,7 +10,7 @@ import {
   FETCH_PAYMENT_SHEET,
   ACCEPT_MONEY_OFFER_TRADE,
   START_TRADE_CHECKOUT,
-  SENDER_EDIT_TRADE_CHECKOUT,
+  EDIT_TRADE_CHECKOUT,
 } from '../../../constants/actions';
 
 export const getTradesHistory = (reqData: any) => {
@@ -82,13 +82,13 @@ export const startTradeCheckout = (
   };
 };
 
-export const senderEditTradeCheckout = (
+export const editTradeCheckout = (
   reqData: any,
   successCallBack: Function,
   errorCallBack: Function,
 ) => {
   return {
-    type: SENDER_EDIT_TRADE_CHECKOUT.REQUEST,
+    type: EDIT_TRADE_CHECKOUT.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
