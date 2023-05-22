@@ -25,7 +25,7 @@ type PaymentDetails = {
 };
 
 export const EditTradeScreen: FC<any> = ({route}) => {
-  const {trade} = route?.params;
+  const {trade, isReciever} = route?.params;
   const [currIndex, setCurrIndex] = useState(0);
   const swiperRef = useRef<any>(null);
   const auth: AuthProps = useSelector(state => state.auth);
@@ -43,13 +43,19 @@ export const EditTradeScreen: FC<any> = ({route}) => {
     userPayout: 0,
   });
 
-
   const [myItems, setMyItems] = useState(() => {
-    const selectedItems = trade.senderItems.map(item => ({ ...item, isSelected: true }));
-    const combinedItems = [...selectedItems, ...trade.sender.my_items];
+    let selectedItems;
+    let combinedItems;
+    if (isReciever) {
+      selectedItems = trade.recieverItems.map(item => ({ ...item, isSelected: true }));
+      combinedItems = [...selectedItems, ...trade.reciever.my_items];
+    } else {
+      selectedItems = trade.senderItems.map(item => ({ ...item, isSelected: true }));
+      combinedItems = [...selectedItems, ...trade.sender.my_items];
+    }
 
     const uniqueItems = combinedItems.reduce((acc, item) => {
-      if(!acc.some(accItem => accItem._id === item._id)) {
+      if (!acc.some(accItem => accItem._id === item._id)) {
         return [...acc, item];
       } else {
         return acc;
@@ -60,11 +66,18 @@ export const EditTradeScreen: FC<any> = ({route}) => {
   });
 
   const [otherUserItems, setOtherUserItems] = useState(() => {
-    const selectedItems = trade.recieverItems.map(item => ({ ...item, isSelected: true }));
-    const combinedItems = [...selectedItems, ...trade?.reciever.my_items];
+    let selectedItems;
+    let combinedItems;
+    if (isReciever) {
+      selectedItems = trade.senderItems.map(item => ({ ...item, isSelected: true }));
+      combinedItems = [...selectedItems, ...trade?.sender.my_items];
+    } else {
+      selectedItems = trade.recieverItems.map(item => ({ ...item, isSelected: true }));
+      combinedItems = [...selectedItems, ...trade?.reciever.my_items];
+    }
 
     const uniqueItems = combinedItems.reduce((acc, item) => {
-      if(!acc.some(accItem => accItem._id === item._id)) {
+      if (!acc.some(accItem => accItem._id === item._id)) {
         return [...acc, item];
       } else {
         return acc;
@@ -74,17 +87,23 @@ export const EditTradeScreen: FC<any> = ({route}) => {
     return uniqueItems;
   });
 
-  const [myMoneyOffer, setMyMoneyOffer] = useState(trade.senderMoneyOffer);
-  const [recieverMoneyOffer, setRecieverMoneyOffer] = useState(
-    trade.recieverMoneyOffer,
+  const [myMoneyOffer, setMyMoneyOffer] = useState(
+    isReciever ? trade.recieverMoneyOffer : trade.senderMoneyOffer,
+  );
+  const [otherUserMoneyOffer, setOtherUserMoneyOffer] = useState(
+    isReciever ? trade.senderMoneyOffer : trade.recieverMoneyOffer,
   );
 
   const headerTitleOptions = () => {
     switch (currIndex) {
       case 0:
         return {
-          title: `${trade.reciever?.name}'s loot`,
-          profilePicture: trade.reciever?.profile_picture,
+          title: `${
+            isReciever ? trade.sender?.name : trade.reciever?.name
+          }'s loot`,
+          profilePicture: isReciever
+            ? trade.sender?.profile_picture
+            : trade.reciever?.profile_picture
         };
       case 1:
         return {
@@ -100,13 +119,13 @@ export const EditTradeScreen: FC<any> = ({route}) => {
         return {
           title: 'Checkout & Submit Offer',
           profilePicture: '',
-       };
+        };
     }
   };
 
   const renderSteps = () => {
     return [1, 2, 3, 4].map(data => {
-      switch(data) {
+      switch (data) {
         case 1:
           return (
             <StartTradeStepOne
@@ -124,8 +143,8 @@ export const EditTradeScreen: FC<any> = ({route}) => {
               otherUserItems={otherUserItems}
               myItems={myItems}
               requestedUserDetails={trade.reciever}
-              requestedMoneyOffer={recieverMoneyOffer}
-              setRequestedMoneyOffer={setRecieverMoneyOffer}
+              requestedMoneyOffer={otherUserMoneyOffer}
+              setRequestedMoneyOffer={setOtherUserMoneyOffer}
               myMoneyOffer={myMoneyOffer}
               setMyMoneyOffer={setMyMoneyOffer}
             />
@@ -133,10 +152,16 @@ export const EditTradeScreen: FC<any> = ({route}) => {
         case 4:
           return (
             <StartTradeCheckoutScreen
-              recieverItems={otherUserItems.filter(item => item?.isSelected)}
-              senderItems={myItems.filter(item => item?.isSelected)}
-              recieverMoneyOffer={recieverMoneyOffer}
-              senderMoneyOffer={myMoneyOffer}
+              recieverItems={
+                isReciever
+                  ? myItems.filter(item => item?.isSelected)
+                  : otherUserItems.filter(item => item?.isSelected)
+              }
+              senderItems={
+                isReciever
+                  ? otherUserItems.filter(item => item?.isSelected)
+                  : myItems.filter(item => item?.isSelected)
+              }
               paymentDetails={paymentDetails}
               loading={loading}
               openPaymentSheet={openPaymentSheet}
@@ -148,10 +173,14 @@ export const EditTradeScreen: FC<any> = ({route}) => {
 
   const senderInitializePaymentSheet = () => {
     const reqData = {
-      recieverItems: otherUserItems.filter(item => item?.isSelected),
-      senderItems: myItems.filter(item => item?.isSelected),
-      recieverMoneyOffer: recieverMoneyOffer,
-      senderMoneyOffer: myMoneyOffer,
+      recieverItems: isReciever
+        ? myItems.filter(item => item?.isSelected)
+        : otherUserItems.filter(item => item?.isSelected),
+      senderItems: isReciever
+        ? otherUserItems.filter(item => item?.isSelected)
+        : myItems.filter(item => item?.isSelected),
+      recieverMoneyOffer: isReciever ? myMoneyOffer : otherUserMoneyOffer,
+      senderMoneyOffer: isReciever ? otherUserMoneyOffer : myMoneyOffer,
       tradeId: trade._id,
       userId: userData?._id,
     };
@@ -224,7 +253,7 @@ export const EditTradeScreen: FC<any> = ({route}) => {
     currIndex !== 3 && (
       <ButtonContainer>
         <LSButton
-          title={currIndex === 1 ? 'Checkout & Edit' : 'Next'}
+          title={currIndex === 3 ? 'Checkout & Edit' : 'Next'}
           size={Size.Large}
           type={Type.Primary}
           radius={20}

@@ -170,11 +170,10 @@ export const OffersMessageScreen: FC<{}> = props => {
 
   const onEditTradePress = async () => {
     closeModal();
-    if (!isReciever) {
-      navigation.navigate('EditTradeScreen', {
-        trade: offerItem,
-      });
-    }
+    navigation.navigate('EditTradeScreen', {
+      trade: offerItem,
+      isReciever: isReciever,
+    });
   };
   const closeModal = () => {
     setDecline(false);
