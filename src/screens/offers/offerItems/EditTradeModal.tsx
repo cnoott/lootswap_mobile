@@ -29,6 +29,7 @@ export const EditTradeModal: FC<EditTradeModalProp> = props => {
     offerItem,
     userData,
   } = props;
+  const isReciever = userData?._id === offerItem?.reciever?._id;
   return (
     <LSModal
       isVisible={isModalVisible}
@@ -40,7 +41,7 @@ export const EditTradeModal: FC<EditTradeModalProp> = props => {
           <TopMargin />
           <>
             <LSButton
-              title={'Change Offer'}
+              title={isReciever ? 'Send Counter-Offer' : 'Change Offer'}
               size={Size.Fit_To_Width}
               type={Type.Primary}
               radius={20}
