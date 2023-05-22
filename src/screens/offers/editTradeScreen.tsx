@@ -11,7 +11,7 @@ import {ReviewTrade} from './startTrade/reviewTrade';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {senderEditTradeCheckout, getTrade} from '../../redux/modules';
+import {editTradeCheckout, getTrade} from '../../redux/modules';
 import {useStripe} from '@stripe/stripe-react-native';
 import {Alert} from 'custom_top_alert';
 import {LoadingRequest} from '../../redux/modules/loading/actions';
@@ -171,7 +171,7 @@ export const EditTradeScreen: FC<any> = ({route}) => {
     });
   };
 
-  const senderInitializePaymentSheet = () => {
+  const initializePaymentSheet = () => {
     const reqData = {
       recieverItems: isReciever
         ? myItems.filter(item => item?.isSelected)
@@ -185,7 +185,7 @@ export const EditTradeScreen: FC<any> = ({route}) => {
       userId: userData?._id,
     };
     dispatch(
-      senderEditTradeCheckout(
+      editTradeCheckout(
         reqData,
         async res => {
           setPaymentDetails(res.rateData);
@@ -235,7 +235,7 @@ export const EditTradeScreen: FC<any> = ({route}) => {
 
   const handleNext = () => {
     if (currIndex + 1 === 3) {
-      senderInitializePaymentSheet();
+      initializePaymentSheet();
       return;
     }
     swiperRef?.current?.scrollTo(currIndex + 1);
