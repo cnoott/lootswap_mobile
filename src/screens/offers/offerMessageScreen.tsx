@@ -47,7 +47,7 @@ export const OffersMessageScreen: FC<{}> = props => {
   const insets = useSafeAreaInsets();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
-  const isReciever = props.route?.params.item.reciever._id === userData?._id
+  const isReciever = tradeData?.reciever?._id === userData?._id
   const {socketObj, isConnected}: any = useMessagingService(
     {
       tradeId: tradeId,
