@@ -245,13 +245,6 @@ export const getTradeShippingRatesCall = (reqData: any) => {
   );
 };
 
-export const fetchPaymentSheetCall = (reqData: any) => {
-  return handleResponse(
-    api.get(`/mobile-trade-checkout/${reqData?.userId}/${reqData?.orderId}`),
-    API_RESPONSE.CODE200,
-  );
-};
-
 export const getOrderFromTradeCall = (reqData: any) => {
   return handleResponse(
     api.get(`/get-order-from-trade/${reqData?.userId}/${reqData?.tradeId}`),
