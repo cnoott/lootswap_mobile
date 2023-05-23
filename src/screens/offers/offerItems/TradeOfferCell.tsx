@@ -42,44 +42,33 @@ export const TradeOfferCell: FC<TradeOfferItemProp> = props => {
   if (offerItem?.recieverMoneyOffer > 0) {
     return (
       <BottomRowView topMargin={topMargin}>
-        <TradeOfferItem subItem={offerItem} isInTrade={isInTrade} />
+        <TradeOfferItem
+          items={offerItem?.senderItems}
+          moneyOffer={offerItem?.senderMoneyOffer}
+          isInTrade={isInTrade}
+        />
         {renderSwapView()}
-        <OfferItemContainerCenter
-          itemsCenter={true}
-          onPress={() =>
-            offerCellOnPress(
-              offerItem?.recieverItem,
-              offerItem,
-              isInTrade,
-              navigation,
-            )
-          }>
-          <Image
-            source={{uri: offerItem?.recieverItem?.primary_photo}}
-            size={115}
-          />
-          <SingleViewOffer>
-            <OfferText>+${offerItem.recieverMoneyOffer}</OfferText>
-          </SingleViewOffer>
-        </OfferItemContainerCenter>
+        <TradeOfferItem
+          items={offerItem?.recieverItems}
+          moneyOffer={offerItem?.recieverMoneyOffer}
+          isInTrade={isInTrade}
+        />
       </BottomRowView>
     );
   } else {
     return (
       <BottomRowView topMargin={topMargin} onPress={() => console.log('yo')}>
-        <TradeOfferItem subItem={offerItem} isInTrade={isInTrade} />
+        <TradeOfferItem
+          items={offerItem?.senderItems}
+          moneyOffer={offerItem?.senderMoneyOffer}
+          isInTrade={isInTrade}
+        />
         {renderSwapView()}
-        <ImageContainer
-          onPress={() =>
-            offerCellOnPress(
-              offerItem?.recieverItem,
-              offerItem,
-              isInTrade,
-              navigation,
-            )
-          }>
-          <Image source={{uri: offerItem?.recieverItem?.primary_photo}} />
-        </ImageContainer>
+        <TradeOfferItem
+          items={offerItem?.recieverItems}
+          moneyOffer={offerItem?.recieverMoneyOffer}
+          isInTrade={isInTrade}
+        />
       </BottomRowView>
     );
   }

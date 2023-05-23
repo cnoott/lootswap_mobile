@@ -44,6 +44,40 @@ export const ProfileHeaderContainer = styled.View.attrs(() => ({
     ${layout}
 `;
 
+export const BackArrowContainer = styled.View.attrs(() => ({
+  height: scale(Platform.OS === 'ios' ? 84 : 64),
+  pt: moderateScale(Platform.OS === 'ios' ? 34 : 0),
+  px: scale(10),
+}))`
+`;
+
+export const StartTradeHeaderContainer = styled.View.attrs(() => ({
+  height: scale(Platform.OS === 'ios' ? 84 : 64),
+  pt: moderateScale(Platform.OS === 'ios' ? 34 : 0),
+  px: scale(10),
+}))`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  ${color}
+  ${space}
+  ${layout}
+`;
+export const StartTradeText = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  pr: props?.isReview ? moderateScale(40) : moderateScale(50),
+  ml: moderateScale(8),
+  numberOfLines: 1,
+}))`
+  text-align: center;
+  font-size: ${moderateScale(19)}px;
+  font-family: Urbanist-Bold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+
 export const ChatOfferContainer = styled.View.attrs(props => ({
   bg: props.theme.colors.white,
 }))`

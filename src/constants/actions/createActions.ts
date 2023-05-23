@@ -28,6 +28,10 @@ export const GET_USER_DETAILS = {
   ...createActionConst(actions.GET_USER_DETAILS),
 };
 
+export const PRESELECT_CHOSEN_ITEM = {
+  ...createActionConst(actions.PRESELECT_CHOSEN_ITEM),
+};
+
 export const GET_MY_DETAILS = {
   ...createActionConst(actions.GET_MY_DETAILS),
 };
@@ -68,6 +72,18 @@ export const SEND_TRADE_OFFER = {
   ...createActionConst(actions.SEND_TRADE_OFFER),
 };
 
+export const START_TRADE_CHECKOUT = {
+  ...createActionConst(actions.START_TRADE_CHECKOUT),
+};
+
+export const EDIT_TRADE_CHECKOUT = {
+  ...createActionConst(actions.EDIT_TRADE_CHECKOUT),
+};
+
+export const UNDO_TRADE_CHECKOUT = {
+  ...createActionConst(actions.UNDO_TRADE_CHECKOUT),
+};
+
 export const GET_TRADES_HISTORY = {
   ...createActionConst(actions.GET_TRADES_HISTORY),
 };
@@ -80,8 +96,8 @@ export const CREATE_NEW_PRODUCT = {
   ...createActionConst(actions.CREATE_NEW_PRODUCT),
 };
 
-export const ACCEPT_TRADE = {
-  ...createActionConst(actions.ACCEPT_TRADE),
+export const ACCEPT_TRADE_CHECKOUT = {
+  ...createActionConst(actions.ACCEPT_TRADE_CHECKOUT),
 };
 
 export const ACCEPT_MONEY_OFFER_TRADE = {
@@ -191,6 +207,9 @@ export const DELETE_NOTIF = {
 export const NEW_NOTIF_FALSE = {
   ...createActionConst(actions.NEW_NOTIF_FALSE),
 };
+export const NEW_NOTIF_TRUE = {
+  ...createActionConst(actions.NEW_NOTIF_TRUE),
+};
 
 export const DELETE_USER = {
   ...createActionConst(actions.DELETE_USER),
@@ -210,4 +229,8 @@ export const SAVE_REFERRAL_LINK = {
 
 export const NEW_RATING = {
   ...createActionConst(actions.NEW_RATING),
+};
+
+export const SET_FIRST_TIME_OPEN_FALSE = {
+  ...createActionConst(actions.SET_FIRST_TIME_OPEN_FALSE),
 };

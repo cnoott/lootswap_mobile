@@ -58,22 +58,24 @@ import {
 } from 'localsvgimages';
 import StarRatings from '../../components/starRatings';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
-import SendOfferModal from '../offers/offerItems/SendOfferModal';
 import {
   getUsersDetailsRequest,
   getProductDetails,
   getMessageInitiatedStatus,
   createFirstMessage,
-  getProductListedItemsForOffer,
-  sendTradeOffer,
   getTradesHistory,
   UpdateAddProductData,
   likeProduct,
   unlikeProduct,
-  getMyDetailsNoLoadRequest,
   deleteProduct,
+  preselectChosenItem,
+  getMyDetailsNoLoadRequest,
 } from '../../redux/modules';
-import {getProductTags, configureAndGetLootData} from '../../utility/utility';
+import {
+  getProductTags,
+  configureAndGetLootData,
+  isAlreadyTrading,
+} from '../../utility/utility';
 import {Alert} from 'custom_top_alert';
 import {Trade_Options} from 'custom_enums';
 
@@ -87,8 +89,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const tradesData: TradeProps = useSelector(state => state.offers);
   const {historyTrades} = tradesData;
   const theme = useTheme();
-  const [isSendOfferModalVisible, setSendOfferModalVisible] = useState(false);
-  const [sendOfferItems, setSendOfferItems] = useState([]);
   const {requestedUserDetails, userData, isLogedIn} = auth;
   const {selectedProductDetails} = homeStates;
   const {productData = {}, likedParam} = route?.params;
@@ -114,18 +114,16 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           userId: userData?._id,
         }),
       );
+      console.log('USER HISTORY', historyTrades);
     }
     if (productData?.userId) {
       dispatch(getUsersDetailsRequest(productData?.userId));
       dispatch(getProductDetails(productData?.objectID));
     }
   }, [
-    dispatch,
     productData?.userId,
     productData?.objectID,
     isLogedIn,
-    userData?.likedProducts,
-    userData?._id,
     likedParam,
     productData?._id,
   ]);
@@ -151,6 +149,13 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     setLiked(false);
     dispatch(unlikeProduct(reqData));
     //dispatch(getMyDetailsNoLoadRequest(userData?._id)); //this causes rerender which is undesireable
+  };
+
+  const handleGoToTrade = () => {
+    const trade = isAlreadyTrading(historyTrades, productData?.objectID);
+    if (trade) {
+      navigation?.navigate('OffersMessageScreen', {item: trade});
+    }
   };
 
   const handleYouSureDeleteProduct = () => {
@@ -256,62 +261,14 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       goToLogin();
       return;
     }
-    dispatch(
-      getProductListedItemsForOffer(
-        userData?._id,
-        (response: any) => {
-          setSendOfferItems(response);
-          setSendOfferModalVisible(true);
-        },
-        () => {
-          Alert.showError('Something went wrong!');
-        },
-      ),
-    );
-  };
-
-  const sendFinalOffer = (selectedItems: Array<any>, price: any) => {
-    const idsList = selectedItems?.map(offerItem => {
-      return offerItem?._id;
+    dispatch(getMyDetailsNoLoadRequest(userData?._id));
+    dispatch(preselectChosenItem(productData?.objectID));
+    navigation.navigate('StartTradeScreen', {
+      requestedUserDetails: requestedUserDetails,
     });
-    const reqData = {
-      reciever: productData?.userId,
-      recieverItem: productData.objectID,
-      sender: userData?._id,
-      senderItems: idsList,
-      senderMoneyOffer: price,
-    };
-    dispatch(
-      sendTradeOffer(
-        reqData,
-        res => {
-          navigation.reset({
-            index: 0,
-            routes: [{name: 'Offers/Inbox'}],
-          });
-          navigation.navigate('Offers/Inbox', {
-            screen: 'OffersMessageScreen',
-            params: {
-              item: res,
-            },
-          });
-          setSendOfferModalVisible(false);
-          dispatch(
-            getTradesHistory({
-              userId: userData?._id,
-            }),
-          );
-        },
-        error => {
-          console.log('error ====', error);
-        },
-      ),
-    );
   };
 
-  const updateOfferData = (newData: Array<any>) => {
-    setSendOfferItems([...newData]);
-  };
+
 
   const renderTags = () => {
     return (
@@ -367,17 +324,16 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       );
     } else if (
       isLogedIn &&
-      historyTrades?.some(
-        trade => trade.recieverItem._id === productData?.objectID,
-      )
+      historyTrades &&
+      isAlreadyTrading(historyTrades, productData?.objectID)
     ) {
       return (
         <TopSpace>
           <LSButton
-            title={'Already Trading'}
+            title={'Go To Trade'}
             size={Size.Full}
-            type={Type.Secondary}
-            onPress={() => {}}
+            type={Type.Primary}
+            onPress={() => handleGoToTrade()}
           />
         </TopSpace>
       );
@@ -559,13 +515,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           </SubContainer>
         </ScrollContainer>
       )}
-      <SendOfferModal
-        isModalVisible={isSendOfferModalVisible}
-        onCloseModal={() => setSendOfferModalVisible(false)}
-        itemsData={sendOfferItems.filter(item => item?.isVisible && item?.isVirtuallyVerified) || []}
-        updateOfferData={updateOfferData}
-        sendFinalOffer={sendFinalOffer}
-      />
     </Container>
   );
 };

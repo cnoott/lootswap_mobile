@@ -2,7 +2,7 @@
 LootSwap - TRACK ORDER SCREEN
 ***/
 
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {
   Container,
@@ -18,21 +18,30 @@ import OrderTrackSteps from '../../components/orderTrack/orderTrackSteps';
 import TradeOfferCell from '../offers/offerItems/TradeOfferCell';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
+import {setFirstTimeOpenFalseRequest} from '../../redux/modules/';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {printLabel, salePrintLabel} from '../../utility/utility';
 import {Linking} from 'react-native';
+import ShippingInstructionModalComponent from '../../components/orders/shippingInstructionModalComponent';
+import {LSModal} from '../../components/commonComponents/LSModal';
 
 export const TrackOrderScreen: FC<any> = ({route}) => {
   const {isTradeOrder = false, item} = route?.params || {};
   const auth: AuthProps = useSelector(state => state?.auth);
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
+  const dispatch = useDispatch();
   const {userData} = auth;
+
 
   const isReciever = userData?._id === item?.reciever?._id;
   const isSeller = userData?._id === item?.sellerId?._id;
+
+  const [isShipInsModalVisible, setShipInsModalVisible] = useState(
+    isReciever && item?.recieverFirstTimeOpen || !isReciever && item?.senderFirstTimeOpen
+  );
 
   const base64Img = isReciever
     ? item?.recieverUPSShipmentData?.toWarehouseLabel
@@ -44,6 +53,27 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
     } else {
       return item?.shippingStep;
     }
+  };
+
+  const handleShippingInsPress = () => {
+    console.log('YOOO');
+    setShipInsModalVisible(false);
+    dispatch(
+      setFirstTimeOpenFalseRequest({userId: userData?._id, orderId: item?._id}),
+    );
+  };
+
+  const renderShippingInstructionModal = () => {
+    return (
+      <LSModal isVisible={isShipInsModalVisible}>
+        <LSModal.Container>
+          <ShippingInstructionModalComponent
+            onButtonPress={() => handleShippingInsPress()}
+            isTradeOrder={true}
+          />
+        </LSModal.Container>
+      </LSModal>
+    );
   };
 
   const renderTrackingNumber = () => {
@@ -203,6 +233,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
   };
   return (
     <Container>
+      {renderShippingInstructionModal()}
       <InStackHeader
         title={'Track Order'}
         right={false}

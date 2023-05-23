@@ -17,9 +17,11 @@ import {
   PAYOUT_USER,
   DELETE_NOTIF,
   NEW_NOTIF_FALSE,
+  NEW_NOTIF_TRUE,
   DELETE_USER,
   VERSION_CHECK,
   SAVE_REFERRAL_LINK,
+  PRESELECT_CHOSEN_ITEM,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -122,6 +124,13 @@ export const getUsersDetailsRequest = (
     type: GET_USER_DETAILS.REQUEST,
     userId,
     clearOldData: clearOldData,
+  };
+};
+
+export const preselectChosenItem = (productId: string) => {
+  return {
+    type: PRESELECT_CHOSEN_ITEM.SUCCESS,
+    productId,
   };
 };
 
@@ -354,6 +363,12 @@ export const newNotifFalseSuccess = () => {
 export const newNotifFalseFailure = () => {
   return {
     type: NEW_NOTIF_FALSE.FAILURE,
+  };
+};
+
+export const newNotifTrueSuccess = () => {
+  return {
+    type: NEW_NOTIF_TRUE.SUCCESS,
   };
 };
 

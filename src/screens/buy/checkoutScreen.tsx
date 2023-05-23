@@ -26,7 +26,7 @@ import {
   StretchedRowView,
   ItemSubLabel,
   SummaryText,
-} from '../offers/tradeCheckoutStyle';
+} from '../../components/offers/tradeCheckoutStyle';
 import {
   getMyDetailsRequest,
   getUsersDetailsRequest,
@@ -73,9 +73,7 @@ export const CheckoutScreen: FC<{}> = props => {
     if (isMoneyOffer) {
       return tradeData?.senderMoneyOffer.toFixed(2);
     } else {
-      return (
-        parseFloat(renderShippingCost()) + parseFloat(productData?.price)
-      ).toFixed(2);
+      return parseFloat(renderShippingCost()) + parseFloat(productData?.price);
     }
   };
 

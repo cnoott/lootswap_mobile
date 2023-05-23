@@ -110,6 +110,33 @@ export const sendTradeOfferCall = (reqData: any) => {
   );
 };
 
+export const startTradeCheckoutCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`start-trade-checkout/${reqData?.userId}`, reqData.tradeData),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const editTradeCheckoutCall = (reqData: any) => {
+  return handleResponse(
+    api.put(
+      `/trade/edit-checkout/${reqData?.userId}/${reqData?.tradeId}`,
+      reqData,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const undoTradeCheckoutCall = (reqData: any) => {
+  return handleResponse(
+    api.delete(
+      `undo-trade-checkout/${reqData?.userId}/${reqData?.tradeId}`,
+      reqData,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const createNewProductCall = (reqData: any) => {
   return handleResponse(
     api.post(`/product/create/${reqData?.userId}`, reqData),
@@ -135,14 +162,16 @@ export const getTradesHistoryCall = (reqData: any) => {
 
 export const getTradeCall = (reqData: any) => {
   return handleResponse(
-    api.get(`/get-trade/${reqData?.tradeId}/${reqData?.userId}`),
+    api.get(`/trade/${reqData?.tradeId}/${reqData?.userId}`),
     API_RESPONSE.CODE200,
   );
 };
 
-export const acceptTradeCall = (reqData: any) => {
+export const acceptTradeCheckoutCall = (reqData: any) => {
   return handleResponse(
-    api.post(`/order/create/${reqData?.userId}/${reqData?.tradeId}`),
+    api.post(
+      `/trade/accept-trade-checkout/${reqData?.userId}/${reqData?.tradeId}`,
+    ),
     API_RESPONSE.CODE200,
   );
 };
@@ -197,7 +226,7 @@ export const getAllOrdersCall = (reqData: any) => {
 
 export const getOrderCall = (reqData: any) => {
   return handleResponse(
-    api.get(`/order/mobile-get-order/${reqData?.orderId}`),
+    api.get(`/populated-order/${reqData?.orderId}`),
     API_RESPONSE.CODE200,
   );
 };
@@ -398,6 +427,13 @@ export const newRatingCall = (reqData: any) => {
   );
 };
 
+export const setFirstTimeOpenFalseCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/set-first-time-open-false/${reqData.userId}/${reqData.orderId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
@@ -409,7 +445,9 @@ const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
         res.status === 422 ||
         res.status === 400 ||
         res.status === 409 ||
-        res.status === 401
+        res.status === 401 ||
+        res.status === 403 ||
+        res.status === 500
       ) {
         const errorObj = {
           status: res.status,
@@ -421,7 +459,7 @@ const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
         return errorObj;
       } else if (res.status === 401) {
         return;
-      } else if (res.status === 500) {
+      } else if (res.status === 500) { //XXX not being called
         var debounce_fun = _.debounce(() => {
           const err = ApiHelper.retrieveDetailMessageFromResponse(res);
           if (err === 'Token is expire!' && !isTokenExpired) {

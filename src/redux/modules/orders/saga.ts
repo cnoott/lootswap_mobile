@@ -6,6 +6,7 @@ import {
   CHECKOUT_RATE,
   GET_PAYPAL_ORDER,
   NEW_RATING,
+  SET_FIRST_TIME_OPEN_FALSE,
 } from '../../../constants/actions';
 import {
   getAllOrdersCall,
@@ -14,6 +15,7 @@ import {
   saleGenerateCarrierRatesCall,
   checkoutRateCall,
   newRatingCall,
+  setFirstTimeOpenFalseCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {getAllOrdersSuccess, getAllOrdersFailure} from '../orders/actions';
@@ -137,6 +139,22 @@ export function* newRating(action: any) {
   }
 }
 
+export function* setFirstTimeOpenFalse(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      setFirstTimeOpenFalseCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      console.log('Successfully set first time open false');
+    } else {
+      console.log('Error first time open false');
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default function* ordersSaga() {
   yield takeLatest(GET_ALL_ORDERS.REQUEST, getAllOrders);
   yield takeLatest(GET_ORDER.REQUEST, getOrder);
@@ -147,4 +165,5 @@ export default function* ordersSaga() {
   yield takeLatest(CHECKOUT_RATE.REQUEST, checkoutRate);
   yield takeLatest(GET_PAYPAL_ORDER.REQUEST, getPaypalOrder);
   yield takeLatest(NEW_RATING.REQUEST, newRating);
+  yield takeLatest(SET_FIRST_TIME_OPEN_FALSE.REQUEST, setFirstTimeOpenFalse);
 }
