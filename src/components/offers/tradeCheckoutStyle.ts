@@ -201,3 +201,38 @@ export const OfferCellOnlyRightView = styled.View`
   margin-left: ${scale(10)}px;
   justify-content: space-evenly;
 `;
+
+export const TradeAcceptanceContainer = styled.View.attrs((props: any) => ({
+  borderWidth: 0.5,
+  borderRadius: scale(20),
+  borderColor: props.theme.colors.protectionBorder,
+  p: scale(9),
+  my: verticalScale(10),
+  overflow: 'hidden',
+}))`
+  flex-direction: row ${space} ${border} ${color};
+`;
+
+export const TradeAcceptanceDesView = styled.View.attrs(() => ({
+  ml: scale(14),
+  flex: 1,
+}))`
+  justify-content: center;
+  ${space};
+`;
+
+export const TradeAcceptanceLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.greyLabel,
+  my: scale(1),
+  width: '95%',
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-family: Urbanist-Medium;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const TradeAcceptanceIconStyle = {
+  alignSelf: 'center',
+};

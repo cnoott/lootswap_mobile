@@ -1,7 +1,7 @@
 import {
   GET_TRADES_HISTORY,
   GET_TRADE,
-  ACCEPT_TRADE,
+  ACCEPT_TRADE_CHECKOUT,
   CANCEL_TRADE,
   ADD_ITEMS,
   REMOVE_ITEMS,
@@ -9,6 +9,8 @@ import {
   GET_TRADE_SHIPPING_RATES,
   FETCH_PAYMENT_SHEET,
   ACCEPT_MONEY_OFFER_TRADE,
+  START_TRADE_CHECKOUT,
+  EDIT_TRADE_CHECKOUT,
 } from '../../../constants/actions';
 
 export const getTradesHistory = (reqData: any) => {
@@ -55,25 +57,64 @@ export const getTradeFailure = (error: any) => {
 
 export const acceptTradeSuccess = (payload: any) => {
   return {
-    type: ACCEPT_TRADE.SUCCESS,
+    type: ACCEPT_TRADE_CHECKOUT.SUCCESS,
     payload,
   };
 };
 
 export const acceptTradeFailure = (error: any) => {
   return {
-    type: ACCEPT_TRADE.FAILURE,
+    type: ACCEPT_TRADE_CHECKOUT.FAILURE,
     error,
   };
 };
 
-export const acceptTrade = (
+export const startTradeCheckout = (
   reqData: any,
   successCallBack: Function,
   errorCallBack: Function,
 ) => {
   return {
-    type: ACCEPT_TRADE.REQUEST,
+    type: START_TRADE_CHECKOUT.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const editTradeCheckout = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: EDIT_TRADE_CHECKOUT.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const undoTradeCheckout = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: START_TRADE_CHECKOUT.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const acceptTradeCheckout = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: ACCEPT_TRADE_CHECKOUT.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,

@@ -2,7 +2,7 @@ import {takeLatest, call, put} from 'redux-saga/effects';
 import {
   GET_TRADES_HISTORY,
   GET_TRADE,
-  ACCEPT_TRADE,
+  ACCEPT_TRADE_CHECKOUT,
   ACCEPT_MONEY_OFFER_TRADE,
   CANCEL_TRADE,
   ADD_ITEMS,
@@ -10,11 +10,17 @@ import {
   CHANGE_MONEY_OFFER,
   GET_TRADE_SHIPPING_RATES,
   FETCH_PAYMENT_SHEET,
+  START_TRADE_CHECKOUT,
+  EDIT_TRADE_CHECKOUT,
+  UNDO_TRADE_CHECKOUT,
 } from '../../../constants/actions';
 import {
+  startTradeCheckoutCall,
+  undoTradeCheckoutCall,
   getTradesHistoryCall,
   getTradeCall,
-  acceptTradeCall,
+  acceptTradeCheckoutCall,
+  editTradeCheckoutCall,
   acceptMoneyOfferTradeCall,
   cancelTradeCall,
   addItemsCall,
@@ -55,6 +61,60 @@ export function* getTradesHistory(action: any) {
   }
 }
 
+export function* startTradeCheckout(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      startTradeCheckoutCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* editTradeCheckout(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      editTradeCheckoutCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* undoTradeCheckout(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      undoTradeCheckoutCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function* getTrade(action: any) {
   yield put(LoadingRequest());
   try {
@@ -64,7 +124,6 @@ export function* getTrade(action: any) {
     );
     yield put(LoadingSuccess());
     if (response?.success) {
-      console.log('DAATA', response.data);
       yield put(getTradeSuccess(response.data));
     } else {
       yield put(getTradeFailure(response.error));
@@ -74,11 +133,11 @@ export function* getTrade(action: any) {
   }
 }
 
-export function* acceptTrade(action: any) {
+export function* acceptTradeCheckout(action: any) {
   yield put(LoadingRequest());
   try {
     const response: APIResponseProps = yield call(
-      acceptTradeCall,
+      acceptTradeCheckoutCall,
       action?.reqData,
     );
     yield put(LoadingSuccess());
@@ -229,7 +288,10 @@ export function* fetchPaymentSheet(action: any) {
 export default function* offersSaga() {
   yield takeLatest(GET_TRADES_HISTORY.REQUEST, getTradesHistory);
   yield takeLatest(GET_TRADE.REQUEST, getTrade);
-  yield takeLatest(ACCEPT_TRADE.REQUEST, acceptTrade);
+  yield takeLatest(ACCEPT_TRADE_CHECKOUT.REQUEST, acceptTradeCheckout);
+  yield takeLatest(START_TRADE_CHECKOUT.REQUEST, startTradeCheckout);
+  yield takeLatest(EDIT_TRADE_CHECKOUT.REQUEST, editTradeCheckout);
+  yield takeLatest(UNDO_TRADE_CHECKOUT.REQUEST, undoTradeCheckout);
   yield takeLatest(ACCEPT_MONEY_OFFER_TRADE.REQUEST, acceptMoneyOfferTrade);
   yield takeLatest(CANCEL_TRADE.REQUEST, cancelTrade);
   yield takeLatest(ADD_ITEMS.REQUEST, addItems);

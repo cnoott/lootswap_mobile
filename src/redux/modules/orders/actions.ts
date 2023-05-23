@@ -5,6 +5,7 @@ import {
   CHECKOUT_RATE,
   GET_PAYPAL_ORDER,
   NEW_RATING,
+  SET_FIRST_TIME_OPEN_FALSE,
 } from '../../../constants/actions';
 
 export const getAllOrders = (reqData: any) => {
@@ -90,5 +91,12 @@ export const newRating = (
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
+  };
+};
+
+export const setFirstTimeOpenFalseRequest = (reqData: any) => {
+  return {
+    type: SET_FIRST_TIME_OPEN_FALSE.REQUEST,
+    reqData: reqData,
   };
 };

@@ -85,6 +85,9 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
 
     const RenderTradeOfferEditedView = () => {
       let name;
+      let changeMade = offerItem?.isCounterOffer
+        ? 'has sent a counter offer. '
+        : 'has changed the trade offer.';
       if (isReciever) {
         name = offerItem?.recieverHasEdited
           ? 'You have'
@@ -98,7 +101,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       return (
         <OfferEditedStatusContainer>
           <OfferEditedStatusTitleText>
-            {name} changed the trade offer.
+            {name} {changeMade}
           </OfferEditedStatusTitleText>
         </OfferEditedStatusContainer>
       );
@@ -225,14 +228,16 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
             </EmptyRowView>
           </OfferStatusLeftView>
           <OfferStatusRightView>
-            <LSButton
-              title={viewOrderTextOptions()}
-              size={Size.Extra_Small}
-              type={Type.Custom}
-              radius={20}
-              onPress={() => viewOrderPressOptions()}
-              buttonCustomColor={'#FF981F'}
-            />
+            {!isCanceled && (
+              <LSButton
+                title={viewOrderTextOptions()}
+                size={Size.Extra_Small}
+                type={Type.Custom}
+                radius={20}
+                onPress={() => viewOrderPressOptions()}
+                buttonCustomColor={'#FF981F'}
+              />
+            )}
           </OfferStatusRightView>
         </OfferStatusContainer>
       );

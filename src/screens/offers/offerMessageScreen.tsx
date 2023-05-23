@@ -12,19 +12,15 @@ import {LSOfferChatHeader} from '../../components/commonComponents/headers/offer
 import {useDispatch, useSelector} from 'react-redux';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {
-  acceptTrade,
   acceptMoneyOfferTrade,
   cancelTrade,
   getTrade,
   getTradesHistory,
-  getProductListedItemsForOffer,
 } from '../../redux/modules';
 import LSInput from '../../components/commonComponents/LSInput';
 import MessageCell from '../../components/message/messageCell';
 import EditTradeModal from './offerItems/EditTradeModal';
 import AcceptDeclineModal from './offerItems/AcceptDeclineModal';
-import ItemAddRemoveModal from './offerItems/ItemAddRemoveModal';
-import ChangeOfferModal from './offerItems/ChangeOfferModal';
 import useMessagingService from '../../services/useMessagingService';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {Alert} from 'custom_top_alert';
@@ -37,7 +33,7 @@ import {
   InputRightButtonView,
   InputView,
 } from './styles';
-import {FlatList} from 'react-native';
+import {FlatList, AppState} from 'react-native';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 export const OffersMessageScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -51,6 +47,7 @@ export const OffersMessageScreen: FC<{}> = props => {
   const insets = useSafeAreaInsets();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
+  const isReciever = tradeData?.reciever?._id === userData?._id
   const {socketObj, isConnected}: any = useMessagingService(
     {
       tradeId: tradeId,
@@ -59,22 +56,34 @@ export const OffersMessageScreen: FC<{}> = props => {
     true,
   );
   const [messageText, setMessageText] = useState('');
+  const appState = useRef(AppState.currentState);
 
   const [messagesList, setMessagesList] = useState<any>([]);
   const [isAcceptDeclineModalVisible, setAcceptDeclineModalVisible] =
     useState(false);
   const [isDecline, setDecline] = useState(false);
   const [isEditTradeModalVisible, setEditTradeModalVisible] = useState(false);
-  const [isAddItem, setAddItem] = useState(false);
-  const [editTradeItems, setEditTradeItems] = useState([]);
-  const [isAddRemoveItemModalVisible, setAddRemoveItemModalVisible] =
-    useState(false);
-  const [isChangeOfferModalVisible, setChangeOfferModalVisible] =
-    useState(false);
+
   const [isListnerAdded, setIsListnerAdded] = useState(false);
   var messagesListRaw: any = useRef([]);
 
   useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (appState.current === 'background' && nextAppState === 'active') {
+        console.log('back from bg!')
+        dispatch(
+          getTrade({
+            userId: userData?._id,
+            tradeId: tradeId,
+          }),
+        );
+
+        scrollListToEnd();
+      }
+      appState.current = nextAppState;
+    });
+
+
     dispatch(
       getTrade({
         userId: userData?._id,
@@ -86,6 +95,9 @@ export const OffersMessageScreen: FC<{}> = props => {
         userId: userData?._id,
       }),
     );
+    return () => {
+      subscription.remove();
+    };
   }, [dispatch, userData?._id]);
 
   useEffect(() => {
@@ -156,62 +168,17 @@ export const OffersMessageScreen: FC<{}> = props => {
     setMessageText('');
   };
 
-  const onAddItemPress = () => {
+  const onEditTradePress = async () => {
     closeModal();
-    if (offerItem?.senderItems.length >= 3) {
-      Alert.showError('You cannot add more than 3 items to a trade');
-      return;
-    }
-    dispatch(
-      getProductListedItemsForOffer(
-        userData?._id,
-        (response: any) => {
-          const filtered = [];
-          response.forEach(item => {
-            // Filters out items already in the trade
-            // and items that are not avalibale
-            if (
-              !offerItem?.senderItems.some(
-                senderItem => senderItem._id === item._id,
-              ) &&
-              item.isVisible &&
-              item.isVirtuallyVerified
-            ) {
-              filtered.push(item);
-            }
-          });
-          console.log(filtered);
-          setEditTradeItems(filtered);
-        },
-        () => {
-          Alert.showError('Could not load items!');
-        },
-      ),
-    );
-    setTimeout(() => {
-      setAddItem(true);
-      setAddRemoveItemModalVisible(true);
-    }, 400);
-  };
-  const onRemoveItemPress = () => {
-    closeModal();
-    setTimeout(() => {
-      setAddRemoveItemModalVisible(true);
-    }, 600);
-  };
-  const onChangeOfferPress = () => {
-    closeModal();
-    setTimeout(() => {
-      setChangeOfferModalVisible(true);
-    }, 600);
+    navigation.navigate('EditTradeScreen', {
+      trade: offerItem,
+      isReciever: isReciever,
+    });
   };
   const closeModal = () => {
     setDecline(false);
-    setAddItem(false);
-    setAcceptDeclineModalVisible(false);
     setEditTradeModalVisible(false);
-    setAddRemoveItemModalVisible(false);
-    setChangeOfferModalVisible(false);
+    setAcceptDeclineModalVisible(false);
   };
   const renderRightInputView = () => {
     return (
@@ -243,6 +210,7 @@ export const OffersMessageScreen: FC<{}> = props => {
     return <MessageCell self={isSelf} item={item?.message} />;
   };
   const handleAcceptTrade = () => {
+    setAcceptDeclineModalVisible(false);
     const reqData = {
       tradeId: tradeId,
       userId: userData?._id,
@@ -269,23 +237,9 @@ export const OffersMessageScreen: FC<{}> = props => {
         ),
       );
     } else {
-      dispatch(
-        acceptTrade(
-          reqData,
-          res => {
-            closeModal();
-            setTimeout(() => {
-              navigation?.navigate('TradeCheckoutScreen', {
-                tradeData: offerItem,
-                orderData: res,
-              });
-            }, 100);
-          },
-          error => {
-            console.log('error:', error);
-          },
-        ),
-      );
+      navigation?.navigate('AcceptTradeCheckoutScreen', {
+        trade: offerItem,
+      });
     }
   };
   const handleCancelTrade = () => {
@@ -372,23 +326,7 @@ export const OffersMessageScreen: FC<{}> = props => {
       <EditTradeModal
         isModalVisible={isEditTradeModalVisible}
         onCloseModal={closeModal}
-        onAddItemPress={onAddItemPress}
-        onRemoveItemPress={onRemoveItemPress}
-        onChangeOfferPress={onChangeOfferPress}
-        offerItem={offerItem}
-        userData={userData}
-      />
-      <ItemAddRemoveModal
-        isModalVisible={isAddRemoveItemModalVisible}
-        isAddItem={isAddItem}
-        onCloseModal={closeModal}
-        itemsData={isAddItem ? editTradeItems : offerItem?.senderItems}
-        offerItem={offerItem}
-        userData={userData}
-      />
-      <ChangeOfferModal
-        isModalVisible={isChangeOfferModalVisible}
-        onCloseModal={closeModal}
+        onEditTradePress={onEditTradePress}
         offerItem={offerItem}
         userData={userData}
       />

@@ -73,7 +73,7 @@ const ShippingInstructionModalComponent = (props: OrderUserDetailViewProps) => {
       </StepView>
       <VerticalMargin />
       <LSButton
-        title={'I understand'}
+        title={'I Understand'}
         size={Size.Fit_To_Width}
         type={Type.Primary}
         radius={15}

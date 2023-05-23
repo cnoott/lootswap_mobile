@@ -6,6 +6,7 @@ import {
   SIGN_OUT,
   PROFILE_IMG_UPLOAD,
   GET_USER_DETAILS,
+  PRESELECT_CHOSEN_ITEM,
   GET_MY_DETAILS,
   SET_REG_TOKEN,
   GET_MY_DETAILS_NO_LOAD,
@@ -15,6 +16,7 @@ import {
   CANCEL_TRADE,
   DELETE_USER,
   NEW_NOTIF_FALSE,
+  NEW_NOTIF_TRUE,
   SAVE_REFERRAL_LINK,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
@@ -183,10 +185,12 @@ export default function auth(state = InitialState, action: ActionProps) {
     }
     case GET_USER_DETAILS.SUCCESS: {
       const combinedRatings = getCombinedRatings(payload?.ratings);
+      const my_items = 
+        payload.my_items.filter(item => item.isVisible && item.isVirtuallyVerified);
       return {
         ...state,
         requestedUserDetails: payload
-          ? {...payload, combinedRatings: combinedRatings}
+          ? {...payload, combinedRatings: combinedRatings, my_items}
           : null,
       };
     }
@@ -196,15 +200,34 @@ export default function auth(state = InitialState, action: ActionProps) {
         requestedUserDetails: null,
       };
     }
+    case PRESELECT_CHOSEN_ITEM.SUCCESS: {
+      let items = [...state.requestedUserDetails.my_items];
+      const productId = action?.productId;
+      const foundItemIndex = items?.findIndex(item => item?._id === productId);
+      const foundItem = items[foundItemIndex];
+      foundItem.isSelected = true;
+      items = items.filter(item => item?._id !== productId);
+
+      items.unshift(foundItem);
+      return {
+        ...state,
+        requestedUserDetails: {
+          ...state.requestedUserDetails,
+          my_items: items,
+        },
+      };
+    }
     case GET_MY_DETAILS.REQUEST: {
       return {
         ...state,
       };
     }
     case GET_MY_DETAILS.SUCCESS: {
+      const my_items = 
+        payload.my_items.filter(item => item.isVisible && item.isVirtuallyVerified);
       return {
         ...state,
-        userData: {...state.userData, ...payload},
+        userData: {...state.userData, ...payload, my_items},
       };
     }
     case GET_MY_DETAILS.FAILURE: {
@@ -218,9 +241,11 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case GET_MY_DETAILS_NO_LOAD.SUCCESS: {
+      const my_items = 
+        payload.my_items.filter(item => item.isVisible && item.isVirtuallyVerified);
       return {
         ...state,
-        userData: {...state.userData, ...payload},
+        userData: {...state.userData, ...payload, my_items},
       };
     }
     case GET_MY_DETAILS_NO_LOAD.FAILURE: {
@@ -303,6 +328,15 @@ export default function auth(state = InitialState, action: ActionProps) {
     case NEW_NOTIF_FALSE.FAILURE: {
       return {
         ...state,
+      };
+    }
+    case NEW_NOTIF_TRUE.SUCCESS: {
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          newNotification: true,
+        },
       };
     }
     case DELETE_USER.REQUEST: {

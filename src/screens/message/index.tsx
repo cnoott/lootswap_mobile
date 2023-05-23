@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /***
-LootSwap - USER CHAT SCREEN
-***/
+  LootSwap - USER CHAT SCREEN
+ ***/
 
 import React, {FC, useState, useEffect, useRef} from 'react';
 import {useTheme} from 'styled-components';
@@ -27,7 +27,8 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
 import {getMessagesHistory} from '../../redux/modules/message/actions';
 import {getConfiguredMessageData} from '../../utility/utility';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation, useIsFocused} from '@react-navigation/native';
+import {AppState} from 'react-native';
 
 export const UserChatScreen: FC<any> = ({route}) => {
   const {messageId} = route?.params;
@@ -37,6 +38,8 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const auth: AuthProps = useSelector(state => state.auth);
   const messageData: MessageProps = useSelector(state => state.message);
   const {userData} = auth;
+
+  const isFocused = useIsFocused();
 
   const insets = useSafeAreaInsets();
   const messageListref = useRef(null);
@@ -52,20 +55,63 @@ export const UserChatScreen: FC<any> = ({route}) => {
     userId: userData?._id,
     targetId: historyMessages?.product?.userId,
   });
+  const appState = useRef(AppState.currentState);
+
+  const scrollListToEnd = () => {
+    if (messageListref?.current) {
+      setTimeout(() => {
+        messageListref?.current?.scrollToLocation({
+          sectionIndex: 0,
+          itemIndex: messagesListRaw.current?.length - 1,
+        });
+      }, 100);
+    }
+  };
 
   useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (appState.current === 'background' && nextAppState === 'active') {
+        console.log('back from bg!')
+        dispatch(
+          getMessagesHistory({
+            userId: userData?._id,
+            messageId: messageId,
+          }),
+        );
+        scrollListToEnd();
+      } else if (
+        appState.current === 'active' && nextAppState === 'background'
+      ) {
+        console.log('bg!');
+        subscription.remove();
+        socketObj?.removeAllListeners();
+        socketObj?.close();
+        socketObj?.disconnect();
+      }
+      appState.current = nextAppState;
+    });
+    if (!isFocused) {
+      
+      subscription.remove();
+      socketObj?.removeAllListeners();
+      socketObj?.close();
+      socketObj?.disconnect();
+
+    }
     dispatch(
       getMessagesHistory({
         userId: userData?._id,
         messageId: messageId,
       }),
     );
+
     return () => {
+      subscription.remove();
       socketObj?.removeAllListeners();
       socketObj?.close();
       socketObj?.disconnect();
     };
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     if (historyMessages && historyMessages?.messages) {
@@ -90,17 +136,17 @@ export const UserChatScreen: FC<any> = ({route}) => {
         messagesListRaw?.current?.length > 0
           ? [...messagesListRaw.current, content]
           : [content];
-      messagesListRaw.current = messagesData;
-      const newData = getConfiguredMessageData(messagesData);
-      setMessagesList(newData);
-      if (messageListref?.current) {
-        setTimeout(() => {
-          messageListref?.current?.scrollToLocation({
-            sectionIndex: 0,
-            itemIndex: messagesListRaw.current?.length - 1,
-          });
-        }, 100);
-      }
+          messagesListRaw.current = messagesData;
+          const newData = getConfiguredMessageData(messagesData);
+          setMessagesList(newData);
+          if (messageListref?.current) {
+            setTimeout(() => {
+              messageListref?.current?.scrollToLocation({
+                sectionIndex: 0,
+                itemIndex: messagesListRaw.current?.length - 1,
+              });
+            }, 100);
+          }
     });
   };
 
@@ -204,11 +250,11 @@ export const UserChatScreen: FC<any> = ({route}) => {
       />
       <KeyboardAvoidingView>
         <SubContainer>{renderMessagesListView()}</SubContainer>
+        <InputContainer bottomSpace={insets.bottom - 10}>
+          {renderLeftInputView()}
+          {renderRightInputView()}
+        </InputContainer>
       </KeyboardAvoidingView>
-      <InputContainer bottomSpace={insets.bottom - 10}>
-        {renderLeftInputView()}
-        {renderRightInputView()}
-      </InputContainer>
     </Container>
   );
 };
