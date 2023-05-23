@@ -136,10 +136,6 @@ export const GET_TRADE_SHIPPING_RATES = {
   ...createActionConst(actions.GET_TRADE_SHIPPING_RATES),
 };
 
-export const FETCH_PAYMENT_SHEET = {
-  ...createActionConst(actions.FETCH_PAYMENT_SHEET),
-};
-
 export const GET_ORDER_FROM_TRADE = {
   ...createActionConst(actions.GET_ORDER_FROM_TRADE),
 };
