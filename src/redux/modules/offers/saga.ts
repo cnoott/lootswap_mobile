@@ -8,7 +8,6 @@ import {
   ADD_ITEMS,
   REMOVE_ITEMS,
   CHANGE_MONEY_OFFER,
-  GET_TRADE_SHIPPING_RATES,
   START_TRADE_CHECKOUT,
   EDIT_TRADE_CHECKOUT,
   UNDO_TRADE_CHECKOUT,
@@ -25,7 +24,6 @@ import {
   addItemsCall,
   removeItemsCall,
   changeMoneyOfferCall,
-  getTradeShippingRatesCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {
@@ -245,25 +243,6 @@ export function* changeMoneyOffer(action: any) {
   }
 }
 
-export function* getTradeShippingRates(action: any) {
-  yield put(LoadingRequest());
-  try {
-    const response: APIResponseProps = yield call(
-      getTradeShippingRatesCall,
-      action?.reqData,
-    );
-    yield put(LoadingSuccess());
-    if (response?.success) {
-      action?.successCallBack(response.data);
-    } else {
-      action?.errorCallBack(response.error);
-    }
-  } catch (e) {
-    action?.errorCallBack();
-    console.log(e);
-  }
-}
-
 export default function* offersSaga() {
   yield takeLatest(GET_TRADES_HISTORY.REQUEST, getTradesHistory);
   yield takeLatest(GET_TRADE.REQUEST, getTrade);
@@ -276,5 +255,4 @@ export default function* offersSaga() {
   yield takeLatest(ADD_ITEMS.REQUEST, addItems);
   yield takeLatest(REMOVE_ITEMS.REQUEST, removeItems);
   yield takeLatest(CHANGE_MONEY_OFFER.REQUEST, changeMoneyOffer);
-  yield takeLatest(GET_TRADE_SHIPPING_RATES.REQUEST, getTradeShippingRates);
 }

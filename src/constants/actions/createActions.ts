@@ -132,10 +132,6 @@ export const GET_ALL_MY_MESSAGES = {
   ...createActionConst(actions.GET_ALL_MY_MESSAGES),
 };
 
-export const GET_TRADE_SHIPPING_RATES = {
-  ...createActionConst(actions.GET_TRADE_SHIPPING_RATES),
-};
-
 export const GET_ORDER_FROM_TRADE = {
   ...createActionConst(actions.GET_ORDER_FROM_TRADE),
 };
