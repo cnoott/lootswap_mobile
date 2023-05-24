@@ -6,7 +6,6 @@ import {
   ADD_ITEMS,
   REMOVE_ITEMS,
   CHANGE_MONEY_OFFER,
-  GET_TRADE_SHIPPING_RATES,
   ACCEPT_MONEY_OFFER_TRADE,
   START_TRADE_CHECKOUT,
   EDIT_TRADE_CHECKOUT,
@@ -179,19 +178,6 @@ export const changeMoneyOffer = (
 ) => {
   return {
     type: CHANGE_MONEY_OFFER.REQUEST,
-    reqData: reqData,
-    successCallBack: successCallBack,
-    errorCallBack: errorCallBack,
-  };
-};
-
-export const getTradeShippingRates = (
-  reqData: any,
-  successCallBack: Function,
-  errorCallBack: Function,
-) => {
-  return {
-    type: GET_TRADE_SHIPPING_RATES.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
