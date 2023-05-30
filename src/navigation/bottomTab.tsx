@@ -91,6 +91,7 @@ const HomeStackNavigation = () => (
       name="BuyCheckoutSuccessScreen"
       component={TradeCheckoutSuccessScreen}
     />
+    <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
   </Stack.Navigator>
 );
 
@@ -108,6 +109,7 @@ const ProfileStackNavigation = () => (
       name="NotificationSettingScreen"
       component={NotificationSettingScreen}
     />
+
     <Stack.Screen name="LootScreen" component={LootScreen} />
     <Stack.Screen
       name="AddProductOverviewScreen"
