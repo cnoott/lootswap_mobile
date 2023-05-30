@@ -5,20 +5,13 @@
 import React, {FC} from 'react';
 import {SvgXml} from 'react-native-svg';
 import {
-  ImageContainer,
   BottomRowView,
   EmptyView,
   SwapLine,
-  Image,
   SwapButtonContainer,
-  SingleViewOffer,
-  OfferText,
-  OfferItemContainerCenter,
 } from '../styles';
 import TradeOfferItem from './TradeOfferItem';
 import {SWAP_ICON} from 'localsvgimages';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {offerCellOnPress} from '../../../utility/utility';
 
 interface TradeOfferItemProp {
   offerItem?: any;
@@ -27,7 +20,6 @@ interface TradeOfferItemProp {
 }
 
 export const TradeOfferCell: FC<TradeOfferItemProp> = props => {
-  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const {offerItem, topMargin = 20, isInTrade} = props;
   const renderSwapView = () => {
     return (
@@ -57,7 +49,7 @@ export const TradeOfferCell: FC<TradeOfferItemProp> = props => {
     );
   } else {
     return (
-      <BottomRowView topMargin={topMargin} onPress={() => console.log('yo')}>
+      <BottomRowView topMargin={topMargin}>
         <TradeOfferItem
           items={offerItem?.senderItems}
           moneyOffer={offerItem?.senderMoneyOffer}
