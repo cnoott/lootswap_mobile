@@ -256,31 +256,27 @@ export const Image: any = styled.Image.attrs((props: any) => ({
   ${layout}
 `;
 
-export const ImageContainer: any = styled.TouchableOpacity.attrs(
-  (props: any) => ({
-    height: scale(props?.size ? props?.size : productImageWidth),
-    width: scale(props?.size ? props?.size : productImageWidth),
-    borderRadius: scale(10),
-    bg: props.theme.colors.grey,
-    mx: scale(2.5),
-    mb: scale(5),
-    activeOpacity: 1,
-  }),
-)`
+export const ImageContainer: any = styled.View.attrs((props: any) => ({
+  height: scale(props?.size ? props?.size : productImageWidth),
+  width: scale(props?.size ? props?.size : productImageWidth),
+  borderRadius: scale(10),
+  bg: props.theme.colors.grey,
+  mx: scale(2.5),
+  mb: scale(5),
+  activeOpacity: 1,
+}))`
   align-items: center;
   justify-content: center;
   ${layout} ${color} ${space} ${border};
 `;
 
-export const ImageContainerDouble: any = styled.TouchableOpacity.attrs(
-  (props: any) => ({
-    height: scale(props?.size ? props?.size : productImageWidth),
-    width: scale(props?.size ? props?.size : productImageWidth),
-    borderRadius: scale(10),
-    bg: props.theme.colors.grey,
-    activeOpacity: 1,
-  }),
-)`
+export const ImageContainerDouble: any = styled.View.attrs((props: any) => ({
+  height: scale(props?.size ? props?.size : productImageWidth),
+  width: scale(props?.size ? props?.size : productImageWidth),
+  borderRadius: scale(10),
+  bg: props.theme.colors.grey,
+  activeOpacity: 1,
+}))`
   align-items: center;
   justify-content: center;
   position: absolute;
