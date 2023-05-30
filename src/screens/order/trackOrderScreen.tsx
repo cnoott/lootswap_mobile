@@ -148,7 +148,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
 
   const rateUserButton = () => {
     if (isTradeOrder && isReciever && item?.recieverHasRated) {
-      return <> </>;
+      return <></>;
     }
     if (isTradeOrder && !isReciever && item?.senderHasRated) {
       return <></>;
@@ -193,6 +193,8 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
     ) {
       return printLabelButton();
     }
+
+    return <></>;
   };
 
   //TODO: save carrier for purchase/sales
