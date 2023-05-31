@@ -593,12 +593,14 @@ const getStepThreeDataFromLists = (lootData: any) => {
     return {
       sourceURL: photo,
       isServerImage: true,
+      key: `${Math.random() * 100}`
     };
   });
   return [
     {
       sourceURL: lootData?.primary_photo,
       isServerImage: true,
+      key: `${Math.random() * 100}`
     },
     ...allPhotos,
   ];
