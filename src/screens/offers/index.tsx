@@ -121,16 +121,21 @@ export const OffersScreen: FC<{}> = () => {
     );
   };
 
+  const tradeOfferCellOnPress = (item) => {
+    setSelectedTrade(item._id);
+    navigation.navigate('OffersMessageScreen', {item});
+  };
   const renderOfferItem = ({item}: any) => {
     return (
       <OfferCellContainer
         key={item._id}
-        onPress={() => {
-          setSelectedTrade(item._id);
-          navigation.navigate('OffersMessageScreen', {item});
-        }}>
+        onPress={() => tradeOfferCellOnPress(item)}>
         <RenderUserDetails item={item} />
-        <TradeOfferCell offerItem={item} isInTrade={false} />
+        <TradeOfferCell
+          offerItem={item}
+          isInTrade={false}
+          onPress={() => tradeOfferCellOnPress(item)}
+        />
       </OfferCellContainer>
     );
   };

@@ -87,5 +87,20 @@ export const handleNavigation = (
         screen: 'WalletScreen',
       });
       break;
+    case 'rate-trade':
+      dispatch(
+        getOrder(
+          {orderId: message?.data?.objectId},
+          res => {
+            navigation.navigate('SubmitReviewScreen', {
+              orderDetails: res,
+              isTradeOrder: true,
+            });
+          },
+          error => {
+            console.log(error);
+          },
+        ),
+      );
   }
 };

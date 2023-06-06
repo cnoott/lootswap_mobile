@@ -102,6 +102,7 @@ export function* createNewProduct(action: any) {
     if (response?.success) {
       if (!action?.isUpdateCall) {
         action?.successCallBack();
+        yield put(resetAddProductData());
       }
       Alert.showSuccess(
         action?.isUpdateCall
@@ -109,7 +110,6 @@ export function* createNewProduct(action: any) {
           : 'Product added successfully..',
       );
       yield put(createNewProductSuccess());
-      yield put(resetAddProductData());
     } else {
       yield put(createNewProductFailure());
     }
