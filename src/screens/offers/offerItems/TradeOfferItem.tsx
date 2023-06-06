@@ -45,7 +45,7 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
 
   const renderSingleMoneyOfferView = () => {
     return (
-      <SingleMoneyOfferContainer onPress={() => {}}>
+      <SingleMoneyOfferContainer>
         <OfferTextSingleOffer>+${moneyOffer}</OfferTextSingleOffer>
       </SingleMoneyOfferContainer>
     );
@@ -59,6 +59,7 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
       </ImageContainer>
     );
   };
+
   const renderSingleViewWithOffer = () => {
     const itemPhoto = items[0]?.primary_photo;
     return (

@@ -78,7 +78,7 @@ export const ChooseServiceScreen: FC<any> = ({route}) => {
     return 0;
   };
   const handleRatePress = rate => {
-    console.log('reasd', rate);
+    console.log(rate.amount);
     setChosenRate(rate);
   };
 
@@ -146,9 +146,11 @@ export const ChooseServiceScreen: FC<any> = ({route}) => {
           if (result.error) {
             Alert.showError(`There was an error with your payment: ${error}`);
           } else {
+            const total = parseFloat(res.paypalOrder.total);
+            console.log('TOTA', total);
             navigation.navigate('TradeCheckoutSuccessScreen', {
               isSale: true,
-              total: chosenRate?.amount,
+              total: total,
               paypalOrderData: res.paypalOrder,
             });
           }

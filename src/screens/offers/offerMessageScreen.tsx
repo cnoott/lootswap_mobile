@@ -77,12 +77,18 @@ export const OffersMessageScreen: FC<{}> = props => {
             tradeId: tradeId,
           }),
         );
+        if (socketObj && isConnected && !isListnerAdded) {
+          socketObj?.connect();
+        }
 
         scrollListToEnd();
+      } else if (nextAppState.match(/inactive|background/)) {
+        console.log('GOING TO BG');
+        socketObj?.disconnect();
+        setIsListnerAdded(false);
       }
       appState.current = nextAppState;
     });
-
 
     dispatch(
       getTrade({
