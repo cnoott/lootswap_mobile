@@ -45,8 +45,8 @@ export const ShippingLabelScreen: FC<any> = ({route}) => {
   const [sizeLength, setLength] = useState(null);
   const [sizeWidth, setWidth] = useState(null);
   const [sizeHeight, setHeight] = useState(null);
-  const [lbWeight, setLBWeight] = useState(0);
-  const [ozWeight, setOZWeight] = useState(0);
+  const [lbWeight, setLBWeight] = useState(null);
+  const [ozWeight, setOZWeight] = useState(null);
 
   useEffect(() => {
     dispatch(getMyDetailsRequest(userData?._id));
