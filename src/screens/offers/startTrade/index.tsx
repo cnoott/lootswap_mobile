@@ -5,6 +5,7 @@ import {Container, ButtonContainer} from './styles';
 import {ProgressBar, SwiperComponent} from '../../loot/styles';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {Size, Type} from '../../../enums';
+import {ChooseOfferType} from './chooseOfferType';
 import {StartTradeStepOne} from './startTradeStepOne';
 import {StartTradeStepTwo} from './startTradeStepTwo';
 import {StartTradeCheckoutScreen} from './startTradeCheckoutScreen';
@@ -26,6 +27,8 @@ type PaymentDetails = {
   total: number;
   userPayout: number;
 };
+
+const NUMBER_OF_STEPS = 5
 
 export const StartTradeScreen: FC<any> = ({route}) => {
   const {requestedUserDetails} = route?.params;
@@ -57,20 +60,25 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     switch (currIndex) {
       case 0:
         return {
+          title: 'Send Offer',
+          profilePicture: '',
+        };
+      case 1:
+        return {
           title: `${requestedUserDetails?.name}'s loot`,
           profilePicture: requestedUserDetails?.profile_picture,
         };
-      case 1:
+      case 2:
         return {
           title: 'Your loot',
           profilePicture: userData.profile_picture,
         };
-      case 2:
+      case 3:
         return {
           title: 'Review Order',
           profilePicture: '',
         };
-      case 3:
+      case 4:
         return {
           title: 'Checkout & Submit Offer',
           profilePicture: '',
@@ -84,10 +92,10 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       <LSStartTradeHeader
         title={headerTitleOptions()?.title}
         profilePicture={headerTitleOptions()?.profilePicture}
-        isReview={currIndex === 2 || currIndex === 3}
+        showPfp={currIndex === 1 || currIndex === 2}
         onBackPress={handleBack}
       />
-      <ProgressBar progress={(currIndex + 1) / 4} />
+      <ProgressBar progress={(currIndex + 1) / NUMBER_OF_STEPS} />
     </>
   );
 
@@ -147,7 +155,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       return;
     }
 
-    if (currIndex + 1 === 3) {
+    if (currIndex + 1 === 4) {
       dispatch(getMyDetailsNoLoadRequest(userData?._id));
       initializePaymentSheet();
     }
@@ -167,7 +175,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       setMyItems(resetMyItems);
       setOtherUserItems(resetOtherUserItems);
       navigation?.goBack();
-    } else if (currIndex === 3) {
+    } else if (currIndex === 4) {
       //undoTradeCheckout call is broken here, will skip for now
       swiperRef?.current?.scrollTo(currIndex - 1);
     } else {
@@ -178,10 +186,10 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   const nextValidation = () => {
     const otherUserSelected = otherUserItems.filter(_item => _item?.isSelected);
     const mySelected = myItems.filter(_item => _item?.isSelected);
-    if (currIndex === 0 && otherUserSelected.length <= 0) {
+    if (currIndex === 1 && otherUserSelected.length <= 0) {
       Alert.showError('Please select at least one item');
       return false;
-    } else if (currIndex === 1 && mySelected.length <= 0) {
+    } else if (currIndex === 2 && mySelected.length <= 0) {
       Alert.showError('Please select at least one item');
       return false;
     }
@@ -189,10 +197,10 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   };
 
   const renderBottomButtonView = () =>
-    currIndex !== 3 && (
+    currIndex !== 4 && (
       <ButtonContainer>
         <LSButton
-          title={currIndex === 2 ? 'Checkout & Submit' : 'Next'}
+          title={currIndex === 3 ? 'Checkout & Submit' : 'Next'}
           size={Size.Large}
           type={Type.Primary}
           radius={20}
@@ -202,20 +210,22 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     );
 
   const renderSteps = () => {
-    return [1, 2, 3, 4].map(data => {
+    return [1, 2, 3, 4, 5].map(data => {
       switch (data) {
         case 1:
+          return <ChooseOfferType />;
+        case 2:
           return (
             <StartTradeStepOne
               otherUserItems={otherUserItems}
               setOtherUserItems={setOtherUserItems}
             />
           );
-        case 2:
+        case 3:
           return (
             <StartTradeStepTwo myItems={myItems} setMyItems={setMyItems} />
           );
-        case 3:
+        case 4:
           return (
             <ReviewTrade
               otherUserItems={otherUserItems}
@@ -227,7 +237,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
               setMyMoneyOffer={setMyMoneyOffer}
             />
           );
-        case 4:
+        case 5:
           return (
             <StartTradeCheckoutScreen
               recieverItems={otherUserItems.filter(item => item?.isSelected)}
