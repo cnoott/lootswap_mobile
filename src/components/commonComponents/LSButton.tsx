@@ -103,7 +103,7 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
         break;
       case Type.Grey:
         buttonColor = theme?.colors.screenBg;
-        textColor = theme?.colors.black;
+        textColor = theme?.colors.white;
         break;
       case Type.Error:
         buttonColor = theme?.colors.errorColor;

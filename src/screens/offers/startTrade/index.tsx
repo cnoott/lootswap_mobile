@@ -9,6 +9,7 @@ import {ChooseOfferType} from './chooseOfferType';
 import {StartTradeStepOne} from './startTradeStepOne';
 import {StartTradeStepTwo} from './startTradeStepTwo';
 import {StartTradeCheckoutScreen} from './startTradeCheckoutScreen';
+import {SendMoneyOfferStepOne} from './sendMoneyOfferStepOne';
 import {ReviewTrade} from './reviewTrade';
 import {useDispatch, useSelector} from 'react-redux';
 import {AuthProps} from '../../../redux/modules/auth/reducer';
@@ -42,6 +43,8 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   const [myItems, setMyItems] = useState(userData?.my_items);
   const [myMoneyOffer, setMyMoneyOffer] = useState(0);
   const [requestedMoneyOffer, setRequestedMoneyOffer] = useState(0);
+  const [isMoneyOffer, setIsMoneyOffer] = useState(false);
+  const [moneyOffer, setMoneyOffer] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -57,6 +60,12 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   const [trade, setTrade] = useState({});
 
   const headerTitleOptions = () => {
+    if (currIndex !== 0 && isMoneyOffer) {
+      return {
+        title: 'Send Money Offer',
+        profilePicture: '',
+      }
+    }
     switch (currIndex) {
       case 0:
         return {
@@ -92,7 +101,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       <LSStartTradeHeader
         title={headerTitleOptions()?.title}
         profilePicture={headerTitleOptions()?.profilePicture}
-        showPfp={currIndex === 1 || currIndex === 2}
+        showPfp={isMoneyOffer || (currIndex === 1 || currIndex === 2)}
         onBackPress={handleBack}
       />
       <ProgressBar progress={(currIndex + 1) / NUMBER_OF_STEPS} />
@@ -149,8 +158,8 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     }
   };
 
-
   const handleNext = () => {
+    setIsMoneyOffer(false);
     if (!nextValidation()) {
       return;
     }
@@ -158,6 +167,14 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     if (currIndex + 1 === 4) {
       dispatch(getMyDetailsNoLoadRequest(userData?._id));
       initializePaymentSheet();
+    }
+    swiperRef?.current?.scrollTo(currIndex + 1);
+  };
+
+  const handleMoneyOfferNext = () => {
+    setIsMoneyOffer(true);
+    if (currIndex === 1) {
+      return;
     }
     swiperRef?.current?.scrollTo(currIndex + 1);
   };
@@ -197,7 +214,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   };
 
   const renderBottomButtonView = () =>
-    currIndex !== 4 && (
+    !isMoneyOffer && currIndex !== 4 && currIndex !== 0 && (
       <ButtonContainer>
         <LSButton
           title={currIndex === 3 ? 'Checkout & Submit' : 'Next'}
@@ -209,12 +226,28 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       </ButtonContainer>
     );
 
+
   const renderSteps = () => {
     return [1, 2, 3, 4, 5].map(data => {
       switch (data) {
         case 1:
-          return <ChooseOfferType />;
+          return (
+            <ChooseOfferType
+              handleNext={handleNext}
+              handleMoneyOfferNext={handleMoneyOfferNext}
+            />
+          );
         case 2:
+          if (isMoneyOffer) {
+            return (
+              <SendMoneyOfferStepOne
+                item={otherUserItems.filter(item => item.isSelected)[0]}
+                moneyOffer={moneyOffer}
+                setMoneyOffer={setMoneyOffer}
+                handleMoneyOfferNext={handleMoneyOfferNext}
+              />
+            );
+          }
           return (
             <StartTradeStepOne
               otherUserItems={otherUserItems}
