@@ -19,6 +19,7 @@ export const VERIFY_TRADES = require('../assets/images/home/verify_trades.png');
 export const CASH_BALENCE = require('../assets/images/home/cash_balence.png');
 export const DISCORD_LOGO = require('../assets/images/home/discordLogo.png');
 export const DISCORD_SCREENSHOT = require('../assets/images/home/discord_screenshot.png');
+export const MONEY_WITH_WINGS = require('../assets/images/home/money_with_wings.png');
 
 // Bottom Tab Icons
 export const HOME_BOTTOM_TAB = require('../assets/images/bottomTab/home.png');
