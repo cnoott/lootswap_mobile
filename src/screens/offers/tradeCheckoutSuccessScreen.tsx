@@ -70,7 +70,7 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
             {orderId: orderData?._id},
             res => {
               setLatestOrder(res);
-              navigation.navigate('TrackOrderScreen', {
+              navigation.replace('TrackOrderScreen', {
                 isTradeOrder: true,
                 item: res,
               });
@@ -82,7 +82,7 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
         );
       }, 1400);
     } else {
-      navigation.navigate('TrackOrderScreen', {
+      navigation.replace('TrackOrderScreen', {
         isTradeOrder: false,
         item: paypalOrder,
       });
@@ -95,9 +95,9 @@ export const TradeCheckoutSucessScreen: FC<{}> = props => {
       <SubContainer>
         <SuccessImage source={PAYMENT_SUCCESS_GIF} />
         <SuccessLabel>Payment Success</SuccessLabel>
-        <PriceLabel>${total?.toFixed(2)}</PriceLabel>
+        <PriceLabel>${total}</PriceLabel>
         <DesLabel>
-          We have successfully received your payment of ${total?.toFixed(2)}
+          We have successfully received your payment of ${total}
         </DesLabel>
       </SubContainer>
       <LSButton

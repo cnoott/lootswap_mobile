@@ -35,6 +35,7 @@ import {
 } from './styles';
 import {FlatList, AppState} from 'react-native';
 import {TradeProps} from '../../redux/modules/offers/reducer';
+
 export const OffersMessageScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const messageListref = useRef(null);
@@ -47,7 +48,7 @@ export const OffersMessageScreen: FC<{}> = props => {
   const insets = useSafeAreaInsets();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
-  const isReciever = tradeData?.reciever?._id === userData?._id
+  const isReciever = offerItem?.reciever?._id === userData?._id
   const {socketObj, isConnected}: any = useMessagingService(
     {
       tradeId: tradeId,
@@ -179,6 +180,13 @@ export const OffersMessageScreen: FC<{}> = props => {
     navigation.navigate('EditTradeScreen', {
       trade: offerItem,
       isReciever: isReciever,
+    });
+  };
+  const onEditMoneyOfferPress = async () => {
+    closeModal();
+    navigation.navigate('EditMoneyOfferTradeScreen', {
+      trade: offerItem,
+      userData: userData,
     });
   };
   const closeModal = () => {
@@ -333,6 +341,7 @@ export const OffersMessageScreen: FC<{}> = props => {
         isModalVisible={isEditTradeModalVisible}
         onCloseModal={closeModal}
         onEditTradePress={onEditTradePress}
+        onEditMoneyOfferPress={onEditMoneyOfferPress}
         offerItem={offerItem}
         userData={userData}
       />

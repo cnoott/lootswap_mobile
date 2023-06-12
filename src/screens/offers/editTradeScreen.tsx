@@ -107,7 +107,7 @@ export const EditTradeScreen: FC<any> = ({route}) => {
         };
       case 1:
         return {
-          title: 'Your loot',
+          title: `Your loot ${isReciever}`,
           profilePicture: userData.profile_picture,
         };
       case 2:
@@ -140,7 +140,9 @@ export const EditTradeScreen: FC<any> = ({route}) => {
         case 3:
           return (
             <ReviewTrade
-              otherUserItems={otherUserItems}
+              otherUserItems={
+                otherUserItems
+              }
               myItems={myItems}
               requestedUserDetails={trade.reciever}
               requestedMoneyOffer={otherUserMoneyOffer}

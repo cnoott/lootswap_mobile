@@ -109,6 +109,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       setLiked(true);
     }
     if (isLogedIn) {
+      dispatch(getMyDetailsNoLoadRequest(userData?._id));
       dispatch(
         getTradesHistory({
           userId: userData?._id,
@@ -261,10 +262,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       goToLogin();
       return;
     }
-    dispatch(getMyDetailsNoLoadRequest(userData?._id));
     dispatch(preselectChosenItem(productData?.objectID));
     navigation.navigate('StartTradeScreen', {
       requestedUserDetails: requestedUserDetails,
+      userData: userData,
+      initialIsMoneyOffer: selectedProductDetails?.type === Trade_Options.SellOnly,
     });
   };
 
@@ -351,17 +353,15 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               <TopSpace />
             </>
           )}
-          {selectedProductDetails.type !== 'sell-only' && (
-            <>
-              <LSButton
-                title={'Send Offer'}
-                size={Size.Full}
-                type={Type.Primary}
-                onPress={() => onSendOfferPress()}
-              />
-              <TopSpace />
-            </>
-          )}
+          <>
+            <LSButton
+              title={'Send Offer'}
+              size={Size.Full}
+              type={Type.Primary}
+              onPress={() => onSendOfferPress()}
+            />
+            <TopSpace />
+          </>
           <LSButton
             title={'Message'}
             size={Size.Full}

@@ -17,6 +17,7 @@ interface EditTradeModalProp {
   isModalVisible: boolean;
   onCloseModal?: Function;
   onEditTradePress?: Function;
+  onEditMoneyOfferPress?: Function;
   offerItem: any;
   userData: any;
 }
@@ -26,10 +27,24 @@ export const EditTradeModal: FC<EditTradeModalProp> = props => {
     isModalVisible,
     onCloseModal = () => {},
     onEditTradePress = () => {},
+    onEditMoneyOfferPress = () => {},
     offerItem,
     userData,
   } = props;
   const isReciever = userData?._id === offerItem?.reciever?._id;
+
+  const editButtonTextConditions = () => {
+    if (isReciever) {
+      return 'Send Counter Offer';
+    }
+
+    if (offerItem?.isMoneyOffer) {
+      return 'Add Items to Trade';
+    }
+
+    return 'Change Offer';
+  };
+
   return (
     <LSModal
       isVisible={isModalVisible}
@@ -41,7 +56,7 @@ export const EditTradeModal: FC<EditTradeModalProp> = props => {
           <TopMargin />
           <>
             <LSButton
-              title={isReciever ? 'Send Counter-Offer' : 'Change Offer'}
+              title={editButtonTextConditions()}
               size={Size.Fit_To_Width}
               type={Type.Primary}
               radius={20}
@@ -49,6 +64,16 @@ export const EditTradeModal: FC<EditTradeModalProp> = props => {
               onPress={() => onEditTradePress()}
             />
             <TopMargin margin={2} />
+            {!isReciever && offerItem?.isMoneyOffer && (
+              <LSButton
+                title={'Change Money Offer'}
+                size={Size.Fit_To_Width}
+                type={Type.Success}
+                radius={20}
+                fitToWidth={'90%'}
+                onPress={() => onEditMoneyOfferPress()}
+              />
+            )}
           </>
         </TradeModalContainerView>
         <LSModal.CloseButton onCloseButtonPress={() => onCloseModal()} />
