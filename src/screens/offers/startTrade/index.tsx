@@ -17,6 +17,7 @@ import {useStripe} from '@stripe/stripe-react-native';
 import {
   getMyDetailsNoLoadRequest,
   startTradeCheckout,
+  startMoneyOfferTrade,
   undoTradeCheckout,
 } from '../../../redux/modules';
 import {Alert} from 'custom_top_alert';
@@ -174,6 +175,26 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   const handleMoneyOfferNext = () => {
     setIsMoneyOffer(true);
     if (currIndex === 1) {
+      const reqData = {
+        userId: userData?._id,
+        tradeData: {
+          recieverId: requestedUserDetails?._id,
+          senderId: userData?._id,
+          senderMoneyOffer: moneyOffer,
+          recieverItems: otherUserItems.filter(item => item?.isSelected),
+        },
+      };
+      dispatch(
+        startMoneyOfferTrade(
+          reqData,
+          res => {
+            navigation?.replace('OffersMessageScreen', {item: res.trade});
+          },
+          error => {
+            //TODO: error handling here
+          },
+        ),
+      );
       return;
     }
     swiperRef?.current?.scrollTo(currIndex + 1);

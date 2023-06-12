@@ -117,6 +117,13 @@ export const startTradeCheckoutCall = (reqData: any) => {
   );
 };
 
+export const startMoneyOfferTradeCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`start-money-offer-trade/${reqData?.userId}`, reqData.tradeData),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const editTradeCheckoutCall = (reqData: any) => {
   return handleResponse(
     api.put(
