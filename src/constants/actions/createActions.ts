@@ -76,6 +76,10 @@ export const START_TRADE_CHECKOUT = {
   ...createActionConst(actions.START_TRADE_CHECKOUT),
 };
 
+export const START_MONEY_OFFER_TRADE = {
+  ...createActionConst(actions.START_MONEY_OFFER_TRADE),
+};
+
 export const EDIT_TRADE_CHECKOUT = {
   ...createActionConst(actions.EDIT_TRADE_CHECKOUT),
 };

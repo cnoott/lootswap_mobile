@@ -8,6 +8,7 @@ import {
   CHANGE_MONEY_OFFER,
   ACCEPT_MONEY_OFFER_TRADE,
   START_TRADE_CHECKOUT,
+  START_MONEY_OFFER_TRADE,
   EDIT_TRADE_CHECKOUT,
 } from '../../../constants/actions';
 
@@ -74,6 +75,19 @@ export const startTradeCheckout = (
 ) => {
   return {
     type: START_TRADE_CHECKOUT.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const startMoneyOfferTrade = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: START_MONEY_OFFER_TRADE.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
