@@ -91,7 +91,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       if (isReciever) {
         name = offerItem?.recieverHasEdited
           ? 'You have'
-          : offerItem?.reciever?.name;
+          : offerItem?.sender?.name;
       } else {
         name = offerItem?.senderHasEdited
           ? 'You have'
@@ -174,7 +174,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
         } else {
           //checkout
           navigation.navigate('MoneyOfferCheckoutScreen', {
-            productData: offerItem.recieverItem,
+            productData: offerItem.recieverItems[0],
             isMoneyOffer: true,
             tradeData: offerItem,
           });

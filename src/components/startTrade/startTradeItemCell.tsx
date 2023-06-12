@@ -19,10 +19,11 @@ interface StartTradeItemCellProps {
   item: any;
   onPress?: Function;
   isReview: boolean;
+  isMoneyOffer: boolean;
 }
 
 const StartTradeItemCell: FC<StartTradeItemCellProps> = React.memo(props => {
-  const {onPress = () => {}, isReview = false} = props;
+  const {onPress = () => {}, isReview = false, isMoneyOffer = false} = props;
   const item = props.item;
 
   const renderImageView = () => (
@@ -55,6 +56,12 @@ const StartTradeItemCell: FC<StartTradeItemCellProps> = React.memo(props => {
         <ConditionSizeText>Size:</ConditionSizeText>
         <ConditionSizeResultText>{item.size}</ConditionSizeResultText>
       </DesBottomContainer>
+      { isMoneyOffer && (
+        <DesBottomContainer>
+          <ConditionSizeText>Buy Now Price:</ConditionSizeText>
+          <ConditionSizeResultText>${item.price}</ConditionSizeResultText>
+        </DesBottomContainer>
+      )}
     </DesContainer>
   );
 

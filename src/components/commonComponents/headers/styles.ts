@@ -65,7 +65,7 @@ export const StartTradeHeaderContainer = styled.View.attrs(() => ({
 `;
 export const StartTradeText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  pr: props?.isReview ? moderateScale(40) : moderateScale(50),
+  pr: props?.showPfp ? moderateScale(40) : moderateScale(50),
   ml: moderateScale(8),
   numberOfLines: 1,
 }))`

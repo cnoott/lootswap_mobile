@@ -17,12 +17,12 @@ import {LSProfileImageComponent} from '../profileImage';
 interface HeaderProps {
   profilePicture: string;
   title: string;
-  isReview: boolean;
+  showPfp: boolean;
   onBackPress: Function;
 }
 
 export const LSStartTradeHeader: FC<HeaderProps> = React.memo(
-  ({profilePicture, title, isReview, onBackPress}) => {
+  ({profilePicture, title, showPfp, onBackPress}) => {
 
     return (
       <ChatOfferContainer>
@@ -33,7 +33,7 @@ export const LSStartTradeHeader: FC<HeaderProps> = React.memo(
             </TouchableOpacity>
           </EmptyRowView>
           <EmptyRowView>
-            {!isReview && (
+            {showPfp && (
               <LSProfileImageComponent
                 profileUrl={profilePicture}
                 imageHeight={34}
@@ -41,7 +41,7 @@ export const LSStartTradeHeader: FC<HeaderProps> = React.memo(
                 imageRadius={17}
               />
             )}
-            <StartTradeText isReview={isReview}>{title}</StartTradeText>
+            <StartTradeText showPfp={showPfp}>{title}</StartTradeText>
             </EmptyRowView>
           <EmptyRowView />
         </StartTradeHeaderContainer>

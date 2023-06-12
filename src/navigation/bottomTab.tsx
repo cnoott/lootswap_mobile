@@ -20,6 +20,7 @@ import AddProductOverviewScreen from '../screens/loot/addProductOverview';
 import NotificationsScreen from '../screens/notifications';
 import OffersScreen from '../screens/offers';
 import OffersMessageScreen from '../screens/offers/offerMessageScreen';
+import EditMoneyOfferTradeScreen from '../screens/offers/editMoneyOfferTradeScreen';
 import AcceptTradeCheckoutScreen from '../screens/offers/acceptTradeCheckoutScreen';
 import TradeCheckoutSuccessScreen from '../screens/offers/tradeCheckoutSuccessScreen';
 import CheckoutScreen from '../screens/buy/checkoutScreen';
@@ -168,6 +169,10 @@ const OffersStackNavigation = () => (
     }}>
     <Stack.Screen name="OffersScreen" component={OffersScreen} />
     <Stack.Screen name="OffersMessageScreen" component={OffersMessageScreen} />
+    <Stack.Screen
+      name="EditMoneyOfferTradeScreen"
+      component={EditMoneyOfferTradeScreen}
+    />
     <Stack.Screen name="EditTradeScreen" component={EditTradeScreen} />
     <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
     <Stack.Screen

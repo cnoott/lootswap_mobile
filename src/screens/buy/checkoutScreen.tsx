@@ -61,7 +61,7 @@ export const CheckoutScreen: FC<{}> = props => {
     }
     switch (productData.who_pays) {
       case 'buyer-pays':
-        return productData.sellerShippingCost;
+        return parseFloat(productData.sellerShippingCost);
       case 'seller-pays':
         return 0;
       default:
