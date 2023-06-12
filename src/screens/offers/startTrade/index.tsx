@@ -101,7 +101,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       <LSStartTradeHeader
         title={headerTitleOptions()?.title}
         profilePicture={headerTitleOptions()?.profilePicture}
-        showPfp={isMoneyOffer || (currIndex === 1 || currIndex === 2)}
+        showPfp={!isMoneyOffer && (currIndex === 1 || currIndex === 2)}
         onBackPress={handleBack}
       />
       <ProgressBar progress={(currIndex + 1) / NUMBER_OF_STEPS} />
