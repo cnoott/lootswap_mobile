@@ -91,7 +91,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       if (isReciever) {
         name = offerItem?.recieverHasEdited
           ? 'You have'
-          : offerItem?.reciever?.name;
+          : offerItem?.sender?.name;
       } else {
         name = offerItem?.senderHasEdited
           ? 'You have'
