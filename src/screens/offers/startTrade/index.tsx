@@ -33,7 +33,7 @@ type PaymentDetails = {
 const NUMBER_OF_STEPS = 5
 
 export const StartTradeScreen: FC<any> = ({route}) => {
-  const {requestedUserDetails, userData} = route?.params;
+  const {requestedUserDetails, userData, initialIsMoneyOffer} = route?.params;
   const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation();
   const swiperRef = useRef<any>(null);
@@ -42,7 +42,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   const [myItems, setMyItems] = useState(userData?.my_items);
   const [myMoneyOffer, setMyMoneyOffer] = useState(0);
   const [requestedMoneyOffer, setRequestedMoneyOffer] = useState(0);
-  const [isMoneyOffer, setIsMoneyOffer] = useState(false);
+  const [isMoneyOffer, setIsMoneyOffer] = useState(initialIsMoneyOffer);
   const [moneyOffer, setMoneyOffer] = useState(null);
 
   const [loading, setLoading] = useState(false);
@@ -246,9 +246,21 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       </ButtonContainer>
     );
 
+  const renderStepsCondition = () => {
+    const item =
+      otherUserItems.filter(item => item.isSelected)[0];
+    const sellOnlyItem = item?.type === 'sell-only';
+    const tradeOnlyItem = item?.type === 'trade-only';
+
+    if (sellOnlyItem || tradeOnlyItem) {
+      return [2, 3, 4, 5];
+    }
+
+    return [1, 2, 3, 4, 5];
+  };
 
   const renderSteps = () => {
-    return [1, 2, 3, 4, 5].map(data => {
+    return renderStepsCondition().map(data => {
       switch (data) {
         case 1:
           return (

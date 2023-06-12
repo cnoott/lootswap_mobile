@@ -265,7 +265,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     dispatch(preselectChosenItem(productData?.objectID));
     navigation.navigate('StartTradeScreen', {
       requestedUserDetails: requestedUserDetails,
-      userData: userData
+      userData: userData,
+      initialIsMoneyOffer: selectedProductDetails?.type === Trade_Options.SellOnly,
     });
   };
 
@@ -352,17 +353,15 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               <TopSpace />
             </>
           )}
-          {selectedProductDetails.type !== 'sell-only' && (
-            <>
-              <LSButton
-                title={'Send Offer'}
-                size={Size.Full}
-                type={Type.Primary}
-                onPress={() => onSendOfferPress()}
-              />
-              <TopSpace />
-            </>
-          )}
+          <>
+            <LSButton
+              title={'Send Offer'}
+              size={Size.Full}
+              type={Type.Primary}
+              onPress={() => onSendOfferPress()}
+            />
+            <TopSpace />
+          </>
           <LSButton
             title={'Message'}
             size={Size.Full}
