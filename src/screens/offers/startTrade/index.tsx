@@ -1,4 +1,4 @@
-import React, {FC, useRef, useState} from 'react';
+import React, {FC, useRef, useState, useEffect} from 'react';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {LSStartTradeHeader} from '../../../components/commonComponents/headers/startTradeHeader';
 import {Container, ButtonContainer} from './styles';
@@ -33,10 +33,8 @@ type PaymentDetails = {
 const NUMBER_OF_STEPS = 5
 
 export const StartTradeScreen: FC<any> = ({route}) => {
-  const {requestedUserDetails} = route?.params;
+  const {requestedUserDetails, userData} = route?.params;
   const dispatch = useDispatch();
-  const auth: AuthProps = useSelector(state => state.auth);
-  const {userData} = auth;
   const navigation: NavigationProp<any, any> = useNavigation();
   const swiperRef = useRef<any>(null);
   const [currIndex, setCurrIndex] = useState(0);
@@ -59,6 +57,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     userPayout: 0,
   });
   const [trade, setTrade] = useState({});
+
 
   const headerTitleOptions = () => {
     if (currIndex !== 0 && isMoneyOffer) {
