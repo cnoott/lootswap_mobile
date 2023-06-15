@@ -43,16 +43,12 @@ export const EditTradeScreen: FC<any> = ({route}) => {
     userPayout: 0,
   });
 
-  const [myItems, setMyItems] = useState(() => {
+  const [senderItems, setSenderItems] = useState(() => {
     let selectedItems;
     let combinedItems;
-    if (isReciever) {
-      selectedItems = trade.recieverItems.map(item => ({ ...item, isSelected: true }));
-      combinedItems = [...selectedItems, ...trade.reciever.my_items];
-    } else {
-      selectedItems = trade.senderItems.map(item => ({ ...item, isSelected: true }));
-      combinedItems = [...selectedItems, ...trade.sender.my_items];
-    }
+
+    selectedItems = trade.senderItems.map(item => ({ ...item, isSelected: true }));
+    combinedItems = [...selectedItems, ...trade.sender.my_items];
 
     const uniqueItems = combinedItems.reduce((acc, item) => {
       if (!acc.some(accItem => accItem._id === item._id)) {
@@ -65,16 +61,11 @@ export const EditTradeScreen: FC<any> = ({route}) => {
     return uniqueItems;
   });
 
-  const [otherUserItems, setOtherUserItems] = useState(() => {
+  const [recieverItems, setRecieverItems] = useState(() => {
     let selectedItems;
     let combinedItems;
-    if (isReciever) {
-      selectedItems = trade.senderItems.map(item => ({ ...item, isSelected: true }));
-      combinedItems = [...selectedItems, ...trade?.sender.my_items];
-    } else {
-      selectedItems = trade.recieverItems.map(item => ({ ...item, isSelected: true }));
-      combinedItems = [...selectedItems, ...trade?.reciever.my_items];
-    }
+    selectedItems = trade.recieverItems.map(item => ({ ...item, isSelected: true }));
+    combinedItems = [...selectedItems, ...trade?.reciever.my_items];
 
     const uniqueItems = combinedItems.reduce((acc, item) => {
       if (!acc.some(accItem => accItem._id === item._id)) {
@@ -87,11 +78,11 @@ export const EditTradeScreen: FC<any> = ({route}) => {
     return uniqueItems;
   });
 
-  const [myMoneyOffer, setMyMoneyOffer] = useState(
-    isReciever ? trade.recieverMoneyOffer : trade.senderMoneyOffer,
+  const [senderMoneyOffer, setSenderMoneyOffer] = useState(
+    parseFloat(trade.senderMoneyOffer)
   );
-  const [otherUserMoneyOffer, setOtherUserMoneyOffer] = useState(
-    isReciever ? trade.senderMoneyOffer : trade.recieverMoneyOffer,
+  const [recieverMoneyOffer, setRecieverMoneyOffer] = useState(
+    parseFloat(trade.recieverMoneyOffer)
   );
 
   const headerTitleOptions = () => {
@@ -107,7 +98,7 @@ export const EditTradeScreen: FC<any> = ({route}) => {
         };
       case 1:
         return {
-          title: `Your loot ${isReciever}`,
+          title: `Your loot`,
           profilePicture: userData.profile_picture,
         };
       case 2:
@@ -129,44 +120,37 @@ export const EditTradeScreen: FC<any> = ({route}) => {
         case 1:
           return (
             <StartTradeStepOne
-              otherUserItems={otherUserItems}
-              setOtherUserItems={setOtherUserItems}
+              otherUserItems={isReciever ? senderItems : recieverItems}
+              setOtherUserItems={isReciever ? setSenderItems : setRecieverItems}
             />
           );
         case 2:
           return (
-            <StartTradeStepTwo myItems={myItems} setMyItems={setMyItems} />
+            <StartTradeStepTwo
+              myItems={isReciever ? recieverItems : senderItems}
+              setMyItems={isReciever ? setRecieverItems : setSenderItems} />
           );
         case 3:
           return (
             <ReviewTrade
-              otherUserItems={
-                otherUserItems
-              }
-              myItems={myItems}
-              requestedUserDetails={trade.reciever}
-              requestedMoneyOffer={otherUserMoneyOffer}
-              setRequestedMoneyOffer={setOtherUserMoneyOffer}
-              myMoneyOffer={myMoneyOffer}
-              setMyMoneyOffer={setMyMoneyOffer}
+              otherUserItems={isReciever ? senderItems : recieverItems}
+              myItems={isReciever ? recieverItems : senderItems}
+              requestedUserDetails={isReciever ? trade.sender : trade.reciever}
+              requestedMoneyOffer={isReciever ? senderMoneyOffer : recieverMoneyOffer}
+              setRequestedMoneyOffer={isReciever ? setSenderMoneyOffer : setRecieverMoneyOffer}
+              myMoneyOffer={isReciever ? recieverMoneyOffer : senderMoneyOffer}
+              setMyMoneyOffer={isReciever ? setRecieverMoneyOffer : setSenderMoneyOffer}
             />
           );
         case 4:
           return (
             <StartTradeCheckoutScreen
-              recieverItems={
-                isReciever
-                  ? myItems.filter(item => item?.isSelected)
-                  : otherUserItems.filter(item => item?.isSelected)
-              }
-              senderItems={
-                isReciever
-                  ? otherUserItems.filter(item => item?.isSelected)
-                  : myItems.filter(item => item?.isSelected)
-              }
+              recieverItems={recieverItems.filter(item => item?.isSelected)}
+              senderItems={senderItems.filter(item => item?.isSelected)}
               paymentDetails={paymentDetails}
               loading={loading}
               openPaymentSheet={openPaymentSheet}
+              isReciever={isReciever}
             />
           );
       }
@@ -175,14 +159,10 @@ export const EditTradeScreen: FC<any> = ({route}) => {
 
   const initializePaymentSheet = () => {
     const reqData = {
-      recieverItems: isReciever
-        ? myItems.filter(item => item?.isSelected)
-        : otherUserItems.filter(item => item?.isSelected),
-      senderItems: isReciever
-        ? otherUserItems.filter(item => item?.isSelected)
-        : myItems.filter(item => item?.isSelected),
-      recieverMoneyOffer: isReciever ? myMoneyOffer : otherUserMoneyOffer,
-      senderMoneyOffer: isReciever ? otherUserMoneyOffer : myMoneyOffer,
+      recieverItems: recieverItems.filter(item => item?.isSelected),
+      senderItems: senderItems.filter(item => item?.isSelected),
+      recieverMoneyOffer: recieverMoneyOffer,
+      senderMoneyOffer: senderMoneyOffer,
       tradeId: trade._id,
       userId: userData?._id,
     };
