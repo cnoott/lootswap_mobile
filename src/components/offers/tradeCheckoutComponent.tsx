@@ -45,6 +45,7 @@ interface TradeCheckoutComponentProps {
   paymentDetails: any;
   openPaymentSheet: Function;
   loading: boolean;
+  isReciever?: boolean;
 }
 
 export const TradeCheckoutComponent: FC<
@@ -58,6 +59,7 @@ TradeCheckoutComponentProps
     paymentDetails = {},
     openPaymentSheet = () => {},
     loading,
+    isReciever = false,
   } = props;
 
   const navigation: NavigationProp<any, any> = useNavigation();
@@ -71,11 +73,11 @@ TradeCheckoutComponentProps
     return <HeadingLabel>{label}</HeadingLabel>;
   };
 
-  const renderYourItems = () => {
+  const renderRecieverItems = () => {
     return (
       <EmptyView>
         {renderHeading(
-          `Item${recieverItems?.length > 1 ? 's' : ''} You Receive`,
+          `Item${recieverItems?.length > 1 ? 's' : ''} ${isReciever ? 'you will send' : 'you will receive'}`,
         )}
         {recieverItems.map(item => {
           return <TradeCheckoutItemCell itemData={item} />;
@@ -87,7 +89,7 @@ TradeCheckoutComponentProps
     return (
       <EmptyView>
         {renderHeading(
-          `Item${senderItems.length > 1 ? 's' : ''} You Will Trade`,
+          `Item${senderItems.length > 1 ? 's' : ''} ${isReciever ? 'you will receive' : 'you will send'}`,
         )}
         {senderItems.map(item => {
           return <TradeCheckoutItemCell itemData={item} />;
@@ -183,7 +185,7 @@ TradeCheckoutComponentProps
             userDetails={userData}
             onPress={() => navigation.navigate('AddressScreenCheckout')}
           />
-          {renderYourItems()}
+          {renderRecieverItems()}
           {renderSendersItems()}
           <VerticalMargin />
           {!userData?.usedInitialPromo && (
