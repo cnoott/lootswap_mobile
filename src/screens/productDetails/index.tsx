@@ -78,6 +78,7 @@ import {
 } from '../../utility/utility';
 import {Alert} from 'custom_top_alert';
 import {Trade_Options} from 'custom_enums';
+import defaultExport from '@react-native-firebase/messaging';
 
 const height = Dimensions.get('window').height;
 
@@ -263,14 +264,25 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       return;
     }
     dispatch(preselectChosenItem(productData?.objectID));
-    navigation.navigate('StartTradeScreen', {
-      requestedUserDetails: requestedUserDetails,
-      userData: userData,
-      initialIsMoneyOffer: selectedProductDetails?.type === Trade_Options.SellOnly,
-    });
+
+    switch (selectedProductDetails.type) {
+      case Trade_Options.TradeAndSell:
+        navigation.navigate('ChooseOfferTypeScreen');
+        break;
+      case Trade_Options.TradeOnly:
+        navigation.navigate('StartTradeScreen', {
+          requestedUserDetails: requestedUserDetails,
+          userData: userData,
+        });
+        break;
+      case Trade_Options.SellOnly:
+        navigation.navigate('SendMoneyOfferScreen');
+        break;
+      default:
+        navigation.navigate('ChooseOfferTypeScreen');
+        break;
+    }
   };
-
-
 
   const renderTags = () => {
     return (

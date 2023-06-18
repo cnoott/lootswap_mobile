@@ -60,6 +60,8 @@ import LootEditAddressScreen from '../screens/loot/lootEditAddressScreen';
 import {BOTTOM_TAB_NOTIFICATION_NEW} from '../assets/images/svgs';
 import StartTradeScreen from '../screens/offers/startTrade';
 import EditTradeScreen from '../screens/offers/editTradeScreen';
+import ChooseOfferTypeScreen from '../screens/offers/chooseOfferTypeScreen';
+import SendMoneyOfferScreen from '../screens/offers/sendMoneyOfferScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -82,6 +84,8 @@ const HomeStackNavigation = () => (
       component={ProductDetailsScreen}
     />
     <Stack.Screen name="StartTradeScreen" component={StartTradeScreen} />
+    <Stack.Screen name="ChooseOfferTypeScreen" component={ChooseOfferTypeScreen} />
+    <Stack.Screen name="SendMoneyOfferScreen" component={SendMoneyOfferScreen} />
     <Stack.Screen name="OffersMessageScreen" component={OffersMessageScreen} />
     <Stack.Screen name="EditTradeScreen" component={EditTradeScreen} />
     <Stack.Screen name="AddressScreenCheckout" component={AddressScreen} />
