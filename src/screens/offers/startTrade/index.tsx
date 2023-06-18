@@ -1,15 +1,13 @@
-import React, {FC, useRef, useState, useEffect} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {LSStartTradeHeader} from '../../../components/commonComponents/headers/startTradeHeader';
 import {Container, ButtonContainer} from './styles';
 import {ProgressBar, SwiperComponent} from '../../loot/styles';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {Size, Type} from '../../../enums';
-import {ChooseOfferType} from './chooseOfferType';
 import {StartTradeStepOne} from './startTradeStepOne';
 import {StartTradeStepTwo} from './startTradeStepTwo';
 import {StartTradeCheckoutScreen} from './startTradeCheckoutScreen';
-import {SendMoneyOfferStepOne} from './sendMoneyOfferStepOne';
 import {ReviewTrade} from './reviewTrade';
 import {useDispatch, useSelector} from 'react-redux';
 import {AuthProps} from '../../../redux/modules/auth/reducer';
@@ -17,7 +15,6 @@ import {useStripe} from '@stripe/stripe-react-native';
 import {
   getMyDetailsNoLoadRequest,
   startTradeCheckout,
-  startMoneyOfferTrade,
   undoTradeCheckout,
 } from '../../../redux/modules';
 import {Alert} from 'custom_top_alert';
@@ -33,17 +30,18 @@ type PaymentDetails = {
 const NUMBER_OF_STEPS = 5
 
 export const StartTradeScreen: FC<any> = ({route}) => {
-  const {requestedUserDetails, userData, initialIsMoneyOffer} = route?.params;
+  const {requestedUserDetails, userData} = route?.params;
   const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation();
   const swiperRef = useRef<any>(null);
+  const homeStates: AuthProps = useSelector(state => state.home);
+  const {selectedProductDetails} = homeStates;
+
   const [currIndex, setCurrIndex] = useState(0);
   const [otherUserItems, setOtherUserItems] = useState(requestedUserDetails.my_items);
   const [myItems, setMyItems] = useState(userData?.my_items);
   const [myMoneyOffer, setMyMoneyOffer] = useState(0);
   const [requestedMoneyOffer, setRequestedMoneyOffer] = useState(0);
-  const [isMoneyOffer, setIsMoneyOffer] = useState(initialIsMoneyOffer);
-  const [moneyOffer, setMoneyOffer] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -60,34 +58,23 @@ export const StartTradeScreen: FC<any> = ({route}) => {
 
 
   const headerTitleOptions = () => {
-    if (currIndex !== 0 && isMoneyOffer) {
-      return {
-        title: 'Send Money Offer',
-        profilePicture: '',
-      }
-    }
     switch (currIndex) {
       case 0:
-        return {
-          title: 'Send Offer',
-          profilePicture: '',
-        };
-      case 1:
         return {
           title: `${requestedUserDetails?.name}'s loot`,
           profilePicture: requestedUserDetails?.profile_picture,
         };
-      case 2:
+      case 1:
         return {
           title: 'Your loot',
           profilePicture: userData.profile_picture,
         };
-      case 3:
+      case 2:
         return {
           title: 'Review Order',
           profilePicture: '',
         };
-      case 4:
+      case 3:
         return {
           title: 'Checkout & Submit Offer',
           profilePicture: '',
@@ -101,7 +88,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       <LSStartTradeHeader
         title={headerTitleOptions()?.title}
         profilePicture={headerTitleOptions()?.profilePicture}
-        showPfp={!isMoneyOffer && (currIndex === 1 || currIndex === 2)}
+        showPfp={currIndex === 0 || currIndex === 1}
         onBackPress={handleBack}
       />
       <ProgressBar progress={(currIndex + 1) / NUMBER_OF_STEPS} />
@@ -159,42 +146,13 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   };
 
   const handleNext = () => {
-    setIsMoneyOffer(false);
     if (!nextValidation()) {
       return;
     }
 
-    if (currIndex + 1 === 4) {
+    if (currIndex + 1 === 3) {
       dispatch(getMyDetailsNoLoadRequest(userData?._id));
       initializePaymentSheet();
-    }
-    swiperRef?.current?.scrollTo(currIndex + 1);
-  };
-
-  const handleMoneyOfferNext = () => {
-    setIsMoneyOffer(true);
-    if (currIndex === 1) {
-      const reqData = {
-        userId: userData?._id,
-        tradeData: {
-          recieverId: requestedUserDetails?._id,
-          senderId: userData?._id,
-          senderMoneyOffer: moneyOffer,
-          recieverItems: otherUserItems.filter(item => item?.isSelected),
-        },
-      };
-      dispatch(
-        startMoneyOfferTrade(
-          reqData,
-          res => {
-            navigation?.replace('OffersMessageScreen', {item: res.trade});
-          },
-          error => {
-            //TODO: error handling here
-          },
-        ),
-      );
-      return;
     }
     swiperRef?.current?.scrollTo(currIndex + 1);
   };
@@ -223,10 +181,10 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   const nextValidation = () => {
     const otherUserSelected = otherUserItems.filter(_item => _item?.isSelected);
     const mySelected = myItems.filter(_item => _item?.isSelected);
-    if (currIndex === 1 && otherUserSelected.length <= 0) {
+    if (currIndex === 0 && otherUserSelected.length <= 0) {
       Alert.showError('Please select at least one item');
       return false;
-    } else if (currIndex === 2 && mySelected.length <= 0) {
+    } else if (currIndex === 1 && mySelected.length <= 0) {
       Alert.showError('Please select at least one item');
       return false;
     }
@@ -234,10 +192,10 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   };
 
   const renderBottomButtonView = () =>
-    !isMoneyOffer && currIndex !== 4 && currIndex !== 0 && (
+    currIndex !== 3 && (
       <ButtonContainer>
         <LSButton
-          title={currIndex === 3 ? 'Checkout & Submit' : 'Next'}
+          title={currIndex === 2 ? 'Checkout & Submit' : 'Next'}
           size={Size.Large}
           type={Type.Primary}
           radius={20}
@@ -246,51 +204,21 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       </ButtonContainer>
     );
 
-  const renderStepsCondition = () => {
-    const item =
-      otherUserItems.filter(item => item.isSelected)[0];
-    const sellOnlyItem = item?.type === 'sell-only';
-    const tradeOnlyItem = item?.type === 'trade-only';
-
-    if (sellOnlyItem || tradeOnlyItem) {
-      return [2, 3, 4, 5];
-    }
-
-    return [1, 2, 3, 4, 5];
-  };
-
   const renderSteps = () => {
-    return renderStepsCondition().map(data => {
+    return [1, 2, 3, 4].map(data => {
       switch (data) {
         case 1:
-          return (
-            <ChooseOfferType
-              handleNext={handleNext}
-              handleMoneyOfferNext={handleMoneyOfferNext}
-            />
-          );
-        case 2:
-          if (isMoneyOffer) {
-            return (
-              <SendMoneyOfferStepOne
-                item={otherUserItems.filter(item => item.isSelected)[0]}
-                moneyOffer={moneyOffer}
-                setMoneyOffer={setMoneyOffer}
-                handleMoneyOfferNext={handleMoneyOfferNext}
-              />
-            );
-          }
           return (
             <StartTradeStepOne
               otherUserItems={otherUserItems}
               setOtherUserItems={setOtherUserItems}
             />
           );
-        case 3:
+        case 2:
           return (
             <StartTradeStepTwo myItems={myItems} setMyItems={setMyItems} />
           );
-        case 4:
+        case 3:
           return (
             <ReviewTrade
               otherUserItems={otherUserItems}
@@ -302,7 +230,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
               setMyMoneyOffer={setMyMoneyOffer}
             />
           );
-        case 5:
+        case 4:
           return (
             <StartTradeCheckoutScreen
               recieverItems={otherUserItems.filter(item => item?.isSelected)}
