@@ -6,6 +6,7 @@ import {DraggableGrid} from 'react-native-draggable-grid';
 import FastImage from 'react-native-fast-image';
 
 const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 const productImageWidth = width / 3 - 40;
 //const productUploadImageWidth = width - 80;
 
@@ -62,6 +63,57 @@ export const ButtonContainer = styled.View.attrs(() => ({
   ${layout}
 `;
 
+export const AddPhotosButtonContainer = styled.View.attrs(() => ({
+  mb: verticalScale(5),
+}))`
+  flex-direction: row;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  ${space}
+  ${layout}
+`;
+
+
+export const ImagePickerContainer = styled.View.attrs(() => ({
+  height: height * 0.8,
+}))`
+  align-items: center;
+  justify-content: center;
+  ${space}
+  ${layout}
+`;
+
+export const ImagePickerModalStyle = {
+  margin: 0,
+  justifyContent: 'flex-end',
+};
+
+export const ModalHeaderText: any = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  my: verticalScale(5),
+  ml: scale(6),
+}))`
+  font-size: ${moderateScale(25)}px;
+  font-family: Urbanist;
+  font-weight: 800;
+  text-align: left;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const CameraRollList = styled.FlatList.attrs(() => ({
+  numColumns: 3,
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {flexGrow: 1},
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
 export const AddProductsList = styled(DraggableGrid).attrs(() => ({
   numColumns: 3,
   height: '100%',
@@ -89,12 +141,27 @@ export const ImageContainerUpload = styled.View.attrs(props => ({
   width: scale(productImageWidth),
   borderRadius: scale(16),
   bg: props.theme.colors.grey,
-  m: scale(5),
+  m: scale(1),
 }))`
   align-items: center;
+  align-self: center;
   justify-content: center;
   ${layout} ${color} ${space} ${border};
 `;
+
+export const CameraRollImageContainer = styled.TouchableOpacity.attrs(props => ({
+  height: scale(productImageWidth),
+  width: scale(productImageWidth),
+  borderRadius: scale(16),
+  bg: props.theme.colors.grey,
+  m: scale(1),
+}))`
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+  ${layout} ${color} ${space} ${border};
+`;
+
 
 export const ImageContainerNew = styled.View.attrs((props: any) => ({
   height: scale(productImageWidth),
@@ -320,6 +387,30 @@ export const CellIndexContainer = styled.View.attrs(() => ({
   top: 6px;
   left: 6px;
   ${layout} ${color} ${space} ${border};
+`;
+
+export const MainPhotoLabelContainer = styled.View.attrs(props => ({
+  height: scale(18),
+  borderRadius: scale(4),
+  bg: props.theme.colors.white,
+  bottom: 4,
+  right: 6,
+  px: scale(6),
+}))`
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+  ${layout} ${color} ${space} ${border};
+`;
+
+export const MainPhotoLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.black,
+}))`
+  font-size: ${moderateScale(11)}px;
+  font-family: Urbanist;
+  font-weight: 600 ${color} ${space};
 `;
 
 export const IndexLabel = styled.Text.attrs(props => ({
