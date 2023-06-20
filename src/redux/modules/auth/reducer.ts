@@ -185,8 +185,9 @@ export default function auth(state = InitialState, action: ActionProps) {
     }
     case GET_USER_DETAILS.SUCCESS: {
       const combinedRatings = getCombinedRatings(payload?.ratings);
-      const my_items = 
-        payload.my_items.filter(item => item.isVisible && item.isVirtuallyVerified);
+      const my_items = payload.my_items.filter(
+        item => item.isVisible && item.isVirtuallyVerified,
+      );
       return {
         ...state,
         requestedUserDetails: payload
@@ -223,8 +224,9 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case GET_MY_DETAILS.SUCCESS: {
-      const my_items = 
-        payload.my_items.filter(item => item.isVisible && item.isVirtuallyVerified);
+      const my_items = payload.my_items.filter(
+        item => item.isVisible && item.isVirtuallyVerified,
+      );
       return {
         ...state,
         userData: {...state.userData, ...payload, my_items},
@@ -241,8 +243,9 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case GET_MY_DETAILS_NO_LOAD.SUCCESS: {
-      const my_items = 
-        payload.my_items.filter(item => item.isVisible && item.isVirtuallyVerified);
+      const my_items = payload.my_items.filter(
+        item => item.isVisible && item.isVirtuallyVerified,
+      );
       return {
         ...state,
         userData: {...state.userData, ...payload, my_items},

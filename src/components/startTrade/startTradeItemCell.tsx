@@ -56,7 +56,7 @@ const StartTradeItemCell: FC<StartTradeItemCellProps> = React.memo(props => {
         <ConditionSizeText>Size:</ConditionSizeText>
         <ConditionSizeResultText>{item.size}</ConditionSizeResultText>
       </DesBottomContainer>
-      { isMoneyOffer && (
+      {isMoneyOffer && (
         <DesBottomContainer>
           <ConditionSizeText>Buy Now Price:</ConditionSizeText>
           <ConditionSizeResultText>${item.price}</ConditionSizeResultText>

@@ -102,8 +102,7 @@ export const Innercontainer: ViewStyle = {
   flex: 1,
 };
 
-export const Spacing = styled.View.attrs(() => ({
-}))`
+export const Spacing = styled.View.attrs(() => ({}))`
   margin-top: ${verticalScale(25)}px;
   ${color}
 `;

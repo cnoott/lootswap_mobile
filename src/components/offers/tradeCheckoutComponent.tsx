@@ -49,7 +49,7 @@ interface TradeCheckoutComponentProps {
 }
 
 export const TradeCheckoutComponent: FC<
-TradeCheckoutComponentProps
+  TradeCheckoutComponentProps
 > = props => {
   const {
     recieverItems,
@@ -68,7 +68,6 @@ TradeCheckoutComponentProps
   const {platformFee, toUserRate, toWarehouseRate, total, userPayout} =
     paymentDetails;
 
-
   const renderHeading = (label: string) => {
     return <HeadingLabel>{label}</HeadingLabel>;
   };
@@ -77,7 +76,9 @@ TradeCheckoutComponentProps
     return (
       <EmptyView>
         {renderHeading(
-          `Item${recieverItems?.length > 1 ? 's' : ''} ${isReciever ? 'you will send' : 'you will receive'}`,
+          `Item${recieverItems?.length > 1 ? 's' : ''} ${
+            isReciever ? 'you will send' : 'you will receive'
+          }`,
         )}
         {recieverItems.map(item => {
           return <TradeCheckoutItemCell itemData={item} />;
@@ -89,7 +90,9 @@ TradeCheckoutComponentProps
     return (
       <EmptyView>
         {renderHeading(
-          `Item${senderItems.length > 1 ? 's' : ''} ${isReciever ? 'you will receive' : 'you will send'}`,
+          `Item${senderItems.length > 1 ? 's' : ''} ${
+            isReciever ? 'you will receive' : 'you will send'
+          }`,
         )}
         {senderItems.map(item => {
           return <TradeCheckoutItemCell itemData={item} />;
@@ -162,15 +165,20 @@ TradeCheckoutComponentProps
     );
   };
   const renderNoChargeDisclaimer = () => {
-    return isFromStartTrade && (
-      <TradeAcceptanceContainer style={{marginHorizontal: 20}}>
-        <SvgXml xml={ORDER_TRACK_PURCHASED} style={TradeAcceptanceIconStyle} />
-        <TradeAcceptanceDesView>
-          <TradeAcceptanceLabel>
-            You will not be charged until the trade is accepted.
-          </TradeAcceptanceLabel>
-        </TradeAcceptanceDesView>
-      </TradeAcceptanceContainer>
+    return (
+      isFromStartTrade && (
+        <TradeAcceptanceContainer style={{marginHorizontal: 20}}>
+          <SvgXml
+            xml={ORDER_TRACK_PURCHASED}
+            style={TradeAcceptanceIconStyle}
+          />
+          <TradeAcceptanceDesView>
+            <TradeAcceptanceLabel>
+              You will not be charged until the trade is accepted.
+            </TradeAcceptanceLabel>
+          </TradeAcceptanceDesView>
+        </TradeAcceptanceContainer>
+      )
     );
   };
 
