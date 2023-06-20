@@ -2,12 +2,12 @@
 LootSwap - ADD_PRODUCT STEP 1
 ***/
 
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState, useEffect, useCallback} from 'react';
 import ImagePicker from 'react-native-image-crop-picker'; //TODO REMOVE
 import {LSModal} from '../../../components/commonComponents/LSModal';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {Size, Type} from '../../../enums';
-import {Platform, Dimensions, Image} from 'react-native';
+import {Platform, Dimensions} from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import FastImage from 'react-native-fast-image';
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
@@ -41,6 +41,7 @@ import {Alert} from 'custom_top_alert';
 import {scale} from 'react-native-size-matters';
 import ChooseAlbumDropdown from '../../../components/loot/chooseAlbumDropDown';
 import LSLoader from '../../../components/commonComponents/LSLoader';
+import {useGallery} from '../../../utility/customHooks/useGallery';
 
 const width = Dimensions.get('window').width;
 const productImageWidth = width / 3 - 30;
@@ -61,16 +62,29 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   );
 
   const [imagePickerVisible, setImagePickerVisible] = useState(false);
-  const [selectedAlbum, setSelectedAlbum] = useState({title:'Recents'});
-  const [albums, setAlbums] = useState([]);
   const [cameraRoll, setCameraRoll] = useState([]);
-  const [loading, setLoading] = useState(false);
 
-  const closeModal = () => setImagePickerVisible(false);
   const preFilledData =
     addProductData?.stepThree?.length > 0
       ? [...addProductData?.stepThree, imageLastItem]
       : [imageLastItem];
+
+  const {
+    photos,
+    albums,
+    loadNextPagePictures,
+    onSelectAlbum,
+    selectedAlbum,
+    isLoading,
+    isLoadingNextPage,
+    isReloading,
+    hasNextPage,
+  } = useGallery({
+    pageSize: 18,
+  });
+
+  const closeModal = () => setImagePickerVisible(false);
+
   const [productImagesArr, setProductImagesArr] = useState<any>(preFilledData); // Always adding 1 element to show add images component at last
   const [selectedImages, setSelectedImages] = useState<any>(preFilledData); // Selected images in camera roll modal
   const [enableScroll, setEnableScroll] = useState(true);
@@ -99,11 +113,9 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   };
 
   const fetchCameraRoll = async () => {
-    setLoading(true);
     const fetchedAlbums = await CameraRoll.getAlbums({
       assetType: 'Photos',
     });
-    setAlbums([{title: 'Recents'}, ...fetchedAlbums]);
     const photos = await CameraRoll.getPhotos({
       first: 16,
       assetType: 'Photos',
@@ -111,19 +123,13 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     });
     let convertedPhotos = await convertPhotos(photos);
     setCameraRoll(convertedPhotos.filter(Boolean)); // Filters out null values
-    setLoading(false);
   };
-
-  useEffect(() => {
-    fetchCameraRoll();
-  }, []);
-
+  /*
   const onSelectAlbum = async (item: any) => {
     if (item.title === 'Recents') {
       fetchCameraRoll();
       return;
     }
-    setLoading(true);
     const photos = await CameraRoll.getPhotos({
       first: 35,
       assetType: 'Photos',
@@ -134,31 +140,25 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     const convertedPhotos = await convertPhotos(photos);
     setCameraRoll(convertedPhotos.filter(Boolean)); // Filters out null values
     setSelectedAlbum(item);
-    setLoading(false);
   };
+  */
 
   const onSelectImage = (node: any) => {
-    const foundIndex = selectedImages.findIndex(image => image.uri === node.uri);
-    console.log(foundIndex);
+    const foundIndex = selectedImages.findIndex(image => image.uri === node.item.uri);
     if (foundIndex !== -1) {
       const newImgArr = [...selectedImages];
       newImgArr.splice(foundIndex, 1);
       setSelectedImages(newImgArr);
     } else {
       const fileData = {
-       uri: node.uri,
+       uri: node.item.uri,
         type: 'image/jpeg',
         isServerImage: false,
-        sourceURL: node.uri,
+        sourceURL: node.item.uri,
         key: `${Math.random() * 100}`,
       };
-      // I have to do this last elemnt thing so that
-      // the last image gets rendered and not covered
-      // by the +Add Images.
-      const lastElm = selectedImages[selectedImages.length - 1];
-      selectedImages.splice(selectedImages.length - 1, 1);
-      let newImgArr = [...selectedImages, fileData];
-      newImgArr.push(lastElm);
+      let newImgArr = [...selectedImages];
+      newImgArr.splice(newImgArr.length - 1, 0, fileData); // Add new image before the last element
       setSelectedImages(newImgArr);
     }
   };
@@ -173,7 +173,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     return (
       <CameraRollImageContainer
         key={item.item.key}
-        onPress={() => onSelectImage(item.item)}>
+        onPress={() => onSelectImage(item)}>
         <ImageUpload
           source={{uri: item.item.uri, priority: FastImage.priority.high}}
         />
@@ -191,7 +191,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       />
       <ImagePickerContainer>
         <CameraRollList
-          data={cameraRoll}
+          data={photos}
           renderItem={renderCameraRollImage}
           keyExtractor={item => item.key}
           extraData={cameraRoll}
@@ -334,7 +334,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         onBackdropPress={() => closeModal()}>
 
         <LSModal.BottomContainer>
-          <LSLoader isVisible={loading}/>
+          <LSLoader isVisible={isLoading}/>
           {imagePicker()}
         <LSModal.CloseButton onCloseButtonPress={() => closeModal()} />
         </LSModal.BottomContainer>
