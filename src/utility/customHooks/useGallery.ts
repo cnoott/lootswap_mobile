@@ -52,13 +52,17 @@ export const useGallery = ({
           edge.node.image.uri,
           true,
         );
-        convertedPhotos.push({uri: imageData.node.image.filepath, key: Math.random() * 100});
+        console.log('dadata', imageData.node.image);
+        convertedPhotos.push({
+          uri: imageData.node.image.filepath,
+          ph: edge.node.image.uri,
+          key: Math.random() * 100,
+        });
       }
     }
     setIsLoading(false);
     return convertedPhotos;
   };
-
 
   const loadAlbums = useCallback(async () => {
     const fetchedAlbums = await CameraRoll.getAlbums({
