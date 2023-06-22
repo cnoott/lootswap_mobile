@@ -207,9 +207,10 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
     );
   };
   const renderImageView = ({item}: any) => {
+    console.log('ITEM', item);
     return (
       <ImageContainer>
-        <Image source={{uri: item?.uri}} />
+        <Image source={{uri: item?.sourceURL}} />
       </ImageContainer>
     );
   };
