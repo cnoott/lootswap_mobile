@@ -42,6 +42,7 @@ import {LoadingRequest} from '../../redux/modules/loading/actions';
 import {getSelectedTradeData} from '../../utility/utility';
 import {createNewProduct} from '../../redux/modules';
 import {getSignedRequest, uploadFile} from '../../services/imageUploadService';
+import ImageResizer from '@bam.tech/react-native-image-resizer';
 
 export const AddProductOverviewScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -56,14 +57,33 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
 
   const getUploadedImages = (imagesArr: any) => {
     const promises = imagesArr.map(async (myValue: any) => {
+      console.log('myvalue', myValue);
       if (myValue?.isServerImage) {
         return myValue;
       }
+      if (!myValue.uri.includes('file://')) { //im not sure why the first element always is missing file:// at the beginning
+        myValue.uri = 'file://' + myValue.uri;
+      }
+      let resizedImage = await ImageResizer.createResizedImage(
+        myValue.uri,
+        600,
+        700,
+        'JPEG',
+        89,
+        0,
+        undefined,
+        true,
+        {
+          mode: 'cover',
+          onlyScaleDown: true,
+        },
+      );
+      //compress image
       const urlUpdated = await new Promise(async resolve => {
-        await getSignedRequest(myValue)
+        await getSignedRequest(resizedImage)
           .then(signedReqData => {
             uploadFile(
-              myValue,
+              resizedImage,
               signedReqData?.signedRequest,
               signedReqData?.url,
             )

@@ -80,7 +80,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     isReloading,
     hasNextPage,
   } = useGallery({
-    pageSize: 19,
+    pageSize: 18,
   });
 
   const closeModal = () => setImagePickerVisible(false);
