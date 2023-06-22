@@ -7,7 +7,7 @@ import FastImage from 'react-native-fast-image';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
-const productImageWidth = width / 3 - 40;
+const productImageWidth = 100;
 //const productUploadImageWidth = width - 80;
 
 export const Container = styled.View.attrs(props => ({

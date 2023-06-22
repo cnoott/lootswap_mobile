@@ -15,6 +15,8 @@ interface GalleryOptions {
 interface GalleryLogic {
   photos?: any[];
   albums?: any[];
+  selectedAlbum: any;
+  onSelectAlbum: Function;
   loadNextPagePictures: () => void;
   isLoading: boolean;
   isLoadingNextPage: boolean;
@@ -36,37 +38,56 @@ export const useGallery = ({
   const [nextCursor, setNextCursor] = useState<string>();
   const [photos, setPhotos] = useState<any[]>();
   const [albums, setAlbums] = useState([{title:'Recents'}]);
+  const [selectedAlbum, setSelectedAlbum] = useState({title: 'Recents'});
 
   const convertPhotosToJpg = async (edges: Array<any>) => {
-    const convertedPhotos = await Promise.all(
-      edges.map(async edge => {
-        if (Platform.OS === 'ios') {
-          const imageData = await CameraRoll.iosGetImageDataById(
-            edge.node.image.uri,
-            true,
-          );
-          return {uri: imageData.node.image.filepath, key: Math.random() * 100};
-        }
-        return null;
-      })
-    );
+    setIsLoading(true);
+    const convertedPhotos = [];
+    for (const edge of edges) {
+      // Yield to the event loop
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      if (Platform.OS === 'ios') {
+        const imageData = await CameraRoll.iosGetImageDataById(
+          edge.node.image.uri,
+          true,
+        );
+        convertedPhotos.push({uri: imageData.node.image.filepath, key: Math.random() * 100});
+      }
+    }
+    setIsLoading(false);
     return convertedPhotos;
   };
+
 
   const loadAlbums = useCallback(async () => {
     const fetchedAlbums = await CameraRoll.getAlbums({
       assetType: 'Photos',
     });
     setAlbums([{title: 'Recents'}, ...fetchedAlbums]);
+    setIsLoading(false);
   }, []);
 
+  const onSelectAlbum = async (album: any) => {
+    if (album.title === selectedAlbum.title) {
+      return;
+    }
+    setPhotos([]);
+    setSelectedAlbum(album);
+    setNextCursor(undefined);
+    loadNextPagePictures();
+  };
+
   const loadNextPagePictures = useCallback(async () => {
+    console.log('loadnextcalled', selectedAlbum.title);
     try {
-      nextCursor ? setIsLoadingNextPage(true) : setIsLoading(true);
+      //nextCursor ? setIsLoadingNextPage(true) : setIsLoading(true);
       const {edges, page_info} = await CameraRoll.getPhotos({
         first: pageSize,
         after: nextCursor,
         assetType: 'Photos',
+        ...(selectedAlbum.title !== 'Recents' && {groupTypes: 'Album'}),
+        ...(selectedAlbum.title !== 'Recents' && {groupName: selectedAlbum.title})
       });
       const convertedPhotos = await convertPhotosToJpg(edges);
       setPhotos(
@@ -81,7 +102,7 @@ export const useGallery = ({
       setIsLoading(false);
       setIsLoadingNextPage(false);
     }
-  }, [nextCursor, pageSize]);
+  }, [nextCursor, pageSize, selectedAlbum]);
 
   const getUnloadedPictures = useCallback(async () => {
     try {
@@ -89,9 +110,11 @@ export const useGallery = ({
       const {edges, page_info} = await CameraRoll.getPhotos({
         first: !photos || photos.length < pageSize ? pageSize : photos.length,
         assetType: 'Photos',
+        ...(selectedAlbum.title !== 'Recents' && {groupTypes: 'Album'}),
+        ...(selectedAlbum.title !== 'Recents' && {groupName: selectedAlbum.title})
       });
-      const newPhotos = convertPhotosToJpg(edges);
-      setPhotos(newPhotos.filter(Boolean));
+      const newPhotos = await convertPhotosToJpg(edges);
+      setPhotos(newPhotos?.filter(Boolean));
 
       setNextCursor(page_info.end_cursor);
       setHasNextPage(page_info.has_next_page);
@@ -100,21 +123,17 @@ export const useGallery = ({
     } finally {
       setIsReloading(false);
     }
-  }, [pageSize, photos]);
+  }, [pageSize, photos, selectedAlbum]);
 
   useEffect(() => {
-    console.log('loadnextpage')
-    if (!photos) {
-      loadNextPagePictures();
-    }
-  }, [loadNextPagePictures, photos]);
-  
-  /*
+    console.log('loadnextpage');
+    loadNextPagePictures();
+  }, [selectedAlbum]);
+
   useEffect(() => {
     console.log('loadalbums')
     loadAlbums();
-  },[loadAlbums]);
-  */
+  }, [loadAlbums]);
 
   useEffect(() => {
     console.log('evetn litsten')
@@ -148,6 +167,8 @@ export const useGallery = ({
   return {
     photos,
     albums,
+    onSelectAlbum,
+    selectedAlbum,
     loadNextPagePictures,
     isLoading,
     isLoadingNextPage,

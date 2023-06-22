@@ -80,7 +80,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     isReloading,
     hasNextPage,
   } = useGallery({
-    pageSize: 18,
+    pageSize: 19,
   });
 
   const closeModal = () => setImagePickerVisible(false);
@@ -95,53 +95,6 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       stepThree: newImages,
     });
   };
-
-  const convertPhotos = async (photos: Array<any>) => {
-    const convertedPhotos = await Promise.all(
-      photos.edges.map(async edge => {
-        if (Platform.OS === 'ios') {
-          const imageData = await CameraRoll.iosGetImageDataById(
-            edge.node.image.uri,
-            true,
-          );
-          return {uri: imageData.node.image.filepath, key: Math.random() * 100};
-        }
-        return null;
-      })
-    );
-    return convertedPhotos;
-  };
-
-  const fetchCameraRoll = async () => {
-    const fetchedAlbums = await CameraRoll.getAlbums({
-      assetType: 'Photos',
-    });
-    const photos = await CameraRoll.getPhotos({
-      first: 16,
-      assetType: 'Photos',
-      include: ['fileExtension'],
-    });
-    let convertedPhotos = await convertPhotos(photos);
-    setCameraRoll(convertedPhotos.filter(Boolean)); // Filters out null values
-  };
-  /*
-  const onSelectAlbum = async (item: any) => {
-    if (item.title === 'Recents') {
-      fetchCameraRoll();
-      return;
-    }
-    const photos = await CameraRoll.getPhotos({
-      first: 35,
-      assetType: 'Photos',
-      groupTypes: 'Album',
-      groupName: item.title,
-      include: ['fileExtension'],
-    });
-    const convertedPhotos = await convertPhotos(photos);
-    setCameraRoll(convertedPhotos.filter(Boolean)); // Filters out null values
-    setSelectedAlbum(item);
-  };
-  */
 
   const onSelectImage = (node: any) => {
     const foundIndex = selectedImages.findIndex(image => image.uri === node.item.uri);
@@ -175,7 +128,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         key={item.item.key}
         onPress={() => onSelectImage(item)}>
         <ImageUpload
-          source={{uri: item.item.uri, priority: FastImage.priority.high}}
+          source={{uri: item.item.uri, priority: FastImage.priority.low}}
         />
         {renderNumberView(item.item.uri)}
       </CameraRollImageContainer>
@@ -187,7 +140,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       <ChooseAlbumDropdown
         albumList={albums}
         onSelectAlbum={onSelectAlbum}
-        selectedAlbum={{title: 'Recents'}}
+        selectedAlbum={selectedAlbum}
       />
       <ImagePickerContainer>
         <CameraRollList
@@ -195,6 +148,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
           renderItem={renderCameraRollImage}
           keyExtractor={item => item.key}
           extraData={cameraRoll}
+          onEndReached={loadNextPagePictures}
         />
         <AddPhotosButtonContainer>
           <LSButton
@@ -334,8 +288,8 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         onBackdropPress={() => closeModal()}>
 
         <LSModal.BottomContainer>
-          <LSLoader isVisible={isLoading}/>
           {imagePicker()}
+          <LSLoader isVisible={isLoading}/>
         <LSModal.CloseButton onCloseButtonPress={() => closeModal()} />
         </LSModal.BottomContainer>
       </LSModal>
