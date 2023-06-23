@@ -10,7 +10,6 @@ import {Size, Type} from '../../../enums';
 import {Platform, Dimensions} from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import FastImage from 'react-native-fast-image';
-import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import {
   ImagesContainer,
   AddProductsList,
@@ -33,9 +32,12 @@ import {
   AddPhotosButtonContainer,
   MainPhotoLabelContainer,
   MainPhotoLabel,
+  TakePhotoButtonContainer,
+  TakePhotoButtonText,
+  CameraIconContainer,
 } from './styles';
 import {useSelector} from 'react-redux';
-import {TRASH_WHITE_ICON} from 'localsvgimages';
+import {TRASH_WHITE_ICON, CAMERA_ICON} from 'localsvgimages';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 import {Alert} from 'custom_top_alert';
 import {scale} from 'react-native-size-matters';
@@ -116,6 +118,24 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     }
   };
 
+  const openCamera = async () => {
+    const image = await ImagePicker.openCamera({
+      width: 600,
+      height: 700,
+    });
+
+    const fileData = {
+      uri: image.path,
+      type: 'image/jpeg',
+      isServerImage: false,
+      sourceURL: image.path, //test w update too
+      key: `${Math.random() * 100}`,
+    };
+    let newImgArr = [...selectedImages];
+    newImgArr.splice(newImgArr.length - 1, 0, fileData); // Add new image before the last element
+    setSelectedImages(newImgArr);
+  };
+
   const onFinishSelecting = () => {
     setImagePickerVisible(false);
     setProductImagesArr(selectedImages);
@@ -142,6 +162,14 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         onSelectAlbum={onSelectAlbum}
         selectedAlbum={selectedAlbum}
       />
+      <TakePhotoButtonContainer>
+        <CameraIconContainer>
+          <SvgXml xml={CAMERA_ICON} />
+        </CameraIconContainer>
+        <TakePhotoButtonText>
+          Take Photo
+        </TakePhotoButtonText>
+      </TakePhotoButtonContainer>
       <ImagePickerContainer>
         <CameraRollList
           data={photos}
@@ -289,7 +317,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
 
         <LSModal.BottomContainer>
           {imagePicker()}
-          <LSLoader isVisible={isLoading}/>
+          <LSLoader isVisible={isLoading || isLoadingNextPage || isReloading}/>
         <LSModal.CloseButton onCloseButtonPress={() => closeModal()} />
         </LSModal.BottomContainer>
       </LSModal>
