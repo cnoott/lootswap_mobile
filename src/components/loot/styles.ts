@@ -1,6 +1,9 @@
 import styled from 'styled-components/native';
 import {color, layout, space} from 'styled-system';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
+import {Dimensions} from 'react-native';
+
+const height = Dimensions.get('window').height;
 
 export const ItemContainer = styled.View.attrs(props => ({
   height: verticalScale(140),
@@ -83,7 +86,7 @@ export const PriceText = styled.Text.attrs(props => ({
   ellipsizeMode: 'tail',
 }))`
   font-size: ${moderateScale(15)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   text-align: left;
   ${color}
   ${space}
@@ -98,6 +101,77 @@ export const Image = styled.Image.attrs(() => ({
   position: absolute;
   align-self: center;
   ${color}
+  ${space}
+  ${layout}
+`;
+
+export const ImageGuideContainer = styled.View.attrs(() => ({
+  height: height * 0.8,
+}))`
+  align-items: center;
+  ${space}
+  ${layout}
+`;
+
+export const ImageGuideModalStyles = {
+  margin: 0,
+  justifyContent: 'flex-end',
+};
+
+export const ImageGuideTitleText = styled.Text.attrs(props => ({
+  color: props.theme.colors.primary,
+  mt: scale(6),
+}))`
+  font-size: ${moderateScale(20)}px;
+  font-family: Urbanist-Bold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const ImageGuideDescText = styled.Text.attrs(props => ({
+  color: 'rgba(158, 158, 158, 1)',
+  mt: scale(6),
+  px: scale(10),
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-family: Urbanist;
+  text-align: center;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const ImageGuidePhotosContainer = styled.View.attrs(() => ({
+  flex: 1,
+  flexWrap: 'wrap',
+}))`
+  flex-direction: row ${space};
+  ${space}
+  ${layout}
+`;
+
+export const ImageGuidePhotoContainer = styled.View.attrs(() => ({
+}))``;
+
+export const ImageGuideLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.black,
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-family: Urbanist;
+  text-align: center;
+  font-weight: 600;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const ImageGuide = styled.Image.attrs(() => ({
+  width: scale(90),
+  height: scale(90),
+  borderRadius: scale(10),
+  m: 10,
+}))`
   ${space}
   ${layout}
 `;
