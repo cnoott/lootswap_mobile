@@ -133,7 +133,10 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     };
     let newImgArr = [...selectedImages];
     newImgArr.splice(newImgArr.length - 1, 0, fileData); // Add new image before the last element
-    setSelectedImages(newImgArr);
+
+    setImagePickerVisible(false);
+    setProductImagesArr(newImgArr);
+    updateImagesData(newImgArr.slice(0, -1));
   };
 
   const onFinishSelecting = () => {
@@ -162,7 +165,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         onSelectAlbum={onSelectAlbum}
         selectedAlbum={selectedAlbum}
       />
-      <TakePhotoButtonContainer>
+      <TakePhotoButtonContainer onPress={openCamera}>
         <CameraIconContainer>
           <SvgXml xml={CAMERA_ICON} />
         </CameraIconContainer>
