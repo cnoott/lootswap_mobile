@@ -53,9 +53,9 @@ const AppNavigation = () => {
                 {
                   text: 'Update',
                   onPress: () =>
-                  Linking.openURL(
-                    'https://apps.apple.com/us/app/lootswap/id6445904189',
-                  ),
+                    Linking.openURL(
+                      'https://apps.apple.com/us/app/lootswap/id6445904189',
+                    ),
                   style: 'default',
                   cancelable: false,
                 },
@@ -80,18 +80,17 @@ const AppNavigation = () => {
     });
 
     messaging()
-    .getInitialNotification()
-    .then(remoteMessage => {
-      if (remoteMessage) {
-        console.log(
-          'TEST: notificaiton opened from quit state',
-          remoteMessage.notification,
-        );
-        handleNavigation(navigation, remoteMessage, dispatch, userData);
-      }
-      setLoading(false);
-    });
-
+      .getInitialNotification()
+      .then(remoteMessage => {
+        if (remoteMessage) {
+          console.log(
+            'TEST: notificaiton opened from quit state',
+            remoteMessage.notification,
+          );
+          handleNavigation(navigation, remoteMessage, dispatch, userData);
+        }
+        setLoading(false);
+      });
   }, [navigation, dispatch, userData]);
 
   if (loading) {

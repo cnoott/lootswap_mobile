@@ -39,9 +39,7 @@ const RatingComponent = (props: RatingComponentProps) => {
           />
         </EmptyRowView>
       </TopView>
-      <RatingText>
-        {ratingData.description}
-      </RatingText>
+      <RatingText>{ratingData.description}</RatingText>
     </Container>
   );
 };
