@@ -175,6 +175,36 @@ export const ImageContainerNew = styled.View.attrs((props: any) => ({
   ${layout} ${color} ${space};
 `;
 
+export const TakePhotoButtonContainer = styled.TouchableOpacity.attrs(props => ({
+  height: scale(35),
+  width: scale(120),
+  borderRadius: scale(60),
+  bg: 'rgba(98, 103, 254, 0.1)',
+  mb: scale(5),
+  ml: scale(8),
+}))`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  ${layout} ${color} ${space} ${border};
+`;
+
+export const TakePhotoButtonText = styled.Text.attrs(props => ({
+  color: 'rgba(98, 103, 254, 1)',
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-family: Urbanist;
+  font-weight: 700;
+  ${color}
+  ${space}
+`;
+
+export const CameraIconContainer = styled.View.attrs(() => ({
+  mx: scale(3),
+}))`
+  ${layout} ${color} ${space} ${border};
+`;
+
 export const DeleteContainer = styled.TouchableOpacity.attrs(props => ({
   height: scale(20),
   width: scale(20),
