@@ -180,8 +180,8 @@ export const TakePhotoButtonContainer = styled.TouchableOpacity.attrs(props => (
   width: scale(120),
   borderRadius: scale(60),
   bg: 'rgba(98, 103, 254, 0.1)',
-  mb: scale(5),
-  ml: scale(8),
+  mb: scale(10),
+  ml: scale(11),
 }))`
   flex-direction: row;
   align-items: center;

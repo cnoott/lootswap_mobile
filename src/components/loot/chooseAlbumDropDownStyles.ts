@@ -5,13 +5,13 @@ import {layout, space} from 'styled-system';
 export const DropdownStyle = {
   height: verticalScale(48),
   width: scale(100),
-  marginLeft: scale(8),
+  marginLeft: scale(13),
 };
 
 export const SelectedTextStyle = {
-  fontSize: moderateScale(17),
+  fontSize: moderateScale(18),
   fontFamily: 'Urbanist-Bold',
-  fontWeight: '600',
+  fontWeight: '700',
   color: 'black',
 };
 
