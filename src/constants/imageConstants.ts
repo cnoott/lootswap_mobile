@@ -33,3 +33,10 @@ export const PAYMENT_SUCCESS_GIF = require('../assets/images/gif/payment_success
 
 // Images To Remove Later
 export const NIKE_SHOES_IMAGE = require('../assets/images/product/nikeShoes.png');
+
+export const PHOTO_GUIDE_BACK = require('../assets/images/photoGuide/back.png');
+export const PHOTO_GUIDE_FRONT = require('../assets/images/photoGuide/front.png');
+export const PHOTO_GUIDE_INNER = require('../assets/images/photoGuide/inner.png');
+export const PHOTO_GUIDE_OUTER = require('../assets/images/photoGuide/outer.png');
+export const PHOTO_GUIDE_LABEL = require('../assets/images/photoGuide/shoe_label.png');
+export const PHOTO_GUIDE_SOLE = require('../assets/images/photoGuide/sole.png');

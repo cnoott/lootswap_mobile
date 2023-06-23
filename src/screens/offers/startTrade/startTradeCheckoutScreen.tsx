@@ -12,6 +12,7 @@ interface StartTradeCheckoutScreenProps {
   paymentDetails: any;
   loading: boolean;
   openPaymentSheet: Function;
+  isReciever: boolean;
 }
 
 export const StartTradeCheckoutScreen: FC<
@@ -23,6 +24,7 @@ export const StartTradeCheckoutScreen: FC<
     paymentDetails,
     loading,
     openPaymentSheet,
+    isReciever,
   } = props;
 
   return (
@@ -34,6 +36,7 @@ export const StartTradeCheckoutScreen: FC<
         paymentDetails={paymentDetails}
         openPaymentSheet={openPaymentSheet}
         loading={loading}
+        isReciever={isReciever}
       />
     </>
   );

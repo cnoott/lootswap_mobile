@@ -48,8 +48,7 @@ export const BackArrowContainer = styled.View.attrs(() => ({
   height: scale(Platform.OS === 'ios' ? 84 : 64),
   pt: moderateScale(Platform.OS === 'ios' ? 34 : 0),
   px: scale(10),
-}))`
-`;
+}))``;
 
 export const StartTradeHeaderContainer = styled.View.attrs(() => ({
   height: scale(Platform.OS === 'ios' ? 84 : 64),
@@ -76,7 +75,6 @@ export const StartTradeText = styled.Text.attrs(props => ({
   ${space}
   ${layout}
 `;
-
 
 export const ChatOfferContainer = styled.View.attrs(props => ({
   bg: props.theme.colors.white,

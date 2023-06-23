@@ -774,3 +774,11 @@ export const COPY_ICON = `
 <path d="M22 8H19C16.75 8 16 7.25 16 5V2L22 8Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 `;
+
+export const CAMERA_ICON = `
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M15.04 4.0515C16.05 4.4535 16.359 5.8535 16.772 6.3035C17.185 6.7535 17.776 6.9065 18.103 6.9065C19.841 6.9065 21.25 8.3155 21.25 10.0525V15.8475C21.25 18.1775 19.36 20.0675 17.03 20.0675H6.97C4.639 20.0675 2.75 18.1775 2.75 15.8475V10.0525C2.75 8.3155 4.159 6.9065 5.897 6.9065C6.223 6.9065 6.814 6.7535 7.228 6.3035C7.641 5.8535 7.949 4.4535 8.959 4.0515C9.97 3.6495 14.03 3.6495 15.04 4.0515Z" stroke="#6267FE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.4955 9.5H17.5045" stroke="#6267FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M15.1783 13.1243C15.1783 11.3683 13.7553 9.94531 11.9993 9.94531C10.2433 9.94531 8.82031 11.3683 8.82031 13.1243C8.82031 14.8803 10.2433 16.3033 11.9993 16.3033C13.7553 16.3033 15.1783 14.8803 15.1783 13.1243Z" stroke="#6267FE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`;

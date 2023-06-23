@@ -23,13 +23,12 @@ interface HeaderProps {
 
 export const LSStartTradeHeader: FC<HeaderProps> = React.memo(
   ({profilePicture, title, showPfp, onBackPress}) => {
-
     return (
       <ChatOfferContainer>
         <StartTradeHeaderContainer>
           <EmptyRowView>
             <TouchableOpacity onPress={() => onBackPress()}>
-              <SvgXml xml={LEFT_BLACK_ARROW}/>
+              <SvgXml xml={LEFT_BLACK_ARROW} />
             </TouchableOpacity>
           </EmptyRowView>
           <EmptyRowView>
@@ -42,7 +41,7 @@ export const LSStartTradeHeader: FC<HeaderProps> = React.memo(
               />
             )}
             <StartTradeText showPfp={showPfp}>{title}</StartTradeText>
-            </EmptyRowView>
+          </EmptyRowView>
           <EmptyRowView />
         </StartTradeHeaderContainer>
       </ChatOfferContainer>

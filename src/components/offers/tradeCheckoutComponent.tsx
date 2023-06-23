@@ -45,10 +45,11 @@ interface TradeCheckoutComponentProps {
   paymentDetails: any;
   openPaymentSheet: Function;
   loading: boolean;
+  isReciever?: boolean;
 }
 
 export const TradeCheckoutComponent: FC<
-TradeCheckoutComponentProps
+  TradeCheckoutComponentProps
 > = props => {
   const {
     recieverItems,
@@ -58,6 +59,7 @@ TradeCheckoutComponentProps
     paymentDetails = {},
     openPaymentSheet = () => {},
     loading,
+    isReciever = false,
   } = props;
 
   const navigation: NavigationProp<any, any> = useNavigation();
@@ -66,16 +68,17 @@ TradeCheckoutComponentProps
   const {platformFee, toUserRate, toWarehouseRate, total, userPayout} =
     paymentDetails;
 
-
   const renderHeading = (label: string) => {
     return <HeadingLabel>{label}</HeadingLabel>;
   };
 
-  const renderYourItems = () => {
+  const renderRecieverItems = () => {
     return (
       <EmptyView>
         {renderHeading(
-          `Item${recieverItems?.length > 1 ? 's' : ''} You Receive`,
+          `Item${recieverItems?.length > 1 ? 's' : ''} ${
+            isReciever ? 'you will send' : 'you will receive'
+          }`,
         )}
         {recieverItems.map(item => {
           return <TradeCheckoutItemCell itemData={item} />;
@@ -87,7 +90,9 @@ TradeCheckoutComponentProps
     return (
       <EmptyView>
         {renderHeading(
-          `Item${senderItems.length > 1 ? 's' : ''} You Will Trade`,
+          `Item${senderItems.length > 1 ? 's' : ''} ${
+            isReciever ? 'you will receive' : 'you will send'
+          }`,
         )}
         {senderItems.map(item => {
           return <TradeCheckoutItemCell itemData={item} />;
@@ -160,15 +165,20 @@ TradeCheckoutComponentProps
     );
   };
   const renderNoChargeDisclaimer = () => {
-    return isFromStartTrade && (
-      <TradeAcceptanceContainer style={{marginHorizontal: 20}}>
-        <SvgXml xml={ORDER_TRACK_PURCHASED} style={TradeAcceptanceIconStyle} />
-        <TradeAcceptanceDesView>
-          <TradeAcceptanceLabel>
-            You will not be charged until the trade is accepted.
-          </TradeAcceptanceLabel>
-        </TradeAcceptanceDesView>
-      </TradeAcceptanceContainer>
+    return (
+      isFromStartTrade && (
+        <TradeAcceptanceContainer style={{marginHorizontal: 20}}>
+          <SvgXml
+            xml={ORDER_TRACK_PURCHASED}
+            style={TradeAcceptanceIconStyle}
+          />
+          <TradeAcceptanceDesView>
+            <TradeAcceptanceLabel>
+              You will not be charged until the trade is accepted.
+            </TradeAcceptanceLabel>
+          </TradeAcceptanceDesView>
+        </TradeAcceptanceContainer>
+      )
     );
   };
 
@@ -183,7 +193,7 @@ TradeCheckoutComponentProps
             userDetails={userData}
             onPress={() => navigation.navigate('AddressScreenCheckout')}
           />
-          {renderYourItems()}
+          {renderRecieverItems()}
           {renderSendersItems()}
           <VerticalMargin />
           {!userData?.usedInitialPromo && (

@@ -46,10 +46,12 @@ export default function loading(state = InitialState, action: ActionProps) {
     }
     case GET_TRADE.SUCCESS: {
       console.log('TRADE SUCCESS', payload);
-      const filteredReceiverItems = 
-        payload?.reciever?.my_items.filter(item => item.isVisible && item.isVirtuallyVerified);
-      const filteredSenderItems = 
-        payload?.sender?.my_items.filter(item => item.isVisible && item.isVirtuallyVerified);
+      const filteredReceiverItems = payload?.reciever?.my_items.filter(
+        item => item.isVisible && item.isVirtuallyVerified,
+      );
+      const filteredSenderItems = payload?.sender?.my_items.filter(
+        item => item.isVisible && item.isVirtuallyVerified,
+      );
       return {
         ...state,
         trade: {
