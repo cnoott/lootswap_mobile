@@ -75,12 +75,25 @@ export const AddPhotosButtonContainer = styled.View.attrs(() => ({
   ${layout}
 `;
 
-
 export const ImagePickerContainer = styled.View.attrs(() => ({
   height: height * 0.8,
 }))`
   align-items: center;
   justify-content: center;
+  ${space}
+  ${layout}
+`;
+
+export const PhotoGuideText: any = styled.Text.attrs(props => ({
+  color: props.theme.colors.primary,
+  pr: scale(13),
+  pt: scale(2),
+}))`
+  font-size: ${moderateScale(16)}px;
+  font-family: Urbanist;
+  font-weight: 600;
+  text-align: right;
+  ${color}
   ${space}
   ${layout}
 `;

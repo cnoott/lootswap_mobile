@@ -1,9 +1,9 @@
 /***
-LootSwap - ADD_PRODUCT STEP 1
+LootSwap - ADD_PRODUCT STEP 3
 ***/
 
 import React, {FC, useState, useEffect, useCallback} from 'react';
-import ImagePicker from 'react-native-image-crop-picker'; //TODO REMOVE
+import ImagePicker, { openPicker } from 'react-native-image-crop-picker'; //TODO REMOVE
 import {LSModal} from '../../../components/commonComponents/LSModal';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {Size, Type} from '../../../enums';
@@ -35,6 +35,7 @@ import {
   TakePhotoButtonContainer,
   TakePhotoButtonText,
   CameraIconContainer,
+  PhotoGuideText,
 } from './styles';
 import {useSelector} from 'react-redux';
 import {TRASH_WHITE_ICON, CAMERA_ICON} from 'localsvgimages';
@@ -44,6 +45,7 @@ import {scale} from 'react-native-size-matters';
 import ChooseAlbumDropdown from '../../../components/loot/chooseAlbumDropDown';
 import LSLoader from '../../../components/commonComponents/LSLoader';
 import {useGallery} from '../../../utility/customHooks/useGallery';
+import ImageGuideComponent from '../../../components/loot/imageGuideComponent';
 
 const width = Dimensions.get('window').width;
 const productImageWidth = width / 3 - 30;
@@ -65,6 +67,10 @@ export const AddProductStepThree: FC<ProductStep> = props => {
 
   const [imagePickerVisible, setImagePickerVisible] = useState(false);
   const [cameraRoll, setCameraRoll] = useState([]);
+
+  const [isImageGuideVisible, setIsImageGuideVisible] = useState(false);
+  const closeImageGuide = () => setIsImageGuideVisible(false);
+  const openImageGuide = () => setIsImageGuideVisible(true);
 
   const preFilledData =
     addProductData?.stepThree?.length > 0
@@ -169,9 +175,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         <CameraIconContainer>
           <SvgXml xml={CAMERA_ICON} />
         </CameraIconContainer>
-        <TakePhotoButtonText>
-          Take Photo
-        </TakePhotoButtonText>
+        <TakePhotoButtonText>Take Photo</TakePhotoButtonText>
       </TakePhotoButtonContainer>
       <ImagePickerContainer>
         <CameraRollList
@@ -298,6 +302,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   };
   return (
     <>
+    <PhotoGuideText onPress={openImageGuide}>Photo Guide</PhotoGuideText>
     <ImagesContainer enableScroll={enableScroll}>
       <AddProductsList
         data={productImagesArr}
@@ -312,7 +317,10 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         itemHeight={scale(productImageWidth)}
       />
     </ImagesContainer>
-
+      <ImageGuideComponent
+        isVisible={isImageGuideVisible}
+        closeModal={closeImageGuide}
+      />
       <LSModal
         isVisible={imagePickerVisible}
         style={ImagePickerModalStyle}
