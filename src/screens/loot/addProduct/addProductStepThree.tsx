@@ -111,6 +111,10 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       newImgArr.splice(foundIndex, 1);
       setSelectedImages(newImgArr);
     } else {
+      if (selectedImages.length > 13) {
+        Alert.showError('You cannot upload more than 13 images');
+        return;
+      }
       const fileData = {
        uri: node.item.uri,
         type: 'image/jpeg',
