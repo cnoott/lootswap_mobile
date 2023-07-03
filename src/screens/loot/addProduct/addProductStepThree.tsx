@@ -111,6 +111,10 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       newImgArr.splice(foundIndex, 1);
       setSelectedImages(newImgArr);
     } else {
+      if (selectedImages.length > 13) {
+        Alert.showError('You cannot upload more than 13 images');
+        return;
+      }
       const fileData = {
        uri: node.item.uri,
         type: 'image/jpeg',
@@ -203,43 +207,6 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     await setImagePickerVisible(true);
   };
 
-  const onAddImageOLD = () => {
-    if (productImagesArr?.length < 14) {
-      // Checking for 1 extra due to footer component
-      ImagePicker.openPicker({
-        width: 300,
-        height: 400,
-        compressImageMaxHeight: 1200,
-        compressImageQuality: 0.1,
-        cropping: true,
-        multiple: true,
-        maxFiles: 14 - productImagesArr?.length, // At first you can select 13 images & will reduce if selected some images already
-      }).then(images => {
-        if (images?.length > 0) {
-          const oldImagesData = [...productImagesArr];
-          images?.map(imgData => {
-            imgData.sourceURL = 'file://' + imgData.path;
-            const fileData = {
-              ...imgData, type: imgData?.mime,
-              uri:
-                Platform.OS === 'android'
-                  ? imgData?.sourceURL
-                  : imgData?.sourceURL?.replace('file://', ''),
-              sourceURL: imgData?.sourceURL,
-              isServerImage: false,
-              key: `${Math.random() * 100}`,
-            };
-            oldImagesData?.unshift(fileData);
-          });
-          const newArr = [...oldImagesData];
-          setProductImagesArr(newArr);
-          updateImagesData(newArr.slice(0, -1));
-        }
-      });
-    } else {
-      Alert.showError('Maximum images added');
-    }
-  };
   const onRemoveImage = (imageIndex: number) => {
     const newImgArr = [...productImagesArr];
     newImgArr.splice(imageIndex, 1);

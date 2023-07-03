@@ -2,9 +2,7 @@ import {
   cameraRollEventEmitter,
   CameraRoll,
 } from '@react-native-camera-roll/camera-roll';
-
 import {useCallback, useEffect, useState} from 'react';
-
 import {AppState, EmitterSubscription, Platform} from 'react-native';
 
 interface GalleryOptions {
@@ -25,7 +23,7 @@ interface GalleryLogic {
 }
 
 export const useGallery = ({
-  pageSize = 30,
+  pageSize = 15,
 }: GalleryOptions): GalleryLogic => {
 
   const isAboveIOS14 = Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 14;
@@ -40,27 +38,21 @@ export const useGallery = ({
   const [albums, setAlbums] = useState([{title:'Recents'}]);
   const [selectedAlbum, setSelectedAlbum] = useState({title: 'Recents'});
 
-  const convertPhotosToJpg = async (edges: Array<any>) => {
+  const convertPhotosToJpgFaster = async (edges: Array<any>) => {
+    console.log('faster being called');
     setIsLoading(true);
-    const convertedPhotos = [];
-    for (const edge of edges) {
-      // Yield to the event loop
-      await new Promise(resolve => setTimeout(resolve, 0));
-
-      if (Platform.OS === 'ios') {
-        const imageData = await CameraRoll.iosGetImageDataById(
-          edge.node.image.uri,
-          true,
-        );
-        console.log('dadata', imageData.node.image);
-        convertedPhotos.push({
-          uri: imageData.node.image.filepath,
-          ph: edge.node.image.uri,
-          key: Math.random() * 100,
-        });
-      }
-    }
-    setIsLoading(false);
+    const convertedPhotos = await Promise.all(
+      edges.map(async edge => {
+        if (Platform.OS === 'ios') {
+          const imageData = await CameraRoll.iosGetImageDataById(
+            edge.node.image.uri,
+            false,
+          );
+          return {uri: imageData.node.image.filepath, key: Math.random() * 100};
+        }
+        return null;
+      })
+    );
     return convertedPhotos;
   };
 
@@ -76,24 +68,36 @@ export const useGallery = ({
     if (album.title === selectedAlbum.title) {
       return;
     }
-    setPhotos([]);
     setSelectedAlbum(album);
     setNextCursor(undefined);
-    loadNextPagePictures();
+    nextCursor ? setIsLoadingNextPage(true) : setIsLoading(true);
+    const {edges, page_info} = await CameraRoll.getPhotos({
+      first: 32,
+      after: nextCursor,
+      assetType: 'Photos',
+      groupTypes: 'Album',
+      groupName: album.title,
+    });
+    let convertedPhotos = await convertPhotosToJpgFaster(edges);
+    setPhotos(convertedPhotos.filter(Boolean));
+
+    setNextCursor(page_info.end_cursor);
+    setHasNextPage(page_info.has_next_page);
+    setIsLoading(false);
   };
 
   const loadNextPagePictures = useCallback(async () => {
     console.log('loadnextcalled', selectedAlbum.title);
     try {
-      //nextCursor ? setIsLoadingNextPage(true) : setIsLoading(true);
+      nextCursor ? setIsLoadingNextPage(true) : setIsLoading(true);
       const {edges, page_info} = await CameraRoll.getPhotos({
-        first: pageSize,
+        first: 32,
         after: nextCursor,
         assetType: 'Photos',
         ...(selectedAlbum.title !== 'Recents' && {groupTypes: 'Album'}),
         ...(selectedAlbum.title !== 'Recents' && {groupName: selectedAlbum.title})
       });
-      const convertedPhotos = await convertPhotosToJpg(edges);
+      let convertedPhotos = await convertPhotosToJpgFaster(edges);
       setPhotos(
         (prev) => [...(prev ?? []), ...convertedPhotos.filter(Boolean)]
       );
@@ -117,14 +121,17 @@ export const useGallery = ({
         ...(selectedAlbum.title !== 'Recents' && {groupTypes: 'Album'}),
         ...(selectedAlbum.title !== 'Recents' && {groupName: selectedAlbum.title})
       });
-      const newPhotos = await convertPhotosToJpg(edges);
+      const newPhotos = await convertPhotosToJpgFaster(edges);
       setPhotos(newPhotos?.filter(Boolean));
 
       setNextCursor(page_info.end_cursor);
       setHasNextPage(page_info.has_next_page);
+      setIsReloading(false);
+      setIsLoading(false);
     } catch (error) {
       console.error('useGallery getNewPhotos error:', error);
     } finally {
+      setIsLoading(false);
       setIsReloading(false);
     }
   }, [pageSize, photos, selectedAlbum]);
@@ -138,19 +145,6 @@ export const useGallery = ({
     console.log('loadalbums')
     loadAlbums();
   }, [loadAlbums]);
-
-  useEffect(() => {
-    console.log('evetn litsten')
-    const subscription = AppState.addEventListener('change', async (nextAppState) => {
-      if (nextAppState === 'active') {
-        getUnloadedPictures();
-      }
-    });
-
-    return () => {
-      subscription.remove();
-    };
-  }, [getUnloadedPictures]);
 
   useEffect(() => {
     console.log('emitter')
