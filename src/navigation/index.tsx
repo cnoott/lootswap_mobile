@@ -57,7 +57,7 @@ const AppNavigation = () => {
                       'https://apps.apple.com/us/app/lootswap/id6445904189',
                     ),
                   style: 'default',
-                  cancelable: false,
+                  cancelable: true,
                 },
               ],
             );
