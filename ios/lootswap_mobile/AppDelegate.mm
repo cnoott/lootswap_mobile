@@ -1,4 +1,7 @@
 #import "AppDelegate.h"
+#import <AppCenterReactNative.h>
+#import <AppCenterReactNativeAnalytics.h>
+#import <AppCenterReactNativeCrashes.h>
 #import <RNBranch/RNBranch.h>
 #import <React/RCTLinkingManager.h>
 
@@ -37,6 +40,10 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  
+  [AppCenterReactNative register];
+  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
   
   // Uncomment this line to use the test key instead of the live one.
   // [RNBranch useTestInstance];

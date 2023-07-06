@@ -17,6 +17,8 @@
 		0C9F53102A02FDE90013D568 /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C9F530D2A02FDE90013D568 /* Mont-Heavy.ttf */; };
 		0CCDBBC929F1EECD0026B4DB /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CCDBBC829F1EECD0026B4DB /* Mont-Heavy.ttf */; };
 		0CCDBBCA29F1EECD0026B4DB /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CCDBBC829F1EECD0026B4DB /* Mont-Heavy.ttf */; };
+		0CCDF8772A57054D00075CF1 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0CCDF8762A57054D00075CF1 /* AppCenter-Config.plist */; };
+		0CCDF8782A57054D00075CF1 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0CCDF8762A57054D00075CF1 /* AppCenter-Config.plist */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		17C83FB1D289C34261A3DC97 /* libPods-lootswap_mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B31196D5A9AA70C5AE46034 /* libPods-lootswap_mobile.a */; };
@@ -114,6 +116,7 @@
 		0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0C9F530D2A02FDE90013D568 /* Mont-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Mont-Heavy.ttf"; path = "../../assets/fonts/Mont-Heavy.ttf"; sourceTree = "<group>"; };
 		0CCDBBC829F1EECD0026B4DB /* Mont-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Mont-Heavy.ttf"; path = "../../assets/fonts/Mont-Heavy.ttf"; sourceTree = "<group>"; };
+		0CCDF8762A57054D00075CF1 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* lootswap_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lootswap_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = lootswap_mobile/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = lootswap_mobile/AppDelegate.mm; sourceTree = "<group>"; };
@@ -289,6 +292,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				0CCDF8762A57054D00075CF1 /* AppCenter-Config.plist */,
 				0C01A7312A03010C00E53601 /* branch.json */,
 				18163B562935F50E00EDA81D /* fonts */,
 				13B07FAE1A68108700A75B9A /* lootswap_mobile */,
@@ -464,6 +468,7 @@
 				18FD5A41298CC97200DD3F63 /* Urbanist-SemiBold.ttf in Resources */,
 				18FD5A3E298CC97200DD3F63 /* Urbanist-BlackItalic.ttf in Resources */,
 				18163B6B2935F54600EDA81D /* Inter-Light.otf in Resources */,
+				0CCDF8772A57054D00075CF1 /* AppCenter-Config.plist in Resources */,
 				18163B6A2935F54600EDA81D /* Inter-Regular.otf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				18FD5A45298CC97200DD3F63 /* Urbanist-ExtraLight.ttf in Resources */,
@@ -509,6 +514,7 @@
 				187F059129A277BB006ADA87 /* Urbanist-SemiBold.ttf in Resources */,
 				187F059229A277BB006ADA87 /* Urbanist-BlackItalic.ttf in Resources */,
 				187F059329A277BB006ADA87 /* Inter-Light.otf in Resources */,
+				0CCDF8782A57054D00075CF1 /* AppCenter-Config.plist in Resources */,
 				187F059429A277BB006ADA87 /* Inter-Regular.otf in Resources */,
 				187F059529A277BB006ADA87 /* LaunchScreen.storyboard in Resources */,
 				187F059629A277BB006ADA87 /* Urbanist-ExtraLight.ttf in Resources */,
