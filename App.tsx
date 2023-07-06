@@ -17,6 +17,8 @@ import theme from './src/theme';
 import StackNavigator from './src/navigation';
 import {StatusBar} from 'react-native';
 import branch from 'react-native-branch'
+import codePush from 'react-native-code-push';
+let codePushOptions = {checkFrequency: codePush.CheckFrequency.ON_APP_RESUME};
 
 const App = () => {
   useEffect(() => {
@@ -43,4 +45,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default codePush(codePushOptions)(App);
