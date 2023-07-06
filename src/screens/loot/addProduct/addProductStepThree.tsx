@@ -129,6 +129,11 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   };
 
   const openCamera = async () => {
+    if (photos?.length >= 13) {
+      closeModal();
+      Alert.showError('You you cannot add more than 13 photos');
+      return;
+    }
     const image = await ImagePicker.openCamera({
       width: 600,
       height: 700,
