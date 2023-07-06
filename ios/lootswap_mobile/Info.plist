@@ -20,8 +20,6 @@
 	<string>1.5.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CodePushDeploymentKey</key>
-	<string></string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -41,6 +39,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.5.1</string>
+	<key>CodePushDeploymentKey</key>
+	<string>MLSTmi_7H9-wh-ijIcugIAywADZr5_QT5QA8r</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
