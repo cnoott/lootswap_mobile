@@ -16,9 +16,13 @@ import ReduxStore from './src/redux/store/store';
 import theme from './src/theme';
 import StackNavigator from './src/navigation';
 import {StatusBar} from 'react-native';
-import branch from 'react-native-branch'
+import branch from 'react-native-branch';
 import codePush from 'react-native-code-push';
-let codePushOptions = {checkFrequency: codePush.CheckFrequency.ON_APP_RESUME};
+let codePushOptions = {
+  updateDialog: true,
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+  installMode: codePush.InstallMode.IMMEDIATE, //might change it to ON_NEXT_RESUME if its too jarring
+};
 
 const App = () => {
   useEffect(() => {
