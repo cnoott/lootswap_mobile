@@ -53,3 +53,25 @@ If you want to change any environment variable like changing `APP_URL` or need t
 1. To Chnage Development Config -> Make changes in `.env.development` file on root folder
 2. To Chnage Production Config -> Make changes in `.env.production` file on root folder
 When you will run project then this files content will automatically replaced in `.env` file.
+
+
+# Version Naming Standard
+We use the versioning standard of 'a.b.c.' where
+a is for major updates
+b is for feature updates
+c is for minor fixes/changes
+
+# Handling OTA (Over the Air) and AppStore updates.
+Some updates (such as native code changes or package installs) must be manually updated through the AppStore.
+*Its important to make sure that the user has the correct base version of the app in order to recieve a certain OTA update*
+
+## Performing a AppStore update
+1. Change Info.plist to reflect the new version number.
+2. Go the the backend to match that number.
+3. Submit via AppStore Connect.
+
+## Performing OTA Update via CodePush CLI
+1. Release new version to product making sure that MINIMUM_BASE_VERSION matches what is currently in the Info.plist
+`appcenter codepush release-react -a liamaamadio/lootswap-ios -d Production --target-binary-version ">=MINIMUM_BASE_VERSION"`
+
+We only change Info.plist version number when its a AppStore update
