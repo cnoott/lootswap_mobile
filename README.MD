@@ -68,7 +68,10 @@ Some updates (such as native code changes or package installs) must be manually 
 ## Performing a AppStore update
 1. Change Info.plist to reflect the new version number.
 2. Go the the backend to match that number.
-3. Submit via AppStore Connect.
+3. Make sure the Project selected at the top is "lootswap_mobile"
+4. Do clean build witha "Any IOS Device (arm64) target
+5. Select Project > Archive > Distribute App
+6. Go to AppStore connect and submit new version for verification
 
 ## Performing OTA Update via CodePush CLI
 1. Release new version to product making sure that MINIMUM_BASE_VERSION matches what is currently in the Info.plist
