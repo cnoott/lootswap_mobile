@@ -41,22 +41,11 @@ const AppNavigation = () => {
   const {userData} = auth;
   const [loading, setLoading] = useState(true);
 
-  const needsAppStoreUpdate = (version: String) => {
-    // APPSTORE == the app needs to be updated through the AppStore and not automatically
-    if (
-      !version.includes(DeviceInfo.getVersion()) &&
-      version.includes('APPSTORE')
-    ) {
-      return true;
-    }
-    return false;
-  };
-
   useEffect(() => {
     dispatch(
       versionCheck(
-        latestVersionRes => {
-          if (needsAppStoreUpdate(latestVersionRes)) {
+        (latestVersionRes: String) => {
+          if (latestVersionRes !== DeviceInfo.getVersion()) {
             AlertModal.alert(
               'Update Avaliable',
               'In order to continue using lootswap, you must update to the latest version',
