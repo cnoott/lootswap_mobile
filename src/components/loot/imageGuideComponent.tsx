@@ -17,6 +17,9 @@ import {
   PHOTO_GUIDE_LABEL,
   PHOTO_GUIDE_OUTER,
   PHOTO_GUIDE_SOLE,
+  PHOTO_GUIDE_INSOLE,
+  PHOTO_GUIDE_BOX,
+  PHOTO_GUIDE_INSIDE_BOX,
 } from '../../constants/imageConstants';
 
 export const ImageGuideComponent: FC<{}> = props => {
@@ -35,53 +38,55 @@ export const ImageGuideComponent: FC<{}> = props => {
           <ImageGuideDescText>
             Include all of the following images so your listing can be authenticated
           </ImageGuideDescText>
-        <ImageGuidePhotosContainer>
-          <ImageGuidePhotoContainer>
-            <ImageGuide source={PHOTO_GUIDE_OUTER} />
-            <ImageGuideLabel>Outer Side</ImageGuideLabel>
-          </ImageGuidePhotoContainer>
+          <ImageGuidePhotosContainer>
+            <ImageGuidePhotoContainer>
+              <ImageGuide source={PHOTO_GUIDE_OUTER} />
+              <ImageGuideLabel>Outer Side</ImageGuideLabel>
+            </ImageGuidePhotoContainer>
 
-          <ImageGuidePhotoContainer>
-            <ImageGuide source={PHOTO_GUIDE_INNER} />
-            <ImageGuideLabel>Inner Side</ImageGuideLabel>
-          </ImageGuidePhotoContainer>
+            <ImageGuidePhotoContainer>
+              <ImageGuide source={PHOTO_GUIDE_INNER} />
+              <ImageGuideLabel>Inner Side</ImageGuideLabel>
+            </ImageGuidePhotoContainer>
 
-          <ImageGuidePhotoContainer>
-            <ImageGuide source={PHOTO_GUIDE_FRONT} />
-            <ImageGuideLabel>Front</ImageGuideLabel>
-          </ImageGuidePhotoContainer>
+            <ImageGuidePhotoContainer>
+              <ImageGuide source={PHOTO_GUIDE_FRONT} />
+              <ImageGuideLabel>Front</ImageGuideLabel>
+            </ImageGuidePhotoContainer>
 
-          <ImageGuidePhotoContainer>
-            <ImageGuide source={PHOTO_GUIDE_BACK} />
-            <ImageGuideLabel>Heel</ImageGuideLabel>
-          </ImageGuidePhotoContainer>
+            <ImageGuidePhotoContainer>
+              <ImageGuide source={PHOTO_GUIDE_BACK} />
+              <ImageGuideLabel>Heel</ImageGuideLabel>
+            </ImageGuidePhotoContainer>
 
-          <ImageGuidePhotoContainer>
-            <ImageGuide source={PHOTO_GUIDE_LABEL} />
-            <ImageGuideLabel>Size Tag</ImageGuideLabel>
-          </ImageGuidePhotoContainer>
+            <ImageGuidePhotoContainer>
+              <ImageGuide source={PHOTO_GUIDE_LABEL} />
+              <ImageGuideLabel>Size Tag</ImageGuideLabel>
+            </ImageGuidePhotoContainer>
 
-          <ImageGuidePhotoContainer>
-            <ImageGuide source={PHOTO_GUIDE_SOLE} />
-            <ImageGuideLabel>Insoles</ImageGuideLabel>
-          </ImageGuidePhotoContainer>
+            <ImageGuidePhotoContainer>
+              <ImageGuide source={PHOTO_GUIDE_INSOLE} />
+              <ImageGuideLabel>Insoles</ImageGuideLabel>
+            </ImageGuidePhotoContainer>
 
-          <ImageGuidePhotoContainer>
-            <ImageGuide source={PHOTO_GUIDE_SOLE} />
-            <ImageGuideLabel>Details & Flaws</ImageGuideLabel>
-          </ImageGuidePhotoContainer>
+            <ImageGuidePhotoContainer>
+              <ImageGuide source={PHOTO_GUIDE_SOLE} />
+              <ImageGuideLabel>Soles</ImageGuideLabel>
+            </ImageGuidePhotoContainer>
 
-          <ImageGuidePhotoContainer>
-            <ImageGuide source={PHOTO_GUIDE_SOLE} />
-            <ImageGuideLabel>Soles</ImageGuideLabel>
-          </ImageGuidePhotoContainer>
+            <ImageGuidePhotoContainer>
+              <ImageGuide source={PHOTO_GUIDE_INSIDE_BOX} />
+              <ImageGuideLabel>Details & Flaws</ImageGuideLabel>
+            </ImageGuidePhotoContainer>
 
-        </ImageGuidePhotosContainer>
-
-
+            <ImageGuidePhotoContainer>
+              <ImageGuide source={PHOTO_GUIDE_BOX} />
+              <ImageGuideLabel>Box Label</ImageGuideLabel>
+            </ImageGuidePhotoContainer>
+          </ImageGuidePhotosContainer>
         </ImageGuideContainer>
-    <LSModal.CloseButton onCloseButtonPress={() => closeModal()} />
-    </LSModal.BottomContainer>
+        <LSModal.CloseButton onCloseButtonPress={() => closeModal()} />
+      </LSModal.BottomContainer>
     </LSModal>
   );
 };
