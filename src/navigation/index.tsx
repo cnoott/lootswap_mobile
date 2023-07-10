@@ -44,7 +44,7 @@ const AppNavigation = () => {
   useEffect(() => {
     dispatch(
       versionCheck(
-        latestVersionRes => {
+        (latestVersionRes: String) => {
           if (latestVersionRes !== DeviceInfo.getVersion()) {
             AlertModal.alert(
               'Update Avaliable',
@@ -57,7 +57,10 @@ const AppNavigation = () => {
                       'https://apps.apple.com/us/app/lootswap/id6445904189',
                     ),
                   style: 'default',
-                  cancelable: false,
+                },
+                {
+                  text: 'Cancel',
+                  style: 'cancel',
                 },
               ],
             );
