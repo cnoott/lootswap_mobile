@@ -474,12 +474,13 @@ export const getAddProductRawData = () => {
   const addProductData: GET_PRODUCT_DETAILS = {
     stepOne: {
       category: null,
+      productName: '',
       brand: null,
-      size: null,
-      condition: null,
     },
     stepTwo: {
-      productName: '',
+      size: null,
+      condition: null,
+      preOwnedCondition: null,
       productDescription: '',
     },
     stepThree: {
@@ -636,21 +637,24 @@ export const configureAndGetLootData = (lootData: any) => {
     categoryList,
     lootData?.category,
   );
+  newLootData.stepOne.productName = lootData?.name;
   newLootData.stepOne.brand = getStepOneDataFromLists(
     brandsList,
     lootData?.brand,
   );
-  newLootData.stepOne.size = getStepOneDataFromLists(
+
+  // Configure STEP 2
+  newLootData.stepTwo.size = getStepOneDataFromLists(
     getSizeList(lootData?.category),
     lootData?.size,
   );
-  newLootData.stepOne.condition = getStepOneDataFromLists(
+  newLootData.stepTwo.condition = getStepOneDataFromLists(
     conditionList,
     lootData?.condition,
   );
-  // Configure STEP 2
-  newLootData.stepTwo.productName = lootData?.name;
+  //TODO: preownedCondtion here
   newLootData.stepTwo.productDescription = lootData?.description;
+
   // Configure STEP 3
   newLootData.stepThree = getStepThreeDataFromLists(lootData);
   // Configure STEP 4
@@ -673,14 +677,14 @@ export const validateCreateProductData = (
   var canGoNext = false;
   switch (currStep) {
     case 1:
-      const {category, brand, size, condition} = prodData?.stepOne;
-      if (category && brand && size && condition) {
+      const {category, productName, brand} = prodData?.stepOne;
+      if (category && productName && brand) {
         canGoNext = true;
       }
       break;
     case 2:
-      const {productName, productDescription} = prodData?.stepTwo;
-      if (productName && productDescription) {
+      const {size, condition, preOwnedCondition, productDescription} = prodData?.stepTwo;
+      if (size && condition && preOwnedCondition && productDescription) {
         canGoNext = true;
       }
       break;
