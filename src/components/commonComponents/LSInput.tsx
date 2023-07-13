@@ -11,13 +11,14 @@ interface LSInputProps extends TextInputProps {
   homeSearch?: boolean;
   filterSearch?: boolean;
   height?: number;
-  horizontalSpace?: number;
+  horizontalSpace?: string;
   topSpace?: number;
   onBlurCall?: Function;
   keyboardType?: string;
   inputRadius?: number;
   defaultValue?: any;
   horizontalLeftPadding?: number;
+  horizontalRightPadding?: number;
   rightCustomView?: any;
   textAlign?: string;
   maxLength?: number;
