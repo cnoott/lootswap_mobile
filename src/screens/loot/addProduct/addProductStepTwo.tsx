@@ -7,7 +7,11 @@ import {Container, StepOneContainer} from './styles';
 import LSInput from '../../../components/commonComponents/LSInput';
 import LSDropDown from '../../../components/commonComponents/LSDropDown';
 import {useSelector} from 'react-redux';
-import {getSizeList, conditionList} from '../../../utility/utility';
+import {
+  getSizeList,
+  conditionList,
+  getPreOwnedConditions,
+} from '../../../utility/utility';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 
 interface ProductStep {
@@ -29,22 +33,15 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
     addProductData?.stepTwo?.condition || null,
   );
 
+  const [preOwnedConditionData, setPreOwnedConditionData] = useState(
+    addProductData?.stepTwo?.preOwnedCondition || null,
+  );
+
   const [productDes, setProductDes] = useState(
     addProductData?.stepTwo?.productDescription || '',
   );
-  const {updateProductData} = props;
-  /*
-  const onBlurCall = () => {
-    updateProductData({
-      ...addProductData,
-      stepTwo: {
-        productName: productName,
-        productDescription: productDes,
-      },
-    });
-  };
-  */
 
+  const {updateProductData} = props;
   const updateData = (newData: any = {}) => {
     updateProductData({
       ...addProductData,
@@ -65,6 +62,10 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
     updateData({condition: item});
   };
 
+  const onSetPreOwnedCondition = (item: any) => {
+    setPreOwnedConditionData(item);
+    updateData({preOwnedCondition: item});
+  };
   //PRE OWNED CONDITION
   const onSetProductDes = (item: any) => {
     setProductDes(item);
@@ -104,6 +105,13 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
         conditionList,
         onSetConditionData,
         conditionData,
+      )}
+      {conditionData?.value === 'Pre-owned' && renderDropdown(
+        'Rate Pre-owned Condition',
+        false,
+        getPreOwnedConditions(),
+        onSetPreOwnedCondition,
+        preOwnedConditionData,
       )}
       <LSInput
         horizontalSpace={'0'}

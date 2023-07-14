@@ -115,11 +115,12 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
       return _data;
     });
     const reqData: any = {
-      name: stepTwo?.productName,
+      name: stepOne?.productName,
       userId: userData?._id,
       description: stepTwo?.productDescription,
-      condition: stepOne?.condition?.value,
-      size: stepOne?.size?.value,
+      condition: stepTwo?.condition?.value,
+      preOwnedCondition: stepTwo?.preOwnedCondition?.value,
+      size: stepTwo?.size?.value,
       brand: stepOne?.brand?.value,
       interestedIn: '',
       price: stepFive?.productPrice,
@@ -237,10 +238,15 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
   const renderProductTypeView = () => {
     return (
       <>
-        {renderSectionHeader('Product Type', false, 1)}
+        {renderSectionHeader('Product Type',false, 1)}
         {renderSubProductInfo('Category', `${stepOne?.category?.label}`)}
         {renderSubProductInfo('Size', `${stepTwo?.size?.label}`)}
         {renderSubProductInfo('Condition', `${stepTwo?.condition?.label}`)}
+        {stepTwo?.condition?.label === 'Pre-owned' &&
+          renderSubProductInfo(
+            'Pre-Owned Condition',
+            `${stepTwo?.preOwnedCondition?.label}`,
+          )}
         {renderSubProductInfo('Brand/Designer', `${stepOne?.brand?.label}`)}
       </>
     );
