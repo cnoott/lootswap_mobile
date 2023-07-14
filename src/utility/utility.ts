@@ -429,6 +429,12 @@ export const hatsSize = [
   {label: '8 1/4', value: '8 1/4'},
 ];
 
+export const preOwnedConditions = [
+  {label: 'Lightly used', value: 'Lightly used'},
+  {label: 'Moderately used', value: 'Moderately used'},
+  {label: 'Heavily used', value: 'Heavily used'},
+];
+
 export const otherSize = [{label: 'other', value: 'Other'}];
 
 export const getSizeList = (category: string = '') => {
@@ -447,7 +453,6 @@ export const getSizeList = (category: string = '') => {
       return lowerClothingSize;
     case 'other':
       return otherSize;
-
     default:
       return [];
   }
@@ -468,6 +473,10 @@ export const getAddProductTitle = (step: number) => {
     default:
       return 'Product Type';
   }
+};
+
+export const getPreOwnedConditions = () => {
+  return preOwnedConditions;
 };
 
 export const getAddProductRawData = () => {
@@ -652,6 +661,10 @@ export const configureAndGetLootData = (lootData: any) => {
     conditionList,
     lootData?.condition,
   );
+  newLootData.stepTwo.condition = getStepOneDataFromLists(
+    preOwnedConditions,
+    lootData?.preOwnedCondition,
+  );
   //TODO: preownedCondtion here
   newLootData.stepTwo.productDescription = lootData?.description;
 
@@ -678,15 +691,16 @@ export const validateCreateProductData = (
   switch (currStep) {
     case 1:
       const {category, productName, brand} = prodData?.stepOne;
-      console.log('poddata', category, productName, brand);
       if (category && productName && brand) {
         canGoNext = true;
       }
       break;
     case 2:
-      const {size, condition, productDescription} = prodData?.stepTwo;
-      console.log('poddata', size, condition, productDescription);
+      const {size, condition, preOwnedCondition, productDescription} = prodData?.stepTwo;
       if (size && condition && productDescription) {
+        if (condition.value === 'Pre-owned' && !preOwnedCondition) {
+          return false;
+        }
         canGoNext = true;
       }
       break;
