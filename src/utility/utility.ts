@@ -678,13 +678,15 @@ export const validateCreateProductData = (
   switch (currStep) {
     case 1:
       const {category, productName, brand} = prodData?.stepOne;
+      console.log('poddata', category, productName, brand);
       if (category && productName && brand) {
         canGoNext = true;
       }
       break;
     case 2:
-      const {size, condition, preOwnedCondition, productDescription} = prodData?.stepTwo;
-      if (size && condition && preOwnedCondition && productDescription) {
+      const {size, condition, productDescription} = prodData?.stepTwo;
+      console.log('poddata', size, condition, productDescription);
+      if (size && condition && productDescription) {
         canGoNext = true;
       }
       break;
