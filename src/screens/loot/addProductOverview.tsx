@@ -192,7 +192,7 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
       <>
         {renderSectionHeader('Basic Info', false, 2)}
         <ProductNameContainer>
-          <ProductNameLabel>{stepTwo?.productName}</ProductNameLabel>
+          <ProductNameLabel>{stepOne?.productName}</ProductNameLabel>
           <ProductBrandLabel>{stepOne?.brand?.label}</ProductBrandLabel>
         </ProductNameContainer>
       </>
@@ -239,8 +239,8 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
       <>
         {renderSectionHeader('Product Type', false, 1)}
         {renderSubProductInfo('Category', `${stepOne?.category?.label}`)}
-        {renderSubProductInfo('Size', `${stepOne?.size?.label}`)}
-        {renderSubProductInfo('Condition', `${stepOne?.condition?.label}`)}
+        {renderSubProductInfo('Size', `${stepTwo?.size?.label}`)}
+        {renderSubProductInfo('Condition', `${stepTwo?.condition?.label}`)}
         {renderSubProductInfo('Brand/Designer', `${stepOne?.brand?.label}`)}
       </>
     );
