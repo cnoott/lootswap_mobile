@@ -191,9 +191,10 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
   const renderProductNameView = () => {
     return (
       <>
-        {renderSectionHeader('Basic Info', false, 2)}
+        {renderSectionHeader('Basic Info', false, 1)}
         <ProductNameContainer>
           <ProductNameLabel>{stepOne?.productName}</ProductNameLabel>
+          <ProductBrandLabel>{stepOne?.category?.label}</ProductBrandLabel>
           <ProductBrandLabel>{stepOne?.brand?.label}</ProductBrandLabel>
         </ProductNameContainer>
       </>
@@ -238,8 +239,7 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
   const renderProductTypeView = () => {
     return (
       <>
-        {renderSectionHeader('Product Type',false, 1)}
-        {renderSubProductInfo('Category', `${stepOne?.category?.label}`)}
+        {renderSectionHeader('Product Type',false, 2)}
         {renderSubProductInfo('Size', `${stepTwo?.size?.label}`)}
         {renderSubProductInfo('Condition', `${stepTwo?.condition?.label}`)}
         {stepTwo?.condition?.label === 'Pre-owned' &&
@@ -247,7 +247,6 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
             'Pre-Owned Condition',
             `${stepTwo?.preOwnedCondition?.label}`,
           )}
-        {renderSubProductInfo('Brand/Designer', `${stepOne?.brand?.label}`)}
       </>
     );
   };
@@ -289,11 +288,12 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
       <SubContainer>
         {renderProductNameView()}
         <TopSpace />
-        {renderDescriptionView()}
         <Divider />
         {stepThree?.length > 0 && renderProductImagesView()}
         <Divider />
         {renderProductTypeView()}
+        <TopSpace />
+        {renderDescriptionView()}
         <Divider />
         {renderTradeTypeView()}
         <Divider />
