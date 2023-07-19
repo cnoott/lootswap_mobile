@@ -427,6 +427,13 @@ export const setFirstTimeOpenFalseCall = (reqData: any) => {
   );
 };
 
+export const searchStockxCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/search-stockx/${reqData.userId}`, reqData.query),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

@@ -230,3 +230,7 @@ export const NEW_RATING = {
 export const SET_FIRST_TIME_OPEN_FALSE = {
   ...createActionConst(actions.SET_FIRST_TIME_OPEN_FALSE),
 };
+
+export const SEARCH_STOCKX = {
+  ...createActionConst(actions.SEARCH_STOCKX),
+};

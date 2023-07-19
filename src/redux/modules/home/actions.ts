@@ -7,6 +7,7 @@ import {
   GENERATE_LINK_PAYPAL,
   SAVE_PAYPAL,
   DELETE_PRODUCT,
+  SEARCH_STOCKX,
 } from '../../../constants/actions';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 
@@ -128,6 +129,19 @@ export const deleteProduct = (
 ) => {
   return {
     type: DELETE_PRODUCT.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const searchStockx = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: SEARCH_STOCKX.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
