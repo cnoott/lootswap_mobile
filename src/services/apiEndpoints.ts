@@ -429,7 +429,7 @@ export const setFirstTimeOpenFalseCall = (reqData: any) => {
 
 export const searchStockxCall = (reqData: any) => {
   return handleResponse(
-    api.post(`/search-stockx/${reqData.userId}`, reqData.query),
+    api.post(`/search-stockx/${reqData.userId}`, {query: reqData.query}),
     API_RESPONSE.CODE200,
   );
 };
