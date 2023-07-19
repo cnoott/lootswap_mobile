@@ -484,10 +484,10 @@ export const getAddProductRawData = () => {
     stepOne: {
       category: null,
       productName: '',
-      brand: null,
+      size: null,
     },
     stepTwo: {
-      size: null,
+      brand: null,
       condition: null,
       preOwnedCondition: null,
       productDescription: '',
@@ -647,15 +647,15 @@ export const configureAndGetLootData = (lootData: any) => {
     lootData?.category,
   );
   newLootData.stepOne.productName = lootData?.name;
-  newLootData.stepOne.brand = getStepOneDataFromLists(
+  newLootData.stepOne.size = getStepOneDataFromLists(
     brandsList,
-    lootData?.brand,
+    lootData?.size,
   );
 
   // Configure STEP 2
-  newLootData.stepTwo.size = getStepOneDataFromLists(
+  newLootData.stepTwo.brand = getStepOneDataFromLists(
     getSizeList(lootData?.category),
-    lootData?.size,
+    lootData?.brand,
   );
   newLootData.stepTwo.condition = getStepOneDataFromLists(
     conditionList,
@@ -690,14 +690,14 @@ export const validateCreateProductData = (
   var canGoNext = false;
   switch (currStep) {
     case 1:
-      const {category, productName, brand} = prodData?.stepOne;
-      if (category && productName && brand) {
+      const {category, productName, size} = prodData?.stepOne;
+      if (category && productName && size) {
         canGoNext = true;
       }
       break;
     case 2:
-      const {size, condition, preOwnedCondition, productDescription} = prodData?.stepTwo;
-      if (size && condition && productDescription) {
+      const {brand, condition, preOwnedCondition, productDescription} = prodData?.stepTwo;
+      if (brand && condition && productDescription) {
         if (condition.value === 'Pre-owned' && !preOwnedCondition) {
           return false;
         }

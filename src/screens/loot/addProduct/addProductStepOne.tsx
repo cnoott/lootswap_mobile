@@ -1,19 +1,20 @@
 /***
-LootSwap - ADD_PRODUCT STEP 1
-***/
+  LootSwap - ADD_PRODUCT STEP 1
+ ***/
 
-import React, {FC, useState} from 'react';
-import {useSelector} from 'react-redux';
+import React, {FC, useState, useRef} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import LSDropDown from '../../../components/commonComponents/LSDropDown';
 import LSInput from '../../../components/commonComponents/LSInput';
-import {
-  categoryList,
-  brandsList,
-  getSizeList,
-} from '../../../utility/utility';
+import {categoryList, getSizeList} from '../../../utility/utility';
 import {StepOneContainer} from './styles';
 import {HomeProps} from '../../../redux/modules/home/reducer';
+import {AuthProps} from '../../../redux/modules/auth/reducer';
 import {SEARCH_INPUT_ICON} from 'localsvgimages';
+import {StockxSearchResults} from '../../../components/loot/stockxSearchResults';
+import {searchStockx} from '../../../redux/modules';
+import {Animated, Dimensions, ScrollView} from 'react-native';
+
 interface ProductStep {
   updateProductData: Function;
 }
@@ -21,6 +22,28 @@ interface ProductStep {
 export const AddProductStepOne: FC<ProductStep> = props => {
   const homeData: HomeProps = useSelector(state => state?.home);
   const {addProductData} = homeData;
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData} = auth;
+
+  const dispatch = useDispatch();
+
+  const [isOpen, setIsOpen] = useState(false);
+  const animation = useRef(new Animated.Value(0)).current;
+
+  const drawerWidth = Dimensions.get('window').width * 0.5;
+  const height = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, drawerWidth]
+  });
+
+  const handleDrawerAnimation = () => {
+    Animated.timing(animation, {
+      toValue: isOpen ? 0 : 1,
+      duration: 400,
+      useNativeDriver: false
+    }).start();
+    setIsOpen(!isOpen);
+  };
 
   const [categoryData, setCategoryData] = useState(
     addProductData?.stepOne?.category || null,
@@ -30,8 +53,8 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     addProductData?.stepOne?.productName || null,
   );
 
-  const [brandData, setBrandData] = useState(
-    addProductData?.stepOne?.brand || null,
+  const [sizeData, setSizeData] = useState(
+    addProductData?.stepOne?.size || null,
   );
 
   const {updateProductData} = props;
@@ -49,14 +72,36 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     updateData({category: item});
   };
 
-  const onSetBrandData = (item: any) => {
-    setBrandData(item);
-    updateData({brand: item});
+  const onSetSizeData = (item: any) => {
+    setSizeData(item);
+    updateData({size: item});
   };
 
   const onSetProductName = (item: any) => {
     setProductName(item);
     updateData({productName: item});
+  };
+
+  const fetchStockxData = () => {
+    handleDrawerAnimation();
+    return;
+
+    const reqData = {
+      userId: userData?._id,
+      query: 'Adidas',
+    };
+    console.log('fetching');
+    dispatch(
+      searchStockx(
+        reqData,
+        (res: any) => {
+          console.log('response', res);
+        },
+        (err: any) => {
+          console.log('ERROR', err);
+        }
+      ),
+    );
   };
 
   const renderDropdown = (
@@ -86,18 +131,23 @@ export const AddProductStepOne: FC<ProductStep> = props => {
         categoryData,
       )}
       <LSInput
+        onBlurCall={() => fetchStockxData()}
         onChangeText={onSetProductName}
         horizontalSpace={'0'}
         value={productName}
         leftIcon={SEARCH_INPUT_ICON}
         placeholder={'Item Name'}
       />
+      <Animated.View style={{height, overflow: 'hidden'}}>
+        <StockxSearchResults />
+      </Animated.View>
+
       {renderDropdown(
-        'Search Brand/Designer',
+        'Size',
         false,
-        brandsList,
-        onSetBrandData,
-        brandData,
+        getSizeList(categoryData ? categoryData?.value : ''),
+        onSetSizeData,
+        sizeData,
       )}
     </StepOneContainer>
   );

@@ -8,7 +8,7 @@ import LSInput from '../../../components/commonComponents/LSInput';
 import LSDropDown from '../../../components/commonComponents/LSDropDown';
 import {useSelector} from 'react-redux';
 import {
-  getSizeList,
+  brandsList,
   conditionList,
   getPreOwnedConditions,
 } from '../../../utility/utility';
@@ -25,8 +25,8 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
 
   const categoryData = addProductData?.stepOne?.category;
 
-  const [sizeData, setSizeData] = useState(
-    addProductData?.stepTwo?.size || null,
+  const [brandData, setBrandData] = useState(
+    addProductData?.stepTwo?.brand || null,
   );
 
   const [conditionData, setConditionData] = useState(
@@ -52,9 +52,9 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
     });
   };
 
-  const onSetSizeData = (item: any) => {
-    setSizeData(item);
-    updateData({size: item});
+  const onSetBrandData = (item: any) => {
+    setBrandData(item);
+    updateData({brand: item});
   };
 
   const onSetConditionData = (item: any) => {
@@ -93,11 +93,11 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
   return (
     <StepOneContainer>
       {renderDropdown(
-        'Size',
-        false,
-        getSizeList(categoryData ? categoryData?.value : ''),
-        onSetSizeData,
-        sizeData,
+        'Search Brand/Designer',
+        true,
+        brandsList,
+        onSetBrandData,
+        brandData,
       )}
       {renderDropdown(
         'Condition',
@@ -106,13 +106,14 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
         onSetConditionData,
         conditionData,
       )}
-      {conditionData?.value === 'Pre-owned' && renderDropdown(
-        'Rate Pre-owned Condition',
-        false,
-        getPreOwnedConditions(),
-        onSetPreOwnedCondition,
-        preOwnedConditionData,
-      )}
+      {conditionData?.value === 'Pre-owned' &&
+        renderDropdown(
+          'Rate Pre-owned Condition',
+          false,
+          getPreOwnedConditions(),
+          onSetPreOwnedCondition,
+          preOwnedConditionData,
+        )}
       <LSInput
         horizontalSpace={'0'}
         onChangeText={onSetProductDes}

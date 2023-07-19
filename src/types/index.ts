@@ -42,11 +42,11 @@ export type TRADE_TYPE = {
 export type PRODUCT_STEP_ONE_TYPE = {
   category?: DROPDOWN_TYPE;
   productName?: string;
-  brand?: DROPDOWN_TYPE;
+  size?: DROPDOWN_TYPE;
 };
 
 export type PRODUCT_STEP_TWO_TYPE = {
-  size?: DROPDOWN_TYPE;
+  brand?: DROPDOWN_TYPE;
   condition?: DROPDOWN_TYPE;
   preOwnedCondition?: DROPDOWN_TYPE;
   productDescription?: string;
