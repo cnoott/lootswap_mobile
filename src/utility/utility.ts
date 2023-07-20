@@ -179,33 +179,6 @@ export const getProfileOptions = (userData: any) => {
   ];
   return optionsList;
 };
-
-export const getNotificationSettingsList = () => {
-  const list = [
-    {
-      label: 'Trade Sale Updates',
-      status: false,
-      id: 1,
-    },
-    {
-      label: 'Promos',
-      status: true,
-      id: 2,
-    },
-    {
-      label: 'new Items',
-      status: false,
-      id: 3,
-    },
-    {
-      label: 'All Notifications',
-      status: false,
-      id: 4,
-    },
-  ];
-  return list;
-};
-
 export const getConfiguredMessageData = (messageList: any) => {
   const data = {
     title: '19/12/2022',
