@@ -16,13 +16,6 @@ import {
   ItemLabel,
 } from './notificationsSettingStyle';
 
-//TODO:
-// - DELETE the getNotificationSettingsList
-// - Make a local state for the current user settings
-//      > The initial state will be filled from
-// - Each switch will change the state
-// - Send the state in the updateUser function
-
 export const NotificationSettingScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth || {};
@@ -48,8 +41,8 @@ export const NotificationSettingScreen: FC<{}> = () => {
     );
   };
 
-  const renderItems = (label, settingName) => {
- const isEnabled = notification_settings?.[settingName];
+const renderItems = (label, settingName) => {
+     const isEnabled = notification_settings?.[settingName];
     return (
       <ItemContainer key={settingName}>
         <ItemLabel>{label}</ItemLabel>
@@ -72,10 +65,10 @@ export const NotificationSettingScreen: FC<{}> = () => {
       <SubContainer>
         {notification_settings && (
           <>
-            {renderItems('Trade Sales Updates', 'tradeSalesUpdates')}
-            {renderItems('Promos', 'promos')}
-            {renderItems('New Items', 'newItems')}
             {renderItems('All Notifications', 'allNotifications')}
+            {renderItems('Trade Notifications', 'tradeNotifications')}
+            {renderItems('Message Notifications', 'messageNotifications')}
+            {renderItems('Promo Notifications', 'promoNotifications')}
           </>
         )}
       </SubContainer>
