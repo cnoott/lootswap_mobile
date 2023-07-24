@@ -23,7 +23,7 @@ export const Container = styled.View.attrs(props => ({
 `;
 
 
-export const ItemContainer = styled.View.attrs(props => ({
+export const ItemContainer = styled.TouchableOpacity.attrs(props => ({
   height: verticalScale(40),
   alignSelf: 'stretch',
   mt: verticalScale(4),
@@ -130,6 +130,14 @@ export const BrandResultText = styled.Text.attrs(props => ({
   font-family: Urbanist;
   text-align: left;
   ${color}
+  ${space}
+  ${layout}
+`;
+
+export const FlatList = styled.FlatList.attrs(() => ({
+  showsVerticalScrollIndicator: true,
+  contentContainerStyle: {flexGrow: 1},
+}))`
   ${space}
   ${layout}
 `;
