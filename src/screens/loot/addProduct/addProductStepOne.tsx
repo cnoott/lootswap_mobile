@@ -2,7 +2,7 @@
   LootSwap - ADD_PRODUCT STEP 1
  ***/
 
-import React, {FC, useState, useRef} from 'react';
+import React, {FC, useState, useEffect, useRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import LSDropDown from '../../../components/commonComponents/LSDropDown';
 import LSInput from '../../../components/commonComponents/LSInput';
@@ -14,6 +14,7 @@ import {SEARCH_INPUT_ICON} from 'localsvgimages';
 import {StockxSearchResults} from '../../../components/loot/stockxSearchResults';
 import {searchStockx} from '../../../redux/modules';
 import {Animated, Dimensions} from 'react-native';
+import useDebounce from '../../../utility/customHooks/useDebouncer';
 
 interface ProductStep {
   updateProductData: Function;
@@ -89,10 +90,18 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     updateData({productName: item});
   };
 
+  const debouncedSearchTerm = useDebounce(productName, 800); //set delay
+  useEffect(() => {
+    if (debouncedSearchTerm && debouncedSearchTerm.length > 5) {
+      fetchStockxData();
+    }
+  }, [debouncedSearchTerm]);
+
   const fetchStockxData = () => {
     if (categoryData?.value !== 'shoes') {
       return;
     }
+    console.log('fetching stockx');
     handleDrawerAnimation();
     const reqData = {
       userId: userData?._id,
@@ -140,7 +149,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
         categoryData,
       )}
       <LSInput
-        onBlurCall={() => fetchStockxData()}
+        //onBlurCall={() => fetchStockxData()}
         onChangeText={onSetProductName}
         horizontalSpace={'0'}
         value={productName}
