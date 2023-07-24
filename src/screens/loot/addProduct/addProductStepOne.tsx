@@ -13,7 +13,7 @@ import {AuthProps} from '../../../redux/modules/auth/reducer';
 import {SEARCH_INPUT_ICON} from 'localsvgimages';
 import {StockxSearchResults} from '../../../components/loot/stockxSearchResults';
 import {searchStockx} from '../../../redux/modules';
-import {Animated, Dimensions, ScrollView} from 'react-native';
+import {Animated, Dimensions} from 'react-native';
 
 interface ProductStep {
   updateProductData: Function;
@@ -26,6 +26,9 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   const {userData} = auth;
 
   const dispatch = useDispatch();
+
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setIsLoading] = useState(true);
 
   const [isOpen, setIsOpen] = useState(false);
   const animation = useRef(new Animated.Value(0)).current;
@@ -57,6 +60,10 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     addProductData?.stepOne?.size || null,
   );
 
+  const onSelectResult = (item: any) => {
+
+  };
+
   const {updateProductData} = props;
   const updateData = (newData: any = {}) => {
     updateProductData({
@@ -83,23 +90,25 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   };
 
   const fetchStockxData = () => {
+    if (categoryData?.value !== 'shoes') {
+      return;
+    }
     handleDrawerAnimation();
-    return;
-
     const reqData = {
       userId: userData?._id,
-      query: 'Adidas',
+      query: productName,
     };
-    console.log('fetching');
     dispatch(
       searchStockx(
         reqData,
         (res: any) => {
           console.log('response', res);
+          setSearchResults(res);
+          setIsLoading(false);
         },
         (err: any) => {
           console.log('ERROR', err);
-        }
+        },
       ),
     );
   };
@@ -139,7 +148,11 @@ export const AddProductStepOne: FC<ProductStep> = props => {
         placeholder={'Item Name'}
       />
       <Animated.View style={{height, overflow: 'hidden'}}>
-        <StockxSearchResults />
+        <StockxSearchResults
+          searchResults={searchResults}
+          loading={loading}
+          onSelectResult={onSelectResult}
+        />
       </Animated.View>
 
       {renderDropdown(

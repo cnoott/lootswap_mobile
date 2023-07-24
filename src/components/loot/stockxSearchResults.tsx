@@ -11,6 +11,7 @@ import {
   BrandText,
   BrandResultText,
 } from './stockxSearchResultsStyles';
+import LSLoader from '../../components/commonComponents/LSLoader';
 import {ScrollView} from 'react-native';
 
 interface SearchResult {
@@ -22,38 +23,36 @@ interface SearchResult {
 
 interface StockxResultProps {
   searchResults: SearchResult[];
+  loading: Boolean;
+  onSelectResult: Function;
 }
 
 export const StockxSearchResults: FC<StockxResultProps> = props => {
+  const {searchResults = [], loading = true, onSelectResult} = props;
 
-  const renderSerachResult = () => {
+  const renderSearchResult = ({item, index}: any) => {
     return (
-      <ItemContainer>
+      <ItemContainer key={index} onPress={() => onSelectResult(item)}>
         <ImageContainer>
-          <Image source={{uri: 'https://images.stockx.com/images/Nike-Kobe-4-Protro-Gigi-Product.jpg?fit=fill&bg=FFFFFF&w=140&h=100&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1683627203'}}/>
+          <Image source={{uri: item.thumbUrl}} />
         </ImageContainer>
         <TextContainer>
-          <TitleText> Nike Kobe 4 Protro Mambacita Gigi</TitleText>
+          <TitleText>{item.title}</TitleText>
           <BrandContainer>
-            <BrandResultText> Nike </BrandResultText>
+            <BrandResultText>{item.brand}</BrandResultText>
           </BrandContainer>
         </TextContainer>
-
       </ItemContainer>
     );
   };
 
   return (
-    <>
-      <ScrollView>
-    <Container>
-      <ContainerTitle>Select Product</ContainerTitle>
-        {renderSerachResult()}
-        {renderSerachResult()}
-        {renderSerachResult()}
-        {renderSerachResult()}
-    </Container>
-      </ScrollView>
-      </>
+    <ScrollView contentContainerStyle={{flexGrow: 1}}>
+      <Container>
+        <ContainerTitle>Select Product</ContainerTitle>
+        {searchResults.map((item, index) => renderSearchResult({item, index}))}
+      </Container>
+      <LSLoader isVisible={loading} />
+    </ScrollView>
   );
 };
