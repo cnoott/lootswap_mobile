@@ -34,8 +34,7 @@ export const NotificationSettingScreen: FC<{}> = () => {
       updateUser({
         userId: userData?._id,
         userData: {
-        ...userData,
-        notification_settings: newNotificatonSettings,
+          notification_settings: newNotificatonSettings,
         },
       }),
     );
