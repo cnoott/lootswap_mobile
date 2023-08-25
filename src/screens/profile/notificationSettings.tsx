@@ -2,11 +2,13 @@
 LootSwap - NOTIFICATION SETTINGS SCREEN
 ***/
 
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import {Switch} from 'react-native';
+import {useDispatch,useSelector} from 'react-redux';
 import {useTheme} from 'styled-components';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
-import {getNotificationSettingsList} from '../../utility/utility';
+import {updateUser} from '../../redux/modules';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 import {
   Container,
   SubContainer,
@@ -15,22 +17,34 @@ import {
 } from './notificationsSettingStyle';
 
 export const NotificationSettingScreen: FC<{}> = () => {
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData} = auth || {};
+  const dispatch = useDispatch();
   const theme = useTheme();
-  const [settingsData, setSettingsData] = useState(
-    getNotificationSettingsList(),
-  );
-  const onToggleChange = id => {
-    const existingData = [...settingsData];
-    const newData = existingData.map(p =>
-      p.id === id ? {...p, status: !p.status} : p,
+
+  // destructure the notification_settings from userData
+  const {notification_settings} = userData || {};
+
+  const onToggleChange = (settingName,value) => {
+    const newNotificatonSettings = {
+      ...notification_settings,
+      [settingName]: value,
+    };
+    dispatch(
+      updateUser({
+        userId: userData?._id,
+        userData: {
+          notification_settings: newNotificatonSettings,
+        },
+      }),
     );
-    setSettingsData(newData);
   };
-  const renderItems = data => {
-    const isEnabled = data?.status;
+
+const renderItems = (label, settingName) => {
+     const isEnabled = notification_settings?.[settingName];
     return (
-      <ItemContainer>
-        <ItemLabel>{data?.label}</ItemLabel>
+      <ItemContainer key={settingName}>
+        <ItemLabel>{label}</ItemLabel>
         <Switch
           trackColor={{
             false: theme.colors.grey,
@@ -38,7 +52,7 @@ export const NotificationSettingScreen: FC<{}> = () => {
           }}
           thumbColor={isEnabled ? theme.colors.white : theme.colors.white}
           ios_backgroundColor={theme.colors.grey}
-          onValueChange={() => onToggleChange(data?.id)}
+          onValueChange={value => onToggleChange(settingName,value)}
           value={isEnabled}
         />
       </ItemContainer>
@@ -48,9 +62,14 @@ export const NotificationSettingScreen: FC<{}> = () => {
     <Container>
       <InStackHeader title={'Notification Settings'} />
       <SubContainer>
-        {settingsData?.map(data => {
-          return renderItems(data);
-        })}
+        {notification_settings && (
+          <>
+            {renderItems('All Notifications', 'allNotifications')}
+            {renderItems('Trade Notifications', 'tradeNotifications')}
+            {renderItems('Message Notifications', 'messageNotifications')}
+            {renderItems('Promo Notifications', 'promoNotifications')}
+          </>
+        )}
       </SubContainer>
     </Container>
   );

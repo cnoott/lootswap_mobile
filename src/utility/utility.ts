@@ -161,19 +161,16 @@ export const getProfileOptions = (userData: any) => {
       title: 'Wallet',
       index: 6,
     },
-
-    {
-      icon: PROFILE_WALLET,
-      title: userData?.paypal_onboarded ? 'Re-link paypal' : 'Link paypal',
-      index: 7,
-    },
-    /*
     {
       icon: PROFILE_NOTIFICATION,
       title: 'Notification settings',
       index: 7,
     },
-    */
+    {
+      icon: PROFILE_WALLET,
+      title: userData?.paypal_onboarded ? 'Re-link paypal' : 'Link paypal',
+      index: 8,
+    },
     {
       icon: PROFILE_SUPPORT,
       title: 'Support/FAQ',
@@ -182,43 +179,6 @@ export const getProfileOptions = (userData: any) => {
   ];
   return optionsList;
 };
-
-export const getNotificationSettingsList = () => {
-  const list = [
-    {
-      label: 'New Messages',
-      status: false,
-      id: 1,
-    },
-    {
-      label: 'Offers',
-      status: true,
-      id: 2,
-    },
-    {
-      label: 'Shipping updates',
-      status: false,
-      id: 3,
-    },
-    {
-      label: 'Price drops',
-      status: false,
-      id: 4,
-    },
-    {
-      label: 'Marketing notifications',
-      status: false,
-      id: 5,
-    },
-    {
-      label: 'App Updates',
-      status: false,
-      id: 6,
-    },
-  ];
-  return list;
-};
-
 export const getConfiguredMessageData = (messageList: any) => {
   const data = {
     title: '19/12/2022',

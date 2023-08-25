@@ -84,10 +84,10 @@ export const ProfileScreen: FC<{}> = () => {
         navigation.navigate('WalletScreen');
         break;
       case 7:
-        navigation.navigate('LinkPaypalScreen', {goToListLoot: false});
+        navigation.navigate('NotificationSettingScreen');
         break;
       case 8:
-        navigation.navigate('NotificationSettingScreen');
+        navigation.navigate('LinkPaypalScreen', {goToListLoot: false});
         break;
       case 9:
         Linking.openURL(`${WEB_APP_URL}/faq`);
