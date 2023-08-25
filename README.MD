@@ -74,7 +74,9 @@ Some updates (such as native code changes or package installs) must be manually 
 6. Go to AppStore connect and submit new version for verification
 
 ## Performing OTA Update via CodePush CLI
+** Make Sure that you are on a production environment when pushing new version **
 1. Release new version to product making sure that MINIMUM_BASE_VERSION matches what is currently in the Info.plist
-`appcenter codepush release-react -a liamaamadio/lootswap-ios -d Production --target-binary-version ">=MINIMUM_BASE_VERSION"`
+
+`appcenter codepush release-react -a liamaamadio/lootswap-ios -d Production --target-binary-version ">=MINIMUM_BASE_VERSION" --mandatory true`
 
 We only change Info.plist version number when its a AppStore update
