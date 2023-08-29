@@ -18,6 +18,8 @@ import useDebounce from '../../../utility/customHooks/useDebouncer';
 
 interface ProductStep {
   updateProductData: Function;
+  brandData: any;
+  setBrandData: Function;
 }
 
 export const AddProductStepOne: FC<ProductStep> = props => {
@@ -62,7 +64,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     addProductData?.stepOne?.size || null,
   );
 
-  const {updateProductData} = props;
+  const {updateProductData, setBrandData} = props;
   const updateData = (newData: any = {}) => {
     updateProductData({
       ...addProductData,
@@ -73,13 +75,25 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     });
   };
 
+  const updateBrand = (brand: any) => {
+    console.log('BRAND', brand);
+    setBrandData({value: brand, label: brand});
+    updateProductData({
+      ...addProductData,
+      stepTwo: {
+        ...addProductData?.stepTwo,
+        brand: {label: brand, value: brand},
+      },
+    });
+  };
+
   const onSetCategoryData = (item: any) => {
     setCategoryData(item);
     updateData({category: item});
   };
 
   const onSetSizeData = (item: any) => {
-    console.log(addProductData.stepOne.stockxUrlKey);
+    console.log(addProductData?.stepOne?.stockxUrlKey);
     setSizeData(item);
     updateData({size: item});
   };
@@ -93,11 +107,17 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     updateData({productName: item});
   };
 
-  const onSetStockxUrlKey = (item: any) => {
+  const onSetStockxUrlKey = async (item: any) => {
+    console.log("TEST", item);
+    updateData({
+      productName: item.title,
+      stockxUrlKey: item.urlKey,
+    });
     setProductName(item.title);
-    updateData({productName: item.title});
-
-    updateData({stockxUrlKey: item.urlKey});
+    // Gotta do setTimeout because it
+    // overwrites the above updateData
+    // if not delayed.
+    setTimeout(() => updateBrand(item.brand), 1000);
   };
 
   const [alreadySearched, setAlreadySearched] = useState(false);
