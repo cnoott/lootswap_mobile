@@ -27,6 +27,8 @@ interface StockxResultProps {
   onSelectResult: Function;
 }
 
+//TODO: make sure the search can work more than once
+
 export const StockxSearchResults: FC<StockxResultProps> = props => {
   const {searchResults = [], loading = true, onSelectResult} = props;
 
@@ -47,9 +49,12 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
   };
 
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1}}>
+    <ScrollView
+      showsVerticalScrollIndicator={true}
+      contentContainerStyle={{flexGrow: 1}}>
       <Container>
-        <ContainerTitle>Select Product</ContainerTitle>
+        <ContainerTitle>Autofill Product Info</ContainerTitle>
+        {!loading && searchResults.length === 0 && 'No products found'}
         {searchResults.map((item, index) => renderSearchResult({item, index}))}
       </Container>
       <LSLoader isVisible={loading} />
