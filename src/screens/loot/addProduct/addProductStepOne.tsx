@@ -41,6 +41,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   });
 
   const handleDrawerAnimation = () => {
+    if (isOpen) return;
     Animated.timing(animation, {
       toValue: isOpen ? 0 : 1,
       duration: 400,
@@ -61,10 +62,6 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     addProductData?.stepOne?.size || null,
   );
 
-  const onSelectResult = (item: any) => {
-
-  };
-
   const {updateProductData} = props;
   const updateData = (newData: any = {}) => {
     updateProductData({
@@ -75,24 +72,43 @@ export const AddProductStepOne: FC<ProductStep> = props => {
       },
     });
   };
+
   const onSetCategoryData = (item: any) => {
     setCategoryData(item);
     updateData({category: item});
   };
 
   const onSetSizeData = (item: any) => {
+    console.log(addProductData.stepOne.stockxUrlKey);
     setSizeData(item);
     updateData({size: item});
   };
 
   const onSetProductName = (item: any) => {
+    if (item.length < 4) {
+      setAlreadySearched(false);
+    }
+
     setProductName(item);
     updateData({productName: item});
   };
 
+  const onSetStockxUrlKey = (item: any) => {
+    setProductName(item.title);
+    updateData({productName: item.title});
+
+    updateData({stockxUrlKey: item.urlKey});
+  };
+
+  const [alreadySearched, setAlreadySearched] = useState(false);
   const debouncedSearchTerm = useDebounce(productName, 800); //set delay
   useEffect(() => {
-    if (debouncedSearchTerm && debouncedSearchTerm.length > 5) {
+    if (
+      !alreadySearched &&
+      debouncedSearchTerm &&
+      debouncedSearchTerm.length > 5
+    ) {
+      setAlreadySearched(true);
       fetchStockxData();
     }
   }, [debouncedSearchTerm]);
@@ -149,7 +165,6 @@ export const AddProductStepOne: FC<ProductStep> = props => {
         categoryData,
       )}
       <LSInput
-        //onBlurCall={() => fetchStockxData()}
         onChangeText={onSetProductName}
         horizontalSpace={'0'}
         value={productName}
@@ -160,7 +175,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
         <StockxSearchResults
           searchResults={searchResults}
           loading={loading}
-          onSelectResult={onSelectResult}
+          onSelectResult={onSetStockxUrlKey}
         />
       </Animated.View>
 
