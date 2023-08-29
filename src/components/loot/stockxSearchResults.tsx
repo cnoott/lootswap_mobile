@@ -30,11 +30,14 @@ interface StockxResultProps {
 //TODO: make sure the search can work more than once
 
 export const StockxSearchResults: FC<StockxResultProps> = props => {
-  const {searchResults = [], loading = true, onSelectResult} = props;
+  const {searchResults = [], loading = true, onSelectResult, selectedUrlKey} = props;
 
   const renderSearchResult = ({item, index}: any) => {
     return (
-      <ItemContainer key={index} onPress={() => onSelectResult(item)}>
+      <ItemContainer
+        key={index}
+        onPress={() => onSelectResult(item)}
+        isSelected={selectedUrlKey === item?.urlKey}>
         <ImageContainer>
           <Image source={{uri: item.thumbUrl}} />
         </ImageContainer>

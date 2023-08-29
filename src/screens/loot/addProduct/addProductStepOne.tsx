@@ -173,6 +173,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
       />
       <Animated.View style={{height, overflow: 'hidden'}}>
         <StockxSearchResults
+          selectedUrlKey={addProductData?.stepOne?.stockxUrlKey}
           searchResults={searchResults}
           loading={loading}
           onSelectResult={onSetStockxUrlKey}
