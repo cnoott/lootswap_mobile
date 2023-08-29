@@ -29,10 +29,16 @@ export const ItemContainer = styled.TouchableOpacity.attrs(props => ({
   mt: verticalScale(4),
   mx: 10,
   px: scale(8),
+  borderWidth: props?.isSelected ? 2 : 0,
+  borderRadius: 8,
+  overflow: 'hidden',
+  borderColor: props?.isSelected
+    ? props?.theme?.colors?.primary
+    : props?.theme?.colors?.white,
 }))`
   flex-direction: row;
   align-items: center;
-  ${layout} ${color} ${space};
+  ${layout} ${color} ${space} ${border};
 `;
 
 export const ImageContainer = styled.View.attrs(props => ({
