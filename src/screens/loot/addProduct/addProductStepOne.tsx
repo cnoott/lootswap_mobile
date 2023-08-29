@@ -73,9 +73,13 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     });
   };
 
-  const updateBrand = (brand: any) => {
+  const updateBrand = (stepOneValues: any, brand: any) => {
     updateProductData({
       ...addProductData,
+      stepOne: {
+        ...addProductData?.stepOne,
+        ...stepOneValues,
+      },
       stepTwo: {
         ...addProductData?.stepTwo,
         brand: {label: brand, value: brand},
@@ -104,15 +108,11 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   };
 
   const onSetStockxUrlKey = async (item: any) => {
-    await setTimeout(() => updateBrand(item.brand), 1000);
-    await updateData({
-      productName: item.title,
-      stockxUrlKey: item.urlKey,
-    });
+    updateBrand(
+      {productName: item.title, stockxUrlKey: item.urlKey},
+      item.brand,
+    );
     setProductName(item.title);
-    // Gotta do setTimeout because it
-    // overwrites the above updateData
-    // if not delayed.
   };
 
   const [alreadySearched, setAlreadySearched] = useState(false);
