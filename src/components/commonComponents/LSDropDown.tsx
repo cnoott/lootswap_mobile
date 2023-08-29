@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {Dropdown} from 'react-native-element-dropdown';
 import {
   DropdownStyle,
@@ -29,6 +29,10 @@ const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
     isSearch = false,
     onSelectItem = () => {},
   } = props;
+
+  useEffect(() => {
+    setValue(props.selectedValue);
+  }, [props.selectedValue]);
   return (
     <Dropdown
       style={[
