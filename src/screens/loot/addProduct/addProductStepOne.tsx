@@ -18,8 +18,6 @@ import useDebounce from '../../../utility/customHooks/useDebouncer';
 
 interface ProductStep {
   updateProductData: Function;
-  brandData: any;
-  setBrandData: Function;
 }
 
 export const AddProductStepOne: FC<ProductStep> = props => {
@@ -64,7 +62,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     addProductData?.stepOne?.size || null,
   );
 
-  const {updateProductData, setBrandData} = props;
+  const {updateProductData} = props;
   const updateData = (newData: any = {}) => {
     updateProductData({
       ...addProductData,
@@ -76,8 +74,6 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   };
 
   const updateBrand = (brand: any) => {
-    console.log('BRAND', brand);
-    setBrandData({value: brand, label: brand});
     updateProductData({
       ...addProductData,
       stepTwo: {
@@ -108,8 +104,8 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   };
 
   const onSetStockxUrlKey = async (item: any) => {
-    console.log("TEST", item);
-    updateData({
+    await setTimeout(() => updateBrand(item.brand), 1000);
+    await updateData({
       productName: item.title,
       stockxUrlKey: item.urlKey,
     });
@@ -117,7 +113,6 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     // Gotta do setTimeout because it
     // overwrites the above updateData
     // if not delayed.
-    setTimeout(() => updateBrand(item.brand), 1000);
   };
 
   const [alreadySearched, setAlreadySearched] = useState(false);
