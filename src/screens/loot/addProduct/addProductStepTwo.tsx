@@ -16,8 +16,6 @@ import {ADD_PRODUCT_TYPE} from 'custom_types';
 
 interface ProductStep {
   updateProductData: Function;
-  brandData: any;
-  setBrandData: Function;
 }
 
 export const AddProductStepTwo: FC<ProductStep> = props => {
@@ -26,6 +24,10 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
   );
 
   const categoryData = addProductData?.stepOne?.category;
+
+  const [brandData, setBrandData] = useState(
+    addProductData?.stepTwo?.brand || null,
+  );
 
   const [conditionData, setConditionData] = useState(
     addProductData?.stepTwo?.condition || null,
@@ -39,7 +41,7 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
     addProductData?.stepTwo?.productDescription || '',
   );
 
-  const {updateProductData, brandData, setBrandData} = props;
+  const {updateProductData} = props;
   const updateData = (newData: any = {}) => {
     updateProductData({
       ...addProductData,
@@ -93,12 +95,12 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
     <StepOneContainer>
       {renderDropdown(
         addProductData?.stepOne?.stockxUrlKey ?
-          brandData.value :
+          addProductData?.stepTwo?.brand.label :
           'Search Brand/Designer',
         true,
         brandsList,
         onSetBrandData,
-        brandData,
+        addProductData?.stepTwo?.brand,
       )}
       {renderDropdown(
         'Condition',

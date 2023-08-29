@@ -59,13 +59,6 @@ export const LootScreen: FC<any> = ({route}) => {
     dispatch(UpdateAddProductData(proData));
   };
 
-  // I have to initialize brand state outside
-  // its component because I need to be able to
-  // change the brand from stepOne and stepTwo
-  const [brandData, setBrandData] = useState(
-    addProductData?.stepTwo?.brand || null,
-  );
-
   const handleDone = () => {
     if (isLootEdit) {
       navigation.goBack();
@@ -147,21 +140,9 @@ export const LootScreen: FC<any> = ({route}) => {
       return [1, 2, 3, 4, 5].map(data => {
         switch (data) {
           case 1:
-            return (
-              <AddProductStepOne
-                updateProductData={updateProductData}
-                setBrandData={setBrandData}
-                brandData={brandData}
-              />
-            );
+            return <AddProductStepOne updateProductData={updateProductData} />
           case 2:
-            return (
-              <AddProductStepTwo
-                updateProductData={updateProductData}
-                setBrandData={setBrandData}
-                brandData={brandData}
-              />
-            );
+            return <AddProductStepTwo updateProductData={updateProductData} />
           case 3:
             return (
               <AddProductStepThree updateProductData={updateProductData} />
@@ -177,21 +158,9 @@ export const LootScreen: FC<any> = ({route}) => {
     } else {
       switch (editIndex) {
         case 1:
-          return (
-            <AddProductStepOne
-              updateProductData={updateProductData}
-              setBrandData={setBrandData}
-              brandData={brandData}
-            />
-          );
+          return <AddProductStepOne updateProductData={updateProductData} />
         case 2:
-          return (
-            <AddProductStepTwo
-              updateProductData={updateProductData}
-              setBrandData={setBrandData}
-              brandData={brandData}
-            />
-          );
+          return <AddProductStepTwo updateProductData={updateProductData} />
         case 3:
           return <AddProductStepThree updateProductData={updateProductData} />;
         case 4:
@@ -199,13 +168,7 @@ export const LootScreen: FC<any> = ({route}) => {
         case 5:
           return <AddProductStepFive updateProductData={updateProductData} />;
         default:
-          return (
-            <AddProductStepOne
-              updateProductData={updateProductData}
-              setBrandData={setBrandData}
-              brandData={brandData}
-            />
-          );
+          return <AddProductStepOne updateProductData={updateProductData} />
       }
     }
   };
