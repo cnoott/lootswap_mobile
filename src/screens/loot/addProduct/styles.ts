@@ -351,7 +351,7 @@ export const GreenBar = styled.View.attrs(props => ({
   backgroundColor: props.theme.colors.successColor,
 }))`
   flex: 1;
-  height: 10;
+  height: 8;
   margin-right: 4;
   ${color}
   ${space}
@@ -366,7 +366,7 @@ export const OrangeGradientBar = styled(LinearGradient).attrs(props => ({
   width: '40px',
 }))`
   flex: 2;
-  height: 10;
+  height: 8;
   margin-right: 4;
   ${color}
   ${space}
@@ -378,7 +378,7 @@ export const RedBar = styled.View.attrs(props => ({
   backgroundColor: props.theme.colors.danger,
 }))`
   flex: 1;
-  height: 10;
+  height: 8;
   margin-right: 4;
   ${color}
   ${space}
