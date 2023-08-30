@@ -13,6 +13,7 @@ import {
 } from './stockxSearchResultsStyles';
 import LSLoader from '../../components/commonComponents/LSLoader';
 import {ScrollView} from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 interface SearchResult {
   imgUrl: String;
@@ -45,7 +46,10 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
         onPress={() => onSelectResult(item)}
         isSelected={selectedUrlKey === item?.urlKey}>
         <ImageContainer>
-          <Image source={{uri: item.thumbUrl}} />
+          <Image
+            source={{uri: item.thumbUrl, priority: FastImage.priority.low}}
+            resizeMode={FastImage.resizeMode.contain}
+          />
         </ImageContainer>
         <TextContainer>
           <TitleText>{item.title}</TitleText>

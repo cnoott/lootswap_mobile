@@ -2,7 +2,7 @@
   LootSwap - ADD_PRODUCT STEP 1
  ***/
 
-import React, {FC, useState, useEffect, useRef} from 'react';
+import React, {FC, useState, useEffect, useRef, useCallback} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import LSDropDown from '../../../components/commonComponents/LSDropDown';
 import LSInput from '../../../components/commonComponents/LSInput';
@@ -15,6 +15,7 @@ import {StockxSearchResults} from '../../../components/loot/stockxSearchResults'
 import {searchStockx} from '../../../redux/modules';
 import {Animated, Dimensions} from 'react-native';
 import useDebounce from '../../../utility/customHooks/useDebouncer';
+
 
 interface ProductStep {
   updateProductData: Function;
@@ -115,20 +116,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     setProductName(item.title);
   };
 
-  const [alreadySearched, setAlreadySearched] = useState(false);
-  const debouncedSearchTerm = useDebounce(productName, 800); //set delay
-  useEffect(() => {
-    if (
-      !alreadySearched &&
-      debouncedSearchTerm &&
-      debouncedSearchTerm.length > 5
-    ) {
-      setAlreadySearched(true);
-      fetchStockxData();
-    }
-  }, [debouncedSearchTerm]);
-
-  const fetchStockxData = () => {
+  const fetchStockxData = useCallback(() => {
     if (categoryData?.value !== 'shoes') {
       return;
     }
@@ -151,7 +139,26 @@ export const AddProductStepOne: FC<ProductStep> = props => {
         },
       ),
     );
-  };
+  }, [
+    categoryData?.value,
+    dispatch,
+    handleDrawerAnimation,
+    productName,
+    userData?._id,
+  ]);
+
+  const [alreadySearched, setAlreadySearched] = useState(false);
+  const debouncedSearchTerm = useDebounce(productName, 800); //set delay
+  useEffect(() => {
+    if (
+      !alreadySearched &&
+      debouncedSearchTerm &&
+      debouncedSearchTerm.length > 5
+    ) {
+      setAlreadySearched(true);
+      fetchStockxData();
+    }
+  }, [debouncedSearchTerm, alreadySearched, fetchStockxData]);
 
   const renderDropdown = (
     dropdownLabel: string,

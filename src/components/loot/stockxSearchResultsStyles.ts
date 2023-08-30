@@ -2,6 +2,7 @@ import {moderateScale, verticalScale, scale} from 'react-native-size-matters';
 import styled from 'styled-components/native';
 import {layout, space, color, border} from 'styled-system';
 import {Dimensions} from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 const height = Dimensions.get('window').height;
 
@@ -52,7 +53,7 @@ export const ImageContainer = styled.View.attrs(props => ({
   ${layout} ${color} ${space} ${border};
 `;
 
-export const Image = styled.Image.attrs(() => ({
+export const Image = styled(FastImage).attrs(() => ({
   resizeMode: 'contain',
   width: verticalScale(40),
   height: verticalScale(40),
