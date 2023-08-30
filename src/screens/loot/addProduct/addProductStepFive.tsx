@@ -9,6 +9,7 @@ import {
   Container,
   HorizontalSpace,
   TradeOptionsText,
+  MarketRangeText,
   Divider,
   ShippingDes,
   TouchableRow,
@@ -16,6 +17,15 @@ import {
   FreeTagContainer,
   FreeTag,
   FreeShippingDes,
+  RangeBarContainer,
+  GreenBar,
+  MedianDotContainer,
+  MedianContainer,
+  MedianDot,
+  MedianTextContainer,
+  MedianText,
+  RedBar,
+  OrangeGradientBar,
 } from './styles';
 import {
   DOLLOR_TEXT,
@@ -104,6 +114,31 @@ export const AddProductStepFive: FC<ProductStep> = props => {
       </HorizontalSpace>
     );
   };
+
+  const renderMarketRange = () => {
+    return (
+      <HorizontalSpace>
+        <Divider />
+        <TradeOptionsText>
+          Estimated Market Range: <MarketRangeText>$500 - $525</MarketRangeText>
+        </TradeOptionsText>
+        <MedianContainer>
+          <MedianTextContainer>
+            <MedianText> Median: $500 </MedianText>
+          </MedianTextContainer>
+        </MedianContainer>
+        <RangeBarContainer>
+          <GreenBar />
+          <OrangeGradientBar />
+          <RedBar />
+          <MedianDotContainer>
+            <MedianDot/>
+          </MedianDotContainer>
+        </RangeBarContainer>
+      </HorizontalSpace>
+    );
+  };
+
   return (
     <Container>
       <HorizontalSpace>
@@ -119,6 +154,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
         keyboardType={'numeric'}
         onBlurCall={onBlurCall}
       />
+      {renderMarketRange()}
       {renderShippingView()}
       {!stepFive?.isFreeShipping && (
         <>

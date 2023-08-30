@@ -41,7 +41,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     outputRange: [0, drawerWidth]
   });
 
-  const handleDrawerAnimation = () => {
+  const handleDrawerAnimation = useCallback(() => {
     if (isOpen) return;
     Animated.timing(animation, {
       toValue: isOpen ? 0 : 1,
@@ -49,7 +49,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
       useNativeDriver: false
     }).start();
     setIsOpen(!isOpen);
-  };
+  }, [animation, isOpen]);
 
   const [categoryData, setCategoryData] = useState(
     addProductData?.stepOne?.category || null,

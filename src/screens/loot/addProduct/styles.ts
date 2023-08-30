@@ -4,6 +4,7 @@ import {layout, space, color, border} from 'styled-system';
 import {Dimensions} from 'react-native';
 import {DraggableGrid} from 'react-native-draggable-grid';
 import FastImage from 'react-native-fast-image';
+import LinearGradient from 'react-native-linear-gradient';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -321,18 +322,127 @@ export const TradeOptionsText = styled.Text.attrs(props => ({
   my: scale(10),
 }))`
   font-size: ${moderateScale(18)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 700;
   ${color}
   ${space}
 `;
+export const MarketRangeText = styled.Text.attrs(props => ({
+  color: props.theme.colors.successColor,
+}))`
+  font-size: ${moderateScale(18)}px;
+  font-family: Urbanist-Bold;
+  font-weight: 800;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const RangeBarContainer = styled.View.attrs(props => ({
+}))`
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  justify-content: space-between;
+`;
+
+export const GreenBar = styled.View.attrs(props => ({
+  borderRadius: 12,
+  backgroundColor: props.theme.colors.successColor,
+}))`
+  flex: 1;
+  height: 10;
+  margin-right: 4;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const OrangeGradientBar = styled(LinearGradient).attrs(props => ({
+  colors: ['yellow', 'orange'],
+  start: { x: 0, y: 0 },
+  end: { x: 1, y: 0 },
+  borderRadius: 12,
+  width: '40px',
+}))`
+  flex: 2;
+  height: 10;
+  margin-right: 4;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const RedBar = styled.View.attrs(props => ({
+  borderRadius: 12,
+  backgroundColor: props.theme.colors.danger,
+}))`
+  flex: 1;
+  height: 10;
+  margin-right: 4;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const MedianDotContainer = styled.View.attrs(props => ({
+  transform: [{translateX: -7.5}], // translate by half of the width
+}))`
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  left: 50%;
+  background-color: black;
+  border-radius: 7.5px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const MedianDot = styled.View.attrs(props => ({
+  alignSelf: 'center',
+}))`
+  width: 6;
+  height: 6;
+  border-radius: 10;
+  background-color: white;
+`;
+
+export const MedianContainer = styled.View.attrs(props => ({
+}))`
+  justify-content: center;
+  align-items:center;
+`;
+
+export const MedianTextContainer = styled.View.attrs(props => ({
+  borderRadius: 20,
+}))`
+  justify-content: center;
+  align-items: center;
+  margin-bottom: ${verticalScale(8)}px;
+  width: ${moderateScale(94)}px;
+  height: ${moderateScale(29)}px;
+  background-color: black;
+  ${layout} ${space} ${border}
+`;
+
+export const MedianText = styled.Text.attrs(props => ({
+}))`
+  text-align: center;
+  color: white;
+  font-size: ${moderateScale(13)}px;
+  font-family: Urbanist-Bold;
+  font-weight: 700;
+  ${color}
+  ${space}
+`;
+
 
 export const ShippingOptionsText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
   ml: scale(10),
 }))`
   font-size: ${moderateScale(18)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 700;
   ${color}
   ${space}
@@ -356,7 +466,7 @@ export const TradeButtonText = styled.Text.attrs(props => ({
   color: props?.selected ? props.theme.colors.white : props.theme.colors.black,
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 500;
   ${color}
   ${space}
@@ -368,7 +478,7 @@ export const ShippingDes = styled.Text.attrs(props => ({
   color: props.theme.colors.lightGrey,
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   ${color}
   ${space}
 `;
@@ -401,7 +511,7 @@ export const FreeTag = styled.Text.attrs(() => ({
   color: '#4AAF57',
 }))`
   font-size: ${moderateScale(10)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
 `;
@@ -412,7 +522,7 @@ export const FreeShippingDes = styled.Text.attrs(props => ({
   mt: 1,
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   font-weight: 300 ${color} ${space};
 `;
 
@@ -460,7 +570,7 @@ export const IndexLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.white,
 }))`
   font-size: ${moderateScale(12)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 600 ${color} ${space};
 `;
 
