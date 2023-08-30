@@ -25,12 +25,18 @@ interface StockxResultProps {
   searchResults: SearchResult[];
   loading: Boolean;
   onSelectResult: Function;
+  selectedUrlKey: any;
 }
 
 //TODO: make sure the search can work more than once
 
 export const StockxSearchResults: FC<StockxResultProps> = props => {
-  const {searchResults = [], loading = true, onSelectResult, selectedUrlKey} = props;
+  const {
+    searchResults = [],
+    loading = true,
+    onSelectResult,
+    selectedUrlKey,
+  } = props;
 
   const renderSearchResult = ({item, index}: any) => {
     return (

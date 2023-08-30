@@ -138,11 +138,11 @@ export const AddProductStepOne: FC<ProductStep> = props => {
       userId: userData?._id,
       query: productName,
     };
+    setIsLoading(true);
     dispatch(
       searchStockx(
         reqData,
         (res: any) => {
-          console.log('response', res);
           setSearchResults(res);
           setIsLoading(false);
         },
