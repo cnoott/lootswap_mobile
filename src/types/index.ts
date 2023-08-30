@@ -63,6 +63,9 @@ export type PRODUCT_STEP_FIVE_TYPE = {
   shippingCost?: Number;
   isShippingPrice?: boolean;
   isFreeShipping?: boolean;
+  median?: Number;
+  startRange?: Number;
+  endRange?: Number;
 };
 
 export type ADD_PRODUCT_TYPE = {

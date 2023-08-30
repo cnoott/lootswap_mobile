@@ -4,6 +4,7 @@ import {
   GET_PRODUCT_LISTED_ITEMS,
   SEND_TRADE_OFFER,
   CREATE_NEW_PRODUCT,
+  FETCH_MARKET_DATA,
   GENERATE_LINK_PAYPAL,
   SAVE_PAYPAL,
   DELETE_PRODUCT,
@@ -93,6 +94,26 @@ export const createNewProductSuccess = () => {
 export const createNewProductFailure = () => {
   return {
     type: CREATE_NEW_PRODUCT.FAILURE,
+  };
+};
+
+export const fetchMarketData = (reqData: any, errorCallBack: Function) => {
+  return {
+    type: FETCH_MARKET_DATA.REQUEST,
+    reqData: reqData,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const fetchMarketDataSuccess = () => {
+  return {
+    type: FETCH_MARKET_DATA.SUCCESS,
+  };
+};
+
+export const fetchMarketDataFailure = () => {
+  return {
+    type: FETCH_MARKET_DATA.FAILURE,
   };
 };
 

@@ -100,6 +100,10 @@ export const CREATE_NEW_PRODUCT = {
   ...createActionConst(actions.CREATE_NEW_PRODUCT),
 };
 
+export const FETCH_MARKET_DATA = {
+  ...createActionConst(actions.FETCH_MARKET_DATA),
+};
+
 export const ACCEPT_TRADE_CHECKOUT = {
   ...createActionConst(actions.ACCEPT_TRADE_CHECKOUT),
 };

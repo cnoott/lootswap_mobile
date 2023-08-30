@@ -151,6 +151,13 @@ export const createNewProductCall = (reqData: any) => {
   );
 };
 
+export const fetchMarketDataCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/market-data/${reqData.userId}`, reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const updateProductCall = (reqData: any) => {
   return handleResponse(
     api.put(`/product/${reqData?.productIdToUpdate}/${reqData?.userId}`, {

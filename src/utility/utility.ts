@@ -352,28 +352,44 @@ export const conditionList = [
 ];
 
 export const shoesSizeList = [
-  {label: '3.5', value: '3.5'},
-  {label: '4', value: '4'},
-  {label: '4.5', value: '4.5'},
-  {label: '5', value: '5'},
-  {label: '5.5', value: '5.5'},
-  {label: '6', value: '6'},
-  {label: '6.5', value: '6.5'},
-  {label: '7', value: '7'},
-  {label: '7.5', value: '7.5'},
-  {label: '8', value: '8'},
-  {label: '8.5', value: '8.5'},
-  {label: '9', value: '9'},
-  {label: '9.5', value: '9.5'},
-  {label: '10', value: '10'},
-  {label: '10.5', value: '10.5'},
-  {label: '11', value: '11'},
-  {label: '11.5', value: '11.5'},
-  {label: '12', value: '12'},
-  {label: '12.5', value: '12.5'},
-  {label: '13', value: '13'},
-  {label: '13.5', value: '13.5'},
-  {label: '14', value: '14'},
+  {label: '3.5M', value: '3.5'},
+  {label: '4M', value: '4'},
+  {label: '4.5M', value: '4.5'},
+  {label: '5M', value: '5'},
+  {label: '5.5M', value: '5.5'},
+  {label: '6M', value: '6'},
+  {label: '6.5M', value: '6.5'},
+  {label: '7M', value: '7'},
+  {label: '7.5M', value: '7.5'},
+  {label: '8M', value: '8'},
+  {label: '8.5M', value: '8.5'},
+  {label: '9M', value: '9'},
+  {label: '9.5M', value: '9.5'},
+  {label: '10M', value: '10'},
+  {label: '10.5M', value: '10.5'},
+  {label: '11M', value: '11'},
+  {label: '11.5M', value: '11.5'},
+  {label: '12M', value: '12'},
+  {label: '12.5M', value: '12.5'},
+  {label: '13M', value: '13'},
+  {label: '13.5M', value: '13.5'},
+
+  {label: '5W', value: '5W'},
+  {label: '5.5W', value: '5.5W'},
+  {label: '6W', value: '6W'},
+  {label: '6.5W', value: '6.5W'},
+  {label: '7W', value: '7W'},
+  {label: '7.5W', value: '7.5W'},
+  {label: '8W', value: '8W'},
+  {label: '8.5W', value: '8.5W'},
+  {label: '9W', value: '9W'},
+  {label: '9.5W', value: '9.5W'},
+  {label: '10W', value: '10W'},
+  {label: '10.5W', value: '10.5W'},
+  {label: '11W', value: '11W'},
+  {label: '11.5W', value: '11.5W'},
+  {label: '12W', value: '12W'},
+  {label: '13W', value: '13W'},
 ];
 
 export const upperClothingSize = [
@@ -1125,4 +1141,11 @@ export const isAlreadyTrading = (
     }
   }
   return false;
+};
+
+export const findMarketDataFromSize = (stockxProduct: any, size: string) => {
+  console.log('finding', size);
+  return stockxProduct.sizes.find(
+    sizeMarketData => sizeMarketData.sizeUS === size
+  );
 };

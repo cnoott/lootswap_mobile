@@ -75,6 +75,9 @@ declare module 'custom_types' {
     shippingCost?: Number;
     isShippingPrice?: boolean;
     isFreeShipping?: boolean;
+    median?: Number;
+    startRange?: Number;
+    endRange?: Number;
   };
   export type ADD_PRODUCT_TYPE = {
     stepOne?: PRODUCT_STEP_ONE_TYPE;
