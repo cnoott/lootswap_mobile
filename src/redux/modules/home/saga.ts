@@ -4,6 +4,7 @@ import {
   GET_PRODUCT_LISTED_ITEMS,
   SEND_TRADE_OFFER,
   CREATE_NEW_PRODUCT,
+  FETCH_MARKET_DATA,
   GENERATE_LINK_PAYPAL,
   SAVE_PAYPAL,
   DELETE_PRODUCT,
@@ -13,6 +14,8 @@ import {
   getProductDetailsSuccess,
   getProductDetailsFailure,
   createNewProductSuccess,
+  fetchMarketDataSuccess,
+  fetchMarketDataFailure,
   createNewProductFailure,
   resetAddProductData,
 } from './actions';
@@ -21,6 +24,7 @@ import {
   getProductListedItemsForOfferCall,
   sendTradeOfferCall,
   createNewProductCall,
+  fetchMarketDataCall,
   updateProductCall,
   generateLinkPaypalCall,
   savePaypalCall,
@@ -114,6 +118,23 @@ export function* createNewProduct(action: any) {
       yield put(createNewProductSuccess());
     } else {
       yield put(createNewProductFailure());
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
+export function* fetchMarketData(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      fetchMarketDataCall,
+      action?.reqData,
+    );
+    if (response.success) {
+      yield put(fetchMarketDataSuccess());
+    } else {
+      action?.errorCallBack();
     }
   } catch (e) {
     action?.errorCallBack();

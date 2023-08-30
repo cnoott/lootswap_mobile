@@ -83,6 +83,7 @@ export const LootScreen: FC<any> = ({route}) => {
       Alert.showError('Please fill all information');
     }
   }, [currIndex, addProductData, navigation]);
+
   const handleBack = useCallback(() => {
     if (currIndex !== 0) {
       swiperRef?.current?.scrollTo(currIndex - 1);
