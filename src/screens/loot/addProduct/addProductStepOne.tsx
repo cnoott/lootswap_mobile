@@ -148,7 +148,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   ]);
 
   const [alreadySearched, setAlreadySearched] = useState(false);
-  const debouncedSearchTerm = useDebounce(productName, 800); //set delay
+  const debouncedSearchTerm = useDebounce(productName, 1200); //set delay
   useEffect(() => {
     if (
       !alreadySearched &&
