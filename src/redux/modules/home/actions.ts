@@ -105,9 +105,10 @@ export const fetchMarketData = (reqData: any, errorCallBack: Function) => {
   };
 };
 
-export const fetchMarketDataSuccess = () => {
+export const fetchMarketDataSuccess = (payload: any) => {
   return {
     type: FETCH_MARKET_DATA.SUCCESS,
+    payload,
   };
 };
 

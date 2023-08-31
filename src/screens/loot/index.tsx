@@ -7,6 +7,7 @@ import {Keyboard} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useSelector, useDispatch} from 'react-redux';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 import AddProductStepOne from './addProduct/addProductStepOne';
 import AddProductStepTwo from './addProduct/addProductStepTwo';
 import AddProductStepThree from './addProduct/addProductStepThree';
@@ -34,6 +35,7 @@ import {
 import {HomeProps} from '../../redux/modules/home/reducer';
 import {
   UpdateAddProductData,
+  fetchMarketData,
   //getUsersDetailsRequest,
 } from '../../redux/modules';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
@@ -44,6 +46,8 @@ export const LootScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const dispatch = useDispatch();
   const homeData: HomeProps = useSelector(state => state?.home);
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData} = auth;
   const swiperRef = useRef<any>(null);
   const {addProductData} = homeData;
   const {
@@ -70,8 +74,24 @@ export const LootScreen: FC<any> = ({route}) => {
   const handleNext = useCallback(async () => {
     Keyboard.dismiss();
     const canGoNext = validateCreateProductData(currIndex + 1, addProductData);
+    const fetchedMakretData = addProductData?.stepFive?.median;
     if (canGoNext) {
-      if (currIndex === 3 && addProductData?.stepFour?.tradeOptions?.isTradeOnly) {
+      if (
+        currIndex === 0 &&
+        addProductData?.stepOne?.stockxUrlKey &&
+        !fetchedMakretData
+      ) {
+        const reqData = {
+          userId: userData?._id,
+          stockxUrlKey: addProductData?.stepOne?.stockxUrlKey,
+          name: addProductData?.stepOne?.productName,
+        };
+        dispatch(fetchMarketData(reqData, err => console.log('ERR ==>', err)));
+      }
+      if (
+        currIndex === 3 &&
+        addProductData?.stepFour?.tradeOptions?.isTradeOnly
+      ) {
         navigation.navigate('AddProductOverviewScreen');
         return;
       }

@@ -119,12 +119,12 @@ export const AddProductStepFive: FC<ProductStep> = props => {
     return (
       <HorizontalSpace>
         <Divider />
-        <TradeOptionsText>
-          Estimated Market Range: <MarketRangeText>$500 - $525</MarketRangeText>
-        </TradeOptionsText>
+        <TradeOptionsText>Estimated Market Range: <MarketRangeText>${stepFive?.startRange} - ${stepFive?.endRange}</MarketRangeText></TradeOptionsText>
         <MedianContainer>
           <MedianTextContainer>
-            <MedianText> Median: $500 </MedianText>
+            <MedianText>
+              Last Sale: ${addProductData?.stepFive?.median}
+            </MedianText>
           </MedianTextContainer>
         </MedianContainer>
         <RangeBarContainer>
@@ -154,7 +154,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
         keyboardType={'numeric'}
         onBlurCall={onBlurCall}
       />
-      {renderMarketRange()}
+      {stepFive?.median && renderMarketRange()}
       {renderShippingView()}
       {!stepFive?.isFreeShipping && (
         <>
