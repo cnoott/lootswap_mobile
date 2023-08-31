@@ -44,6 +44,7 @@ export type PRODUCT_STEP_ONE_TYPE = {
   productName?: string;
   size?: DROPDOWN_TYPE;
   stockxUrlKey?: string;
+  stockxId?: string;
 };
 
 export type PRODUCT_STEP_TWO_TYPE = {

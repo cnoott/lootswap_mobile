@@ -62,6 +62,10 @@ export default function loading(state = InitialState, action: ActionProps) {
             startRange: Math.floor(startRange),
             endRange: Math.floor(endRange),
           },
+          stepOne: {
+            ...state.addProductData.stepOne,
+            stockxId: payload._id,
+          },
         },
       };
     }
