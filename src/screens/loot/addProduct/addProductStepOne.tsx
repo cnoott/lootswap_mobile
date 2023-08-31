@@ -15,6 +15,7 @@ import {StockxSearchResults} from '../../../components/loot/stockxSearchResults'
 import {searchStockx} from '../../../redux/modules';
 import {Animated, Dimensions} from 'react-native';
 import useDebounce from '../../../utility/customHooks/useDebouncer';
+import { setListener } from 'appcenter-crashes';
 
 interface ProductStep {
   updateProductData: Function;
@@ -99,10 +100,6 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   };
 
   const onSetProductName = (item: any) => {
-    if (item.length < 4) {
-      setAlreadySearched(false);
-    }
-
     setProductName(item);
     updateData({productName: item});
   };
@@ -151,18 +148,18 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     userData?._id,
   ]);
 
-  const [alreadySearched, setAlreadySearched] = useState(false);
-  const debouncedSearchTerm = useDebounce(productName, 1200); //set delay
+  const debouncedSearchTerm = useDebounce(productName, 1300); //set delay
+  const lastSearchedTerm = useRef('');
   useEffect(() => {
     if (
-      !alreadySearched &&
       debouncedSearchTerm &&
-      debouncedSearchTerm.length > 5
+      debouncedSearchTerm.length > 5 &&
+      debouncedSearchTerm !== lastSearchedTerm.current
     ) {
-      setAlreadySearched(true);
+      lastSearchedTerm.current = debouncedSearchTerm;
       fetchStockxData();
     }
-  }, [debouncedSearchTerm, alreadySearched, fetchStockxData]);
+  }, [debouncedSearchTerm, fetchStockxData]);
 
   const renderDropdown = (
     dropdownLabel: string,
