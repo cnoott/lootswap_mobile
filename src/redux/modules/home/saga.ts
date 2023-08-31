@@ -132,7 +132,7 @@ export function* fetchMarketData(action: any) {
       action?.reqData,
     );
     if (response.success) {
-      yield put(fetchMarketDataSuccess());
+      yield put(fetchMarketDataSuccess(response.data));
     } else {
       action?.errorCallBack();
     }
@@ -226,6 +226,7 @@ export default function* authSaga() {
   );
   yield takeLatest(SEND_TRADE_OFFER.REQUEST, sendTradeOffer);
   yield takeLatest(CREATE_NEW_PRODUCT.REQUEST, createNewProduct);
+  yield takeLatest(FETCH_MARKET_DATA.REQUEST, fetchMarketData);
   yield takeLatest(GENERATE_LINK_PAYPAL.REQUEST, generateLinkPaypal);
   yield takeLatest(SAVE_PAYPAL.REQUEST, savePaypal);
   yield takeLatest(DELETE_PRODUCT.REQUEST, deleteProduct);

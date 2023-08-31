@@ -60,7 +60,7 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
   const onSetConditionData = (item: any) => {
     setConditionData(item);
     updateData({condition: item});
-    console.log(addProductData?.stepTwo?.brand);
+    console.log(addProductData?.stepFive?.median);
   };
 
   const onSetPreOwnedCondition = (item: any) => {

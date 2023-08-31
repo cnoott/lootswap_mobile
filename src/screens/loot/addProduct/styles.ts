@@ -419,7 +419,7 @@ export const MedianTextContainer = styled.View.attrs(props => ({
   justify-content: center;
   align-items: center;
   margin-bottom: ${verticalScale(8)}px;
-  width: ${moderateScale(94)}px;
+  width: ${moderateScale(100)}px;
   height: ${moderateScale(29)}px;
   background-color: black;
   ${layout} ${space} ${border}

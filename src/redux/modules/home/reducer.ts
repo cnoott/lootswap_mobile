@@ -45,11 +45,13 @@ export default function loading(state = InitialState, action: ActionProps) {
       };
     }
     case FETCH_MARKET_DATA.SUCCESS: {
+      console.log(payload);
       const sizeData = findMarketDataFromSize(
         payload,
         state.addProductData.stepOne.size.value,
       );
-      
+      const startRange = sizeData.lastSale - sizeData.lastSale * 0.05
+      const endRange = sizeData.lastSale + sizeData.lastSale * 0.05
       return {
         ...state,
         addProductData: {
@@ -57,8 +59,8 @@ export default function loading(state = InitialState, action: ActionProps) {
           stepFive: {
             ...state.addProductData.stepFive,
             median: sizeData.lastSale,
-            startRange: sizeData.lastSale,
-            endRange: sizeData.lastSale,
+            startRange: Math.floor(startRange),
+            endRange: Math.floor(endRange),
           },
         },
       };
