@@ -93,9 +93,9 @@ export const ContainerTitle = styled.Text.attrs(props => ({
 
 export const TitleText = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
-  numberOfLines: 1,
-  ellipsizeMode: 'tail',
+  numberOfLines: 2,
   mt: verticalScale(5),
+  ml: 2,
 }))`
   font-size: ${moderateScale(13)}px;
   font-family: Urbanist;

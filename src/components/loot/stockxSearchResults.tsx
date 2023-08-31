@@ -54,7 +54,6 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
         <TextContainer>
           <TitleText>{item.title}</TitleText>
           <BrandContainer>
-            <BrandResultText>{item.brand}</BrandResultText>
           </BrandContainer>
         </TextContainer>
       </ItemContainer>
