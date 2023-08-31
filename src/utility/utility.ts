@@ -502,6 +502,7 @@ export const getAddProductRawData = () => {
       productName: '',
       size: null,
       stockxUrlKey: null,
+      stockxId: null,
     },
     stepTwo: {
       brand: null,
