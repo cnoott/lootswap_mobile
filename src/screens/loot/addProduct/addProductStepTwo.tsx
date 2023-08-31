@@ -79,6 +79,7 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
     dropDowndata: any,
     selectItemFunction: Function,
     selectedValue: any,
+    disabled: boolean = false,
   ) => {
     return (
       <LSDropDown
@@ -87,6 +88,7 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
         isSearch={isSearch}
         onSelectItem={selectItemFunction}
         selectedValue={selectedValue}
+        disabled={disabled}
       />
     );
   };
@@ -101,6 +103,7 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
         brandsList,
         onSetBrandData,
         addProductData?.stepTwo?.brand,
+        addProductData?.stepOne?.stockxUrlKey
       )}
       {renderDropdown(
         'Condition',

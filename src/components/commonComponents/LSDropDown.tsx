@@ -18,6 +18,7 @@ interface LSLSDropDownProps {
   isSearch?: boolean;
   onSelectItem?: Function;
   selectedValue?: any;
+  disabled?: boolean;
 }
 
 const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
@@ -28,6 +29,7 @@ const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
     itemsList = [],
     isSearch = false,
     onSelectItem = () => {},
+    disabled = false,
   } = props;
 
   useEffect(() => {
@@ -66,6 +68,7 @@ const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
         ) : null
       }
       autoScroll={false}
+      disable={disabled}
     />
   );
 });
