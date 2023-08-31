@@ -10,10 +10,12 @@ import {
   BrandContainer,
   BrandText,
   BrandResultText,
+  TitleContainer,
 } from './stockxSearchResultsStyles';
 import LSLoader from '../../components/commonComponents/LSLoader';
 import {ScrollView} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import Tooltip from '../../components/tooltip/tooltip';
 
 interface SearchResult {
   imgUrl: String;
@@ -65,7 +67,14 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
       showsVerticalScrollIndicator={true}
       contentContainerStyle={{flexGrow: 1}}>
       <Container>
-        <ContainerTitle>Select Product</ContainerTitle>
+        <TitleContainer>
+          <ContainerTitle>Select Product</ContainerTitle>
+          <Tooltip
+            text={
+            'By selecting one of the products in the dropdown, you link your listing to our real-time market price database. This will help you better price your item, as well as prevent others from sending you unfair offers.'
+            }
+          />
+        </TitleContainer>
         {!loading && searchResults.length === 0 && 'No products found'}
         {searchResults.map((item, index) => renderSearchResult({item, index}))}
       </Container>
