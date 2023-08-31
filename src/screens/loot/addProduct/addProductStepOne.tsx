@@ -16,7 +16,6 @@ import {searchStockx} from '../../../redux/modules';
 import {Animated, Dimensions} from 'react-native';
 import useDebounce from '../../../utility/customHooks/useDebouncer';
 
-
 interface ProductStep {
   updateProductData: Function;
 }
