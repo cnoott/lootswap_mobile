@@ -66,7 +66,7 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
       showsVerticalScrollIndicator={true}
       contentContainerStyle={{flexGrow: 1}}>
       <Container>
-        <ContainerTitle>Autofill Product Info</ContainerTitle>
+        <ContainerTitle>Select Product</ContainerTitle>
         {!loading && searchResults.length === 0 && 'No products found'}
         {searchResults.map((item, index) => renderSearchResult({item, index}))}
       </Container>
