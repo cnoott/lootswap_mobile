@@ -35,6 +35,7 @@ import {
 } from 'localsvgimages';
 import {useSelector} from 'react-redux';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
+import {ScrollView} from 'react-native';
 
 interface ProductStep {
   updateProductData: Function;
@@ -141,38 +142,40 @@ export const AddProductStepFive: FC<ProductStep> = props => {
 
   return (
     <Container>
-      <HorizontalSpace>
-        <TradeOptionsText>Price</TradeOptionsText>
-      </HorizontalSpace>
-      <LSInput
-        onChangeText={setPrice}
-        placeholder={'0.00'}
-        horizontalSpace={20}
-        topSpace={1}
-        rightIcon={USD_TEXT}
-        leftIcon={DOLLOR_TEXT}
-        keyboardType={'numeric'}
-        onBlurCall={onBlurCall}
-      />
-      {stepFive?.median && renderMarketRange()}
-      {renderShippingView()}
-      {!stepFive?.isFreeShipping && (
-        <>
-          <HorizontalSpace>
-            <TradeOptionsText>Shipping Cost</TradeOptionsText>
-          </HorizontalSpace>
-          <LSInput
-            onChangeText={setShippingCost}
-            placeholder={'0.00'}
-            horizontalSpace={20}
-            topSpace={1}
-            rightIcon={USD_TEXT}
-            leftIcon={DOLLOR_TEXT}
-            keyboardType={'numeric'}
-            onBlurCall={onBlurCall}
-          />
-        </>
-      )}
+      <ScrollView>
+        <HorizontalSpace>
+          <TradeOptionsText>Price</TradeOptionsText>
+        </HorizontalSpace>
+        <LSInput
+          onChangeText={setPrice}
+          placeholder={'0.00'}
+          horizontalSpace={20}
+          topSpace={1}
+          rightIcon={USD_TEXT}
+          leftIcon={DOLLOR_TEXT}
+          keyboardType={'numeric'}
+          onBlurCall={onBlurCall}
+        />
+        {stepFive?.median && renderMarketRange()}
+        {renderShippingView()}
+        {!stepFive?.isFreeShipping && (
+          <>
+            <HorizontalSpace>
+              <TradeOptionsText>Shipping Cost</TradeOptionsText>
+            </HorizontalSpace>
+            <LSInput
+              onChangeText={setShippingCost}
+              placeholder={'0.00'}
+              horizontalSpace={20}
+              topSpace={1}
+              rightIcon={USD_TEXT}
+              leftIcon={DOLLOR_TEXT}
+              keyboardType={'numeric'}
+              onBlurCall={onBlurCall}
+            />
+          </>
+        )}
+      </ScrollView>
     </Container>
   );
 };
