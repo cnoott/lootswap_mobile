@@ -117,6 +117,7 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
     const reqData: any = {
       name: stepOne?.productName,
       stockxUrlKey: stepOne?.stockxUrlKey,
+      stockxId: stepOne?.stockxId,
       userId: userData?._id,
       description: stepTwo?.productDescription,
       condition: stepTwo?.condition?.value,
