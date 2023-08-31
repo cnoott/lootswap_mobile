@@ -108,6 +108,11 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   };
 
   const onSetStockxUrlKey = async (item: any) => {
+    if (item.urlKey === addProductData?.stepOne?.stockxUrlKey) {
+      updateBrand({productName: '', stockxUrlKey: null}, null);
+      setProductName('');
+      return;
+    }
     updateBrand(
       {productName: item.title, stockxUrlKey: item.urlKey},
       item.brand,

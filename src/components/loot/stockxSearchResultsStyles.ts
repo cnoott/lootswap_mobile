@@ -91,6 +91,16 @@ export const ContainerTitle = styled.Text.attrs(props => ({
   ${layout}
 `;
 
+export const TitleContainer = styled.View.attrs(() => ({
+  flex: 1,
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
 export const TitleText = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
   numberOfLines: 2,

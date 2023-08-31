@@ -48,7 +48,7 @@ export const UserNameText = styled.Text.attrs(props => ({
   maxWidth: scale(185),
 }))`
   font-size: ${moderateScale(15)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
@@ -59,7 +59,7 @@ export const RatingText = styled.Text.attrs(props => ({
   my: scale(10),
 }))`
   font-size: ${moderateScale(13)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   ${color}
   ${space}
   ${layout}
@@ -70,7 +70,7 @@ export const TimeText = styled.Text.attrs(props => ({
   mb: scale(10),
 }))`
   font-size: ${moderateScale(10)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   ${color}
   ${space}
   ${layout}
