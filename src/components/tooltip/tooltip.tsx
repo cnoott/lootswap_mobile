@@ -15,7 +15,7 @@ interface TooltipProps {
 
 const Tooltip = (props: TooltipProps) => {
   const {text} = props;
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <>
