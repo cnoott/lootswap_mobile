@@ -55,18 +55,21 @@ export const AddProductStepFive: FC<ProductStep> = props => {
 
   const handleSetPrice = (priceInput: any) => {
     setPrice(priceInput);
-    const converted = parseFloat(priceInput);
+    const converted = priceInput;
     const lastSalePrice = addProductData?.stepFive?.median;
-    const dotPositionCalc =
-      ((converted - 0.5 * lastSalePrice) / lastSalePrice) * 100;
+
+    // Updated calculation based on 10% range
+    const dotPositionCalc = ((converted - 0.9 * lastSalePrice) / (0.2 * lastSalePrice)) * 100;
+
     const positionWithBounds = Math.max(0, Math.min(100, dotPositionCalc));
     setDotPosition(positionWithBounds);
 
-    const maxSalePrice = lastSalePrice + lastSalePrice * 0.5;
+    // Updated maxSalePrice based on 10%
+    const maxSalePrice = lastSalePrice + lastSalePrice * 0.1;
     if (priceInput >= maxSalePrice) {
-      setDotText(`High $${maxSalePrice}`);
+        setDotText(`High $${maxSalePrice.toFixed(2)}`);  // Added toFixed(2) for currency formatting
     } else {
-      setDotText('$' + priceInput);
+        setDotText('$' + priceInput);
     }
   };
   const {updateProductData} = props;
@@ -93,7 +96,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
     return (
       <HorizontalSpace>
         <Divider />
-        <TradeOptionsText>Shipping</TradeOptionsText>
+        <TradeOptionsText>Shipping {addProductData?.stepFive?.median}</TradeOptionsText>
         <ShippingDes>
           This option only applies if someone buys your item, not for trades.
           You will have your choice of these carriers UPS, USPS, and FedEx.
