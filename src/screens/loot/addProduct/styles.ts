@@ -466,8 +466,7 @@ export const TradeButtonText = styled.Text.attrs(props => ({
   color: props?.selected ? props.theme.colors.white : props.theme.colors.black,
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Urbanist-Bold;
-  font-weight: 500;
+  font-family: Urbanist-SemiBold;
   ${color}
   ${space}
 `;
