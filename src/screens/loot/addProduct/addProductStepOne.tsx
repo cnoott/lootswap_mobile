@@ -32,6 +32,8 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setIsLoading] = useState(true);
 
+  const [alreadySearched, setAlreadySearched] = useState(false);
+
   const [isOpen, setIsOpen] = useState(false);
   const animation = useRef(new Animated.Value(0)).current;
 
@@ -100,11 +102,13 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   };
 
   const onSetProductName = (item: any) => {
+    setAlreadySearched(false);
     setProductName(item);
     updateData({productName: item});
   };
 
   const onSetStockxUrlKey = async (item: any) => {
+    setAlreadySearched(true);
     if (item.urlKey === addProductData?.stepOne?.stockxUrlKey) {
       updateBrand({productName: '', stockxUrlKey: null}, null);
       setProductName('');
@@ -152,6 +156,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   const lastSearchedTerm = useRef('');
   useEffect(() => {
     if (
+      !alreadySearched &&
       debouncedSearchTerm &&
       debouncedSearchTerm.length > 5 &&
       debouncedSearchTerm !== lastSearchedTerm.current
@@ -159,7 +164,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
       lastSearchedTerm.current = debouncedSearchTerm;
       fetchStockxData();
     }
-  }, [debouncedSearchTerm, fetchStockxData]);
+  }, [debouncedSearchTerm, alreadySearched, fetchStockxData]);
 
   const renderDropdown = (
     dropdownLabel: string,
