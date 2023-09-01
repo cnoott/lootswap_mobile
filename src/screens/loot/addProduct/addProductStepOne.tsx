@@ -163,10 +163,6 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   };
 
   const fetchStockxData = useCallback(() => {
-    if (categoryData?.value !== 'shoes') {
-      return;
-    }
-    console.log('fetching stockx');
     handleDrawerAnimation();
     const reqData = {
       userId: userData?._id,
@@ -185,13 +181,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
         },
       ),
     );
-  }, [
-    categoryData?.value,
-    dispatch,
-    handleDrawerAnimation,
-    productName,
-    userData?._id,
-  ]);
+  }, [dispatch, handleDrawerAnimation, productName, userData?._id]);
 
   const debouncedSearchTerm = useDebounce(productName, 1300); //set delay
   const lastSearchedTerm = useRef('');
