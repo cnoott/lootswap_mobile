@@ -19,6 +19,8 @@ import { setListener } from 'appcenter-crashes';
 
 interface ProductStep {
   updateProductData: Function;
+  stockxLoading: Boolean;
+  setStockxLoading: Function;
 }
 
 export const AddProductStepOne: FC<ProductStep> = props => {
@@ -27,10 +29,11 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
 
+  const {updateProductData, stockxLoading, setStockxLoading} = props;
+
   const dispatch = useDispatch();
 
   const [searchResults, setSearchResults] = useState([]);
-  const [loading, setIsLoading] = useState(true);
 
   const [alreadySearched, setAlreadySearched] = useState(false);
 
@@ -54,6 +57,9 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   }, [animation, isOpen]);
 
   const collapseDrawer = useCallback(() => {
+    if (stockxLoading) {
+      return;
+    }
     console.log('collaping');
     //if (isOpen) return;
     Animated.timing(animation, {
@@ -62,7 +68,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
       useNativeDriver: false
     }).start();
     setIsOpen(!isOpen);
-  }, [animation, isOpen]);
+  }, [animation, isOpen, stockxLoading]);
 
   const reOpenDrawer = () => {
     if (searchResults.length !== 0) {
@@ -82,7 +88,6 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     addProductData?.stepOne?.size || null,
   );
 
-  const {updateProductData} = props;
   const updateData = (newData: any = {}) => {
     updateProductData({
       ...addProductData,
@@ -163,25 +168,26 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   };
 
   const fetchStockxData = useCallback(() => {
+    setStockxLoading(true);
     handleDrawerAnimation();
     const reqData = {
       userId: userData?._id,
       query: productName,
     };
-    setIsLoading(true);
     dispatch(
       searchStockx(
         reqData,
         (res: any) => {
           setSearchResults(res);
-          setIsLoading(false);
+          setStockxLoading(false);
         },
         (err: any) => {
           console.log('ERROR', err);
+          setStockxLoading(false);
         },
       ),
     );
-  }, [dispatch, handleDrawerAnimation, productName, userData?._id]);
+  }, [dispatch, handleDrawerAnimation, productName, userData?._id, setStockxLoading]);
 
   const debouncedSearchTerm = useDebounce(productName, 1300); //set delay
   const lastSearchedTerm = useRef('');
@@ -238,7 +244,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
         <StockxSearchResults
           selectedUrlKey={addProductData?.stepOne?.stockxUrlKey}
           searchResults={searchResults}
-          loading={loading}
+          loading={stockxLoading}
           onSelectResult={onSetStockxUrlKey}
         />
       </Animated.View>

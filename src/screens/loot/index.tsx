@@ -59,6 +59,9 @@ export const LootScreen: FC<any> = ({route}) => {
   const [currIndex, setCurrIndex] = useState(
     isFromEdit && editIndex ? editIndex - 1 : 0,
   );
+
+  const [stockxLoading, setStockxLoading] = useState(false);
+
   const updateProductData = (proData: ADD_PRODUCT_TYPE) => {
     dispatch(UpdateAddProductData(proData));
   };
@@ -76,6 +79,10 @@ export const LootScreen: FC<any> = ({route}) => {
     const canGoNext = validateCreateProductData(currIndex + 1, addProductData);
     const fetchedMakretData = addProductData?.stepFive?.median;
     if (canGoNext) {
+      if (currIndex === 0 && stockxLoading) {
+        Alert.showError('Wait until search is done loading');
+        return;
+      }
       if (
         currIndex === 0 &&
         addProductData?.stepOne?.stockxUrlKey &&
@@ -102,7 +109,7 @@ export const LootScreen: FC<any> = ({route}) => {
     } else {
       Alert.showError('Please fill all information');
     }
-  }, [currIndex, addProductData, navigation]);
+  }, [currIndex, addProductData, navigation, stockxLoading]);
 
   const handleBack = useCallback(() => {
     if (currIndex !== 0) {
@@ -170,7 +177,13 @@ export const LootScreen: FC<any> = ({route}) => {
       return [1, 2, 3, 4, 5].map(data => {
         switch (data) {
           case 1:
-            return <AddProductStepOne updateProductData={updateProductData} />
+            return (
+              <AddProductStepOne
+                updateProductData={updateProductData}
+                stockxLoading={stockxLoading}
+                setStockxLoading={setStockxLoading}
+              />
+          );
           case 2:
             return <AddProductStepTwo updateProductData={updateProductData} />
           case 3:
@@ -188,7 +201,13 @@ export const LootScreen: FC<any> = ({route}) => {
     } else {
       switch (editIndex) {
         case 1:
-          return <AddProductStepOne updateProductData={updateProductData} />
+          return (
+            <AddProductStepOne
+              updateProductData={updateProductData}
+              stockxLoading={stockxLoading}
+              setStockxLoading={setStockxLoading}
+            />
+          );
         case 2:
           return <AddProductStepTwo updateProductData={updateProductData} />
         case 3:
@@ -198,7 +217,14 @@ export const LootScreen: FC<any> = ({route}) => {
         case 5:
           return <AddProductStepFive updateProductData={updateProductData} />;
         default:
-          return <AddProductStepOne updateProductData={updateProductData} />
+          return (
+            <AddProductStepOne
+              updateProductData={updateProductData}
+              stockxLoading={stockxLoading}
+              setStockxLoading={setStockxLoading}
+            />
+          );
+
       }
     }
   };
