@@ -120,7 +120,7 @@ export const BrandContainer = styled.View.attrs(() => ({
   flex: 1,
   alignItems: 'center',
   justifyContent: 'space-between',
-  mr: scale(82),
+  ml: 2,
 }))`
   flex-direction: row ${space};
 `;
