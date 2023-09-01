@@ -65,7 +65,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   }, [animation, isOpen]);
 
   const reOpenDrawer = () => {
-    if (addProductData?.stepOne?.stockxUrlKey) {
+    if (categoryData?.value === 'shoes') {
       handleDrawerAnimation();
     }
   };
@@ -113,9 +113,33 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   };
 
   const onSetSizeData = (item: any) => {
+    reOpenDrawer();
     setSizeData(item);
     updateData({size: item});
-    reOpenDrawer();
+  };
+
+  const handleSetSizeList = () => {
+    if (!categoryData) return '';
+
+    if (addProductData?.stepOne?.stockxUrlKey) {
+      if (productName?.includes('Women')) {
+        return 'womens';
+      } else if (productName?.includes('GS')) {
+        return 'gs';
+      } else if (productName?.includes('TD')) {
+        return 'td';
+      } else if (productName?.includes('PS')) {
+        return 'ps';
+      } else if (
+        productName?.includes('Kids') ||
+        productName?.includes('Infants')
+      ) {
+        return 'kids';
+      }
+      return categoryData?.value;
+    } else {
+      return categoryData?.value;
+    }
   };
 
   const onSetProductName = (item: any) => {
@@ -231,7 +255,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
       {renderDropdown(
         'Size',
         true,
-        getSizeList(categoryData ? categoryData?.value : ''),
+        getSizeList(handleSetSizeList()),
         onSetSizeData,
         sizeData,
         () => collapseDrawer(),
