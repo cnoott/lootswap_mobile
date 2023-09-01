@@ -387,11 +387,11 @@ export const RedBar = styled.View.attrs(props => ({
 
 export const MedianDotContainer = styled.View.attrs(props => ({
   transform: [{translateX: -7.5}], // translate by half of the width
+  left: `${props.dotPosition}%`,
 }))`
   width: 16px;
   height: 16px;
   position: absolute;
-  left: 50%;
   background-color: black;
   border-radius: 7.5px;
   justify-content: center;
@@ -408,19 +408,18 @@ export const MedianDot = styled.View.attrs(props => ({
 `;
 
 export const MedianContainer = styled.View.attrs(props => ({
+  left: `${Math.min(Math.max(props.dotPosition-10, 0), 85)}%`
 }))`
   justify-content: center;
-  align-items:center;
 `;
 
 export const MedianTextContainer = styled.View.attrs(props => ({
   borderRadius: 20,
 }))`
   justify-content: center;
-  align-items: center;
   margin-bottom: ${verticalScale(8)}px;
-  width: ${moderateScale(100)}px;
-  height: ${moderateScale(29)}px;
+  width: ${moderateScale(70)}px;
+  height: ${moderateScale(25)}px;
   background-color: black;
   ${layout} ${space} ${border}
 `;

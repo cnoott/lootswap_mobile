@@ -47,9 +47,28 @@ export const AddProductStepFive: FC<ProductStep> = props => {
   );
   const {stepFive} = addProductData;
   const [price, setPrice] = useState(stepFive?.productPrice || 0.0);
+  const [dotPosition, setDotPosition] = useState('50');
+  const [dotText, setDotText] = useState('');
   const [shippingCost, setShippingCost] = useState(
     stepFive?.shippingCost || 0.0,
   );
+
+  const handleSetPrice = (priceInput: any) => {
+    setPrice(priceInput);
+    const converted = parseFloat(priceInput);
+    const lastSalePrice = addProductData?.stepFive?.median;
+    const dotPositionCalc =
+      ((converted - 0.5 * lastSalePrice) / lastSalePrice) * 100;
+    const positionWithBounds = Math.max(0, Math.min(100, dotPositionCalc));
+    setDotPosition(positionWithBounds);
+
+    const maxSalePrice = lastSalePrice + lastSalePrice * 0.5;
+    if (priceInput >= maxSalePrice) {
+      setDotText(`High $${maxSalePrice}`);
+    } else {
+      setDotText('$' + priceInput);
+    }
+  };
   const {updateProductData} = props;
   const onBlurCall = () => {
     updateProductData({
@@ -121,10 +140,10 @@ export const AddProductStepFive: FC<ProductStep> = props => {
       <HorizontalSpace>
         <Divider />
         <TradeOptionsText>Estimated Market Range: <MarketRangeText>${stepFive?.startRange} - ${stepFive?.endRange}</MarketRangeText></TradeOptionsText>
-        <MedianContainer>
+        <MedianContainer dotPosition={dotPosition}>
           <MedianTextContainer>
             <MedianText>
-              Last Sale: ${addProductData?.stepFive?.median}
+              {dotText}
             </MedianText>
           </MedianTextContainer>
         </MedianContainer>
@@ -132,7 +151,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
           <GreenBar />
           <OrangeGradientBar />
           <RedBar />
-          <MedianDotContainer>
+          <MedianDotContainer dotPosition={dotPosition}>
             <MedianDot/>
           </MedianDotContainer>
         </RangeBarContainer>
@@ -147,7 +166,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
           <TradeOptionsText>Price</TradeOptionsText>
         </HorizontalSpace>
         <LSInput
-          onChangeText={setPrice}
+          onChangeText={handleSetPrice}
           placeholder={'0.00'}
           horizontalSpace={20}
           topSpace={1}
