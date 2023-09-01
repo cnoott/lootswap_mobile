@@ -107,6 +107,15 @@ export const LootScreen: FC<any> = ({route}) => {
   const handleBack = useCallback(() => {
     if (currIndex !== 0) {
       swiperRef?.current?.scrollTo(currIndex - 1);
+      if (currIndex === 1) {
+        updateProductData({
+          ...addProductData,
+          stepFive: {
+            ...addProductData?.stepFive,
+            median: undefined,
+          }
+        });
+      }
     }
   }, [currIndex]);
 
