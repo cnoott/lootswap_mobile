@@ -65,7 +65,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   }, [animation, isOpen]);
 
   const reOpenDrawer = () => {
-    if (categoryData?.value === 'shoes') {
+    if (searchResults.length !== 0) {
       handleDrawerAnimation();
     }
   };
