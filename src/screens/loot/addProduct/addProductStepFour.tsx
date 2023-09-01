@@ -117,19 +117,24 @@ export const AddProductStepFour: FC<ProductStep> = props => {
     <Container>
       <HorizontalSpace>
         {renderTradeView()}
-        <TradeOptionsText>
-          Are there any particular items you wish to trade this item for?
-        </TradeOptionsText>
-      </HorizontalSpace>
-      <LSInput
-        onChangeText={setTradeDes}
-        value={tradeDes}
-        placeholder={'Description'}
-        multiline={true}
-        height={200}
-        horizontalSpace={20}
-        onBlurCall={onBlurCall}
-      />
+        {!addProductData?.stepOne?.stockxUrlKey && (
+          <TradeOptionsText>
+            Are there any particular items you wish to trade this item for?
+          </TradeOptionsText>
+        )}
+        </HorizontalSpace>
+
+        {!addProductData?.stepOne?.stockxUrlKey && (
+        <LSInput
+          onChangeText={setTradeDes}
+          value={tradeDes}
+          placeholder={'Description'}
+          multiline={true}
+          height={200}
+          horizontalSpace={20}
+          onBlurCall={onBlurCall}
+        />
+        )}
     </Container>
   );
 };
