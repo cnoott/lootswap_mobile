@@ -242,6 +242,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
         leftIcon={SEARCH_INPUT_ICON}
         placeholder={'Item Name'}
         onFocus={() => reOpenDrawer()}
+        returnKeyType={'search'}
       />
       <Animated.View style={{height, overflow: 'hidden'}}>
         <StockxSearchResults
