@@ -50,8 +50,8 @@ export default function loading(state = InitialState, action: ActionProps) {
         payload,
         state.addProductData.stepOne.size.value,
       );
-      const startRange = sizeData.lastSale - sizeData.lastSale * 0.05
-      const endRange = sizeData.lastSale + sizeData.lastSale * 0.05
+      const startRange = sizeData.lastSale - sizeData.lastSale * 0.1;
+      const endRange = sizeData.lastSale + sizeData.lastSale * 0.1;
       return {
         ...state,
         addProductData: {
