@@ -19,6 +19,7 @@ interface LSLSDropDownProps {
   onSelectItem?: Function;
   selectedValue?: any;
   disabled?: boolean;
+  onFocus?: Function;
 }
 
 const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
@@ -30,7 +31,14 @@ const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
     isSearch = false,
     onSelectItem = () => {},
     disabled = false,
+    onFocus = () => {},
   } = props;
+
+  const handleOnFocus = () => {
+    console.log('focusing');
+    setIsFocus(true);
+    onFocus();
+  };
 
   useEffect(() => {
     setValue(props.selectedValue);
@@ -53,7 +61,7 @@ const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
       placeholder={!isFocus ? dropdownLabel || 'Select item' : '...'}
       searchPlaceholder="Search..."
       value={value}
-      onFocus={() => setIsFocus(true)}
+      onFocus={() => handleOnFocus()}
       onBlur={() => setIsFocus(false)}
       onChange={item => {
         setValue(item);
