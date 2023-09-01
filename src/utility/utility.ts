@@ -390,8 +390,77 @@ export const shoesSizeList = [
   {label: '11.5W', value: '11.5W'},
   {label: '12W', value: '12W'},
   {label: '13W', value: '13W'},
+
+  //Youth
+  {label: '1Y', value: '1Y'},
+  {label: '1.5Y', value: '1.5Y'},
+  {label: '2Y', value: '2.5Y'},
+  {label: '3Y', value: '3.5Y'},
+  {label: '4Y', value: '4Y'},
+  {label: '4.5Y', value: '4.5Y'},
+  {label: '5Y', value: '5Y'},
+  {label: '5.5Y', value: '5.5Y'},
+  {label: '6Y', value: '6Y'},
+  {label: '6.5Y', value: '6.5Y'},
+  {label: '7Y', value: '7Y'},
+
+  {label: '1K', value: '1K'},
+  {label: '2K', value: '2K'},
+  {label: '3K', value: '3K'},
+  {label: '4K', value: '4K'},
+  {label: '5K', value: '5K'},
+  {label: '5.5K', value: '5.5K'},
+  {label: '6K', value: '6K'},
+  {label: '6.5K', value: '6.5K'},
+  {label: '7K', value: '7K'},
+  {label: '7.5K', value: '7.5K'},
+  {label: '8K', value: '8K'},
+  {label: '8.5K', value: '8.5K'},
+  {label: '9K', value: '9K'},
+  {label: '9.5K', value: '9.5K'},
+  {label: '10K', value: '10K'},
+  {label: '10.5K', value: '10.5K'},
+  {label: '11K', value: '11K'},
+  {label: '11.5K', value: '11.5K'},
+  {label: '12K', value: '12K'},
+  {label: '12.5K', value: '12.5K'},
+  {label: '13K', value: '13K'},
+  {label: '13.5K', value: '13.5K'},
+  {label: '1C', value: '1C'},
+  {label: '2C', value: '2C'},
+  {label: '3C', value: '3C'},
+  {label: '4C', value: '4C'},
+  {label: '5C', value: '5C'},
+  {label: '6C', value: '6C'},
+  {label: '7C', value: '7C'},
+  {label: '8C', value: '8C'},
+  {label: '9C', value: '9C'},
+  {label: '10C', value: '10C'},
+  {label: '10.5C', value: '10.5C'},
+  {label: '11C', value: '11C'},
+  {label: '11.5C', value: '11.5C'},
+  {label: '12C', value: '12C'},
+  {label: '12.5C', value: '12.5C'},
+  {label: '13C', value: '13C'},
+  {label: '13.5C', value: '13.5C'},
+
 ];
 
+export const womenOnlySizes = shoesSizeList.filter(
+  obj => obj.label.includes('W')
+);
+
+export const gsSizes = shoesSizeList.filter(obj => obj.label.includes('Y'));
+
+export const tdSizes = shoesSizeList.filter(obj => obj.label.includes('C'));
+
+export const psSizes = shoesSizeList.filter(
+  obj => obj.label.includes('C') || obj.value.includes('Y'),
+);
+
+export const kidsSizes = shoesSizeList.filter(
+  obj => obj.label.includes('K') || obj.value.includes('Y'),
+);
 export const upperClothingSize = [
   {label: 'XS', value: 'XS'},
   {label: 'S', value: 'S'},
@@ -457,6 +526,16 @@ export const getSizeList = (category: string = '') => {
   switch (category) {
     case 'shoes':
       return shoesSizeList;
+    case 'womens':
+      return womenOnlySizes;
+    case 'gs':
+      return gsSizes;
+    case 'td':
+      return tdSizes;
+    case 'ps':
+      return psSizes;
+    case 'kids':
+      return kidsSizes;
     case 'shirts':
     case 'jackets':
     case 'hoodies':
