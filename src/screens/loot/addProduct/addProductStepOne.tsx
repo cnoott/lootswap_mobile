@@ -44,14 +44,31 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   });
 
   const handleDrawerAnimation = useCallback(() => {
-    if (isOpen) return;
+    //if (isOpen) return;
     Animated.timing(animation, {
-      toValue: isOpen ? 0 : 1,
+      toValue: 1,
       duration: 400,
       useNativeDriver: false
     }).start();
     setIsOpen(!isOpen);
   }, [animation, isOpen]);
+
+  const collapseDrawer = useCallback(() => {
+    console.log('collaping');
+    //if (isOpen) return;
+    Animated.timing(animation, {
+      toValue: 0,
+      duration: 400,
+      useNativeDriver: false
+    }).start();
+    setIsOpen(!isOpen);
+  }, [animation, isOpen]);
+
+  const reOpenDrawer = () => {
+    if (addProductData?.stepOne?.stockxUrlKey) {
+      handleDrawerAnimation();
+    }
+  };
 
   const [categoryData, setCategoryData] = useState(
     addProductData?.stepOne?.category || null,
@@ -96,9 +113,9 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   };
 
   const onSetSizeData = (item: any) => {
-    console.log(addProductData?.stepOne?.stockxUrlKey);
     setSizeData(item);
     updateData({size: item});
+    reOpenDrawer();
   };
 
   const onSetProductName = (item: any) => {
@@ -172,6 +189,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     dropDowndata: any,
     selectItemFunction: Function,
     selectedValue: any,
+    onFocus: Function = () => {},
   ) => {
     return (
       <LSDropDown
@@ -180,6 +198,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
         isSearch={isSearch}
         onSelectItem={selectItemFunction}
         selectedValue={selectedValue}
+        onFocus={onFocus}
       />
     );
   };
@@ -198,6 +217,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
         value={productName}
         leftIcon={SEARCH_INPUT_ICON}
         placeholder={'Item Name'}
+        onFocus={() => reOpenDrawer()}
       />
       <Animated.View style={{height, overflow: 'hidden'}}>
         <StockxSearchResults
@@ -210,10 +230,11 @@ export const AddProductStepOne: FC<ProductStep> = props => {
 
       {renderDropdown(
         'Size',
-        false,
+        true,
         getSizeList(categoryData ? categoryData?.value : ''),
         onSetSizeData,
         sizeData,
+        () => collapseDrawer(),
       )}
     </StepOneContainer>
   );

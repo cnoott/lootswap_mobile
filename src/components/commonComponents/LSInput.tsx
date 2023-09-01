@@ -22,6 +22,7 @@ interface LSInputProps extends TextInputProps {
   rightCustomView?: any;
   textAlign?: string;
   maxLength?: number;
+  onFocus?: Funciton;
 }
 
 const LSInput: FC<LSInputProps> = React.memo(props => {
@@ -43,6 +44,7 @@ const LSInput: FC<LSInputProps> = React.memo(props => {
     rightCustomView = null,
     textAlign = 'left',
     maxLength = 10000000,
+    onFocus = () => {},
   } = props;
   return (
     <>
@@ -64,6 +66,7 @@ const LSInput: FC<LSInputProps> = React.memo(props => {
           textAlign={textAlign}
           maxLength={maxLength}
           autoCapitalize={false}
+          onFocus={() => onFocus()}
         />
         {rightIcon && (
           <Touchable onPress={onRightIconPress}>
