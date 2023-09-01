@@ -48,7 +48,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
   const {stepFive} = addProductData;
   const [price, setPrice] = useState(stepFive?.productPrice || 0.0);
   const [dotPosition, setDotPosition] = useState('50');
-  const [dotText, setDotText] = useState('');
+  const [dotText, setDotText] = useState('$' + 200);
   const [shippingCost, setShippingCost] = useState(
     stepFive?.shippingCost || 0.0,
   );
