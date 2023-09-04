@@ -7,22 +7,19 @@ import FastImage from 'react-native-fast-image';
 const height = Dimensions.get('window').height;
 
 export const Container = styled.View.attrs(props => ({
-  height: height * 0.3,
   borderRadius: scale(20),
   borderColor: 'grey',
   backgroundColor: '#FAFAFA',
   bg: props.theme.colors.white,
   shadowColor: '#000',
-  shadowOffset: {width: 0, height: 1},
+  shadowOffset: { width: 0, height: 1 },
   shadowOpacity: 0.2,
   shadowRadius: 4,
   elevation: 20,
 }))`
-  align-items: center;
   ${space}
   ${layout}
 `;
-
 
 export const ItemContainer = styled.TouchableOpacity.attrs(props => ({
   height: verticalScale(40),
@@ -69,7 +66,6 @@ export const Image = styled(FastImage).attrs(() => ({
 export const TextContainer = styled.View.attrs(() => ({
   flex: 1,
   flexDirection: 'column',
-  justifyContent: 'space-between',
   mt: verticalScale(2),
 }))`
   ${color}
@@ -80,21 +76,22 @@ export const TextContainer = styled.View.attrs(() => ({
 export const ContainerTitle = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
   numberOfLines: 1,
-  mt: verticalScale(5),
+  mt: verticalScale(10),
+  ml: scale(15),
+  mb: scale(8),
 }))`
   font-size: ${moderateScale(15)}px;
   font-family: Urbanist;
   font-weight: 700;
-  text-align: left;
+  text-align: center;
   ${color}
   ${space}
   ${layout}
 `;
 
 export const TitleContainer = styled.View.attrs(() => ({
-  flex: 1,
   flexDirection: 'row',
-  justifyContent: 'space-between',
+  alignItems: 'center',
 }))`
   ${color}
   ${space}

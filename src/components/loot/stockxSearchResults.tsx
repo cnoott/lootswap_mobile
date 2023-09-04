@@ -13,9 +13,10 @@ import {
   TitleContainer,
 } from './stockxSearchResultsStyles';
 import LSLoader from '../../components/commonComponents/LSLoader';
-import {ScrollView, Animated} from 'react-native';
+import {ScrollView, Animated, FlatList} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Tooltip from '../../components/tooltip/tooltip';
+import {QUESTION_URL} from '../../constants/imageConstants';
 
 interface SearchResult {
   imgUrl: String;
@@ -30,8 +31,6 @@ interface StockxResultProps {
   onSelectResult: Function;
   selectedUrlKey: any;
 }
-
-//TODO: make sure the search can work more than once
 
 export const StockxSearchResults: FC<StockxResultProps> = props => {
   const {
@@ -122,12 +121,28 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
           )}
         </ImageContainer>
         <TextContainer>
-          <TitleText>{loading ? <BlinkingText/> : item.title}</TitleText>
-          <BrandContainer>
-            {loading && <BlinkingBrandText/>}
-          </BrandContainer>
+          <TitleText>{loading ? <BlinkingText/> : item?.title}</TitleText>
+          <BrandContainer>{loading && <BlinkingBrandText/>}</BrandContainer>
         </TextContainer>
       </ItemContainer>
+    );
+  };
+
+  const renderSearchResults = () => {
+    return (
+      <FlatList
+        data={
+          loading
+            ? [0, 1, 2, 3]
+            : [
+                ...searchResults,
+                {urlKey: null, thumbUrl: QUESTION_URL, title: 'My item is not here'},
+              ]
+        }
+        renderItem={renderSearchResult}
+        keyExtractor={item => item.urlKey}
+        showsVerticalScrollIndicator={true}
+      />
     );
   };
 
@@ -144,9 +159,7 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
             }
           />
         </TitleContainer>
-        {!loading && searchResults.length === 0 && 'No products found'}
-        {!loading && searchResults.map((item, index) => renderSearchResult({item, index}))}
-        {loading && [0, 1, 2, 3].map((item, index) => renderSearchResult({item, index}))}
+        {renderSearchResults()}
       </Container>
     </ScrollView>
   );
