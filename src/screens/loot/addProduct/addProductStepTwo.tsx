@@ -63,7 +63,13 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
       item.label === 'New with box'
     ) {
       const {productName, size} = addProductData.stepOne;
-      setProductDes(`${item.label},\n${productName},\nSize: ${size.value}`);
+      const prodDesc = `${item.label},\n${productName},\nSize: ${size.value}`;
+      updateData({
+        condition: item,
+        productDescription: prodDesc,
+      });
+      setProductDes(prodDesc);
+      return;
     } else if (addProductData?.stepOne?.stockxUrlKey){
       setProductDes('');
     }

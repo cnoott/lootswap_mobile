@@ -107,6 +107,7 @@ export const LootScreen: FC<any> = ({route}) => {
       }
       swiperRef?.current?.scrollTo(currIndex + 1);
     } else {
+      console.log(currIndex);
       Alert.showError('Please fill all information');
     }
   }, [currIndex, addProductData, navigation, stockxLoading]);
