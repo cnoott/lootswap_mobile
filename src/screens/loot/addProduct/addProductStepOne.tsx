@@ -155,6 +155,9 @@ export const AddProductStepOne: FC<ProductStep> = props => {
 
   const onSetStockxUrlKey = async (item: any) => {
     setAlreadySearched(true);
+    if (!item.urlKey) {
+      return;
+    }
     if (item.urlKey === addProductData?.stepOne?.stockxUrlKey) {
       updateBrand({productName: '', stockxUrlKey: null}, null);
       setProductName('');
