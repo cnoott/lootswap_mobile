@@ -58,9 +58,17 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
   };
 
   const onSetConditionData = (item: any) => {
+    if (
+      addProductData?.stepOne?.stockxUrlKey &&
+      item.label === 'New with box'
+    ) {
+      const {productName, size} = addProductData.stepOne;
+      setProductDes(`${item.label},\n${productName},\nSize: ${size.value}`);
+    } else if (addProductData?.stepOne?.stockxUrlKey){
+      setProductDes('');
+    }
     setConditionData(item);
     updateData({condition: item});
-    console.log(addProductData?.stepFive?.median);
   };
 
   const onSetPreOwnedCondition = (item: any) => {
