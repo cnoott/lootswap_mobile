@@ -1229,7 +1229,6 @@ export const isAlreadyTrading = (
 
 export const findMarketDataFromSize = (stockxProduct: any, size: string) => {
   console.log('finding', size);
-  console.log('in funciton', stockxProduct);
   return stockxProduct.sizes.find(
     sizeMarketData => sizeMarketData.sizeUS === size
   );
