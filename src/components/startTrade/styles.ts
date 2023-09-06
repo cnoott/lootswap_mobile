@@ -4,7 +4,7 @@ import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 export const ItemContainer = styled.View.attrs(props => ({
-  height: verticalScale(100),
+  height: scale(112),
   alignSelf: 'stretch',
   borderRadius: scale(20),
   bg: props.theme.colors.white,
@@ -57,9 +57,9 @@ export const TitleBrandContainer = styled.View.attrs(() => ({
 
 export const DesContainer = styled.View.attrs(() => ({
   ml: scale(10),
-  height: verticalScale(100),
+  height: scale(115),
   flex: 1,
-  py: verticalScale(12),
+  py: scale(15),
 }))`
   justify-content: space-evenly ${space} ${layout};
 `;
