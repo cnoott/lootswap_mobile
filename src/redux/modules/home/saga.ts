@@ -134,10 +134,10 @@ export function* fetchMarketData(action: any) {
     if (response.success) {
       yield put(fetchMarketDataSuccess(response.data));
     } else {
-      action?.errorCallBack();
+      action?.errorCallBack(response);
     }
   } catch (e) {
-    action?.errorCallBack();
+    action?.errorCallBack(e);
     console.log(e);
   }
 }
