@@ -45,7 +45,6 @@ export default function loading(state = InitialState, action: ActionProps) {
       };
     }
     case FETCH_MARKET_DATA.SUCCESS: {
-      console.log(payload);
       const sizeData = findMarketDataFromSize(
         payload,
         state.addProductData.stepOne.size.value,
