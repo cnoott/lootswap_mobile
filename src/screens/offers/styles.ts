@@ -77,7 +77,7 @@ export const TabBarLabel: any = styled.Text.attrs((props: any) => ({
     : props.theme.colors.placeholder,
 }))`
   font-size: ${moderateScale(18)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 400;
   ${color}
   ${space}
@@ -175,7 +175,7 @@ export const NameLabel: any = styled.Text.attrs(props => ({
   numberOfLines: 1,
 }))`
   font-size: ${moderateScale(16)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
@@ -201,7 +201,7 @@ export const StatusLabel: any = styled.Text.attrs((props: any) => ({
   color: props?.color,
 }))`
   font-size: ${moderateScale(12)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
@@ -211,7 +211,7 @@ export const TimeLabel: any = styled.Text.attrs(props => ({
   color: props.theme.colors.greySecondary,
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   ${color}
   ${space}
   ${layout}
@@ -222,7 +222,7 @@ export const ProductNameLabel: any = styled.Text.attrs(props => ({
   mr: 10,
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   align-self: stretch;
   ${color}
   ${space}
@@ -380,7 +380,7 @@ export const OfferText: any = styled.Text.attrs(props => ({
   color: props.theme.colors.white,
 }))`
   font-size: ${moderateScale(13)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
@@ -390,7 +390,7 @@ export const OfferTextSingleOffer: any = styled.Text.attrs(props => ({
   color: props.theme.colors.white,
 }))`
   font-size: ${moderateScale(16)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
@@ -489,7 +489,7 @@ export const ModalHeaderText: any = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
   font-size: ${moderateScale(20)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   text-align: center;
   ${color}
   ${space}
@@ -500,7 +500,7 @@ export const ModalSubHeaderText: any = styled.Text.attrs(props => ({
   color: props.theme.colors.lightGrey,
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   text-align: center;
   ${color}
   ${space}
@@ -512,7 +512,7 @@ export const MoneyOfferText: any = styled.Text.attrs(props => ({
   my: scale(5),
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   text-align: left;
   ${color}
   ${space}
@@ -571,7 +571,7 @@ export const NoOffersLabel: any = styled.Text.attrs((props: any) => ({
   mt: verticalScale(10),
 }))`
   font-size: ${moderateScale(18)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 600;
   ${color}
   ${space}
@@ -583,7 +583,7 @@ export const NoOffersMessage: any = styled.Text.attrs((props: any) => ({
   my: verticalScale(10),
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   font-weight: 500;
   ${color}
   ${space}

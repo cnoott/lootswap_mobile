@@ -45,9 +45,11 @@ export const StartTradeStepOne: FC<StartTradeStepOneProps> = props => {
           <StartTradeItemCell
             onPress={() => onItemPress(item?.item?._id)}
             item={item.item}
+            key={item?.item?._id}
           />
         )}
         contentInset={{bottom: 85}}
+        keyExtractor={item => item._id}
       />
     </>
   );

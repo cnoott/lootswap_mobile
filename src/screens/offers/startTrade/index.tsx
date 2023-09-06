@@ -1,4 +1,4 @@
-import React, {FC, useRef, useState} from 'react';
+import React, {FC, useRef, useState, useEffect} from 'react';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {LSStartTradeHeader} from '../../../components/commonComponents/headers/startTradeHeader';
 import {Container, ButtonContainer} from './styles';
@@ -55,6 +55,10 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     userPayout: 0,
   });
   const [trade, setTrade] = useState({});
+
+  useEffect(() => {
+    console.log('STARTING');
+  },[]);
 
 
   const headerTitleOptions = () => {
@@ -186,6 +190,9 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       return false;
     } else if (currIndex === 1 && mySelected.length <= 0) {
       Alert.showError('Please select at least one item');
+      return false;
+    } else if (currIndex === 2) {
+      Alert.showError('YOU SHALL NOT PASS');
       return false;
     }
     return true;

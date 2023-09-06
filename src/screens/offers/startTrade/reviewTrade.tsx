@@ -6,12 +6,15 @@ import {
   AddMoneyContainer,
   EditMoneyContainer,
   MoneyOfferText,
+  MarketValueContainer,
+  MarketValueTitle,
+  MarketValueText,
 } from './styles';
 import StartTradeItemCell from '../../../components/startTrade/startTradeItemCell';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {Size, Type} from '../../../enums';
-import MonyOfferModal from './MoneyOfferModal.tsx';
 import MoneyOfferModal from './MoneyOfferModal';
+import {calculateMarketValue} from '../../../utility/utility';
 
 interface ReviewTradeProps {
   otherUserItems: any;
@@ -22,6 +25,13 @@ interface ReviewTradeProps {
   myMoneyOffer: Number;
   setMyMoneyOffer: Function;
 }
+
+// NOTE: The value of the other persons offer must be at least 70% of the
+// start of the market range
+//
+// If one of the products is trade only, the entire estimated value is unkown.
+// We need to refetch market value to make sure we have the latest date
+// Do the ranges on the product card
 
 export const ReviewTrade: FC<ReviewTradeProps> = props => {
   const {
@@ -37,13 +47,18 @@ export const ReviewTrade: FC<ReviewTradeProps> = props => {
   const [isMyMoneyOffer, setIsMyMoneyOffer] = useState(true);
   const onCloseModal = () => setIsModalVisible(false);
 
-
   const showMyLoot = () => (
     <>
       <TradeReviewText> Your loot </TradeReviewText>
       {myItems.filter(item => item?.isSelected).map(item => (
         <StartTradeItemCell item={item} isReview={true} />
       ))}
+      <MarketValueContainer>
+        <MarketValueTitle>Total Est. Market Value: </MarketValueTitle>
+        <MarketValueText>
+          {calculateMarketValue(myItems.filter(item => item?.isSelected))}
+        </MarketValueText>
+      </MarketValueContainer>
     </>
   );
 
@@ -55,6 +70,14 @@ export const ReviewTrade: FC<ReviewTradeProps> = props => {
       {otherUserItems.filter(item => item?.isSelected).map(item => (
         <StartTradeItemCell item={item} isReview={true} />
       ))}
+      <MarketValueContainer>
+        <MarketValueTitle>Total Est. Market Value: </MarketValueTitle>
+        <MarketValueText>
+          {calculateMarketValue(
+            otherUserItems.filter(item => item?.isSelected)
+          )}
+        </MarketValueText>
+      </MarketValueContainer>
     </>
   );
 
