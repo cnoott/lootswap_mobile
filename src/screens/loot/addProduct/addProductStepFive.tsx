@@ -48,7 +48,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
   const {stepFive} = addProductData;
   const [price, setPrice] = useState(stepFive?.productPrice || 0.0);
   const [dotPosition, setDotPosition] = useState('50');
-  const [dotText, setDotText] = useState('$' + 200);
+  const [dotText, setDotText] = useState('$200');
   const [shippingCost, setShippingCost] = useState(
     stepFive?.shippingCost || 0.0,
   );
@@ -57,6 +57,9 @@ export const AddProductStepFive: FC<ProductStep> = props => {
     setPrice(priceInput);
     const converted = priceInput;
     const lastSalePrice = addProductData?.stepFive?.median;
+    if (!lastSalePrice) {
+      return;
+    }
 
     // Updated calculation based on 10% range
     const dotPositionCalc = ((converted - 0.9 * lastSalePrice) / (0.2 * lastSalePrice)) * 100;
@@ -142,12 +145,12 @@ export const AddProductStepFive: FC<ProductStep> = props => {
     return (
       <HorizontalSpace>
         <Divider />
-        <TradeOptionsText>Estimated Market Range: <MarketRangeText>${stepFive?.startRange} - ${stepFive?.endRange}</MarketRangeText></TradeOptionsText>
+        <TradeOptionsText>
+            Estimated Market Range: <MarketRangeText>{`${stepFive?.startRange} - ${stepFive?.endRange}`}</MarketRangeText>
+        </TradeOptionsText>
         <MedianContainer dotPosition={dotPosition}>
           <MedianTextContainer>
-            <MedianText>
-              {dotText}
-            </MedianText>
+            <MedianText>{String(dotText)}</MedianText>
           </MedianTextContainer>
         </MedianContainer>
         <RangeBarContainer>
@@ -178,7 +181,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
           keyboardType={'numeric'}
           onBlurCall={onBlurCall}
         />
-        {stepFive?.median && renderMarketRange()}
+        {stepFive?.median !== 0 && renderMarketRange()}
         {renderShippingView()}
         {!stepFive?.isFreeShipping && (
           <>

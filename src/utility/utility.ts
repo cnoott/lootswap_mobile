@@ -1233,3 +1233,81 @@ export const findMarketDataFromSize = (stockxProduct: any, size: string) => {
     sizeMarketData => sizeMarketData.sizeUS === size
   );
 };
+
+export const getPreownedMarketValue = (
+  stockxSize: any,
+  preOwnedCondition: string,
+) => {
+  //return an array
+  // use max value when determining 30% below value
+  const lightlyUsedRange = [0.08, 0.18];
+  const moderatleyUsed = [0.19, 0.42];
+  const heavilyUsed = [0.43, 0.5];
+  const {lastSale} = stockxSize;
+  let range = [];
+  switch (preOwnedCondition) {
+    case 'Lightly used':
+      range[0] = lastSale - lastSale * lightlyUsedRange[1];
+      range[1] = lastSale - lastSale * lightlyUsedRange[0];
+      break;
+    case 'Moderately used':
+      range[0] = lastSale - lastSale * moderatleyUsed[1];
+      range[1] = lastSale - lastSale * moderatleyUsed[0];
+      break;
+    case 'Heavily used':
+      range[0] = lastSale - lastSale * heavilyUsed[1];
+      range[1] = lastSale - lastSale * heavilyUsed[0];
+      break;
+  }
+  range[0] = Math.floor(range[0]);
+  range[1] = Math.floor(range[1]);
+  return range;
+};
+
+const hasTradeOnly = (products: Array<any>) => {
+  return products.find(
+    product => product.type === 'trade-only' && !product.stockxId
+  );
+};
+
+const getAllPrices = (products: Array<any>) => {
+  let allPrices = [];
+  products.forEach(product => {
+    if (product.stockxId) {
+      let foundSize = findMarketDataFromSize(product.stockxId, product.size);
+      if (foundSize) {
+        if (product.condition === 'Pre-owned') {
+          const preOwnedValue = getPreownedMarketValue(
+            foundSize,
+            product?.preOwnedCondition,
+          );
+          allPrices.push(preOwnedValue[1]);
+        } else {
+          allPrices.push(foundSize.lastSale);
+        }
+      } else {
+        allPrices.push(null);
+      }
+    } else {
+      allPrices.push(product.price);
+    }
+  });
+  return allPrices;
+};
+
+
+export const calculateMarketValue = (products: Array<any>) => {
+  if (hasTradeOnly(products)) {
+    return 'Unknown';
+  }
+
+  const allPrices = getAllPrices(products);
+  console.log('aall', allPrices);
+  const containsNullOrZero = allPrices.find(price => !price);
+  if (containsNullOrZero !== undefined) {
+    return 'Unknown';
+  }
+
+  return '$' + allPrices.reduce((partialSum, price) => partialSum + price, 0);
+};
+

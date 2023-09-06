@@ -93,7 +93,10 @@ export const LootScreen: FC<any> = ({route}) => {
           stockxUrlKey: addProductData?.stepOne?.stockxUrlKey,
           name: addProductData?.stepOne?.productName,
         };
-        dispatch(fetchMarketData(reqData, err => console.log('ERR ==>', err)));
+
+        dispatch(
+          fetchMarketData(reqData, err => console.log('ERR fetching>', err)),
+        );
       }
       if (
         currIndex === 3 &&
