@@ -53,7 +53,6 @@ const StartTradeItemCell: FC<StartTradeItemCellProps> = React.memo(props => {
     </>
   );
 
-
   const renderDescription = () => (
     <DesContainer>
       {!isReview && (
