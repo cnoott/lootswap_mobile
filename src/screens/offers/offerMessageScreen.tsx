@@ -325,7 +325,7 @@ export const OffersMessageScreen: FC<{}> = props => {
       />
       <KeyboardAvoidingView>
         {renderChatView()}
-        <InputContainer bottomSpace={insets.bottom - 30}>
+        <InputContainer bottomSpace={insets.bottom}>
           {renderLeftInputView()}
           {renderRightInputView()}
         </InputContainer>

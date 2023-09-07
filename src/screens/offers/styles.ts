@@ -415,7 +415,7 @@ export const EmptyView = styled.View`
 `;
 
 export const InputContainer = styled.View.attrs(props => ({
-  mb: verticalScale(props?.bottomSpace || 16),
+  mb: verticalScale(5),
   px: scale(10),
 }))`
   flex-direction: row;
