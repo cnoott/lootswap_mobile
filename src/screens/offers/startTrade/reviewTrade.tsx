@@ -26,13 +26,6 @@ interface ReviewTradeProps {
   setMyMoneyOffer: Function;
 }
 
-// NOTE: The value of the other persons offer must be at least 70% of the
-// start of the market range
-//
-// If one of the products is trade only, the entire estimated value is unkown.
-// We need to refetch market value to make sure we have the latest date
-// Do the ranges on the product card
-
 export const ReviewTrade: FC<ReviewTradeProps> = props => {
   const {
     otherUserItems,
