@@ -1295,7 +1295,6 @@ const getAllPrices = (products: Array<any>) => {
   return allPrices;
 };
 
-
 export const calculateMarketValue = (products: Array<any>) => {
   if (hasTradeOnly(products)) {
     return 'Unknown';
