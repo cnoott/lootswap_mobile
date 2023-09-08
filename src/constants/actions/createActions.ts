@@ -96,6 +96,9 @@ export const GET_TRADE = {
   ...createActionConst(actions.GET_TRADE),
 };
 
+export const GET_TRADE_STOCKX = {
+  ...createActionConst(actions.GET_TRADE_STOCKX),
+};
 export const CREATE_NEW_PRODUCT = {
   ...createActionConst(actions.CREATE_NEW_PRODUCT),
 };

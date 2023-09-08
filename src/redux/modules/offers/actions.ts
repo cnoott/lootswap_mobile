@@ -1,6 +1,7 @@
 import {
   GET_TRADES_HISTORY,
   GET_TRADE,
+  GET_TRADE_STOCKX,
   ACCEPT_TRADE_CHECKOUT,
   CANCEL_TRADE,
   ADD_ITEMS,
@@ -50,6 +51,27 @@ export const getTradeSuccess = (payload: any) => {
 export const getTradeFailure = (error: any) => {
   return {
     type: GET_TRADE.FAILURE,
+    error,
+  };
+};
+
+export const getTradeStockx = (reqData: any) => {
+  return {
+    type: GET_TRADE_STOCKX.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const getTradeStockxSuccess = (payload: any) => {
+  return {
+    type: GET_TRADE_STOCKX.SUCCESS,
+    payload,
+  };
+};
+
+export const getTradeStockxFailure = (error: any) => {
+  return {
+    type: GET_TRADE_STOCKX.FAILURE,
     error,
   };
 };
