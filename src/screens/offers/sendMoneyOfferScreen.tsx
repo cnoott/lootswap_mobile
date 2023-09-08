@@ -40,20 +40,16 @@ export const SendMoneyOfferScreen: FC<any> = () => {
     if (!regex.test(offer)) {
       setNotValidMsg('Please enter a valid dollar amount');
       return;
-    } else {
-      setNotValidMsg('');
+    }
+    const minimumPrice = selectedProductDetails?.price * 0.6;
+    if (selectedProductDetails?.price && parseFloat(offer) < minimumPrice) {
+      setNotValidMsg(
+        `Please make an offer of at least ${minimumPrice}`
+      );
+      return;
     }
 
-    if (
-      selectedProductDetails?.price &&
-      parseFloat(selectedProductDetails?.price) / 2 > parseFloat(offer) &&
-    parseFloat(selectedProductDetails?.price) >= 40
-    ) {
-      setNotValidMsg('Please enter a valid dollar amount');
-      setNotValidMsg(
-        `Please make an offer of at least ${parseFloat(selectedProductDetails?.price) / 2}`
-      );
-    }
+    setNotValidMsg('');
   };
 
   const handleTextChange = (offer: string) => {

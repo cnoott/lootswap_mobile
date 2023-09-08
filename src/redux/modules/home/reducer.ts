@@ -4,9 +4,13 @@ import {
   GET_PRODUCT_DETAILS,
   ADD_PRODUCT,
   CREATE_NEW_PRODUCT,
+  FETCH_MARKET_DATA,
 } from '../../../constants/actions';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
-import {getAddProductRawData} from '../../../utility/utility';
+import {
+  getAddProductRawData,
+  findMarketDataFromSize,
+} from '../../../utility/utility';
 
 export interface HomeProps {
   selectedProductDetails: any;
@@ -38,6 +42,30 @@ export default function loading(state = InitialState, action: ActionProps) {
       return {
         ...state,
         addProductData: newProduct,
+      };
+    }
+    case FETCH_MARKET_DATA.SUCCESS: {
+      const sizeData = findMarketDataFromSize(
+        payload,
+        state.addProductData.stepOne.size.value,
+      );
+      const startRange = sizeData.lastSale - sizeData.lastSale * 0.1;
+      const endRange = sizeData.lastSale + sizeData.lastSale * 0.1;
+      return {
+        ...state,
+        addProductData: {
+          ...state.addProductData,
+          stepFive: {
+            ...state.addProductData.stepFive,
+            median: sizeData.lastSale,
+            startRange: Math.floor(startRange),
+            endRange: Math.floor(endRange),
+          },
+          stepOne: {
+            ...state.addProductData.stepOne,
+            stockxId: payload._id,
+          },
+        },
       };
     }
     case GET_PRODUCT_DETAILS.REQUEST: {

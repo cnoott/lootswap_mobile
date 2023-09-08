@@ -9,12 +9,17 @@ cd ./ios
 pod deintegrate
 ```
 
-2. Re-install pod files using Rosetta
+2. Install Packages
+```bash
+npm install --legacy-peer-deps && yarn install
+```
+
+3. Re-install pod files using Rosetta
 ```bash
 arch -x86_64 pod install
 ```
 
-3. Build and run in sumilator
+4. Build and run in sumilator
 ```bash
 npx react-native run-ios --simulator "iPhone 14 Pro Max"
 ```

@@ -265,7 +265,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     return (
       <ImageContainerUpload key={item?.key}>
         <ImageUpload
-          source={{uri: item?.sourceURL, priority: FastImage.priority.high}}
+          source={{uri: item?.sourceURL, priority: FastImage.priority.low}}
         />
         {renderDeleteView(0)}
         {order === 0 && renderMainPhotoView()}

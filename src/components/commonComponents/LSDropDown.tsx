@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {Dropdown} from 'react-native-element-dropdown';
 import {
   DropdownStyle,
@@ -18,6 +18,8 @@ interface LSLSDropDownProps {
   isSearch?: boolean;
   onSelectItem?: Function;
   selectedValue?: any;
+  disabled?: boolean;
+  onFocus?: Function;
 }
 
 const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
@@ -28,7 +30,19 @@ const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
     itemsList = [],
     isSearch = false,
     onSelectItem = () => {},
+    disabled = false,
+    onFocus = () => {},
   } = props;
+
+  const handleOnFocus = () => {
+    console.log('focusing');
+    setIsFocus(true);
+    onFocus();
+  };
+
+  useEffect(() => {
+    setValue(props.selectedValue);
+  }, [props.selectedValue]);
   return (
     <Dropdown
       style={[
@@ -47,7 +61,7 @@ const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
       placeholder={!isFocus ? dropdownLabel || 'Select item' : '...'}
       searchPlaceholder="Search..."
       value={value}
-      onFocus={() => setIsFocus(true)}
+      onFocus={() => handleOnFocus()}
       onBlur={() => setIsFocus(false)}
       onChange={item => {
         setValue(item);
@@ -62,6 +76,7 @@ const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
         ) : null
       }
       autoScroll={false}
+      disable={disabled}
     />
   );
 });

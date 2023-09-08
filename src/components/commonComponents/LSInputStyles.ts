@@ -20,6 +20,7 @@ export const InputContainer = styled.View.attrs(props => ({
 }))`
   flex-direction: row;
   align-items: center;
+  zIndex: 0;
   ${color}
   ${space}
   ${border}
@@ -54,6 +55,7 @@ export const TextInput = styled.TextInput.attrs(props => ({
   flex: 1,
   py: verticalScale(props.multiline ? 12 : 0),
 }))`
+  zIndex: 0;
   ${color}
   ${space}
   ${layout}

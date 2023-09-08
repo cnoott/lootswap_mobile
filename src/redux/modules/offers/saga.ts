@@ -2,6 +2,7 @@ import {takeLatest, call, put} from 'redux-saga/effects';
 import {
   GET_TRADES_HISTORY,
   GET_TRADE,
+  GET_TRADE_STOCKX,
   ACCEPT_TRADE_CHECKOUT,
   ACCEPT_MONEY_OFFER_TRADE,
   CANCEL_TRADE,
@@ -19,6 +20,7 @@ import {
   undoTradeCheckoutCall,
   getTradesHistoryCall,
   getTradeCall,
+  getTradeWithStockxCall,
   acceptTradeCheckoutCall,
   editTradeCheckoutCall,
   acceptMoneyOfferTradeCall,
@@ -33,6 +35,8 @@ import {
   getTradesHistoryFailure,
   getTradeSuccess,
   getTradeFailure,
+  getTradeStockxSuccess,
+  getTradeStockxFailure,
 } from '../offers/actions';
 
 type APIResponseProps = {
@@ -143,6 +147,24 @@ export function* getTrade(action: any) {
       yield put(getTradeSuccess(response.data));
     } else {
       yield put(getTradeFailure(response.error));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* getTradeStockx(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      getTradeWithStockxCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      yield put(getTradeStockxSuccess(response.data));
+    } else {
+      yield put(getTradeStockxFailure(response.error));
     }
   } catch (e) {
     console.log(e);
@@ -266,6 +288,7 @@ export function* changeMoneyOffer(action: any) {
 export default function* offersSaga() {
   yield takeLatest(GET_TRADES_HISTORY.REQUEST, getTradesHistory);
   yield takeLatest(GET_TRADE.REQUEST, getTrade);
+  yield takeLatest(GET_TRADE_STOCKX.REQUEST, getTradeStockx);
   yield takeLatest(ACCEPT_TRADE_CHECKOUT.REQUEST, acceptTradeCheckout);
   yield takeLatest(START_TRADE_CHECKOUT.REQUEST, startTradeCheckout);
   yield takeLatest(START_MONEY_OFFER_TRADE.REQUEST, startMoneyOfferTrade);
