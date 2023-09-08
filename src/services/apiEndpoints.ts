@@ -181,6 +181,13 @@ export const getTradeCall = (reqData: any) => {
   );
 };
 
+export const getTradeWithStockxCall = (reqData: any) => {
+  return handleResponse(
+    api.get(`/trade-stockx/${reqData?.tradeId}/${reqData?.userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const acceptTradeCheckoutCall = (reqData: any) => {
   return handleResponse(
     api.post(
