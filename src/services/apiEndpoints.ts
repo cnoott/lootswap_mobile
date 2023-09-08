@@ -151,6 +151,13 @@ export const createNewProductCall = (reqData: any) => {
   );
 };
 
+export const fetchMarketDataCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/market-data/${reqData.userId}`, reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const updateProductCall = (reqData: any) => {
   return handleResponse(
     api.put(`/product/${reqData?.productIdToUpdate}/${reqData?.userId}`, {
@@ -170,6 +177,13 @@ export const getTradesHistoryCall = (reqData: any) => {
 export const getTradeCall = (reqData: any) => {
   return handleResponse(
     api.get(`/trade/${reqData?.tradeId}/${reqData?.userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const getTradeWithStockxCall = (reqData: any) => {
+  return handleResponse(
+    api.get(`/trade-stockx/${reqData?.tradeId}/${reqData?.userId}`),
     API_RESPONSE.CODE200,
   );
 };
@@ -423,6 +437,13 @@ export const newRatingCall = (reqData: any) => {
 export const setFirstTimeOpenFalseCall = (reqData: any) => {
   return handleResponse(
     api.put(`/set-first-time-open-false/${reqData.userId}/${reqData.orderId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const searchStockxCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/search-stockx/${reqData.userId}`, {query: reqData.query}),
     API_RESPONSE.CODE200,
   );
 };

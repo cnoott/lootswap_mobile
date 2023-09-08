@@ -1,6 +1,6 @@
 // @flow
 
-import {GET_TRADES_HISTORY, GET_TRADE} from '../../../constants/actions';
+import {GET_TRADES_HISTORY, GET_TRADE, GET_TRADE_STOCKX} from '../../../constants/actions';
 
 export interface TradeProps {
   historyTrades: any;
@@ -44,8 +44,10 @@ export default function loading(state = InitialState, action: ActionProps) {
         trade: null,
       };
     }
+    case GET_TRADE_STOCKX.SUCCESS:
     case GET_TRADE.SUCCESS: {
-      console.log('TRADE SUCCESS', payload);
+      console.log('TRADE SUCCESS', payload.recieverItems);
+      console.log('TRADE SUCCESS2', payload.senderItems);
       const filteredReceiverItems = payload?.reciever?.my_items.filter(
         item => item.isVisible && item.isVirtuallyVerified,
       );

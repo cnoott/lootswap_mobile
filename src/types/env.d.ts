@@ -50,12 +50,15 @@ declare module 'custom_types' {
   };
   export type PRODUCT_STEP_ONE_TYPE = {
     category?: DROPDOWN_TYPE;
-    brand?: DROPDOWN_TYPE;
+    productName?: string;
     size?: DROPDOWN_TYPE;
-    condition?: DROPDOWN_TYPE;
+    stockxUrlKey?: string;
+    stockxId?: string;
   };
   export type PRODUCT_STEP_TWO_TYPE = {
-    productName?: string;
+    brand?: DROPDOWN_TYPE;
+    condition?: DROPDOWN_TYPE;
+    preOwnedCondition?: DROPDOWN_TYPE;
     productDescription?: string;
   };
   export type PRODUCT_STEP_THREE_TYPE = {
@@ -73,6 +76,9 @@ declare module 'custom_types' {
     shippingCost?: Number;
     isShippingPrice?: boolean;
     isFreeShipping?: boolean;
+    median?: Number;
+    startRange?: Number;
+    endRange?: Number;
   };
   export type ADD_PRODUCT_TYPE = {
     stepOne?: PRODUCT_STEP_ONE_TYPE;

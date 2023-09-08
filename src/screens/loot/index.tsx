@@ -7,6 +7,7 @@ import {Keyboard} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useSelector, useDispatch} from 'react-redux';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 import AddProductStepOne from './addProduct/addProductStepOne';
 import AddProductStepTwo from './addProduct/addProductStepTwo';
 import AddProductStepThree from './addProduct/addProductStepThree';
@@ -34,6 +35,7 @@ import {
 import {HomeProps} from '../../redux/modules/home/reducer';
 import {
   UpdateAddProductData,
+  fetchMarketData,
   //getUsersDetailsRequest,
 } from '../../redux/modules';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
@@ -44,6 +46,8 @@ export const LootScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const dispatch = useDispatch();
   const homeData: HomeProps = useSelector(state => state?.home);
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData} = auth;
   const swiperRef = useRef<any>(null);
   const {addProductData} = homeData;
   const {
@@ -55,9 +59,13 @@ export const LootScreen: FC<any> = ({route}) => {
   const [currIndex, setCurrIndex] = useState(
     isFromEdit && editIndex ? editIndex - 1 : 0,
   );
+
+  const [stockxLoading, setStockxLoading] = useState(false);
+
   const updateProductData = (proData: ADD_PRODUCT_TYPE) => {
     dispatch(UpdateAddProductData(proData));
   };
+
   const handleDone = () => {
     if (isLootEdit) {
       navigation.goBack();
@@ -69,8 +77,31 @@ export const LootScreen: FC<any> = ({route}) => {
   const handleNext = useCallback(async () => {
     Keyboard.dismiss();
     const canGoNext = validateCreateProductData(currIndex + 1, addProductData);
+    const fetchedMakretData = addProductData?.stepFive?.median;
     if (canGoNext) {
-      if (currIndex === 3 && addProductData?.stepFour?.tradeOptions?.isTradeOnly) {
+      if (currIndex === 0 && stockxLoading) {
+        Alert.showError('Wait until search is done loading');
+        return;
+      }
+      if (
+        currIndex === 0 &&
+        addProductData?.stepOne?.stockxUrlKey &&
+        !fetchedMakretData
+      ) {
+        const reqData = {
+          userId: userData?._id,
+          stockxUrlKey: addProductData?.stepOne?.stockxUrlKey,
+          name: addProductData?.stepOne?.productName,
+        };
+
+        dispatch(
+          fetchMarketData(reqData, err => console.log('ERR fetching>', err)),
+        );
+      }
+      if (
+        currIndex === 3 &&
+        addProductData?.stepFour?.tradeOptions?.isTradeOnly
+      ) {
         navigation.navigate('AddProductOverviewScreen');
         return;
       }
@@ -79,12 +110,23 @@ export const LootScreen: FC<any> = ({route}) => {
       }
       swiperRef?.current?.scrollTo(currIndex + 1);
     } else {
+      console.log(currIndex);
       Alert.showError('Please fill all information');
     }
-  }, [currIndex, addProductData, navigation]);
+  }, [currIndex, addProductData, navigation, stockxLoading]);
+
   const handleBack = useCallback(() => {
     if (currIndex !== 0) {
       swiperRef?.current?.scrollTo(currIndex - 1);
+      if (currIndex === 1) {
+        updateProductData({
+          ...addProductData,
+          stepFive: {
+            ...addProductData?.stepFive,
+            median: undefined,
+          }
+        });
+      }
     }
   }, [currIndex]);
 
@@ -139,9 +181,15 @@ export const LootScreen: FC<any> = ({route}) => {
       return [1, 2, 3, 4, 5].map(data => {
         switch (data) {
           case 1:
-            return <AddProductStepOne updateProductData={updateProductData} />;
+            return (
+              <AddProductStepOne
+                updateProductData={updateProductData}
+                stockxLoading={stockxLoading}
+                setStockxLoading={setStockxLoading}
+              />
+          );
           case 2:
-            return <AddProductStepTwo updateProductData={updateProductData} />;
+            return <AddProductStepTwo updateProductData={updateProductData} />
           case 3:
             return (
               <AddProductStepThree updateProductData={updateProductData} />
@@ -157,9 +205,15 @@ export const LootScreen: FC<any> = ({route}) => {
     } else {
       switch (editIndex) {
         case 1:
-          return <AddProductStepOne updateProductData={updateProductData} />;
+          return (
+            <AddProductStepOne
+              updateProductData={updateProductData}
+              stockxLoading={stockxLoading}
+              setStockxLoading={setStockxLoading}
+            />
+          );
         case 2:
-          return <AddProductStepTwo updateProductData={updateProductData} />;
+          return <AddProductStepTwo updateProductData={updateProductData} />
         case 3:
           return <AddProductStepThree updateProductData={updateProductData} />;
         case 4:
@@ -167,7 +221,14 @@ export const LootScreen: FC<any> = ({route}) => {
         case 5:
           return <AddProductStepFive updateProductData={updateProductData} />;
         default:
-          return <AddProductStepOne updateProductData={updateProductData} />;
+          return (
+            <AddProductStepOne
+              updateProductData={updateProductData}
+              stockxLoading={stockxLoading}
+              setStockxLoading={setStockxLoading}
+            />
+          );
+
       }
     }
   };

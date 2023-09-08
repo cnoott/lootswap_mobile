@@ -115,12 +115,15 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
       return _data;
     });
     const reqData: any = {
-      name: stepTwo?.productName,
+      name: stepOne?.productName,
+      stockxUrlKey: stepOne?.stockxUrlKey,
+      stockxId: stepOne?.stockxId,
       userId: userData?._id,
       description: stepTwo?.productDescription,
-      condition: stepOne?.condition?.value,
+      condition: stepTwo?.condition?.value,
+      preOwnedCondition: stepTwo?.preOwnedCondition?.value,
       size: stepOne?.size?.value,
-      brand: stepOne?.brand?.value,
+      brand: stepTwo?.brand?.value,
       interestedIn: '',
       price: stepFive?.productPrice,
       who_pays: stepFive?.isFreeShipping
@@ -190,10 +193,10 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
   const renderProductNameView = () => {
     return (
       <>
-        {renderSectionHeader('Basic Info', false, 2)}
+        {renderSectionHeader('Basic Info', false, 1)}
         <ProductNameContainer>
-          <ProductNameLabel>{stepTwo?.productName}</ProductNameLabel>
-          <ProductBrandLabel>{stepOne?.brand?.label}</ProductBrandLabel>
+          <ProductNameLabel>{stepOne?.productName}</ProductNameLabel>
+          {renderSubProductInfo('Size', `${stepOne?.size?.label}`)}
         </ProductNameContainer>
       </>
     );
@@ -237,11 +240,14 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
   const renderProductTypeView = () => {
     return (
       <>
-        {renderSectionHeader('Product Type', false, 1)}
-        {renderSubProductInfo('Category', `${stepOne?.category?.label}`)}
-        {renderSubProductInfo('Size', `${stepOne?.size?.label}`)}
-        {renderSubProductInfo('Condition', `${stepOne?.condition?.label}`)}
-        {renderSubProductInfo('Brand/Designer', `${stepOne?.brand?.label}`)}
+        {renderSectionHeader('Product Type',false, 2)}
+        {renderSubProductInfo('Brand', `${stepTwo?.brand?.label}`)}
+        {renderSubProductInfo('Condition', `${stepTwo?.condition?.label}`)}
+        {stepTwo?.condition?.label === 'Pre-owned' &&
+          renderSubProductInfo(
+            'Pre-Owned Condition',
+            `${stepTwo?.preOwnedCondition?.label}`,
+          )}
       </>
     );
   };
@@ -283,11 +289,12 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
       <SubContainer>
         {renderProductNameView()}
         <TopSpace />
-        {renderDescriptionView()}
         <Divider />
         {stepThree?.length > 0 && renderProductImagesView()}
         <Divider />
         {renderProductTypeView()}
+        <TopSpace />
+        {renderDescriptionView()}
         <Divider />
         {renderTradeTypeView()}
         <Divider />

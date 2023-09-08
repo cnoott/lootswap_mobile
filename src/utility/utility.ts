@@ -312,30 +312,115 @@ export const conditionList = [
 ];
 
 export const shoesSizeList = [
-  {label: '3.5', value: '3.5'},
-  {label: '4', value: '4'},
-  {label: '4.5', value: '4.5'},
-  {label: '5', value: '5'},
-  {label: '5.5', value: '5.5'},
-  {label: '6', value: '6'},
-  {label: '6.5', value: '6.5'},
-  {label: '7', value: '7'},
-  {label: '7.5', value: '7.5'},
-  {label: '8', value: '8'},
-  {label: '8.5', value: '8.5'},
-  {label: '9', value: '9'},
-  {label: '9.5', value: '9.5'},
-  {label: '10', value: '10'},
-  {label: '10.5', value: '10.5'},
-  {label: '11', value: '11'},
-  {label: '11.5', value: '11.5'},
-  {label: '12', value: '12'},
-  {label: '12.5', value: '12.5'},
-  {label: '13', value: '13'},
-  {label: '13.5', value: '13.5'},
-  {label: '14', value: '14'},
+  {label: '3.5M', value: '3.5'},
+  {label: '4M', value: '4'},
+  {label: '4.5M', value: '4.5'},
+  {label: '5M', value: '5'},
+  {label: '5.5M', value: '5.5'},
+  {label: '6M', value: '6'},
+  {label: '6.5M', value: '6.5'},
+  {label: '7M', value: '7'},
+  {label: '7.5M', value: '7.5'},
+  {label: '8M', value: '8'},
+  {label: '8.5M', value: '8.5'},
+  {label: '9M', value: '9'},
+  {label: '9.5M', value: '9.5'},
+  {label: '10M', value: '10'},
+  {label: '10.5M', value: '10.5'},
+  {label: '11M', value: '11'},
+  {label: '11.5M', value: '11.5'},
+  {label: '12M', value: '12'},
+  {label: '12.5M', value: '12.5'},
+  {label: '13M', value: '13'},
+  {label: '13.5M', value: '13.5'},
+
+  {label: '5W', value: '5W'},
+  {label: '5.5W', value: '5.5W'},
+  {label: '6W', value: '6W'},
+  {label: '6.5W', value: '6.5W'},
+  {label: '7W', value: '7W'},
+  {label: '7.5W', value: '7.5W'},
+  {label: '8W', value: '8W'},
+  {label: '8.5W', value: '8.5W'},
+  {label: '9W', value: '9W'},
+  {label: '9.5W', value: '9.5W'},
+  {label: '10W', value: '10W'},
+  {label: '10.5W', value: '10.5W'},
+  {label: '11W', value: '11W'},
+  {label: '11.5W', value: '11.5W'},
+  {label: '12W', value: '12W'},
+  {label: '13W', value: '13W'},
+
+  //Youth
+  {label: '1Y', value: '1Y'},
+  {label: '1.5Y', value: '1.5Y'},
+  {label: '2Y', value: '2.5Y'},
+  {label: '3Y', value: '3.5Y'},
+  {label: '4Y', value: '4Y'},
+  {label: '4.5Y', value: '4.5Y'},
+  {label: '5Y', value: '5Y'},
+  {label: '5.5Y', value: '5.5Y'},
+  {label: '6Y', value: '6Y'},
+  {label: '6.5Y', value: '6.5Y'},
+  {label: '7Y', value: '7Y'},
+
+  {label: '1K', value: '1K'},
+  {label: '2K', value: '2K'},
+  {label: '3K', value: '3K'},
+  {label: '4K', value: '4K'},
+  {label: '5K', value: '5K'},
+  {label: '5.5K', value: '5.5K'},
+  {label: '6K', value: '6K'},
+  {label: '6.5K', value: '6.5K'},
+  {label: '7K', value: '7K'},
+  {label: '7.5K', value: '7.5K'},
+  {label: '8K', value: '8K'},
+  {label: '8.5K', value: '8.5K'},
+  {label: '9K', value: '9K'},
+  {label: '9.5K', value: '9.5K'},
+  {label: '10K', value: '10K'},
+  {label: '10.5K', value: '10.5K'},
+  {label: '11K', value: '11K'},
+  {label: '11.5K', value: '11.5K'},
+  {label: '12K', value: '12K'},
+  {label: '12.5K', value: '12.5K'},
+  {label: '13K', value: '13K'},
+  {label: '13.5K', value: '13.5K'},
+  {label: '1C', value: '1C'},
+  {label: '2C', value: '2C'},
+  {label: '3C', value: '3C'},
+  {label: '4C', value: '4C'},
+  {label: '5C', value: '5C'},
+  {label: '6C', value: '6C'},
+  {label: '7C', value: '7C'},
+  {label: '8C', value: '8C'},
+  {label: '9C', value: '9C'},
+  {label: '10C', value: '10C'},
+  {label: '10.5C', value: '10.5C'},
+  {label: '11C', value: '11C'},
+  {label: '11.5C', value: '11.5C'},
+  {label: '12C', value: '12C'},
+  {label: '12.5C', value: '12.5C'},
+  {label: '13C', value: '13C'},
+  {label: '13.5C', value: '13.5C'},
+
 ];
 
+export const womenOnlySizes = shoesSizeList.filter(
+  obj => obj.label.includes('W')
+);
+
+export const gsSizes = shoesSizeList.filter(obj => obj.label.includes('Y'));
+
+export const tdSizes = shoesSizeList.filter(obj => obj.label.includes('C'));
+
+export const psSizes = shoesSizeList.filter(
+  obj => obj.label.includes('C') || obj.value.includes('Y'),
+);
+
+export const kidsSizes = shoesSizeList.filter(
+  obj => obj.label.includes('K') || obj.value.includes('Y'),
+);
 export const upperClothingSize = [
   {label: 'XS', value: 'XS'},
   {label: 'S', value: 'S'},
@@ -389,12 +474,28 @@ export const hatsSize = [
   {label: '8 1/4', value: '8 1/4'},
 ];
 
+export const preOwnedConditions = [
+  {label: 'Lightly used', value: 'Lightly used'},
+  {label: 'Moderately used', value: 'Moderately used'},
+  {label: 'Heavily used', value: 'Heavily used'},
+];
+
 export const otherSize = [{label: 'other', value: 'Other'}];
 
 export const getSizeList = (category: string = '') => {
   switch (category) {
     case 'shoes':
       return shoesSizeList;
+    case 'womens':
+      return womenOnlySizes;
+    case 'gs':
+      return gsSizes;
+    case 'td':
+      return tdSizes;
+    case 'ps':
+      return psSizes;
+    case 'kids':
+      return kidsSizes;
     case 'shirts':
     case 'jackets':
     case 'hoodies':
@@ -407,7 +508,6 @@ export const getSizeList = (category: string = '') => {
       return lowerClothingSize;
     case 'other':
       return otherSize;
-
     default:
       return [];
   }
@@ -430,16 +530,23 @@ export const getAddProductTitle = (step: number) => {
   }
 };
 
+export const getPreOwnedConditions = () => {
+  return preOwnedConditions;
+};
+
 export const getAddProductRawData = () => {
   const addProductData: GET_PRODUCT_DETAILS = {
     stepOne: {
       category: null,
-      brand: null,
+      productName: '',
       size: null,
-      condition: null,
+      stockxUrlKey: null,
+      stockxId: null,
     },
     stepTwo: {
-      productName: '',
+      brand: null,
+      condition: null,
+      preOwnedCondition: null,
       productDescription: '',
     },
     stepThree: {
@@ -458,6 +565,9 @@ export const getAddProductRawData = () => {
       shippingCost: 0.0,
       isShippingPrice: false,
       isFreeShipping: true,
+      median: null,
+      startRange: null,
+      endRange: null,
     },
   };
   return addProductData;
@@ -596,21 +706,29 @@ export const configureAndGetLootData = (lootData: any) => {
     categoryList,
     lootData?.category,
   );
-  newLootData.stepOne.brand = getStepOneDataFromLists(
-    brandsList,
-    lootData?.brand,
-  );
+  newLootData.stepOne.productName = lootData?.name;
+  newLootData.stepOne.stockxId = lootData?.stockxId;
   newLootData.stepOne.size = getStepOneDataFromLists(
-    getSizeList(lootData?.category),
+    brandsList,
     lootData?.size,
   );
-  newLootData.stepOne.condition = getStepOneDataFromLists(
+
+  // Configure STEP 2
+  newLootData.stepTwo.brand = getStepOneDataFromLists(
+    getSizeList(lootData?.category),
+    lootData?.brand,
+  );
+  newLootData.stepTwo.condition = getStepOneDataFromLists(
     conditionList,
     lootData?.condition,
   );
-  // Configure STEP 2
-  newLootData.stepTwo.productName = lootData?.name;
+  newLootData.stepTwo.condition = getStepOneDataFromLists(
+    preOwnedConditions,
+    lootData?.preOwnedCondition,
+  );
+  //TODO: preownedCondtion here
   newLootData.stepTwo.productDescription = lootData?.description;
+
   // Configure STEP 3
   newLootData.stepThree = getStepThreeDataFromLists(lootData);
   // Configure STEP 4
@@ -633,14 +751,17 @@ export const validateCreateProductData = (
   var canGoNext = false;
   switch (currStep) {
     case 1:
-      const {category, brand, size, condition} = prodData?.stepOne;
-      if (category && brand && size && condition) {
+      const {category, productName, size} = prodData?.stepOne;
+      if (category && productName && size) {
         canGoNext = true;
       }
       break;
     case 2:
-      const {productName, productDescription} = prodData?.stepTwo;
-      if (productName && productDescription) {
+      const {brand, condition, preOwnedCondition, productDescription} = prodData?.stepTwo;
+      if (brand && condition && productDescription) {
+        if (condition.value === 'Pre-owned' && !preOwnedCondition) {
+          return false;
+        }
         canGoNext = true;
       }
       break;
@@ -1065,3 +1186,87 @@ export const isAlreadyTrading = (
   }
   return false;
 };
+
+export const findMarketDataFromSize = (stockxProduct: any, size: string) => {
+  console.log('finding', size);
+  return stockxProduct?.sizes?.find(
+    sizeMarketData => sizeMarketData.sizeUS === size
+  );
+};
+
+export const getPreownedMarketValue = (
+  stockxSize: any,
+  preOwnedCondition: string,
+) => {
+  //return an array
+  // use max value when determining 30% below value
+  const lightlyUsedRange = [0.08, 0.18];
+  const moderatleyUsed = [0.19, 0.42];
+  const heavilyUsed = [0.43, 0.5];
+  const {lastSale} = stockxSize;
+  let range = [];
+  switch (preOwnedCondition) {
+    case 'Lightly used':
+      range[0] = lastSale - lastSale * lightlyUsedRange[1];
+      range[1] = lastSale - lastSale * lightlyUsedRange[0];
+      break;
+    case 'Moderately used':
+      range[0] = lastSale - lastSale * moderatleyUsed[1];
+      range[1] = lastSale - lastSale * moderatleyUsed[0];
+      break;
+    case 'Heavily used':
+      range[0] = lastSale - lastSale * heavilyUsed[1];
+      range[1] = lastSale - lastSale * heavilyUsed[0];
+      break;
+  }
+  range[0] = Math.floor(range[0]);
+  range[1] = Math.floor(range[1]);
+  return range;
+};
+
+const hasTradeOnly = (products: Array<any>) => {
+  return products.find(
+    product => product.type === 'trade-only' && !product.stockxId
+  );
+};
+
+const getAllPrices = (products: Array<any>) => {
+  let allPrices = [];
+  products.forEach(product => {
+    if (product.stockxId) {
+      let foundSize = findMarketDataFromSize(product.stockxId, product.size);
+      if (foundSize) {
+        if (product.condition === 'Pre-owned') {
+          const preOwnedValue = getPreownedMarketValue(
+            foundSize,
+            product?.preOwnedCondition,
+          );
+          allPrices.push(preOwnedValue[1]);
+        } else {
+          allPrices.push(foundSize.lastSale);
+        }
+      } else {
+        allPrices.push(null);
+      }
+    } else {
+      allPrices.push(product.price);
+    }
+  });
+  return allPrices;
+};
+
+export const calculateMarketValue = (products: Array<any>) => {
+  if (hasTradeOnly(products)) {
+    return 'Unknown';
+  }
+
+  const allPrices = getAllPrices(products);
+  console.log('aall', allPrices);
+  const containsNullOrZero = allPrices.find(price => !price);
+  if (containsNullOrZero !== undefined) {
+    return 'Unknown';
+  }
+
+  return '$' + allPrices.reduce((partialSum, price) => partialSum + price, 0);
+};
+

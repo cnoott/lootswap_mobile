@@ -96,8 +96,15 @@ export const GET_TRADE = {
   ...createActionConst(actions.GET_TRADE),
 };
 
+export const GET_TRADE_STOCKX = {
+  ...createActionConst(actions.GET_TRADE_STOCKX),
+};
 export const CREATE_NEW_PRODUCT = {
   ...createActionConst(actions.CREATE_NEW_PRODUCT),
+};
+
+export const FETCH_MARKET_DATA = {
+  ...createActionConst(actions.FETCH_MARKET_DATA),
 };
 
 export const ACCEPT_TRADE_CHECKOUT = {
@@ -229,4 +236,8 @@ export const NEW_RATING = {
 
 export const SET_FIRST_TIME_OPEN_FALSE = {
   ...createActionConst(actions.SET_FIRST_TIME_OPEN_FALSE),
+};
+
+export const SEARCH_STOCKX = {
+  ...createActionConst(actions.SEARCH_STOCKX),
 };

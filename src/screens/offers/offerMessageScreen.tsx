@@ -15,6 +15,7 @@ import {
   acceptMoneyOfferTrade,
   cancelTrade,
   getTrade,
+  getTradeStockx,
   getTradesHistory,
 } from '../../redux/modules';
 import LSInput from '../../components/commonComponents/LSInput';
@@ -177,6 +178,12 @@ export const OffersMessageScreen: FC<{}> = props => {
 
   const onEditTradePress = async () => {
     closeModal();
+    await dispatch(
+      getTradeStockx({
+        userId: userData?._id,
+        tradeId: tradeId,
+      }),
+    );
     navigation.navigate('EditTradeScreen', {
       trade: offerItem,
       isReciever: isReciever,
@@ -325,7 +332,7 @@ export const OffersMessageScreen: FC<{}> = props => {
       />
       <KeyboardAvoidingView>
         {renderChatView()}
-        <InputContainer bottomSpace={insets.bottom - 30}>
+        <InputContainer bottomSpace={insets.bottom}>
           {renderLeftInputView()}
           {renderRightInputView()}
         </InputContainer>

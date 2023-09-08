@@ -9,6 +9,7 @@ import {
   Container,
   HorizontalSpace,
   TradeOptionsText,
+  MarketRangeText,
   Divider,
   ShippingDes,
   TouchableRow,
@@ -16,6 +17,15 @@ import {
   FreeTagContainer,
   FreeTag,
   FreeShippingDes,
+  RangeBarContainer,
+  GreenBar,
+  MedianDotContainer,
+  MedianContainer,
+  MedianDot,
+  MedianTextContainer,
+  MedianText,
+  RedBar,
+  OrangeGradientBar,
 } from './styles';
 import {
   DOLLOR_TEXT,
@@ -25,6 +35,7 @@ import {
 } from 'localsvgimages';
 import {useSelector} from 'react-redux';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
+import {ScrollView} from 'react-native';
 
 interface ProductStep {
   updateProductData: Function;
@@ -36,9 +47,34 @@ export const AddProductStepFive: FC<ProductStep> = props => {
   );
   const {stepFive} = addProductData;
   const [price, setPrice] = useState(stepFive?.productPrice || 0.0);
+  const [dotPosition, setDotPosition] = useState('50');
+  const [dotText, setDotText] = useState('$200');
   const [shippingCost, setShippingCost] = useState(
     stepFive?.shippingCost || 0.0,
   );
+
+  const handleSetPrice = (priceInput: any) => {
+    setPrice(priceInput);
+    const converted = priceInput;
+    const lastSalePrice = addProductData?.stepFive?.median;
+    if (!lastSalePrice) {
+      return;
+    }
+
+    // Updated calculation based on 10% range
+    const dotPositionCalc = ((converted - 0.9 * lastSalePrice) / (0.2 * lastSalePrice)) * 100;
+
+    const positionWithBounds = Math.max(0, Math.min(100, dotPositionCalc));
+    setDotPosition(positionWithBounds);
+
+    // Updated maxSalePrice based on 10%
+    const maxSalePrice = lastSalePrice + lastSalePrice * 0.1;
+    if (priceInput >= maxSalePrice) {
+        setDotText(`High $${maxSalePrice.toFixed(2)}`);  // Added toFixed(2) for currency formatting
+    } else {
+        setDotText('$' + priceInput);
+    }
+  };
   const {updateProductData} = props;
   const onBlurCall = () => {
     updateProductData({
@@ -104,39 +140,67 @@ export const AddProductStepFive: FC<ProductStep> = props => {
       </HorizontalSpace>
     );
   };
+
+  const renderMarketRange = () => {
+    return (
+      <HorizontalSpace>
+        <Divider />
+        <TradeOptionsText>
+            Estimated Market Range: <MarketRangeText>{`${stepFive?.startRange} - ${stepFive?.endRange}`}</MarketRangeText>
+        </TradeOptionsText>
+        <MedianContainer dotPosition={dotPosition}>
+          <MedianTextContainer>
+            <MedianText>{String(dotText)}</MedianText>
+          </MedianTextContainer>
+        </MedianContainer>
+        <RangeBarContainer>
+          <GreenBar />
+          <OrangeGradientBar />
+          <RedBar />
+          <MedianDotContainer dotPosition={dotPosition}>
+            <MedianDot/>
+          </MedianDotContainer>
+        </RangeBarContainer>
+      </HorizontalSpace>
+    );
+  };
+
   return (
     <Container>
-      <HorizontalSpace>
-        <TradeOptionsText>Price</TradeOptionsText>
-      </HorizontalSpace>
-      <LSInput
-        onChangeText={setPrice}
-        placeholder={'0.00'}
-        horizontalSpace={20}
-        topSpace={1}
-        rightIcon={USD_TEXT}
-        leftIcon={DOLLOR_TEXT}
-        keyboardType={'numeric'}
-        onBlurCall={onBlurCall}
-      />
-      {renderShippingView()}
-      {!stepFive?.isFreeShipping && (
-        <>
-          <HorizontalSpace>
-            <TradeOptionsText>Shipping Cost</TradeOptionsText>
-          </HorizontalSpace>
-          <LSInput
-            onChangeText={setShippingCost}
-            placeholder={'0.00'}
-            horizontalSpace={20}
-            topSpace={1}
-            rightIcon={USD_TEXT}
-            leftIcon={DOLLOR_TEXT}
-            keyboardType={'numeric'}
-            onBlurCall={onBlurCall}
-          />
-        </>
-      )}
+      <ScrollView>
+        <HorizontalSpace>
+          <TradeOptionsText>Price</TradeOptionsText>
+        </HorizontalSpace>
+        <LSInput
+          onChangeText={handleSetPrice}
+          placeholder={'0.00'}
+          horizontalSpace={20}
+          topSpace={1}
+          rightIcon={USD_TEXT}
+          leftIcon={DOLLOR_TEXT}
+          keyboardType={'numeric'}
+          onBlurCall={onBlurCall}
+        />
+        {stepFive?.median !== 0 && renderMarketRange()}
+        {renderShippingView()}
+        {!stepFive?.isFreeShipping && (
+          <>
+            <HorizontalSpace>
+              <TradeOptionsText>Shipping Cost</TradeOptionsText>
+            </HorizontalSpace>
+            <LSInput
+              onChangeText={setShippingCost}
+              placeholder={'0.00'}
+              horizontalSpace={20}
+              topSpace={1}
+              rightIcon={USD_TEXT}
+              leftIcon={DOLLOR_TEXT}
+              keyboardType={'numeric'}
+              onBlurCall={onBlurCall}
+            />
+          </>
+        )}
+      </ScrollView>
     </Container>
   );
 };

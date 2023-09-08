@@ -4,9 +4,11 @@ import {
   GET_PRODUCT_LISTED_ITEMS,
   SEND_TRADE_OFFER,
   CREATE_NEW_PRODUCT,
+  FETCH_MARKET_DATA,
   GENERATE_LINK_PAYPAL,
   SAVE_PAYPAL,
   DELETE_PRODUCT,
+  SEARCH_STOCKX,
 } from '../../../constants/actions';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 
@@ -95,6 +97,27 @@ export const createNewProductFailure = () => {
   };
 };
 
+export const fetchMarketData = (reqData: any, errorCallBack: Function) => {
+  return {
+    type: FETCH_MARKET_DATA.REQUEST,
+    reqData: reqData,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const fetchMarketDataSuccess = (payload: any) => {
+  return {
+    type: FETCH_MARKET_DATA.SUCCESS,
+    payload,
+  };
+};
+
+export const fetchMarketDataFailure = () => {
+  return {
+    type: FETCH_MARKET_DATA.FAILURE,
+  };
+};
+
 export const generateLinkPaypal = (
   reqData: any,
   successCallBack: Function,
@@ -128,6 +151,19 @@ export const deleteProduct = (
 ) => {
   return {
     type: DELETE_PRODUCT.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const searchStockx = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: SEARCH_STOCKX.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,

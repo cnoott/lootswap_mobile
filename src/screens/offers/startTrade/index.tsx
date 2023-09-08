@@ -1,4 +1,4 @@
-import React, {FC, useRef, useState} from 'react';
+import React, {FC, useRef, useState, useEffect} from 'react';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {LSStartTradeHeader} from '../../../components/commonComponents/headers/startTradeHeader';
 import {Container, ButtonContainer} from './styles';
@@ -12,12 +12,14 @@ import {ReviewTrade} from './reviewTrade';
 import {useDispatch, useSelector} from 'react-redux';
 import {AuthProps} from '../../../redux/modules/auth/reducer';
 import {useStripe} from '@stripe/stripe-react-native';
+import {calculateMarketValue} from '../../../utility/utility';
 import {
   getMyDetailsNoLoadRequest,
   startTradeCheckout,
   undoTradeCheckout,
 } from '../../../redux/modules';
 import {Alert} from 'custom_top_alert';
+import RobberyModal from '../../../components/offers/RobberyModal';
 
 type PaymentDetails = {
   platformFee: number;
@@ -38,8 +40,12 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   const {selectedProductDetails} = homeStates;
 
   const [currIndex, setCurrIndex] = useState(0);
+
+  const [robberyModalVisible, setRobberyModalVisible] = useState(false);
+
   const [otherUserItems, setOtherUserItems] = useState(requestedUserDetails.my_items);
   const [myItems, setMyItems] = useState(userData?.my_items);
+
   const [myMoneyOffer, setMyMoneyOffer] = useState(0);
   const [requestedMoneyOffer, setRequestedMoneyOffer] = useState(0);
 
@@ -55,6 +61,10 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     userPayout: 0,
   });
   const [trade, setTrade] = useState({});
+
+  useEffect(() => {
+    console.log('STARTING');
+  },[]);
 
 
   const headerTitleOptions = () => {
@@ -187,6 +197,23 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     } else if (currIndex === 1 && mySelected.length <= 0) {
       Alert.showError('Please select at least one item');
       return false;
+    } else if (currIndex === 2) {
+
+      var otherUserMarketString = calculateMarketValue(otherUserSelected);
+      var myMarketString = calculateMarketValue(mySelected);
+      if (otherUserMarketString === 'Unknown' || myMarketString === 'Unknown') {
+        return true;
+      }
+      var otherUserMarketValue = parseInt(otherUserMarketString.slice(1), 10);
+      var myMarketValue = parseInt(myMarketString.slice(1), 10);
+      otherUserMarketValue += requestedMoneyOffer;
+      myMarketValue += myMoneyOffer;
+
+      if (myMarketValue < otherUserMarketValue * 0.7) {
+        setRobberyModalVisible(true);
+        return false
+      }
+      return true;
     }
     return true;
   };
@@ -248,6 +275,10 @@ export const StartTradeScreen: FC<any> = ({route}) => {
 
   return (
     <Container>
+      <RobberyModal
+        isModalVisible={robberyModalVisible}
+        setModalVisible={setRobberyModalVisible}
+      />
       {renderTopView()}
       <SwiperComponent ref={swiperRef} onIndexChanged={setCurrIndex}>
         {renderSteps()}

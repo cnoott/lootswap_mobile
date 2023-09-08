@@ -338,6 +338,36 @@ export const OfferPriceText = styled.Text.attrs(props => ({
   ${color}
 `;
 
+export const MarketValueContainer = styled.View.attrs(props => ({
+  flex: 1,
+  px: scale(15),
+}))`
+  flex-direction: row;
+  ${space}
+  ${layout}
+  ${color}
+`;
+
+export const MarketValueTitle = styled.Text.attrs(props => ({
+  color: props.theme.colors.black,
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-family: Urbanist;
+  ${space}
+  ${layout}
+  ${color}
+`;
+
+export const MarketValueText = styled.Text.attrs(props => ({
+  color: props.theme.colors.black,
+}))`
+  font-size: ${moderateScale(15)}px;
+  font-family: Urbanist-Bold;
+  ${space}
+  ${layout}
+  ${color}
+`;
+
 export const SendOfferContainer = styled.View.attrs(() => ({
   flex: 1,
   mb: verticalScale(90),

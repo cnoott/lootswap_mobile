@@ -4,14 +4,18 @@ import {
   GET_PRODUCT_LISTED_ITEMS,
   SEND_TRADE_OFFER,
   CREATE_NEW_PRODUCT,
+  FETCH_MARKET_DATA,
   GENERATE_LINK_PAYPAL,
   SAVE_PAYPAL,
   DELETE_PRODUCT,
+  SEARCH_STOCKX,
 } from '../../../constants/actions';
 import {
   getProductDetailsSuccess,
   getProductDetailsFailure,
   createNewProductSuccess,
+  fetchMarketDataSuccess,
+  fetchMarketDataFailure,
   createNewProductFailure,
   resetAddProductData,
 } from './actions';
@@ -20,10 +24,12 @@ import {
   getProductListedItemsForOfferCall,
   sendTradeOfferCall,
   createNewProductCall,
+  fetchMarketDataCall,
   updateProductCall,
   generateLinkPaypalCall,
   savePaypalCall,
   deleteProductCall,
+  searchStockxCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {Alert} from 'custom_top_alert';
@@ -119,6 +125,23 @@ export function* createNewProduct(action: any) {
   }
 }
 
+export function* fetchMarketData(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      fetchMarketDataCall,
+      action?.reqData,
+    );
+    if (response.success) {
+      yield put(fetchMarketDataSuccess(response.data));
+    } else {
+      action?.errorCallBack(response);
+    }
+  } catch (e) {
+    action?.errorCallBack(e);
+    console.log(e);
+  }
+}
+
 export function* generateLinkPaypal(action: any) {
   yield put(LoadingRequest());
   try {
@@ -130,7 +153,7 @@ export function* generateLinkPaypal(action: any) {
     if (response?.success) {
       action?.successCallBack(response.data);
     } else {
-      action?.errorCallBack(action.error);
+      action?.errorCallBack(response.error);
     }
   } catch (e) {
     action?.errorCallBack();
@@ -149,7 +172,7 @@ export function* savePaypal(action: any) {
     if (response?.success) {
       action?.successCallBack(response.data);
     } else {
-      action?.errorCallBack(action.error);
+      action?.errorCallBack(response.error);
     }
   } catch (e) {
     action?.errorCallBack();
@@ -169,7 +192,25 @@ export function* deleteProduct(action: any) {
       action?.successCallBack(response.data);
       resetRoute();
     } else {
-      action?.errorCallBack(action.error);
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
+export function* searchStockx(action: any) {
+  //TODO: handle loading
+  try {
+    const response: APIResponseProps = yield call(
+      searchStockxCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
     }
   } catch (e) {
     action?.errorCallBack();
@@ -185,7 +226,9 @@ export default function* authSaga() {
   );
   yield takeLatest(SEND_TRADE_OFFER.REQUEST, sendTradeOffer);
   yield takeLatest(CREATE_NEW_PRODUCT.REQUEST, createNewProduct);
+  yield takeLatest(FETCH_MARKET_DATA.REQUEST, fetchMarketData);
   yield takeLatest(GENERATE_LINK_PAYPAL.REQUEST, generateLinkPaypal);
   yield takeLatest(SAVE_PAYPAL.REQUEST, savePaypal);
   yield takeLatest(DELETE_PRODUCT.REQUEST, deleteProduct);
+  yield takeLatest(SEARCH_STOCKX.REQUEST, searchStockx);
 }
