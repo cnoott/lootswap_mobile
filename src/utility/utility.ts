@@ -351,6 +351,13 @@ export const conditionList = [
   {label: 'Pre-owned', value: 'Pre-owned'},
 ];
 
+export const conditionListClothing = [
+  {label: 'New with tags', value: 'New with tags'},
+  {label: 'New without tags', value: 'New without tags'},
+  {label: 'New with defect', value: 'New with defect'},
+  {label: 'Pre-owned', value: 'Pre-owned'},
+];
+
 export const shoesSizeList = [
   {label: '3.5M', value: '3.5'},
   {label: '4M', value: '4'},
