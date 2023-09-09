@@ -83,6 +83,7 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
   };
   //PRE OWNED CONDITION
   const onSetProductDes = (item: any) => {
+    console.log(addProductData?.stepTwo?.condition.value);
     setProductDes(item);
     updateData({productDescription: item});
   };
@@ -126,7 +127,7 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
         onSetConditionData,
         conditionData,
       )}
-      {conditionData?.value === 'Pre-owned' &&
+      {addProductData?.stepTwo?.condition.value === 'Pre-owned' &&
         renderDropdown(
           'Rate Pre-owned Condition',
           false,
