@@ -91,20 +91,20 @@ export const BOTTOM_TAB_PROFILE_SELECTED = `<svg width="24" height="24" viewBox=
 </svg>
 `;
 
-export const BOTTOM_TAB_NOTIFICATION = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M12 17.8476C17.6392 17.8476 20.2481 17.1242 20.5 14.2205C20.5 11.3188 18.6812 11.5054 18.6812 7.94511C18.6812 5.16414 16.0452 2 12 2C7.95477 2 5.31885 5.16414 5.31885 7.94511C5.31885 11.5054 3.5 11.3188 3.5 14.2205C3.75295 17.1352 6.36177 17.8476 12 17.8476Z" stroke="#404040" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M14.3889 20.8594C13.0247 22.3741 10.8967 22.3921 9.51953 20.8594" stroke="#404040" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+export const BOTTOM_TAB_NOTIFICATION = `<svg width="25" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12 17.8476C17.6392 17.8476 20.2481 17.1242 20.5 14.2205C20.5 11.3188 18.6812 11.5054 18.6812 7.94511C18.6812 5.16414 16.0452 2 12 2C7.95477 2 5.31885 5.16414 5.31885 7.94511C5.31885 11.5054 3.5 11.3188 3.5 14.2205C3.75295 17.1352 6.36177 17.8476 12 17.8476Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14.3889 20.8594C13.0247 22.3741 10.8967 22.3921 9.51953 20.8594" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 `;
 
 export const BOTTOM_TAB_NOTIFICATION_SELECTED = `
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="25" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M18.7071 8.79633C18.7071 10.0523 19.039 10.7925 19.7695 11.6456C20.3231 12.2741 20.5 13.0808 20.5 13.956C20.5 14.8302 20.2128 15.6601 19.6373 16.3339C18.884 17.1417 17.8215 17.6573 16.7372 17.747C15.1659 17.8809 13.5937 17.9937 12.0005 17.9937C10.4063 17.9937 8.83505 17.9263 7.26375 17.747C6.17846 17.6573 5.11602 17.1417 4.36367 16.3339C3.78822 15.6601 3.5 14.8302 3.5 13.956C3.5 13.0808 3.6779 12.2741 4.23049 11.6456C4.98384 10.7925 5.29392 10.0523 5.29392 8.79633V8.3703C5.29392 6.68834 5.71333 5.58852 6.577 4.51186C7.86106 2.9417 9.91935 2 11.9558 2H12.0452C14.1254 2 16.2502 2.98702 17.5125 4.62466C18.3314 5.67916 18.7071 6.73265 18.7071 8.3703V8.79633ZM9.07367 20.0608C9.07367 19.5573 9.53582 19.3266 9.96318 19.2279C10.4631 19.1222 13.5093 19.1222 14.0092 19.2279C14.4366 19.3266 14.8987 19.5573 14.8987 20.0608C14.8738 20.5402 14.5926 20.9653 14.204 21.2352C13.7001 21.628 13.1088 21.8767 12.4906 21.9664C12.1487 22.0107 11.8128 22.0117 11.4828 21.9664C10.8636 21.8767 10.2723 21.628 9.76938 21.2342C9.37978 20.9653 9.09852 20.5402 9.07367 20.0608Z" fill="#212121"/>
 </svg>
 `;
 
 export const BOTTOM_TAB_NOTIFICATION_NEW = `
-<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.17 22.44"><path d="M12,17.85c5.64,0,8.25-.73,8.5-3.63,0-2.9-1.82-2.71-1.82-6.27C18.68,5.16,16.05,2,12,2S5.32,5.16,5.32,8c0,3.56-1.82,3.37-1.82,6.27C3.75,17.14,6.36,17.85,12,17.85Z" transform="translate(-2.75 -0.31)" fill="none" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M14.39,20.86a3.17,3.17,0,0,1-4.87,0Z" transform="translate(-2.75 -0.31)" fill="none" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><circle cx="14.11" cy="5.06" r="4.56" fill="#f75555" stroke="#f75555" stroke-miterlimit="10"/></svg>
+<svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.17 22.44"><path d="M12,17.85c5.64,0,8.25-.73,8.5-3.63,0-2.9-1.82-2.71-1.82-6.27C18.68,5.16,16.05,2,12,2S5.32,5.16,5.32,8c0,3.56-1.82,3.37-1.82,6.27C3.75,17.14,6.36,17.85,12,17.85Z" transform="translate(-2.75 -0.31)" fill="none" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M14.39,20.86a3.17,3.17,0,0,1-4.87,0Z" transform="translate(-2.75 -0.31)" fill="none" stroke="#404040" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><circle cx="14.11" cy="5.06" r="4.56" fill="#f75555" stroke="#f75555" stroke-miterlimit="10"/></svg>
 `;
 
 export const BOTTOM_TAB_OFFERS = `
