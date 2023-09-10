@@ -10,6 +10,7 @@ import {useSelector} from 'react-redux';
 import {
   brandsList,
   conditionList,
+  conditionListClothing,
   getPreOwnedConditions,
 } from '../../../utility/utility';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
@@ -60,7 +61,7 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
   const onSetConditionData = (item: any) => {
     if (
       addProductData?.stepOne?.stockxUrlKey &&
-      item.label === 'New with box'
+      (item.label === 'New with box' || item.label === 'New with tags')
     ) {
       const {productName, size} = addProductData.stepOne;
       const prodDesc = `${item.label},\n${productName},\nSize: ${size.value}`;
@@ -122,11 +123,13 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
       {renderDropdown(
         'Condition',
         false,
-        conditionList,
+        addProductData?.stepOne?.category?.value === 'shoes'
+          ? conditionList
+          : conditionListClothing,
         onSetConditionData,
         conditionData,
       )}
-      {conditionData?.value === 'Pre-owned' &&
+      {addProductData?.stepTwo?.condition?.value === 'Pre-owned' &&
         renderDropdown(
           'Rate Pre-owned Condition',
           false,
