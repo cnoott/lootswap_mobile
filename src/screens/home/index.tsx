@@ -78,6 +78,7 @@ export const HomeScreen: FC<{}> = () => {
           isHome={true}
           rightIcon={LIKE_HEART_ICON}
           centerAligned={false}
+          onNotifButtonPress={() => console.log('NOTIF BUTTON TODO')}
           onRightItemPress={() => goToLikedProducts(hits)}
         />
         <SearchContainer>

@@ -30,6 +30,17 @@ export const HeaderContainer = styled.View.attrs((props: any) => ({
   ${layout}
 `;
 
+export const IconsContainer = styled.View.attrs(() => ({
+}))`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+
 export const ProfileHeaderContainer = styled.View.attrs(() => ({
   height: scale(Platform.OS === 'ios' ? 84 : 64),
   pt: moderateScale(Platform.OS === 'ios' ? 34 : 0),
@@ -430,6 +441,17 @@ export const TouchableOpacity = styled.TouchableOpacity.attrs({
   hitSlop: {top: 10, left: 10, right: 10, bottom: 10},
 })`
   flex-direction: row;
+`;
+
+export const TouchableOpacityNotif = styled.TouchableOpacity.attrs({
+  hitSlop: {top: 10, left: 10, right: 10, bottom: 10},
+  mr: '10px',
+})`
+  flex-direction: row;
+  ${color}
+  ${space}
+  ${layout}
+  ${border}
 `;
 
 export const EmptyRowView = styled.View`
