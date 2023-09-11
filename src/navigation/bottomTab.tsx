@@ -41,8 +41,6 @@ import {
   BOTTOM_TAB_LOOT_SELECTED,
   BOTTOM_TAB_PROFILE,
   BOTTOM_TAB_PROFILE_SELECTED,
-  BOTTOM_TAB_NOTIFICATION,
-  BOTTOM_TAB_NOTIFICATION_SELECTED,
   BOTTOM_TAB_OFFERS,
   BOTTOM_TAB_OFFERS_SELECTED,
 } from 'localsvgimages';
@@ -57,7 +55,6 @@ import ListLootSuccessScreen from '../screens/loot/listLootSuccessScreen';
 import PayPalLinkModal from '../components/paypalLinkModal';
 import LinkPaypalScreen from '../screens/profile/linkPaypalScreen';
 import LootEditAddressScreen from '../screens/loot/lootEditAddressScreen';
-import {BOTTOM_TAB_NOTIFICATION_NEW} from '../assets/images/svgs';
 import StartTradeScreen from '../screens/offers/startTrade';
 import EditTradeScreen from '../screens/offers/editTradeScreen';
 import ChooseOfferTypeScreen from '../screens/offers/chooseOfferTypeScreen';
@@ -73,6 +70,7 @@ const HomeStackNavigation = () => (
       headerShown: false,
     }}>
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
+    <Stack.Screen name="Notifications" component={NotificationsScreen} />
     <Stack.Screen name="LikedProductScreen" component={LikedProductScreen} />
     <Stack.Screen name="LinkPaypalScreen" component={LinkPaypalScreen} />
     <Stack.Screen
@@ -221,16 +219,6 @@ const getTabBarIcon = (isFocused?: boolean, route?: string, userData: any) => {
     case 'Profile':
       _source = isFocused ? BOTTOM_TAB_PROFILE_SELECTED : BOTTOM_TAB_PROFILE;
       break;
-    case 'Notifications':
-      console.log('new notif', userData?.newNotification);
-      if (userData?.newNotification) {
-        _source = BOTTOM_TAB_NOTIFICATION_NEW;
-        break;
-      }
-      _source = isFocused
-        ? BOTTOM_TAB_NOTIFICATION_SELECTED
-        : BOTTOM_TAB_NOTIFICATION;
-      break;
     case 'List loot':
       _source = isFocused ? BOTTOM_TAB_LOOT_SELECTED : BOTTOM_TAB_LOOT;
       break;
@@ -325,7 +313,6 @@ export const BottomTabs: FC<{}> = () => {
         options={{unmountOnBlur: true}}
       />
       <Tab.Screen name="Profile" component={ProfileStackNavigation} />
-      <Tab.Screen name="Notifications" component={NotificationsScreen} />
       <Tab.Screen name="Offers/Inbox" component={OffersStackNavigation} />
     </Tab.Navigator>
   );
