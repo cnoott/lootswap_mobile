@@ -43,6 +43,7 @@ import {
   BOTTOM_TAB_PROFILE_SELECTED,
   BOTTOM_TAB_OFFERS,
   BOTTOM_TAB_OFFERS_SELECTED,
+  HOME_SEARCH_INPUT_ICON,
 } from 'localsvgimages';
 import {
   TabBarContainer,
@@ -59,6 +60,7 @@ import StartTradeScreen from '../screens/offers/startTrade';
 import EditTradeScreen from '../screens/offers/editTradeScreen';
 import ChooseOfferTypeScreen from '../screens/offers/chooseOfferTypeScreen';
 import SendMoneyOfferScreen from '../screens/offers/sendMoneyOfferScreen';
+import SearchScreen from '../screens/search';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -106,6 +108,16 @@ const HomeStackNavigation = () => (
       component={TradeCheckoutSuccessScreen}
     />
     <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
+  </Stack.Navigator>
+);
+
+const SearchStackNavigation = () => (
+  <Stack.Navigator
+    initialRouteName={'SearchScreen'}
+    screenOptions={{
+      headerShown: false,
+    }}>
+    <Stack.Screen name="SearchScreen" component={SearchScreen}/>
   </Stack.Navigator>
 );
 
@@ -213,6 +225,9 @@ const getTabBarIcon = (isFocused?: boolean, route?: string, userData: any) => {
     case 'Home':
       _source = isFocused ? BOTTOM_TAB_HOME_SELECTED : BOTTOM_TAB_HOME;
       break;
+    case 'Search':
+      _source = HOME_SEARCH_INPUT_ICON;
+      break;
     case 'Offers/Inbox':
       _source = isFocused ? BOTTOM_TAB_OFFERS_SELECTED : BOTTOM_TAB_OFFERS;
       break;
@@ -307,6 +322,7 @@ export const BottomTabs: FC<{}> = () => {
       initialRouteName={'Home'}
       tabBar={props => <MyCustomTabBar {...props} />}>
       <Tab.Screen name="Home" component={HomeStackNavigation} />
+      <Tab.Screen name="Search" component={SearchStackNavigation}/>
       <Tab.Screen
         name="List loot"
         component={LootStackNavigation}
