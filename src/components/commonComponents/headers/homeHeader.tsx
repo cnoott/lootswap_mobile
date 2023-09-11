@@ -3,6 +3,10 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {SvgXml} from 'react-native-svg';
 import {HEADERLOGO} from '../../../constants/imageConstants';
 import {BOTTOM_TAB_NOTIFICATION} from 'localsvgimages';
+import {BOTTOM_TAB_NOTIFICATION_NEW} from '../../../assets/images/svgs';
+import {AuthProps} from '../../../redux/modules/auth/reducer';
+import {useSelector} from 'react-redux';
+
 import {
   HeaderContainer,
   LogoImage,
@@ -37,6 +41,9 @@ export const InHomeHeader: FC<HeaderProps> = React.memo(props => {
     navigation.navigate('Notifications');
   };
 
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData} = auth;
+
   return (
     <HeaderContainer
       isHome={isHome}
@@ -46,7 +53,13 @@ export const InHomeHeader: FC<HeaderProps> = React.memo(props => {
       {!!rightIcon && (
         <IconsContainer>
           <TouchableOpacityNotif onPress={() => navigateToNotif()}>
-            <SvgXml xml={BOTTOM_TAB_NOTIFICATION}/>
+            <SvgXml
+              xml={
+                userData?.newNotif
+                ? BOTTOM_TAB_NOTIFICATION_NEW
+                : BOTTOM_TAB_NOTIFICATION
+              }
+            />
           </TouchableOpacityNotif>
           <TouchableOpacity onPress={() => onRightItemPress()}>
             <SvgXml xml={rightIcon} />
