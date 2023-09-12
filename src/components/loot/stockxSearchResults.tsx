@@ -12,7 +12,6 @@ import {
   BrandResultText,
   TitleContainer,
 } from './stockxSearchResultsStyles';
-import LSLoader from '../../components/commonComponents/LSLoader';
 import {ScrollView, Animated, FlatList} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Tooltip from '../../components/tooltip/tooltip';

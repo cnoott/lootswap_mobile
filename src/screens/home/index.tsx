@@ -25,6 +25,7 @@ import {
 import {getHomeScreenProducts} from '../../redux/modules';
 import {useDispatch} from 'react-redux';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import LoadingProductCard from '../../components/productCard/loadingProductCard';
 
 const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 
@@ -104,6 +105,9 @@ export const HomeScreen: FC<{}> = () => {
   };
 
   const renderItem = ({item}: any) => {
+    if (loading) {
+      //return <LoadingProductCard />
+    }
     return <LSProductCard item={item} />;
   };
 
