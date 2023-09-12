@@ -13,6 +13,7 @@ import {FlatList} from '../home/styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LSHomeScreenSearch from '../../components/filterSearch/homeScreenSearch';
 import LSProductCard from '../../components/productCard';
+import LoadingProductCard from '../../components/productCard/loadingProductCard';
 import {EMPTY_SEARCH_ICON} from 'localsvgimages';
 import {SvgXml} from 'react-native-svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -27,6 +28,7 @@ export const SearchScreen: FC<any> = ({route}) => {
   const dispatch = useDispatch();
   const [query, setQuery] = useState('');
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [recentSearches, setRecentSearches] = useState([]);
 
   useEffect(() => {
@@ -35,6 +37,7 @@ export const SearchScreen: FC<any> = ({route}) => {
 
   const onSubmitSearch = () => {
     const reqData = {query};
+    setLoading(true);
     dispatch(
       searchProducts(
         reqData,
@@ -43,10 +46,12 @@ export const SearchScreen: FC<any> = ({route}) => {
             console.log(product.confidenceScore);
             console.log(product.name);
           });
+          setLoading(false);
           setProducts(res);
         },
         (err: any) => {
           //TODO: error handling
+          setLoading(false);
           console.log('ERR =>', err);
         },
       ),
@@ -73,6 +78,9 @@ export const SearchScreen: FC<any> = ({route}) => {
   };
 
   const renderItem = ({item}: any) => {
+    if (loading) {
+      return <LoadingProductCard key={item} />
+    }
     return <LSProductCard item={item} />;
   };
 
@@ -85,16 +93,16 @@ export const SearchScreen: FC<any> = ({route}) => {
           onSubmitSearch={onSubmitSearch}
         />
       </SearchContainer>
-      {products.length === 0 && (
+      {products.length === 0 && !loading && (
         <EmptySearchContainer>
           <SvgXml xml={EMPTY_SEARCH_ICON}/>
           <EmptySearchText>{`Search for your\nnew loot`}</EmptySearchText>
         </EmptySearchContainer>
       )}
       <FlatList
-        data={products}
+        data={loading ? [1, 2, 3, 4, 5, 6] : products}
         renderItem={renderItem}
-        keyExtractor={item => item._id}
+        keyExtractor={item => (loading ? item : item._id)}
         //onEndReached={() => onEndReached()}
       />
     </Container>
