@@ -459,6 +459,15 @@ export const searchStockxCall = (reqData: any) => {
   );
 };
 
+export const searchProductsCall = (reqData: any) => {
+  console.log(reqData,'req      Data');
+  const query = encodeURIComponent(reqData.query);
+  return handleResponse(
+    api.get(`/search-products/?query=${query}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
