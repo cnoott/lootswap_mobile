@@ -241,3 +241,7 @@ export const SET_FIRST_TIME_OPEN_FALSE = {
 export const SEARCH_STOCKX = {
   ...createActionConst(actions.SEARCH_STOCKX),
 };
+
+export const GET_HOMESCREEN_PRODUCTS = {
+  ...createActionConst(actions.GET_HOMESCREEN_PRODUCTS),
+};

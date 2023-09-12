@@ -103,6 +103,17 @@ export const getProductListedItemsForOfferCall = (userId: string) => {
   );
 };
 
+export const getHomeScreenProductsCall = (reqData: any) => {
+  return handleResponse(
+    api.get(
+      `products/?skip=${reqData.page * reqData.itemsPerPage}&limit=${
+        reqData.itemsPerPage
+      }`,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const sendTradeOfferCall = (reqData: any) => {
   return handleResponse(
     api.post(`start-trade/${reqData?.sender}`, reqData),
