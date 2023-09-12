@@ -1,6 +1,7 @@
 import {takeLatest, call, put} from 'redux-saga/effects';
 import {
   GET_PRODUCT_DETAILS,
+  GET_HOMESCREEN_PRODUCTS,
   GET_PRODUCT_LISTED_ITEMS,
   SEND_TRADE_OFFER,
   CREATE_NEW_PRODUCT,
@@ -30,6 +31,7 @@ import {
   savePaypalCall,
   deleteProductCall,
   searchStockxCall,
+  getHomeScreenProductsCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {Alert} from 'custom_top_alert';
@@ -55,6 +57,23 @@ export function* getSelectedProductDetails(action: any) {
       yield put(getProductDetailsFailure(response.error));
     }
   } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* getHomeScreenProducts(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      getHomeScreenProductsCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack(e);
     console.log(e);
   }
 }
@@ -220,6 +239,7 @@ export function* searchStockx(action: any) {
 
 export default function* authSaga() {
   yield takeLatest(GET_PRODUCT_DETAILS.REQUEST, getSelectedProductDetails);
+  yield takeLatest(GET_HOMESCREEN_PRODUCTS.REQUEST, getHomeScreenProducts);
   yield takeLatest(
     GET_PRODUCT_LISTED_ITEMS.REQUEST,
     getProductListedItemsForOffer,
