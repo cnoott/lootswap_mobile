@@ -9,10 +9,16 @@ interface LSHomeScreenSearchProps {
   query?: String;
   setQuery?: Function;
   isFromHome?: Boolean;
+  onSubmitSearch?: Function;
 }
 
 const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
-  const {query, setQuery = () => {}, isFromHome = false} = props;
+  const {
+    query,
+    setQuery = () => {},
+    isFromHome = false,
+    onSubmitSearch = () => {},
+  } = props;
   const theme = useTheme();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
 
@@ -31,6 +37,9 @@ const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
       homeSearch={true}
       inputBackColor={theme?.colors?.screenBg_light}
       onPressIn={() => handleOnFocus()}
+      enterKeyHint={'search'}
+      autoFocus={!isFromHome}
+      onSubmitEditing={() => onSubmitSearch()}
     />
   );
 });

@@ -245,3 +245,7 @@ export const SEARCH_STOCKX = {
 export const GET_HOMESCREEN_PRODUCTS = {
   ...createActionConst(actions.GET_HOMESCREEN_PRODUCTS),
 };
+
+export const SEARCH_PRODUCTS = {
+  ...createActionConst(actions.SEARCH_PRODUCTS),
+};

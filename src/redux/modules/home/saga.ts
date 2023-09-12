@@ -10,6 +10,7 @@ import {
   SAVE_PAYPAL,
   DELETE_PRODUCT,
   SEARCH_STOCKX,
+  SEARCH_PRODUCTS,
 } from '../../../constants/actions';
 import {
   getProductDetailsSuccess,
@@ -32,6 +33,7 @@ import {
   deleteProductCall,
   searchStockxCall,
   getHomeScreenProductsCall,
+  searchProductsCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {Alert} from 'custom_top_alert';
@@ -220,7 +222,6 @@ export function* deleteProduct(action: any) {
 }
 
 export function* searchStockx(action: any) {
-  //TODO: handle loading
   try {
     const response: APIResponseProps = yield call(
       searchStockxCall,
@@ -233,6 +234,23 @@ export function* searchStockx(action: any) {
     }
   } catch (e) {
     action?.errorCallBack();
+    console.log(e);
+  }
+}
+
+export function* searchProducts(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      searchProductsCall,
+      action?.reqData,
+    );
+    if (response.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack(e);
     console.log(e);
   }
 }
@@ -251,4 +269,5 @@ export default function* authSaga() {
   yield takeLatest(SAVE_PAYPAL.REQUEST, savePaypal);
   yield takeLatest(DELETE_PRODUCT.REQUEST, deleteProduct);
   yield takeLatest(SEARCH_STOCKX.REQUEST, searchStockx);
+  yield takeLatest(SEARCH_PRODUCTS.REQUEST, searchProducts);
 }

@@ -10,6 +10,7 @@ import {
   DELETE_PRODUCT,
   SEARCH_STOCKX,
   GET_HOMESCREEN_PRODUCTS,
+  SEARCH_PRODUCTS,
 } from '../../../constants/actions';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 
@@ -178,6 +179,19 @@ export const getHomeScreenProducts = (
 ) => {
   return {
     type: GET_HOMESCREEN_PRODUCTS.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const searchProducts = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: SEARCH_PRODUCTS.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
