@@ -44,6 +44,7 @@ import {
   BOTTOM_TAB_OFFERS,
   BOTTOM_TAB_OFFERS_SELECTED,
   HOME_SEARCH_INPUT_ICON,
+  HOME_SEARCH_INPUT_ICON_SELECTED,
 } from 'localsvgimages';
 import {
   TabBarContainer,
@@ -226,7 +227,7 @@ const getTabBarIcon = (isFocused?: boolean, route?: string, userData: any) => {
       _source = isFocused ? BOTTOM_TAB_HOME_SELECTED : BOTTOM_TAB_HOME;
       break;
     case 'Search':
-      _source = HOME_SEARCH_INPUT_ICON;
+      _source = isFocused ? HOME_SEARCH_INPUT_ICON_SELECTED : HOME_SEARCH_INPUT_ICON;
       break;
     case 'Offers/Inbox':
       _source = isFocused ? BOTTOM_TAB_OFFERS_SELECTED : BOTTOM_TAB_OFFERS;
