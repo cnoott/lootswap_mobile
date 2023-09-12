@@ -102,9 +102,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     if (
       isLogedIn &&
       userData?.likedProducts?.some(prod => {
-        return (
-          prod?._id === productData?.objectID || prod?._id === productData?._id
-        );
+        return prod?._id === productData?._id;
       })
     ) {
       setLiked(true);
@@ -120,11 +118,10 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     }
     if (productData?.userId) {
       dispatch(getUsersDetailsRequest(productData?.userId));
-      dispatch(getProductDetails(productData?.objectID));
+      dispatch(getProductDetails(productData?._id));
     }
   }, [
     productData?.userId,
-    productData?.objectID,
     isLogedIn,
     likedParam,
     productData?._id,
@@ -136,7 +133,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     }
     const reqData = {
       userId: userData?._id,
-      productId: productData?.objectID,
+      productId: productData?._id,
     };
     setLiked(true);
     dispatch(likeProduct(reqData));
@@ -146,7 +143,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const onUnlikePress = () => {
     const reqData = {
       userId: userData?._id,
-      productId: productData?.objectID,
+      productId: productData?._id,
     };
     setLiked(false);
     dispatch(unlikeProduct(reqData));
@@ -154,7 +151,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   };
 
   const handleGoToTrade = () => {
-    const trade = isAlreadyTrading(historyTrades, productData?.objectID);
+    const trade = isAlreadyTrading(historyTrades, productData?._id);
     if (trade) {
       navigation?.navigate('OffersMessageScreen', {item: trade});
     }
@@ -174,7 +171,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const handleDeleteProduct = () => {
     const reqData = {
       userId: userData?._id,
-      productId: productData?.objectID,
+      productId: productData?._id,
     };
     dispatch(
       deleteProduct(
@@ -194,7 +191,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       userId: userData?._id,
       recieverId: productData?.userId,
       senderId: userData?._id,
-      productId: productData?.objectID,
+      productId: productData?._id,
     };
     dispatch(
       createFirstMessage(
@@ -240,7 +237,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       getMessageInitiatedStatus(
         JSON.stringify({
           userId: userData?._id,
-          productId: productData?.objectID,
+          productId: productData?._id,
         }),
         (res: any) => {
           if (res?.noMessage) {
@@ -263,7 +260,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       goToLogin();
       return;
     }
-    dispatch(preselectChosenItem(productData?.objectID));
+    dispatch(preselectChosenItem(productData?._id));
 
     switch (selectedProductDetails.type) {
       case Trade_Options.TradeAndSell:
@@ -339,7 +336,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     } else if (
       isLogedIn &&
       historyTrades &&
-      isAlreadyTrading(historyTrades, productData?.objectID)
+      isAlreadyTrading(historyTrades, productData?._id)
     ) {
       return (
         <TopSpace>
@@ -477,7 +474,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             isProduct={true}
             autoPlay={false}
             loop={false}
-            imagesArr={selectedProductDetails?.product_photos}
+            imagesArr={
+              [productData?.primary_photo, ...productData?.secondary_photos]
+            }
             showDummy={false}
           />
           <SubContainer>

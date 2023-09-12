@@ -2,7 +2,7 @@
   LootSwap - FIRST TAB HOME SCREEN
  ***/
 
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
 import {Container, FlatList, SearchContainer} from './styles';
@@ -22,10 +22,13 @@ import {
   LoadingRequest,
   LoadingSuccess,
 } from '../../redux/modules/loading/actions';
+import {getHomeScreenProducts} from '../../redux/modules';
 import {useDispatch} from 'react-redux';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
+
+const ITEMS_PER_PAGE = 8;
 
 export const HomeScreen: FC<{}> = () => {
   useFCMNotifications();
@@ -33,15 +36,54 @@ export const HomeScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isModalOpen, setModalOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const [hitsKey, setHitsKey] = useState(0); //we incriment the key to manually remount component to refresh products
   const scrollRef = React.useRef(null);
   useScrollToTop(scrollRef);
 
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    const reqData = {
+      itemsPerPage: ITEMS_PER_PAGE,
+      page: page,
+    };
+    dispatch(
+      getHomeScreenProducts(
+        reqData,
+        (res: any) => {
+          setProducts([...products, ...res]);
+          setLoading(false);
+        },
+        (err: any) => {
+          console.log(err);
+          setLoading(false);
+        },
+      ),
+    );
+  }, [page]);
+
   const handleRefresh = async () => {
+    console.log('RERESHING');
     setRefreshing(true);
     ReactNativeHapticFeedback.trigger('impactMedium');
-    await searchClient.clearCache();
-    setHitsKey(hitsKey + 1);
+    setPage(0);
+    const reqData = {
+      itemsPerPage: ITEMS_PER_PAGE,
+      page: page,
+    };
+    dispatch(
+      getHomeScreenProducts(
+        reqData,
+        (res: any) => {
+          setProducts(res);
+        },
+        (err: any) => {
+          console.log(err);
+        },
+      ),
+    );
     setRefreshing(false);
   };
 
@@ -55,59 +97,14 @@ export const HomeScreen: FC<{}> = () => {
     onToggleModal();
   };
 
-  const onEndReached = (showMore: Function = () => {}) => {
-    showMore();
+  const onEndReached = () => {
+    if (!loading) {
+      setPage(prevPage => prevPage + 1);
+    }
   };
 
   const renderItem = ({item}: any) => {
     return <LSProductCard item={item} />;
-  };
-
-  const transformItems = (items: any) => {
-    return items.filter(item => item?.isVisible && item?.isVirtuallyVerified);
-  };
-
-  const InfiniteHits = ({...props}) => {
-    const {hits, showMore} = useInfiniteHits({
-      ...props,
-      transformItems: transformItems,
-    });
-    return (
-      <>
-        <InHomeHeader
-          isHome={true}
-          rightIcon={LIKE_HEART_ICON}
-          centerAligned={false}
-          onNotifButtonPress={() => console.log('NOTIF BUTTON TODO')}
-          onRightItemPress={() => goToLikedProducts(hits)}
-        />
-        <SearchContainer>
-          <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
-        </SearchContainer>
-        <FlatList
-          ref={scrollRef}
-          data={hits}
-          renderItem={renderItem}
-          keyExtractor={item => item.objectID}
-          onEndReached={() => onEndReached(showMore)}
-          refreshing={refreshing}
-          refreshControl={
-            <RefreshControl refreshing={false} onRefresh={handleRefresh} />
-          }
-          ListHeaderComponent={
-            <>
-              <CarouselComponent height={scale(320)} isHome={true} />
-            </>
-          }
-          getItemLayout={(data, index) => ({
-            length: 100,
-            offset: 100 * index,
-            index,
-            data,
-          })}
-        />
-      </>
-    );
   };
 
   const onToggleModal = () => {
@@ -116,15 +113,36 @@ export const HomeScreen: FC<{}> = () => {
 
   return (
     <Container>
-      <InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
-        <InfiniteHits key={hitsKey} />
-        {
-          <HomeFiltersScreen
-            isModalOpen={isModalOpen}
-            onToggleModal={onToggleModal}
-          />
+      <InHomeHeader
+        isHome={true}
+        rightIcon={LIKE_HEART_ICON}
+        centerAligned={false}
+        onRightItemPress={() => goToLikedProducts()}
+      />
+      <SearchContainer>
+        <LSHomeScreenSearch onRightIconPress={onRightIconPress} isFromHome={true}/>
+      </SearchContainer>
+      <FlatList
+        data={products}
+        renderItem={renderItem}
+        keyExtractor={item => item._id}
+        onEndReached={() => onEndReached()}
+        //refreshing={refreshing}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={handleRefresh} />
         }
-      </InstantSearch>
+        ListHeaderComponent={
+          <>
+            <CarouselComponent height={scale(320)} isHome={true} />
+          </>
+        }
+        getItemLayout={(data, index) => ({
+          length: 100,
+          offset: 100 * index,
+          index,
+          data,
+        })}
+      />
     </Container>
   );
 };

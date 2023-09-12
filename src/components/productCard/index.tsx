@@ -47,12 +47,12 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
     if (
       isLogedIn &&
       userData?.likedProducts?.some(prod => {
-        return prod?._id === item?.objectID || prod?._id === item?._id;
+        return prod?._id === item?._id;
       })
     ) {
       setLiked(true);
     }
-  }, [isLogedIn, item?.objectID, item?._id, userData]);
+  }, [isLogedIn, item?._id, userData]);
 
   const onProductPress = () => {
     navigation.navigate('ProductDetailsScreen', {
@@ -68,7 +68,7 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
     setLiked(true);
     const reqData = {
       userId: userData?._id,
-      productId: item?.objectID,
+      productId: item?._id,
     };
     dispatch(likeProduct(reqData));
   };
@@ -78,7 +78,7 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
     }
     const reqData = {
       userId: userData?._id,
-      productId: item?.objectID,
+      productId: item?._id,
     };
     setLiked(false);
     dispatch(unlikeProduct(reqData));

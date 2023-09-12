@@ -1,35 +1,36 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import LSInput from '../commonComponents/LSInput';
-import {useSearchBox} from 'react-instantsearch-hooks';
 import {useTheme} from 'styled-components';
-import {HOME_SEARCH_INPUT_ICON, HOME_FILTER_ICON} from 'localsvgimages';
+import {HOME_SEARCH_INPUT_ICON} from 'localsvgimages';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface LSHomeScreenSearchProps {
-  onRightIconPress?: Function;
+  query?: String;
+  setQuery?: Function;
+  isFromHome?: Boolean;
 }
 
 const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
-  const {onRightIconPress = () => {}} = props;
+  const {query, setQuery = () => {}, isFromHome = false} = props;
   const theme = useTheme();
+  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
 
-  const {query, refine} = useSearchBox(props);
-  const [inputValue, setInputValue] = useState(query);
-
-  function setQuery(newQuery: any) {
-    setInputValue(newQuery);
-    refine(newQuery);
-  }
+  const handleOnFocus = () => {
+    if (isFromHome) {
+      navigation?.navigate('Search');
+    }
+  };
 
   return (
     <LSInput
-      value={inputValue}
+      value={query}
       onChangeText={setQuery}
       placeholder={'Search'}
       leftIcon={HOME_SEARCH_INPUT_ICON}
       homeSearch={true}
-      rightIcon={HOME_FILTER_ICON}
-      onRightIconPress={onRightIconPress}
       inputBackColor={theme?.colors?.screenBg_light}
+      onPressIn={() => handleOnFocus()}
     />
   );
 });
