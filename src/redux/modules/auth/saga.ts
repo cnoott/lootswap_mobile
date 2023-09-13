@@ -19,6 +19,7 @@ import {
   DELETE_USER,
   VERSION_CHECK,
   SAVE_REFERRAL_LINK,
+  SAVE_SEARCH,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -53,6 +54,8 @@ import {
   saveReferralLinkRequest,
   saveReferralLinkSuccess,
   saveReferralLinkFailure,
+  saveSearchSuccess,
+  saveSearchFailure,
 } from './actions';
 import {
   signIn,
@@ -322,6 +325,22 @@ export function* updateUser(action: any) {
   }
 }
 
+export function* saveSearch(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      updateUserCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      saveSearchSuccess();
+    } else {
+      saveSearchFailure();
+    }
+  } catch(e) {
+    console.log(e);
+  }
+}
+
 export function* checkStripeLink(action: any) {
   yield put(LoadingRequest());
   try {
@@ -439,6 +458,7 @@ export function* saveReferralLink(action: any) {
   }
 }
 
+
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
@@ -459,4 +479,5 @@ export default function* authSaga() {
   yield takeLatest(DELETE_USER.REQUEST, deleteUser);
   yield takeLatest(VERSION_CHECK.REQUEST, versionCheck);
   yield takeLatest(SAVE_REFERRAL_LINK.REQUEST, saveReferralLink);
+  yield takeLatest(SAVE_SEARCH.REQUEST, saveSearch);
 }

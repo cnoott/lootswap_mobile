@@ -22,6 +22,7 @@ import {
   VERSION_CHECK,
   SAVE_REFERRAL_LINK,
   PRESELECT_CHOSEN_ITEM,
+  SAVE_SEARCH,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -418,5 +419,24 @@ export const saveReferralLinkSuccess = () => {
 export const saveReferralLinkFailure = () => {
   return {
     type: SAVE_REFERRAL_LINK.FAILURE,
+  };
+};
+
+export const saveSearchRequest = (reqData: any) => {
+  return {
+    type: SAVE_SEARCH.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const saveSearchSuccess = () => {
+  return {
+    type: SAVE_SEARCH.SUCCESS,
+  };
+};
+
+export const saveSearchFailure = () => {
+  return {
+    type: SAVE_SEARCH.FAILURE,
   };
 };
