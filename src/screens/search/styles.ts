@@ -1,4 +1,4 @@
-import {moderateScale, verticalScale} from 'react-native-size-matters';
+import {moderateScale, verticalScale, scale} from 'react-native-size-matters';
 import {layout, space, color, border} from 'styled-system';
 import styled from 'styled-components/native';
 
@@ -13,13 +13,25 @@ export const Container = styled.View.attrs(props => ({
 `;
 
 export const SearchContainer = styled.View.attrs(props => ({
-  paddingHorizontal: moderateScale(15),
+  paddingHorizontal: moderateScale(10),
   bg: props.theme.colors.white,
 }))`
+  width: 100%;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
   ${space}
   ${layout}
   ${color}
   ${border}
+`;
+
+export const SearchInputContainer = styled.View.attrs(() => ({
+}))`
+  flex: 1;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
 `;
 
 export const EmptySearchContainer = styled.View.attrs(props => ({
@@ -43,6 +55,8 @@ export const EmptySearchText = styled.Text.attrs(props => ({
 `;
 
 export const RecentSearchesContainer = styled.View.attrs(props => ({
+  px: scale(12),
+  py: scale(15),
 }))`
   ${space}
   ${layout}
@@ -54,6 +68,30 @@ export const RecentSearchesTitle = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
 }))`
   font-size: ${moderateScale(20)}px;
-  font-family: Urbanist;
+  font-family: Urbanist-Bold;
   ${color}
 `;
+
+export const RecentSearchesTextContainer = styled.View.attrs(props => ({
+}))`
+  ${space}
+  ${layout}
+  ${color}
+  ${border}
+`;
+
+export const RecentSearchesText = styled.Text.attrs(props => ({
+  color: props.theme.colors.black,
+  py: scale(8),
+}))`
+  font-size: ${moderateScale(17)}px;
+  font-family: Urbanist-SemiBold;
+  ${color}
+  ${space}
+`;
+
+export const GoBackTouchable = styled.TouchableOpacity`
+  width: 40px;
+  margin-right: ${scale(5)}px;
+`;
+

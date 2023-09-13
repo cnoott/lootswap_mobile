@@ -2,26 +2,32 @@
 LootSwap - SEARCH SCREEN
 ***/
 
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState, useEffect, useRef} from 'react';
 import {
   Container,
   SearchContainer,
   EmptySearchContainer,
   EmptySearchText,
   RecentSearchesTitle,
-  RecentSearchesContainer
+  RecentSearchesText,
+  RecentSearchesContainer,
+  RecentSearchesTextContainer,
+  GoBackTouchable,
+  SearchInputContainer,
 } from './styles';
 import {FlatList} from '../home/styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LSHomeScreenSearch from '../../components/filterSearch/homeScreenSearch';
 import LSProductCard from '../../components/productCard';
 import LoadingProductCard from '../../components/productCard/loadingProductCard';
-import {EMPTY_SEARCH_ICON} from 'localsvgimages';
+import {EMPTY_SEARCH_ICON, LEFT_BLACK_ARROW} from 'localsvgimages';
 import {SvgXml} from 'react-native-svg';
 import {searchProducts, saveSearchRequest} from '../../redux/modules';
 import {useDispatch, useSelector} from 'react-redux';
 import {RefreshControl} from 'react-native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
+import {FlatList as DefaultFlatList} from 'react-native';
+import {SwiperComponent} from '../loot/styles';
 
 export const SearchScreen: FC<any> = ({route}) => {
   const insets = useSafeAreaInsets();
@@ -32,20 +38,23 @@ export const SearchScreen: FC<any> = ({route}) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const swiperRef = useRef<any>(null);
+  const [currPage, setCurrPage] = useState(0);
+
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData: {recentSearches}, userData, isLogedIn} = auth;
 
 //  useEffect(() => {
 //  }, []);
 
-  const handleSaveSearch = () => {
+  const handleSaveSearch = (search: string) => {
     let newRecentSearches = recentSearches;
-    if (newRecentSearches.includes(query)) {
-      const index = newRecentSearches.indexOf(query);
+    if (newRecentSearches.includes(search)) {
+      const index = newRecentSearches.indexOf(search);
       newRecentSearches.splice(index, 1);
-      newRecentSearches.unshift(query);
+      newRecentSearches.unshift(search);
     } else {
-      newRecentSearches.unshift(query);
+      newRecentSearches.unshift(search);
     }
     const reqData = {
       userId: userData?._id,
@@ -54,18 +63,24 @@ export const SearchScreen: FC<any> = ({route}) => {
     dispatch(saveSearchRequest(reqData));
   };
 
-  const onSubmitSearch = () => {
-    if (!query) {
+  const onSubmitSearch = (recentSearch: string = '') => { 
+    let search;
+    if (recentSearch) {
+      search = recentSearch;
+    } else {
+      search = query;
+    }
+    if (!search) {
       return;
     }
-    const reqData = {query};
+    const reqData = {query: search};
     setLoading(true);
     console.log(recentSearches);
 
     if (isLogedIn) {
-      handleSaveSearch();
+      handleSaveSearch(search);
     }
-
+    swiperRef?.current?.scrollTo(currPage + 1);
     dispatch(
       searchProducts(
         reqData,
@@ -82,6 +97,10 @@ export const SearchScreen: FC<any> = ({route}) => {
     );
   };
 
+  const goBack = () => {
+    swiperRef?.current?.scrollTo(currPage - 1);
+  };
+
   const renderItem = ({item}: any) => {
     if (loading) {
       return <LoadingProductCard key={item} />
@@ -89,11 +108,24 @@ export const SearchScreen: FC<any> = ({route}) => {
     return <LSProductCard item={item} />;
   };
 
-  const renderEmptySearch = () => {
-    if (products.length) {
-      return;
-    }
-    if (isLogedIn && !products.length && !recentSearches.length) {
+  const handlePressRecentSearch = (recentSearch: string) => {
+    setQuery(recentSearch);
+    onSubmitSearch(recentSearch);
+  };
+
+  const renderRecentSearch = ({item}: any) => {
+    return (
+      <RecentSearchesText onPress={() => handlePressRecentSearch(item)}>
+        {item}
+      </RecentSearchesText>
+    );
+  };
+
+  const renderRecentSearches = () => {
+    if (
+      !isLogedIn ||
+      (isLogedIn && !recentSearches.length)
+    ) {
       return (
         <EmptySearchContainer>
           <SvgXml xml={EMPTY_SEARCH_ICON}/>
@@ -105,27 +137,60 @@ export const SearchScreen: FC<any> = ({route}) => {
       return (
         <RecentSearchesContainer>
           <RecentSearchesTitle>Recent Searches</RecentSearchesTitle>
+          <RecentSearchesTextContainer>
+            <DefaultFlatList
+              data={recentSearches}
+              renderItem={renderRecentSearch}
+              keyExtractor={item => item}
+            />
+          </RecentSearchesTextContainer>
         </RecentSearchesContainer>
       );
     }
   };
 
-  return (
-    <Container paddingTop={paddingTop}>
-      <SearchContainer>
-        <LSHomeScreenSearch
-          query={query}
-          setQuery={setQuery}
-          onSubmitSearch={onSubmitSearch}
-        />
-      </SearchContainer>
-      {renderEmptySearch()}
+  const renderSearchResults = () => {
+    return (
       <FlatList
         data={loading ? [1, 2, 3, 4, 5, 6] : products}
         renderItem={renderItem}
         keyExtractor={item => (loading ? item : item._id)}
         //onEndReached={() => onEndReached()}
       />
+    );
+  };
+
+  const renderSteps = () => {
+    return [1, 2].map(data => {
+      switch (data) {
+        case 1:
+          return renderRecentSearches();
+        case 2:
+          return renderSearchResults();
+      }
+    });
+  };
+
+  return (
+    <Container paddingTop={paddingTop}>
+
+      <SearchContainer>
+      {currPage === 1 && (
+      <GoBackTouchable onPress={() => goBack()}>
+        <SvgXml xml={LEFT_BLACK_ARROW} />
+      </GoBackTouchable>
+      )}
+        <SearchInputContainer>
+          <LSHomeScreenSearch
+            query={query}
+            setQuery={setQuery}
+            onSubmitSearch={onSubmitSearch}
+          />
+        </SearchInputContainer>
+      </SearchContainer>
+      <SwiperComponent ref={swiperRef} onIndexChanged={setCurrPage}>
+        {renderSteps()}
+      </SwiperComponent>
     </Container>
   );
 };
