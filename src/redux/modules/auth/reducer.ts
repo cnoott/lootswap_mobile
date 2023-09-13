@@ -18,6 +18,7 @@ import {
   NEW_NOTIF_FALSE,
   NEW_NOTIF_TRUE,
   SAVE_REFERRAL_LINK,
+  SAVE_SEARCH,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
 //import messaging from '@react-native-firebase/messaging';
@@ -363,7 +364,6 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case SAVE_REFERRAL_LINK.REQUEST: {
-      console.log('ACTION!', action?.payload);
       return {
         ...state,
         userData: {
@@ -372,6 +372,16 @@ export default function auth(state = InitialState, action: ActionProps) {
         },
       };
     }
+    case SAVE_SEARCH.REQUEST: {
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          recentSearches: action?.reqData?.userData?.recentSearches,
+        },
+      };
+    }
+
     default:
       return state;
   }

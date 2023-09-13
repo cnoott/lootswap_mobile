@@ -41,3 +41,19 @@ export const EmptySearchText = styled.Text.attrs(props => ({
   text-align: center;
   ${color}
 `;
+
+export const RecentSearchesContainer = styled.View.attrs(props => ({
+}))`
+  ${space}
+  ${layout}
+  ${color}
+  ${border}
+`;
+
+export const RecentSearchesTitle = styled.Text.attrs(props => ({
+  color: props.theme.colors.black,
+}))`
+  font-size: ${moderateScale(20)}px;
+  font-family: Urbanist;
+  ${color}
+`;

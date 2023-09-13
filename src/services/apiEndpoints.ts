@@ -369,6 +369,7 @@ export const editShippingAddrCall = (reqData: any) => {
 };
 
 export const updateUserCall = (reqData: any) => {
+  console.log('reqdata', reqData);
   return handleResponse(
     api.put(`/user/${reqData?.userId}`, {
       userData: reqData?.userData,

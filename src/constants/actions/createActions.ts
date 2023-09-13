@@ -249,3 +249,7 @@ export const GET_HOMESCREEN_PRODUCTS = {
 export const SEARCH_PRODUCTS = {
   ...createActionConst(actions.SEARCH_PRODUCTS),
 };
+
+export const SAVE_SEARCH = {
+  ...createActionConst(actions.SAVE_SEARCH),
+};
