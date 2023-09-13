@@ -43,13 +43,13 @@ export const SearchScreen: FC<any> = ({route}) => {
   const [currPage, setCurrPage] = useState(0);
 
   const auth: AuthProps = useSelector(state => state.auth);
-  const {userData: {recentSearches}, userData, isLogedIn} = auth;
+  const {userData, isLogedIn} = auth;
 
 //  useEffect(() => {
 //  }, []);
 
   const handleSaveSearch = (search: string) => {
-    let newRecentSearches = recentSearches;
+    let newRecentSearches = userData?.recentSearches;
     if (newRecentSearches.includes(search)) {
       const index = newRecentSearches.indexOf(search);
       newRecentSearches.splice(index, 1);
@@ -84,7 +84,6 @@ export const SearchScreen: FC<any> = ({route}) => {
     }
     const reqData = {query: search};
     setLoading(true);
-    console.log(recentSearches);
 
     if (isLogedIn) {
       handleSaveSearch(search);
@@ -133,7 +132,7 @@ export const SearchScreen: FC<any> = ({route}) => {
   const renderRecentSearches = () => {
     if (
       !isLogedIn ||
-      (isLogedIn && !recentSearches.length)
+      (isLogedIn && !userData?.recentSearches.length)
     ) {
       return (
         <EmptySearchContainer>
@@ -142,13 +141,13 @@ export const SearchScreen: FC<any> = ({route}) => {
         </EmptySearchContainer>
       );
     }
-    if (isLogedIn && recentSearches.length) {
+    if (isLogedIn && userData?.recentSearches.length) {
       return (
         <RecentSearchesContainer>
           <RecentSearchesTitle>Recent Searches</RecentSearchesTitle>
           <RecentSearchesTextContainer>
             <DefaultFlatList
-              data={recentSearches}
+              data={userData?.recentSearches}
               renderItem={renderRecentSearch}
               keyExtractor={item => item}
               ListFooterComponent={
