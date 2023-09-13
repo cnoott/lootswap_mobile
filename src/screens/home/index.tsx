@@ -22,10 +22,10 @@ import {
   LoadingRequest,
   LoadingSuccess,
 } from '../../redux/modules/loading/actions';
-import {getHomeScreenProducts} from '../../redux/modules';
-import {useDispatch} from 'react-redux';
+import {getHomeScreenProducts, getMyDetailsNoLoadRequest} from '../../redux/modules';
+import {useDispatch, useSelector} from 'react-redux';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import LoadingProductCard from '../../components/productCard/loadingProductCard';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 
 const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 
@@ -39,6 +39,10 @@ export const HomeScreen: FC<{}> = () => {
   const [refreshing, setRefreshing] = useState(false);
   const scrollRef = React.useRef(null);
   useScrollToTop(scrollRef);
+
+
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData, isLogedIn} = auth;
 
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(0);
@@ -63,6 +67,9 @@ export const HomeScreen: FC<{}> = () => {
         },
       ),
     );
+    if (isLogedIn) {
+      dispatch(getMyDetailsNoLoadRequest(userData?._id));
+    }
   }, [page]);
 
   const handleRefresh = async () => {

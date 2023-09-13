@@ -119,6 +119,11 @@ const SearchStackNavigation = () => (
       headerShown: false,
     }}>
     <Stack.Screen name="SearchScreen" component={SearchScreen}/>
+    <Stack.Screen
+      name="ProductDetailsScreen"
+      component={ProductDetailsScreen}
+    />
+    <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
   </Stack.Navigator>
 );
 
