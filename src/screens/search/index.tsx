@@ -132,7 +132,7 @@ export const SearchScreen: FC<any> = ({route}) => {
   const renderRecentSearches = () => {
     if (
       !isLogedIn ||
-      (isLogedIn && !userData?.recentSearches.length)
+      (isLogedIn && !userData?.recentSearches?.length)
     ) {
       return (
         <EmptySearchContainer>
@@ -141,7 +141,7 @@ export const SearchScreen: FC<any> = ({route}) => {
         </EmptySearchContainer>
       );
     }
-    if (isLogedIn && userData?.recentSearches.length) {
+    if (isLogedIn && userData?.recentSearches?.length) {
       return (
         <RecentSearchesContainer>
           <RecentSearchesTitle>Recent Searches</RecentSearchesTitle>
