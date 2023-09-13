@@ -14,6 +14,7 @@ import {
   RecentSearchesTextContainer,
   GoBackTouchable,
   SearchInputContainer,
+  ClearRecentSearchesText,
 } from './styles';
 import {FlatList} from '../home/styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -142,6 +143,9 @@ export const SearchScreen: FC<any> = ({route}) => {
               data={recentSearches}
               renderItem={renderRecentSearch}
               keyExtractor={item => item}
+              ListFooterComponent={
+                <ClearRecentSearchesText>Clear All</ClearRecentSearchesText>
+              }
             />
           </RecentSearchesTextContainer>
         </RecentSearchesContainer>
@@ -173,7 +177,6 @@ export const SearchScreen: FC<any> = ({route}) => {
 
   return (
     <Container paddingTop={paddingTop}>
-
       <SearchContainer>
       {currPage === 1 && (
       <GoBackTouchable onPress={() => goBack()}>
