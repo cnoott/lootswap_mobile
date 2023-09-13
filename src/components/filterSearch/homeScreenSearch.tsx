@@ -40,6 +40,7 @@ const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
       enterKeyHint={'search'}
       autoFocus={!isFromHome}
       onSubmitEditing={() => onSubmitSearch()}
+      editable={!isFromHome}
     />
   );
 });
