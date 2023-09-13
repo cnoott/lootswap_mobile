@@ -64,6 +64,14 @@ export const SearchScreen: FC<any> = ({route}) => {
     dispatch(saveSearchRequest(reqData));
   };
 
+  const handleClearSearches = () => {
+    const reqData = {
+      userId: userData?._id,
+      userData: {recentSearches: []},
+    };
+    dispatch(saveSearchRequest(reqData));
+  };
+
   const onSubmitSearch = (recentSearch: string = '') => { 
     let search;
     if (recentSearch) {
@@ -144,7 +152,9 @@ export const SearchScreen: FC<any> = ({route}) => {
               renderItem={renderRecentSearch}
               keyExtractor={item => item}
               ListFooterComponent={
-                <ClearRecentSearchesText>Clear All</ClearRecentSearchesText>
+                <ClearRecentSearchesText onPress={() => handleClearSearches()}>
+                  Clear All
+                </ClearRecentSearchesText>
               }
             />
           </RecentSearchesTextContainer>
