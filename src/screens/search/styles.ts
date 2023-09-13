@@ -95,3 +95,14 @@ export const GoBackTouchable = styled.TouchableOpacity`
   margin-right: ${scale(5)}px;
 `;
 
+export const ClearRecentSearchesText = styled.Text.attrs(props => ({
+  color: props.theme.colors.primary,
+  py: scale(9),
+}))`
+  text-decoration: underline;
+  text-decoration-color: '#6267FE';
+  font-size: ${moderateScale(17)}px;
+  font-family: Urbanist-SemiBold;
+  ${color}
+  ${space}
+`;
