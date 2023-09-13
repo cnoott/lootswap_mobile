@@ -6,11 +6,8 @@ import React, {FC, useState, useEffect} from 'react';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
 import {Container, FlatList, SearchContainer} from './styles';
-import algoliasearch from 'algoliasearch/lite';
-import {InstantSearch, useInfiniteHits} from 'react-instantsearch-hooks';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import LSHomeScreenSearch from '../../components/filterSearch/homeScreenSearch';
-import {AlgoliaAppId, AlgoliaApiKey, ALGOLIA_INDEX_NAME} from '@env';
 import LSProductCard from '../../components/productCard';
 import HomeFiltersScreen from './homeFilters';
 import {scale} from 'react-native-size-matters';
@@ -27,7 +24,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 
-const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
 
 const ITEMS_PER_PAGE = 8;
 
