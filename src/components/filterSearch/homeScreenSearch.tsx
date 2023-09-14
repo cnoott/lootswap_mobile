@@ -10,6 +10,7 @@ interface LSHomeScreenSearchProps {
   setQuery?: Function;
   isFromHome?: Boolean;
   onSubmitSearch?: Function;
+  goBackToSearch?: Function;
 }
 
 const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
@@ -18,6 +19,7 @@ const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
     setQuery = () => {},
     isFromHome = false,
     onSubmitSearch = () => {},
+    goBackToSearch = () => {},
   } = props;
   const theme = useTheme();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -25,6 +27,8 @@ const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
   const handleOnFocus = () => {
     if (isFromHome) {
       navigation?.navigate('Search');
+    } else {
+      goBackToSearch();
     }
   };
 
