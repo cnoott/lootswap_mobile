@@ -461,10 +461,17 @@ export const searchStockxCall = (reqData: any) => {
 };
 
 export const searchProductsCall = (reqData: any) => {
-  console.log(reqData,'req      Data');
   const query = encodeURIComponent(reqData.query);
   return handleResponse(
     api.get(`/search-products/?query=${query}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const getRecommendedSearchCall = (reqData: any) => {
+  const query = encodeURIComponent(reqData.query);
+  return handleResponse(
+    api.get(`/recommended-search/?query=${query}`),
     API_RESPONSE.CODE200,
   );
 };
