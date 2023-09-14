@@ -253,3 +253,7 @@ export const SEARCH_PRODUCTS = {
 export const SAVE_SEARCH = {
   ...createActionConst(actions.SAVE_SEARCH),
 };
+
+export const GET_RECOMMENDED_SEARCH = {
+  ...createActionConst(actions.GET_RECOMMENDED_SEARCH),
+};

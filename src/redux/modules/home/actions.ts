@@ -11,6 +11,7 @@ import {
   SEARCH_STOCKX,
   GET_HOMESCREEN_PRODUCTS,
   SEARCH_PRODUCTS,
+  GET_RECOMMENDED_SEARCH,
 } from '../../../constants/actions';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 
@@ -192,6 +193,19 @@ export const searchProducts = (
 ) => {
   return {
     type: SEARCH_PRODUCTS.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const getRecommendedSearch = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: GET_RECOMMENDED_SEARCH.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,

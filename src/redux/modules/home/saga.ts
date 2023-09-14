@@ -11,6 +11,7 @@ import {
   DELETE_PRODUCT,
   SEARCH_STOCKX,
   SEARCH_PRODUCTS,
+  GET_RECOMMENDED_SEARCH,
 } from '../../../constants/actions';
 import {
   getProductDetailsSuccess,
@@ -34,6 +35,7 @@ import {
   searchStockxCall,
   getHomeScreenProductsCall,
   searchProductsCall,
+  getRecommendedSearchCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {Alert} from 'custom_top_alert';
@@ -255,6 +257,23 @@ export function* searchProducts(action: any) {
   }
 }
 
+export function* getRecommendedSearch(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      getRecommendedSearchCall,
+      action?.reqData,
+    );
+    if (response.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack(e);
+    console.log(e);
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(GET_PRODUCT_DETAILS.REQUEST, getSelectedProductDetails);
   yield takeLatest(GET_HOMESCREEN_PRODUCTS.REQUEST, getHomeScreenProducts);
@@ -270,4 +289,5 @@ export default function* authSaga() {
   yield takeLatest(DELETE_PRODUCT.REQUEST, deleteProduct);
   yield takeLatest(SEARCH_STOCKX.REQUEST, searchStockx);
   yield takeLatest(SEARCH_PRODUCTS.REQUEST, searchProducts);
+  yield takeLatest(GET_RECOMMENDED_SEARCH.REQUEST, getRecommendedSearch);
 }
