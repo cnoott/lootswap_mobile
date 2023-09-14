@@ -2,7 +2,7 @@
 LootSwap - SEARCH SCREEN
 ***/
 
-import React, {FC, useState, useEffect, useRef} from 'react';
+import React, {FC, useState, useRef, useEffect} from 'react';
 import {
   Container,
   SearchContainer,
@@ -23,12 +23,17 @@ import LSProductCard from '../../components/productCard';
 import LoadingProductCard from '../../components/productCard/loadingProductCard';
 import {EMPTY_SEARCH_ICON, LEFT_BLACK_ARROW} from 'localsvgimages';
 import {SvgXml} from 'react-native-svg';
-import {searchProducts, saveSearchRequest} from '../../redux/modules';
+import {
+  searchProducts,
+  saveSearchRequest,
+  getRecommendedSearch,
+} from '../../redux/modules';
 import {useDispatch, useSelector} from 'react-redux';
 import {RefreshControl} from 'react-native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {FlatList as DefaultFlatList} from 'react-native';
 import {SwiperComponent} from '../loot/styles';
+import useDebounce from '../../utility/customHooks/useDebouncer';
 
 export const SearchScreen: FC<any> = ({route}) => {
   const insets = useSafeAreaInsets();
@@ -37,6 +42,7 @@ export const SearchScreen: FC<any> = ({route}) => {
   const dispatch = useDispatch();
   const [query, setQuery] = useState('');
   const [products, setProducts] = useState([]);
+  const [recommendedResults, setRecommendedResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const swiperRef = useRef<any>(null);
@@ -45,8 +51,12 @@ export const SearchScreen: FC<any> = ({route}) => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData, isLogedIn} = auth;
 
-//  useEffect(() => {
-//  }, []);
+  const debouncedSearchTerm = useDebounce(query, 200);
+  useEffect(() => {
+    if (!products.length && debouncedSearchTerm.length > 3) {
+      handleGetRecommendedSerach();
+    }
+  }, [debouncedSearchTerm, products.length]);
 
   const handleSaveSearch = (search: string) => {
     let newRecentSearches = userData?.recentSearches;
@@ -72,7 +82,22 @@ export const SearchScreen: FC<any> = ({route}) => {
     dispatch(saveSearchRequest(reqData));
   };
 
-  const onSubmitSearch = (recentSearch: string = '') => { 
+  const handleGetRecommendedSerach = () => {
+    const reqData = {query: query};
+    dispatch(
+      getRecommendedSearch(
+        reqData,
+        res => {
+          setRecommendedResults(res);
+        },
+        err => {
+          console.log('ERROR => ', err);
+        },
+      ),
+    );
+  };
+
+  const onSubmitSearch = (recentSearch: string = '') => {
     let search;
     if (recentSearch) {
       search = recentSearch;
@@ -106,7 +131,13 @@ export const SearchScreen: FC<any> = ({route}) => {
   };
 
   const goBack = () => {
+    setProducts([]);
     swiperRef?.current?.scrollTo(currPage - 1);
+  };
+
+  const goBackToSearch = () => {
+    setProducts([]);
+    swiperRef?.current?.scrollTo(0);
   };
 
   const renderItem = ({item}: any) => {
@@ -130,6 +161,9 @@ export const SearchScreen: FC<any> = ({route}) => {
   };
 
   const renderRecentSearches = () => {
+    if (recommendedResults.length) {
+      return renderRecommendedSearch()
+    }
     if (
       !isLogedIn ||
       (isLogedIn && !userData?.recentSearches?.length)
@@ -160,6 +194,20 @@ export const SearchScreen: FC<any> = ({route}) => {
         </RecentSearchesContainer>
       );
     }
+  };
+
+  const renderRecommendedSearch = () => {
+    return (
+      <RecentSearchesContainer>
+        <RecentSearchesTextContainer>
+          <DefaultFlatList
+            data={recommendedResults}
+            renderItem={renderRecentSearch}
+            keyExtractor={item => item}
+          />
+        </RecentSearchesTextContainer>
+      </RecentSearchesContainer>
+    );
   };
 
   const renderSearchResults = () => {
@@ -197,6 +245,7 @@ export const SearchScreen: FC<any> = ({route}) => {
             query={query}
             setQuery={setQuery}
             onSubmitSearch={onSubmitSearch}
+            goBackToSearch={goBackToSearch}
           />
         </SearchInputContainer>
       </SearchContainer>
