@@ -1276,4 +1276,3 @@ export const calculateMarketValue = (products: Array<any>) => {
 
   return '$' + allPrices.reduce((partialSum, price) => partialSum + price, 0);
 };
-

@@ -62,6 +62,7 @@ import EditTradeScreen from '../screens/offers/editTradeScreen';
 import ChooseOfferTypeScreen from '../screens/offers/chooseOfferTypeScreen';
 import SendMoneyOfferScreen from '../screens/offers/sendMoneyOfferScreen';
 import SearchScreen from '../screens/search';
+import StockxScreen from '../screens/search/stockxScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -119,6 +120,7 @@ const SearchStackNavigation = () => (
       headerShown: false,
     }}>
     <Stack.Screen name="SearchScreen" component={SearchScreen}/>
+    <Stack.Screen name="StockxScreen" component={StockxScreen}/>
     <Stack.Screen
       name="ProductDetailsScreen"
       component={ProductDetailsScreen}
