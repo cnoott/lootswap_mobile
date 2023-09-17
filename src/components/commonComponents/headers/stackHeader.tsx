@@ -8,7 +8,13 @@ import {
 } from './styles';
 import React, {FC} from 'react';
 import {SvgXml} from 'react-native-svg';
-import {PROFILE_TRIPPLE_DOT_ICON, LEFT_BLACK_ARROW} from 'localsvgimages';
+import {
+  PROFILE_TRIPPLE_DOT_ICON,
+  LEFT_BLACK_ARROW,
+  LIKE_HEART_ICON,
+  LIKE_HEART_ICON_RED,
+  LIKE_HEART_ICON_WHITE,
+} from 'localsvgimages';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 interface HeaderProps {
@@ -20,6 +26,7 @@ interface HeaderProps {
   onlyTitleCenterAlign?: boolean;
   printLabel?: boolean;
   printLabelButton?: any;
+  heartIconRight?: boolean;
 }
 
 export const InStackHeader: FC<HeaderProps> = React.memo(props => {
@@ -33,6 +40,7 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
     onBackCall,
     printLabel = false,
     printLabelButton = () => {},
+    heartIconRight = false,
   } = props;
   const onTrippleDotPress = () => {};
   const onBackPress = () => {
@@ -73,6 +81,15 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
         )}
         <ProfileHeaderText>{title}</ProfileHeaderText>
       </EmptyRowView>
+
+      {heartIconRight ? (
+        <ProfileRightTouchable onPress={onTrippleDotPress}>
+          <SvgXml xml={LIKE_HEART_ICON} />
+        </ProfileRightTouchable>
+      ) : (
+        <EmptyBox />
+      )}
+
       {right && (
         <ProfileRightTouchable onPress={onTrippleDotPress}>
           <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />

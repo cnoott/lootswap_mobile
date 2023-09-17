@@ -15,6 +15,14 @@ import {
   GoBackTouchable,
   SearchInputContainer,
   ClearRecentSearchesText,
+  StockxContainer,
+  StockxImageContainer,
+  StockxImage,
+  StockxTextContainer,
+  StockxTitleText,
+  StockxNumListingsText,
+  StockxFlatList,
+  FullDivider,
 } from './styles';
 import {FlatList} from '../home/styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -34,14 +42,17 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 import {FlatList as DefaultFlatList} from 'react-native';
 import {SwiperComponent} from '../loot/styles';
 import useDebounce from '../../utility/customHooks/useDebouncer';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
-export const SearchScreen: FC<any> = ({route}) => {
+export const SearchScreen: FC<any> = () => {
   const insets = useSafeAreaInsets();
   const paddingTop = insets.top;
+  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
 
   const dispatch = useDispatch();
   const [query, setQuery] = useState('');
   const [products, setProducts] = useState([]);
+  const [stockxProducts, setStockxProducts] = useState([]);
   const [recommendedResults, setRecommendedResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -119,7 +130,8 @@ export const SearchScreen: FC<any> = ({route}) => {
         reqData,
         (res: any) => {
           setLoading(false);
-          setProducts(res);
+          setProducts(res.products);
+          setStockxProducts(res.stockxProducts);
         },
         (err: any) => {
           //TODO: error handling
@@ -150,6 +162,37 @@ export const SearchScreen: FC<any> = ({route}) => {
   const handlePressRecentSearch = (recentSearch: string) => {
     setQuery(recentSearch);
     onSubmitSearch(recentSearch);
+  };
+
+  const handleStockxNavigation = (
+    stockxProduct: any,
+    foundProducts: Array<any>,
+  ) => {
+    navigation?.navigate('StockxScreen', {
+      stockxProduct: stockxProduct,
+      foundProducts: foundProducts
+    });
+  };
+
+  const renderStockxSearchResult = ({item}: any) => {
+    const stockxProduct = item._doc;
+    const foundProducts = item.foundProducts;
+    console.log('yoooo', foundProducts);
+    return (
+      <StockxContainer onPress={() => handleStockxNavigation(stockxProduct, foundProducts)}>
+        <StockxImageContainer>
+          <StockxImage source={{uri: stockxProduct?.image}} />
+        </StockxImageContainer>
+        <StockxTextContainer>
+          <StockxTitleText>{stockxProduct?.name}</StockxTitleText>
+          <StockxNumListingsText>
+            {`${foundProducts?.length} listing${
+              foundProducts?.length !== 1 ? 's' : ''} avaliable`
+            }
+          </StockxNumListingsText>
+        </StockxTextContainer>
+      </StockxContainer>
+    );
   };
 
   const renderRecentSearch = ({item}: any) => {
@@ -212,12 +255,19 @@ export const SearchScreen: FC<any> = ({route}) => {
 
   const renderSearchResults = () => {
     return (
-      <FlatList
-        data={loading ? [1, 2, 3, 4, 5, 6] : products}
-        renderItem={renderItem}
-        keyExtractor={item => (loading ? item : item._id)}
-        //onEndReached={() => onEndReached()}
-      />
+      <>
+        <StockxFlatList
+          data={stockxProducts}
+          renderItem={renderStockxSearchResult}
+        />
+        <FullDivider />
+        <FlatList
+          data={loading ? [1, 2, 3, 4, 5, 6] : products}
+          renderItem={renderItem}
+          keyExtractor={item => (loading ? item : item._id)}
+          //onEndReached={() => onEndReached()}
+        />
+      </>
     );
   };
 
@@ -235,11 +285,11 @@ export const SearchScreen: FC<any> = ({route}) => {
   return (
     <Container paddingTop={paddingTop}>
       <SearchContainer>
-      {currPage === 1 && (
-      <GoBackTouchable onPress={() => goBack()}>
-        <SvgXml xml={LEFT_BLACK_ARROW} />
-      </GoBackTouchable>
-      )}
+        {currPage === 1 && (
+          <GoBackTouchable onPress={() => goBack()}>
+            <SvgXml xml={LEFT_BLACK_ARROW} />
+          </GoBackTouchable>
+        )}
         <SearchInputContainer>
           <LSHomeScreenSearch
             query={query}
