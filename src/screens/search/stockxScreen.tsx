@@ -2,7 +2,7 @@
   LootSwap - StockxScreen
  ***/
 
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {
   Container,
   TitleText,
@@ -33,10 +33,59 @@ import {
   STOCKX_SEARCH_DROP_DOWN_ARROW,
   RIGHT_ARROW_DATA_ROW,
 } from 'localsvgimages';
+import {refreshStockxData} from '../../redux/modules';
+import {useDispatch} from 'react-redux';
+import {Animated} from 'react-native';
 
 export const StockxScreen: FC<any> = ({route}) => {
   const {stockxProduct, foundProducts} = route.params;
+  const [marketData, setMarketData] = useState([]);
   const [selectedSize, setSelectedSize] = useState(null);
+  const [loadingData, setLoadingData] = useState(true);
+  const [opacity] = useState(new Animated.Value(1));
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const blink = Animated.sequence([
+      Animated.timing(opacity, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+    ]);
+
+    const loop = Animated.loop(blink);
+    loop.start();
+
+    return () => loop.stop();
+  }, []);
+
+  useEffect(() => {
+    setLoadingData(true);
+    const reqData = {
+      stockxUrlKey: stockxProduct.urlKey,
+      name: stockxProduct.name,
+    };
+    dispatch(
+      refreshStockxData(
+        reqData,
+        res => {
+          setMarketData(res.sizes);
+          setLoadingData(false);
+        },
+        err => {
+          console.log('ERR => ', err);
+          setMarketData(stockxProduct.sizes);
+          setLoadingData(false);
+        },
+      )
+    );
+  }, [dispatch, stockxProduct.name, stockxProduct.urlKey]);
 
   const calcMarketRange = (lastSale: number) => {
     if (!lastSale) {
@@ -46,6 +95,22 @@ export const StockxScreen: FC<any> = ({route}) => {
     const endRange = Math.floor(lastSale + lastSale * 0.1);
 
     return `$${startRange} - $${endRange}`
+  };
+
+  const LoadingMarketData = () => {
+    return (
+      <Animated.Text
+        style={{
+          borderRadius: 20,
+          fontSize: 16,
+          opacity,
+          marginTop: 5,
+          fontFamily: 'Urbanist-SemiBold',
+          color: '#6267FE',
+        }}>
+        Loading
+      </Animated.Text>
+    );
   };
 
   return (
@@ -63,21 +128,25 @@ export const StockxScreen: FC<any> = ({route}) => {
             </ImageContainer>
             <ProductDetailsContainer>
               <SectionContainer>
-                <SelectSizeText>Select Size:</SelectSizeText>
-                <Dropdown
-                  style={[SizeDropdownStyle]}
-                  selectedTextStyle={SelectedTextStyle}
-                  placeholderStyle={SelectedTextStyle}
-                  itemTextStyle={ItemTextStyle}
-                  placeholder={'Select Size'}
-                  labelField={'sizeUS'}
-                  valueField={'sizeUS'}
-                  onChange={item => setSelectedSize(item)}
-                  data={stockxProduct.sizes}
-                  value={selectedSize}
-                  maxHeight={300}
-                  renderRightIcon={() => <SvgXml xml={STOCKX_SEARCH_DROP_DOWN_ARROW} />}
-                />
+                <SelectSizeText>Size:</SelectSizeText>
+                {loadingData ? (
+                  <LoadingMarketData />
+                ) : (
+                  <Dropdown
+                    style={[SizeDropdownStyle]}
+                    selectedTextStyle={SelectedTextStyle}
+                    placeholderStyle={SelectedTextStyle}
+                    itemTextStyle={ItemTextStyle}
+                    placeholder={'Select Size'}
+                    labelField={'sizeUS'}
+                    valueField={'sizeUS'}
+                    onChange={item => setSelectedSize(item)}
+                    data={marketData}
+                    value={selectedSize}
+                    maxHeight={300}
+                    renderRightIcon={() => <SvgXml xml={STOCKX_SEARCH_DROP_DOWN_ARROW} />}
+                  />
+                )}
               </SectionContainer>
               <SectionContainer>
                 <SelectSizeText>Estimated Market Value:</SelectSizeText>

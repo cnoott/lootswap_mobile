@@ -12,6 +12,7 @@ import {
   SEARCH_STOCKX,
   SEARCH_PRODUCTS,
   GET_RECOMMENDED_SEARCH,
+  REFRESH_STOCKX_DATA,
 } from '../../../constants/actions';
 import {
   getProductDetailsSuccess,
@@ -165,6 +166,24 @@ export function* fetchMarketData(action: any) {
   }
 }
 
+export function* refreshStockxData(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      fetchMarketDataCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
+
 export function* generateLinkPaypal(action: any) {
   yield put(LoadingRequest());
   try {
@@ -284,6 +303,7 @@ export default function* authSaga() {
   yield takeLatest(SEND_TRADE_OFFER.REQUEST, sendTradeOffer);
   yield takeLatest(CREATE_NEW_PRODUCT.REQUEST, createNewProduct);
   yield takeLatest(FETCH_MARKET_DATA.REQUEST, fetchMarketData);
+  yield takeLatest(REFRESH_STOCKX_DATA.REQUEST, refreshStockxData);
   yield takeLatest(GENERATE_LINK_PAYPAL.REQUEST, generateLinkPaypal);
   yield takeLatest(SAVE_PAYPAL.REQUEST, savePaypal);
   yield takeLatest(DELETE_PRODUCT.REQUEST, deleteProduct);
