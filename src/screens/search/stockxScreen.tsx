@@ -35,7 +35,7 @@ import {
 } from 'localsvgimages';
 
 export const StockxScreen: FC<any> = ({route}) => {
-  const {stockxProduct} = route.params;
+  const {stockxProduct, foundProducts} = route.params;
   const [selectedSize, setSelectedSize] = useState(null);
 
   const calcMarketRange = (lastSale: number) => {
@@ -100,7 +100,7 @@ export const StockxScreen: FC<any> = ({route}) => {
               </DataRowContainer>
 
               <DataRowContainer>
-                <NumberDataText>2009</NumberDataText>
+                <NumberDataText>{foundProducts?.length}</NumberDataText>
                 <DataLabelText>
                   Has It
                   <SvgXml xml={RIGHT_ARROW_DATA_ROW} />
