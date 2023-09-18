@@ -164,7 +164,7 @@ export const createNewProductCall = (reqData: any) => {
 
 export const fetchMarketDataCall = (reqData: any) => {
   return handleResponse(
-    api.post(`/market-data/${reqData.userId}`, reqData),
+    api.post(`/market-data/`, reqData),
     API_RESPONSE.CODE200,
   );
 };
