@@ -15,12 +15,6 @@ import {
   GoBackTouchable,
   SearchInputContainer,
   ClearRecentSearchesText,
-  StockxContainer,
-  StockxImageContainer,
-  StockxImage,
-  StockxTextContainer,
-  StockxTitleText,
-  StockxNumListingsText,
   StockxFlatList,
   FullDivider,
 } from './styles';
@@ -43,6 +37,7 @@ import {FlatList as DefaultFlatList} from 'react-native';
 import {SwiperComponent} from '../loot/styles';
 import useDebounce from '../../utility/customHooks/useDebouncer';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import StockxProductCard from '../../components/search/stockxProductCard';
 
 export const SearchScreen: FC<any> = () => {
   const insets = useSafeAreaInsets();
@@ -177,21 +172,15 @@ export const SearchScreen: FC<any> = () => {
   const renderStockxSearchResult = ({item}: any) => {
     const stockxProduct = item._doc;
     const foundProducts = item.foundProducts;
-    console.log('yoooo', foundProducts);
+
     return (
-      <StockxContainer onPress={() => handleStockxNavigation(stockxProduct, foundProducts)}>
-        <StockxImageContainer>
-          <StockxImage source={{uri: stockxProduct?.image}} />
-        </StockxImageContainer>
-        <StockxTextContainer>
-          <StockxTitleText>{stockxProduct?.name}</StockxTitleText>
-          <StockxNumListingsText>
-            {`${foundProducts?.length} listing${
-              foundProducts?.length !== 1 ? 's' : ''} avaliable`
-            }
-          </StockxNumListingsText>
-        </StockxTextContainer>
-      </StockxContainer>
+      <>
+        <StockxProductCard
+          stockxProduct={stockxProduct}
+          foundProducts={foundProducts}
+          handleStockxNavigation={handleStockxNavigation}
+        />
+      </>
     );
   };
 
