@@ -257,3 +257,7 @@ export const SAVE_SEARCH = {
 export const GET_RECOMMENDED_SEARCH = {
   ...createActionConst(actions.GET_RECOMMENDED_SEARCH),
 };
+
+export const REFRESH_STOCKX_DATA = {
+  ...createActionConst(actions.REFRESH_STOCKX_DATA),
+};
