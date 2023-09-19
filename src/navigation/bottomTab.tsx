@@ -77,6 +77,8 @@ const HomeStackNavigation = () => (
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
     <Stack.Screen name="Notifications" component={NotificationsScreen} />
     <Stack.Screen name="LikedProductScreen" component={LikedProductScreen} />
+    <Stack.Screen name="StockxScreen" component={StockxScreen}/>
+    <Stack.Screen name="HasItScreen" component={HasItScreen}/>
     <Stack.Screen name="LinkPaypalScreen" component={LinkPaypalScreen} />
     <Stack.Screen
       name="LootEditAddressScreen"
