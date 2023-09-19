@@ -20,6 +20,7 @@ import {
   VERSION_CHECK,
   SAVE_REFERRAL_LINK,
   SAVE_SEARCH,
+  GET_LIKED_PRODUCTS,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -76,6 +77,7 @@ import {
   deleteUserCall,
   versionCheckCall,
   saveReferralLinkCall,
+  getLikedProductsCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
@@ -462,6 +464,22 @@ export function* saveReferralLink(action: any) {
   }
 }
 
+export function* getLikedProducts(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      getLikedProductsCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
@@ -484,4 +502,5 @@ export default function* authSaga() {
   yield takeLatest(VERSION_CHECK.REQUEST, versionCheck);
   yield takeLatest(SAVE_REFERRAL_LINK.REQUEST, saveReferralLink);
   yield takeLatest(SAVE_SEARCH.REQUEST, saveSearch);
+  yield takeLatest(GET_LIKED_PRODUCTS.REQUEST, getLikedProducts);
 }

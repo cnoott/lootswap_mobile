@@ -476,6 +476,13 @@ export const getRecommendedSearchCall = (reqData: any) => {
   );
 };
 
+export const getLikedProductsCall = (reqData: any) => {
+  return handleResponse(
+    api.get(`/user/liked-stockx-products/${reqData?.userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
