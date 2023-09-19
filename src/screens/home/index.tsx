@@ -91,10 +91,8 @@ export const HomeScreen: FC<{}> = () => {
     setRefreshing(false);
   };
 
-  const goToLikedProducts = (productsList: any) => {
-    navigation.navigate('LikedProductScreen', {
-      productsList: productsList,
-    });
+  const goToLikedProducts = () => {
+    navigation.navigate('LikedProductScreen');
   };
 
   const onRightIconPress = () => {

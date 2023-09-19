@@ -19,21 +19,12 @@ export const LikedProductScreen: FC<any> = props => {
   const {userData} = auth;
   const dispatch = useDispatch();
   const [likedProdList, setLikedProdList] = useState([]);
-  const {productsList} = props.route?.params;
+
   useEffect(() => {
     if (userData?._id) {
       dispatch(getMyDetailsRequest(userData?._id));
     }
   }, []);
-
-  useEffect(() => {
-    if (userData?.likedProducts?.length > 0) {
-      const likedList = productsList.filter(prod =>
-        userData?.likedProducts?.includes(prod?.objectID),
-      );
-      setLikedProdList(likedList);
-    }
-  }, [userData?.likedProducts, productsList]);
 
   const renderItem = ({item}) => {
     return <LSProductCard item={{...item, objectID: item._id}} liked={true} />;
@@ -46,7 +37,7 @@ export const LikedProductScreen: FC<any> = props => {
         <FlatList
           data={userData?.likedProducts}
           renderItem={renderItem}
-          keyExtractor={item => item?.objectID}
+          keyExtractor={item => item?._id}
           ListEmptyComponent={() => (
             <LSEmptyListComponent
               emptyMsg={'Your wishlist is empty, Go & add some..'}
