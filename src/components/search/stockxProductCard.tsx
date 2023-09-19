@@ -12,6 +12,7 @@ interface StockxProductCardProps {
   stockxProduct: any;
   foundProducts: Array<any>;
   handleStockxNavigation?: Function;
+  border?: Boolean;
 }
 
 export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
@@ -19,10 +20,14 @@ export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
     stockxProduct,
     foundProducts,
     handleStockxNavigation = () => {},
+    border = false,
   } = props;
 
   return (
-    <StockxContainer onPress={() => handleStockxNavigation(stockxProduct, foundProducts)}>
+    <StockxContainer
+      onPress={() => handleStockxNavigation(stockxProduct, foundProducts)}
+      border={border}
+    >
       <StockxImageContainer>
         <StockxImage source={{uri: stockxProduct?.image}} />
       </StockxImageContainer>

@@ -6,10 +6,11 @@ import FastImage from 'react-native-fast-image';
 export const StockxContainer = styled.TouchableOpacity.attrs(props => ({
   width: scale(225),
   alignSelf: 'stretch',
-  borderRadius: 9,
+  borderRadius: scale(15),
   bg: props.theme.colors.white,
-  mr: scale(5),
-  my: scale(30),
+  borderColor: props.theme.colors.white,
+  border: props.border ? 0 : 0,
+  p: props.border ? 0 : scale(10),
 }))`
   flex-direction: row;
   align-items: center;

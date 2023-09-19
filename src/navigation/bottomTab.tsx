@@ -63,6 +63,7 @@ import ChooseOfferTypeScreen from '../screens/offers/chooseOfferTypeScreen';
 import SendMoneyOfferScreen from '../screens/offers/sendMoneyOfferScreen';
 import SearchScreen from '../screens/search';
 import StockxScreen from '../screens/search/stockxScreen';
+import HasItScreen from '../screens/search/hasItScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -121,6 +122,19 @@ const SearchStackNavigation = () => (
     }}>
     <Stack.Screen name="SearchScreen" component={SearchScreen}/>
     <Stack.Screen name="StockxScreen" component={StockxScreen}/>
+    <Stack.Screen name="HasItScreen" component={HasItScreen}/>
+    <Stack.Screen name="StartTradeScreen" component={StartTradeScreen} />
+    <Stack.Screen
+      name="ChooseOfferTypeScreen"
+      component={ChooseOfferTypeScreen}
+    />
+    <Stack.Screen
+      name="SendMoneyOfferScreen"
+      component={SendMoneyOfferScreen}
+    />
+    <Stack.Screen name="OffersMessageScreen" component={OffersMessageScreen} />
+    <Stack.Screen name="EditTradeScreen" component={EditTradeScreen} />
+
     <Stack.Screen
       name="ProductDetailsScreen"
       component={ProductDetailsScreen}
