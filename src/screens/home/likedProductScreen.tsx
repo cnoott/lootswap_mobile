@@ -68,6 +68,7 @@ export const LikedProductScreen: FC<any> = props => {
         <StockxProductCard
           stockxProduct={stockxProduct}
           foundProducts={foundProducts}
+          isFromLiked={true}
         />
       </>
     );

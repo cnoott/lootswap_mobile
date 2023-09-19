@@ -7,6 +7,9 @@ import {
   StockxTitleText,
   StockxNumListingsText,
 } from './stockxProductCardStyles';
+import {LikeTouchable} from '../productCard/styles';
+import {SvgXml} from 'react-native-svg';
+import {LIKE_HEART_ICON_WHITE, LIKE_HEART_ICON_RED} from 'localsvgimages';
 
 interface StockxProductCardProps {
   stockxProduct: any;
@@ -31,6 +34,14 @@ export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
       border={border}
       isFromLiked={isFromLiked}
     >
+      {isFromLiked && (
+        <LikeTouchable onPress={() => {}}>
+          <SvgXml
+            xml={LIKE_HEART_ICON_RED}
+            color={'white'}
+          />
+        </LikeTouchable>
+      )}
       <StockxImageContainer>
         <StockxImage source={{uri: stockxProduct?.image}} />
       </StockxImageContainer>
