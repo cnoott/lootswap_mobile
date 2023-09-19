@@ -121,7 +121,7 @@ export const StockxBrandContainer = styled.View.attrs(() => ({
 
 export const StockxFlatList = styled.FlatList.attrs(() => ({
   horizontal: true,
-  pt: scale(10),
+  py: scale(20),
   px: scale(10),
 }))`
   ${space}

@@ -24,6 +24,7 @@ import {
   DataLabelText,
 } from './stockxScreenStyles';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {SvgXml} from 'react-native-svg';
 import {ScrollView} from 'react-native';
@@ -43,6 +44,9 @@ export const StockxScreen: FC<any> = ({route}) => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [loadingData, setLoadingData] = useState(true);
   const [opacity] = useState(new Animated.Value(1));
+
+  const navigation: NavigationProp<any, any> = useNavigation();
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -113,6 +117,13 @@ export const StockxScreen: FC<any> = ({route}) => {
     );
   };
 
+  const handleHasItNavigation = () => {
+    navigation?.navigate('HasItScreen', {
+      stockxProduct: stockxProduct,
+      foundProducts: foundProducts,
+    });
+  };
+
   return (
     <>
       <InStackHeader
@@ -168,7 +179,7 @@ export const StockxScreen: FC<any> = ({route}) => {
                 </DataLabelText>
               </DataRowContainer>
 
-              <DataRowContainer>
+              <DataRowContainer onPress={() => handleHasItNavigation()}>
                 <NumberDataText>{foundProducts?.length}</NumberDataText>
                 <DataLabelText>
                   Has It
