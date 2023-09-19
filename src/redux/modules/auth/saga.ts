@@ -307,7 +307,9 @@ export function* editShippingAddr(action: any) {
   }
 }
 export function* updateUser(action: any) {
-  yield put(LoadingRequest());
+  if (!action?.reqData?.noLoad) {
+    yield put(LoadingRequest());
+  }
   try {
     const response: APIResponseProps = yield call(
       updateUserCall,
@@ -316,7 +318,9 @@ export function* updateUser(action: any) {
     yield put(LoadingSuccess());
     if (response?.success) {
       yield put(updateUserSuccess(response.data));
-      Alert.showSuccess('Updated successfully!');
+      if (!action?.reqData?.noLoad) {
+        Alert.showSuccess('Updated successfully!');
+      }
     } else {
       yield put(updateUserFailure());
     }

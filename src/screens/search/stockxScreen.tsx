@@ -34,9 +34,10 @@ import {
   STOCKX_SEARCH_DROP_DOWN_ARROW,
   RIGHT_ARROW_DATA_ROW,
 } from 'localsvgimages';
-import {refreshStockxData} from '../../redux/modules';
-import {useDispatch} from 'react-redux';
+import {refreshStockxData, updateUser} from '../../redux/modules';
+import {useDispatch, useSelector} from 'react-redux';
 import {Animated} from 'react-native';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 
 export const StockxScreen: FC<any> = ({route}) => {
   const {stockxProduct, foundProducts} = route.params;
@@ -44,6 +45,8 @@ export const StockxScreen: FC<any> = ({route}) => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [loadingData, setLoadingData] = useState(true);
   const [opacity] = useState(new Animated.Value(1));
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData, isLogedIn} = auth;
 
   const navigation: NavigationProp<any, any> = useNavigation();
 
@@ -124,11 +127,47 @@ export const StockxScreen: FC<any> = ({route}) => {
     });
   };
 
+  const isProductLiked = () => {
+    if (!isLogedIn) {
+      return false;
+    }
+    return userData?.likedStockxProducts?.some(productId => {
+      return productId === stockxProduct?._id;
+    });
+  };
+
+  const handleLikeProduct = () => {
+    if (!isLogedIn) {
+      return;
+    }
+    let likedStockxProducts = [];
+    if (isProductLiked()) {
+      likedStockxProducts = userData?.likedStockxProducts?.filter(
+        productId => productId !== stockxProduct?._id
+      );
+    } else {
+      likedStockxProducts = [
+        stockxProduct?._id,
+        ...userData?.likedStockxProducts,
+      ];
+    }
+    dispatch(
+      updateUser({
+        userId: userData?._id,
+        userData: {likedStockxProducts: likedStockxProducts},
+        noLoad: true,
+      }),
+    );
+
+  };
+
   return (
     <>
       <InStackHeader
         title={''}
         heartIconRight={true}
+        heartIsRed={isProductLiked()}
+        onRightIconPress={() => handleLikeProduct()}
       />
       <Container>
         <ScrollView>
