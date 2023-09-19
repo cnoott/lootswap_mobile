@@ -27,6 +27,8 @@ interface HeaderProps {
   printLabel?: boolean;
   printLabelButton?: any;
   heartIconRight?: boolean;
+  heartIsRed?: boolean;
+  onRightIconPress?: Function;
 }
 
 export const InStackHeader: FC<HeaderProps> = React.memo(props => {
@@ -41,8 +43,9 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
     printLabel = false,
     printLabelButton = () => {},
     heartIconRight = false,
+    heartIsRed = false,
+    onRightIconPress = () => {},
   } = props;
-  const onTrippleDotPress = () => {};
   const onBackPress = () => {
     if (onBackCall) {
       onBackCall();
@@ -62,7 +65,7 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
         )}
         <ProfileHeaderText>{title}</ProfileHeaderText>
         {right ? (
-          <ProfileRightTouchable onPress={onTrippleDotPress}>
+          <ProfileRightTouchable onPress={onRightIconPress}>
             <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
           </ProfileRightTouchable>
         ) : (
@@ -83,15 +86,15 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
       </EmptyRowView>
 
       {heartIconRight ? (
-        <ProfileRightTouchable onPress={onTrippleDotPress}>
-          <SvgXml xml={LIKE_HEART_ICON} />
+        <ProfileRightTouchable onPress={onRightIconPress}>
+          <SvgXml xml={heartIsRed ? LIKE_HEART_ICON_RED : LIKE_HEART_ICON} />
         </ProfileRightTouchable>
       ) : (
         <EmptyBox />
       )}
 
       {right && (
-        <ProfileRightTouchable onPress={onTrippleDotPress}>
+        <ProfileRightTouchable onPress={onRightIconPress}>
           <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
         </ProfileRightTouchable>
       )}

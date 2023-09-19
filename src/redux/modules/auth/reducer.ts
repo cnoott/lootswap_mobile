@@ -281,6 +281,7 @@ export default function auth(state = InitialState, action: ActionProps) {
     case UPDATE_USER.REQUEST: {
       return {
         ...state,
+        userData: {...state.userData, ...action?.reqData?.userData},
       };
     }
     case UPDATE_USER.SUCCESS: {
