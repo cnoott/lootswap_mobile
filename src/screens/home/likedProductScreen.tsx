@@ -5,7 +5,11 @@
 import React, {FC, useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {getMyDetailsRequest, getLikedProducts, updateUser} from '../../redux/modules';
+import {
+  getMyDetailsRequest,
+  getLikedProducts,
+  updateUser,
+} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSProductCard from '../../components/productCard';
@@ -21,6 +25,7 @@ import {CustomTabBar, TabBarLabel, TopTabView} from '../offers/styles';
 import {SceneMap} from 'react-native-tab-view';
 import {useWindowDimensions} from 'react-native';
 import StockxProductCard from '../../components/search/stockxProductCard';
+import { handleNavigation } from '../../utility/notification';
 
 export const LikedProductScreen: FC<any> = props => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -65,7 +70,6 @@ export const LikedProductScreen: FC<any> = props => {
     const newLikedStockxProducts = likedStockxProducts?.filter(
       product => product?._doc._id !== stockxProduct?._id
     );
-    console.log('NEW', newLikedStockxProducts);
     setLikedStockxProducts(newLikedStockxProducts);
 
     dispatch(
@@ -76,6 +80,17 @@ export const LikedProductScreen: FC<any> = props => {
       }),
     );
   };
+
+  const handleStockxNavigation = (
+    stockxProduct: any,
+    foundProducts: Array<any>,
+  ) => {
+    navigation?.navigate('StockxScreen', {
+      stockxProduct: stockxProduct,
+      foundProducts: foundProducts
+    });
+  };
+
 
   const stockxRenderItem = ({item}) => {
     const stockxProduct = item._doc;
@@ -88,6 +103,7 @@ export const LikedProductScreen: FC<any> = props => {
           foundProducts={foundProducts}
           isFromLiked={true}
           handleUnlikeProduct={handleUnlikeProduct}
+          handleStockxNavigation={handleStockxNavigation}
         />
       </>
     );
