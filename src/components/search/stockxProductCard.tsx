@@ -10,6 +10,8 @@ import {
 import {LikeTouchable} from '../productCard/styles';
 import {SvgXml} from 'react-native-svg';
 import {LIKE_HEART_ICON_WHITE, LIKE_HEART_ICON_RED} from 'localsvgimages';
+import {useDispatch, useSelector} from 'react-redux';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 
 interface StockxProductCardProps {
   stockxProduct: any;
@@ -17,6 +19,7 @@ interface StockxProductCardProps {
   handleStockxNavigation?: Function;
   border?: Boolean;
   isFromLiked?: Boolean;
+  handleUnlikeProduct?: Function;
 }
 
 export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
@@ -26,6 +29,7 @@ export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
     handleStockxNavigation = () => {},
     border = false,
     isFromLiked = false,
+    handleUnlikeProduct = () => {},
   } = props;
 
   return (
@@ -35,7 +39,7 @@ export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
       isFromLiked={isFromLiked}
     >
       {isFromLiked && (
-        <LikeTouchable onPress={() => {}}>
+        <LikeTouchable onPress={() => handleUnlikeProduct(stockxProduct)}>
           <SvgXml
             xml={LIKE_HEART_ICON_RED}
             color={'white'}

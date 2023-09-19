@@ -5,7 +5,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {getMyDetailsRequest, getLikedProducts} from '../../redux/modules';
+import {getMyDetailsRequest, getLikedProducts, updateUser} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSProductCard from '../../components/productCard';
@@ -39,7 +39,6 @@ export const LikedProductScreen: FC<any> = props => {
 
   useEffect(() => {
     if (userData?._id) {
-      console.log('ldsfs',userData?.likedStockxProducts);
       dispatch(getMyDetailsRequest(userData?._id));
       dispatch(
         getLikedProducts(
@@ -59,6 +58,25 @@ export const LikedProductScreen: FC<any> = props => {
     return <LSProductCard item={{...item, objectID: item._id}} liked={true} />;
   };
 
+  const handleUnlikeProduct = (stockxProduct: any) => {
+    const newLikedStockxProductIds = userData?.likedStockxProducts?.filter(
+      productId => productId !== stockxProduct?._id
+    );
+    const newLikedStockxProducts = likedStockxProducts?.filter(
+      product => product?._doc._id !== stockxProduct?._id
+    );
+    console.log('NEW', newLikedStockxProducts);
+    setLikedStockxProducts(newLikedStockxProducts);
+
+    dispatch(
+      updateUser({
+        userId: userData?._id,
+        userData: {likedStockxProducts: newLikedStockxProductIds},
+        noLoad: true,
+      }),
+    );
+  };
+
   const stockxRenderItem = ({item}) => {
     const stockxProduct = item._doc;
     const foundProducts = item.foundProducts;
@@ -69,6 +87,7 @@ export const LikedProductScreen: FC<any> = props => {
           stockxProduct={stockxProduct}
           foundProducts={foundProducts}
           isFromLiked={true}
+          handleUnlikeProduct={handleUnlikeProduct}
         />
       </>
     );
