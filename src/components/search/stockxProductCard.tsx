@@ -13,6 +13,7 @@ interface StockxProductCardProps {
   foundProducts: Array<any>;
   handleStockxNavigation?: Function;
   border?: Boolean;
+  isFromLiked?: Boolean;
 }
 
 export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
@@ -21,12 +22,14 @@ export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
     foundProducts,
     handleStockxNavigation = () => {},
     border = false,
+    isFromLiked = false,
   } = props;
 
   return (
     <StockxContainer
       onPress={() => handleStockxNavigation(stockxProduct, foundProducts)}
       border={border}
+      isFromLiked={isFromLiked}
     >
       <StockxImageContainer>
         <StockxImage source={{uri: stockxProduct?.image}} />
@@ -34,7 +37,7 @@ export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
       <StockxTextContainer>
         <StockxTitleText>{stockxProduct?.name}</StockxTitleText>
         <StockxNumListingsText>
-          {`${foundProducts?.length} listing${
+          {foundProducts && `${foundProducts?.length} listing${
             foundProducts?.length !== 1 ? 's' : ''} avaliable`
           }
         </StockxNumListingsText>

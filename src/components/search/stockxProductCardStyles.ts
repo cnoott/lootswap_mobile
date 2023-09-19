@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import FastImage from 'react-native-fast-image';
 
 export const StockxContainer = styled.TouchableOpacity.attrs(props => ({
-  width: scale(225),
+  width: props?.isFromLiked ? scale(260) : scale(225),
   alignSelf: 'stretch',
   borderRadius: scale(15),
   bg: props.theme.colors.white,

@@ -23,6 +23,7 @@ import {
   SAVE_REFERRAL_LINK,
   PRESELECT_CHOSEN_ITEM,
   SAVE_SEARCH,
+  GET_LIKED_PRODUCTS,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -438,5 +439,18 @@ export const saveSearchSuccess = () => {
 export const saveSearchFailure = () => {
   return {
     type: SAVE_SEARCH.FAILURE,
+  };
+};
+
+export const getLikedProducts = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: GET_LIKED_PRODUCTS.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
   };
 };

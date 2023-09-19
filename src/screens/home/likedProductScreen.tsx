@@ -1,28 +1,57 @@
 /***
-LootSwap - LIKED PRODUCT SCREEN
-***/
+  LootSwap - LIKED PRODUCT SCREEN
+ ***/
 
 import React, {FC, useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {getMyDetailsRequest} from '../../redux/modules';
+import {getMyDetailsRequest, getLikedProducts} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSProductCard from '../../components/productCard';
 import LSEmptyListComponent from '../../components/commonComponents/LSEmptyListComponent';
 import {EMPTY_TRADE_OFFERS_ICON} from 'localsvgimages';
-import {Container, SubContainer, FlatList} from './likedProductScreenStyles';
+import {
+  Container,
+  SubContainer,
+  FlatList,
+  StockxFlatList,
+} from './likedProductScreenStyles';
+import {CustomTabBar, TabBarLabel, TopTabView} from '../offers/styles';
+import {SceneMap} from 'react-native-tab-view';
+import {useWindowDimensions} from 'react-native';
+import StockxProductCard from '../../components/search/stockxProductCard';
 
 export const LikedProductScreen: FC<any> = props => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const auth: AuthProps = useSelector(state => state.auth);
+  const layout = useWindowDimensions();
   const {userData} = auth;
   const dispatch = useDispatch();
   const [likedProdList, setLikedProdList] = useState([]);
+  const [likedStockxProducts, setLikedStockxProducts] = useState([]);
+
+  const [index, setIndex] = useState(0);
+  const [routes] = React.useState([
+    {key: 'first', title: 'Liked Listings'},
+    {key: 'second', title: 'Market Wishlist'},
+  ]);
 
   useEffect(() => {
     if (userData?._id) {
+      console.log('ldsfs',userData?.likedStockxProducts);
       dispatch(getMyDetailsRequest(userData?._id));
+      dispatch(
+        getLikedProducts(
+          {userId: userData?._id},
+          res => {
+            setLikedStockxProducts(res);
+          },
+          err => {
+            console.log('ERR= >', err);
+          },
+        ),
+      );
     }
   }, []);
 
@@ -30,22 +59,68 @@ export const LikedProductScreen: FC<any> = props => {
     return <LSProductCard item={{...item, objectID: item._id}} liked={true} />;
   };
 
+  const stockxRenderItem = ({item}) => {
+    const stockxProduct = item._doc;
+    const foundProducts = item.foundProducts;
+
+    return (
+      <>
+        <StockxProductCard
+          stockxProduct={stockxProduct}
+          foundProducts={foundProducts}
+        />
+      </>
+    );
+  };
+
+  const renderTabBar = (props: any) => (
+    <CustomTabBar
+      {...props}
+      renderLabel={({route, focused}: any) => (
+        <TabBarLabel focused={focused}>{route.title}</TabBarLabel>
+      )}
+    />
+  );
+
+  const FirstRoute = () => (
+    <SubContainer>
+      <FlatList
+        data={userData?.likedProducts}
+        renderItem={renderItem}
+        keyExtractor={item => item?._id}
+        ListEmptyComponent={() => (
+          <LSEmptyListComponent
+            emptyMsg={'Your wishlist is empty, Go & add some..'}
+            svgImg={EMPTY_TRADE_OFFERS_ICON}
+          />
+        )}
+      />
+    </SubContainer>
+  );
+  const SecondRoute = () => (
+    <SubContainer>
+      <StockxFlatList
+        data={likedStockxProducts}
+        renderItem={stockxRenderItem}
+      />
+    </SubContainer>
+  );
+
+  const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+  });
+
   return (
     <Container>
       <InStackHeader title={'Likes/Wishlist'} back onlyTitleCenterAlign />
-      <SubContainer>
-        <FlatList
-          data={userData?.likedProducts}
-          renderItem={renderItem}
-          keyExtractor={item => item?._id}
-          ListEmptyComponent={() => (
-            <LSEmptyListComponent
-              emptyMsg={'Your wishlist is empty, Go & add some..'}
-              svgImg={EMPTY_TRADE_OFFERS_ICON}
-            />
-          )}
-        />
-      </SubContainer>
+      <TopTabView
+        navigationState={{index, routes}}
+        renderTabBar={renderTabBar}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{width: layout.width}}
+      />
     </Container>
   );
 };
