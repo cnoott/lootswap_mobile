@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import LSInput from '../commonComponents/LSInput';
 import {useTheme} from 'styled-components';
-import {HOME_SEARCH_INPUT_ICON} from 'localsvgimages';
+import {HOME_SEARCH_INPUT_ICON, HOME_FILTER_ICON} from 'localsvgimages';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -32,12 +32,18 @@ const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
     }
   };
 
+  const navigateToFilters = () => {
+    navigation?.navigate('FiltersScreen');
+  };
+
   return (
     <LSInput
       value={query}
       onChangeText={setQuery}
       placeholder={'Search'}
       leftIcon={HOME_SEARCH_INPUT_ICON}
+      rightIcon={!isFromHome && HOME_FILTER_ICON}
+      onRightIconPress={() => navigateToFilters()}
       homeSearch={true}
       inputBackColor={theme?.colors?.screenBg_light}
       onPressIn={() => handleOnFocus()}
