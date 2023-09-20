@@ -10,7 +10,6 @@ import {
   DELETE_PRODUCT,
   SEARCH_STOCKX,
   GET_HOMESCREEN_PRODUCTS,
-  SEARCH_PRODUCTS,
   GET_RECOMMENDED_SEARCH,
   REFRESH_STOCKX_DATA,
 } from '../../../constants/actions';
@@ -187,20 +186,7 @@ export const getHomeScreenProducts = (
   };
 };
 
-export const searchProducts = (
-  reqData: any,
-  successCallBack: Function,
-  errorCallBack: Function,
-) => {
-  return {
-    type: SEARCH_PRODUCTS.REQUEST,
-    reqData: reqData,
-    successCallBack: successCallBack,
-    errorCallBack: errorCallBack,
-  };
-};
-
-export const getRecommendedSearch = (
+export const getRecommendedSearch = ( //TODO move to search actions
   reqData: any,
   successCallBack: Function,
   errorCallBack: Function,
