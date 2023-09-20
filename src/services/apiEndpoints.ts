@@ -468,6 +468,13 @@ export const searchProductsCall = (reqData: any) => {
   );
 };
 
+export const filterProductsCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/products/filter/`, reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const getRecommendedSearchCall = (reqData: any) => {
   const query = encodeURIComponent(reqData.query);
   return handleResponse(
