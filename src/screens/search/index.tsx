@@ -26,13 +26,15 @@ import LoadingProductCard from '../../components/productCard/loadingProductCard'
 import {EMPTY_SEARCH_ICON, LEFT_BLACK_ARROW} from 'localsvgimages';
 import {SvgXml} from 'react-native-svg';
 import {
-  searchProducts,
+  searchProductsRequest,
+  searchProductsReset,
   saveSearchRequest,
   getRecommendedSearch,
 } from '../../redux/modules';
 import {useDispatch, useSelector} from 'react-redux';
 import {RefreshControl} from 'react-native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
+import {SearchProps} from '../../redux/modules/search/reducer';
 import {FlatList as DefaultFlatList} from 'react-native';
 import {SwiperComponent} from '../loot/styles';
 import useDebounce from '../../utility/customHooks/useDebouncer';
@@ -43,13 +45,13 @@ export const SearchScreen: FC<any> = () => {
   const insets = useSafeAreaInsets();
   const paddingTop = insets.top;
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
+  const search: SearchProps = useSelector(state => state.search);
+  const {loading} = search;
 
   const dispatch = useDispatch();
   const [query, setQuery] = useState('');
-  const [products, setProducts] = useState([]);
   const [stockxProducts, setStockxProducts] = useState([]);
   const [recommendedResults, setRecommendedResults] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   const swiperRef = useRef<any>(null);
   const [currPage, setCurrPage] = useState(0);
@@ -59,10 +61,10 @@ export const SearchScreen: FC<any> = () => {
 
   const debouncedSearchTerm = useDebounce(query, 200);
   useEffect(() => {
-    if (!products.length && debouncedSearchTerm.length > 3) {
+    if (!search.searchProducts.length && debouncedSearchTerm.length > 3) {
       handleGetRecommendedSerach();
     }
-  }, [debouncedSearchTerm, products.length]);
+  }, [debouncedSearchTerm, search.searchProducts.length]);
 
   const handleSaveSearch = (search: string) => {
     let newRecentSearches = userData?.recentSearches;
@@ -104,46 +106,31 @@ export const SearchScreen: FC<any> = () => {
   };
 
   const onSubmitSearch = (recentSearch: string = '') => {
-    let search;
+    let searchQuery;
     if (recentSearch) {
-      search = recentSearch;
+      searchQuery = recentSearch;
     } else {
-      search = query;
+      searchQuery = query;
     }
-    if (!search) {
+    if (!searchQuery) {
       return;
     }
-    const reqData = {query: search};
-    setLoading(true);
+    const reqData = {query: searchQuery};
 
     if (isLogedIn) {
-      handleSaveSearch(search);
+      handleSaveSearch(searchQuery);
     }
     swiperRef?.current?.scrollTo(currPage + 1);
-    dispatch(
-      searchProducts(
-        reqData,
-        (res: any) => {
-          setLoading(false);
-          setProducts(res.products);
-          setStockxProducts(res.stockxProducts);
-        },
-        (err: any) => {
-          //TODO: error handling
-          setLoading(false);
-          console.log('ERR =>', err);
-        },
-      ),
-    );
+    dispatch(searchProductsRequest(reqData));
   };
 
   const goBack = () => {
-    setProducts([]);
+    dispatch(searchProductsReset());
     swiperRef?.current?.scrollTo(currPage - 1);
   };
 
   const goBackToSearch = () => {
-    setProducts([]);
+    dispatch(searchProductsReset());
     swiperRef?.current?.scrollTo(0);
   };
 
@@ -251,7 +238,7 @@ export const SearchScreen: FC<any> = () => {
         />
         <FullDivider />
         <FlatList
-          data={loading ? [1, 2, 3, 4, 5, 6] : products}
+          data={loading ? [1, 2, 3, 4, 5, 6] : search.searchProducts}
           renderItem={renderItem}
           keyExtractor={item => (loading ? item : item._id)}
           //onEndReached={() => onEndReached()}
