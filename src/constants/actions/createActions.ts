@@ -266,8 +266,8 @@ export const GET_LIKED_PRODUCTS = {
   ...createActionConst(actions.GET_LIKED_PRODUCTS),
 };
 
-export const SELECT_CATEGORY_FILTER = {
-  ...createActionConst(actions.SELECT_CATEGORY_FILTER),
+export const SELECT_FILTER = {
+  ...createActionConst(actions.SELECT_FILTER),
 };
 
 export const FILTER_PRODUCTS = {

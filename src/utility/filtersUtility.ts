@@ -2,10 +2,14 @@
   LOOTSWAP - FILTER UTILITY
  ***/
 
-import {selectCategoryFilter, filterProductsRequest} from '../redux/modules';
+import {selectFilter, filterProductsRequest} from '../redux/modules';
 
-export const onSetFilter = (dispatch: any, filter: string) => {
-  dispatch(selectCategoryFilter(filter));
+export const onSetFilter = (
+  dispatch: any,
+  filterType: string,
+  filter: string,
+) => {
+  dispatch(selectFilter(filterType, filter));
 };
 
 export const handleSubmitFilters = (
@@ -23,6 +27,11 @@ export const filterIsSelected = (filters: any, value: string) => {
   for (let key in filters) {
     if (Array.isArray(filters[key]) && filters[key].includes(value)) {
       foundValue = true;
+    } else if (typeof filters[key] === 'string') {
+        console.log('YSDF', filters[key], key);
+      if (filters[key] === value) {
+        foundValue = true;
+      }
     }
   }
   return foundValue;

@@ -18,7 +18,6 @@ import {
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectCategoryFilter, filterProductsRequest} from '../../redux/modules';
 import {
   onSetFilter,
   filterIsSelected,
@@ -26,7 +25,7 @@ import {
 } from '../../utility/filtersUtility';
 import {SearchProps} from '../../redux/modules/search/reducer';
 import LSButton from '../../components/commonComponents/LSButton';
-import {Size, Type} from '../../enums';
+import {Size, Type, Filter_Type} from '../../enums';
 
 
 
@@ -36,10 +35,10 @@ export const FiltersScreen: FC<any> = () => {
   const dispatch = useDispatch();
   const filters: SearchProps = useSelector(state => state.search);
 
-  const renderFilter = ({item}: any) => {
+  const renderFilter = ({item}: any, filterType: string) => {
     return (
       <FilterButton
-        onPress={() => onSetFilter(dispatch, item.value)}
+        onPress={() => onSetFilter(dispatch, filterType, item.value)}
         isSelected={filterIsSelected(filters, item.value)}
         key={item.value}
         horizontalPadding={4}>
@@ -54,8 +53,24 @@ export const FiltersScreen: FC<any> = () => {
     return (
       <EmptyView>
         <ListTitleText>Product Type </ListTitleText>
-        <AnimatedCheckBox isChecked={true} selected={true} text="Tradeable"/>
-        <AnimatedCheckBox isChecked={false} selected={false} text="For Purchase Only"/>
+        <AnimatedCheckBox
+          isChecked={filterIsSelected(filters, 'tradeable')}
+          disableBuiltInState={true}
+          selected={filterIsSelected(filters, 'tradeable')}
+          text="Tradeable"
+          onPress={() =>
+            onSetFilter(dispatch, Filter_Type.Product_Type, 'tradeable')
+          }
+        />
+        <AnimatedCheckBox
+          isChecked={filterIsSelected(filters, 'purchase-only')}
+          selected={filterIsSelected(filters, 'purchase-only')}
+          disableBuiltInState={true}
+          text="For Purchase Only"
+          onPress={() =>
+            onSetFilter(dispatch, Filter_Type.Product_Type, 'purchase-only')
+          }
+        />
       </EmptyView>
     );
   };
@@ -66,7 +81,7 @@ export const FiltersScreen: FC<any> = () => {
         <ListTitleText>{title}</ListTitleText>
         <HorizontalFlatList
           data={data}
-          renderItem={renderFilter}
+          renderItem={item => renderFilter(item, Filter_Type.Category)}
         />
       </EmptyView>
     );
