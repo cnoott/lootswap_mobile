@@ -3,6 +3,7 @@
 import {
   SELECT_CATEGORY_FILTER,
   SEARCH_PRODUCTS,
+  FILTER_PRODUCTS,
 } from '../../../constants/actions';
 
 
@@ -65,6 +66,25 @@ export default function loading(state = InitialState, action: ActionProps) {
         categories: newSelectedCategories,
       };
 
+    case FILTER_PRODUCTS.REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case FILTER_PRODUCTS.SUCCESS:
+      console.log('SUCCESS', payload);
+      return {
+        ...state,
+        searchProducts: payload,
+        loading: false
+      };
+
+    case FILTER_PRODUCTS.FAILURE:
+      return {
+        ...state,
+        loading: false,
+      };
     default:
       return state;
   }

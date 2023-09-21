@@ -37,15 +37,22 @@ export const selectCategoryFilter = (filter: string) => {
   };
 };
 
-export const filterProducts = (
-  reqData: any,
-  successCallBack: Function,
-  errorCallBack: Function,
-) => {
+export const filterProductsRequest = (reqData: any) => {
   return {
     type: FILTER_PRODUCTS.REQUEST,
     reqData: reqData,
-    successCallBack: successCallBack,
-    errorCallBack: errorCallBack,
+  };
+};
+
+export const filterProductsSuccess = (payload: any) => {
+  return {
+    type: FILTER_PRODUCTS.SUCCESS,
+    payload: payload,
+  };
+};
+
+export const filterProductsFailure = () => {
+  return {
+    type: FILTER_PRODUCTS.FAILURE,
   };
 };

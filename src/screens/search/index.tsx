@@ -46,7 +46,7 @@ export const SearchScreen: FC<any> = () => {
   const paddingTop = insets.top;
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const search: SearchProps = useSelector(state => state.search);
-  const {loading} = search;
+  const {loading, searchProducts} = search;
 
   const dispatch = useDispatch();
   const [query, setQuery] = useState('');
@@ -61,10 +61,15 @@ export const SearchScreen: FC<any> = () => {
 
   const debouncedSearchTerm = useDebounce(query, 200);
   useEffect(() => {
-    if (!search.searchProducts.length && debouncedSearchTerm.length > 3) {
+    if (!searchProducts.length && debouncedSearchTerm.length > 3) {
       handleGetRecommendedSerach();
     }
-  }, [debouncedSearchTerm, search.searchProducts.length]);
+  }, [debouncedSearchTerm, searchProducts.length]);
+
+  const handleNavigateToFilters = () => {
+    swiperRef?.current?.scrollTo(2);
+    navigation?.navigate('FiltersScreen');
+  };
 
   const handleSaveSearch = (search: string) => {
     let newRecentSearches = userData?.recentSearches;
@@ -272,6 +277,7 @@ export const SearchScreen: FC<any> = () => {
             setQuery={setQuery}
             onSubmitSearch={onSubmitSearch}
             goBackToSearch={goBackToSearch}
+            navigateToFilters={handleNavigateToFilters}
           />
         </SearchInputContainer>
       </SearchContainer>
