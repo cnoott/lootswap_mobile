@@ -19,6 +19,11 @@ import {InStackHeader} from '../../components/commonComponents/headers/stackHead
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {selectCategoryFilter, filterProductsRequest} from '../../redux/modules';
+import {
+  onSetFilter,
+  filterIsSelected,
+  handleSubmitFilters,
+} from '../../utility/filtersUtility';
 import {SearchProps} from '../../redux/modules/search/reducer';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
@@ -31,34 +36,14 @@ export const FiltersScreen: FC<any> = () => {
   const dispatch = useDispatch();
   const filters: SearchProps = useSelector(state => state.search);
 
-  const onSetFilter = (filter: string) => { //MAKE GENERAL WITH SWITCH STATEMENT
-    dispatch(selectCategoryFilter(filter));
-  };
-
-  const filterIsSelected = (value: string) => {
-    let foundValue = false;
-    for (let key in filters) {
-      if (Array.isArray(filters[key]) && filters[key].includes(value)) {
-        foundValue = true;
-      }
-    }
-    return foundValue;
-  };
-
-  const handleSubmitFilters = () => {
-    //Check if filters are empty
-    dispatch(filterProductsRequest(filters));
-    navigation?.goBack();
-  };
-
   const renderFilter = ({item}: any) => {
     return (
       <FilterButton
-        onPress={() => onSetFilter(item.value)}
-        isSelected={filterIsSelected(item.value)}
+        onPress={() => onSetFilter(dispatch, item.value)}
+        isSelected={filterIsSelected(filters, item.value)}
         key={item.value}
         horizontalPadding={4}>
-        <FilterButtonText isSelected={filterIsSelected(item.value)}>
+        <FilterButtonText isSelected={filterIsSelected(filters, item.value)}>
           {item.label}
         </FilterButtonText>
       </FilterButton>
@@ -87,14 +72,6 @@ export const FiltersScreen: FC<any> = () => {
     );
   };
 
-  const renderProductTypes = (type: string) => {
-    return renderProductTypes(categoryList, 'Category');
-    switch (type) {
-      case 'category':
-        return renderProductType(categoryList, 'Category');
-    }
-  };
-
   return (
     <Container>
       <InStackHeader title={'Filters'} onBackCall={() => navigation.goBack()} />
@@ -116,7 +93,7 @@ export const FiltersScreen: FC<any> = () => {
           title={'Done'}
           size={Size.Medium}
           type={Type.Primary}
-          onPress={() => handleSubmitFilters()}
+          onPress={() => handleSubmitFilters(dispatch, navigation, filters)}
         />
       </ButtonsContainer>
 
