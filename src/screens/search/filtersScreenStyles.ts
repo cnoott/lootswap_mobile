@@ -98,3 +98,29 @@ export const Divider = styled.View.attrs(props => ({
 }))`
   ${color} ${layout} ${space} ${border};
 `;
+
+export const AnimatedCheckBox = styled(BouncyCheckbox).attrs(props => ({
+  size: scale(18),
+  fillColor: props?.theme?.colors.primary,
+  unfillColor: props?.theme?.colors.white,
+  iconStyle: {
+    borderRadius: 8,
+  },
+  innerIconStyle: {
+    borderWidth: 1,
+    borderRadius: 8,
+    borderColor: props?.selected
+      ? props?.theme?.colors.primary
+      : props?.theme?.colors.black,
+  },
+  textStyle: {
+    textDecorationLine: 'none',
+    color: props?.theme?.colors.text,
+    fontWeight: '600',
+  },
+  mb: verticalScale(10),
+}))`
+  ${border}
+  ${color}
+  ${space}
+`;
