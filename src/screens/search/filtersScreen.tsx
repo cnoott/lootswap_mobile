@@ -10,6 +10,7 @@ import {
   ButtonsContainer,
   BottomMarginView,
   Divider,
+  AnimatedCheckBox,
 } from './filtersScreenStyles'
 import {
   categoryList,
@@ -64,7 +65,17 @@ export const FiltersScreen: FC<any> = () => {
     );
   };
 
-  const renderProductType = (data: Array<any>, title: string) => {
+  const renderProductType = () => {
+    return (
+      <EmptyView>
+        <ListTitleText>Product Type </ListTitleText>
+        <AnimatedCheckBox isChecked={true} selected={true} text="Tradeable"/>
+        <AnimatedCheckBox isChecked={false} selected={false} text="For Purchase Only"/>
+      </EmptyView>
+    );
+  };
+
+  const renderProductCategory = (data: Array<any>, title: string) => {
     return (
       <EmptyView>
         <ListTitleText>{title}</ListTitleText>
@@ -88,7 +99,8 @@ export const FiltersScreen: FC<any> = () => {
     <Container>
       <InStackHeader title={'Filters'} onBackCall={() => navigation.goBack()} />
       <SubContainer>
-        {renderProductType(categoryList, 'Category')}
+        {renderProductCategory(categoryList, 'Category')}
+        {renderProductType()}
       </SubContainer>
 
       <BottomMarginView />
