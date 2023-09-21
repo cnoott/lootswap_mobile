@@ -1,5 +1,5 @@
 import {
-  SELECT_CATEGORY_FILTER,
+  SELECT_FILTER,
   FILTER_PRODUCTS,
   SEARCH_PRODUCTS,
 } from '../../../constants/actions';
@@ -30,9 +30,10 @@ export const searchProductsFailure = () => {
   };
 };
 
-export const selectCategoryFilter = (filter: string) => {
+export const selectFilter = (filterType: string, filter: string) => {
   return {
-    type: SELECT_CATEGORY_FILTER.UPDATE,
+    type: SELECT_FILTER.UPDATE,
+    filterType: filterType,
     filter: filter,
   };
 };

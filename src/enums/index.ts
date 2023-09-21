@@ -57,3 +57,8 @@ export enum Order_Status {
   VerifiedCenter = 'verified_center',
   Delivered = 'delivered',
 }
+
+export enum Filter_Type {
+  Category ='category',
+  Product_Type = 'type',
+}
