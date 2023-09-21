@@ -6,6 +6,8 @@ import {
 import {
   searchProductsSuccess,
   searchProductsFailure,
+  filterProductsSuccess,
+  filterProductsFailure,
 } from './actions';
 import {filterProductsCall, searchProductsCall} from '../../../services/apiEndpoints';
 
@@ -38,12 +40,11 @@ export function* filterProducts(action: any) {
       action?.reqData,
     );
     if (response?.success) {
-      action?.successCallBack(response.data);
+      yield put(filterProductsSuccess(response.data));
     } else {
-      action?.errorCallBack(response.error);
+      yield put(filterProductsFailure());
     }
   } catch (e) {
-    action?.errorCallBack(e);
     console.log(e);
   }
 }

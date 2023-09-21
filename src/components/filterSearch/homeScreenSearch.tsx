@@ -11,6 +11,7 @@ interface LSHomeScreenSearchProps {
   isFromHome?: Boolean;
   onSubmitSearch?: Function;
   goBackToSearch?: Function;
+  navigateToFilters?: Function;
 }
 
 const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
@@ -20,6 +21,7 @@ const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
     isFromHome = false,
     onSubmitSearch = () => {},
     goBackToSearch = () => {},
+    navigateToFilters = () => {},
   } = props;
   const theme = useTheme();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -30,10 +32,6 @@ const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
     } else {
       goBackToSearch();
     }
-  };
-
-  const navigateToFilters = () => {
-    navigation?.navigate('FiltersScreen');
   };
 
   return (

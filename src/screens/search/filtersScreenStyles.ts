@@ -77,3 +77,24 @@ export const FilterButtonText = styled.Text.attrs(props => ({
   font-family: Urbanist;
   ${color} ${space} ${layout};
 `;
+
+export const ButtonsContainer = styled.View.attrs(() => ({
+  width: '100%',
+  mt: verticalScale(10),
+  justifyContent: 'space-around',
+}))`
+  flex-direction: row;
+  ${color} ${layout} ${space} ${border};
+`;
+
+export const BottomMarginView = styled.View`
+  height: 15px;
+`;
+
+export const Divider = styled.View.attrs(props => ({
+  height: verticalScale(1),
+  width: '100%',
+  bg: props.theme.colors.divider,
+}))`
+  ${color} ${layout} ${space} ${border};
+`;

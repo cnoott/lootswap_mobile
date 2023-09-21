@@ -7,6 +7,9 @@ import {
   HorizontalFlatList,
   FilterButton,
   FilterButtonText,
+  ButtonsContainer,
+  BottomMarginView,
+  Divider,
 } from './filtersScreenStyles'
 import {
   categoryList,
@@ -14,8 +17,11 @@ import {
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectCategoryFilter} from '../../redux/modules';
+import {selectCategoryFilter, filterProductsRequest} from '../../redux/modules';
 import {SearchProps} from '../../redux/modules/search/reducer';
+import LSButton from '../../components/commonComponents/LSButton';
+import {Size, Type} from '../../enums';
+
 
 
 export const FiltersScreen: FC<any> = () => {
@@ -38,6 +44,12 @@ export const FiltersScreen: FC<any> = () => {
     return foundValue;
   };
 
+  const handleSubmitFilters = () => {
+    //Check if filters are empty
+    dispatch(filterProductsRequest(filters));
+    navigation?.goBack();
+  };
+
   const renderFilter = ({item}: any) => {
     return (
       <FilterButton
@@ -55,7 +67,7 @@ export const FiltersScreen: FC<any> = () => {
   const renderProductType = (data: Array<any>, title: string) => {
     return (
       <EmptyView>
-        <ListTitleText>{JSON.stringify(filters)}</ListTitleText>
+        <ListTitleText>{title}</ListTitleText>
         <HorizontalFlatList
           data={data}
           renderItem={renderFilter}
@@ -78,6 +90,23 @@ export const FiltersScreen: FC<any> = () => {
       <SubContainer>
         {renderProductType(categoryList, 'Category')}
       </SubContainer>
+
+      <BottomMarginView />
+      <Divider />
+      <ButtonsContainer>
+        <LSButton
+          title={'Clear Filters'}
+          size={Size.Medium}
+          type={Type.Grey}
+          onPress={() => console.log('DONE')}
+        />
+        <LSButton
+          title={'Done'}
+          size={Size.Medium}
+          type={Type.Primary}
+          onPress={() => handleSubmitFilters()}
+        />
+      </ButtonsContainer>
 
     </Container>
   );
