@@ -46,7 +46,7 @@ export const FiltersScreen: FC<any> = () => {
         onPress={() => onSetFilter(dispatch, filterType, item.value)}
         isSelected={filterIsSelected(filters, item.value)}
         key={item.value}
-        horizontalPadding={4}>
+        horizontalPadding={9}>
         <FilterButtonText isSelected={filterIsSelected(filters, item.value)}>
           {item.label}
         </FilterButtonText>
