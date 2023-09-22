@@ -38,6 +38,7 @@ export const FiltersScreen: FC<any> = () => {
 
   const dispatch = useDispatch();
   const filters: SearchProps = useSelector(state => state.search);
+  const {avaliableSizes} = filters;
 
   const renderFilter = ({item}: any, filterType: string) => {
     return (
@@ -79,13 +80,20 @@ export const FiltersScreen: FC<any> = () => {
     );
   };
 
-  const renderProductCategory = (data: Array<any>, title: string) => {
+  const renderListFilter = (
+    data: Array<any>,
+    title: string,
+    filterType: Filter_Type,
+  ) => {
+    if (!data?.length) {
+      return <></>
+    }
     return (
       <EmptyView>
         <ListTitleText>{title}</ListTitleText>
         <HorizontalFlatList
           data={data}
-          renderItem={item => renderFilter(item, Filter_Type.Category)}
+          renderItem={item => renderFilter(item, filterType)}
         />
       </EmptyView>
     );
@@ -128,13 +136,35 @@ export const FiltersScreen: FC<any> = () => {
     );
   };
 
+
+
   return (
     <Container>
       <InStackHeader title={'Filters'} onBackCall={() => navigation.goBack()} />
       <SubContainer>
-        {renderProductCategory(categoryList, 'Category')}
+        {renderListFilter(categoryList, 'Category', Filter_Type.Category)}
         {renderBrandFilter()}
         {renderProductType()}
+        {renderListFilter(
+          avaliableSizes?.shoeSizes,
+          'Avaliable Shoe Sizes',
+          Filter_Type.Category,
+        )}
+        {renderListFilter(
+          avaliableSizes?.shirtSizes,
+          'Avaliable Clothing Sizes',
+          Filter_Type.Category,
+        )}
+        {renderListFilter(
+          avaliableSizes?.pantSizes,
+          'Avaliable Pant Sizes',
+          Filter_Type.Category,
+        )}
+        {renderListFilter(
+          avaliableSizes?.hatSizes,
+          'Avaliable Hat Sizes',
+          Filter_Type.Category,
+        )}
       </SubContainer>
 
       <BottomMarginView />

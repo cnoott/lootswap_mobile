@@ -273,3 +273,7 @@ export const SELECT_FILTER = {
 export const FILTER_PRODUCTS = {
   ...createActionConst(actions.FILTER_PRODUCTS),
 };
+
+export const GET_AVALIABLE_SIZES = {
+  ...createActionConst(actions.GET_AVALIABLE_SIZES),
+};

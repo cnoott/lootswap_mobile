@@ -4,6 +4,7 @@ import {
   SELECT_FILTER,
   SEARCH_PRODUCTS,
   FILTER_PRODUCTS,
+  GET_AVALIABLE_SIZES,
 } from '../../../constants/actions';
 import {Filter_Type} from '../../../enums';
 
@@ -13,6 +14,7 @@ export interface SearchProps {
   categories: Array<string>;
   productType: string;
   brands: Array<string>;
+  avaliableSizes: any;
 }
 
 export const InitialState: SearchProps = {
@@ -21,6 +23,7 @@ export const InitialState: SearchProps = {
   categories: [],
   productType: 'tradeable',
   brands: [],
+  avaliableSizes: {},
 };
 
 type ActionProps = {
@@ -40,8 +43,13 @@ export default function loading(state = InitialState, action: ActionProps) {
         loading: true,
       };
 
+    case GET_AVALIABLE_SIZES.SUCCESS:
+      return {
+        ...state,
+        avaliableSizes: payload,
+      };
+
     case SEARCH_PRODUCTS.SUCCESS:
-      console.log('PAYLOADD', payload);
       return {
         ...state,
         searchProducts: payload.products,
