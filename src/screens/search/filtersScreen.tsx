@@ -14,6 +14,10 @@ import {
   BrandList,
   SelectedBrandButton,
   CloseIcon,
+  PriceRangeContainer,
+  PriceSubMinMaxLabel,
+  MinPriceContainer,
+  HorizontalMarginView,
 } from './filtersScreenStyles'
 import {
   categoryList,
@@ -31,6 +35,10 @@ import {SearchProps} from '../../redux/modules/search/reducer';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type, Filter_Type} from '../../enums';
 import LSSearchableDropdown from '../../components/commonComponents/LSSearchableDropdown';
+import LSInput from '../../components/commonComponents/LSInput';
+import {DOLLOR_TEXT} from 'localsvgimages';
+
+
 
 
 export const FiltersScreen: FC<any> = () => {
@@ -136,7 +144,44 @@ export const FiltersScreen: FC<any> = () => {
     );
   };
 
-
+  const renderPriceFilter = () => {
+    return (
+      <EmptyView>
+        <ListTitleText>{'Price Range'}</ListTitleText>
+        <PriceRangeContainer>
+          <MinPriceContainer>
+            <PriceSubMinMaxLabel>Min Price</PriceSubMinMaxLabel>
+            <LSInput
+              onChangeText={() => {}}
+              onBlurCall={() => {}}
+              value={'10'}
+              placeholder={'0.00'}
+              horizontalSpace={0.1}
+              topSpace={1}
+              rightIcon={DOLLOR_TEXT}
+              keyboardType={'numeric'}
+              homeSearch={true}
+            />
+          </MinPriceContainer>
+          <HorizontalMarginView />
+          <MinPriceContainer>
+            <PriceSubMinMaxLabel>Max Price</PriceSubMinMaxLabel>
+            <LSInput
+              onChangeText={() => {}}
+              onBlurCall={() => {}}
+              value={'10'}
+              placeholder={'0.00'}
+              horizontalSpace={0.1}
+              topSpace={1}
+              rightIcon={DOLLOR_TEXT}
+              keyboardType={'numeric'}
+              homeSearch={true}
+            />
+          </MinPriceContainer>
+        </PriceRangeContainer>
+      </EmptyView>
+    );
+  };
 
   return (
     <Container>
@@ -165,6 +210,7 @@ export const FiltersScreen: FC<any> = () => {
           'Avaliable Hat Sizes',
           Filter_Type.Category,
         )}
+        {renderPriceFilter()}
       </SubContainer>
 
       <BottomMarginView />

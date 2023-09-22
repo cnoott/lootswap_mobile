@@ -162,5 +162,34 @@ export const CloseIcon: any = styled(XMarkIcon).attrs(props => ({
 }))`
   ${color}
   ${space}
-    ${layout}
+  ${layout}
 `;
+
+export const PriceRangeContainer = styled.View.attrs(() => ({
+  width: '100%',
+}))`
+  flex-direction: row ${color} ${layout} ${space} ${border};
+`;
+
+export const PriceSubMinMaxLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  my: verticalScale(10),
+}))`
+  font-size: ${() => moderateScale(14)}px;
+  font-family: Inter-Bold;
+  font-weight: 600;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const MinPriceContainer = styled.View.attrs(() => ({
+  flex: 1,
+}))`
+  flex-direction: column ${color} ${layout} ${space} ${border};
+`;
+
+export const HorizontalMarginView = styled.View`
+  width: 15px;
+`;
+
