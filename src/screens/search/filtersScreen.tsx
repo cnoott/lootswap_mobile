@@ -88,6 +88,53 @@ export const FiltersScreen: FC<any> = () => {
     );
   };
 
+  const renderProductCondition = () => {
+    return (
+      <EmptyView>
+        <ListTitleText>Condition</ListTitleText>
+        <AnimatedCheckBox
+          isChecked={filterIsSelected(filters, 'New with box')}
+          disableBuiltInState={true}
+          selected={filterIsSelected(filters, 'New with box')}
+          text="New with box"
+          onPress={() =>
+            onSetFilter(dispatch, Filter_Type.Condition, 'New with box')
+          }
+        />
+        <AnimatedCheckBox
+          isChecked={filterIsSelected(filters, 'New without box')}
+          selected={filterIsSelected(filters, 'New without box')}
+          disableBuiltInState={true}
+          text="New without box"
+          onPress={() =>
+            onSetFilter(dispatch, Filter_Type.Condition, 'New without box')
+          }
+        />
+        <AnimatedCheckBox
+          isChecked={filterIsSelected(filters, 'New with defect')}
+          selected={filterIsSelected(filters, 'New with defect')}
+          disableBuiltInState={true}
+          text="New with defect"
+          onPress={() =>
+            onSetFilter(dispatch, Filter_Type.Condition, 'New with defect')
+          }
+
+        />
+        <AnimatedCheckBox
+          isChecked={filterIsSelected(filters, 'Pre-owned')}
+          selected={filterIsSelected(filters, 'Pre-owned')}
+          disableBuiltInState={true}
+          text="Pre-owned"
+          onPress={() =>
+            onSetFilter(dispatch, Filter_Type.Condition, 'Pre-owned')
+          }
+
+        />
+      </EmptyView>
+    );
+  };
+
+
   const renderListFilter = (
     data: Array<any>,
     title: string,
@@ -152,9 +199,11 @@ export const FiltersScreen: FC<any> = () => {
           <MinPriceContainer>
             <PriceSubMinMaxLabel>Min Price</PriceSubMinMaxLabel>
             <LSInput
-              onChangeText={() => {}}
+              onChangeText={val =>
+                onSetFilter(dispatch, Filter_Type.Min_Price, val)
+              }
               onBlurCall={() => {}}
-              value={'10'}
+              value={filters.minPrice}
               placeholder={'0.00'}
               horizontalSpace={0.1}
               topSpace={1}
@@ -167,9 +216,11 @@ export const FiltersScreen: FC<any> = () => {
           <MinPriceContainer>
             <PriceSubMinMaxLabel>Max Price</PriceSubMinMaxLabel>
             <LSInput
-              onChangeText={() => {}}
+              onChangeText={val =>
+                onSetFilter(dispatch, Filter_Type.Max_Price, val)
+              }
               onBlurCall={() => {}}
-              value={'10'}
+              value={filters.maxPrice}
               placeholder={'0.00'}
               horizontalSpace={0.1}
               topSpace={1}
@@ -211,8 +262,9 @@ export const FiltersScreen: FC<any> = () => {
           Filter_Type.Category,
         )}
         {renderPriceFilter()}
+        {renderProductCondition()}
       </SubContainer>
-
+  
       <BottomMarginView />
       <Divider />
       <ButtonsContainer>
