@@ -11,9 +11,13 @@ import {
   BottomMarginView,
   Divider,
   AnimatedCheckBox,
+  BrandList,
+  SelectedBrandButton,
+  CloseIcon,
 } from './filtersScreenStyles'
 import {
   categoryList,
+  brandsList,
 } from '../../utility/utility';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -26,7 +30,7 @@ import {
 import {SearchProps} from '../../redux/modules/search/reducer';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type, Filter_Type} from '../../enums';
-
+import LSSearchableDropdown from '../../components/commonComponents/LSSearchableDropdown';
 
 
 export const FiltersScreen: FC<any> = () => {
@@ -87,11 +91,49 @@ export const FiltersScreen: FC<any> = () => {
     );
   };
 
+  const renderSelectedBrandButton = ({item, index}: any) => {
+    return (
+      <SelectedBrandButton
+        onPress={() => onSetFilter(dispatch, Filter_Type.Remove_Brand, item)}
+        key={index}>
+        <FilterButtonText isSelected={true}>
+          {item}
+        </FilterButtonText>
+        <CloseIcon />
+      </SelectedBrandButton>
+    );
+  };
+
+  const renderBrandFilter = () => {
+    return (
+      <EmptyView>
+        <ListTitleText>Brands</ListTitleText>
+        <LSSearchableDropdown
+          placeHolder="Search brand"
+          itemsList={
+            brandsList.map(
+              brand => ({id: brand.value, name: brand.label})
+            )
+          }
+          onItemPress={(value: any) =>
+            onSetFilter(dispatch, Filter_Type.Add_Brand, value.id)
+          }
+        />
+        {filters.brands.length > 0 && <BottomMarginView />}
+        <BrandList
+          data={filters.brands}
+          renderItem={renderSelectedBrandButton}
+        />
+      </EmptyView>
+    );
+  };
+
   return (
     <Container>
       <InStackHeader title={'Filters'} onBackCall={() => navigation.goBack()} />
       <SubContainer>
         {renderProductCategory(categoryList, 'Category')}
+        {renderBrandFilter()}
         {renderProductType()}
       </SubContainer>
 
