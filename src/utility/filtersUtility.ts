@@ -25,6 +25,9 @@ export const handleSubmitFilters = (
 export const filterIsSelected = (filters: any, value: string) => {
   let foundValue = false;
   for (let key in filters) {
+    if (key === 'minPrice' || key === 'maxPrice') {
+      continue;
+    }
     if (Array.isArray(filters[key]) && filters[key].includes(value)) {
       foundValue = true;
     } else if (typeof filters[key] === 'string') {

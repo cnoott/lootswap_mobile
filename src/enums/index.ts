@@ -63,4 +63,7 @@ export enum Filter_Type {
   Product_Type = 'type',
   Add_Brand = 'add_brand',
   Remove_Brand = 'remove_brand',
+  Min_Price = 'min_price',
+  Max_Price = 'max_price',
+  Condition = 'condition',
 }

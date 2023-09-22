@@ -15,6 +15,9 @@ export interface SearchProps {
   productType: string;
   brands: Array<string>;
   avaliableSizes: any;
+  minPrice: string;
+  maxPrice: string;
+  condition: Array<string>;
 }
 
 export const InitialState: SearchProps = {
@@ -24,6 +27,9 @@ export const InitialState: SearchProps = {
   productType: 'tradeable',
   brands: [],
   avaliableSizes: {},
+  minPrice: '',
+  maxPrice: '',
+  condition: [],
 };
 
 type ActionProps = {
@@ -100,6 +106,43 @@ export default function loading(state = InitialState, action: ActionProps) {
             ...state,
             brands: state.brands.filter(brand => brand !== filter),
           };
+        case Filter_Type.Min_Price:
+          if (!state.maxPrice) {
+            return {
+              ...state,
+              minPrice: filter,
+              maxPrice: 9999,
+            };
+          }
+          return {
+            ...state,
+            minPrice: filter,
+          };
+        case Filter_Type.Max_Price:
+          if (!state.minPrice) {
+            return {
+              ...state,
+              maxPrice: filter,
+              minPrice: 0,
+            };
+          }
+          return {
+            ...state,
+            maxPrice: filter,
+          };
+
+        case Filter_Type.Condition:
+          let newSelectedCondition = state.condition;
+          if (state.condition.includes(filter)) {
+            newSelectedCondition = newSelectedCondition.filter(cat => cat !== filter);
+          } else {
+            newSelectedCondition.push(filter);
+          }
+          return {
+            ...state,
+            condition: newSelectedCondition,
+          };
+
         default:
           return {...state};
       }
