@@ -30,6 +30,7 @@ import {
   searchProductsReset,
   saveSearchRequest,
   getRecommendedSearch,
+  getAvaliableSizesRequest,
 } from '../../redux/modules';
 import {useDispatch, useSelector} from 'react-redux';
 import {RefreshControl} from 'react-native';
@@ -64,6 +65,7 @@ export const SearchScreen: FC<any> = () => {
     if (!searchProducts.length && debouncedSearchTerm.length > 3) {
       handleGetRecommendedSerach();
     }
+    dispatch(getAvaliableSizesRequest());
   }, [debouncedSearchTerm, searchProducts.length]);
 
   const handleNavigateToFilters = () => {

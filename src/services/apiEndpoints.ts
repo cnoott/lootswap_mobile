@@ -468,6 +468,10 @@ export const searchProductsCall = (reqData: any) => {
   );
 };
 
+export const getAvaliableSizesCall = () => {
+  return handleResponse(api.get('/avaliable-sizes/'), API_RESPONSE.CODE200);
+};
+
 export const filterProductsCall = (reqData: any) => {
   return handleResponse(
     api.post(`/products/filter/`, reqData),

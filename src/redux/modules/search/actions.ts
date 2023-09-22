@@ -2,6 +2,7 @@ import {
   SELECT_FILTER,
   FILTER_PRODUCTS,
   SEARCH_PRODUCTS,
+  GET_AVALIABLE_SIZES,
 } from '../../../constants/actions';
 
 export const searchProductsRequest = (reqData: any) => {
@@ -55,5 +56,24 @@ export const filterProductsSuccess = (payload: any) => {
 export const filterProductsFailure = () => {
   return {
     type: FILTER_PRODUCTS.FAILURE,
+  };
+};
+
+export const getAvaliableSizesRequest = () => {
+  return {
+    type: GET_AVALIABLE_SIZES.REQUEST,
+  };
+};
+
+export const getAvaliableSizesSuccess = (payload: any) => {
+  return {
+    type: GET_AVALIABLE_SIZES.SUCCESS,
+    payload: payload,
+  };
+};
+
+export const getAvaliableSizesFailure = () => {
+  return {
+    type: GET_AVALIABLE_SIZES.FAILURE,
   };
 };

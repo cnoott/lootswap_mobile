@@ -2,14 +2,21 @@ import {takeLatest, call, put} from 'redux-saga/effects';
 import {
   SEARCH_PRODUCTS,
   FILTER_PRODUCTS,
+  GET_AVALIABLE_SIZES,
 } from '../../../constants/actions';
 import {
   searchProductsSuccess,
   searchProductsFailure,
   filterProductsSuccess,
   filterProductsFailure,
+  getAvaliableSizesSuccess,
+  getAvaliableSizesFailure,
 } from './actions';
-import {filterProductsCall, searchProductsCall} from '../../../services/apiEndpoints';
+import {
+  filterProductsCall,
+  searchProductsCall,
+  getAvaliableSizesCall,
+} from '../../../services/apiEndpoints';
 
 type APIResponseProps = {
   success: boolean;
@@ -49,7 +56,20 @@ export function* filterProducts(action: any) {
   }
 }
 
+export function* getAvaliableSizes() {
+  try {
+    const response: APIResponseProps = yield call(getAvaliableSizesCall);
+    if (response?.success) {
+      yield put(getAvaliableSizesSuccess(response.data));
+    } else {
+      yield put(getAvaliableSizesFailure());
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
 export default function* searchSaga() {
   yield takeLatest(SEARCH_PRODUCTS.REQUEST, searchProducts);
   yield takeLatest(FILTER_PRODUCTS.REQUEST, filterProducts);
+  yield takeLatest(GET_AVALIABLE_SIZES.REQUEST, getAvaliableSizes);
 }
