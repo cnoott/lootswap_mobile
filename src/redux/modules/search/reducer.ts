@@ -12,6 +12,7 @@ export interface SearchProps {
   searchProducts: Array<any>
   categories: Array<string>;
   productType: string;
+  brands: Array<string>;
 }
 
 export const InitialState: SearchProps = {
@@ -19,6 +20,7 @@ export const InitialState: SearchProps = {
   searchProducts: [],
   categories: [],
   productType: 'tradeable',
+  brands: [],
 };
 
 type ActionProps = {
@@ -76,6 +78,19 @@ export default function loading(state = InitialState, action: ActionProps) {
           return {
             ...state,
             productType: filter,
+          };
+        case Filter_Type.Add_Brand:
+          if (state.brands.includes(filter)) {
+            return {...state};
+          }
+          return {
+            ...state,
+            brands: [filter, ...state.brands],
+          };
+        case Filter_Type.Remove_Brand:
+          return {
+            ...state,
+            brands: state.brands.filter(brand => brand !== filter),
           };
         default:
           return {...state};

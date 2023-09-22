@@ -201,7 +201,7 @@ export const brandsList = [
   {label: 'American Vintage', value: 'American Vintage'},
   {label: 'Made In Usa', value: 'Made In Usa'},
   {label: "Levi's", value: "Levi's"},
-  {label: 'Jordan Brand', value: 'Jordan Brand'},
+  {label: 'Jordan', value: 'Jordan'},
   {label: 'Champion', value: 'Champion'},
   {label: 'Burberry', value: 'Burberry'},
   {label: 'Bape', value: 'Bape'},

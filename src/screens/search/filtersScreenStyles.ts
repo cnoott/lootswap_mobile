@@ -124,3 +124,43 @@ export const AnimatedCheckBox = styled(BouncyCheckbox).attrs(props => ({
   ${color}
   ${space}
 `;
+
+export const BrandList = styled.FlatList.attrs(() => ({
+  contentContainerStyle: {
+    flexGrow: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  showsHorizontalScrollIndicator: false,
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const SelectedBrandButton = styled.TouchableOpacity.attrs(props => ({
+  mx: scale(5),
+  px: scale(15),
+  py: scale(10),
+  borderRadius: scale(10),
+  bg: props.theme.colors.primary,
+  mb: scale(10),
+}))`
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  ${layout}
+  ${color}
+  ${border}
+  ${space}
+`;
+
+export const CloseIcon: any = styled(XMarkIcon).attrs(props => ({
+  color: props.theme.colors.white,
+  size: moderateScale(14),
+  ml: moderateScale(8),
+}))`
+  ${color}
+  ${space}
+    ${layout}
+`;
