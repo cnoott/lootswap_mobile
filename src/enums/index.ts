@@ -66,4 +66,5 @@ export enum Filter_Type {
   Min_Price = 'min_price',
   Max_Price = 'max_price',
   Condition = 'condition',
+  Sort_By = 'sort_by',
 }
