@@ -16,9 +16,11 @@ export const handleSubmitFilters = (
   dispatch: any,
   navigation: any,
   filters: any,
+  query: string,
 ) => {
   //Check if filters are empty
-  dispatch(filterProductsRequest(filters));
+  const filtersWithQuery = {...filters, querySearch: query};
+  dispatch(filterProductsRequest(filtersWithQuery));
   navigation?.goBack();
 };
 

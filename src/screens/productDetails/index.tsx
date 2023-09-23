@@ -91,7 +91,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const {historyTrades} = tradesData;
   const theme = useTheme();
   const {requestedUserDetails, userData, isLogedIn} = auth;
-  const {selectedProductDetails} = homeStates;
   const {productData = {}, likedParam} = route?.params;
   const [liked, setLiked] = useState(likedParam);
 
@@ -224,7 +223,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       routes: [{name: 'ProductDetailsScreen'}],
     });
     navigation.navigate('CheckoutScreen', {
-      productData: selectedProductDetails,
+      productData: productData,
     });
   };
 
@@ -262,7 +261,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     }
     dispatch(preselectChosenItem(productData?._id));
 
-    switch (selectedProductDetails.type) {
+    switch (productData.type) {
       case Trade_Options.TradeAndSell:
         navigation.navigate('ChooseOfferTypeScreen');
         break;
@@ -295,7 +294,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     );
   };
   const renderButtons = () => {
-    if (!selectedProductDetails?.isVisible) {
+    if (!productData?.isVisible) {
       return (
         <TopSpace>
           <LSButton
@@ -316,11 +315,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             size={Size.Full}
             type={Type.Secondary}
             onPress={() => {
-              const prodData = configureAndGetLootData(selectedProductDetails);
+              const prodData = configureAndGetLootData(productData);
               dispatch(UpdateAddProductData(prodData));
               navigation.navigate('AddProductOverviewScreen', {
                 isFromEdit: true,
-                productId: selectedProductDetails._id,
+                productId: productData._id,
               });
             }}
           />
@@ -351,7 +350,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     } else {
       return (
         <TopSpace>
-          {selectedProductDetails.type !== 'trade-only' && (
+          {productData.type !== 'trade-only' && (
             <>
               <LSButton
                 title={'Buy Now'}
@@ -494,9 +493,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                 {productData?.type !== Trade_Options?.TradeOnly && (
                   <PriceLabel>${productData?.price}</PriceLabel>
                 )}
-                {selectedProductDetails?.type !== Trade_Options?.TradeOnly && (
+                {productData?.type !== Trade_Options?.TradeOnly && (
                   <ShippingLabel>
-                    +${selectedProductDetails?.sellerShippingCost} Shipping Cost
+                    +${productData?.sellerShippingCost} Shipping Cost
                   </ShippingLabel>
                 )}
               </DetailsLeftView>
@@ -510,7 +509,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                     color={'white'}
                   />
                   <ProductDetails>
-                    {selectedProductDetails?.timesLiked}
+                    {productData?.timesLiked}
                   </ProductDetails>
                 </LikeTouchable>
               </DetailsRightView>
