@@ -18,6 +18,7 @@ export interface SearchProps {
   minPrice: string;
   maxPrice: string;
   condition: Array<string>;
+  sortBy: string;
 }
 
 export const InitialState: SearchProps = {
@@ -30,6 +31,7 @@ export const InitialState: SearchProps = {
   minPrice: '',
   maxPrice: '',
   condition: [],
+  sortBy: '',
 };
 
 type ActionProps = {
@@ -141,6 +143,16 @@ export default function loading(state = InitialState, action: ActionProps) {
           return {
             ...state,
             condition: newSelectedCondition,
+          };
+
+        case Filter_Type.Sort_By:
+          let newSortBy = '';
+          if (filter !== state.sortBy) {
+            newSortBy = filter;
+          }
+          return {
+            ...state,
+            sortBy: newSortBy,
           };
 
         default:
