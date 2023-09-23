@@ -49,10 +49,10 @@ export const SearchScreen: FC<any> = () => {
   const search: SearchProps = useSelector(state => state.search);
   const {loading, searchProducts} = search;
   const filters: SearchProps = useSelector(state => state.search);
+  const {stockxProducts} = filters;
 
   const dispatch = useDispatch();
   const [query, setQuery] = useState('');
-  const [stockxProducts, setStockxProducts] = useState([]);
   const [recommendedResults, setRecommendedResults] = useState([]);
 
   const swiperRef = useRef<any>(null);
