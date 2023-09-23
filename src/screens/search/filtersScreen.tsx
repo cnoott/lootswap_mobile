@@ -62,6 +62,53 @@ export const FiltersScreen: FC<any> = () => {
     );
   };
 
+  const renderSortBy = () => {
+    return (
+      <EmptyView>
+        <ListTitleText>Sort By</ListTitleText>
+        <AnimatedCheckBox
+          isChecked={filterIsSelected(filters, 'Relevance')}
+          disableBuiltInState={true}
+          selected={filterIsSelected(filters, 'Relevance')}
+          text="Relevance"
+          onPress={() =>
+            onSetFilter(dispatch, Filter_Type.Sort_By, 'Relevance')
+          }
+        />
+        <AnimatedCheckBox
+          isChecked={filterIsSelected(filters, 'Newly listed')}
+          selected={filterIsSelected(filters, 'Newly listed')}
+          disableBuiltInState={true}
+          text="Newly listed"
+          onPress={() =>
+            onSetFilter(dispatch, Filter_Type.Sort_By, 'Newly listed')
+          }
+        />
+        <AnimatedCheckBox
+          isChecked={filterIsSelected(filters, 'Low price')}
+          selected={filterIsSelected(filters, 'Low price')}
+          disableBuiltInState={true}
+          text="Low price"
+          onPress={() =>
+            onSetFilter(dispatch, Filter_Type.Condition, 'Low price')
+          }
+
+        />
+        <AnimatedCheckBox
+          isChecked={filterIsSelected(filters, 'High price')}
+          selected={filterIsSelected(filters, 'High price')}
+          disableBuiltInState={true}
+          text="High price"
+          onPress={() =>
+            onSetFilter(dispatch, Filter_Type.Condition, 'High price')
+          }
+
+        />
+      </EmptyView>
+
+    );
+  };
+
   const renderProductType = () => {
     return (
       <EmptyView>
@@ -238,6 +285,7 @@ export const FiltersScreen: FC<any> = () => {
     <Container>
       <InStackHeader title={'Filters'} onBackCall={() => navigation.goBack()} />
       <SubContainer>
+        {renderSortBy()}
         {renderListFilter(categoryList, 'Category', Filter_Type.Category)}
         {renderBrandFilter()}
         {renderProductType()}
@@ -264,7 +312,7 @@ export const FiltersScreen: FC<any> = () => {
         {renderPriceFilter()}
         {renderProductCondition()}
       </SubContainer>
-  
+
       <BottomMarginView />
       <Divider />
       <ButtonsContainer>
@@ -281,7 +329,6 @@ export const FiltersScreen: FC<any> = () => {
           onPress={() => handleSubmitFilters(dispatch, navigation, filters)}
         />
       </ButtonsContainer>
-
     </Container>
   );
 };
