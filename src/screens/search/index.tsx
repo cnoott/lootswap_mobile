@@ -26,7 +26,6 @@ import LoadingProductCard from '../../components/productCard/loadingProductCard'
 import {EMPTY_SEARCH_ICON, LEFT_BLACK_ARROW} from 'localsvgimages';
 import {SvgXml} from 'react-native-svg';
 import {
-  searchProductsRequest,
   searchProductsReset,
   saveSearchRequest,
   getRecommendedSearch,
@@ -41,6 +40,7 @@ import {SwiperComponent} from '../loot/styles';
 import useDebounce from '../../utility/customHooks/useDebouncer';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import StockxProductCard from '../../components/search/stockxProductCard';
+import {handleSubmitFilters} from '../../utility/filtersUtility';
 
 export const SearchScreen: FC<any> = () => {
   const insets = useSafeAreaInsets();
@@ -48,6 +48,7 @@ export const SearchScreen: FC<any> = () => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const search: SearchProps = useSelector(state => state.search);
   const {loading, searchProducts} = search;
+  const filters: SearchProps = useSelector(state => state.search);
 
   const dispatch = useDispatch();
   const [query, setQuery] = useState('');
@@ -130,7 +131,7 @@ export const SearchScreen: FC<any> = () => {
       handleSaveSearch(searchQuery);
     }
     swiperRef?.current?.scrollTo(currPage + 1);
-    dispatch(searchProductsRequest(reqData));
+    handleSubmitFilters(dispatch, null, filters, query);
   };
 
   const goBack = () => {
