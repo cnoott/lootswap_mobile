@@ -20,6 +20,7 @@ export const HeaderContainer = styled.View.attrs((props: any) => ({
   pt: moderateScale(Platform.OS === 'ios' ? props?.topPadding || 34 : 0),
   bg: props.theme.colors.white,
   px: scale(10),
+  mb: scale(5),
 }))`
   flex-direction: row;
   align-items: center;
