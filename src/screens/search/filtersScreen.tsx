@@ -90,7 +90,7 @@ export const FiltersScreen: FC<any> = () => {
           disableBuiltInState={true}
           text="Low price"
           onPress={() =>
-            onSetFilter(dispatch, Filter_Type.Condition, 'Low price')
+            onSetFilter(dispatch, Filter_Type.Sort_By, 'Low price')
           }
 
         />
@@ -100,7 +100,7 @@ export const FiltersScreen: FC<any> = () => {
           disableBuiltInState={true}
           text="High price"
           onPress={() =>
-            onSetFilter(dispatch, Filter_Type.Condition, 'High price')
+            onSetFilter(dispatch, Filter_Type.Sort_By, 'High price')
           }
 
         />

@@ -39,7 +39,7 @@ type ActionProps = {
   payload: any;
   filter: string;
   filterType: string;
-}
+};
 
 export default function loading(state = InitialState, action: ActionProps) {
   const {type, filterType, filter, payload} = action;
