@@ -21,7 +21,9 @@ export const handleSubmitFilters = (
   //Check if filters are empty
   const filtersWithQuery = {...filters, querySearch: query};
   dispatch(filterProductsRequest(filtersWithQuery));
-  navigation?.goBack();
+  if (navigation) {
+    navigation?.goBack();
+  }
 };
 
 export const filterIsSelected = (filters: any, value: string) => {
