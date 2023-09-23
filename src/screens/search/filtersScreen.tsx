@@ -32,6 +32,7 @@ import {
   handleSubmitFilters,
 } from '../../utility/filtersUtility';
 import {SearchProps} from '../../redux/modules/search/reducer';
+import {clearFiltersRequest} from '../../redux/modules';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type, Filter_Type} from '../../enums';
 import LSSearchableDropdown from '../../components/commonComponents/LSSearchableDropdown';
@@ -47,7 +48,7 @@ export const FiltersScreen: FC<any> = ({route}) => {
   const dispatch = useDispatch();
   const {query} = route.params;
   const filters: SearchProps = useSelector(state => state.search);
-  const {avaliableSizes} = filters;
+  const {avaliableSizes, filtersSet} = filters;
 
   const renderFilter = ({item}: any, filterType: string) => {
     return (
@@ -317,15 +318,17 @@ export const FiltersScreen: FC<any> = ({route}) => {
       <BottomMarginView />
       <Divider />
       <ButtonsContainer>
-        <LSButton
-          title={'Clear Filters'}
-          size={Size.Medium}
-          type={Type.Grey}
-          onPress={() => console.log('DONE')}
-        />
+        {filtersSet && (
+          <LSButton
+            title={'Clear Filters'}
+            size={Size.Medium}
+            type={Type.Grey}
+            onPress={() => dispatch(clearFiltersRequest())}
+          />
+        )}
         <LSButton
           title={'Done'}
-          size={Size.Medium}
+          size={filtersSet ? Size.Medium : Size.Large}
           type={Type.Primary}
           onPress={() => 
             handleSubmitFilters(dispatch, navigation, filters, query)

@@ -17,6 +17,7 @@ import {
   ClearRecentSearchesText,
   StockxFlatList,
   FullDivider,
+  ClearFiltersButtonContainer,
 } from './styles';
 import {FlatList} from '../home/styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -30,6 +31,7 @@ import {
   saveSearchRequest,
   getRecommendedSearch,
   getAvaliableSizesRequest,
+  clearFiltersRequest,
 } from '../../redux/modules';
 import {useDispatch, useSelector} from 'react-redux';
 import {RefreshControl} from 'react-native';
@@ -41,6 +43,8 @@ import useDebounce from '../../utility/customHooks/useDebouncer';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import StockxProductCard from '../../components/search/stockxProductCard';
 import {handleSubmitFilters} from '../../utility/filtersUtility';
+import LSButton from '../../components/commonComponents/LSButton';
+import {Size, Type} from '../../enums';
 
 export const SearchScreen: FC<any> = () => {
   const insets = useSafeAreaInsets();
@@ -49,7 +53,7 @@ export const SearchScreen: FC<any> = () => {
   const search: SearchProps = useSelector(state => state.search);
   const {loading, searchProducts} = search;
   const filters: SearchProps = useSelector(state => state.search);
-  const {stockxProducts} = filters;
+  const {stockxProducts, filtersSet} = filters;
 
   const dispatch = useDispatch();
   const [query, setQuery] = useState('');
@@ -156,6 +160,11 @@ export const SearchScreen: FC<any> = () => {
     onSubmitSearch(recentSearch);
   };
 
+  const handleClearFilters = () => {
+    dispatch(clearFiltersRequest());
+    handleSubmitFilters(dispatch, null, {}, query);
+  };
+
   const handleStockxNavigation = (
     stockxProduct: any,
     foundProducts: Array<any>,
@@ -251,13 +260,25 @@ export const SearchScreen: FC<any> = () => {
 
   const renderSearchResults = () => {
     return (
-      <FlatList
-        data={loading ? [1, 2, 3, 4, 5, 6] : search.searchProducts}
-        renderItem={renderItem}
-        keyExtractor={item => (loading ? item : item._id)}
-        ListHeaderComponent={renderStockxResults()}
-        //onEndReached={() => onEndReached()}
-      />
+      <>
+        <FlatList
+          data={loading ? [1, 2, 3, 4, 5, 6] : search.searchProducts}
+          renderItem={renderItem}
+          keyExtractor={item => (loading ? item : item._id)}
+          ListHeaderComponent={renderStockxResults()}
+          //onEndReached={() => onEndReached()}
+        />
+        {filtersSet && (
+        <ClearFiltersButtonContainer>
+          <LSButton
+            title={'Clear Filters'}
+            size={Size.Medium}
+            type={Type.Grey}
+            onPress={() => handleClearFilters()}
+          />
+        </ClearFiltersButtonContainer>
+        )}
+      </>
     );
   };
 

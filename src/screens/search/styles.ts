@@ -139,3 +139,12 @@ export const FullDivider = styled.View.attrs(props => ({
   ${layout}
   ${color}
 `;
+
+export const ClearFiltersButtonContainer = styled.View.attrs(() => ({
+}))`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  align-items: center;
+  padding: 10px;
+`;
