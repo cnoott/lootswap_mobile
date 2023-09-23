@@ -239,21 +239,25 @@ export const SearchScreen: FC<any> = () => {
     );
   };
 
+  const renderStockxResults = () => (
+    <>
+      <StockxFlatList
+        data={stockxProducts}
+        renderItem={renderStockxSearchResult}
+      />
+      <FullDivider />
+    </>
+  );
+
   const renderSearchResults = () => {
     return (
-      <>
-        <StockxFlatList
-          data={stockxProducts}
-          renderItem={renderStockxSearchResult}
-        />
-        <FullDivider />
-        <FlatList
-          data={loading ? [1, 2, 3, 4, 5, 6] : search.searchProducts}
-          renderItem={renderItem}
-          keyExtractor={item => (loading ? item : item._id)}
-          //onEndReached={() => onEndReached()}
-        />
-      </>
+      <FlatList
+        data={loading ? [1, 2, 3, 4, 5, 6] : search.searchProducts}
+        renderItem={renderItem}
+        keyExtractor={item => (loading ? item : item._id)}
+        ListHeaderComponent={renderStockxResults()}
+        //onEndReached={() => onEndReached()}
+      />
     );
   };
 
