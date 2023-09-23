@@ -41,10 +41,11 @@ import {DOLLOR_TEXT} from 'localsvgimages';
 
 
 
-export const FiltersScreen: FC<any> = () => {
+export const FiltersScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
 
   const dispatch = useDispatch();
+  const {query} = route.params;
   const filters: SearchProps = useSelector(state => state.search);
   const {avaliableSizes} = filters;
 
@@ -326,7 +327,9 @@ export const FiltersScreen: FC<any> = () => {
           title={'Done'}
           size={Size.Medium}
           type={Type.Primary}
-          onPress={() => handleSubmitFilters(dispatch, navigation, filters)}
+          onPress={() => 
+            handleSubmitFilters(dispatch, navigation, filters, query)
+          }
         />
       </ButtonsContainer>
     </Container>

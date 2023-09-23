@@ -70,7 +70,9 @@ export const SearchScreen: FC<any> = () => {
 
   const handleNavigateToFilters = () => {
     swiperRef?.current?.scrollTo(2);
-    navigation?.navigate('FiltersScreen');
+    navigation?.navigate('FiltersScreen', {
+      query: query,
+    });
   };
 
   const handleSaveSearch = (search: string) => {
