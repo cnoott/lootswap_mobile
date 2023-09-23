@@ -5,13 +5,14 @@ import {
   SEARCH_PRODUCTS,
   FILTER_PRODUCTS,
   GET_AVALIABLE_SIZES,
+  CLEAR_FILTERS,
 } from '../../../constants/actions';
 import {Filter_Type} from '../../../enums';
 
 export interface SearchProps {
   loading: Boolean;
   searchProducts: Array<any>
-  stockxProducts;
+  stockxProducts: Array<any>;
   categories: Array<string>;
   productType: string;
   brands: Array<string>;
@@ -20,6 +21,7 @@ export interface SearchProps {
   maxPrice: string;
   condition: Array<string>;
   sortBy: string;
+  filtersSet: Boolean;
 }
 
 export const InitialState: SearchProps = {
@@ -34,6 +36,7 @@ export const InitialState: SearchProps = {
   maxPrice: '',
   condition: [],
   sortBy: '',
+  filtersSet: false,
 };
 
 type ActionProps = {
@@ -78,7 +81,7 @@ export default function loading(state = InitialState, action: ActionProps) {
       };
 
     case SELECT_FILTER.UPDATE:
-      console.log('TYPE', filterType, filter);
+
       switch(filterType) {
         case Filter_Type.Category:
           let newSelectedCategories = state.categories;
@@ -90,12 +93,14 @@ export default function loading(state = InitialState, action: ActionProps) {
           return {
             ...state,
             categories: newSelectedCategories,
+            filtersSet: true,
           };
         case Filter_Type.Product_Type:
           console.log("SETTING", filter);
           return {
             ...state,
             productType: filter,
+            filtersSet: true,
           };
         case Filter_Type.Add_Brand:
           if (state.brands.includes(filter)) {
@@ -104,11 +109,13 @@ export default function loading(state = InitialState, action: ActionProps) {
           return {
             ...state,
             brands: [filter, ...state.brands],
+            filtersSet: true,
           };
         case Filter_Type.Remove_Brand:
           return {
             ...state,
             brands: state.brands.filter(brand => brand !== filter),
+            filtersSet: true,
           };
         case Filter_Type.Min_Price:
           if (!state.maxPrice) {
@@ -116,11 +123,13 @@ export default function loading(state = InitialState, action: ActionProps) {
               ...state,
               minPrice: filter,
               maxPrice: 9999,
+              filtersSet: true,
             };
           }
           return {
             ...state,
             minPrice: filter,
+            filtersSet: true,
           };
         case Filter_Type.Max_Price:
           if (!state.minPrice) {
@@ -128,11 +137,13 @@ export default function loading(state = InitialState, action: ActionProps) {
               ...state,
               maxPrice: filter,
               minPrice: 0,
+              filtersSet: true,
             };
           }
           return {
             ...state,
             maxPrice: filter,
+            filtersSet: true,
           };
 
         case Filter_Type.Condition:
@@ -145,6 +156,7 @@ export default function loading(state = InitialState, action: ActionProps) {
           return {
             ...state,
             condition: newSelectedCondition,
+            filtersSet: true,
           };
 
         case Filter_Type.Sort_By:
@@ -155,6 +167,7 @@ export default function loading(state = InitialState, action: ActionProps) {
           return {
             ...state,
             sortBy: newSortBy,
+            filtersSet: true,
           };
 
         default:
@@ -180,6 +193,21 @@ export default function loading(state = InitialState, action: ActionProps) {
       return {
         ...state,
         loading: false,
+      };
+
+    case CLEAR_FILTERS.REQUEST:
+      return {
+        ...state,
+        loading: false,
+        categories: [],
+        productType: 'tradeable',
+        brands: [],
+        avaliableSizes: {},
+        minPrice: '',
+        maxPrice: '',
+        condition: [],
+        sortBy: '',
+        filtersSet: false,
       };
     default:
       return state;

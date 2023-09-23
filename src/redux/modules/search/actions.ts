@@ -1,6 +1,7 @@
 import {
   SELECT_FILTER,
   FILTER_PRODUCTS,
+  CLEAR_FILTERS,
   SEARCH_PRODUCTS,
   GET_AVALIABLE_SIZES,
 } from '../../../constants/actions';
@@ -75,5 +76,11 @@ export const getAvaliableSizesSuccess = (payload: any) => {
 export const getAvaliableSizesFailure = () => {
   return {
     type: GET_AVALIABLE_SIZES.FAILURE,
+  };
+};
+
+export const clearFiltersRequest = () => {
+  return {
+    type: CLEAR_FILTERS.REQUEST,
   };
 };

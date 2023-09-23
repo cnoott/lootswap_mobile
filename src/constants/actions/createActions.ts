@@ -274,6 +274,10 @@ export const FILTER_PRODUCTS = {
   ...createActionConst(actions.FILTER_PRODUCTS),
 };
 
+export const CLEAR_FILTERS = {
+  ...createActionConst(actions.CLEAR_FILTERS),
+};
+
 export const GET_AVALIABLE_SIZES = {
   ...createActionConst(actions.GET_AVALIABLE_SIZES),
 };
