@@ -11,6 +11,7 @@ import {Filter_Type} from '../../../enums';
 export interface SearchProps {
   loading: Boolean;
   searchProducts: Array<any>
+  stockxProducts;
   categories: Array<string>;
   productType: string;
   brands: Array<string>;
@@ -24,6 +25,7 @@ export interface SearchProps {
 export const InitialState: SearchProps = {
   loading: false,
   searchProducts: [],
+  stockxProducts: [],
   categories: [],
   productType: 'tradeable',
   brands: [],
@@ -169,7 +171,8 @@ export default function loading(state = InitialState, action: ActionProps) {
       console.log('SUCCESS', payload);
       return {
         ...state,
-        searchProducts: payload,
+        searchProducts: payload.products,
+        stockxProducts: payload.stockxProducts,
         loading: false
       };
 
