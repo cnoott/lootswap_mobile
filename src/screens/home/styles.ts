@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import {border, color, layout, space} from 'styled-system';
-import {moderateScale} from 'react-native-size-matters';
+import {moderateScale, scale} from 'react-native-size-matters';
 
 export const Container = styled.View.attrs(props => ({
   flex: 1,
@@ -48,5 +48,34 @@ export const CarousalContainer = styled.View.attrs(() => ({
   ${space}
   ${layout}
 `;
+
+export const SectionTitleText = styled.Text.attrs(props => ({
+  color: props.theme.colors.black,
+}))`
+  font-size: ${moderateScale(22)}px;
+  font-family: Urbanist-Bold;
+  ${color}
+  ${space}
+`;
+
+export const SectionTopContainer = styled.View.attrs(() => ({
+}))`
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  ${space}
+  ${layout}
+
+`;
+
+export const SectionContainer = styled.View.attrs(() => ({
+  px: scale(8),
+}))`
+  ${space}
+  ${layout}
+`;
+
+export const ViewButtonContainer = styled.View.attrs(() => ({
+}))``;
 
 export const EmptyView = styled.View``;

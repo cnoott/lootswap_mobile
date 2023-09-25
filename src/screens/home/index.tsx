@@ -5,11 +5,17 @@
 import React, {FC, useState, useEffect} from 'react';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
-import {Container, FlatList, SearchContainer} from './styles';
+import {
+  Container,
+  FlatList,
+  SearchContainer,
+  SectionContainer,
+  SectionTopContainer,
+  SectionTitleText,
+} from './styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import LSHomeScreenSearch from '../../components/filterSearch/homeScreenSearch';
 import LSProductCard from '../../components/productCard';
-import HomeFiltersScreen from './homeFilters';
 import {scale} from 'react-native-size-matters';
 import {RefreshControl} from 'react-native';
 import {LIKE_HEART_ICON} from 'localsvgimages';
@@ -23,7 +29,8 @@ import {getHomeScreenProducts, getMyDetailsNoLoadRequest} from '../../redux/modu
 import {useDispatch, useSelector} from 'react-redux';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-
+import {Size, Type} from '../../enums';
+import LSButton from '../../components/commonComponents/LSButton';
 
 const ITEMS_PER_PAGE = 8;
 
@@ -116,6 +123,23 @@ export const HomeScreen: FC<{}> = () => {
     setModalOpen(isOpen => !isOpen);
   };
 
+  const renderPublicOffers = () => {
+    return (
+      <SectionContainer>
+        <SectionTopContainer>
+          <SectionTitleText>Public Offers</SectionTitleText>
+          <LSButton
+            title={'View/Create'}
+            size={Size.View}
+            type={Type.View}
+            radius={20}
+            onPress={() => console.log('busmi')}
+          />
+        </SectionTopContainer>
+      </SectionContainer>
+    );
+  };
+
   return (
     <Container>
       <InHomeHeader
@@ -139,6 +163,7 @@ export const HomeScreen: FC<{}> = () => {
               <LSHomeScreenSearch onRightIconPress={onRightIconPress} isFromHome={true}/>
             </SearchContainer>
             <CarouselComponent height={scale(320)} isHome={true} />
+            {renderPublicOffers()}
           </>
         }
         getItemLayout={(data, index) => ({
