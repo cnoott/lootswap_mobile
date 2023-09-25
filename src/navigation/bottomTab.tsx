@@ -65,6 +65,7 @@ import SearchScreen from '../screens/search';
 import StockxScreen from '../screens/search/stockxScreen';
 import HasItScreen from '../screens/search/hasItScreen';
 import FiltersScreen from '../screens/search/filtersScreen';
+import CreatePublicOfferScreen from '../screens/publicOffers/';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -84,6 +85,10 @@ const HomeStackNavigation = () => (
     <Stack.Screen
       name="LootEditAddressScreen"
       component={LootEditAddressScreen}
+    />
+    <Stack.Screen
+      name="CreatePublicOfferScreen"
+      component={CreatePublicOfferScreen}
     />
     <Stack.Screen
       name="ProductDetailsScreen"
