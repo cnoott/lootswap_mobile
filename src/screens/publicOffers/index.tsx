@@ -11,6 +11,7 @@ import {
   Container,
   ButtonContainer,
 } from './styles';
+import CreatePublicOfferStepOne from './createPublicOfferStepOne';
 
 const NUMBER_OF_STEPS = 4;
 
@@ -19,6 +20,13 @@ export const CreatePublicOfferScreen: FC<any> = () => {
   const [currPage, setCurrPage] = useState(0);
   const handleBack = () => {};
   const handleNext = () => {};
+
+  const [publicOffersData, setPublicOffersData] = useState({
+    receivingStockxUrlKeys: [],
+    sendingProductIds: [],
+    receivingMoneyOffer: null,
+    sendingMoneyOffer: null,
+  });
 
   const renderTopView = () => (
     <>
@@ -50,7 +58,12 @@ export const CreatePublicOfferScreen: FC<any> = () => {
     return [1].map(data => {
       switch (data) {
         case 1:
-          return <></>;
+          return (
+            <CreatePublicOfferStepOne
+              publicOffersData={publicOffersData}
+              setPublicOffersData={setPublicOffersData}
+            />
+        );
       }
     });
   };
@@ -59,6 +72,9 @@ export const CreatePublicOfferScreen: FC<any> = () => {
   return (
     <Container>
       {renderTopView()}
+      <SwiperComponent ref={swiperRef} onIndexChanged={setCurrPage}>
+        {renderSteps()}
+      </SwiperComponent>
     </Container>
   );
 };

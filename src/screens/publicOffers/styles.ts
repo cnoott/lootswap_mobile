@@ -22,3 +22,11 @@ export const ButtonContainer = styled.View.attrs(() => ({
   ${layout}
 `;
 
+export const StepContainer = styled.View.attrs(() => ({
+  px: scale(4),
+}))`
+  ${space}
+  ${layout}
+  ${color}
+  ${border}
+`;
