@@ -1,11 +1,13 @@
 import styled from 'styled-components/native';
-import {color, border, layout} from 'styled-system';
+import {color, border, layout, space} from 'styled-system';
 
 export const ButtonContainer = styled.TouchableOpacity.attrs(props => ({
   width: props.width,
   height: props.height,
   bg: props.buttonColor,
   borderRadius: props.borderSize,
+  borderColor: props.borderColor,
+  borderWidth: props.border,
   activeOpacity: 0.6,
 }))`
   align-items: center;
@@ -15,6 +17,9 @@ export const ButtonContainer = styled.TouchableOpacity.attrs(props => ({
   ${layout}
   ${color}
   ${border}
+  border-color: ${props => props.borderColor};
+  border-width: ${props => props.border};
+  ${space}
 `;
 
 export const BText = styled.Text.attrs(props => ({

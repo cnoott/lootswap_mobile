@@ -6,6 +6,7 @@ export enum Size {
   Full = 'fl',
   Fit_To_Width = 'ftw',
   Custom = 'cst',
+  View = 'view',
 }
 export enum Type {
   Primary = 'primary',
@@ -19,6 +20,7 @@ export enum Type {
   Text = 'text',
   Placeholder = 'placeholder',
   Custom = 'custom',
+  View = 'view',
 }
 
 export enum FontFamily {
