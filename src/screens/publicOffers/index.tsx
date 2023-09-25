@@ -24,6 +24,7 @@ export const CreatePublicOfferScreen: FC<any> = () => {
     <>
       <LSStartTradeHeader
         title={'Public Offers'}
+        subText={'Select up to 3 items you want to trade for'}
         profilePicture={''}
         showPfp={false}
         onBackPress={handleBack}
@@ -45,13 +46,19 @@ export const CreatePublicOfferScreen: FC<any> = () => {
       </ButtonContainer>
     );
 
+  const renderSteps = () => {
+    return [1].map(data => {
+      switch (data) {
+        case 1:
+          return <></>;
+      }
+    });
+  };
+
 
   return (
     <Container>
       {renderTopView()}
-      <SwiperComponent ref={swiperRef} onIndexChanged={setCurrPage}>
-
-      </SwiperComponent>
     </Container>
   );
 };

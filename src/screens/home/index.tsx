@@ -133,7 +133,7 @@ export const HomeScreen: FC<{}> = () => {
             size={Size.View}
             type={Type.View}
             radius={20}
-            onPress={() => console.log('busmi')}
+            onPress={() => navigation?.navigate('CreatePublicOfferScreen')}
           />
         </SectionTopContainer>
       </SectionContainer>

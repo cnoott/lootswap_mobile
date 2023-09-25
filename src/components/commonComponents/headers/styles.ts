@@ -63,8 +63,6 @@ export const BackArrowContainer = styled.View.attrs(() => ({
 }))``;
 
 export const StartTradeHeaderContainer = styled.View.attrs(() => ({
-  height: scale(Platform.OS === 'ios' ? 84 : 64),
-  pt: moderateScale(Platform.OS === 'ios' ? 34 : 0),
   px: scale(10),
 }))`
   flex-direction: row;
@@ -88,9 +86,24 @@ export const StartTradeText = styled.Text.attrs(props => ({
   ${layout}
 `;
 
+export const StartTradeSubText = styled.Text.attrs(props => ({
+  color: props.theme.colors.primary,
+  ml: moderateScale(8),
+  numberOfLines: 1,
+  py: verticalScale(4),
+}))`
+  text-align: center;
+  font-size: ${moderateScale(14)}px;
+  font-family: Urbanist-Bold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
 export const ChatOfferContainer = styled.View.attrs(props => ({
   bg: props.theme.colors.white,
 }))`
+  padding-top: ${props => props?.paddingTop}px;
   ${color}
 `;
 
