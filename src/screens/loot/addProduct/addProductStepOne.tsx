@@ -16,6 +16,7 @@ import {searchStockx} from '../../../redux/modules';
 import {Animated, Dimensions} from 'react-native';
 import useDebounce from '../../../utility/customHooks/useDebouncer';
 import { setListener } from 'appcenter-crashes';
+import ChosenStockxProduct from '../../../components/loot/chosenStockxProduct';
 
 interface ProductStep {
   updateProductData: Function;
@@ -251,6 +252,9 @@ export const AddProductStepOne: FC<ProductStep> = props => {
           onSelectResult={onSetStockxUrlKey}
         />
       </Animated.View>
+      {searchResults.length !== 0 && 
+        <ChosenStockxProduct stockxProduct={searchResults[0]}/>
+      }
 
       {renderDropdown(
         'Size',

@@ -6,6 +6,14 @@ import FastImage from 'react-native-fast-image';
 
 const height = Dimensions.get('window').height;
 
+export const Container = styled.View.attrs(props => ({
+  borderRadius: 8,
+  borderWidth: 1,
+  borderColor: '#F2F2F2',
+  p: scale(10),
+}))`
+  ${layout} ${color} ${space} ${border};
+`;
 export const ItemContainer = styled.View.attrs(props => ({
   //height: verticalScale(40),
   alignSelf: 'stretch',
@@ -22,8 +30,8 @@ export const ItemContainer = styled.View.attrs(props => ({
 `;
 
 export const ImageContainer = styled.View.attrs(props => ({
-  height: verticalScale(40),
-  width: verticalScale(40),
+  height: verticalScale(50),
+  width: verticalScale(50),
   bg: props.theme.colors.white,
   borderRadius: scale(14),
 }))`
@@ -34,8 +42,8 @@ export const ImageContainer = styled.View.attrs(props => ({
 
 export const Image = styled(FastImage).attrs(() => ({
   resizeMode: 'contain',
-  width: verticalScale(40),
-  height: verticalScale(40),
+  width: verticalScale(50),
+  height: verticalScale(50),
   borderRadius: scale(13),
 }))`
   position: absolute;
@@ -61,7 +69,7 @@ export const TitleText = styled.Text.attrs(props => ({
   mt: verticalScale(5),
   ml: 2,
 }))`
-  font-size: ${moderateScale(13)}px;
+  font-size: ${moderateScale(15)}px;
   font-family: Urbanist;
   font-weight: 600;
   text-align: left;
@@ -70,3 +78,26 @@ export const TitleText = styled.Text.attrs(props => ({
   ${layout}
 `;
 
+export const DeleteButtonContainer = styled.TouchableOpacity.attrs(props => ({
+  width: scale(80),
+  height: scale(35),
+  bg: 'rgba(247, 85, 85, 0.1)',
+  borderRadius: 50,
+  activeOpacity: 0.6,
+  mt: scale(8),
+}))`
+  align-items: center;
+  justify-content: center;
+  ${layout}
+  ${color}
+  ${border}
+  ${space}
+`;
+
+export const DeleteButtonText = styled.Text.attrs(props => ({
+  color: '#F75555',
+}))`
+  font-size: ${scale(14)}px;
+  font-weight: 600 ${color};
+  font-family: Urbanist-Bold;
+`;
