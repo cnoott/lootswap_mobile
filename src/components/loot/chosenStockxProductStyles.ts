@@ -41,6 +41,15 @@ export const ImageContainer = styled.View.attrs(props => ({
   ${layout} ${color} ${space} ${border};
 `;
 
+export const SvgContainer = styled.View.attrs(props => ({
+  height: verticalScale(40),
+  width: verticalScale(40),
+}))`
+  justify-content: center;
+  ${layout} ${color} ${space} ${border};
+`;
+
+
 export const Image = styled(FastImage).attrs(() => ({
   resizeMode: 'contain',
   width: verticalScale(50),

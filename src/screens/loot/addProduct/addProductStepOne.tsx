@@ -163,10 +163,10 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   const onSetStockxUrlKey = async (item: any) => {
     setAlreadySearched(true);
     collapseDrawer();
+    setSelectedStockxItem(item);
     if (!item.urlKey) {
       return;
     }
-    setSelectedStockxItem(item);
     updateBrand(
       {productName: item.title, stockxUrlKey: item.urlKey},
       item.brand,
@@ -261,6 +261,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
           searchResults={searchResults}
           loading={stockxLoading}
           onSelectResult={onSetStockxUrlKey}
+          productName={productName}
         />
       </Animated.View>
       {selectedStockxItem && (
