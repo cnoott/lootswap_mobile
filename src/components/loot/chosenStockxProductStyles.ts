@@ -11,6 +11,7 @@ export const Container = styled.View.attrs(props => ({
   borderWidth: 1,
   borderColor: '#F2F2F2',
   p: scale(10),
+  mt: scale(10),
 }))`
   ${layout} ${color} ${space} ${border};
 `;
