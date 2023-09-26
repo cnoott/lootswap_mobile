@@ -3,6 +3,7 @@ import {
   Container,
   ItemContainer,
   ImageContainer,
+  SvgContainer,
   Image,
   TextContainer,
   TitleText,
@@ -12,6 +13,8 @@ import {
 import FastImage from 'react-native-fast-image';
 import LSDropDown from '../commonComponents/LSDropDown';
 import {getSizeList} from '../../utility/utility';
+import {SvgXml} from 'react-native-svg';
+import {QUESTION_MARK} from 'localsvgimages';
 
 interface ChosenStockxProductProps {
   stockxProduct: any;
@@ -25,9 +28,9 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
   const {
     stockxProduct,
     onSetSizeData = () => {},
-    sizeData,
+      sizeData,
     onDeletePress = () => {},
-    categoryData,
+      categoryData,
   } = props;
 
   const handleSetSizeList = () => {
@@ -57,17 +60,26 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
   return (
     <Container>
       <ItemContainer>
-        <ImageContainer>
-          <Image
-            source={{
-              uri: stockxProduct.thumbUrl,
-              priority: FastImage.priority.low,
-            }}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-        </ImageContainer>
+        <>
+          {stockxProduct?.thumbUrl ? (
+            <ImageContainer>
+              <Image
+                source={{
+                  uri: stockxProduct.thumbUrl,
+                  priority: FastImage.priority.low,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            </ImageContainer>
+          ) : (
+            <SvgContainer>
+              <SvgXml xml={QUESTION_MARK} width={'100%'}/>
+            </SvgContainer>
+          )}
+        </>
         <TextContainer>
           <TitleText>{stockxProduct.title}</TitleText>
+          <TitleText></TitleText>
         </TextContainer>
       </ItemContainer>
       <LSDropDown

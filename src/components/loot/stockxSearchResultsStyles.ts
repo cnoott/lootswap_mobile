@@ -123,12 +123,12 @@ export const BrandContainer = styled.View.attrs(() => ({
 `;
 
 export const BrandText = styled.Text.attrs(props => ({
-  color: props.theme.colors.greyLabel,
+  color: props.theme.colors.primary,
   width: '97%',
   numberOfLines: 1,
   ellipsizeMode: 'tail',
 }))`
-  font-size: ${moderateScale(10)}px;
+  font-size: ${moderateScale(12)}px;
   font-family: Urbanist-Medium;
   ${color}
   ${space}
