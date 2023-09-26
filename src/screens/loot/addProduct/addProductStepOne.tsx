@@ -126,6 +126,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   };
 
   const onSetSizeData = (item: any) => {
+    console.log('setting', item);
     setSizeData(item);
     updateData({size: item});
   };
@@ -270,6 +271,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
           onDeletePress={handleDeleteStockxItem}
           categoryData={categoryData}
           onSetSizeData={onSetSizeData}
+          productName={productName}
         />
       )}
       {/*renderDropdown(
