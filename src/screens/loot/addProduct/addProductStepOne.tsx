@@ -121,8 +121,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
 
   const handleDeleteStockxItem = () => {
     setSelectedStockxItem(null);
-    updateBrand({productName: '', stockxUrlKey: null}, null);
-    setProductName('');
+    updateBrand({stockxUrlKey: null}, null);
   };
 
   const onSetSizeData = (item: any) => {
