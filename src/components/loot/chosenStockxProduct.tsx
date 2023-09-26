@@ -22,15 +22,17 @@ interface ChosenStockxProductProps {
   sizeData: any;
   onDeletePress: Function;
   categoryData: any;
+  productName: string;
 }
 
 export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
   const {
     stockxProduct,
     onSetSizeData = () => {},
-      sizeData,
+    sizeData,
     onDeletePress = () => {},
-      categoryData,
+    categoryData,
+    productName = '',
   } = props;
 
   const handleSetSizeList = () => {
@@ -78,7 +80,7 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
           )}
         </>
         <TextContainer>
-          <TitleText>{stockxProduct.title}</TitleText>
+          <TitleText>{stockxProduct.thumbUrl ? stockxProduct.title : productName}</TitleText>
           <TitleText></TitleText>
         </TextContainer>
       </ItemContainer>
