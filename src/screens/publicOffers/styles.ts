@@ -38,3 +38,13 @@ export const ChosenStockxProductsFlatList = styled.FlatList.attrs(() => ({
   ${space}
   ${layout}
 `;
+
+export const TopButtonContainer = styled.View.attrs(() => ({
+  pt: scale(8),
+}))`
+  ${space}
+  ${layout}
+  ${color}
+  ${border}
+`;
+

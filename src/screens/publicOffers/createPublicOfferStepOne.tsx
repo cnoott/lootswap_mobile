@@ -1,4 +1,4 @@
-import React, {FC, useRef, useState, useCallback, useEffect} from 'react';
+import React, {FC, useRef, useState, useCallback} from 'react';
 import {StepContainer} from './styles';
 import LSInput from '../../components/commonComponents/LSInput';
 import {SEARCH_INPUT_ICON} from 'localsvgimages';
@@ -14,14 +14,16 @@ interface StepOneProps {
   publicOffersData: any;
   setPublicOffersData: Function;
   handleNext: Function;
+  query: string;
+  setQuery: Function;
 }
 
 export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
-  const {publicOffersData, setPublicOffersData, handleNext} = props;
+  const {publicOffersData, setPublicOffersData, handleNext, query, setQuery} =
+    props;
   const [isOpen, setIsOpen] = useState(false);
   const [stockxLoading, setStockxLoading] = useState(true);
   const [searchResults, setSearchResults] = useState([]);
-  const [query, setQuery] = useState('');
 
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
@@ -79,7 +81,6 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
   }, [dispatch, handleDrawerAnimation, query, userData?._id, setStockxLoading]);
 
   const handleSelectStockx = (name: string, urlKey: string) => {
-    dispatch(LoadingRequest());
     const alreadyExists = publicOffersData.receivingStockxProducts.some(
       product => product.urlKey === urlKey,
     );
@@ -87,6 +88,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
     if (alreadyExists) {
       return;
     }
+    dispatch(LoadingRequest());
     const reqData = {
       stockxUrlKey: urlKey,
       name: name,
@@ -119,6 +121,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
         horizontalSpace={'0'}
         value={query}
         leftIcon={SEARCH_INPUT_ICON}
+        autoFocus={true}
         placeholder={'Item Name'}
         returnKeyType={'search'}
         onSubmitEditing={() => fetchStockxData()}
