@@ -7,14 +7,16 @@ import {StockxSearchResults} from '../../components/loot/stockxSearchResults';
 import {useSelector, useDispatch} from 'react-redux';
 import {searchStockx} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
+import {refreshStockxData} from '../../redux/modules';
 
 interface StepOneProps {
   publicOffersData: any;
   setPublicOffersData: Function;
+  handleNext: Function;
 }
 
 export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
-  const {publicOffersData, setPublicOffersData} = props;
+  const {publicOffersData, setPublicOffersData, handleNext} = props;
   const [isOpen, setIsOpen] = useState(false);
   const [stockxLoading, setStockxLoading] = useState(true);
   const [searchResults, setSearchResults] = useState([]);
@@ -24,7 +26,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const animation = useRef(new Animated.Value(0)).current;
-  const drawerWidth = Dimensions.get('window').width * 0.5;
+  const drawerWidth = Dimensions.get('window').height;
   const height = animation.interpolate({
     inputRange: [0, 1],
     outputRange: [0, drawerWidth]
@@ -44,7 +46,6 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
     if (stockxLoading) {
       return;
     }
-    console.log('collaping');
     //if (isOpen) return;
     Animated.timing(animation, {
       toValue: 0,
@@ -76,6 +77,32 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
     );
   }, [dispatch, handleDrawerAnimation, query, userData?._id, setStockxLoading]);
 
+  const handleSelectStockx = (name: string, urlKey: string) => {
+    // TODO handle load
+    const reqData = {
+      stockxUrlKey: urlKey,
+      name: name,
+    };
+    dispatch(
+      refreshStockxData(
+        reqData,
+        res => {
+          setPublicOffersData({
+            ...publicOffersData,
+            receivingStockxProducts: [
+              res,
+              ...publicOffersData.receivingStockxProducts,
+            ],
+          });
+          handleNext();
+        },
+        err => {
+          console.log('ERR => ', err);
+        },
+      )
+    );
+  };
+
   return (
     <StepContainer>
       <LSInput
@@ -92,7 +119,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
           selectedUrlKey={''}
           searchResults={searchResults}
           loading={stockxLoading}
-          onSelectResult={() => {}}
+          onSelectResult={({title, urlKey}) => handleSelectStockx(title, urlKey)}
         />
       </Animated.View>
     </StepContainer>

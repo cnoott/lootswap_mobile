@@ -19,36 +19,54 @@ import {QUESTION_MARK} from 'localsvgimages';
 interface ChosenStockxProductProps {
   stockxProduct: any;
   onSetSizeData: Function;
-  sizeData: any;
+  chosenSize: any;
   onDeletePress: Function;
   categoryData: any;
   productName: string;
+  isFromPublicOffers: Boolean;
 }
+// We have to have a "isFromPublicOffers" bool because the data
+// that comes from the add loot and the data that comes from public
+// offers is in a different format
 
 export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
   const {
     stockxProduct,
     onSetSizeData = () => {},
-    sizeData,
+    chosenSize,
     onDeletePress = () => {},
     categoryData,
     productName = '',
+    isFromPublicOffers = false,
   } = props;
 
+
+  const formatData = () => {
+    if (isFromPublicOffers) {
+      return stockxProduct;
+    } else {
+      return {
+        name: stockxProduct.title,
+        image: stockxProduct.thumbUrl,
+      };
+    }
+  };
+
   const handleSetSizeList = () => {
+    const name = formatData().name;
+
     if (stockxProduct) {
-      const {title} = stockxProduct;
-      if (stockxProduct.title.includes('Women')) {
+      if (name.includes('Women')) {
         return 'womens';
-      } else if (title.includes('GS')) {
+      } else if (name.includes('GS')) {
         return 'gs';
-      } else if (title?.includes('TD')) {
+      } else if (name?.includes('TD')) {
         return 'td';
-      } else if (title?.includes('PS')) {
+      } else if (name?.includes('PS')) {
         return 'ps';
       } else if (
-        title?.includes('Kids') ||
-        title?.includes('Infants')
+        name?.includes('Kids') ||
+        name?.includes('Infants')
       ) {
         return 'kids';
       }
@@ -58,16 +76,15 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
     }
   };
 
-
   return (
     <Container>
       <ItemContainer>
         <>
-          {stockxProduct?.thumbUrl ? (
+          {formatData().image ? (
             <ImageContainer>
               <Image
                 source={{
-                  uri: stockxProduct.thumbUrl,
+                  uri: formatData().image,
                   priority: FastImage.priority.low,
                 }}
                 resizeMode={FastImage.resizeMode.contain}
@@ -80,7 +97,9 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
           )}
         </>
         <TextContainer>
-          <TitleText>{stockxProduct.thumbUrl ? stockxProduct.title : productName}</TitleText>
+          <TitleText>
+            {formatData().image ? formatData().name : productName}
+          </TitleText>
           <TitleText></TitleText>
         </TextContainer>
       </ItemContainer>
@@ -89,7 +108,7 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
         dropdownLabel={'Select Size'}
         isSearch={false}
         onSelectItem={onSetSizeData}
-        selectedValue={sizeData}
+        selectedValue={chosenSize}
       />
       <DeleteButtonContainer onPress={onDeletePress}>
         <DeleteButtonText>Delete</DeleteButtonText>

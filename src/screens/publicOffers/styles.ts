@@ -30,3 +30,11 @@ export const StepContainer = styled.View.attrs(() => ({
   ${color}
   ${border}
 `;
+
+export const ChosenStockxProductsFlatList = styled.FlatList.attrs(() => ({
+  showsVerticalScrollIndicator: true,
+  //contentContainerStyle: {flexGrow: 1},
+}))`
+  ${space}
+  ${layout}
+`;
