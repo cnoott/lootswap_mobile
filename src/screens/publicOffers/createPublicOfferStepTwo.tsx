@@ -12,6 +12,7 @@ interface StepTwoProps {
   receivingStockxProducts: Array<any>;
   handleAddAnotherItem: Function;
   handleSelectSize: Function;
+  handleDeleteProduct: Function;
 }
 // Show all the sizes
 
@@ -20,6 +21,7 @@ export const CreatePublicOfferStepTwo: FC<StepTwoProps> = props => {
     receivingStockxProducts = [],
     handleAddAnotherItem = () => {},
     handleSelectSize = () => {},
+    handleDeleteProduct = () => {},
   } = props;
 
 
@@ -27,7 +29,7 @@ export const CreatePublicOfferStepTwo: FC<StepTwoProps> = props => {
     return (
       <ChosenStockxProduct
         stockxProduct={item}
-        onDeletePress={() => {}}
+        onDeletePress={() => handleDeleteProduct(item.urlKey)}
         categoryData={null}
         onSetSizeData={size => handleSelectSize(item.urlKey, size)}
         chosenSize={item?.chosenSize}

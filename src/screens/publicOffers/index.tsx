@@ -77,9 +77,19 @@ export const CreatePublicOfferScreen: FC<any> = () => {
       newReceivingStockxProducts[foundIndex].chosenSize = size.value;
       setPublicOffersData(prevState => ({
         ...prevState,
-        receivingStockxProducts: newReceivingStockxProducts
+        receivingStockxProducts: newReceivingStockxProducts,
       }));
     }
+  };
+
+  const handleDeleteProduct = (urlKey: string) => {
+    const newReceivingStockxProducts = receivingStockxProducts.filter(
+      product => product.urlKey !== urlKey,
+    );
+    setPublicOffersData(prevState => ({
+      ...prevState,
+      receivingStockxProducts: newReceivingStockxProducts,
+    }));
   };
 
   const handleAddAnotherItem = () => {
@@ -106,6 +116,7 @@ export const CreatePublicOfferScreen: FC<any> = () => {
               receivingStockxProducts={receivingStockxProducts}
               handleAddAnotherItem={handleAddAnotherItem}
               handleSelectSize={handleSelectSize}
+              handleDeleteProduct={handleDeleteProduct}
             />
           );
 
