@@ -8,7 +8,10 @@ import {useSelector, useDispatch} from 'react-redux';
 import {searchStockx} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {refreshStockxData} from '../../redux/modules';
-import {LoadingRequest, LoadingSuccess} from '../../redux/modules/loading/actions'
+import {
+  LoadingRequest,
+  LoadingSuccess,
+} from '../../redux/modules/loading/actions'
 import {Alert} from 'custom_top_alert';
 
 interface StepOneProps {
