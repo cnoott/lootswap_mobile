@@ -20,12 +20,11 @@ export const CreatePublicOfferScreen: FC<any> = () => {
   const swiperRef = useRef<any>(null);
   const [currPage, setCurrPage] = useState(0);
   const handleBack = () => {
-      swiperRef?.current?.scrollTo(currPage - 1);
+    swiperRef?.current?.scrollTo(currPage - 1);
   };
   const handleNext = () => {
-      swiperRef?.current?.scrollTo(currPage + 1);
+    swiperRef?.current?.scrollTo(currPage + 1);
   };
-
   const [publicOffersData, setPublicOffersData] = useState({
     receivingStockxProducts: [],
     sendingProductIds: [],
