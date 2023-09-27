@@ -32,6 +32,7 @@ interface StockxResultProps {
   onSelectResult: Function;
   selectedUrlKey: any;
   productName?: string;
+  showTitle?: Boolean;
 }
 
 export const StockxSearchResults: FC<StockxResultProps> = props => {
@@ -41,6 +42,7 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
     loading = true,
     selectedUrlKey,
     productName = '',
+    showTitle = true
   } = props;
 
   const [opacity] = useState(new Animated.Value(1)); // Initial value for opacity: 1
@@ -167,6 +169,7 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
       showsVerticalScrollIndicator={true}
       contentContainerStyle={{flexGrow: 1}}>
       <Container>
+        {showTitle && (
         <TitleContainer>
           <ContainerTitle>Select Product</ContainerTitle>
           <Tooltip
@@ -175,6 +178,7 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
             }
           />
         </TitleContainer>
+        )}
         {renderSearchResults()}
       </Container>
     </ScrollView>
