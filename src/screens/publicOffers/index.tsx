@@ -90,6 +90,9 @@ export const CreatePublicOfferScreen: FC<any> = () => {
       ...prevState,
       receivingStockxProducts: newReceivingStockxProducts,
     }));
+    if (!newReceivingStockxProducts.length) {
+      handleAddAnotherItem();
+    }
   };
 
   const handleAddAnotherItem = () => {
