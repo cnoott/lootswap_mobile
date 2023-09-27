@@ -37,6 +37,7 @@ export const CreatePublicOfferScreen: FC<any> = () => {
     receivingMoneyOffer,
     sendingMoneyOffer,
   } = publicOffersData;
+  const [query, setQuery] = useState('');
 
   const renderTopView = () => (
     <>
@@ -64,6 +65,11 @@ export const CreatePublicOfferScreen: FC<any> = () => {
       </ButtonContainer>
     );
 
+  const handleAddAnotherItem = () => {
+    setQuery('');
+    handleBack();
+  };
+
   const renderSteps = () => {
     return [1, 2].map(data => {
       switch (data) {
@@ -73,12 +79,15 @@ export const CreatePublicOfferScreen: FC<any> = () => {
               publicOffersData={publicOffersData}
               setPublicOffersData={setPublicOffersData}
               handleNext={handleNext}
+              query={query}
+              setQuery={setQuery}
             />
           );
         case 2:
           return (
             <CreatePublicOfferStepTwo
               receivingStockxProducts={receivingStockxProducts}
+              handleAddAnotherItem={handleAddAnotherItem}
             />
           );
 
