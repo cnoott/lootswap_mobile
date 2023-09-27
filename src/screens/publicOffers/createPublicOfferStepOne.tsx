@@ -79,6 +79,13 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
 
   const handleSelectStockx = (name: string, urlKey: string) => {
     // TODO handle load
+    const alreadyExists = publicOffersData.receivingStockxProducts.some(
+      product => product.urlKey === urlKey,
+    );
+    if (alreadyExists) {
+      handleNext();
+      return;
+    }
     const reqData = {
       stockxUrlKey: urlKey,
       name: name,
