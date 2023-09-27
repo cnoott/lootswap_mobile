@@ -66,7 +66,6 @@ export const CreatePublicOfferScreen: FC<any> = () => {
   );
 
   const handleSelectSize = (urlKey: any, size: any) => {
-    console.log(urlKey, size);
     const newReceivingStockxProducts = JSON.parse(
       JSON.stringify(receivingStockxProducts)
     );

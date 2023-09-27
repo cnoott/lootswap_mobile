@@ -9,6 +9,7 @@ import {searchStockx} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {refreshStockxData} from '../../redux/modules';
 import {LoadingRequest, LoadingSuccess} from '../../redux/modules/loading/actions'
+import {Alert} from 'custom_top_alert';
 
 interface StepOneProps {
   publicOffersData: any;
@@ -81,6 +82,10 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
   }, [dispatch, handleDrawerAnimation, query, userData?._id, setStockxLoading]);
 
   const handleSelectStockx = (name: string, urlKey: string) => {
+    if (publicOffersData.receivingStockxProducts.length >= 3) {
+      Alert.showError('You cannot add more than 3 items');
+      return;
+    }
     const alreadyExists = publicOffersData.receivingStockxProducts.some(
       product => product.urlKey === urlKey,
     );
