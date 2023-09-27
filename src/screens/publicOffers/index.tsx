@@ -12,21 +12,32 @@ import {
   ButtonContainer,
 } from './styles';
 import CreatePublicOfferStepOne from './createPublicOfferStepOne';
+import CreatePublicOfferStepTwo from './createPublicOfferStepTwo';
 
 const NUMBER_OF_STEPS = 4;
 
 export const CreatePublicOfferScreen: FC<any> = () => {
   const swiperRef = useRef<any>(null);
   const [currPage, setCurrPage] = useState(0);
-  const handleBack = () => {};
-  const handleNext = () => {};
+  const handleBack = () => {
+      swiperRef?.current?.scrollTo(currPage - 1);
+  };
+  const handleNext = () => {
+      swiperRef?.current?.scrollTo(currPage + 1);
+  };
 
   const [publicOffersData, setPublicOffersData] = useState({
-    receivingStockxUrlKeys: [],
+    receivingStockxProducts: [],
     sendingProductIds: [],
     receivingMoneyOffer: null,
     sendingMoneyOffer: null,
   });
+  const {
+    receivingStockxProducts,
+    sendingProductIds,
+    receivingMoneyOffer,
+    sendingMoneyOffer,
+  } = publicOffersData;
 
   const renderTopView = () => (
     <>
@@ -55,19 +66,26 @@ export const CreatePublicOfferScreen: FC<any> = () => {
     );
 
   const renderSteps = () => {
-    return [1].map(data => {
+    return [1, 2].map(data => {
       switch (data) {
         case 1:
           return (
             <CreatePublicOfferStepOne
               publicOffersData={publicOffersData}
               setPublicOffersData={setPublicOffersData}
+              handleNext={handleNext}
             />
-        );
+          );
+        case 2:
+          return (
+            <CreatePublicOfferStepTwo
+              receivingStockxProducts={receivingStockxProducts}
+            />
+          );
+
       }
     });
   };
-
 
   return (
     <Container>

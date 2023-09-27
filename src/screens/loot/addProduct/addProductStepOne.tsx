@@ -247,6 +247,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
           categoryData={categoryData}
           onSetSizeData={onSetSizeData}
           productName={productName}
+          chosenSize={sizeData}
         />
       )}
     </StepOneContainer>
