@@ -41,6 +41,7 @@ export const CreatePublicOfferStepTwo: FC<StepTwoProps> = props => {
   return (
     <StepContainer>
       <TopButtonContainer>
+        {receivingStockxProducts?.length < 3 && (
         <LSButton
           title={'+ Add Another Item'}
           size={Size.Full}
@@ -48,6 +49,7 @@ export const CreatePublicOfferStepTwo: FC<StepTwoProps> = props => {
           radius={20}
           onPress={handleAddAnotherItem}
         />
+        )}
       </TopButtonContainer>
       <ChosenStockxProductsFlatList
         data={receivingStockxProducts}

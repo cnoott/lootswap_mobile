@@ -110,7 +110,7 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
 
         <TextContainer>
           <TitleText>
-            {formatData().image ? 'VERY VERY VERY VERY VERY BERY LONG NAME' : productName}
+            {formatData().image ? formatData().name : productName}
           </TitleText>
           <TitleText></TitleText>
         </TextContainer>
