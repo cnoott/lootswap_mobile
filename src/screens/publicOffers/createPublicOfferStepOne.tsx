@@ -122,7 +122,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
         value={query}
         leftIcon={SEARCH_INPUT_ICON}
         autoFocus={true}
-        placeholder={'Item Name'}
+        placeholder={'Search Item Name'}
         returnKeyType={'search'}
         onSubmitEditing={() => fetchStockxData()}
       />
@@ -132,6 +132,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
           searchResults={searchResults}
           loading={stockxLoading}
           onSelectResult={({title, urlKey}) => handleSelectStockx(title, urlKey)}
+          showTitle={false}
         />
       </Animated.View>
     </StepContainer>
