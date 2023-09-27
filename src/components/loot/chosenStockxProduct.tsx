@@ -52,6 +52,14 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
     }
   };
 
+  const formatSizeList = () => {
+    console.log(stockxProduct?.sizes);
+    return stockxProduct?.sizes.map(size => ({
+      label: size.sizeUS,
+      value: size.sizeUS,
+    }));
+  };
+
   const handleSetSizeList = () => {
     const name = formatData().name;
 
@@ -72,10 +80,6 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
       }
       if (categoryData) {
         return categoryData?.value;
-      }
-
-      if (stockxProduct?.category === 'sneakers') {
-        return 'shoes';
       }
     } else {
       return categoryData?.value;
@@ -110,7 +114,7 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
         </TextContainer>
       </ItemContainer>
       <LSDropDown
-        itemsList={getSizeList(handleSetSizeList())}
+        itemsList={isFromPublicOffers ? formatSizeList() : getSizeList(handleSetSizeList())}
         dropdownLabel={'Select Size'}
         isSearch={false}
         onSelectItem={onSetSizeData}
