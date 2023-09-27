@@ -125,34 +125,10 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   };
 
   const onSetSizeData = (item: any) => {
-    console.log('setting', item);
     setSizeData(item);
     updateData({size: item});
   };
 
-  const handleSetSizeList = () => {
-    if (!categoryData) return '';
-
-    if (addProductData?.stepOne?.stockxUrlKey) {
-      if (productName?.includes('Women')) {
-        return 'womens';
-      } else if (productName?.includes('GS')) {
-        return 'gs';
-      } else if (productName?.includes('TD')) {
-        return 'td';
-      } else if (productName?.includes('PS')) {
-        return 'ps';
-      } else if (
-        productName?.includes('Kids') ||
-        productName?.includes('Infants')
-      ) {
-        return 'kids';
-      }
-      return categoryData?.value;
-    } else {
-      return categoryData?.value;
-    }
-  };
 
   const onSetProductName = (item: any) => {
     setAlreadySearched(false);
@@ -273,14 +249,6 @@ export const AddProductStepOne: FC<ProductStep> = props => {
           productName={productName}
         />
       )}
-      {/*renderDropdown(
-        'Size',
-        true,
-        getSizeList(handleSetSizeList()),
-        onSetSizeData,
-        sizeData,
-        () => collapseDrawer(),
-        )*/}
     </StepOneContainer>
   );
 };
