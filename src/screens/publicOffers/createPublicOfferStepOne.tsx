@@ -8,6 +8,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {searchStockx} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {refreshStockxData} from '../../redux/modules';
+import {LoadingRequest, LoadingSuccess} from '../../redux/modules/loading/actions'
 
 interface StepOneProps {
   publicOffersData: any;
@@ -78,12 +79,12 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
   }, [dispatch, handleDrawerAnimation, query, userData?._id, setStockxLoading]);
 
   const handleSelectStockx = (name: string, urlKey: string) => {
-    // TODO handle load
+    dispatch(LoadingRequest());
     const alreadyExists = publicOffersData.receivingStockxProducts.some(
       product => product.urlKey === urlKey,
     );
+    handleNext();
     if (alreadyExists) {
-      handleNext();
       return;
     }
     const reqData = {
@@ -101,10 +102,11 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
               ...publicOffersData.receivingStockxProducts,
             ],
           });
-          handleNext();
+          dispatch(LoadingSuccess());
         },
         err => {
           console.log('ERR => ', err);
+          dispatch(LoadingSuccess());
         },
       )
     );
