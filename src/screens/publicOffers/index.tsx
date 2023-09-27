@@ -1,6 +1,6 @@
 /***
-LootSwap - CREATE PUBLIC OFFER
-***/
+  LootSwap - CREATE PUBLIC OFFER
+ ***/
 
 import React, {FC, useState, useRef} from 'react';
 import {ProgressBar, SwiperComponent} from '../loot/styles';
@@ -53,17 +53,34 @@ export const CreatePublicOfferScreen: FC<any> = () => {
   );
 
   const renderBottomButtonView = () =>
-    currPage !== 3 && (
-      <ButtonContainer>
-        <LSButton
-          title={'Next'}
-          size={Size.Large}
-          type={Type.Primary}
-          radius={20}
-          onPress={handleNext}
-        />
-      </ButtonContainer>
+  currPage !== 3 && (
+    <ButtonContainer>
+      <LSButton
+        title={'Next'}
+        size={Size.Large}
+        type={Type.Primary}
+        radius={20}
+        onPress={handleNext}
+      />
+    </ButtonContainer>
+  );
+
+  const handleSelectSize = (urlKey: any, size: any) => {
+    console.log(urlKey, size);
+    const newReceivingStockxProducts = JSON.parse(
+      JSON.stringify(receivingStockxProducts)
     );
+
+    const foundIndex = newReceivingStockxProducts.findIndex(product => product.urlKey === urlKey);
+
+    if (foundIndex !== -1) {
+      newReceivingStockxProducts[foundIndex].chosenSize = size.value;
+      setPublicOffersData(prevState => ({
+        ...prevState,
+        receivingStockxProducts: newReceivingStockxProducts
+      }));
+    }
+  };
 
   const handleAddAnotherItem = () => {
     setQuery('');
@@ -82,14 +99,15 @@ export const CreatePublicOfferScreen: FC<any> = () => {
               query={query}
               setQuery={setQuery}
             />
-          );
+        );
         case 2:
           return (
             <CreatePublicOfferStepTwo
               receivingStockxProducts={receivingStockxProducts}
               handleAddAnotherItem={handleAddAnotherItem}
+              handleSelectSize={handleSelectSize}
             />
-          );
+        );
 
       }
     });
