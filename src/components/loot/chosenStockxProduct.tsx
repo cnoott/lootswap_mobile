@@ -12,7 +12,7 @@ import {
 } from './chosenStockxProductStyles';
 import FastImage from 'react-native-fast-image';
 import LSDropDown from '../commonComponents/LSDropDown';
-import {getSizeList} from '../../utility/utility';
+import {getSizeList, shoesSizeList} from '../../utility/utility';
 import {SvgXml} from 'react-native-svg';
 import {QUESTION_MARK} from 'localsvgimages';
 
@@ -70,7 +70,13 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
       ) {
         return 'kids';
       }
-      return categoryData?.value;
+      if (categoryData) {
+        return categoryData?.value;
+      }
+
+      if (stockxProduct?.category === 'sneakers') {
+        return 'shoes';
+      }
     } else {
       return categoryData?.value;
     }

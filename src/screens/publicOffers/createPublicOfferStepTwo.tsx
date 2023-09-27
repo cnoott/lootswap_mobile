@@ -11,11 +11,16 @@ import {Size, Type} from '../../enums';
 interface StepTwoProps {
   receivingStockxProducts: Array<any>;
   handleAddAnotherItem: Function;
+  handleSelectSize: Function;
 }
 // Show all the sizes
 
 export const CreatePublicOfferStepTwo: FC<StepTwoProps> = props => {
-  const {receivingStockxProducts = [], handleAddAnotherItem = () => {}} = props;
+  const {
+    receivingStockxProducts = [],
+    handleAddAnotherItem = () => {},
+    handleSelectSize = () => {},
+  } = props;
 
 
   const renderStockxProduct = ({item}: any) => {
@@ -23,9 +28,9 @@ export const CreatePublicOfferStepTwo: FC<StepTwoProps> = props => {
       <ChosenStockxProduct
         stockxProduct={item}
         onDeletePress={() => {}}
-        categoryData={[]}
-        onSetSizeData={() => {}}
-        chosenSize={{}}
+        categoryData={null}
+        onSetSizeData={size => handleSelectSize(item.urlKey, size)}
+        chosenSize={item?.chosenSize}
         isFromPublicOffers={true}
       />
     );
