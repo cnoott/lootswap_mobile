@@ -836,3 +836,24 @@ export const QUESTION_MARK = `
 </defs>
 </svg>
 `;
+
+export const TRASH_ICON_RED = `
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_3742_20700)">
+<rect x="4" width="40" height="40" rx="20" fill="#F75555" fill-opacity="0.1" shape-rendering="crispEdges"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M30.9059 14.3704C31.2301 14.3704 31.5 14.6396 31.5 14.9821V15.2988C31.5 15.6329 31.2301 15.9104 30.9059 15.9104H17.0949C16.7699 15.9104 16.5 15.6329 16.5 15.2988V14.9821C16.5 14.6396 16.7699 14.3704 17.0949 14.3704H19.5246C20.0182 14.3704 20.4478 14.0196 20.5588 13.5246L20.686 12.9563C20.8838 12.1821 21.5346 11.668 22.2794 11.668H25.7206C26.4573 11.668 27.1154 12.1821 27.3059 12.9155L27.442 13.5238C27.5522 14.0196 27.9818 14.3704 28.4762 14.3704H30.9059ZM29.6715 25.9463C29.9252 23.5822 30.3693 17.9656 30.3693 17.9089C30.3855 17.7372 30.3296 17.5747 30.2186 17.4439C30.0994 17.3214 29.9487 17.2489 29.7826 17.2489H18.2238C18.0568 17.2489 17.898 17.3214 17.7877 17.4439C17.6759 17.5747 17.6208 17.7372 17.6289 17.9089C17.6304 17.9193 17.6463 18.1172 17.673 18.4479C17.7913 19.9173 18.121 24.0098 18.334 25.9463C18.4847 27.373 19.4208 28.2696 20.7767 28.3021C21.823 28.3263 22.9009 28.3346 24.0032 28.3346C25.0414 28.3346 26.0958 28.3263 27.1745 28.3021C28.5774 28.278 29.5127 27.3971 29.6715 25.9463Z" fill="#F75555"/>
+</g>
+<defs>
+<filter id="filter0_d_3742_20700" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3742_20700"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3742_20700" result="shape"/>
+</filter>
+</defs>
+</svg>
+`;

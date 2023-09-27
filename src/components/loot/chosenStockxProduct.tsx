@@ -9,12 +9,13 @@ import {
   TitleText,
   DeleteButtonContainer,
   DeleteButtonText,
+  TrashIconContainer,
 } from './chosenStockxProductStyles';
 import FastImage from 'react-native-fast-image';
 import LSDropDown from '../commonComponents/LSDropDown';
 import {getSizeList, shoesSizeList} from '../../utility/utility';
 import {SvgXml} from 'react-native-svg';
-import {QUESTION_MARK} from 'localsvgimages';
+import {QUESTION_MARK, TRASH_ICON_RED} from 'localsvgimages';
 
 interface ChosenStockxProductProps {
   stockxProduct: any;
@@ -106,12 +107,14 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
             </SvgContainer>
           )}
         </>
+
         <TextContainer>
           <TitleText>
-            {formatData().image ? formatData().name : productName}
+            {formatData().image ? 'VERY VERY VERY VERY VERY BERY LONG NAME' : productName}
           </TitleText>
           <TitleText></TitleText>
         </TextContainer>
+
       </ItemContainer>
       <LSDropDown
         itemsList={isFromPublicOffers ? formatSizeList() : getSizeList(handleSetSizeList())}
@@ -120,9 +123,9 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
         onSelectItem={onSetSizeData}
         selectedValue={chosenSize}
       />
-      <DeleteButtonContainer onPress={onDeletePress}>
-        <DeleteButtonText>Delete</DeleteButtonText>
-      </DeleteButtonContainer>
+      <TrashIconContainer onPress={onDeletePress}>
+        <SvgXml xml={TRASH_ICON_RED}/>
+      </TrashIconContainer>
     </Container>
   );
 };

@@ -83,4 +83,6 @@ declare module 'localsvgimages' {
   export const WALLET_BACKGROUND: any;
   export const COPY_ICON: any;
   export const CAMERA_ICON: any;
+  export const TRASH_ICON_RED: any;
+  export const QUESTION_MARK: any;
 }

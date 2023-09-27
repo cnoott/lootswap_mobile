@@ -107,7 +107,7 @@ export const CreatePublicOfferScreen: FC<any> = () => {
               handleAddAnotherItem={handleAddAnotherItem}
               handleSelectSize={handleSelectSize}
             />
-        );
+          );
 
       }
     });

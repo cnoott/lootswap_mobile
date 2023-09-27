@@ -17,7 +17,6 @@ export const Container = styled.View.attrs(props => ({
 `;
 export const ItemContainer = styled.View.attrs(props => ({
   //height: verticalScale(40),
-  alignSelf: 'stretch',
   mt: verticalScale(4),
   mx: 10,
   px: scale(8),
@@ -27,6 +26,7 @@ export const ItemContainer = styled.View.attrs(props => ({
 }))`
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   ${layout} ${color} ${space} ${border};
 `;
 
@@ -40,6 +40,14 @@ export const ImageContainer = styled.View.attrs(props => ({
   justify-content: center;
   ${layout} ${color} ${space} ${border};
 `;
+
+export const TrashIconContainer = styled.TouchableOpacity.attrs(() => ({
+}))`
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  ${layout} ${color} ${space} ${border};
+`
 
 export const SvgContainer = styled.View.attrs(props => ({
   height: verticalScale(40),
@@ -78,6 +86,7 @@ export const TitleText = styled.Text.attrs(props => ({
   numberOfLines: 2,
   mt: verticalScale(5),
   ml: 2,
+  width: '90%',
 }))`
   font-size: ${moderateScale(15)}px;
   font-family: Urbanist;
