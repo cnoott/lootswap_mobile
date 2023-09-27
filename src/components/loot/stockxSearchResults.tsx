@@ -38,11 +38,11 @@ interface StockxResultProps {
 export const StockxSearchResults: FC<StockxResultProps> = props => {
   const {
     searchResults = [],
-    onSelectResult,
+      onSelectResult,
     loading = true,
-    selectedUrlKey,
+      selectedUrlKey,
     productName = '',
-    showTitle = true
+      showTitle = true
   } = props;
 
   const [opacity] = useState(new Animated.Value(1)); // Initial value for opacity: 1
@@ -121,10 +121,10 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
           ) : (
             <>
               {item.thumbUrl ? (
-              <Image
-                source={{uri: item.thumbUrl, priority: FastImage.priority.low}}
-                resizeMode={FastImage.resizeMode.contain}
-              />
+                <Image
+                  source={{uri: item.thumbUrl, priority: FastImage.priority.low}}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
               ) : (
                 <SvgXml xml={QUESTION_MARK} width={'90%'}/>
               )}
@@ -142,21 +142,23 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
   };
 
   const renderSearchResults = () => {
+    let data;
+    if (showTitle) {
+      data = [
+        ...searchResults,
+        {
+          urlKey: null,
+          thumbUrl: '',
+          title: 'My item is not here',
+          subTitle: `Add new item "${productName}"`,
+        },
+      ];
+    } else {
+      data = [...searchResults];
+    }
     return (
       <FlatList
-        data={
-          loading
-            ? [0, 1, 2, 3]
-            : [
-                ...searchResults,
-                {
-                  urlKey: null,
-                  thumbUrl: '',
-                  title: 'My item is not here',
-                  subTitle: `Add new item "${productName}"`
-                },
-              ]
-        }
+        data={data}
         renderItem={renderSearchResult}
         keyExtractor={item => item.urlKey}
         showsVerticalScrollIndicator={true}
@@ -170,14 +172,14 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
       contentContainerStyle={{flexGrow: 1}}>
       <Container>
         {showTitle && (
-        <TitleContainer>
-          <ContainerTitle>Select Product</ContainerTitle>
-          <Tooltip
-            text={
-              'By selecting one of the products in the dropdown, you link your listing to our real-time market price database. This will help you better price your item, as well as prevent others from sending you unfair offers.'
-            }
-          />
-        </TitleContainer>
+          <TitleContainer>
+            <ContainerTitle>Select Product</ContainerTitle>
+            <Tooltip
+              text={
+                'By selecting one of the products in the dropdown, you link your listing to our real-time market price database. This will help you better price your item, as well as prevent others from sending you unfair offers.'
+              }
+            />
+          </TitleContainer>
         )}
         {renderSearchResults()}
       </Container>
