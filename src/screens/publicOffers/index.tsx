@@ -16,6 +16,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import CreatePublicOfferStepOne from './createPublicOfferStepOne';
 import CreatePublicOfferStepTwo from './createPublicOfferStepTwo';
 import CreatePublicOfferStepThree from './createPublicOfferStepThree';
+import CreatePublicOfferReview from './createPublicOfferReview';
 import {getMyDetailsNoLoadRequest} from '../../redux/modules';
 import {Alert} from 'custom_top_alert';
 
@@ -44,8 +45,8 @@ export const CreatePublicOfferScreen: FC<any> = () => {
   const [publicOffersData, setPublicOffersData] = useState({
     receivingStockxProducts: [],
     sendingProductIds: [],
-    receivingMoneyOffer: null,
-    sendingMoneyOffer: null,
+    receivingMoneyOffer: 0,
+    sendingMoneyOffer: 0,
   });
   const {
     receivingStockxProducts,
@@ -81,13 +82,26 @@ export const CreatePublicOfferScreen: FC<any> = () => {
     }
   };
 
+  const headerTitle = () => {
+    switch (currPage) {
+      case 0:
+      case 1:
+        return 'Public Offers'
+      case 2:
+        return 'Your loot'
+
+    }
+  };
+
   const renderTopView = () => (
     <>
       <LSStartTradeHeader
-        title={'Public Offers'}
-        subText={'Select up to 3 items you want to trade for'}
-        profilePicture={''}
-        showPfp={false}
+        title={headerTitle()}
+        subText={
+          headerTitle() !== 'Your loot' && 'Select up to 3 items you want to trade for'
+        }
+        profilePicture={userData?.profile_picture}
+        showPfp={headerTitle() === 'Your loot'}
         onBackPress={handleBack}
       />
       <ProgressBar progress={(currPage + 1) / NUMBER_OF_STEPS} />
@@ -142,7 +156,7 @@ export const CreatePublicOfferScreen: FC<any> = () => {
   };
 
   const renderSteps = () => {
-    return [1, 2, 3].map(data => {
+    return [1, 2, 3, 4].map(data => {
       switch (data) {
         case 1:
           return (
@@ -170,6 +184,16 @@ export const CreatePublicOfferScreen: FC<any> = () => {
               setMyItems={setMyItems}
             />
           );
+        case 4:
+          return (
+            <CreatePublicOfferReview
+              myItems={myItems}
+              setMyItems={setMyItems}
+              publicOffersData={publicOffersData}
+              setPublicOffersData={setPublicOffersData}
+            />
+          );
+
       }
     });
   };
