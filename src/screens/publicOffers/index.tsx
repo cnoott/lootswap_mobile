@@ -35,7 +35,9 @@ export const CreatePublicOfferScreen: FC<any> = () => {
     swiperRef?.current?.scrollTo(currPage - 1);
   };
   const handleNext = () => {
-    swiperRef?.current?.scrollTo(currPage + 1);
+    if (canGoNext()) {
+      swiperRef?.current?.scrollTo(currPage + 1);
+    }
   };
 
   useEffect(() => {
@@ -86,9 +88,11 @@ export const CreatePublicOfferScreen: FC<any> = () => {
     switch (currPage) {
       case 0:
       case 1:
-        return 'Public Offers'
+        return 'Public Offers';
       case 2:
-        return 'Your loot'
+        return 'Your loot';
+      case 3:
+        return 'Review Offer';
 
     }
   };
@@ -98,7 +102,7 @@ export const CreatePublicOfferScreen: FC<any> = () => {
       <LSStartTradeHeader
         title={headerTitle()}
         subText={
-          headerTitle() !== 'Your loot' && 'Select up to 3 items you want to trade for'
+          (currPage === 0 || currPage === 1) && 'Select up to 3 items you want to trade for'
         }
         profilePicture={userData?.profile_picture}
         showPfp={headerTitle() === 'Your loot'}
