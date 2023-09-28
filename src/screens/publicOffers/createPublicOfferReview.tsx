@@ -109,10 +109,7 @@ export const CreatePublicOfferReview: FC<ReviewProps> = props => {
       <>
         <TradeReviewText>Public Offer</TradeReviewText>
         {publicOffersData.receivingStockxProducts.map(item => (
-          <ReviewStockxItemCell
-            stockxProduct={item}
-            chosenSize={item?.chosenSize}
-          />
+          <ReviewStockxItemCell stockxProduct={item} />
         ))}
         <MarketValueContainer>
           <MarketValueTitle>Total Est. Market Value: </MarketValueTitle>
