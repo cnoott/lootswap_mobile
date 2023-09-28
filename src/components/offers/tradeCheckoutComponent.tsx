@@ -36,6 +36,7 @@ import {StripeProvider} from '@stripe/stripe-react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {ORDER_TRACK_PURCHASED} from 'localsvgimages';
 import {SvgXml} from 'react-native-svg';
+import ReviewStockxItemCell from '../../components/publicOffer/reviewStockxItemCell';
 
 interface TradeCheckoutComponentProps {
   recieverItems: Array<any>;
@@ -46,8 +47,9 @@ interface TradeCheckoutComponentProps {
   openPaymentSheet: Function;
   loading: boolean;
   isReciever?: boolean;
+  isFromPublicOffers?: boolean;
 }
-
+// Also used to checkout public offers
 export const TradeCheckoutComponent: FC<
   TradeCheckoutComponentProps
 > = props => {
@@ -60,6 +62,7 @@ export const TradeCheckoutComponent: FC<
     openPaymentSheet = () => {},
     loading,
     isReciever = false,
+    isFromPublicOffers = false,
   } = props;
 
   const navigation: NavigationProp<any, any> = useNavigation();
@@ -96,6 +99,17 @@ export const TradeCheckoutComponent: FC<
         )}
         {senderItems.map(item => {
           return <TradeCheckoutItemCell itemData={item} />;
+        })}
+      </EmptyView>
+    );
+  };
+
+  const renderStockxItems = () => {
+    return (
+      <EmptyView>
+        {renderHeading('You will receive')}
+        {recieverItems.map(item => {
+          return <ReviewStockxItemCell stockxProduct={item} />
         })}
       </EmptyView>
     );
@@ -193,7 +207,7 @@ export const TradeCheckoutComponent: FC<
             userDetails={userData}
             onPress={() => navigation.navigate('AddressScreenCheckout')}
           />
-          {renderRecieverItems()}
+          {isFromPublicOffers ? renderStockxItems() : renderRecieverItems()}
           {renderSendersItems()}
           <VerticalMargin />
           {!userData?.usedInitialPromo && (
