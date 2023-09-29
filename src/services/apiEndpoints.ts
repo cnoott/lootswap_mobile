@@ -494,6 +494,13 @@ export const getLikedProductsCall = (reqData: any) => {
   );
 };
 
+export const publicOfferCheckoutCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/create-public-offer/${reqData?.userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
