@@ -19,6 +19,7 @@ import CreatePublicOfferStepThree from './createPublicOfferStepThree';
 import CreatePublicOfferReview from './createPublicOfferReview';
 import {getMyDetailsNoLoadRequest} from '../../redux/modules';
 import {Alert} from 'custom_top_alert';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 const NUMBER_OF_STEPS = 4;
 
@@ -26,6 +27,7 @@ export const CreatePublicOfferScreen: FC<any> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const dispatch = useDispatch();
+  const navigation: NavigationProp<any, any> = useNavigation();
 
   const [myItems, setMyItems] = useState(userData?.my_items);
 
@@ -36,6 +38,12 @@ export const CreatePublicOfferScreen: FC<any> = () => {
   };
   const handleNext = () => {
     if (canGoNext()) {
+      if (currPage === 3) {
+        navigation?.navigate('CreatePublicOfferCheckoutScreen',{
+          publicOffersData: publicOffersData,
+          myItems: myItems,
+        });
+      }
       swiperRef?.current?.scrollTo(currPage + 1);
     }
   };
@@ -46,7 +54,7 @@ export const CreatePublicOfferScreen: FC<any> = () => {
 
   const [publicOffersData, setPublicOffersData] = useState({
     receivingStockxProducts: [],
-    sendingProductIds: [],
+    sendingProductIds: [], //remove later because we use myItems to keep track of items
     receivingMoneyOffer: 0,
     sendingMoneyOffer: 0,
   });
