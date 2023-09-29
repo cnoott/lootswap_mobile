@@ -281,3 +281,7 @@ export const CLEAR_FILTERS = {
 export const GET_AVALIABLE_SIZES = {
   ...createActionConst(actions.GET_AVALIABLE_SIZES),
 };
+
+export const PUBLIC_OFFER_CHECKOUT= {
+  ...createActionConst(actions.PUBLIC_OFFER_CHECKOUT),
+};
