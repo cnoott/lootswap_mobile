@@ -496,7 +496,7 @@ export const getLikedProductsCall = (reqData: any) => {
 
 export const publicOfferCheckoutCall = (reqData: any) => {
   return handleResponse(
-    api.post(`/create-public-offer/${reqData?.userId}`),
+    api.post(`/create-public-offer/${reqData?.userId}`, reqData),
     API_RESPONSE.CODE200,
   );
 };
