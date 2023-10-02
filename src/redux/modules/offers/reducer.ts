@@ -3,7 +3,8 @@
 import {GET_TRADES_HISTORY, GET_TRADE, GET_TRADE_STOCKX} from '../../../constants/actions';
 
 export interface TradeProps {
-  historyTrades: any;
+  historyTrades: Array<any>;
+  publicOffers: Array<any>
   trade: any;
 }
 
@@ -13,7 +14,8 @@ type ActionProps = {
 };
 
 export const InitialState: TradeProps = {
-  historyTrades: null,
+  historyTrades: [],
+  publicOffers: [],
   trade: null,
 };
 
@@ -29,7 +31,8 @@ export default function loading(state = InitialState, action: ActionProps) {
     case GET_TRADES_HISTORY.SUCCESS: {
       return {
         ...state,
-        historyTrades: payload,
+        historyTrades: payload.trades,
+        publicOffers: payload.publicOffers,
       };
     }
     case GET_TRADES_HISTORY.FAILURE: {
@@ -46,8 +49,6 @@ export default function loading(state = InitialState, action: ActionProps) {
     }
     case GET_TRADE_STOCKX.SUCCESS:
     case GET_TRADE.SUCCESS: {
-      console.log('TRADE SUCCESS', payload.recieverItems);
-      console.log('TRADE SUCCESS2', payload.senderItems);
       const filteredReceiverItems = payload?.reciever?.my_items.filter(
         item => item.isVisible && item.isVirtuallyVerified,
       );
