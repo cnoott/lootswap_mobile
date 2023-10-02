@@ -6,6 +6,7 @@ import {
   SIGN_UP_DATA,
   GET_USER_DETAILS,
   GET_MY_DETAILS,
+  GET_USER_DETAILS_W_STOCKX,
   SET_REG_TOKEN,
   GET_MY_DETAILS_NO_LOAD,
   LIKE_PRODUCT,
@@ -57,6 +58,8 @@ import {
   saveReferralLinkFailure,
   saveSearchSuccess,
   saveSearchFailure,
+  getUserDetailsWStockxFailure,
+  getUserDetailsWStockxSuccess,
 } from './actions';
 import {
   signIn,
@@ -78,6 +81,7 @@ import {
   versionCheckCall,
   saveReferralLinkCall,
   getLikedProductsCall,
+  getUserDetailsWStockxCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
@@ -234,6 +238,22 @@ export function* getMyDetailsNoLoad(action: any) {
       yield put(getMyDetailsSuccess(response.data));
     } else {
       yield put(getMyDetailsFailure(response.error));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* getUserDetailsWStockx(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      getUserDetailsWStockxCall,
+      action?.userId,
+    );
+    if (response?.success) {
+      yield put(getUserDetailsWStockxSuccess(response.data));
+    } else {
+      yield put(getUserDetailsWStockxFailure(response.error));
     }
   } catch (e) {
     console.log(e);

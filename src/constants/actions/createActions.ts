@@ -40,6 +40,10 @@ export const GET_MY_DETAILS_NO_LOAD = {
   ...createActionConst(actions.GET_MY_DETAILS_NO_LOAD),
 };
 
+export const GET_USER_DETAILS_W_STOCKX = {
+  ...createActionConst(actions.GET_USER_DETAILS_W_STOCKX),
+};
+
 export const GET_PRODUCT_DETAILS = {
   ...createActionConst(actions.GET_PRODUCT_DETAILS),
 };

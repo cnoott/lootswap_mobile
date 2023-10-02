@@ -71,6 +71,13 @@ export const getRequestedUserDetailsCall = (userId: string) => {
   return handleResponse(api.get(`user/${userId}`), API_RESPONSE.CODE200);
 };
 
+export const getUserDetailsWStockxCall = (userId: string) => {
+  return handleResponse(
+    api.get(`user-with-stockx/${userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const getRequestedProductDetailsCall = (productId: string) => {
   return handleResponse(api.get(`product/${productId}`), API_RESPONSE.CODE200);
 };

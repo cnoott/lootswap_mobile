@@ -10,6 +10,7 @@ import {
   GET_MY_DETAILS,
   SET_REG_TOKEN,
   GET_MY_DETAILS_NO_LOAD,
+  GET_USER_DETAILS_W_STOCKX,
   SET_FCM_TOKEN,
   UPDATE_USER,
   DELETE_NOTIF,
@@ -238,11 +239,13 @@ export default function auth(state = InitialState, action: ActionProps) {
         ...state,
       };
     }
+    case GET_USER_DETAILS_W_STOCKX.REQUEST:
     case GET_MY_DETAILS_NO_LOAD.REQUEST: {
       return {
         ...state,
       };
     }
+    case GET_USER_DETAILS_W_STOCKX.SUCCESS:
     case GET_MY_DETAILS_NO_LOAD.SUCCESS: {
       const my_items = payload.my_items.filter(
         item => item.isVisible && item.isVirtuallyVerified,
@@ -252,6 +255,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         userData: {...state.userData, ...payload, my_items},
       };
     }
+    case GET_USER_DETAILS_W_STOCKX.FAILURE:
     case GET_MY_DETAILS_NO_LOAD.FAILURE: {
       return {
         ...state,
