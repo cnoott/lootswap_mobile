@@ -171,7 +171,9 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const FirstRoute = () => (
-    <></>
+    <TabContainer>
+
+    </TabContainer>
   );
 
   const SecondRoute = () => (
