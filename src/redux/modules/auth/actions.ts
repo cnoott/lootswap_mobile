@@ -5,6 +5,7 @@ import {
   PROFILE_IMG_UPLOAD,
   GET_USER_DETAILS,
   GET_MY_DETAILS,
+  GET_USER_DETAILS_W_STOCKX,
   SAVE_NOTIF_PERMISSION,
   SET_REG_TOKEN,
   GET_MY_DETAILS_NO_LOAD,
@@ -167,6 +168,27 @@ export const getMyDetailsSuccess = (payload: any) => {
 export const getMyDetailsFailure = (error: any) => {
   return {
     type: GET_MY_DETAILS.FAILURE,
+    error,
+  };
+};
+
+export const getUserDetailsWStockxRequest = (userId: string) => {
+  return {
+    type: GET_USER_DETAILS_W_STOCKX.REQUEST,
+    userId,
+  };
+};
+
+export const getUserDetailsWStockxSuccess = (payload: any) => {
+  return {
+    type: GET_USER_DETAILS_W_STOCKX.SUCCESS,
+    payload,
+  };
+};
+
+export const getUserDetailsWStockxFailure = (error: any) => {
+  return {
+    type: GET_USER_DETAILS_W_STOCKX.FAILURE,
     error,
   };
 };
