@@ -43,9 +43,9 @@ export const KeyboardAvoidingView = styled.KeyboardAvoidingView.attrs(() => ({
 export const CustomTabBar = styled(TabBar).attrs(props => ({
   indicatorStyle: {
     backgroundColor: props?.theme?.colors?.primary,
-    width: scale(20),
+    width: scale(40),
     height: scale(3),
-    left: (Dimensions.get('window').width / 2 - scale(20)) / 2,
+    left: (Dimensions.get('window').width / 2 - scale(99)) / 2,
   },
   indicatorContainerStyle: {
     flex: 1,
