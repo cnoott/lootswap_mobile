@@ -43,8 +43,9 @@ export const OffersScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [index, setIndex] = useState(0);
   const [routes] = React.useState([
-    {key: 'first', title: 'Trade offers'},
-    {key: 'second', title: 'Messages'},
+    {key: 'first', title: 'Public Offers'},
+    {key: 'second', title: 'Trade offers'},
+    {key: 'third', title: 'Messages'},
   ]);
   const [selectedTrade, setSelectedTrade] = useState(null);
   const dispatch = useDispatch();
@@ -170,6 +171,10 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const FirstRoute = () => (
+    <></>
+  );
+
+  const SecondRoute = () => (
     <TabContainer>
       <OffersListView
         data={historyTrades}
@@ -184,7 +189,7 @@ export const OffersScreen: FC<{}> = () => {
     </TabContainer>
   );
 
-  const SecondRoute = () => (
+  const ThirdRoute = () => (
     <TabContainer>
       <MessagesListView
         data={allMyMessages?.messageDocs || []}
@@ -209,10 +214,11 @@ export const OffersScreen: FC<{}> = () => {
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
+    third: ThirdRoute,
   });
   return (
     <Container>
-      <InStackHeader back={false} title={'Trade feed'} centerAligned={true} />
+      <InStackHeader back={false} title={'Inbox'} centerAligned={true} />
       <TopTabView
         navigationState={{index, routes}}
         renderTabBar={renderTabBar}
