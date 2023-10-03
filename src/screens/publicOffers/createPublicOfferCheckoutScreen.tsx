@@ -87,6 +87,11 @@ export const CreatePublicOfferCheckoutScreen: FC<any> = ({route}) => {
       console.log('error payment sheet', error);
     } else {
       console.log('SUCCESSS!!!');
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Offers/Inbox'}],
+      });
+
     }
   };
 
