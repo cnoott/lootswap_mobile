@@ -38,6 +38,8 @@ import {
   MessageCellContainer,
   ProductNameLabel,
 } from './styles';
+import PublicOfferCell from '../../components/publicOffer/PublicOfferCell';
+
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -52,7 +54,7 @@ export const OffersScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const tradesData: TradeProps = useSelector(state => state.offers);
-  const {historyTrades} = tradesData;
+  const {historyTrades, publicOffers} = tradesData;
   const messagesStoreData: MessageProps = useSelector(state => state.message);
   const {allMyMessages} = messagesStoreData;
 
@@ -126,6 +128,23 @@ export const OffersScreen: FC<{}> = () => {
     setSelectedTrade(item._id);
     navigation.navigate('OffersMessageScreen', {item});
   };
+
+  const renderPublicOfferItem = ({item}: any) => {
+    return (
+      <OfferCellContainer
+        key={item._id}
+        onPress={() => {}}
+      >
+        <PublicOfferCell
+          receivingStockxIds={item?.receivingStockxIds}
+          sendingProductIds={item?.sendingProductIds}
+          receivingMoneyOffer={item?.receivingMoneyOffer}
+          sendingMoneyOffer={item?.sendingMoneyOffer}
+        />
+      </OfferCellContainer>
+    );
+  };
+
   const renderOfferItem = ({item}: any) => {
     return (
       <OfferCellContainer
@@ -172,7 +191,15 @@ export const OffersScreen: FC<{}> = () => {
 
   const FirstRoute = () => (
     <TabContainer>
-
+      <OffersListView
+        data={publicOffers}
+        renderItem={renderPublicOfferItem}
+        keyExtractor={item => item?._id}
+        ListEmptyComponent={() => <NoOffersView navigation={navigation} />}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={onTradeOffersRefresh} />
+        }
+      />
     </TabContainer>
   );
 

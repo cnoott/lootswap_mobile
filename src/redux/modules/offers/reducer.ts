@@ -29,6 +29,7 @@ export default function loading(state = InitialState, action: ActionProps) {
       };
     }
     case GET_TRADES_HISTORY.SUCCESS: {
+      console.log('PAYPLOAD', payload);
       return {
         ...state,
         historyTrades: payload.trades,
