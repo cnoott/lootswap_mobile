@@ -248,6 +248,7 @@ export const Image: any = styled.Image.attrs((props: any) => ({
   width: scale(props?.size ? props?.size : productImageWidth),
   height: scale(props?.size ? props?.size : productImageWidth),
   borderRadius: scale(10),
+  resizeMode: props?.isStockxItem ? 'contain' : '',
 }))`
   position: absolute;
   align-self: center;
@@ -260,7 +261,7 @@ export const ImageContainer: any = styled.View.attrs((props: any) => ({
   height: scale(props?.size ? props?.size : productImageWidth),
   width: scale(props?.size ? props?.size : productImageWidth),
   borderRadius: scale(10),
-  bg: props.theme.colors.grey,
+  bg: props.theme.colors.white,
   mx: scale(2.5),
   mb: scale(5),
   activeOpacity: 1,
@@ -274,7 +275,7 @@ export const ImageContainerDouble: any = styled.View.attrs((props: any) => ({
   height: scale(props?.size ? props?.size : productImageWidth),
   width: scale(props?.size ? props?.size : productImageWidth),
   borderRadius: scale(10),
-  bg: props.theme.colors.grey,
+  bg: props.theme.colors.white,
   activeOpacity: 1,
 }))`
   align-items: center;
