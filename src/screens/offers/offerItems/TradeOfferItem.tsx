@@ -24,6 +24,7 @@ interface TradeOfferItemProp {
   items: Array<any>;
   moneyOffer: Number;
   isInTrade?: boolean;
+  isStockxItem?: boolean;
 }
 
 export interface ListRenderItemInfo {
@@ -37,10 +38,17 @@ export interface ListRenderItemInfo {
 }
 
 export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
-  const {items, moneyOffer, isInTrade} = props;
+  const {items, moneyOffer, isInTrade, isStockxItem = false} = props;
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const renderDefaultView = () => {
     return <ImageContainer />;
+  };
+
+  const getImageUri = (item: any) => {
+    if (isStockxItem) {
+      return item?.image;
+    }
+    return item?.primary_photo;
   };
 
   const renderSingleMoneyOfferView = () => {
@@ -52,19 +60,23 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
   };
 
   const renderSingleView = () => {
-    const itemPhoto = items[0]?.primary_photo;
+    const itemPhoto = getImageUri(items[0]);
     return (
       <ImageContainer>
-        <Image source={{uri: itemPhoto}} />
+        <Image isStockxItem={isStockxItem} source={{uri: itemPhoto}} />
       </ImageContainer>
     );
   };
 
   const renderSingleViewWithOffer = () => {
-    const itemPhoto = items[0]?.primary_photo;
+    const itemPhoto = getImageUri(items[0]);
     return (
       <OfferItemContainerCenter itemsCenter={true}>
-        <Image source={{uri: itemPhoto}} size={115} />
+        <Image
+          source={{uri: itemPhoto}}
+          size={115}
+          isStockxItem={isStockxItem}
+        />
         <SingleViewOffer>
           <OfferText>+${moneyOffer}</OfferText>
         </SingleViewOffer>
@@ -73,12 +85,17 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
   };
   const renderDoubleView = (isOffer: boolean = false) => {
     const _size = 70;
-    const itemLeftPhoto = items[0]?.primary_photo;
-    const itemRightPhoto = items[1]?.primary_photo;
+    const itemLeftPhoto = getImageUri(items[0]);
+    const itemRightPhoto = getImageUri(items[1]);
+
     return (
       <OfferItemContainer>
         <ImageContainer size={_size}>
-          <Image source={{uri: itemLeftPhoto}} size={_size} />
+          <Image
+            source={{uri: itemLeftPhoto}}
+            size={_size}
+            isStockxItem={isStockxItem}
+          />
         </ImageContainer>
         {isOffer && (
           <DoubleViewOffer>
@@ -86,7 +103,11 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
           </DoubleViewOffer>
         )}
         <ImageContainerDouble size={_size}>
-          <Image source={{uri: itemRightPhoto}} size={_size} />
+          <Image
+            source={{uri: itemRightPhoto}}
+            size={_size}
+            isStockxItem={isStockxItem}
+          />
         </ImageContainerDouble>
       </OfferItemContainer>
     );
@@ -94,7 +115,7 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
   const renderTrippleView = (showMoneyOffer: boolean = false) => {
     const _size = 58;
     const photoArray = items.map((item: any) => {
-      return item?.primary_photo;
+      return isStockxItem ? item?.image : item?.primary_photo;
     });
     // Adding one extra element to show money offer view at last
     if (showMoneyOffer) {
@@ -115,7 +136,11 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
       }
       return (
         <ImageContainer size={_size}>
-          <Image source={{uri: item}} size={_size} />
+          <Image
+            source={{uri: item}}
+            size={_size}
+            isStockxItem={isStockxItem}
+          />
         </ImageContainer>
       );
     };
