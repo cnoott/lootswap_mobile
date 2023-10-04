@@ -94,7 +94,7 @@ export const OffersScreen: FC<{}> = () => {
         }),
       );
       dispatch(getAllMyMessages(userData?._id));
-    }, [userData?._id, dispatch]),
+    }, [userData?._id, dispatch, publicOfferFilter]),
   );
 
   const onTradeOffersRefresh = () => {
