@@ -2,6 +2,7 @@ import {
   GET_PRODUCT_DETAILS,
   ADD_PRODUCT,
   GET_PRODUCT_LISTED_ITEMS,
+  GET_HOMESCREEN_PUBLIC_OFFERS,
   SEND_TRADE_OFFER,
   CREATE_NEW_PRODUCT,
   FETCH_MARKET_DATA,
@@ -180,6 +181,19 @@ export const getHomeScreenProducts = (
 ) => {
   return {
     type: GET_HOMESCREEN_PRODUCTS.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const getHomeScreenPublicOffers = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: GET_HOMESCREEN_PUBLIC_OFFERS.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
