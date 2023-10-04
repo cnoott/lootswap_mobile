@@ -109,7 +109,7 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
     const itemRightPhoto = getImageUri(items[1]);
 
     return (
-      <OfferItemContainer size={moderateScale(90)}>
+      <OfferItemContainer size={isFromHome ? moderateScale(90) : undefined}>
         <ImageContainer size={isFromHome ? fromHomeSize : _size}>
           <Image
             source={{uri: itemLeftPhoto}}
