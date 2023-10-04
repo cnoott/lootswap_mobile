@@ -124,6 +124,24 @@ export const OffersScreen: FC<{}> = () => {
     );
   };
 
+  const RenderPublicOfferUserDetails = ({user}: any) => {
+    return (
+      <RowView>
+        <EmptyRowView>
+          <LSProfileImageComponent
+            profileUrl={user?.profile_picture}
+            imageHeight={50}
+            imageWidth={50}
+            imageRadius={30}
+          />
+          <OwnerDetailsView>
+            <NameLabel>{user.name}</NameLabel>
+          </OwnerDetailsView>
+        </EmptyRowView>
+      </RowView>
+    );
+  };
+
   const tradeOfferCellOnPress = (item) => {
     setSelectedTrade(item._id);
     navigation.navigate('OffersMessageScreen', {item});
@@ -135,6 +153,7 @@ export const OffersScreen: FC<{}> = () => {
         key={item._id}
         onPress={() => {}}
       >
+        <RenderPublicOfferUserDetails user={item?.userId}/>
         <PublicOfferCell
           receivingStockxIds={item?.receivingStockxIds}
           sendingProductIds={item?.sendingProductIds}

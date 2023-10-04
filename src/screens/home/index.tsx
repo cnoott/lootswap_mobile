@@ -8,6 +8,7 @@ import CarouselComponent from '../../components/Carousel';
 import {
   Container,
   FlatList,
+  PublicOffersFlatList,
   SearchContainer,
   SectionContainer,
   SectionTopContainer,
@@ -25,14 +26,20 @@ import {
   LoadingRequest,
   LoadingSuccess,
 } from '../../redux/modules/loading/actions';
-import {getHomeScreenProducts, getMyDetailsNoLoadRequest} from '../../redux/modules';
+import {
+  getHomeScreenProducts,
+  getMyDetailsNoLoadRequest,
+  getHomeScreenPublicOffers,
+} from '../../redux/modules';
 import {useDispatch, useSelector} from 'react-redux';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {Size, Type} from '../../enums';
 import LSButton from '../../components/commonComponents/LSButton';
+import PublicOfferCell from '../../components/publicOffer/PublicOfferCell';
 
 const ITEMS_PER_PAGE = 8;
+const PUBLIC_OFFERS_PER_PAGE = 4;
 
 export const HomeScreen: FC<{}> = () => {
   useFCMNotifications();
@@ -43,12 +50,13 @@ export const HomeScreen: FC<{}> = () => {
   const scrollRef = React.useRef(null);
   useScrollToTop(scrollRef);
 
-
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData, isLogedIn} = auth;
 
   const [products, setProducts] = useState([]);
+  const [publicOffers, setPublicOffers] = useState([]);
   const [page, setPage] = useState(0);
+  const [publicOffersPage, setPublicOffersPage] = useState(0);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -74,6 +82,24 @@ export const HomeScreen: FC<{}> = () => {
       dispatch(getMyDetailsNoLoadRequest(userData?._id));
     }
   }, [page]);
+
+  useEffect(() => {
+    const reqData = {
+      itemsPerPage: PUBLIC_OFFERS_PER_PAGE,
+      page: publicOffersPage,
+    };
+    dispatch(
+      getHomeScreenPublicOffers(
+        reqData,
+        (res: any) => {
+          setPublicOffers([...publicOffers, ...res]);
+        },
+        (err: any) => {
+          console.log('ERR => ', err);
+        },
+      ),
+    );
+  }, [publicOffersPage]);
 
   const handleRefresh = async () => {
     console.log('RERESHING');
@@ -112,6 +138,19 @@ export const HomeScreen: FC<{}> = () => {
     }
   };
 
+  const renderPublicOfferItem = ({item}: any) => {
+    console.log('ITEM', item);
+    return (
+      <PublicOfferCell
+        receivingStockxIds={item.receivingStockxIds}
+        sendingProductIds={item.sendingProductIds}
+        receivingMoneyOffer={item.receivingMoneyOffer}
+        sendingMoneyOffer={item.sendingMoneyOffer}
+        isFromHome={true}
+      />
+    );
+  };
+
   const renderItem = ({item}: any) => {
     if (loading) {
       //return <LoadingProductCard />
@@ -136,6 +175,12 @@ export const HomeScreen: FC<{}> = () => {
             onPress={() => navigation?.navigate('CreatePublicOfferScreen')}
           />
         </SectionTopContainer>
+        <PublicOffersFlatList
+          data={publicOffers}
+          renderItem={renderPublicOfferItem}
+          keyExtractor={item => item?._id}
+          horizontal={true}
+        />
       </SectionContainer>
     );
   };

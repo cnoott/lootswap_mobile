@@ -40,6 +40,15 @@ export const FlatList = styled.FlatList.attrs(() => ({
   ${layout}
 `;
 
+export const PublicOffersFlatList = styled.FlatList.attrs(() => ({
+  contentContainerStyle: {flexGrow: 1, backgroundColor: 'white'},
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+
 export const CarousalContainer = styled.View.attrs(() => ({
   width: '100%',
 }))`
