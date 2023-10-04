@@ -254,6 +254,13 @@ export const PublicOfferItemContainer = styled.View.attrs((props: any) => ({
   ${layout}
 `;
 
+export const PublicOffersFilterContainer = styled.View.attrs(props => ({
+  p: scale(5),
+}))`
+  align-items: flex-end;
+  ${layout} ${color} ${space} ${border};
+`;
+
 export const BottomRowView = styled.View.attrs((props: any) => ({
   mt: scale(props?.topMargin || 20),
   borderWidth: props.isFromHome ? 2 : 0,
@@ -628,3 +635,13 @@ export const SingleMoneyOfferContainer = styled.View.attrs(props => ({
   justify-content: center;
   ${layout} ${color} ${space};
 `;
+
+export const SizeDropdownStyle = {
+  width: scale(120),
+};
+export const ItemTextStyle = {
+  fontSize: scale(13),
+  fontFamily: 'Urbanist-Bold',
+  fontWeight: '400',
+  color: 'black',
+};
