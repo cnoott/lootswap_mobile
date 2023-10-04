@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import {border, color, layout, space} from 'styled-system';
-import {moderateScale, scale} from 'react-native-size-matters';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 
 export const Container = styled.View.attrs(props => ({
   flex: 1,
@@ -42,12 +42,13 @@ export const FlatList = styled.FlatList.attrs(() => ({
 
 export const PublicOffersFlatList = styled.FlatList.attrs(() => ({
   contentContainerStyle: {flexGrow: 1, backgroundColor: 'white'},
+  height: scale(160),
+  mb: scale(10),
 }))`
   ${color}
   ${space}
   ${layout}
 `;
-
 
 export const CarousalContainer = styled.View.attrs(() => ({
   width: '100%',

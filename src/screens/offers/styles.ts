@@ -235,13 +235,38 @@ export const EmptyRowView = styled.View`
   width: 55%;
 `;
 
+export const AboveItemLabel: any = styled.Text.attrs(props => ({
+  color: props.theme.colors.greySecondary,
+  mb: scale(5),
+}))`
+  font-size: ${moderateScale(15)}px;
+  font-family: Urbanist-Bold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const PublicOfferItemContainer = styled.View.attrs((props: any) => ({
+  px: scale(10),
+}))`
+  ${space}
+  ${border}
+  ${layout}
+`;
+
 export const BottomRowView = styled.View.attrs((props: any) => ({
   mt: scale(props?.topMargin || 20),
+  borderWidth: props.isFromHome ? 2 : 0,
+  borderColor: props.isFromHome ? '#F3F3F3' : '',
+  borderRadius: 20,
+  mr: props.isFromHome ? scale(10) : 0,
 }))`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
   ${space}
+  ${border}
+  ${layout}
 `;
 
 export const Image: any = styled.Image.attrs((props: any) => ({
@@ -286,18 +311,18 @@ export const ImageContainerDouble: any = styled.View.attrs((props: any) => ({
   ${layout} ${color} ${space} ${border};
 `;
 
-export const OfferItemContainer = styled.View.attrs(() => ({
-  height: scale(productImageWidth),
-  width: scale(productImageWidth),
+export const OfferItemContainer = styled.View.attrs(props => ({
+  height: scale(props?.size ? props.size : productImageWidth),
+  width: scale(props?.size ? props.size : productImageWidth),
   borderRadius: scale(10),
   mr: scale(5),
 }))`
   ${layout} ${color} ${space};
 `;
 
-export const OfferItemContainerCenter = styled.View.attrs(() => ({
-  height: scale(productImageWidth),
-  width: scale(productImageWidth),
+export const OfferItemContainerCenter = styled.View.attrs(props => ({
+  height: scale(props?.size ? props.size : productImageWidth),
+  width: scale(props?.size ? props.size : productImageWidth),
   borderRadius: scale(10),
   mr: scale(5),
 }))`
@@ -319,7 +344,7 @@ export const SwapButtonContainer = styled.TouchableOpacity.attrs(props => ({
 `;
 
 export const SwapLine = styled.View.attrs(props => ({
-  height: scale(productImageWidth),
+  height: scale(props?.size ? props.size : productImageWidth),
   width: scale(2),
   bg: props.theme.colors.divider,
   alignSelf: 'center',
@@ -403,6 +428,7 @@ export const OfferItemList = styled.FlatList.attrs(() => ({
     flexGrow: 1,
   },
   numColumns: 2,
+  justifyContent: 'center',
 }))`
   ${color}
   ${space}

@@ -9,6 +9,8 @@ import {
   EmptyView,
   SwapLine,
   SwapButtonContainer,
+  AboveItemLabel,
+  PublicOfferItemContainer,
 } from '../../screens/offers/styles';
 import {SvgXml} from 'react-native-svg';
 import {SWAP_ICON} from 'localsvgimages';
@@ -18,6 +20,7 @@ interface PublicOfferProps {
   sendingProductIds: Array<any>;
   receivingMoneyOffer: Number;
   sendingMoneyOffer: Number;
+  isFromHome?: Boolean;
 }
 
 export const PublicOfferCell: FC<PublicOfferProps> = props => {
@@ -26,11 +29,12 @@ export const PublicOfferCell: FC<PublicOfferProps> = props => {
     sendingProductIds,
     receivingMoneyOffer,
     sendingMoneyOffer,
+    isFromHome = false,
   } = props;
   const renderSwapView = () => {
     return (
       <EmptyView>
-        <SwapLine />
+        <SwapLine size={95}/>
         <SwapButtonContainer>
           <SvgXml xml={SWAP_ICON} />
         </SwapButtonContainer>
@@ -40,20 +44,28 @@ export const PublicOfferCell: FC<PublicOfferProps> = props => {
 
 
   return (
-    <BottomRowView topMargin={5}>
-      <TradeOfferItem
-        items={receivingStockxIds}
-        moneyOffer={receivingMoneyOffer}
-        isInTrade={false}
-        isStockxItem={true}
-      />
+    <BottomRowView topMargin={5} isFromHome={isFromHome}>
+      <PublicOfferItemContainer>
+        <AboveItemLabel>Your</AboveItemLabel>
+        <TradeOfferItem
+          items={receivingStockxIds}
+          moneyOffer={receivingMoneyOffer}
+          isInTrade={false}
+          isStockxItem={true}
+          isFromHome={isFromHome}
+        />
+      </PublicOfferItemContainer>
       {renderSwapView()}
-      <TradeOfferItem
-        items={sendingProductIds}
-        moneyOffer={sendingMoneyOffer}
-        isInTrade={false}
-        isStockxItem={false}
-      />
+      <PublicOfferItemContainer>
+        <AboveItemLabel>For</AboveItemLabel>
+        <TradeOfferItem
+          items={sendingProductIds}
+          moneyOffer={sendingMoneyOffer}
+          isInTrade={false}
+          isStockxItem={false}
+          isFromHome={isFromHome}
+        />
+      </PublicOfferItemContainer>
     </BottomRowView>
   );
 }
