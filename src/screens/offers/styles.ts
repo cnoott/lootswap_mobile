@@ -435,7 +435,7 @@ export const OfferItemList = styled.FlatList.attrs(() => ({
     flexGrow: 1,
   },
   numColumns: 2,
-  justifyContent: 'center',
+  alignItems: 'center',
 }))`
   ${color}
   ${space}
