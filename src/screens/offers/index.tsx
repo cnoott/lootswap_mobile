@@ -8,12 +8,14 @@ import {SceneMap} from 'react-native-tab-view';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {getTradesHistory, getAllMyMessages} from '../../redux/modules';
+import {getTradesHistory, getAllMyMessages, getPublicOffers} from '../../redux/modules';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
+import {SvgXml} from 'react-native-svg';
+import {STOCKX_SEARCH_DROP_DOWN_ARROW} from 'localsvgimages';
 import TradeOfferCell from './offerItems/TradeOfferCell';
 import NoOffersView from './offerItems/NoOffersView';
 import {getTradeStatusColor, daysPast} from '../../utility/utility';
@@ -37,13 +39,23 @@ import {
   MessagesListView,
   MessageCellContainer,
   ProductNameLabel,
+  PublicOffersFilterContainer,
+  SizeDropdownStyle,
+  ItemTextStyle,
 } from './styles';
+import {
+  SelectedTextStyle,
+} from '../search/stockxScreenStyles';
+import {Dropdown} from 'react-native-element-dropdown';
+
 import PublicOfferCell from '../../components/publicOffer/PublicOfferCell';
 
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [index, setIndex] = useState(0);
+  const [publicOfferFilter, setPublicOfferFilter] = useState({value: 'For You'});
+  const [publicOffers, setPublicOffers] = useState([]);
   const [routes] = React.useState([
     {key: 'first', title: 'Public Offers'},
     {key: 'second', title: 'Trade offers'},
@@ -54,12 +66,28 @@ export const OffersScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const tradesData: TradeProps = useSelector(state => state.offers);
-  const {historyTrades, publicOffers} = tradesData;
+  const {historyTrades} = tradesData;
   const messagesStoreData: MessageProps = useSelector(state => state.message);
   const {allMyMessages} = messagesStoreData;
 
   useFocusEffect(
     React.useCallback(() => {
+      const reqData = {
+        type: publicOfferFilter.value,
+        userId: userData?._id,
+      };
+      dispatch(
+        getPublicOffers(
+          reqData,
+          res => {
+            setPublicOffers(res);
+          },
+          err => {
+            console.log('Err => ', err);
+          },
+        ),
+      );
+
       dispatch(
         getTradesHistory({
           userId: userData?._id,
@@ -210,6 +238,22 @@ export const OffersScreen: FC<{}> = () => {
 
   const FirstRoute = () => (
     <TabContainer>
+      <PublicOffersFilterContainer>
+        <Dropdown
+          style={[SizeDropdownStyle]}
+          selectedTextStyle={SelectedTextStyle}
+          placeholderStyle={SelectedTextStyle}
+          itemTextStyle={ItemTextStyle}
+          placeholder={'For You'}
+          labelField={'value'}
+          valueField={'value'}
+          onChange={item => setPublicOfferFilter(item)}
+          data={[{value: 'For You'}, {value: 'My Public Offers'}, {value: 'All'}]}
+          value={publicOfferFilter}
+          maxHeight={300}
+          renderRightIcon={() => <SvgXml xml={STOCKX_SEARCH_DROP_DOWN_ARROW} />}
+        />
+      </PublicOffersFilterContainer>
       <OffersListView
         data={publicOffers}
         renderItem={renderPublicOfferItem}
