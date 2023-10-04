@@ -511,10 +511,18 @@ export const publicOfferCheckoutCall = (reqData: any) => {
 export const getHomeScreenPublicOffersCall = (reqData: any) => {
   return handleResponse(
     api.get(
-      `/public-offers/?skip=${reqData.page * reqData.itemsPerPage}&limit=${
+      `/home-public-offers/?skip=${reqData.page * reqData.itemsPerPage}&limit=${
         reqData.itemsPerPage
       }`,
     ),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const getPublicOffersCall = (reqData: any) => {
+  const type = encodeURIComponent(reqData.type);
+  return handleResponse(
+    api.get(`/public-offers/${reqData?.userId}/?type=${type}`),
     API_RESPONSE.CODE200,
   );
 };

@@ -290,6 +290,10 @@ export const GET_AVALIABLE_SIZES = {
   ...createActionConst(actions.GET_AVALIABLE_SIZES),
 };
 
-export const PUBLIC_OFFER_CHECKOUT= {
+export const PUBLIC_OFFER_CHECKOUT = {
   ...createActionConst(actions.PUBLIC_OFFER_CHECKOUT),
+};
+
+export const GET_PUBLIC_OFFERS = {
+  ...createActionConst(actions.GET_PUBLIC_OFFERS),
 };

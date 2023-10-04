@@ -12,6 +12,7 @@ import {
   START_MONEY_OFFER_TRADE,
   EDIT_TRADE_CHECKOUT,
   PUBLIC_OFFER_CHECKOUT,
+  GET_PUBLIC_OFFERS,
 } from '../../../constants/actions';
 
 export const getTradesHistory = (reqData: any) => {
@@ -228,6 +229,19 @@ export const publicOfferCheckout = (
 ) => {
   return {
     type: PUBLIC_OFFER_CHECKOUT.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const getPublicOffers = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: GET_PUBLIC_OFFERS.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
