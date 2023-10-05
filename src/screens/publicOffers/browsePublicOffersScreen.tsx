@@ -42,7 +42,7 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
       pagination: true,
       page: page,
       itemsPerPage: ITEMS_PER_PAGE,
-      showLoad: true,
+      showLoad: page > 0 ? false : true,
     };
     setLoading(true);
     dispatch(
@@ -93,7 +93,7 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
           renderItem={renderPublicOfferItem}
           keyExtractor={item => item?._id}
           onEndReached={() => onEndReached()}
-          onEndReachedThreshold={0.1}
+          onEndReachedThreshold={0.99}
         />
       </BrowsePublicOffersContainer>
       {renderBottomButtonView()}

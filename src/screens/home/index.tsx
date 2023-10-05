@@ -209,6 +209,7 @@ export const HomeScreen: FC<{}> = () => {
           keyExtractor={item => item?._id}
           horizontal={true}
           onEndReached={() => onPublicOffersEndReached()}
+          onEndReachedThreshold={0.9}
         />
       </SectionContainer>
     );
