@@ -30,6 +30,7 @@ import {
   getHomeScreenProducts,
   getMyDetailsNoLoadRequest,
   getHomeScreenPublicOffers,
+  getPublicOffers,
 } from '../../redux/modules';
 import {useDispatch, useSelector} from 'react-redux';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -37,6 +38,7 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 import {Size, Type} from '../../enums';
 import LSButton from '../../components/commonComponents/LSButton';
 import PublicOfferCell from '../../components/publicOffer/PublicOfferCell';
+import { getUniqueId } from 'react-native-device-info';
 
 const ITEMS_PER_PAGE = 8;
 const PUBLIC_OFFERS_PER_PAGE = 4;
@@ -84,21 +86,42 @@ export const HomeScreen: FC<{}> = () => {
   }, [page]);
 
   useEffect(() => {
-    const reqData = {
-      itemsPerPage: PUBLIC_OFFERS_PER_PAGE,
-      page: publicOffersPage,
-    };
-    dispatch(
-      getHomeScreenPublicOffers(
-        reqData,
-        (res: any) => {
-          setPublicOffers([...publicOffers, ...res]);
-        },
-        (err: any) => {
-          console.log('ERR => ', err);
-        },
-      ),
-    );
+    if (isLogedIn) {
+      const reqData = {
+        type: 'Browse',
+        userId: userData?._id,
+        pagination: true,
+        page: page,
+        itemsPerPage: PUBLIC_OFFERS_PER_PAGE,
+      };
+      dispatch(
+        getPublicOffers(
+          reqData,
+          (res: any) => {
+            setPublicOffers([...publicOffers, ...res]);
+          },
+          (err: any) => {
+            console.log('ERR => ', err);
+          },
+        ),
+      );
+    } else {
+      const reqData = {
+        itemsPerPage: PUBLIC_OFFERS_PER_PAGE,
+        page: publicOffersPage,
+      };
+      dispatch(
+        getHomeScreenPublicOffers(
+          reqData,
+          (res: any) => {
+            setPublicOffers([...publicOffers, ...res]);
+          },
+          (err: any) => {
+            console.log('ERR => ', err);
+          },
+        ),
+      );
+    }
   }, [publicOffersPage]);
 
   const handleRefresh = async () => {
@@ -136,6 +159,10 @@ export const HomeScreen: FC<{}> = () => {
     if (!loading) {
       setPage(prevPage => prevPage + 1);
     }
+  };
+
+  const onPublicOffersEndReached = () => {
+    setPublicOffersPage(prevPage => prevPage + 1);
   };
 
   const renderPublicOfferItem = ({item}: any) => {
@@ -180,6 +207,7 @@ export const HomeScreen: FC<{}> = () => {
           renderItem={renderPublicOfferItem}
           keyExtractor={item => item?._id}
           horizontal={true}
+          onEndReached={() => onPublicOffersEndReached()}
         />
       </SectionContainer>
     );
