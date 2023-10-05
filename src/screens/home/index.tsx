@@ -172,7 +172,7 @@ export const HomeScreen: FC<{}> = () => {
             size={Size.View}
             type={Type.View}
             radius={20}
-            onPress={() => navigation?.navigate('CreatePublicOfferScreen')}
+            onPress={() => navigation?.navigate('BrowsePublicOffersScreen')}
           />
         </SectionTopContainer>
         <PublicOffersFlatList
