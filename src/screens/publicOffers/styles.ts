@@ -48,3 +48,20 @@ export const TopButtonContainer = styled.View.attrs(() => ({
   ${border}
 `;
 
+export const BrowsePublicOffersContainer = styled.View.attrs(() => ({
+}))`
+  ${space}
+  ${layout}
+  ${color}
+  ${border}
+`;
+
+export const PublicOffersFlatList = styled.FlatList.attrs(() => ({
+  contentContainerStyle: {flexGrow: 1, backgroundColor: 'white'},
+  height: '100%',
+  mb: scale(10),
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
