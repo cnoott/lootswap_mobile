@@ -49,6 +49,7 @@ export const TopButtonContainer = styled.View.attrs(() => ({
 `;
 
 export const BrowsePublicOffersContainer = styled.View.attrs(() => ({
+  bg: 'white',
 }))`
   ${space}
   ${layout}
