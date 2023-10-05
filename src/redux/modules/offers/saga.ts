@@ -309,7 +309,9 @@ export function* publicOfferCheckout(action: any) {
 }
 
 export function* getPublicOffers(action: any) {
-  yield put(LoadingRequest());
+  if (action?.reqData?.showLoad) {
+    yield put(LoadingRequest());
+  }
   try {
     const response: APIResponseProps = yield call(
       getPublicOffersCall,

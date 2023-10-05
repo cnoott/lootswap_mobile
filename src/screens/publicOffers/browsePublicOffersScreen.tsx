@@ -42,6 +42,7 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
       pagination: true,
       page: page,
       itemsPerPage: ITEMS_PER_PAGE,
+      showLoad: true,
     };
     setLoading(true);
     dispatch(
