@@ -93,6 +93,7 @@ export const HomeScreen: FC<{}> = () => {
         pagination: true,
         page: page,
         itemsPerPage: PUBLIC_OFFERS_PER_PAGE,
+        showLoad: false,
       };
       dispatch(
         getPublicOffers(
