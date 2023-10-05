@@ -521,8 +521,13 @@ export const getHomeScreenPublicOffersCall = (reqData: any) => {
 
 export const getPublicOffersCall = (reqData: any) => {
   const type = encodeURIComponent(reqData.type);
+  const skipLimit = reqData?.pagination
+    ? `&skip=${reqData.page * reqData.itemsPerPage}&limit=${
+        reqData.itemsPerPage
+      }`
+    : '';
   return handleResponse(
-    api.get(`/public-offers/${reqData?.userId}/?type=${type}`),
+    api.get(`/public-offers/${reqData?.userId}/?type=${type}${skipLimit}`),
     API_RESPONSE.CODE200,
   );
 };
