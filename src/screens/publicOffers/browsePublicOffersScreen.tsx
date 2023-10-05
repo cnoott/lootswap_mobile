@@ -7,8 +7,11 @@ import {InStackHeader} from '../../components/commonComponents/headers/stackHead
 import {
   BrowsePublicOffersContainer,
   PublicOffersFlatList,
+  ButtonContainer,
 } from './styles';
 import {useDispatch, useSelector} from 'react-redux';
+import LSButton from '../../components/commonComponents/LSButton';
+import {Size, Type} from '../../enums';
 import {getPublicOffers} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {
@@ -18,6 +21,7 @@ import {
   EmptyRowView,
 } from '../offers/styles';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 
 const ITEMS_PER_PAGE = 8;
@@ -28,6 +32,7 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const dispatch = useDispatch();
+  const navigation: NavigationProp<any, any> = useNavigation();
 
   useEffect(() => {
     const reqData = {
@@ -55,6 +60,20 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
     return <PublicOfferItem publicOffer={item} />
   };
 
+  const renderBottomButtonView = () => {
+    return (
+      <ButtonContainer>
+        <LSButton
+          title={'Create Public Offer'}
+          size={Size.Large}
+          type={Type.Primary}
+          radius={20}
+          onPress={() => navigation?.navigate('CreatePublicOfferScreen')}
+        />
+      </ButtonContainer>
+    );
+  };
+
   return (
     <>
       <InStackHeader title={'Public Offers'}/>
@@ -64,8 +83,8 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
           renderItem={renderPublicOfferItem}
           keyExtractor={item => item?._id}
         />
-
       </BrowsePublicOffersContainer>
+      {renderBottomButtonView()}
     </>
   );
 };
