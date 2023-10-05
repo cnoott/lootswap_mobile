@@ -57,10 +57,15 @@ export const BrowsePublicOffersContainer = styled.View.attrs(() => ({
 `;
 
 export const PublicOffersFlatList = styled.FlatList.attrs(() => ({
-  contentContainerStyle: {flexGrow: 1, backgroundColor: 'white'},
+  contentContainerStyle: {
+    flexGrow: 1,
+    backgroundColor: 'white',
+    paddingBottom: 200,
+  },
   height: '100%',
-  mb: scale(10),
+  paddingBottom: scale(300),
 }))`
+  padding-bottom: 300px;
   ${color}
   ${space}
   ${layout}
