@@ -24,10 +24,11 @@ import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 6;
 
 export const BrowsePublicOffersScreen: FC<any> = () => {
   const [publicOffers, setPublicOffers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
@@ -42,19 +43,22 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
       page: page,
       itemsPerPage: ITEMS_PER_PAGE,
     };
+    setLoading(true);
     dispatch(
       getPublicOffers(
         reqData,
         res => {
           console.log('RESPONSE', res);
-          setPublicOffers(res);
+          setPublicOffers([...publicOffers, ...res]);
+          setLoading(false);
         },
         err => {
           console.log('ERR => ', err);
+          setLoading(false);
         },
       ),
     );
-  }, [dispatch]);
+  }, [page]);
 
   const renderPublicOfferItem = ({item}: any) => {
     return <PublicOfferItem publicOffer={item} />
@@ -74,14 +78,21 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
     );
   };
 
+  const onEndReached = () => {
+    if (!loading) {
+      setPage(prevPage => prevPage + 1);
+    }
+  };
   return (
     <>
-      <InStackHeader title={'Public Offers'}/>
       <BrowsePublicOffersContainer>
+      <InStackHeader title={'Public Offers'}/>
         <PublicOffersFlatList
           data={publicOffers}
           renderItem={renderPublicOfferItem}
           keyExtractor={item => item?._id}
+          onEndReached={() => onEndReached()}
+          onEndReachedThreshold={0.1}
         />
       </BrowsePublicOffersContainer>
       {renderBottomButtonView()}
