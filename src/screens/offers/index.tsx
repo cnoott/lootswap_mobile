@@ -47,8 +47,7 @@ import {
   SelectedTextStyle,
 } from '../search/stockxScreenStyles';
 import {Dropdown} from 'react-native-element-dropdown';
-
-import PublicOfferCell from '../../components/publicOffer/PublicOfferCell';
+import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
@@ -152,44 +151,13 @@ export const OffersScreen: FC<{}> = () => {
     );
   };
 
-  const RenderPublicOfferUserDetails = ({user}: any) => {
-    return (
-      <RowView>
-        <EmptyRowView>
-          <LSProfileImageComponent
-            profileUrl={user?.profile_picture}
-            imageHeight={50}
-            imageWidth={50}
-            imageRadius={30}
-          />
-          <OwnerDetailsView>
-            <NameLabel>{user.name}</NameLabel>
-          </OwnerDetailsView>
-        </EmptyRowView>
-      </RowView>
-    );
-  };
-
   const tradeOfferCellOnPress = (item) => {
     setSelectedTrade(item._id);
     navigation.navigate('OffersMessageScreen', {item});
   };
 
   const renderPublicOfferItem = ({item}: any) => {
-    return (
-      <OfferCellContainer
-        key={item._id}
-        onPress={() => {}}
-      >
-        <RenderPublicOfferUserDetails user={item?.userId}/>
-        <PublicOfferCell
-          receivingStockxIds={item?.receivingStockxIds}
-          sendingProductIds={item?.sendingProductIds}
-          receivingMoneyOffer={item?.receivingMoneyOffer}
-          sendingMoneyOffer={item?.sendingMoneyOffer}
-        />
-      </OfferCellContainer>
-    );
+    return <PublicOfferItem publicOffer={item} />;
   };
 
   const renderOfferItem = ({item}: any) => {
