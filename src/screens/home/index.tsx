@@ -170,7 +170,7 @@ export const HomeScreen: FC<{}> = () => {
     console.log('ITEM', item);
     return (
       <PublicOfferCell
-        receivingStockxIds={item.receivingStockxIds}
+        receivingStockxProducts={item.receivingStockxProducts}
         sendingProductIds={item.sendingProductIds}
         receivingMoneyOffer={item.receivingMoneyOffer}
         sendingMoneyOffer={item.sendingMoneyOffer}
