@@ -11,10 +11,11 @@ import PublicOfferCell from './PublicOfferCell';
 
 interface PublicOfferProps {
   publicOffer: any;
+  onPress: Function;
 }
 
 export const PublicOfferItem: FC<PublicOfferProps> = (props) => {
-  const {publicOffer} = props;
+  const {publicOffer, onPress = () => {}} = props;
 
   const RenderPublicOfferUserDetails = ({user}: any) => {
     return (
@@ -37,11 +38,11 @@ export const PublicOfferItem: FC<PublicOfferProps> = (props) => {
   return (
     <OfferCellContainer
       key={publicOffer._id}
-      onPress={() => {}}
+      onPress={() => onPress()}
     >
       <RenderPublicOfferUserDetails user={publicOffer?.userId}/>
       <PublicOfferCell
-        receivingStockxIds={publicOffer?.receivingStockxIds}
+        receivingStockxProducts={publicOffer?.receivingStockxProducts}
         sendingProductIds={publicOffer?.sendingProductIds}
         receivingMoneyOffer={publicOffer?.receivingMoneyOffer}
         sendingMoneyOffer={publicOffer?.sendingMoneyOffer}

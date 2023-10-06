@@ -16,7 +16,7 @@ import {SvgXml} from 'react-native-svg';
 import {SWAP_ICON} from 'localsvgimages';
 
 interface PublicOfferProps {
-  receivingStockxIds: Array<any>;
+  receivingStockxProducts: Array<any>;
   sendingProductIds: Array<any>;
   receivingMoneyOffer: Number;
   sendingMoneyOffer: Number;
@@ -25,7 +25,7 @@ interface PublicOfferProps {
 
 export const PublicOfferCell: FC<PublicOfferProps> = props => {
   const {
-    receivingStockxIds,
+    receivingStockxProducts,
     sendingProductIds,
     receivingMoneyOffer,
     sendingMoneyOffer,
@@ -48,7 +48,7 @@ export const PublicOfferCell: FC<PublicOfferProps> = props => {
       <PublicOfferItemContainer>
         <AboveItemLabel>Your</AboveItemLabel>
         <TradeOfferItem
-          items={receivingStockxIds}
+          items={receivingStockxProducts.map(prod => prod.stockxId)}
           moneyOffer={receivingMoneyOffer}
           isInTrade={false}
           isStockxItem={true}
