@@ -79,3 +79,10 @@ export const MoneyContainer = styled.View.attrs(() => ({
   ${layout}
 `;
 
+export const Spacing = styled.View.attrs(() => ({
+  mb: scale(20),
+}))`
+  ${space}
+  ${layout}
+`;
+
