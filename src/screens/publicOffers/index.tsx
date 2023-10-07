@@ -121,7 +121,7 @@ export const CreatePublicOfferScreen: FC<any> = () => {
   );
 
   const renderBottomButtonView = () =>
-    currPage !== 0 && (
+    (currPage !== 0 || receivingStockxProducts.length !== 0) && (
       <ButtonContainer>
         <LSButton
           title={'Next'}
