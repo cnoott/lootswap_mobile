@@ -62,7 +62,16 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
   }, [page]);
 
   const renderPublicOfferItem = ({item}: any) => {
-    return <PublicOfferItem publicOffer={item} />
+    return (
+      <PublicOfferItem
+        publicOffer={item}
+        onPress={() =>
+        navigation.navigate('PublicOfferScreen',{
+          publicOffer: item,
+        })
+        }
+      />
+     );
   };
 
   const renderBottomButtonView = () => {

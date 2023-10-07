@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled from 'styled-components/native'
 import {layout, space, color, border, backgroundColor} from 'styled-system';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 
@@ -50,6 +50,7 @@ export const TopButtonContainer = styled.View.attrs(() => ({
 
 export const BrowsePublicOffersContainer = styled.View.attrs(() => ({
   bg: 'white',
+  height: '100%',
 }))`
   ${space}
   ${layout}
@@ -71,3 +72,10 @@ export const PublicOffersFlatList = styled.FlatList.attrs(() => ({
   ${space}
   ${layout}
 `;
+
+export const MoneyContainer = styled.View.attrs(() => ({
+}))`
+  ${space}
+  ${layout}
+`;
+
