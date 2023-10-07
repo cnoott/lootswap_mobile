@@ -7,6 +7,7 @@ import React, {FC, useState, useRef, useEffect} from 'react';
 import {
   BrowsePublicOffersContainer,
   MoneyContainer,
+  Spacing,
 } from './styles';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {
@@ -40,7 +41,7 @@ const PublicOfferScreen: FC<any> = ({route}) => {
 
   const showReceivingLoot = () => (
     <>
-      <TradeReviewText> Your loot </TradeReviewText>
+      <TradeReviewText>For</TradeReviewText>
       {sendingProductIds.map(item => (
         <StartTradeItemCell item={item} isReview={true} />
       ))}
@@ -55,7 +56,7 @@ const PublicOfferScreen: FC<any> = ({route}) => {
 
   const showStockxProducts = () => (
     <>
-      <TradeReviewText>Public Offer</TradeReviewText>
+      <TradeReviewText>Your</TradeReviewText>
       {receivingStockxProducts.map(item => (
         <ReviewStockxItemCell
           stockxProduct={{...item.stockxId, chosenSize: item.chosenSize}}
@@ -73,9 +74,9 @@ const PublicOfferScreen: FC<any> = ({route}) => {
     </>
   );
 
-  const showSendingMoneyOffer = () => (
+  const showMoneyOffer = (moneyOffer: number) => (
     <MoneyContainer>
-      <MoneyOfferText>+${sendingMoneyOffer}</MoneyOfferText>
+      <MoneyOfferText>+${moenyOffer}</MoneyOfferText>
     </MoneyContainer>
   );
 
@@ -83,9 +84,11 @@ const PublicOfferScreen: FC<any> = ({route}) => {
     <BrowsePublicOffersContainer>
       <InStackHeader title={'Public Offer'} />
       <ScrollView>
-        {showReceivingLoot()}
         {showStockxProducts()}
-        {showSendingMoneyOffer()}
+        {sendingMoneyOffer !== 0 && showMoneyOffer(sendingMoneyOffer)}
+        <Spacing />
+        {showReceivingLoot()}
+        {receivingMoneyOffer !== 0 && showMoneyOffer(receivingMoneyOffer)}
       </ScrollView>
 
     </BrowsePublicOffersContainer>
