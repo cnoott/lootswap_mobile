@@ -43,7 +43,9 @@ const ReviewStockxItemCell: FC<ReviewStockxItemProps> = React.memo(props => {
       </DesBottomContainer>
       <DesBottomContainer>
         <ConditionSizeText>Size:</ConditionSizeText>
-        <ConditionSizeResultText>{stockxProduct.chosenSize}</ConditionSizeResultText>
+        <ConditionSizeResultText>
+          {stockxProduct.chosenSize}
+        </ConditionSizeResultText>
       </DesBottomContainer>
       <DesBottomContainer>
         <ConditionSizeText>Est. Value: </ConditionSizeText>
