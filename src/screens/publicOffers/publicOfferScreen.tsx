@@ -8,6 +8,8 @@ import {
   BrowsePublicOffersContainer,
   MoneyContainer,
   Spacing,
+  ButtonContainer,
+  OfferScrollView,
 } from './styles';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {
@@ -28,7 +30,6 @@ import {
 import ReviewStockxItemCell from '../../components/publicOffer/reviewStockxItemCell';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
-import {ScrollView} from 'react-native';
 
 const PublicOfferScreen: FC<any> = ({route}) => {
   const {publicOffer} = route?.params;
@@ -76,20 +77,29 @@ const PublicOfferScreen: FC<any> = ({route}) => {
 
   const showMoneyOffer = (moneyOffer: number) => (
     <MoneyContainer>
-      <MoneyOfferText>+${moenyOffer}</MoneyOfferText>
+      <MoneyOfferText>+${moneyOffer}</MoneyOfferText>
     </MoneyContainer>
   );
 
   return (
     <BrowsePublicOffersContainer>
       <InStackHeader title={'Public Offer'} />
-      <ScrollView>
+      <OfferScrollView>
         {showStockxProducts()}
         {sendingMoneyOffer !== 0 && showMoneyOffer(sendingMoneyOffer)}
         <Spacing />
         {showReceivingLoot()}
         {receivingMoneyOffer !== 0 && showMoneyOffer(receivingMoneyOffer)}
-      </ScrollView>
+      </OfferScrollView>
+      <ButtonContainer>
+        <LSButton
+          title={'Checkout Public Offer'}
+          size={Size.Large}
+          type={Type.Primary}
+          radius={20}
+          onPress={() => console.log('yo')}
+        />
+      </ButtonContainer>
 
     </BrowsePublicOffersContainer>
   );
