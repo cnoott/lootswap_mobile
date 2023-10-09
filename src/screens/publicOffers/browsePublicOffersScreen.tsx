@@ -71,7 +71,7 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
         })
         }
       />
-     );
+    );
   };
 
   const renderBottomButtonView = () => {
