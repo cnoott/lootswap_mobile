@@ -30,6 +30,7 @@ import {
 import ReviewStockxItemCell from '../../components/publicOffer/reviewStockxItemCell';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 const PublicOfferScreen: FC<any> = ({route}) => {
   const {publicOffer} = route?.params;
@@ -39,12 +40,17 @@ const PublicOfferScreen: FC<any> = ({route}) => {
     receivingMoneyOffer,
     sendingMoneyOffer,
   } = publicOffer;
+  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
 
   const showReceivingLoot = () => (
     <>
       <TradeReviewText>For</TradeReviewText>
       {sendingProductIds.map(item => (
-        <StartTradeItemCell item={item} isReview={true} />
+        <StartTradeItemCell
+          item={item}
+          isReview={true}
+          onPress={() => navigation.navigate('ProductDetailsScreen', {productData: item})}
+        />
       ))}
       <MarketValueContainer>
         <MarketValueTitle>Total Est. Market Value: </MarketValueTitle>
@@ -100,7 +106,6 @@ const PublicOfferScreen: FC<any> = ({route}) => {
           onPress={() => console.log('yo')}
         />
       </ButtonContainer>
-
     </BrowsePublicOffersContainer>
   );
 };
