@@ -508,6 +508,16 @@ export const publicOfferCheckoutCall = (reqData: any) => {
   );
 };
 
+export const acceptPublicOfferCall = (reqData: any) => {
+  return handleResponse(
+    api.post(
+      `/accept-public-offer/${reqData?.userId}/${reqData?.publicOfferId}`,
+      reqData,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const getHomeScreenPublicOffersCall = (reqData: any) => {
   return handleResponse(
     api.get(

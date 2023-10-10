@@ -294,6 +294,10 @@ export const PUBLIC_OFFER_CHECKOUT = {
   ...createActionConst(actions.PUBLIC_OFFER_CHECKOUT),
 };
 
+export const ACCEPT_PUBLIC_OFFER = {
+  ...createActionConst(actions.ACCEPT_PUBLIC_OFFER),
+};
+
 export const GET_PUBLIC_OFFERS = {
   ...createActionConst(actions.GET_PUBLIC_OFFERS),
 };
