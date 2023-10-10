@@ -88,7 +88,6 @@ export const Spacing = styled.View.attrs(() => ({
 
 export const OfferScrollView = styled.ScrollView.attrs(() => ({
   contentContainerStyle: {
-    flexGrow: 1,
     backgroundColor: 'white',
     paddingBottom: 200,
   },
