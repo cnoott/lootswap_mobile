@@ -22,7 +22,7 @@ type PaymentDetails = {
 
 export const CreatePublicOfferCheckoutScreen: FC<any> = ({route}) => {
   const {publicOffersData, myItems} = route.params;
-  const {receivingStockxProducts, receivingMoneyOffer, sendingMoneyOffer} = 
+  const {receivingStockxProducts, receivingMoneyOffer, sendingMoneyOffer} =
     publicOffersData;
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
