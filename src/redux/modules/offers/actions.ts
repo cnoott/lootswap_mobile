@@ -13,6 +13,7 @@ import {
   EDIT_TRADE_CHECKOUT,
   PUBLIC_OFFER_CHECKOUT,
   GET_PUBLIC_OFFERS,
+  ACCEPT_PUBLIC_OFFER,
 } from '../../../constants/actions';
 
 export const getTradesHistory = (reqData: any) => {
@@ -229,6 +230,19 @@ export const publicOfferCheckout = (
 ) => {
   return {
     type: PUBLIC_OFFER_CHECKOUT.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const acceptPublicOffer = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: ACCEPT_PUBLIC_OFFER.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,

@@ -15,6 +15,7 @@ import {
   UNDO_TRADE_CHECKOUT,
   PUBLIC_OFFER_CHECKOUT,
   GET_PUBLIC_OFFERS,
+  ACCEPT_PUBLIC_OFFER,
 } from '../../../constants/actions';
 import {
   startTradeCheckoutCall,
@@ -32,6 +33,7 @@ import {
   changeMoneyOfferCall,
   publicOfferCheckoutCall,
   getPublicOffersCall,
+  acceptPublicOfferCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {
@@ -308,6 +310,25 @@ export function* publicOfferCheckout(action: any) {
   }
 }
 
+export function* acceptPublicOffer(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      acceptPublicOfferCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export function* getPublicOffers(action: any) {
   if (action?.reqData?.showLoad) {
     yield put(LoadingRequest());
@@ -343,5 +364,6 @@ export default function* offersSaga() {
   yield takeLatest(REMOVE_ITEMS.REQUEST, removeItems);
   yield takeLatest(CHANGE_MONEY_OFFER.REQUEST, changeMoneyOffer);
   yield takeLatest(PUBLIC_OFFER_CHECKOUT.REQUEST, publicOfferCheckout);
+  yield takeLatest(ACCEPT_PUBLIC_OFFER.REQUEST, acceptPublicOffer);
   yield takeLatest(GET_PUBLIC_OFFERS.REQUEST, getPublicOffers);
 }
