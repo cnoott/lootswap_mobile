@@ -13,10 +13,7 @@ import {
 } from './styles';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {
-  ScrollSubContainer,
   TradeReviewText,
-  TradeReviewTextTwo,
-  AddMoneyContainer,
   MoneyOfferText,
   MarketValueContainer,
   MarketValueTitle,
