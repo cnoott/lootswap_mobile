@@ -34,7 +34,11 @@ export const CreatePublicOfferScreen: FC<any> = () => {
   const swiperRef = useRef<any>(null);
   const [currPage, setCurrPage] = useState(0);
   const handleBack = () => {
-    swiperRef?.current?.scrollTo(currPage - 1);
+    if (currPage === 0) {
+      navigation.goBack();
+    } else {
+      swiperRef?.current?.scrollTo(currPage - 1);
+    }
   };
   const handleNext = () => {
     if (canGoNext()) {
