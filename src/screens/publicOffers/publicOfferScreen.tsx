@@ -100,7 +100,11 @@ const PublicOfferScreen: FC<any> = ({route}) => {
           size={Size.Large}
           type={Type.Primary}
           radius={20}
-          onPress={() => console.log('yo')}
+          onPress={() =>
+            navigation.navigate('AcceptPublicOfferScreen', {
+              publicOffer: publicOffer,
+            })
+          }
         />
       </ButtonContainer>
     </BrowsePublicOffersContainer>
