@@ -511,7 +511,7 @@ export const publicOfferCheckoutCall = (reqData: any) => {
 export const acceptPublicOfferCall = (reqData: any) => {
   return handleResponse(
     api.post(
-      `/accept-public-offer/${reqData?.userId}/${reqData?.publicOfferId}`,
+      `/accept-public-offer/${reqData?.userId}/${reqData?.publicOffer._id}`,
       reqData,
     ),
     API_RESPONSE.CODE200,
