@@ -46,9 +46,9 @@ const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
               ? item?.sender?.profile_picture
               : item?.reciever?.profile_picture
           }
-          imageHeight={50}
-          imageWidth={50}
-          imageRadius={30}
+          imageHeight={45}
+          imageWidth={45}
+          imageRadius={10}
         />
         <OwnerDetailsView>
           <NameLabel>

@@ -42,9 +42,9 @@ const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
               ? item?.buyerId?.profile_picture
               : item?.sellerId?.profile_picture
           }
-          imageHeight={50}
-          imageWidth={50}
-          imageRadius={30}
+          imageHeight={45}
+          imageWidth={45}
+          imageRadius={10}
         />
         <OwnerDetailsView>
           <NameLabel>
