@@ -12,6 +12,8 @@ import {LSProfileImageComponent} from '../../components/commonComponents/profile
 import PublicOfferCell from './PublicOfferCell';
 import {TRASH_ICON_SMALL} from 'localsvgimages';
 import {SvgXml} from 'react-native-svg';
+import {useSelector} from 'react-redux';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 
 
 interface PublicOfferProps {
@@ -21,17 +23,20 @@ interface PublicOfferProps {
 
 export const PublicOfferItem: FC<PublicOfferProps> = (props) => {
   const {publicOffer, onPress = () => {}} = props;
-
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData, isLogedIn} = auth;
 
   const renderDeleteButton = () => {
-    return (
-      <PublicOfferDeleteContainer>
-        <SvgXml xml={TRASH_ICON_SMALL} style={{'marginTop': 5}}/>
-        <DeleteText>
-          Delete
-        </DeleteText>
-      </PublicOfferDeleteContainer>
-    );
+    if (isLogedIn && userData?._id === publicOffer.userId._id) {
+      return (
+        <PublicOfferDeleteContainer>
+          <SvgXml xml={TRASH_ICON_SMALL} style={{'marginTop': 5}}/>
+          <DeleteText>
+            Delete
+          </DeleteText>
+        </PublicOfferDeleteContainer>
+      );
+    }
   };
 
   const RenderPublicOfferUserDetails = ({user}: any) => {
