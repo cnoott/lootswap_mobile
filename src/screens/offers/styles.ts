@@ -645,3 +645,31 @@ export const ItemTextStyle = {
   fontWeight: '400',
   color: 'black',
 };
+
+export const PublicOfferDeleteContainer = styled.TouchableOpacity.attrs(props => ({
+  border: 2,
+  borderColor: '#F75555',
+  borderRadius: 100,
+  width: scale(75),
+  height: scale(30),
+}))`
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  ${color}
+  ${space}
+  ${layout}
+  ${border}
+`;
+
+
+export const DeleteText: any = styled.Text.attrs(props => ({
+  color: '#F75555',
+}))`
+  font-size: ${scale(14)}px;
+  font-family: Urbanist-SemiBold;
+  ${space}
+  ${layout}
+  ${color}
+  ${border}
+`;

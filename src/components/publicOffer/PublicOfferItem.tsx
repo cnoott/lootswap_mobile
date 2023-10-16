@@ -5,9 +5,14 @@ import {
   OwnerDetailsView,
   NameLabel,
   OfferCellContainer,
+  PublicOfferDeleteContainer,
+  DeleteText,
 } from '../../screens/offers/styles';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
 import PublicOfferCell from './PublicOfferCell';
+import {TRASH_ICON_SMALL} from 'localsvgimages';
+import {SvgXml} from 'react-native-svg';
+
 
 interface PublicOfferProps {
   publicOffer: any;
@@ -17,20 +22,33 @@ interface PublicOfferProps {
 export const PublicOfferItem: FC<PublicOfferProps> = (props) => {
   const {publicOffer, onPress = () => {}} = props;
 
+
+  const renderDeleteButton = () => {
+    return (
+      <PublicOfferDeleteContainer>
+        <SvgXml xml={TRASH_ICON_SMALL} style={{'marginTop': 5}}/>
+        <DeleteText>
+          Delete
+        </DeleteText>
+      </PublicOfferDeleteContainer>
+    );
+  };
+
   const RenderPublicOfferUserDetails = ({user}: any) => {
     return (
       <RowView>
         <EmptyRowView>
           <LSProfileImageComponent
             profileUrl={user?.profile_picture}
-            imageHeight={50}
-            imageWidth={50}
-            imageRadius={30}
+            imageHeight={40}
+            imageWidth={40}
+            imageRadius={10}
           />
           <OwnerDetailsView>
             <NameLabel>{user.name}</NameLabel>
           </OwnerDetailsView>
         </EmptyRowView>
+        {renderDeleteButton()}
       </RowView>
     );
   };

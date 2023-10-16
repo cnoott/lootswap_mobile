@@ -857,3 +857,23 @@ export const TRASH_ICON_RED = `
 </defs>
 </svg>
 `;
+
+export const TRASH_ICON_SMALL = `
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_3920_9534)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M15.5247 2.49401C15.7841 2.49401 16 2.70934 16 2.98334V3.23667C16 3.504 15.7841 3.726 15.5247 3.726H4.4759C4.21591 3.726 4 3.504 4 3.23667V2.98334C4 2.70934 4.21591 2.49401 4.4759 2.49401H6.41971C6.81457 2.49401 7.1582 2.21335 7.24703 1.81735L7.34882 1.36269C7.50702 0.74336 8.02766 0.332031 8.62351 0.332031H11.3765C11.9659 0.332031 12.4923 0.74336 12.6447 1.33002L12.7536 1.81668C12.8418 2.21335 13.1854 2.49401 13.5809 2.49401H15.5247ZM14.5372 11.7547C14.7402 9.8634 15.0955 5.37011 15.0955 5.32478C15.1084 5.18745 15.0637 5.05745 14.9749 4.95278C14.8796 4.85479 14.759 4.79679 14.626 4.79679H5.37901C5.24545 4.79679 5.11837 4.85479 5.03019 4.95278C4.94072 5.05745 4.89663 5.18745 4.90311 5.32478C4.9043 5.33311 4.91705 5.49139 4.93837 5.756C5.03306 6.9315 5.29678 10.2055 5.46719 11.7547C5.58779 12.896 6.33665 13.6134 7.42137 13.6394C8.25842 13.6587 9.12075 13.6654 10.0025 13.6654C10.8331 13.6654 11.6766 13.6587 12.5396 13.6394C13.6619 13.62 14.4101 12.9154 14.5372 11.7547Z" fill="#F75555"/>
+</g>
+<defs>
+<filter id="filter0_d_3920_9534" x="0" y="0.332031" width="20" height="21.332" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3920_9534"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3920_9534" result="shape"/>
+</filter>
+</defs>
+</svg>
+`;
