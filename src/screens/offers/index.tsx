@@ -8,7 +8,12 @@ import {SceneMap} from 'react-native-tab-view';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {getTradesHistory, getAllMyMessages, getPublicOffers} from '../../redux/modules';
+import {
+  getTradesHistory,
+  getAllMyMessages,
+  getPublicOffers,
+  deletePublicOffer,
+} from '../../redux/modules';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
 import {useDispatch, useSelector} from 'react-redux';
@@ -114,6 +119,28 @@ export const OffersScreen: FC<{}> = () => {
     navigation.navigate('UserChatScreen', {messageId: msgData._id});
   };
 
+  const handleDeletePublicOffer = (publicOfferId: string) => {
+    const reqData = {
+      userId: userData?._id,
+      publicOfferId: publicOfferId,
+    };
+    dispatch(
+      deletePublicOffer(
+        reqData,
+        res => {
+          const newPublicOffers = publicOffers.filter(
+            offer => offer._id !== publicOfferId
+          );
+          setPublicOffers(newPublicOffers);
+        },
+        err => {
+          console.log('ERROR => ', err);
+        },
+      ),
+    );
+
+  };
+
   const RenderUserDetails = ({item}) => {
     const statusColorObj = getTradeStatusColor(item.status);
     return (
@@ -157,7 +184,12 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const renderPublicOfferItem = ({item}: any) => {
-    return <PublicOfferItem publicOffer={item} />;
+    return (
+      <PublicOfferItem
+        publicOffer={item}
+        handleDelete={handleDeletePublicOffer}
+      />
+    );
   };
 
   const renderOfferItem = ({item}: any) => {
