@@ -15,25 +15,23 @@ import {SvgXml} from 'react-native-svg';
 import {useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 
-
 interface PublicOfferProps {
   publicOffer: any;
   onPress: Function;
+  handleDelete: Function;
 }
 
 export const PublicOfferItem: FC<PublicOfferProps> = (props) => {
-  const {publicOffer, onPress = () => {}} = props;
+  const {publicOffer, onPress = () => {}, handleDelete = () => {}} = props;
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData, isLogedIn} = auth;
 
   const renderDeleteButton = () => {
     if (isLogedIn && userData?._id === publicOffer.userId._id) {
       return (
-        <PublicOfferDeleteContainer>
+        <PublicOfferDeleteContainer onPress={() => handleDelete(publicOffer._id)}>
           <SvgXml xml={TRASH_ICON_SMALL} style={{'marginTop': 5}}/>
-          <DeleteText>
-            Delete
-          </DeleteText>
+          <DeleteText>Delete</DeleteText>
         </PublicOfferDeleteContainer>
       );
     }
