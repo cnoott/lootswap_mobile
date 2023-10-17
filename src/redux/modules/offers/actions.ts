@@ -14,6 +14,7 @@ import {
   PUBLIC_OFFER_CHECKOUT,
   GET_PUBLIC_OFFERS,
   ACCEPT_PUBLIC_OFFER,
+  DELETE_PUBLIC_OFFER,
 } from '../../../constants/actions';
 
 export const getTradesHistory = (reqData: any) => {
@@ -256,6 +257,19 @@ export const getPublicOffers = (
 ) => {
   return {
     type: GET_PUBLIC_OFFERS.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const deletePublicOffer = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: DELETE_PUBLIC_OFFER.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,

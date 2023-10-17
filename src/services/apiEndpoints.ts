@@ -529,6 +529,13 @@ export const getHomeScreenPublicOffersCall = (reqData: any) => {
   );
 };
 
+export const deletePublicOfferCall = (reqData: any) => {
+  return handleResponse(
+    api.delete(`/public-offer/${reqData?.userId}/${reqData?.publicOfferId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const getPublicOffersCall = (reqData: any) => {
   const type = encodeURIComponent(reqData.type);
   const skipLimit = reqData?.pagination

@@ -301,3 +301,7 @@ export const ACCEPT_PUBLIC_OFFER = {
 export const GET_PUBLIC_OFFERS = {
   ...createActionConst(actions.GET_PUBLIC_OFFERS),
 };
+
+export const DELETE_PUBLIC_OFFER = {
+  ...createActionConst(actions.DELETE_PUBLIC_OFFER),
+};
