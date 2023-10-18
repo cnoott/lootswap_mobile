@@ -42,7 +42,7 @@ export const PublicOfferItem: FC<PublicOfferProps> = (props) => {
   };
 
   const renderAcceptButton = () => {
-    if (publicOffer?.isCompatible) {
+    if (publicOffer?.isCompatible && userData?._id !== publicOffer.userId._id) {
       return (
         <PublicOfferAcceptContainer>
           <AcceptText>Accept</AcceptText>
