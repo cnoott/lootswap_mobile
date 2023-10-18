@@ -14,12 +14,6 @@ import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {getPublicOffers} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {
-  OfferCellContainer,
-  RowView,
-  OwnerDetailsView,
-  EmptyRowView,
-} from '../offers/styles';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
@@ -62,16 +56,7 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
   }, [page]);
 
   const renderPublicOfferItem = ({item}: any) => {
-    return (
-      <PublicOfferItem
-        publicOffer={item}
-        onPress={() =>
-        navigation.navigate('PublicOfferScreen',{
-          publicOffer: item,
-        })
-        }
-      />
-    );
+    return <PublicOfferItem publicOffer={item}/>;
   };
 
   const renderBottomButtonView = () => {
@@ -96,7 +81,7 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
   return (
     <>
       <BrowsePublicOffersContainer>
-      <InStackHeader title={'Public Offers'}/>
+      <InStackHeader title={'Public Offers'} />
         <PublicOffersFlatList
           data={publicOffers}
           renderItem={renderPublicOfferItem}
