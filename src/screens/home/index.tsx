@@ -145,7 +145,47 @@ export const HomeScreen: FC<{}> = () => {
         },
       ),
     );
+    setPublicOffersPage(0);
     setRefreshing(false);
+    
+    if (isLogedIn) { // same code as above in the useEffect XXX 
+      const publicOfferReqData = {
+        type: 'Browse',
+        userId: userData?._id,
+        pagination: true,
+        page: page,
+        itemsPerPage: PUBLIC_OFFERS_PER_PAGE,
+        showLoad: false,
+      };
+      dispatch(
+        getPublicOffers(
+          publicOfferReqData,
+          (res: any) => {
+            setPublicOffers([...publicOffers, ...res]);
+          },
+          (err: any) => {
+            console.log('ERR => ', err);
+          },
+        ),
+      );
+    } else {
+      const publicOfferReqData = {
+        itemsPerPage: PUBLIC_OFFERS_PER_PAGE,
+        page: publicOffersPage,
+      };
+      dispatch(
+        getHomeScreenPublicOffers(
+          publicOfferReqData,
+          (res: any) => {
+            setPublicOffers([...publicOffers, ...res]);
+          },
+          (err: any) => {
+            console.log('ERR => ', err);
+          },
+        ),
+      );
+    }
+
   };
 
   const goToLikedProducts = () => {
