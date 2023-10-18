@@ -673,3 +673,31 @@ export const DeleteText: any = styled.Text.attrs(props => ({
   ${color}
   ${border}
 `;
+
+export const PublicOfferAcceptContainer = styled.View.attrs(props => ({
+  border: 2,
+  backgroundColor: 'rgba(36, 192, 93, .10)',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderColor: '#24C05D',
+  borderRadius: 100,
+  width: scale(75),
+  height: scale(30),
+}))`
+  ${border}
+  ${space}
+  ${color}
+  ${layout}
+`;
+
+export const AcceptText: any = styled.Text.attrs(() => ({
+  color: '#24C05D',
+}))`
+  font-size: ${scale(14)}px;
+  font-family: Urbanist-SemiBold;
+  ${space}
+  ${layout}
+  ${color}
+  ${border}
+`;
+
