@@ -240,7 +240,11 @@ export const HomeScreen: FC<{}> = () => {
             size={Size.View}
             type={Type.View}
             radius={20}
-            onPress={() => navigation?.navigate('BrowsePublicOffersScreen')}
+            onPress={() =>
+              isLogedIn
+                ? navigation?.navigate('BrowsePublicOffersScreen')
+                : navigation?.navigate('SignInScreen')
+            }
           />
         </SectionTopContainer>
         <PublicOffersFlatList
@@ -275,7 +279,10 @@ export const HomeScreen: FC<{}> = () => {
         ListHeaderComponent={
           <>
             <SearchContainer>
-              <LSHomeScreenSearch onRightIconPress={onRightIconPress} isFromHome={true}/>
+              <LSHomeScreenSearch
+                onRightIconPress={onRightIconPress}
+                isFromHome={true}
+              />
             </SearchContainer>
             <CarouselComponent height={scale(320)} isHome={true} />
             {renderPublicOffers()}
