@@ -276,6 +276,21 @@ export const BottomRowView = styled.View.attrs((props: any) => ({
   ${layout}
 `;
 
+export const BottomRowTouchable = styled.TouchableOpacity.attrs(props => ({
+  mt: scale(props?.topMargin || 20),
+  borderWidth: props.isFromHome ? 2 : 0,
+  borderColor: props.isFromHome ? '#F3F3F3' : '',
+  borderRadius: 20,
+  mr: props.isFromHome ? scale(10) : 0,
+}))`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  ${space}
+  ${border}
+  ${layout}
+`;
+
 export const Image: any = styled.Image.attrs((props: any) => ({
   width: scale(props?.size ? props?.size : productImageWidth),
   height: scale(props?.size ? props?.size : productImageWidth),
