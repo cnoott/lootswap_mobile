@@ -241,6 +241,7 @@ const OffersStackNavigation = () => (
       headerShown: false,
     }}>
     <Stack.Screen name="OffersScreen" component={OffersScreen} />
+    <Stack.Screen name="PublicOfferScreen" component={PublicOfferScreen} />
     <Stack.Screen name="OffersMessageScreen" component={OffersMessageScreen} />
     <Stack.Screen
       name="EditMoneyOfferTradeScreen"
