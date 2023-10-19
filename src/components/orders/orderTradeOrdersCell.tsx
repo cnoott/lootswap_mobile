@@ -19,7 +19,7 @@ function OrderTradeOrdersCell(props: OrderPurchaseProps) {
         <TradeOfferCell offerItem={item?.tradeId} />
       ) : (
         <PublicOfferCell
-          receivingStockxProducts={item?.publicOfferId.receivingStockxProducts}
+          receivingStockxProducts={item?.publicOfferId?.receivingStockxProducts}
           sendingProductIds={item?.publicOfferId?.sendingProductIds}
           receivingMoneyOffer={item?.publicOfferId?.receivingMoneyOffer}
           sendingMoneyOffer={item?.publicOfferId?.sendingMoneyOffer}
