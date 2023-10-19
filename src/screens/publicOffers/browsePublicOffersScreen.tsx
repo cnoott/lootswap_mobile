@@ -12,7 +12,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
-import {getPublicOffers} from '../../redux/modules';
+import {getPublicOffers, deletePublicOffer} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -55,8 +55,36 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
     );
   }, [page]);
 
+  const handleDeletePublicOffer = (publicOfferId: string) => {
+    const reqData = {
+      userId: userData?._id,
+      publicOfferId: publicOfferId,
+    };
+    dispatch(
+      deletePublicOffer(
+        reqData,
+        res => {
+          const newPublicOffers = publicOffers.filter(
+            offer => offer._id !== publicOfferId
+          );
+          setPublicOffers(newPublicOffers);
+        },
+        err => {
+          console.log('ERROR => ', err);
+        },
+      ),
+    );
+
+  };
+
+
   const renderPublicOfferItem = ({item}: any) => {
-    return <PublicOfferItem publicOffer={item}/>;
+    return (
+      <PublicOfferItem
+        publicOffer={item}
+        handleDelete={handleDeletePublicOffer}
+      />
+    );
   };
 
   const renderBottomButtonView = () => {
