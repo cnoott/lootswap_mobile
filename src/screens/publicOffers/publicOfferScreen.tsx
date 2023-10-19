@@ -98,7 +98,8 @@ const PublicOfferScreen: FC<any> = ({route}) => {
         <LSButton
           title={'Checkout Public Offer'}
           size={Size.Large}
-          type={Type.Primary}
+          type={publicOffer?.isCompatible ? Type.Primary : Type.Grey}
+          disabled={!publicOffer.isCompatible}
           radius={20}
           onPress={() =>
             navigation.navigate('AcceptPublicOfferScreen', {
