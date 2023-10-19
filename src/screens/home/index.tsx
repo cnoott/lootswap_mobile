@@ -13,12 +13,13 @@ import {
   SectionContainer,
   SectionTopContainer,
   SectionTitleText,
+  PublicOfferItemWrapper,
 } from './styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import LSHomeScreenSearch from '../../components/filterSearch/homeScreenSearch';
 import LSProductCard from '../../components/productCard';
 import {scale} from 'react-native-size-matters';
-import {RefreshControl} from 'react-native';
+import {RefreshControl, Touchable} from 'react-native';
 import {LIKE_HEART_ICON} from 'localsvgimages';
 import useFCMNotifications from '../../utility/customHooks/useFCMNotifications';
 import {useScrollToTop} from '@react-navigation/native';
@@ -60,6 +61,7 @@ export const HomeScreen: FC<{}> = () => {
   const [page, setPage] = useState(0);
   const [publicOffersPage, setPublicOffersPage] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [publicOffersLoading, setPublicOffersLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -86,12 +88,13 @@ export const HomeScreen: FC<{}> = () => {
   }, [page]);
 
   useEffect(() => {
+    setPublicOffersLoading(true);
     if (isLogedIn) {
       const reqData = {
         type: 'Browse',
         userId: userData?._id,
         pagination: true,
-        page: page,
+        page: publicOffersPage,
         itemsPerPage: PUBLIC_OFFERS_PER_PAGE,
         showLoad: false,
       };
@@ -100,9 +103,11 @@ export const HomeScreen: FC<{}> = () => {
           reqData,
           (res: any) => {
             setPublicOffers([...publicOffers, ...res]);
+            setPublicOffersLoading(false);
           },
           (err: any) => {
             console.log('ERR => ', err);
+            setPublicOffersLoading(false);
           },
         ),
       );
@@ -116,9 +121,11 @@ export const HomeScreen: FC<{}> = () => {
           reqData,
           (res: any) => {
             setPublicOffers([...publicOffers, ...res]);
+            setPublicOffersLoading(false);
           },
           (err: any) => {
             console.log('ERR => ', err);
+            setPublicOffersLoading(false);
           },
         ),
       );
@@ -147,7 +154,7 @@ export const HomeScreen: FC<{}> = () => {
     );
     setPublicOffersPage(0);
     setRefreshing(false);
-    
+
     if (isLogedIn) { // same code as above in the useEffect XXX 
       const publicOfferReqData = {
         type: 'Browse',
@@ -203,18 +210,21 @@ export const HomeScreen: FC<{}> = () => {
   };
 
   const onPublicOffersEndReached = () => {
-    setPublicOffersPage(prevPage => prevPage + 1);
+    if (!publicOffersLoading) {
+      setPublicOffersPage(prevPage => prevPage + 1);
+    }
   };
 
-  const renderPublicOfferItem = ({item}: any) => {
-    console.log('ITEM', item);
+  const renderPublicOfferItem = ({item, key}: any) => {
     return (
       <PublicOfferCell
+        key={key}
         receivingStockxProducts={item.receivingStockxProducts}
         sendingProductIds={item.sendingProductIds}
         receivingMoneyOffer={item.receivingMoneyOffer}
         sendingMoneyOffer={item.sendingMoneyOffer}
         isFromHome={true}
+        onPress={() => navigation?.navigate('PublicOfferScreen', {publicOffer: item})}
       />
     );
   };
@@ -253,7 +263,6 @@ export const HomeScreen: FC<{}> = () => {
           keyExtractor={item => item?._id}
           horizontal={true}
           onEndReached={() => onPublicOffersEndReached()}
-          onEndReachedThreshold={0.9}
         />
       </SectionContainer>
     );
