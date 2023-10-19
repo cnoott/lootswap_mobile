@@ -18,6 +18,7 @@ import {useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import { isCameraPresent } from 'react-native-device-info';
+import {Alert} from 'react-native';
 
 interface PublicOfferProps {
   publicOffer: any;
@@ -30,10 +31,22 @@ export const PublicOfferItem: FC<PublicOfferProps> = (props) => {
   const {userData, isLogedIn} = auth;
   const navigation: NavigationProp<any, any> = useNavigation();
 
+  const handleConfirmDelete = () => {
+    Alert.alert('Are you sure?', 'You cannot undo deleting a public offer', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: "I'm sure", onPress: () => handleDelete(publicOffer._id)},
+    ]);
+
+  };
+
   const renderDeleteButton = () => {
     if (isLogedIn && userData?._id === publicOffer.userId._id) {
       return (
-        <PublicOfferDeleteContainer onPress={() => handleDelete(publicOffer._id)}>
+        <PublicOfferDeleteContainer onPress={() => handleConfirmDelete()}>
           <SvgXml xml={TRASH_ICON_SMALL} style={{'marginTop': 5}}/>
           <DeleteText>Delete</DeleteText>
         </PublicOfferDeleteContainer>
