@@ -11,6 +11,7 @@ import {
   SwapButtonContainer,
   AboveItemLabel,
   PublicOfferItemContainer,
+  BottomRowTouchable,
 } from '../../screens/offers/styles';
 import {SvgXml} from 'react-native-svg';
 import {SWAP_ICON} from 'localsvgimages';
@@ -21,6 +22,7 @@ interface PublicOfferProps {
   receivingMoneyOffer: Number;
   sendingMoneyOffer: Number;
   isFromHome?: Boolean;
+  onPress?: Function;
 }
 
 export const PublicOfferCell: FC<PublicOfferProps> = props => {
@@ -30,6 +32,7 @@ export const PublicOfferCell: FC<PublicOfferProps> = props => {
     receivingMoneyOffer,
     sendingMoneyOffer,
     isFromHome = false,
+    onPress = () => {},
   } = props;
   const renderSwapView = () => {
     return (
@@ -42,32 +45,50 @@ export const PublicOfferCell: FC<PublicOfferProps> = props => {
     );
   };
 
+  const renderMainContent = () => {
+    return (
+      <>
+        <PublicOfferItemContainer>
+          <AboveItemLabel>Your</AboveItemLabel>
+          <TradeOfferItem
+            items={receivingStockxProducts.map(prod => prod.stockxId)}
+            moneyOffer={receivingMoneyOffer}
+            isInTrade={false}
+            isStockxItem={true}
+            isFromHome={isFromHome}
+          />
+        </PublicOfferItemContainer>
+        {renderSwapView()}
+        <PublicOfferItemContainer>
+          <AboveItemLabel>For</AboveItemLabel>
+          <TradeOfferItem
+            items={sendingProductIds}
+            moneyOffer={sendingMoneyOffer}
+            isInTrade={false}
+            isStockxItem={false}
+            isFromHome={isFromHome}
+          />
+        </PublicOfferItemContainer>
+      </>
+    );
+  };
 
-  return (
-    <BottomRowView topMargin={5} isFromHome={isFromHome}>
-      <PublicOfferItemContainer>
-        <AboveItemLabel>Your</AboveItemLabel>
-        <TradeOfferItem
-          items={receivingStockxProducts.map(prod => prod.stockxId)}
-          moneyOffer={receivingMoneyOffer}
-          isInTrade={false}
-          isStockxItem={true}
-          isFromHome={isFromHome}
-        />
-      </PublicOfferItemContainer>
-      {renderSwapView()}
-      <PublicOfferItemContainer>
-        <AboveItemLabel>For</AboveItemLabel>
-        <TradeOfferItem
-          items={sendingProductIds}
-          moneyOffer={sendingMoneyOffer}
-          isInTrade={false}
-          isStockxItem={false}
-          isFromHome={isFromHome}
-        />
-      </PublicOfferItemContainer>
-    </BottomRowView>
-  );
+  if (isFromHome) {
+    return (
+      <BottomRowTouchable
+        topMargin={5}
+        isFromHome={isFromHome}
+        onPress={() => onPress()}>
+        {renderMainContent()}
+      </BottomRowTouchable>
+    );
+  } else {
+    return (
+      <BottomRowView topMargin={5} isFromHome={isFromHome}>
+        {renderMainContent()}
+      </BottomRowView>
+    );
+  }
 }
 
 export default PublicOfferCell;
