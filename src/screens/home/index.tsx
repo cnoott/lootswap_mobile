@@ -224,7 +224,9 @@ export const HomeScreen: FC<{}> = () => {
         receivingMoneyOffer={item.receivingMoneyOffer}
         sendingMoneyOffer={item.sendingMoneyOffer}
         isFromHome={true}
-        onPress={() => navigation?.navigate('PublicOfferScreen', {publicOffer: item})}
+        onPress={() =>
+          navigation?.navigate('PublicOfferScreen', {publicOffer: item})
+        }
       />
     );
   };
