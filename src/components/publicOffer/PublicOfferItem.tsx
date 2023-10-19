@@ -72,11 +72,9 @@ export const PublicOfferItem: FC<PublicOfferProps> = (props) => {
   };
 
   const handlePress = () => {
-    if (publicOffer?.isCompatible) {
-      navigation.navigate('PublicOfferScreen', {
-        publicOffer: publicOffer,
-      });
-    }
+    navigation.navigate('PublicOfferScreen', {
+      publicOffer: publicOffer,
+    });
   };
 
   return (
