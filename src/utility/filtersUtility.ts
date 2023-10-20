@@ -35,7 +35,6 @@ export const filterIsSelected = (filters: any, value: string) => {
     if (Array.isArray(filters[key]) && filters[key].includes(value)) {
       foundValue = true;
     } else if (typeof filters[key] === 'string') {
-        console.log('YSDF', filters[key], key);
       if (filters[key] === value) {
         foundValue = true;
       }

@@ -40,7 +40,7 @@ import {Animated} from 'react-native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 
 export const StockxScreen: FC<any> = ({route}) => {
-  const {stockxProduct, foundProducts} = route.params;
+  const {stockxProduct, foundProducts, foundPublicOffers} = route.params;
   const [marketData, setMarketData] = useState([]);
   const [selectedSize, setSelectedSize] = useState(null);
   const [loadingData, setLoadingData] = useState(true);
@@ -127,6 +127,13 @@ export const StockxScreen: FC<any> = ({route}) => {
     });
   };
 
+  const handleFoundPublicOffersNavigation = () => {
+    navigation?.navigate('FoundPublicOffersScreen', {
+      stockxProduct: stockxProduct,
+      foundPublicOffers: foundPublicOffers,
+    });
+  };
+
   const isProductLiked = () => {
     if (!isLogedIn) {
       return false;
@@ -210,8 +217,8 @@ export const StockxScreen: FC<any> = ({route}) => {
           <BottomContainer>
             <BottomTitle>Item data:</BottomTitle>
             <DataContainer>
-              <DataRowContainer>
-                <NumberDataText>2009</NumberDataText>
+              <DataRowContainer onPress={() => handleFoundPublicOffersNavigation()}>
+                <NumberDataText>{foundPublicOffers?.length}</NumberDataText>
                 <DataLabelText>
                   Public Offers
                   <SvgXml xml={RIGHT_ARROW_DATA_ROW} />

@@ -40,5 +40,3 @@ export const HasItScreen: FC<any> = ({route}) => {
 };
 
 export default HasItScreen;
-
-

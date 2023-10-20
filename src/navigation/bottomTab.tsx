@@ -64,6 +64,7 @@ import SendMoneyOfferScreen from '../screens/offers/sendMoneyOfferScreen';
 import SearchScreen from '../screens/search';
 import StockxScreen from '../screens/search/stockxScreen';
 import HasItScreen from '../screens/search/hasItScreen';
+import FoundPublicOffersScreen from '../screens/search/foundPublicOffersScreen';
 import FiltersScreen from '../screens/search/filtersScreen';
 import CreatePublicOfferScreen from '../screens/publicOffers/';
 import CreatePublicOfferCheckoutScreen from '../screens/publicOffers/createPublicOfferCheckoutScreen';
@@ -149,6 +150,10 @@ const SearchStackNavigation = () => (
     <Stack.Screen name="FiltersScreen" component={FiltersScreen} />
     <Stack.Screen name="StockxScreen" component={StockxScreen}/>
     <Stack.Screen name="HasItScreen" component={HasItScreen}/>
+    <Stack.Screen
+      name="FoundPublicOffersScreen"
+      component={FoundPublicOffersScreen}
+    />
     <Stack.Screen name="StartTradeScreen" component={StartTradeScreen} />
     <Stack.Screen
       name="ChooseOfferTypeScreen"

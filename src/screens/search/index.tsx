@@ -168,22 +168,26 @@ export const SearchScreen: FC<any> = () => {
   const handleStockxNavigation = (
     stockxProduct: any,
     foundProducts: Array<any>,
+    foundPublicOffers: Array<any>,
   ) => {
     navigation?.navigate('StockxScreen', {
       stockxProduct: stockxProduct,
-      foundProducts: foundProducts
+      foundProducts: foundProducts,
+      foundPublicOffers: foundPublicOffers,
     });
   };
 
   const renderStockxSearchResult = ({item}: any) => {
     const stockxProduct = item._doc;
     const foundProducts = item.foundProducts;
+    const foundPublicOffers = item.foundPublicOffers;
 
     return (
       <>
         <StockxProductCard
           stockxProduct={stockxProduct}
           foundProducts={foundProducts}
+          foundPublicOffers={foundPublicOffers}
           handleStockxNavigation={handleStockxNavigation}
         />
       </>
