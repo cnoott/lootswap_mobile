@@ -53,6 +53,7 @@ export const StockxScreen: FC<any> = ({route}) => {
     foundProducts: [],
     foundTrades: [],
   });
+  const [loadingItemData, setLoadingItemData] = useState(true);
   const {foundPublicOffers, foundProducts, foundTrades} = itemData;
   const [selectedSize, setSelectedSize] = useState(null);
   const [loadingData, setLoadingData] = useState(true);
@@ -86,6 +87,7 @@ export const StockxScreen: FC<any> = ({route}) => {
 
   useEffect(() => {
     setLoadingData(true);
+    setLoadingItemData(true);
     const reqData = {
       stockxId: stockxProduct._id,
       stockxUrlKey: stockxProduct.urlKey,
@@ -112,9 +114,11 @@ export const StockxScreen: FC<any> = ({route}) => {
         reqData,
         res => {
           setItemData(res);
+          setLoadingItemData(false);
         },
         error => {
           console.log('ERR => ', err);
+          setLoadingItemData(false);
         },
       ),
     );
@@ -142,6 +146,22 @@ export const StockxScreen: FC<any> = ({route}) => {
           color: '#6267FE',
         }}>
         Loading
+      </Animated.Text>
+    );
+  };
+
+  const LoadingItemData = () => {
+    return (
+      <Animated.Text
+        style={{
+          borderRadius: 20,
+          fontSize: 16,
+          opacity,
+          marginTop: 5,
+          fontFamily: 'Urbanist-SemiBold',
+          color: 'black',
+        }}>
+        ...
       </Animated.Text>
     );
   };
@@ -249,7 +269,9 @@ export const StockxScreen: FC<any> = ({route}) => {
             <BottomTitle>Item data:</BottomTitle>
             <DataContainer>
               <DataRowContainer onPress={() => handleFoundPublicOffersNavigation()}>
-                <NumberDataText>{foundPublicOffers?.length}</NumberDataText>
+                <NumberDataText>
+                  {loadingItemData ? (<LoadingItemData />) : foundPublicOffers?.length}
+                </NumberDataText>
                 <DataLabelText>
                   Public Offers
                   <SvgXml xml={RIGHT_ARROW_DATA_ROW} />
@@ -257,14 +279,18 @@ export const StockxScreen: FC<any> = ({route}) => {
               </DataRowContainer>
 
               <DataRowContainer onPress={() => handleHasItNavigation()}>
-                <NumberDataText>{foundProducts?.length}</NumberDataText>
+                <NumberDataText>
+                  {loadingItemData ? (<LoadingItemData />) : foundProducts?.length}
+                </NumberDataText>
                 <DataLabelText>
                   Has It
                   <SvgXml xml={RIGHT_ARROW_DATA_ROW} />
                 </DataLabelText>
               </DataRowContainer>
               <DataRowContainer onPress={() => handleTradedItNavigation()}>
-                <NumberDataText>{foundTrades.length}</NumberDataText>
+                <NumberDataText>
+                  {loadingItemData ? (<LoadingItemData />) : foundTrades?.length}
+                </NumberDataText>
                 <DataLabelText>
                   Traded It
                   <SvgXml xml={RIGHT_ARROW_DATA_ROW} />
@@ -274,8 +300,8 @@ export const StockxScreen: FC<any> = ({route}) => {
             <LSButton
               title={'Create an offer'}
               size={Size.Full}
-              type={loadingData ? Type.Grey : Type.Primary}
-              disabled={loadingData}
+              type={(!isLogedIn || loadingData) ? Type.Grey : Type.Primary}
+              disabled={loadingData || !isLogedIn}
               radius={20}
               onPress={() =>
                 navigation?.navigate('CreatePublicOfferScreen', {
