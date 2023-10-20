@@ -235,33 +235,28 @@ export const StockxScreen: FC<any> = ({route}) => {
                   <SvgXml xml={RIGHT_ARROW_DATA_ROW} />
                 </DataLabelText>
               </DataRowContainer>
-              {/*
-                  <DataRowContainer>
-                  <NumberDataText>2009</NumberDataText>
-                  <DataLabelText>
+              <DataRowContainer>
+                <NumberDataText>2009</NumberDataText>
+                <DataLabelText>
                   Traded It
                   <SvgXml xml={RIGHT_ARROW_DATA_ROW} />
-                  </DataLabelText>
-                  </DataRowContainer>
-              */}
+                </DataLabelText>
+              </DataRowContainer>
             </DataContainer>
+            <LSButton
+              title={'Create an offer'}
+              size={Size.Full}
+              type={loadingData ? Type.Grey : Type.Primary}
+              disabled={loadingData}
+              radius={20}
+              onPress={() =>
+                navigation?.navigate('CreatePublicOfferScreen', {
+                  preselectedStockxItem: {...stockxProduct, sizes: marketData},
+                  skipFirstScreen: true,
+                })}
+            />
           </BottomContainer>
         </ScrollView>
-
-        <ButtonContainer>
-          <LSButton
-            title={'Create an offer'}
-            size={Size.Full}
-            type={loadingData ? Type.Grey : Type.Primary}
-            disabled={loadingData}
-            radius={20}
-            onPress={() =>
-              navigation?.navigate('CreatePublicOfferScreen', {
-                preselectedStockxItem: {...stockxProduct, sizes: marketData},
-                skipFirstScreen: true,
-              })}
-          />
-        </ButtonContainer>
       </Container>
     </>
   );

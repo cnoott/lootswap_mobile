@@ -129,13 +129,12 @@ export const SearchScreen: FC<any> = () => {
     if (!searchQuery) {
       return;
     }
-    const reqData = {query: searchQuery};
 
     if (isLogedIn) {
       handleSaveSearch(searchQuery);
     }
     swiperRef?.current?.scrollTo(currPage + 1);
-    handleSubmitFilters(dispatch, null, filters, query);
+    handleSubmitFilters(dispatch, null, filters, searchQuery);
   };
 
   const goBack = () => {
