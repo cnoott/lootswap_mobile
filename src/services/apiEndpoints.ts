@@ -467,14 +467,6 @@ export const searchStockxCall = (reqData: any) => {
   );
 };
 
-export const searchProductsCall = (reqData: any) => {
-  const query = encodeURIComponent(reqData.query);
-  return handleResponse(
-    api.get(`/search-products/?query=${query}`),
-    API_RESPONSE.CODE200,
-  );
-};
-
 export const getAvaliableSizesCall = () => {
   return handleResponse(api.get('/avaliable-sizes/'), API_RESPONSE.CODE200);
 };
