@@ -541,6 +541,13 @@ export const getPublicOffersCall = (reqData: any) => {
   );
 };
 
+export const fetchRelatedItemDataCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/fetch-related-item-data`, reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

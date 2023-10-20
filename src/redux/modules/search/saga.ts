@@ -1,12 +1,10 @@
 import {takeLatest, call, put} from 'redux-saga/effects';
 import {
-  SEARCH_PRODUCTS,
   FILTER_PRODUCTS,
   GET_AVALIABLE_SIZES,
+  FETCH_RELATED_ITEM_DATA,
 } from '../../../constants/actions';
 import {
-  searchProductsSuccess,
-  searchProductsFailure,
   filterProductsSuccess,
   filterProductsFailure,
   getAvaliableSizesSuccess,
@@ -14,8 +12,8 @@ import {
 } from './actions';
 import {
   filterProductsCall,
-  searchProductsCall,
   getAvaliableSizesCall,
+  fetchRelatedItemDataCall,
 } from '../../../services/apiEndpoints';
 
 type APIResponseProps = {
@@ -23,22 +21,6 @@ type APIResponseProps = {
   data?: any;
   error?: any;
 };
-
-export function* searchProducts(action: any) {
-  try {
-    const response: APIResponseProps = yield call(
-      searchProductsCall,
-      action?.reqData,
-    );
-    if (response?.success) {
-      yield put(searchProductsSuccess(response.data));
-    } else {
-      yield put(searchProductsFailure());
-    }
-  } catch (err) {
-    console.log(err);
-  }
-}
 
 export function* filterProducts(action: any) {
   try {
@@ -68,8 +50,26 @@ export function* getAvaliableSizes() {
     console.log(e);
   }
 }
+
+export function* fetchRelatedItemData(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      fetchRelatedItemDataCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export default function* searchSaga() {
-  yield takeLatest(SEARCH_PRODUCTS.REQUEST, searchProducts);
   yield takeLatest(FILTER_PRODUCTS.REQUEST, filterProducts);
   yield takeLatest(GET_AVALIABLE_SIZES.REQUEST, getAvaliableSizes);
+  yield takeLatest(FETCH_RELATED_ITEM_DATA.REQUEST, fetchRelatedItemData);
 }

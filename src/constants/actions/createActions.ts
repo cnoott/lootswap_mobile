@@ -305,3 +305,7 @@ export const GET_PUBLIC_OFFERS = {
 export const DELETE_PUBLIC_OFFER = {
   ...createActionConst(actions.DELETE_PUBLIC_OFFER),
 };
+
+export const FETCH_RELATED_ITEM_DATA = {
+  ...createActionConst(actions.FETCH_RELATED_ITEM_DATA),
+};

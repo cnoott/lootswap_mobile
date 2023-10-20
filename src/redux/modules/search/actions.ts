@@ -4,33 +4,8 @@ import {
   CLEAR_FILTERS,
   SEARCH_PRODUCTS,
   GET_AVALIABLE_SIZES,
+  FETCH_RELATED_ITEM_DATA,
 } from '../../../constants/actions';
-
-export const searchProductsRequest = (reqData: any) => {
-  return {
-    type: SEARCH_PRODUCTS.REQUEST,
-    reqData: reqData,
-  };
-};
-
-export const searchProductsReset = () => {
-  return {
-    type: SEARCH_PRODUCTS.RESET,
-  };
-};
-
-export const searchProductsSuccess = (payload: any) => {
-  return {
-    type: SEARCH_PRODUCTS.SUCCESS,
-    payload: payload,
-  };
-};
-
-export const searchProductsFailure = () => {
-  return {
-    type: SEARCH_PRODUCTS.FAILURE
-  };
-};
 
 export const selectFilter = (filterType: string, filter: string) => {
   return {
@@ -82,5 +57,18 @@ export const getAvaliableSizesFailure = () => {
 export const clearFiltersRequest = () => {
   return {
     type: CLEAR_FILTERS.REQUEST,
+  };
+};
+
+export const fetchRelatedItemData = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: FETCH_RELATED_ITEM_DATA.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
   };
 };
