@@ -23,7 +23,8 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 const NUMBER_OF_STEPS = 4;
 
-export const CreatePublicOfferScreen: FC<any> = () => {
+export const CreatePublicOfferScreen: FC<any> = ({route}) => {
+  const {preselectedStockxItem = {}, skipFirstScreen = false} = route?.params || {};
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const dispatch = useDispatch();
@@ -32,7 +33,9 @@ export const CreatePublicOfferScreen: FC<any> = () => {
   const [myItems, setMyItems] = useState(userData?.my_items);
 
   const swiperRef = useRef<any>(null);
-  const [currPage, setCurrPage] = useState(0);
+  const [currPage, setCurrPage] = useState(
+    skipFirstScreen ? 1 : 0,
+  );
   const handleBack = () => {
     if (currPage === 0) {
       navigation.goBack();
@@ -53,11 +56,17 @@ export const CreatePublicOfferScreen: FC<any> = () => {
   };
 
   useEffect(() => {
+    if (skipFirstScreen) {
+      swiperRef?.current?.scrollTo(1);
+    }
+  }, []);
+
+  useEffect(() => {
     dispatch(getMyDetailsNoLoadRequest(userData?._id));
   }, [dispatch, userData?._id]);
 
   const [publicOffersData, setPublicOffersData] = useState({
-    receivingStockxProducts: [],
+    receivingStockxProducts: skipFirstScreen ? [preselectedStockxItem] : [],
     sendingProductIds: [], //remove later because we use myItems to keep track of items
     receivingMoneyOffer: 0,
     sendingMoneyOffer: 0,
@@ -217,7 +226,7 @@ export const CreatePublicOfferScreen: FC<any> = () => {
   return (
     <Container>
       {renderTopView()}
-      <SwiperComponent ref={swiperRef} onIndexChanged={setCurrPage}>
+      <SwiperComponent ref={swiperRef} onIndexChanged={setCurrPage} index={currPage}>
         {renderSteps()}
       </SwiperComponent>
       {renderBottomButtonView()}
