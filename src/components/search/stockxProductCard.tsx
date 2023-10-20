@@ -15,8 +15,7 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 
 interface StockxProductCardProps {
   stockxProduct: any;
-  foundProducts: Array<any>;
-  foundPublicOffers: Array<any>;
+  productCount: Number;
   handleStockxNavigation?: Function;
   border?: Boolean;
   isFromLiked?: Boolean;
@@ -26,8 +25,7 @@ interface StockxProductCardProps {
 export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
   const {
     stockxProduct,
-    foundProducts,
-    foundPublicOffers,
+    productCount,
     handleStockxNavigation = () => {},
     border = false,
     isFromLiked = false,
@@ -36,18 +34,13 @@ export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
 
   return (
     <StockxContainer
-      onPress={() =>
-        handleStockxNavigation(stockxProduct, foundProducts, foundPublicOffers)
-      }
+      onPress={() => handleStockxNavigation(stockxProduct)}
       border={border}
       isFromLiked={isFromLiked}
     >
       {isFromLiked && (
         <LikeTouchable onPress={() => handleUnlikeProduct(stockxProduct)}>
-          <SvgXml
-            xml={LIKE_HEART_ICON_RED}
-            color={'white'}
-          />
+          <SvgXml xml={LIKE_HEART_ICON_RED} color={'white'} />
         </LikeTouchable>
       )}
       <StockxImageContainer>
@@ -56,9 +49,8 @@ export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
       <StockxTextContainer>
         <StockxTitleText>{stockxProduct?.name}</StockxTitleText>
         <StockxNumListingsText>
-          {foundProducts && `${foundProducts?.length} listing${
-            foundProducts?.length !== 1 ? 's' : ''} avaliable`
-          }
+          {productCount > 0 &&
+            `${productCount} listing${productCount !== 1 ? 's' : ''} avaliable`}
         </StockxNumListingsText>
       </StockxTextContainer>
     </StockxContainer>
