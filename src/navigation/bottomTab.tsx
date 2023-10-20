@@ -64,6 +64,7 @@ import SendMoneyOfferScreen from '../screens/offers/sendMoneyOfferScreen';
 import SearchScreen from '../screens/search';
 import StockxScreen from '../screens/search/stockxScreen';
 import HasItScreen from '../screens/search/hasItScreen';
+import TradedItScreen from '../screens/search/tradedItScreen';
 import FoundPublicOffersScreen from '../screens/search/foundPublicOffersScreen';
 import FiltersScreen from '../screens/search/filtersScreen';
 import CreatePublicOfferScreen from '../screens/publicOffers/';
@@ -90,6 +91,7 @@ const HomeStackNavigation = () => (
     <Stack.Screen name="LikedProductScreen" component={LikedProductScreen} />
     <Stack.Screen name="StockxScreen" component={StockxScreen}/>
     <Stack.Screen name="HasItScreen" component={HasItScreen}/>
+    <Stack.Screen name="TradedItScreen" component={TradedItScreen}/>
     <Stack.Screen name="LinkPaypalScreen" component={LinkPaypalScreen} />
     <Stack.Screen
       name="LootEditAddressScreen"
@@ -163,6 +165,7 @@ const SearchStackNavigation = () => (
       component={AcceptPublicOfferScreen}
     />
     <Stack.Screen name="HasItScreen" component={HasItScreen}/>
+    <Stack.Screen name="TradedItScreen" component={TradedItScreen}/>
     <Stack.Screen
       name="FoundPublicOffersScreen"
       component={FoundPublicOffersScreen}

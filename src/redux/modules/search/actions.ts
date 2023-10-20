@@ -22,6 +22,12 @@ export const filterProductsRequest = (reqData: any) => {
   };
 };
 
+export const searchProductsReset = () => {
+  return {
+    type: SEARCH_PRODUCTS.RESET,
+  };
+};
+
 export const filterProductsSuccess = (payload: any) => {
   return {
     type: FILTER_PRODUCTS.SUCCESS,

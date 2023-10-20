@@ -36,14 +36,24 @@ import {
   STOCKX_SEARCH_DROP_DOWN_ARROW,
   RIGHT_ARROW_DATA_ROW,
 } from 'localsvgimages';
-import {refreshStockxData, updateUser} from '../../redux/modules';
+import {
+  refreshStockxData,
+  updateUser,
+  fetchRelatedItemData,
+} from '../../redux/modules';
 import {useDispatch, useSelector} from 'react-redux';
 import {Animated} from 'react-native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 
 export const StockxScreen: FC<any> = ({route}) => {
-  const {stockxProduct, foundProducts = [], foundPublicOffers = []} = route.params;
+  const {stockxProduct} = route.params;
   const [marketData, setMarketData] = useState([]);
+  const [itemData, setItemData] = useState({
+    foundPublicOffers: [],
+    foundProducts: [],
+    foundTrades: [],
+  });
+  const {foundPublicOffers, foundProducts, foundTrades} = itemData;
   const [selectedSize, setSelectedSize] = useState(null);
   const [loadingData, setLoadingData] = useState(true);
   const [opacity] = useState(new Animated.Value(1));
@@ -77,6 +87,7 @@ export const StockxScreen: FC<any> = ({route}) => {
   useEffect(() => {
     setLoadingData(true);
     const reqData = {
+      stockxId: stockxProduct._id,
       stockxUrlKey: stockxProduct.urlKey,
       name: stockxProduct.name,
     };
@@ -94,6 +105,18 @@ export const StockxScreen: FC<any> = ({route}) => {
           setLoadingData(false);
         },
       )
+    );
+
+    dispatch(
+      fetchRelatedItemData(
+        reqData,
+        res => {
+          setItemData(res);
+        },
+        error => {
+          console.log('ERR => ', err);
+        },
+      ),
     );
   }, [dispatch, stockxProduct.name, stockxProduct.urlKey]);
 
@@ -127,6 +150,12 @@ export const StockxScreen: FC<any> = ({route}) => {
     navigation?.navigate('HasItScreen', {
       stockxProduct: stockxProduct,
       foundProducts: foundProducts,
+    });
+  };
+
+  const handleTradedItNavigation = () => {
+    navigation?.navigate('TradedItScreen', {
+      foundTrades: foundTrades,
     });
   };
 
@@ -168,7 +197,6 @@ export const StockxScreen: FC<any> = ({route}) => {
         noLoad: true,
       }),
     );
-
   };
 
   return (
@@ -235,8 +263,8 @@ export const StockxScreen: FC<any> = ({route}) => {
                   <SvgXml xml={RIGHT_ARROW_DATA_ROW} />
                 </DataLabelText>
               </DataRowContainer>
-              <DataRowContainer>
-                <NumberDataText>2009</NumberDataText>
+              <DataRowContainer onPress={() => handleTradedItNavigation()}>
+                <NumberDataText>{foundTrades.length}</NumberDataText>
                 <DataLabelText>
                   Traded It
                   <SvgXml xml={RIGHT_ARROW_DATA_ROW} />
