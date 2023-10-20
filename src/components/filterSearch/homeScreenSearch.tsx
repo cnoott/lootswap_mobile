@@ -49,6 +49,7 @@ const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
       autoFocus={!isFromHome}
       onSubmitEditing={() => onSubmitSearch()}
       editable={!isFromHome}
+      height={44}
     />
   );
 });
