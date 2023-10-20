@@ -21,8 +21,6 @@ export const SubContainer = styled.View.attrs(() => ({
 export const SearchContainer = styled.View.attrs(props => ({
   paddingVertical: moderateScale(5),
   paddingHorizontal: moderateScale(10),
-  bg: props.theme.colors.white,
-  pb: moderateScale(10),
 }))`
   ${space}
   ${layout}

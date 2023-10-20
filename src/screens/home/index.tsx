@@ -270,6 +270,17 @@ export const HomeScreen: FC<{}> = () => {
     );
   };
 
+  const renderSearchBar = () => {
+    return (
+      <SearchContainer>
+        <LSHomeScreenSearch
+          onRightIconPress={onRightIconPress}
+          isFromHome={true}
+        />
+      </SearchContainer>
+    );
+  };
+
   return (
     <Container>
       <InHomeHeader
@@ -289,13 +300,11 @@ export const HomeScreen: FC<{}> = () => {
         }
         ListHeaderComponent={
           <>
-            <SearchContainer>
-              <LSHomeScreenSearch
-                onRightIconPress={onRightIconPress}
-                isFromHome={true}
-              />
-            </SearchContainer>
-            <CarouselComponent height={scale(320)} isHome={true} />
+            <CarouselComponent
+              height={scale(430)}
+              isHome={true}
+              renderSearchBar={renderSearchBar}
+            />
             {renderPublicOffers()}
           </>
         }

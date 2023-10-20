@@ -15,6 +15,7 @@ import {
   ItemCenterContainer,
   HomeBottomItemContainer,
   PercentageText,
+  SearchBarWrapper,
 } from './carouselStyles';
 
 interface CarouselProps {
@@ -25,6 +26,7 @@ interface CarouselProps {
   showDummy?: boolean;
   autoPlay?: boolean;
   loop?: boolean;
+  renderSearchBar?: Function;
 }
 const width = Dimensions.get('window').width;
 
@@ -37,6 +39,7 @@ function CarouselComponent(props: CarouselProps) {
     showDummy = true,
     autoPlay = true,
     loop = true,
+    renderSearchBar = () => <></>
   } = props;
   const [activeIndex, setActiveIndex] = React.useState(0);
   const w = moderateScale(width) - moderateScale(63);
@@ -74,6 +77,9 @@ function CarouselComponent(props: CarouselProps) {
   };
   return (
     <Container height={height} isProduct={isProduct}>
+      <SearchBarWrapper>
+        {renderSearchBar()}
+      </SearchBarWrapper>
       <Carousel
         panGestureHandlerProps={{
           activeOffsetX: [-10, 10],

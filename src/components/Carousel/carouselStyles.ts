@@ -9,6 +9,7 @@ export const Container = styled.View.attrs(props => ({
   bg: props.theme.colors.white,
 }))`
   align-self: ${props => `${props?.isProduct ? 'center' : 'flex-start'}`};
+  position: relative;
   ${space}
   ${color}
   ${layout}
@@ -96,4 +97,11 @@ export const PercentageText = styled.Text.attrs(props => ({
   color: props.theme.colors.errorColor,
 }))`
   ${color}
+`;
+
+export const SearchBarWrapper = styled.View.attrs(props => ({}))`
+  width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 10000px;
 `;
