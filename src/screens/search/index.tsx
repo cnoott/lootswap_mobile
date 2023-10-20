@@ -165,29 +165,21 @@ export const SearchScreen: FC<any> = () => {
     handleSubmitFilters(dispatch, null, {}, query);
   };
 
-  const handleStockxNavigation = (
-    stockxProduct: any,
-    foundProducts: Array<any>,
-    foundPublicOffers: Array<any>,
-  ) => {
+  const handleStockxNavigation = (stockxProduct: any) => {
     navigation?.navigate('StockxScreen', {
       stockxProduct: stockxProduct,
-      foundProducts: foundProducts,
-      foundPublicOffers: foundPublicOffers,
     });
   };
 
   const renderStockxSearchResult = ({item}: any) => {
     const stockxProduct = item._doc;
-    const foundProducts = item.foundProducts;
-    const foundPublicOffers = item.foundPublicOffers;
+    const productCount = item.productCount;
 
     return (
       <>
         <StockxProductCard
           stockxProduct={stockxProduct}
-          foundProducts={foundProducts}
-          foundPublicOffers={foundPublicOffers}
+          productCount={productCount}
           handleStockxNavigation={handleStockxNavigation}
         />
       </>

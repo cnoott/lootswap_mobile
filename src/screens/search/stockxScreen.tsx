@@ -42,7 +42,7 @@ import {Animated} from 'react-native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 
 export const StockxScreen: FC<any> = ({route}) => {
-  const {stockxProduct, foundProducts, foundPublicOffers} = route.params;
+  const {stockxProduct, foundProducts = [], foundPublicOffers = []} = route.params;
   const [marketData, setMarketData] = useState([]);
   const [selectedSize, setSelectedSize] = useState(null);
   const [loadingData, setLoadingData] = useState(true);
