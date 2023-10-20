@@ -43,7 +43,7 @@ const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
       rightIcon={!isFromHome && HOME_FILTER_ICON}
       onRightIconPress={() => navigateToFilters()}
       homeSearch={true}
-      inputBackColor={theme?.colors?.screenBg_light}
+      inputBackColor={isFromHome ? 'white' : theme?.colors?.screenBg_light}
       onPressIn={() => handleOnFocus()}
       enterKeyHint={'search'}
       autoFocus={!isFromHome}
