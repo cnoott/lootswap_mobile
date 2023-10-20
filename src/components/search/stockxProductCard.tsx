@@ -16,6 +16,7 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 interface StockxProductCardProps {
   stockxProduct: any;
   foundProducts: Array<any>;
+  foundPublicOffers: Array<any>;
   handleStockxNavigation?: Function;
   border?: Boolean;
   isFromLiked?: Boolean;
@@ -26,6 +27,7 @@ export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
   const {
     stockxProduct,
     foundProducts,
+    foundPublicOffers,
     handleStockxNavigation = () => {},
     border = false,
     isFromLiked = false,
@@ -34,7 +36,9 @@ export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
 
   return (
     <StockxContainer
-      onPress={() => handleStockxNavigation(stockxProduct, foundProducts)}
+      onPress={() =>
+        handleStockxNavigation(stockxProduct, foundProducts, foundPublicOffers)
+      }
       border={border}
       isFromLiked={isFromLiked}
     >
