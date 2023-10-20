@@ -23,6 +23,8 @@ import {
   NumberDataText,
   DataLabelText,
 } from './stockxScreenStyles';
+import {ButtonContainer} from '../publicOffers/styles';
+
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {Dropdown} from 'react-native-element-dropdown';
@@ -84,6 +86,7 @@ export const StockxScreen: FC<any> = ({route}) => {
         res => {
           setMarketData(res.sizes);
           setLoadingData(false);
+          console.log('ISES', {...stockxProduct, sizes: res.sizes});
         },
         err => {
           console.log('ERR => ', err);
@@ -232,24 +235,33 @@ export const StockxScreen: FC<any> = ({route}) => {
                   <SvgXml xml={RIGHT_ARROW_DATA_ROW} />
                 </DataLabelText>
               </DataRowContainer>
-
-              <DataRowContainer>
-                <NumberDataText>2009</NumberDataText>
-                <DataLabelText>
+              {/*
+                  <DataRowContainer>
+                  <NumberDataText>2009</NumberDataText>
+                  <DataLabelText>
                   Traded It
                   <SvgXml xml={RIGHT_ARROW_DATA_ROW} />
-                </DataLabelText>
-              </DataRowContainer>
+                  </DataLabelText>
+                  </DataRowContainer>
+              */}
             </DataContainer>
-            <LSButton
-              title={'Create an offer'}
-              size={Size.Full}
-              type={Type.Primary}
-              radius={20}
-              onPress={() => console.log('busmi')}
-            />
           </BottomContainer>
         </ScrollView>
+
+        <ButtonContainer>
+          <LSButton
+            title={'Create an offer'}
+            size={Size.Full}
+            type={loadingData ? Type.Grey : Type.Primary}
+            disabled={loadingData}
+            radius={20}
+            onPress={() =>
+              navigation?.navigate('CreatePublicOfferScreen', {
+                preselectedStockxItem: {...stockxProduct, sizes: marketData},
+                skipFirstScreen: true,
+              })}
+          />
+        </ButtonContainer>
       </Container>
     </>
   );
