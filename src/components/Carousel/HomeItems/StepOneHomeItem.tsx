@@ -31,22 +31,22 @@ export const LSHomeStepOneCarouselItem: FC<HeaderProps> = React.memo(() => {
   const renderSwapTopView = () => {
     return (
       <SwapContainer>
-        <Image source={HOME_CAROUSEL_SHOE_ONE} width={110} height={74} />
+        <Image source={HOME_CAROUSEL_SHOE_ONE} width={96} height={67.5} />
         <SwapIconContainer>
           <SvgXml xml={SWAP_ICON_HOME_CAROASAL} />
         </SwapIconContainer>
-        <Image source={HOME_CAROUSEL_SHOE_TWO} width={110} height={74} />
+        <Image source={HOME_CAROUSEL_SHOE_TWO} width={96} height={67.5} />
       </SwapContainer>
     );
   };
   const renderSwapBottomView = () => {
     return (
       <SwapContainer>
-        <Image source={HOME_CAROUSEL_CLOTH_ONE} width={87} height={100} />
+        <Image source={HOME_CAROUSEL_CLOTH_ONE} width={80} height={91} />
         <SwapIconContainer>
           <SvgXml xml={SWAP_ICON_HOME_CAROASAL} />
         </SwapIconContainer>
-        <Image source={HOME_CAROUSEL_CLOTH_TWO} width={87} height={100} />
+        <Image source={HOME_CAROUSEL_CLOTH_TWO} width={80} height={91} />
       </SwapContainer>
     );
   };
@@ -76,7 +76,7 @@ export const LSHomeStepOneCarouselItem: FC<HeaderProps> = React.memo(() => {
         customWidth={130}
         customHeight={34}
       />
-      <VerticalSpace space={5} />
+      <VerticalSpace space={0} />
       {renderSwapTopView()}
       {renderSwapBottomView()}
       <SwapContainer>

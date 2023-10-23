@@ -7,10 +7,12 @@ export const Container = styled(LinearGradient).attrs(() => ({
   flex: 1,
   height: '100%',
   width: '100%',
-  colors: ['#F1F2FF', 'rgba(255, 255, 255, 0)'],
-  start: {x: 0, y: 0},
-  end: {x: 0, y: 1},
+  colors: ['#C8C9FF', '#EDEEFF', 'rgba(255, 255, 255, 0)'],
+  locations: [0, 0.8, 1],
+  start: {x: 0, y: 1},
+  end: {x: 0, y: 0},
 }))`
+  padding-top: ${scale(70)};
   justify-content: center;
   align-items: center;
   ${color}

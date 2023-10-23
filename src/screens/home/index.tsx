@@ -301,7 +301,7 @@ export const HomeScreen: FC<{}> = () => {
         ListHeaderComponent={
           <>
             <CarouselComponent
-              height={scale(430)}
+              height={scale(360)}
               isHome={true}
               renderSearchBar={renderSearchBar}
             />
