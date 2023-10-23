@@ -39,9 +39,9 @@ export const LSHomeStepThreeCarouselItem: FC<HeaderProps> = React.memo(() => {
       <ExecutivePerksText>{'*Get Exclusive Perks'}</ExecutivePerksText>
       <LSButton
         title={'Join Now'}
-        size={Size.Fit_To_Width}
+        size={Size.Small}
         type={Type.Primary}
-        radius={16}
+        radius={12}
         onPress={() => Linking.openURL('https://discord.gg/z6EH4zAfxt')}
         fitToWidth={'35%'}
         sizeFont={22}
