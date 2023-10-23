@@ -77,9 +77,7 @@ function CarouselComponent(props: CarouselProps) {
   };
   return (
     <Container height={height} isProduct={isProduct}>
-      <SearchBarWrapper>
-        {renderSearchBar()}
-      </SearchBarWrapper>
+      <SearchBarWrapper>{renderSearchBar()}</SearchBarWrapper>
       <Carousel
         panGestureHandlerProps={{
           activeOffsetX: [-10, 10],
@@ -88,7 +86,7 @@ function CarouselComponent(props: CarouselProps) {
         width={isProduct ? w : width}
         height={isProduct ? height - 30 : height - 5}
         parallaxScrollingOffset={50}
-        autoPlay={autoPlay}
+        autoPlay={false}
         autoPlayInterval={10000}
         keyExtractor={item => item}
         data={imagesArr}

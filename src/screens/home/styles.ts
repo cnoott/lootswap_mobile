@@ -19,9 +19,17 @@ export const SubContainer = styled.View.attrs(() => ({
 `;
 
 export const SearchContainer = styled.View.attrs(props => ({
-  paddingVertical: moderateScale(5),
+  paddingVertical: moderateScale(0),
   paddingHorizontal: moderateScale(10),
 }))`
+  /* Shadow properties for iOS */
+  shadow-color: #000;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.2;
+  shadow-radius: 3px;
+
+  /* Shadow properties for Android */
+  elevation: 3;
   ${space}
   ${layout}
   ${color}

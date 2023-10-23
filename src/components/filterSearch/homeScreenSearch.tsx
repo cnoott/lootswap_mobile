@@ -4,6 +4,7 @@ import {useTheme} from 'styled-components';
 import {HOME_SEARCH_INPUT_ICON, HOME_FILTER_ICON} from 'localsvgimages';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {scale} from 'react-native-size-matters';
 
 interface LSHomeScreenSearchProps {
   query?: String;
@@ -49,7 +50,7 @@ const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
       autoFocus={!isFromHome}
       onSubmitEditing={() => onSubmitSearch()}
       editable={!isFromHome}
-      height={44}
+      height={scale(36)}
     />
   );
 });
