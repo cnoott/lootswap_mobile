@@ -139,7 +139,11 @@ export const SearchScreen: FC<any> = () => {
 
   const goBack = () => {
     dispatch(searchProductsReset());
-    swiperRef?.current?.scrollTo(currPage - 1);
+    if (currPage === 0) {
+      navigation?.navigate('HomeScreen');
+    } else {
+      swiperRef?.current?.scrollTo(currPage - 1);
+    }
   };
 
   const goBackToSearch = () => {
@@ -291,11 +295,9 @@ export const SearchScreen: FC<any> = () => {
   return (
     <Container paddingTop={paddingTop}>
       <SearchContainer>
-        {currPage === 1 && (
-          <GoBackTouchable onPress={() => goBack()}>
-            <SvgXml xml={LEFT_BLACK_ARROW} />
-          </GoBackTouchable>
-        )}
+        <GoBackTouchable onPress={() => goBack()}>
+          <SvgXml xml={LEFT_BLACK_ARROW} />
+        </GoBackTouchable>
         <SearchInputContainer>
           <LSHomeScreenSearch
             query={query}
