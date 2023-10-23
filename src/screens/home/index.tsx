@@ -168,7 +168,7 @@ export const HomeScreen: FC<{}> = () => {
         getPublicOffers(
           publicOfferReqData,
           (res: any) => {
-            setPublicOffers([...publicOffers, ...res]);
+            setPublicOffers(res);
           },
           (err: any) => {
             console.log('ERR => ', err);
@@ -184,7 +184,7 @@ export const HomeScreen: FC<{}> = () => {
         getHomeScreenPublicOffers(
           publicOfferReqData,
           (res: any) => {
-            setPublicOffers([...publicOffers, ...res]);
+            setPublicOffers(res);
           },
           (err: any) => {
             console.log('ERR => ', err);
