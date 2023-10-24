@@ -5,6 +5,7 @@ import {verticalScale, moderateScale} from 'react-native-size-matters';
 import {LSHomeStepOneCarouselItem} from './HomeItems/StepOneHomeItem';
 import {LSHomeStepTwoCarouselItem} from './HomeItems/StepTwoHomeItem';
 import {LSHomeStepThreeCarouselItem} from './HomeItems/StepThreeHomeItem';
+import {LSHomeStepFourCarouselItem} from './HomeItems/StepFourHomeItem';
 import {NIKE_SHOES_IMAGE} from '../../constants/imageConstants';
 import {
   Container,
@@ -70,9 +71,9 @@ function CarouselComponent(props: CarouselProps) {
       case 2:
         return <LSHomeStepTwoCarouselItem />;
       case 3:
-        return <LSHomeStepThreeCarouselItem />;
+        return <LSHomeStepFourCarouselItem />;
       default:
-        return <LSHomeStepThreeCarouselItem />;
+        return <LSHomeStepFourCarouselItem />;
     }
   };
   return (
@@ -86,7 +87,7 @@ function CarouselComponent(props: CarouselProps) {
         width={isProduct ? w : width}
         height={isProduct ? height - 30 : height - 5}
         parallaxScrollingOffset={50}
-        autoPlay={autoPlay}
+        autoPlay={false}
         autoPlayInterval={10000}
         keyExtractor={item => item}
         data={imagesArr}

@@ -21,7 +21,7 @@ export const Container = styled(LinearGradient).attrs(() => ({
 export const HeaderText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
-  font-weight: 900;
+  font-weight: bold;
   font-size: ${scale(19)}px;
   font-family: Mont;
   text-align: center;
@@ -32,7 +32,20 @@ export const HeaderText = styled.Text.attrs(props => ({
 export const HeaderPrimaryText = styled.Text.attrs(props => ({
   color: props.theme.colors.primary,
 }))`
+  font-weight: bold;
   font-family: Mont;
+  ${color}
+`;
+
+export const StepTwoSubText = styled.Text.attrs(props => ({
+  color: props.theme.colors.black,
+}))`
+  font-weight: 400;
+  font-size: 14px;
+  font-family: Urbanist;
+  width: 85%;
+  text-align: center;
+  margin-top: 5px;
   ${color}
 `;
 
@@ -116,6 +129,38 @@ export const BottomLeftContainer = styled.View.attrs(() => ({
   ${layout} ${color} ${space} ${border};
 `;
 
+export const RightPersonOneContainer = styled.View.attrs(() => ({
+}))`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  ${layout} ${color} ${space} ${border};
+`;
+
+export const RightPersonTwoContainer = styled.View.attrs(() => ({
+}))`
+  position: absolute;
+  bottom: 0;
+  right: 45;
+  ${layout} ${color} ${space} ${border};
+`;
+
+export const LeftPersonOneContainer = styled.View.attrs(() => ({
+}))`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  ${layout} ${color} ${space} ${border};
+`;
+
+export const LeftPersonTwoContainer = styled.View.attrs(() => ({
+}))`
+  position: absolute;
+  bottom: 0;
+  left: 38;
+  ${layout} ${color} ${space} ${border};
+`;
+
 export const BottomRightContainer = styled.View.attrs(() => ({
   height: scale(38),
   width: scale(150),
@@ -178,7 +223,7 @@ export const StepThreeHeaderText = styled.Text.attrs(props => ({
 }))`
   font-weight: 900;
   font-size: ${scale(18)}px;
-  font-family: Inter-Black;
+  font-family: Mont;
   ${color}
   ${space}
 `;
