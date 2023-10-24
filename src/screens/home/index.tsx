@@ -39,7 +39,7 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 import {Size, Type} from '../../enums';
 import LSButton from '../../components/commonComponents/LSButton';
 import PublicOfferCell from '../../components/publicOffer/PublicOfferCell';
-import { getUniqueId } from 'react-native-device-info';
+import {ScrollView} from 'react-native';
 
 const ITEMS_PER_PAGE = 8;
 const PUBLIC_OFFERS_PER_PAGE = 4;
@@ -235,7 +235,7 @@ export const HomeScreen: FC<{}> = () => {
     if (loading) {
       //return <LoadingProductCard />
     }
-    return <LSProductCard item={item} />;
+    return <LSProductCard item={item} isHorizontalView={true} />;
   };
 
   const onToggleModal = () => {
@@ -289,32 +289,35 @@ export const HomeScreen: FC<{}> = () => {
         centerAligned={false}
         onRightItemPress={() => goToLikedProducts()}
       />
-      <FlatList
-        data={products}
-        renderItem={renderItem}
-        keyExtractor={item => item._id}
-        onEndReached={() => onEndReached()}
-        //refreshing={refreshing}
-        refreshControl={
-          <RefreshControl refreshing={false} onRefresh={handleRefresh} />
-        }
-        ListHeaderComponent={
-          <>
-            <CarouselComponent
-              height={scale(360)}
-              isHome={true}
-              renderSearchBar={renderSearchBar}
+      <ScrollView>
+        <CarouselComponent
+          height={scale(360)}
+          isHome={true}
+          renderSearchBar={renderSearchBar}
+        />
+        {renderPublicOffers()}
+        <SectionContainer>
+          <SectionTopContainer>
+            <SectionTitleText>All Listings</SectionTitleText>
+            <LSButton
+              title={'View All'}
+              size={Size.ViewSmall}
+              type={Type.View}
+              radius={20}
+              onPress={() => {}}
             />
-            {renderPublicOffers()}
-          </>
-        }
-        getItemLayout={(data, index) => ({
-          length: 100,
-          offset: 100 * index,
-          index,
-          data,
-        })}
-      />
+
+          </SectionTopContainer>
+        </SectionContainer>
+
+        <FlatList
+          data={products}
+          renderItem={renderItem}
+          keyExtractor={item => item._id}
+          onEndReached={() => onEndReached()}
+          horizontal={true}
+        />
+      </ScrollView>
     </Container>
   );
 };

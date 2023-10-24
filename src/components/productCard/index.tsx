@@ -32,10 +32,11 @@ interface LSProductCardProps {
   onPress?: Function;
   item: any;
   liked?: boolean;
+  isHorizontalView?: boolean;
 }
 
 const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
-  const {item, onPress = () => {}} = props;
+  const {item, onPress = () => {}, isHorizontalView = false} = props;
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const theme = useTheme();
   const auth: AuthProps = useSelector(state => state.auth);
@@ -98,7 +99,9 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
   };
 
   return (
-    <ItemContainer onPress={() => onProductPress()}>
+    <ItemContainer
+      onPress={() => onProductPress()}
+      isHorizontalView={isHorizontalView}>
       <EmptyView>
         <Image source={{uri: item.primary_photo}} />
         {item.who_pays === 'seller-pays' && (

@@ -7,6 +7,7 @@ export enum Size {
   Fit_To_Width = 'ftw',
   Custom = 'cst',
   View = 'view',
+  ViewSmall = 'viewsmall',
 }
 export enum Type {
   Primary = 'primary',

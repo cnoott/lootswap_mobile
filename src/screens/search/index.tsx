@@ -155,7 +155,7 @@ export const SearchScreen: FC<any> = () => {
     if (loading) {
       return <LoadingProductCard key={item} />
     }
-    return <LSProductCard item={item} />;
+    return <LSProductCard item={item} isHorizontalView={false} />;
   };
 
   const handlePressRecentSearch = (recentSearch: string) => {
@@ -265,6 +265,7 @@ export const SearchScreen: FC<any> = () => {
           renderItem={renderItem}
           keyExtractor={item => (loading ? item : item._id)}
           ListHeaderComponent={renderStockxResults()}
+          numColumns={2}
           //onEndReached={() => onEndReached()}
         />
         {filtersSet && (

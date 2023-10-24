@@ -157,7 +157,7 @@ export const LeftPersonTwoContainer = styled.View.attrs(() => ({
 }))`
   position: absolute;
   bottom: 0;
-  left: 38;
+  left: 38px;
   ${layout} ${color} ${space} ${border};
 `;
 
