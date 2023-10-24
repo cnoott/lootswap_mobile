@@ -37,7 +37,6 @@ export const SearchContainer = styled.View.attrs(props => ({
 `;
 
 export const FlatList = styled.FlatList.attrs(() => ({
-  numColumns: 2,
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {flexGrow: 1, backgroundColor: 'white'},
 }))`

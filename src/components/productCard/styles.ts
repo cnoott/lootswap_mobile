@@ -4,10 +4,10 @@ import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
 
 const productRadius = 10;
 
-export const ItemContainer = styled.TouchableOpacity.attrs(() => ({
+export const ItemContainer = styled.TouchableOpacity.attrs(props => ({
   margin: moderateScale(5),
   pb: verticalScale(10),
-  width: '47%',
+  width: props?.isHorizontalView ? scale(155) : '47%',
   activeOpacity: 0.8,
   borderRadius: scale(productRadius),
   overflow: 'hidden',

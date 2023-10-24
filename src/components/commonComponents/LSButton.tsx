@@ -90,7 +90,14 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
 
       case Size.View:
         width = scale(100);
-        height = scale(35);
+        height = scale(32);
+        fontSize = scale(12);
+        borderSize = scale(20);
+        break;
+
+      case Size.ViewSmall:
+        width = scale(80);
+        height = scale(32);
         fontSize = scale(12);
         borderSize = scale(20);
         break;
