@@ -85,4 +85,9 @@ declare module 'localsvgimages' {
   export const CAMERA_ICON: any;
   export const TRASH_ICON_RED: any;
   export const QUESTION_MARK: any;
+  export const SWAP_HOME_ICON: any;
+  export const HOME_RIGHT_PERSON_ONE: any;
+  export const HOME_RIGHT_PERSON_TWO: any;
+  export const HOME_LEFT_PERSON_ONE: any;
+  export const HOME_LEFT_PERSON_TWO: any;
 }
