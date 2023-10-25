@@ -304,7 +304,7 @@ export const HomeScreen: FC<{}> = () => {
               size={Size.ViewSmall}
               type={Type.View}
               radius={20}
-              onPress={() => {}}
+              onPress={() => navigation?.navigate('AllListingsScreen')}
             />
 
           </SectionTopContainer>

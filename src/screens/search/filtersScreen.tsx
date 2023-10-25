@@ -294,22 +294,22 @@ export const FiltersScreen: FC<any> = ({route}) => {
         {renderListFilter(
           avaliableSizes?.shoeSizes,
           'Avaliable Shoe Sizes',
-          Filter_Type.Category,
+          Filter_Type.Sizes,
         )}
         {renderListFilter(
           avaliableSizes?.shirtSizes,
           'Avaliable Clothing Sizes',
-          Filter_Type.Category,
+          Filter_Type.Sizes,
         )}
         {renderListFilter(
           avaliableSizes?.pantSizes,
           'Avaliable Pant Sizes',
-          Filter_Type.Category,
+          Filter_Type.Sizes,
         )}
         {renderListFilter(
           avaliableSizes?.hatSizes,
           'Avaliable Hat Sizes',
-          Filter_Type.Category,
+          Filter_Type.Sizes,
         )}
         {renderPriceFilter()}
         {renderProductCondition()}
