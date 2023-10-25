@@ -18,6 +18,7 @@ import {
   PercentageText,
   SearchBarWrapper,
 } from './carouselStyles';
+import ImageView from 'react-native-image-viewing';
 
 interface CarouselProps {
   height?: number;
@@ -43,6 +44,7 @@ function CarouselComponent(props: CarouselProps) {
     renderSearchBar = () => <></>
   } = props;
   const [activeIndex, setActiveIndex] = React.useState(0);
+  const [viewerVisible, setViewerVisible] = React.useState(false);
   const w = moderateScale(width) - moderateScale(63);
   const renderDots = () => {
     return (
@@ -79,6 +81,12 @@ function CarouselComponent(props: CarouselProps) {
   return (
     <Container height={height} isProduct={isProduct}>
       <SearchBarWrapper>{renderSearchBar()}</SearchBarWrapper>
+      <ImageView
+        images={imagesArr.map(image => ({uri: image}))}
+        imageIndex={activeIndex}
+        visible={viewerVisible}
+        onRequestClose={() => setViewerVisible(false)}
+      />
       <Carousel
         panGestureHandlerProps={{
           activeOffsetX: [-10, 10],
@@ -105,7 +113,7 @@ function CarouselComponent(props: CarouselProps) {
             getHomeCarouselStep(index + 1)
           ) : (
             <>
-              <ItemCenterContainer>
+              <ItemCenterContainer onPress={() => setViewerVisible(true)}>
                 <Image
                   width={isProduct ? w - 10 : width - 30}
                   height={height - (isProduct ? 0 : 120)}

@@ -55,7 +55,7 @@ export const DotsComponent = styled(Dots).attrs(props => ({
   ${layout}
 `;
 
-export const ItemCenterContainer = styled.View.attrs(() => ({
+export const ItemCenterContainer = styled.TouchableWithoutFeedback.attrs(() => ({
   flex: 1,
 }))`
   align-items: center;
@@ -106,3 +106,4 @@ export const SearchBarWrapper = styled.View.attrs(props => ({}))`
   top: 0;
   z-index: 10000px;
 `;
+
