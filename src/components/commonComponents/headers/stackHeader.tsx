@@ -29,6 +29,7 @@ interface HeaderProps {
   heartIconRight?: boolean;
   heartIsRed?: boolean;
   onRightIconPress?: Function;
+  rightIcon: any;
 }
 
 export const InStackHeader: FC<HeaderProps> = React.memo(props => {
@@ -45,6 +46,7 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
     heartIconRight = false,
     heartIsRed = false,
     onRightIconPress = () => {},
+    rightIcon = PROFILE_TRIPPLE_DOT_ICON,
   } = props;
   const onBackPress = () => {
     if (onBackCall) {
@@ -95,7 +97,7 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
 
       {right && (
         <ProfileRightTouchable onPress={onRightIconPress}>
-          <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
+          <SvgXml xml={rightIcon} />
         </ProfileRightTouchable>
       )}
       {printLabel && printLabelButton()}

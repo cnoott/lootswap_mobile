@@ -269,14 +269,14 @@ export const SearchScreen: FC<any> = () => {
           //onEndReached={() => onEndReached()}
         />
         {filtersSet && (
-        <ClearFiltersButtonContainer>
-          <LSButton
-            title={'Clear Filters'}
-            size={Size.Medium}
-            type={Type.Grey}
-            onPress={() => handleClearFilters()}
-          />
-        </ClearFiltersButtonContainer>
+          <ClearFiltersButtonContainer>
+            <LSButton
+              title={'Clear Filters'}
+              size={Size.Medium}
+              type={Type.Grey}
+              onPress={() => handleClearFilters()}
+            />
+          </ClearFiltersButtonContainer>
         )}
       </>
     );

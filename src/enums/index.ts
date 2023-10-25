@@ -64,6 +64,7 @@ export enum Order_Status {
 export enum Filter_Type {
   Category = 'category',
   Product_Type = 'type',
+  Sizes = 'sizes',
   Add_Brand = 'add_brand',
   Remove_Brand = 'remove_brand',
   Min_Price = 'min_price',

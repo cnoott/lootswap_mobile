@@ -72,6 +72,7 @@ import CreatePublicOfferCheckoutScreen from '../screens/publicOffers/createPubli
 import BrowsePublicOffersScreen from '../screens/publicOffers/browsePublicOffersScreen';
 import PublicOfferScreen from '../screens/publicOffers/publicOfferScreen';
 import AcceptPublicOfferScreen from '../screens/publicOffers/acceptPublicOfferScreen';
+import AllListingsScreen from '../screens/home/allListings';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -89,6 +90,8 @@ const HomeStackNavigation = () => (
       component={BrowsePublicOffersScreen}
     />
     <Stack.Screen name="LikedProductScreen" component={LikedProductScreen} />
+    <Stack.Screen name="AllListingsScreen" component={AllListingsScreen} />
+    <Stack.Screen name="FiltersScreen" component={FiltersScreen} />
     <Stack.Screen name="StockxScreen" component={StockxScreen}/>
     <Stack.Screen name="HasItScreen" component={HasItScreen}/>
     <Stack.Screen name="TradedItScreen" component={TradedItScreen}/>

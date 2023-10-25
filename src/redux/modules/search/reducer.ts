@@ -14,6 +14,7 @@ export interface SearchProps {
   searchProducts: Array<any>
   stockxProducts: Array<any>;
   categories: Array<string>;
+  sizes: Array<string>;
   productType: string;
   brands: Array<string>;
   avaliableSizes: any;
@@ -29,6 +30,7 @@ export const InitialState: SearchProps = {
   searchProducts: [],
   stockxProducts: [],
   categories: [],
+  sizes: [],
   productType: 'tradeable',
   brands: [],
   avaliableSizes: {},
@@ -93,6 +95,18 @@ export default function loading(state = InitialState, action: ActionProps) {
           return {
             ...state,
             categories: newSelectedCategories,
+            filtersSet: true,
+          };
+        case Filter_Type.Sizes:
+          let newSelectedSizes = state.sizes;
+          if (state.sizes.includes(filter)) {
+            newSelectedSizes = newSelectedSizes.filter(cat => cat !== filter);
+          } else {
+            newSelectedSizes.push(filter);
+          }
+          return {
+            ...state,
+            sizes: newSelectedSizes,
             filtersSet: true,
           };
         case Filter_Type.Product_Type:
