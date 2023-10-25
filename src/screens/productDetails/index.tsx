@@ -80,6 +80,7 @@ import {Alert} from 'custom_top_alert';
 import {Trade_Options} from 'custom_enums';
 import defaultExport from '@react-native-firebase/messaging';
 
+
 const height = Dimensions.get('window').height;
 
 export const ProductDetailsScreen: FC<any> = ({route}) => {
