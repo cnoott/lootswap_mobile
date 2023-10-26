@@ -39,7 +39,7 @@ export const ErrorText = styled.Text.attrs(props => ({
 
 export const TextInput = styled.TextInput.attrs(props => ({
   color: props.theme.colors.black,
-  placeholderTextColor: '#404040',
+  placeholderTextColor: props.theme.colors.placeholder,
   minHeight: scale(props?.height || 47),
   maxHeight: scale(240),
   shadowColor: props.theme.colors.primary,

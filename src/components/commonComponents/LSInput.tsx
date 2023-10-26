@@ -62,7 +62,7 @@ const LSInput: FC<LSInputProps> = React.memo(props => {
           isHomeSearch={homeSearch}
           onBlur={onBlurCall}
           keyboardType={keyboardType}
-          placeholderTextColor={'red'}
+
           textAlign={textAlign}
           maxLength={maxLength}
           autoCapitalize={false}
