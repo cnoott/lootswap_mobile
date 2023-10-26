@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import {layout, space, color, border} from 'styled-system';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import LinearGradient from 'react-native-linear-gradient';
 
 export const Container = styled.View.attrs((props: any) => ({
   flex: 1,
@@ -168,13 +169,17 @@ export const TagLabel = styled.Text.attrs(props => ({
   ${layout}
 `;
 
-export const GuarenteedView = styled.View.attrs((props: any) => ({
+export const GuarenteedView = styled(LinearGradient).attrs((props: any) => ({
   mt: verticalScale(20),
   borderWidth: 0.5,
   borderRadius: scale(20),
   borderColor: props.theme.colors.protectionBorder,
   p: scale(10),
   overflow: 'hidden',
+  colors: ['rgba(98, 103, 254, 0.15)', 'rgba(98, 103, 254, 0.00)'],
+  start: { x: 0, y: 1 },
+  end: { x: 1, y: 0 },
+  locations: [0.205, 0.9988],
 }))`
   flex-direction: row ${space} ${border} ${color};
 `;
