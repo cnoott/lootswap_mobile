@@ -716,13 +716,13 @@ export const configureAndGetLootData = (lootData: any) => {
   newLootData.stepOne.productName = lootData?.name;
   newLootData.stepOne.stockxId = lootData?.stockxId;
   newLootData.stepOne.size = getStepOneDataFromLists(
-    brandsList,
+    getSizeList(lootData?.category),
     lootData?.size,
   );
 
   // Configure STEP 2
   newLootData.stepTwo.brand = getStepOneDataFromLists(
-    getSizeList(lootData?.category),
+    brandsList,
     lootData?.brand,
   );
   newLootData.stepTwo.condition = getStepOneDataFromLists(
