@@ -4,6 +4,7 @@ import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {ButtonContainer, BText} from './LSButtonStyles';
 import {Size, Type} from '../../enums';
 import {TouchableOpacityProps, Dimensions} from 'react-native';
+import { borderLeft } from 'styled-system';
 
 interface ButtonProps extends TouchableOpacityProps {
   title?: string;
@@ -38,6 +39,8 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
   let fontSize = scale(12);
   let borderSize = scale(20);
   let buttonColor = theme?.colors.primary;
+  let borderColor = theme?.colors.primary;
+  let border = scale(0);
   let textColor = theme?.colors.white;
 
   const getSize = () => {
@@ -84,6 +87,20 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
         fontSize = sizeFont;
         borderSize = scale(radius);
         break;
+
+      case Size.View:
+        width = scale(100);
+        height = scale(32);
+        fontSize = scale(12);
+        borderSize = scale(20);
+        break;
+
+      case Size.ViewSmall:
+        width = scale(80);
+        height = scale(32);
+        fontSize = scale(12);
+        borderSize = scale(20);
+        break;
       default:
         break;
     }
@@ -96,31 +113,42 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
       case Type.Primary:
         buttonColor = theme?.colors.primary;
         textColor = theme?.colors.white;
+        border = 0;
         break;
       case Type.Secondary:
         buttonColor = theme?.colors.secondaryButton;
         textColor = theme?.colors.white;
+        border = 0;
         break;
       case Type.Grey:
         buttonColor = theme?.colors.screenBg;
         textColor = theme?.colors.black;
+        border = 0;
         break;
       case Type.Error:
         buttonColor = theme?.colors.errorColor;
         textColor = theme?.colors.white;
+        border = 0;
         break;
       case Type.Success:
         buttonColor = theme?.colors.successColor;
         textColor = theme?.colors.white;
+        border = 0;
         break;
       case Type.Custom:
         buttonColor = buttonCustomColor;
         textColor = theme?.colors.white;
         break;
+      case Type.View:
+        buttonColor = theme?.colors?.white;
+        textColor = theme?.colors?.primary;
+        border = scale(1);
+        borderColor = theme?.colors?.primary;
+        break;
       default:
         break;
     }
-    return {buttonColor, textColor};
+    return {buttonColor, textColor, borderColor, border};
   };
 
   return (

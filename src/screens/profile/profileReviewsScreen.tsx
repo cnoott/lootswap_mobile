@@ -16,7 +16,6 @@ import RatingComponent from '../../components/profile/ratingComponent';
 import {getProfileReviewsFilters} from '../../utility/utility';
 import {EmptyListContainer, NoOffersMessage} from '../offers/styles';
 
-
 export const ProfileReviewsScreen: FC<{}> = ({route}) => {
   const {requestedUserDetails: {ratings}} = route?.params;
   const [selectedFilterId, setSelectedFilter] = useState(1);

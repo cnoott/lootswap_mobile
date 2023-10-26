@@ -1,5 +1,6 @@
 import * as React from 'react';
 import TradeOfferCell from '../../screens/offers/offerItems/TradeOfferCell';
+import PublicOfferCell from '../../components/publicOffer/PublicOfferCell'; 
 import {PurchaseCellContainer} from './styles';
 import TradeOrderUserDetailView from './tradeOrderUserDetailView';
 
@@ -14,7 +15,16 @@ function OrderTradeOrdersCell(props: OrderPurchaseProps) {
   return (
     <PurchaseCellContainer onPress={() => onCellPress(true)}>
       <TradeOrderUserDetailView item={item} userData={userData} />
-      <TradeOfferCell offerItem={item?.tradeId} />
+      {item.tradeId ? (
+        <TradeOfferCell offerItem={item?.tradeId} />
+      ) : (
+        <PublicOfferCell
+          receivingStockxProducts={item?.publicOfferId?.receivingStockxProducts}
+          sendingProductIds={item?.publicOfferId?.sendingProductIds}
+          receivingMoneyOffer={item?.publicOfferId?.receivingMoneyOffer}
+          sendingMoneyOffer={item?.publicOfferId?.sendingMoneyOffer}
+         />
+      )}
     </PurchaseCellContainer>
   );
 }

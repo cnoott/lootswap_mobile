@@ -15,7 +15,7 @@ const theme = {
     bg: '#FAFAFA',
     light_bg: '#E5E5E5',
     danger: '#FC0000',
-    placeholder: '#818181',
+    placeholder: '#747474',
     text: '#101010',
     text_light: '#212121',
     textGrey: '#6B657A',

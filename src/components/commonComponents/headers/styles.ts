@@ -20,6 +20,7 @@ export const HeaderContainer = styled.View.attrs((props: any) => ({
   pt: moderateScale(Platform.OS === 'ios' ? props?.topPadding || 34 : 0),
   bg: props.theme.colors.white,
   px: scale(10),
+  mb: scale(5),
 }))`
   flex-direction: row;
   align-items: center;
@@ -29,6 +30,17 @@ export const HeaderContainer = styled.View.attrs((props: any) => ({
   ${space}
   ${layout}
 `;
+
+export const IconsContainer = styled.View.attrs(() => ({
+}))`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
 
 export const ProfileHeaderContainer = styled.View.attrs(() => ({
   height: scale(Platform.OS === 'ios' ? 84 : 64),
@@ -51,8 +63,6 @@ export const BackArrowContainer = styled.View.attrs(() => ({
 }))``;
 
 export const StartTradeHeaderContainer = styled.View.attrs(() => ({
-  height: scale(Platform.OS === 'ios' ? 84 : 64),
-  pt: moderateScale(Platform.OS === 'ios' ? 34 : 0),
   px: scale(10),
 }))`
   flex-direction: row;
@@ -76,9 +86,24 @@ export const StartTradeText = styled.Text.attrs(props => ({
   ${layout}
 `;
 
+export const StartTradeSubText = styled.Text.attrs(props => ({
+  color: props.theme.colors.primary,
+  ml: moderateScale(8),
+  numberOfLines: 1,
+  py: verticalScale(4),
+}))`
+  text-align: center;
+  font-size: ${moderateScale(14)}px;
+  font-family: Urbanist-Bold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
 export const ChatOfferContainer = styled.View.attrs(props => ({
   bg: props.theme.colors.white,
 }))`
+  padding-top: ${props => props?.paddingTop}px;
   ${color}
 `;
 
@@ -89,6 +114,29 @@ export const ProfileHeaderText = styled.Text.attrs(props => ({
   font-size: ${moderateScale(22)}px;
   font-family: Urbanist-Bold;
   align-self: center;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const RightIconText = styled.Text.attrs(props => ({
+  color: props.theme.colors.black,
+  ml: moderateScale(5),
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-weight: 600;
+  font-family: Urbanist;
+  align-self: center;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const RightIconTextContainer = styled.View.attrs(props => ({
+  flex: 1,
+}))`
+  flex-direction: row;
+  align-items: center;
   ${color}
   ${space}
   ${layout}
@@ -150,8 +198,8 @@ export const HeaderText = styled.Text.attrs(props => ({
 `;
 
 export const LogoImage = styled.Image.attrs({
-  width: scale(160),
-  height: scale(32),
+  width: scale(130),
+  height: scale(26),
   mr: moderateScale(10),
 })`
   align-self: center;
@@ -430,6 +478,17 @@ export const TouchableOpacity = styled.TouchableOpacity.attrs({
   hitSlop: {top: 10, left: 10, right: 10, bottom: 10},
 })`
   flex-direction: row;
+`;
+
+export const TouchableOpacityNotif = styled.TouchableOpacity.attrs({
+  hitSlop: {top: 10, left: 10, right: 10, bottom: 10},
+  ml: '10px',
+})`
+  flex-direction: row;
+  ${color}
+  ${space}
+  ${layout}
+  ${border}
 `;
 
 export const EmptyRowView = styled.View`

@@ -71,6 +71,13 @@ export const getRequestedUserDetailsCall = (userId: string) => {
   return handleResponse(api.get(`user/${userId}`), API_RESPONSE.CODE200);
 };
 
+export const getUserDetailsWStockxCall = (userId: string) => {
+  return handleResponse(
+    api.get(`user-with-stockx/${userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const getRequestedProductDetailsCall = (productId: string) => {
   return handleResponse(api.get(`product/${productId}`), API_RESPONSE.CODE200);
 };
@@ -99,6 +106,17 @@ export const getMessageHistoryCall = (reqData: any) => {
 export const getProductListedItemsForOfferCall = (userId: string) => {
   return handleResponse(
     api.get(`user/${userId}/my-listed-items`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const getHomeScreenProductsCall = (reqData: any) => {
+  return handleResponse(
+    api.get(
+      `products/?skip=${reqData.page * reqData.itemsPerPage}&limit=${
+        reqData.itemsPerPage
+      }`,
+    ),
     API_RESPONSE.CODE200,
   );
 };
@@ -153,7 +171,7 @@ export const createNewProductCall = (reqData: any) => {
 
 export const fetchMarketDataCall = (reqData: any) => {
   return handleResponse(
-    api.post(`/market-data/${reqData.userId}`, reqData),
+    api.post(`/market-data/`, reqData),
     API_RESPONSE.CODE200,
   );
 };
@@ -358,6 +376,7 @@ export const editShippingAddrCall = (reqData: any) => {
 };
 
 export const updateUserCall = (reqData: any) => {
+  console.log('reqdata', reqData);
   return handleResponse(
     api.put(`/user/${reqData?.userId}`, {
       userData: reqData?.userData,
@@ -444,6 +463,87 @@ export const setFirstTimeOpenFalseCall = (reqData: any) => {
 export const searchStockxCall = (reqData: any) => {
   return handleResponse(
     api.post(`/search-stockx/${reqData.userId}`, {query: reqData.query}),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const getAvaliableSizesCall = () => {
+  return handleResponse(api.get('/avaliable-sizes/'), API_RESPONSE.CODE200);
+};
+
+export const filterProductsCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/products/filter/`, reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const getRecommendedSearchCall = (reqData: any) => {
+  const query = encodeURIComponent(reqData.query);
+  return handleResponse(
+    api.get(`/recommended-search/?query=${query}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const getLikedProductsCall = (reqData: any) => {
+  return handleResponse(
+    api.get(`/user/liked-stockx-products/${reqData?.userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const publicOfferCheckoutCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/create-public-offer/${reqData?.userId}`, reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const acceptPublicOfferCall = (reqData: any) => {
+  return handleResponse(
+    api.post(
+      `/accept-public-offer/${reqData?.userId}/${reqData?.publicOffer._id}`,
+      reqData,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const getHomeScreenPublicOffersCall = (reqData: any) => {
+  return handleResponse(
+    api.get(
+      `/home-public-offers/?skip=${reqData.page * reqData.itemsPerPage}&limit=${
+        reqData.itemsPerPage
+      }`,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const deletePublicOfferCall = (reqData: any) => {
+  return handleResponse(
+    api.delete(`/public-offer/${reqData?.userId}/${reqData?.publicOfferId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const getPublicOffersCall = (reqData: any) => {
+  const type = encodeURIComponent(reqData.type);
+  const skipLimit = reqData?.pagination
+    ? `&skip=${reqData.page * reqData.itemsPerPage}&limit=${
+        reqData.itemsPerPage
+      }`
+    : '';
+  return handleResponse(
+    api.get(`/public-offers/${reqData?.userId}/?type=${type}${skipLimit}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const fetchRelatedItemDataCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/fetch-related-item-data`, reqData),
     API_RESPONSE.CODE200,
   );
 };

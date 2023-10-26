@@ -15,10 +15,6 @@ export const Container = styled.View.attrs(props => ({
   align-items: flex-start ${space} ${layout} ${color};
 `;
 
-export const EmptyContainer = styled.View`
-  flex: 1;
-`;
-
 export const SubContainer = styled(KeyboardAwareScrollView).attrs(() => ({
   px: moderateScale(20),
   showsVerticalScrollIndicator: false,
@@ -30,35 +26,7 @@ export const SubContainer = styled(KeyboardAwareScrollView).attrs(() => ({
   ${space}
 `;
 
-export const HorizontalBar = styled.View.attrs(props => ({
-  height: verticalScale(5),
-  width: scale(100),
-  bg: props.theme.colors.divider,
-  my: verticalScale(10),
-  borderRadius: scale(5),
-}))`
-  align-self: center ${color} ${layout} ${space} ${border};
-`;
-
-export const HeadingText = styled.Text.attrs(props => ({
-  color: props.theme.colors.text,
-  my: verticalScale(5),
-}))`
-  font-size: ${() => moderateScale(24)}px;
-  font-family: 'Inter-Bold';
-  align-self: center;
-  ${color}
-  ${space}
-  ${layout}
-`;
-
-export const Divider = styled.View.attrs(props => ({
-  height: verticalScale(1),
-  width: '100%',
-  bg: props.theme.colors.divider,
-}))`
-  ${color} ${layout} ${space} ${border};
-`;
+export const EmptyView = styled.View``;
 
 export const ListTitleText = styled.Text.attrs((props: any) => ({
   color: props.theme.colors.text,
@@ -66,29 +34,16 @@ export const ListTitleText = styled.Text.attrs((props: any) => ({
   mb: verticalScale(10),
 }))`
   font-size: ${() => moderateScale(18)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 700;
   ${color}
   ${space}
-    ${layout}
+  ${layout}
 `;
 
-export const FlatList = styled.FlatList.attrs(() => ({
+export const HorizontalFlatList = styled.FlatList.attrs(() => ({
   contentContainerStyle: {flexGrow: 1},
   horizontal: true,
-  showsHorizontalScrollIndicator: false,
-}))`
-  ${color}
-  ${space}
-${layout}
-`;
-
-export const BrandList = styled.FlatList.attrs(() => ({
-  contentContainerStyle: {
-    flexGrow: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
   showsHorizontalScrollIndicator: false,
 }))`
   ${color}
@@ -119,49 +74,29 @@ export const FilterButtonText = styled.Text.attrs(props => ({
   color: props?.isSelected ? props.theme.colors.white : props.theme.colors.text,
 }))`
   font-size: ${() => moderateScale(14)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   ${color} ${space} ${layout};
 `;
 
-export const EmptyView = styled.View``;
+export const ButtonsContainer = styled.View.attrs(() => ({
+  width: '100%',
+  mt: verticalScale(10),
+  justifyContent: 'space-around',
+}))`
+  flex-direction: row;
+  ${color} ${layout} ${space} ${border};
+`;
 
 export const BottomMarginView = styled.View`
   height: 15px;
 `;
 
-export const ButtonsContainer = styled.View.attrs(() => ({
-  // width: '100%',
-  mt: verticalScale(10),
-  // justifyContent: 'space-around',
+export const Divider = styled.View.attrs(props => ({
+  height: verticalScale(1),
+  width: '100%',
+  bg: props.theme.colors.divider,
 }))`
   ${color} ${layout} ${space} ${border};
-`;
-
-export const SelectedBrandButton = styled.TouchableOpacity.attrs(props => ({
-  mx: scale(5),
-  px: scale(15),
-  py: scale(10),
-  borderRadius: scale(10),
-  bg: props.theme.colors.primary,
-  mb: scale(10),
-}))`
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  ${layout}
-  ${color}
-  ${border}
-  ${space}
-`;
-
-export const CloseIcon: any = styled(XMarkIcon).attrs(props => ({
-  color: props.theme.colors.white,
-  size: moderateScale(14),
-  ml: moderateScale(8),
-}))`
-  ${color}
-  ${space}
-    ${layout}
 `;
 
 export const AnimatedCheckBox = styled(BouncyCheckbox).attrs(props => ({
@@ -190,6 +125,46 @@ export const AnimatedCheckBox = styled(BouncyCheckbox).attrs(props => ({
   ${space}
 `;
 
+export const BrandList = styled.FlatList.attrs(() => ({
+  contentContainerStyle: {
+    flexGrow: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  showsHorizontalScrollIndicator: false,
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const SelectedBrandButton = styled.TouchableOpacity.attrs(props => ({
+  mx: scale(5),
+  px: scale(15),
+  py: scale(10),
+  borderRadius: scale(10),
+  bg: props.theme.colors.primary,
+  mb: scale(10),
+}))`
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  ${layout}
+  ${color}
+  ${border}
+  ${space}
+`;
+
+export const CloseIcon: any = styled(XMarkIcon).attrs(props => ({
+  color: props.theme.colors.white,
+  size: moderateScale(14),
+  ml: moderateScale(8),
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
 export const PriceRangeContainer = styled.View.attrs(() => ({
   width: '100%',
 }))`
@@ -205,7 +180,7 @@ export const PriceSubMinMaxLabel = styled.Text.attrs(props => ({
   font-weight: 600;
   ${color}
   ${space}
-    ${layout}
+  ${layout}
 `;
 
 export const MinPriceContainer = styled.View.attrs(() => ({
@@ -218,22 +193,3 @@ export const HorizontalMarginView = styled.View`
   width: 15px;
 `;
 
-export const AnimationStyle = (current: any) => {
-  return {
-    borderRadius: 3,
-    backgroundColor: 'transparent',
-    transform: [
-      {
-        scale: current.progress.interpolate({
-          inputRange: [0.5, 1],
-          outputRange: [0.5, 1],
-          extrapolate: 'identity',
-        }),
-      },
-    ],
-  };
-};
-
-export const PressableStyle = () => {
-  return [StyleSheet.absoluteFill, {backgroundColor: 'rgba(0, 0, 0, 0.7)'}];
-};

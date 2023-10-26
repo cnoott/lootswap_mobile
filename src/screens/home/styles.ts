@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import {border, color, layout, space} from 'styled-system';
-import {moderateScale} from 'react-native-size-matters';
+import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 
 export const Container = styled.View.attrs(props => ({
   flex: 1,
@@ -19,11 +19,17 @@ export const SubContainer = styled.View.attrs(() => ({
 `;
 
 export const SearchContainer = styled.View.attrs(props => ({
-  paddingVertical: moderateScale(5),
+  paddingVertical: moderateScale(0),
   paddingHorizontal: moderateScale(10),
-  bg: props.theme.colors.white,
-  pb: moderateScale(10),
 }))`
+  /* Shadow properties for iOS */
+  shadow-color: #000;
+  shadow-offset: 0px 2px;
+  shadow-opacity: 0.2;
+  shadow-radius: 3px;
+
+  /* Shadow properties for Android */
+  elevation: 3;
   ${space}
   ${layout}
   ${color}
@@ -31,9 +37,18 @@ export const SearchContainer = styled.View.attrs(props => ({
 `;
 
 export const FlatList = styled.FlatList.attrs(() => ({
-  numColumns: 2,
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {flexGrow: 1, backgroundColor: 'white'},
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const PublicOffersFlatList = styled.FlatList.attrs(() => ({
+  contentContainerStyle: {flexGrow: 1, backgroundColor: 'white'},
+  height: scale(160),
+  mb: scale(10),
 }))`
   ${color}
   ${space}
@@ -48,5 +63,34 @@ export const CarousalContainer = styled.View.attrs(() => ({
   ${space}
   ${layout}
 `;
+
+export const SectionTitleText = styled.Text.attrs(props => ({
+  color: props.theme.colors.black,
+}))`
+  font-size: ${moderateScale(22)}px;
+  font-family: Urbanist-Bold;
+  ${color}
+  ${space}
+`;
+
+export const SectionTopContainer = styled.View.attrs(() => ({
+}))`
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  ${space}
+  ${layout}
+
+`;
+
+export const SectionContainer = styled.View.attrs(() => ({
+  px: scale(8),
+}))`
+  ${space}
+  ${layout}
+`;
+
+export const ViewButtonContainer = styled.View.attrs(() => ({
+}))``;
 
 export const EmptyView = styled.View``;

@@ -5,6 +5,7 @@ import {
   PROFILE_IMG_UPLOAD,
   GET_USER_DETAILS,
   GET_MY_DETAILS,
+  GET_USER_DETAILS_W_STOCKX,
   SAVE_NOTIF_PERMISSION,
   SET_REG_TOKEN,
   GET_MY_DETAILS_NO_LOAD,
@@ -22,6 +23,8 @@ import {
   VERSION_CHECK,
   SAVE_REFERRAL_LINK,
   PRESELECT_CHOSEN_ITEM,
+  SAVE_SEARCH,
+  GET_LIKED_PRODUCTS,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -165,6 +168,27 @@ export const getMyDetailsSuccess = (payload: any) => {
 export const getMyDetailsFailure = (error: any) => {
   return {
     type: GET_MY_DETAILS.FAILURE,
+    error,
+  };
+};
+
+export const getUserDetailsWStockxRequest = (userId: string) => {
+  return {
+    type: GET_USER_DETAILS_W_STOCKX.REQUEST,
+    userId,
+  };
+};
+
+export const getUserDetailsWStockxSuccess = (payload: any) => {
+  return {
+    type: GET_USER_DETAILS_W_STOCKX.SUCCESS,
+    payload,
+  };
+};
+
+export const getUserDetailsWStockxFailure = (error: any) => {
+  return {
+    type: GET_USER_DETAILS_W_STOCKX.FAILURE,
     error,
   };
 };
@@ -418,5 +442,37 @@ export const saveReferralLinkSuccess = () => {
 export const saveReferralLinkFailure = () => {
   return {
     type: SAVE_REFERRAL_LINK.FAILURE,
+  };
+};
+
+export const saveSearchRequest = (reqData: any) => {
+  return {
+    type: SAVE_SEARCH.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const saveSearchSuccess = () => {
+  return {
+    type: SAVE_SEARCH.SUCCESS,
+  };
+};
+
+export const saveSearchFailure = () => {
+  return {
+    type: SAVE_SEARCH.FAILURE,
+  };
+};
+
+export const getLikedProducts = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: GET_LIKED_PRODUCTS.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
   };
 };

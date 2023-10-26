@@ -10,7 +10,6 @@ interface LSSearchableDropdownProps {
 
 const LSSearchableDropdown: FC<LSSearchableDropdownProps> = React.memo(
   props => {
-    const [selectedItems, setSelectedItems] = useState([]);
     const {
       itemsList = [],
       updateSelectedItems = () => {},
@@ -19,13 +18,7 @@ const LSSearchableDropdown: FC<LSSearchableDropdownProps> = React.memo(
     } = props;
     return (
       <SearchableDropdownView
-        onItemSelect={(item: any) => {
-          onItemPress(item);
-          const oldItems: any = selectedItems;
-          oldItems.push(item);
-          setSelectedItems(oldItems);
-          updateSelectedItems(oldItems);
-        }}
+        onItemSelect={onItemPress}
         items={itemsList}
         defaultIndex={0}
         resetValue={false}

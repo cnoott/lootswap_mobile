@@ -3,50 +3,68 @@ import LSButton from '../../commonComponents/LSButton';
 import {Size, Type} from 'custom_enums';
 import {
   Container,
-  StepThreeHeaderText,
+  HeaderText,
   HeaderPrimaryText,
-  DiscordContainer,
+  HeaderBottomText,
+  OnlyText,
+  PayPalDesText,
   Image,
-  VerticalSpace,
-  ExecutivePerksText,
-  EmptyView,
+  FirstLeftImage,
+  FirstRightImage,
+  SecondLeftImage,
+  SecondRightImage,
 } from './styles';
 import {
-  DISCORD_LOGO,
-  DISCORD_SCREENSHOT,
+  HOME_CAROUSEL_CLOTH_THREE,
+  HOME_CAROUSEL_CLOTH_FOUR,
+  HOME_CAROUSEL_SHOE_THREE,
+  HOME_CAROUSEL_SHOE_FOUR,
 } from '../../../constants/imageConstants';
-import {Linking} from 'react-native';
 
 interface HeaderProps {
   onItemPress?: string;
 }
 
 export const LSHomeStepThreeCarouselItem: FC<HeaderProps> = React.memo(() => {
+  const renderImages = () => {
+    return (
+      <>
+        <FirstLeftImage>
+          <Image source={HOME_CAROUSEL_SHOE_THREE} width={110} height={105} />
+        </FirstLeftImage>
+        <FirstRightImage>
+          <Image source={HOME_CAROUSEL_SHOE_FOUR} width={110} height={105} />
+        </FirstRightImage>
+        <SecondLeftImage>
+          <Image source={HOME_CAROUSEL_CLOTH_THREE} width={100} height={85} />
+        </SecondLeftImage>
+        <SecondRightImage>
+          <Image source={HOME_CAROUSEL_CLOTH_FOUR} width={90} height={70} />
+        </SecondRightImage>
+      </>
+    );
+  };
   return (
     <Container>
-      <DiscordContainer>
-        <EmptyView>
-          <VerticalSpace />
-          <Image source={DISCORD_LOGO} width={60} height={64} />
-        </EmptyView>
-        <StepThreeHeaderText>
-          {'Join the lootswap\n'}
-          <HeaderPrimaryText>Discord community</HeaderPrimaryText>
-        </StepThreeHeaderText>
-      </DiscordContainer>
-      <VerticalSpace space={10} />
-      <Image source={DISCORD_SCREENSHOT} width={280} height={110} />
-      <ExecutivePerksText>{'*Get Exclusive Perks'}</ExecutivePerksText>
+      <HeaderText>
+        <HeaderPrimaryText>Lowest</HeaderPrimaryText>{' '}
+        {'seller fees in the Game'}
+      </HeaderText>
+      <HeaderBottomText>
+        {"that's more profit for you to keep."}
+      </HeaderBottomText>
+      <OnlyText>ONLY A</OnlyText>
       <LSButton
-        title={'Join Now'}
+        title={'6% platform fee'}
         size={Size.Fit_To_Width}
         type={Type.Primary}
-        radius={16}
-        onPress={() => Linking.openURL('https://discord.gg/z6EH4zAfxt')}
-        fitToWidth={'35%'}
-        sizeFont={22}
+        radius={10}
+        onPress={() => {}}
+        fitToWidth={'42%'}
+        sizeFont={18}
       />
-      <VerticalSpace space={20} />
+      <PayPalDesText>{'*Does not include PayPal processing fee'}</PayPalDesText>
+      {renderImages()}
     </Container>
   );
 });

@@ -5,10 +5,18 @@ import {
   ProfileLeftTouchable,
   EmptyRowView,
   EmptyBox,
+  RightIconTextContainer,
+  RightIconText,
 } from './styles';
 import React, {FC} from 'react';
 import {SvgXml} from 'react-native-svg';
-import {PROFILE_TRIPPLE_DOT_ICON, LEFT_BLACK_ARROW} from 'localsvgimages';
+import {
+  PROFILE_TRIPPLE_DOT_ICON,
+  LEFT_BLACK_ARROW,
+  LIKE_HEART_ICON,
+  LIKE_HEART_ICON_RED,
+  LIKE_HEART_ICON_WHITE,
+} from 'localsvgimages';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 interface HeaderProps {
@@ -20,6 +28,11 @@ interface HeaderProps {
   onlyTitleCenterAlign?: boolean;
   printLabel?: boolean;
   printLabelButton?: any;
+  heartIconRight?: boolean;
+  heartIsRed?: boolean;
+  onRightIconPress?: Function;
+  rightIcon: any;
+  rightIconText: string;
 }
 
 export const InStackHeader: FC<HeaderProps> = React.memo(props => {
@@ -33,8 +46,12 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
     onBackCall,
     printLabel = false,
     printLabelButton = () => {},
+    heartIconRight = false,
+    heartIsRed = false,
+    onRightIconPress = () => {},
+    rightIconText = false,
+    rightIcon = PROFILE_TRIPPLE_DOT_ICON,
   } = props;
-  const onTrippleDotPress = () => {};
   const onBackPress = () => {
     if (onBackCall) {
       onBackCall();
@@ -54,13 +71,16 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
         )}
         <ProfileHeaderText>{title}</ProfileHeaderText>
         {right ? (
-          <ProfileRightTouchable onPress={onTrippleDotPress}>
-            <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
+          <ProfileRightTouchable onPress={onRightIconPress}>
+            <RightIconTextContainer>
+              <SvgXml xml={rightIcon} />
+              {rightIconText && <RightIconText>Filter</RightIconText>}
+            </RightIconTextContainer>
           </ProfileRightTouchable>
         ) : (
           <EmptyBox />
         )}
-      </ProfileHeaderContainer>
+        </ProfileHeaderContainer>
     );
   }
   return (
@@ -73,11 +93,16 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
         )}
         <ProfileHeaderText>{title}</ProfileHeaderText>
       </EmptyRowView>
-      {right && (
-        <ProfileRightTouchable onPress={onTrippleDotPress}>
-          <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
+
+      {heartIconRight ? (
+        <ProfileRightTouchable onPress={onRightIconPress}>
+          <SvgXml xml={heartIsRed ? LIKE_HEART_ICON_RED : LIKE_HEART_ICON} />
         </ProfileRightTouchable>
+      ) : (
+        <EmptyBox />
       )}
+
+
       {printLabel && printLabelButton()}
     </ProfileHeaderContainer>
   );

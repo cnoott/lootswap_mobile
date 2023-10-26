@@ -12,11 +12,12 @@ import {
   BrandResultText,
   TitleContainer,
 } from './stockxSearchResultsStyles';
-import LSLoader from '../../components/commonComponents/LSLoader';
 import {ScrollView, Animated, FlatList} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Tooltip from '../../components/tooltip/tooltip';
-import {QUESTION_URL} from '../../constants/imageConstants';
+import {SvgXml} from 'react-native-svg';
+import {QUESTION_MARK} from 'localsvgimages';
+
 
 interface SearchResult {
   imgUrl: String;
@@ -30,14 +31,18 @@ interface StockxResultProps {
   loading: Boolean;
   onSelectResult: Function;
   selectedUrlKey: any;
+  productName?: string;
+  showTitle?: Boolean;
 }
 
 export const StockxSearchResults: FC<StockxResultProps> = props => {
   const {
     searchResults = [],
-    onSelectResult,
+      onSelectResult,
     loading = true,
-    selectedUrlKey,
+      selectedUrlKey,
+    productName = '',
+      showTitle = true
   } = props;
 
   const [opacity] = useState(new Animated.Value(1)); // Initial value for opacity: 1
@@ -114,31 +119,46 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
           {loading ? (
             <BlinkingImage/>
           ) : (
-            <Image
-              source={{uri: item.thumbUrl, priority: FastImage.priority.low}}
-              resizeMode={FastImage.resizeMode.contain}
-            />
+            <>
+              {item.thumbUrl ? (
+                <Image
+                  source={{uri: item.thumbUrl, priority: FastImage.priority.low}}
+                  resizeMode={FastImage.resizeMode.contain}
+                />
+              ) : (
+                <SvgXml xml={QUESTION_MARK} width={'90%'}/>
+              )}
+            </>
           )}
         </ImageContainer>
         <TextContainer>
           <TitleText>{loading ? <BlinkingText/> : item?.title}</TitleText>
-          <BrandContainer>{loading && <BlinkingBrandText/>}</BrandContainer>
+          <BrandContainer>
+            {loading && <BlinkingBrandText />}<BrandText>{(item?.subTitle && !loading) && `${item.subTitle}`}</BrandText>
+          </BrandContainer>
         </TextContainer>
       </ItemContainer>
     );
   };
 
   const renderSearchResults = () => {
+    let data;
+    if (showTitle) {
+      data = [
+        ...searchResults,
+        {
+          urlKey: null,
+          thumbUrl: '',
+          title: 'My item is not here',
+          subTitle: `Add new item "${productName}"`,
+        },
+      ];
+    } else {
+      data = [...searchResults];
+    }
     return (
       <FlatList
-        data={
-          loading
-            ? [0, 1, 2, 3]
-            : [
-                ...searchResults,
-                {urlKey: null, thumbUrl: QUESTION_URL, title: 'My item is not here'},
-              ]
-        }
+        data={data}
         renderItem={renderSearchResult}
         keyExtractor={item => item.urlKey}
         showsVerticalScrollIndicator={true}
@@ -151,14 +171,16 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
       showsVerticalScrollIndicator={true}
       contentContainerStyle={{flexGrow: 1}}>
       <Container>
-        <TitleContainer>
-          <ContainerTitle>Select Product</ContainerTitle>
-          <Tooltip
-            text={
-              'By selecting one of the products in the dropdown, you link your listing to our real-time market price database. This will help you better price your item, as well as prevent others from sending you unfair offers.'
-            }
-          />
-        </TitleContainer>
+        {showTitle && (
+          <TitleContainer>
+            <ContainerTitle>Select Product</ContainerTitle>
+            <Tooltip
+              text={
+                'By selecting one of the products in the dropdown, you link your listing to our real-time market price database. This will help you better price your item, as well as prevent others from sending you unfair offers.'
+              }
+            />
+          </TitleContainer>
+        )}
         {renderSearchResults()}
       </Container>
     </ScrollView>

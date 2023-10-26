@@ -5,6 +5,7 @@ import {verticalScale, moderateScale} from 'react-native-size-matters';
 import {LSHomeStepOneCarouselItem} from './HomeItems/StepOneHomeItem';
 import {LSHomeStepTwoCarouselItem} from './HomeItems/StepTwoHomeItem';
 import {LSHomeStepThreeCarouselItem} from './HomeItems/StepThreeHomeItem';
+import {LSHomeStepFourCarouselItem} from './HomeItems/StepFourHomeItem';
 import {NIKE_SHOES_IMAGE} from '../../constants/imageConstants';
 import {
   Container,
@@ -15,7 +16,9 @@ import {
   ItemCenterContainer,
   HomeBottomItemContainer,
   PercentageText,
+  SearchBarWrapper,
 } from './carouselStyles';
+import ImageView from 'react-native-image-viewing';
 
 interface CarouselProps {
   height?: number;
@@ -25,6 +28,7 @@ interface CarouselProps {
   showDummy?: boolean;
   autoPlay?: boolean;
   loop?: boolean;
+  renderSearchBar?: Function;
 }
 const width = Dimensions.get('window').width;
 
@@ -37,9 +41,11 @@ function CarouselComponent(props: CarouselProps) {
     showDummy = true,
     autoPlay = true,
     loop = true,
+    renderSearchBar = () => <></>
   } = props;
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const w = moderateScale(width) - moderateScale(63);
+  const [viewerVisible, setViewerVisible] = React.useState(false);
+
   const renderDots = () => {
     return (
       <DotsContainer>
@@ -51,6 +57,20 @@ function CarouselComponent(props: CarouselProps) {
       </DotsContainer>
     );
   };
+
+  const renderFullScreenDots = ({imageIndex}) => {
+    console.log('IND', imageIndex);
+    return (
+      <DotsContainer fullScreen={true}>
+        <DotsComponent
+          length={imagesArr?.length}
+          active={imageIndex}
+          isActiveBorder={!isProduct}
+        />
+      </DotsContainer>
+    );
+  };
+
   const homeBottomView = () => {
     return (
       <HomeBottomItemContainer>
@@ -67,20 +87,28 @@ function CarouselComponent(props: CarouselProps) {
       case 2:
         return <LSHomeStepTwoCarouselItem />;
       case 3:
-        return <LSHomeStepThreeCarouselItem />;
+        return <LSHomeStepFourCarouselItem />;
       default:
-        return <LSHomeStepThreeCarouselItem />;
+        return <LSHomeStepFourCarouselItem />;
     }
   };
   return (
     <Container height={height} isProduct={isProduct}>
+      <SearchBarWrapper>{renderSearchBar()}</SearchBarWrapper>
+      <ImageView
+        images={imagesArr.map(image => ({uri: image}))}
+        imageIndex={activeIndex}
+        visible={viewerVisible}
+        onRequestClose={() => setViewerVisible(false)}
+        FooterComponent={renderFullScreenDots}
+      />
       <Carousel
         panGestureHandlerProps={{
           activeOffsetX: [-10, 10],
         }}
         loop={loop}
-        width={isProduct ? w : width}
-        height={isProduct ? height - 30 : height - 5}
+        width={width}
+        height={isProduct ? height - 30 : height - 25}
         parallaxScrollingOffset={50}
         autoPlay={autoPlay}
         autoPlayInterval={10000}
@@ -100,9 +128,9 @@ function CarouselComponent(props: CarouselProps) {
             getHomeCarouselStep(index + 1)
           ) : (
             <>
-              <ItemCenterContainer>
+              <ItemCenterContainer onPress={() => setViewerVisible(true)}>
                 <Image
-                  width={isProduct ? w - 10 : width - 30}
+                  width={'100%'}
                   height={height - (isProduct ? 0 : 120)}
                   source={
                     isProduct

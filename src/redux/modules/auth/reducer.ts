@@ -10,6 +10,7 @@ import {
   GET_MY_DETAILS,
   SET_REG_TOKEN,
   GET_MY_DETAILS_NO_LOAD,
+  GET_USER_DETAILS_W_STOCKX,
   SET_FCM_TOKEN,
   UPDATE_USER,
   DELETE_NOTIF,
@@ -18,6 +19,7 @@ import {
   NEW_NOTIF_FALSE,
   NEW_NOTIF_TRUE,
   SAVE_REFERRAL_LINK,
+  SAVE_SEARCH,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
 //import messaging from '@react-native-firebase/messaging';
@@ -237,11 +239,13 @@ export default function auth(state = InitialState, action: ActionProps) {
         ...state,
       };
     }
+    case GET_USER_DETAILS_W_STOCKX.REQUEST:
     case GET_MY_DETAILS_NO_LOAD.REQUEST: {
       return {
         ...state,
       };
     }
+    case GET_USER_DETAILS_W_STOCKX.SUCCESS:
     case GET_MY_DETAILS_NO_LOAD.SUCCESS: {
       const my_items = payload.my_items.filter(
         item => item.isVisible && item.isVirtuallyVerified,
@@ -251,6 +255,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         userData: {...state.userData, ...payload, my_items},
       };
     }
+    case GET_USER_DETAILS_W_STOCKX.FAILURE:
     case GET_MY_DETAILS_NO_LOAD.FAILURE: {
       return {
         ...state,
@@ -280,6 +285,7 @@ export default function auth(state = InitialState, action: ActionProps) {
     case UPDATE_USER.REQUEST: {
       return {
         ...state,
+        userData: {...state.userData, ...action?.reqData?.userData},
       };
     }
     case UPDATE_USER.SUCCESS: {
@@ -363,7 +369,6 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case SAVE_REFERRAL_LINK.REQUEST: {
-      console.log('ACTION!', action?.payload);
       return {
         ...state,
         userData: {
@@ -372,6 +377,16 @@ export default function auth(state = InitialState, action: ActionProps) {
         },
       };
     }
+    case SAVE_SEARCH.REQUEST: {
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          recentSearches: action?.reqData?.userData?.recentSearches,
+        },
+      };
+    }
+
     default:
       return state;
   }

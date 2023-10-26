@@ -201,7 +201,7 @@ export const brandsList = [
   {label: 'American Vintage', value: 'American Vintage'},
   {label: 'Made In Usa', value: 'Made In Usa'},
   {label: "Levi's", value: "Levi's"},
-  {label: 'Jordan Brand', value: 'Jordan Brand'},
+  {label: 'Jordan', value: 'Jordan'},
   {label: 'Champion', value: 'Champion'},
   {label: 'Burberry', value: 'Burberry'},
   {label: 'Bape', value: 'Bape'},
@@ -716,13 +716,13 @@ export const configureAndGetLootData = (lootData: any) => {
   newLootData.stepOne.productName = lootData?.name;
   newLootData.stepOne.stockxId = lootData?.stockxId;
   newLootData.stepOne.size = getStepOneDataFromLists(
-    brandsList,
+    getSizeList(lootData?.category),
     lootData?.size,
   );
 
   // Configure STEP 2
   newLootData.stepTwo.brand = getStepOneDataFromLists(
-    getSizeList(lootData?.category),
+    brandsList,
     lootData?.brand,
   );
   newLootData.stepTwo.condition = getStepOneDataFromLists(
@@ -1276,4 +1276,3 @@ export const calculateMarketValue = (products: Array<any>) => {
 
   return '$' + allPrices.reduce((partialSum, price) => partialSum + price, 0);
 };
-

@@ -2,19 +2,24 @@
   LootSwap - FIRST TAB HOME SCREEN
  ***/
 
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
-import {Container, FlatList, SearchContainer} from './styles';
-import algoliasearch from 'algoliasearch/lite';
-import {InstantSearch, useInfiniteHits} from 'react-instantsearch-hooks';
+import {
+  Container,
+  FlatList,
+  PublicOffersFlatList,
+  SearchContainer,
+  SectionContainer,
+  SectionTopContainer,
+  SectionTitleText,
+  PublicOfferItemWrapper,
+} from './styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import LSHomeScreenSearch from '../../components/filterSearch/homeScreenSearch';
-import {AlgoliaAppId, AlgoliaApiKey, ALGOLIA_INDEX_NAME} from '@env';
 import LSProductCard from '../../components/productCard';
-import HomeFiltersScreen from './homeFilters';
 import {scale} from 'react-native-size-matters';
-import {RefreshControl} from 'react-native';
+import {RefreshControl, Touchable} from 'react-native';
 import {LIKE_HEART_ICON} from 'localsvgimages';
 import useFCMNotifications from '../../utility/customHooks/useFCMNotifications';
 import {useScrollToTop} from '@react-navigation/native';
@@ -22,10 +27,22 @@ import {
   LoadingRequest,
   LoadingSuccess,
 } from '../../redux/modules/loading/actions';
-import {useDispatch} from 'react-redux';
+import {
+  getHomeScreenProducts,
+  getMyDetailsNoLoadRequest,
+  getHomeScreenPublicOffers,
+  getPublicOffers,
+} from '../../redux/modules';
+import {useDispatch, useSelector} from 'react-redux';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import {AuthProps} from '../../redux/modules/auth/reducer';
+import {Size, Type} from '../../enums';
+import LSButton from '../../components/commonComponents/LSButton';
+import PublicOfferCell from '../../components/publicOffer/PublicOfferCell';
+import {ScrollView} from 'react-native';
 
-const searchClient = algoliasearch(AlgoliaAppId, AlgoliaApiKey);
+const ITEMS_PER_PAGE = 8;
+const PUBLIC_OFFERS_PER_PAGE = 4;
 
 export const HomeScreen: FC<{}> = () => {
   useFCMNotifications();
@@ -33,97 +50,276 @@ export const HomeScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isModalOpen, setModalOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const [hitsKey, setHitsKey] = useState(0); //we incriment the key to manually remount component to refresh products
   const scrollRef = React.useRef(null);
   useScrollToTop(scrollRef);
+
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData, isLogedIn} = auth;
+
+  const [products, setProducts] = useState([]);
+  const [publicOffers, setPublicOffers] = useState([]);
+  const [page, setPage] = useState(0);
+  const [publicOffersPage, setPublicOffersPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [publicOffersLoading, setPublicOffersLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    const reqData = {
+      itemsPerPage: ITEMS_PER_PAGE,
+      page: page,
+    };
+    dispatch(
+      getHomeScreenProducts(
+        reqData,
+        (res: any) => {
+          setProducts([...products, ...res]);
+          setLoading(false);
+        },
+        (err: any) => {
+          console.log(err);
+          setLoading(false);
+        },
+      ),
+    );
+    if (isLogedIn) {
+      dispatch(getMyDetailsNoLoadRequest(userData?._id));
+    }
+  }, [page]);
+
+  useEffect(() => {
+    setPublicOffersLoading(true);
+    if (isLogedIn) {
+      const reqData = {
+        type: 'Browse',
+        userId: userData?._id,
+        pagination: true,
+        page: publicOffersPage,
+        itemsPerPage: PUBLIC_OFFERS_PER_PAGE,
+        showLoad: false,
+      };
+      dispatch(
+        getPublicOffers(
+          reqData,
+          (res: any) => {
+            setPublicOffers([...publicOffers, ...res]);
+            setPublicOffersLoading(false);
+          },
+          (err: any) => {
+            console.log('ERR => ', err);
+            setPublicOffersLoading(false);
+          },
+        ),
+      );
+    } else {
+      const reqData = {
+        itemsPerPage: PUBLIC_OFFERS_PER_PAGE,
+        page: publicOffersPage,
+      };
+      dispatch(
+        getHomeScreenPublicOffers(
+          reqData,
+          (res: any) => {
+            setPublicOffers([...publicOffers, ...res]);
+            setPublicOffersLoading(false);
+          },
+          (err: any) => {
+            console.log('ERR => ', err);
+            setPublicOffersLoading(false);
+          },
+        ),
+      );
+    }
+  }, [publicOffersPage]);
 
   const handleRefresh = async () => {
     setRefreshing(true);
     ReactNativeHapticFeedback.trigger('impactMedium');
-    await searchClient.clearCache();
-    setHitsKey(hitsKey + 1);
+    setPage(0);
+    const reqData = {
+      itemsPerPage: ITEMS_PER_PAGE,
+      page: page,
+    };
+    dispatch(
+      getHomeScreenProducts(
+        reqData,
+        (res: any) => {
+          setProducts(res);
+        },
+        (err: any) => {
+          console.log(err);
+        },
+      ),
+    );
+    setPublicOffersPage(0);
     setRefreshing(false);
+
+    if (isLogedIn) { // same code as above in the useEffect XXX 
+      const publicOfferReqData = {
+        type: 'Browse',
+        userId: userData?._id,
+        pagination: true,
+        page: page,
+        itemsPerPage: PUBLIC_OFFERS_PER_PAGE,
+        showLoad: false,
+      };
+      dispatch(
+        getPublicOffers(
+          publicOfferReqData,
+          (res: any) => {
+            setPublicOffers(res);
+          },
+          (err: any) => {
+            console.log('ERR => ', err);
+          },
+        ),
+      );
+    } else {
+      const publicOfferReqData = {
+        itemsPerPage: PUBLIC_OFFERS_PER_PAGE,
+        page: publicOffersPage,
+      };
+      dispatch(
+        getHomeScreenPublicOffers(
+          publicOfferReqData,
+          (res: any) => {
+            setPublicOffers(res);
+          },
+          (err: any) => {
+            console.log('ERR => ', err);
+          },
+        ),
+      );
+    }
+
   };
 
-  const goToLikedProducts = (productsList: any) => {
-    navigation.navigate('LikedProductScreen', {
-      productsList: productsList,
-    });
+  const goToLikedProducts = () => {
+    navigation.navigate('LikedProductScreen');
   };
 
   const onRightIconPress = () => {
     onToggleModal();
   };
 
-  const onEndReached = (showMore: Function = () => {}) => {
-    showMore();
+  const onEndReached = () => {
+    if (!loading) {
+      setPage(prevPage => prevPage + 1);
+    }
+  };
+
+  const onPublicOffersEndReached = () => {
+    if (!publicOffersLoading) {
+      setPublicOffersPage(prevPage => prevPage + 1);
+    }
+  };
+
+  const renderPublicOfferItem = ({item, key}: any) => {
+    return (
+      <PublicOfferCell
+        key={key}
+        receivingStockxProducts={item.receivingStockxProducts}
+        sendingProductIds={item.sendingProductIds}
+        receivingMoneyOffer={item.receivingMoneyOffer}
+        sendingMoneyOffer={item.sendingMoneyOffer}
+        isFromHome={true}
+        onPress={() =>
+          navigation?.navigate('PublicOfferScreen', {publicOffer: item})
+        }
+      />
+    );
   };
 
   const renderItem = ({item}: any) => {
-    return <LSProductCard item={item} />;
-  };
-
-  const transformItems = (items: any) => {
-    return items.filter(item => item?.isVisible && item?.isVirtuallyVerified);
-  };
-
-  const InfiniteHits = ({...props}) => {
-    const {hits, showMore} = useInfiniteHits({
-      ...props,
-      transformItems: transformItems,
-    });
-    return (
-      <>
-        <InHomeHeader
-          isHome={true}
-          rightIcon={LIKE_HEART_ICON}
-          centerAligned={false}
-          onRightItemPress={() => goToLikedProducts(hits)}
-        />
-        <SearchContainer>
-          <LSHomeScreenSearch onRightIconPress={onRightIconPress} />
-        </SearchContainer>
-        <FlatList
-          ref={scrollRef}
-          data={hits}
-          renderItem={renderItem}
-          keyExtractor={item => item.objectID}
-          onEndReached={() => onEndReached(showMore)}
-          refreshing={refreshing}
-          refreshControl={
-            <RefreshControl refreshing={false} onRefresh={handleRefresh} />
-          }
-          ListHeaderComponent={
-            <>
-              <CarouselComponent height={scale(320)} isHome={true} />
-            </>
-          }
-          getItemLayout={(data, index) => ({
-            length: 100,
-            offset: 100 * index,
-            index,
-            data,
-          })}
-        />
-      </>
-    );
+    if (loading) {
+      //return <LoadingProductCard />
+    }
+    return <LSProductCard item={item} isHorizontalView={true} />;
   };
 
   const onToggleModal = () => {
     setModalOpen(isOpen => !isOpen);
   };
 
+  const renderPublicOffers = () => {
+    return (
+      <SectionContainer>
+        <SectionTopContainer>
+          <SectionTitleText>Public Offers</SectionTitleText>
+          <LSButton
+            title={'View/Create'}
+            size={Size.View}
+            type={Type.View}
+            radius={20}
+            onPress={() =>
+              isLogedIn
+                ? navigation?.navigate('BrowsePublicOffersScreen')
+                : navigation?.navigate('SignInScreen')
+            }
+          />
+        </SectionTopContainer>
+        <PublicOffersFlatList
+          data={publicOffers}
+          renderItem={renderPublicOfferItem}
+          keyExtractor={item => item?._id}
+          horizontal={true}
+          onEndReached={() => onPublicOffersEndReached()}
+        />
+      </SectionContainer>
+    );
+  };
+
+  const renderSearchBar = () => {
+    return (
+      <SearchContainer>
+        <LSHomeScreenSearch
+          onRightIconPress={onRightIconPress}
+          isFromHome={true}
+        />
+      </SearchContainer>
+    );
+  };
+
   return (
     <Container>
-      <InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
-        <InfiniteHits key={hitsKey} />
-        {
-          <HomeFiltersScreen
-            isModalOpen={isModalOpen}
-            onToggleModal={onToggleModal}
-          />
-        }
-      </InstantSearch>
+      <InHomeHeader
+        isHome={true}
+        rightIcon={LIKE_HEART_ICON}
+        centerAligned={false}
+        onRightItemPress={() => goToLikedProducts()}
+      />
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={handleRefresh} />
+        }>
+        <CarouselComponent
+          height={scale(360)}
+          isHome={true}
+          renderSearchBar={renderSearchBar}
+        />
+        {renderPublicOffers()}
+        <SectionContainer>
+          <SectionTopContainer>
+            <SectionTitleText>All Listings</SectionTitleText>
+            <LSButton
+              title={'View All'}
+              size={Size.ViewSmall}
+              type={Type.View}
+              radius={20}
+              onPress={() => navigation?.navigate('AllListingsScreen')}
+            />
+
+          </SectionTopContainer>
+        </SectionContainer>
+
+        <FlatList
+          data={products}
+          renderItem={renderItem}
+          keyExtractor={item => item._id}
+          onEndReached={() => onEndReached()}
+          horizontal={true}
+        />
+      </ScrollView>
     </Container>
   );
 };

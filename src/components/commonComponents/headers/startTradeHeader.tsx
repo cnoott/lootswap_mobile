@@ -3,6 +3,7 @@
  ***/
 import React, {FC} from 'react';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {LEFT_BLACK_ARROW} from 'localsvgimages';
 import {
   ChatOfferContainer,
@@ -10,6 +11,7 @@ import {
   EmptyRowView,
   TouchableOpacity,
   StartTradeText,
+  StartTradeSubText,
 } from './styles';
 import {SvgXml} from 'react-native-svg';
 import {LSProfileImageComponent} from '../profileImage';
@@ -17,14 +19,18 @@ import {LSProfileImageComponent} from '../profileImage';
 interface HeaderProps {
   profilePicture: string;
   title: string;
+  subText?: string;
   showPfp: boolean;
   onBackPress: Function;
 }
 
 export const LSStartTradeHeader: FC<HeaderProps> = React.memo(
-  ({profilePicture, title, showPfp, onBackPress}) => {
+  ({profilePicture, title, subText, showPfp, onBackPress}) => {
+    const insets = useSafeAreaInsets();
+    const paddingTop = insets.top;
+
     return (
-      <ChatOfferContainer>
+      <ChatOfferContainer paddingTop={paddingTop}>
         <StartTradeHeaderContainer>
           <EmptyRowView>
             <TouchableOpacity onPress={() => onBackPress()}>
@@ -44,6 +50,7 @@ export const LSStartTradeHeader: FC<HeaderProps> = React.memo(
           </EmptyRowView>
           <EmptyRowView />
         </StartTradeHeaderContainer>
+        {subText && <StartTradeSubText>{subText}</StartTradeSubText>}
       </ChatOfferContainer>
     );
   },

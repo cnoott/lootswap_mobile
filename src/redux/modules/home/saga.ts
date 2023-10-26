@@ -1,6 +1,8 @@
 import {takeLatest, call, put} from 'redux-saga/effects';
 import {
   GET_PRODUCT_DETAILS,
+  GET_HOMESCREEN_PRODUCTS,
+  GET_HOMESCREEN_PUBLIC_OFFERS,
   GET_PRODUCT_LISTED_ITEMS,
   SEND_TRADE_OFFER,
   CREATE_NEW_PRODUCT,
@@ -9,6 +11,9 @@ import {
   SAVE_PAYPAL,
   DELETE_PRODUCT,
   SEARCH_STOCKX,
+  SEARCH_PRODUCTS,
+  GET_RECOMMENDED_SEARCH,
+  REFRESH_STOCKX_DATA,
 } from '../../../constants/actions';
 import {
   getProductDetailsSuccess,
@@ -30,6 +35,10 @@ import {
   savePaypalCall,
   deleteProductCall,
   searchStockxCall,
+  getHomeScreenProductsCall,
+  searchProductsCall,
+  getRecommendedSearchCall,
+  getHomeScreenPublicOffersCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {Alert} from 'custom_top_alert';
@@ -55,6 +64,40 @@ export function* getSelectedProductDetails(action: any) {
       yield put(getProductDetailsFailure(response.error));
     }
   } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* getHomeScreenProducts(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      getHomeScreenProductsCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack(e);
+    console.log(e);
+  }
+}
+
+export function* getHomeScreenPublicOffers(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      getHomeScreenPublicOffersCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack(e);
     console.log(e);
   }
 }
@@ -142,6 +185,24 @@ export function* fetchMarketData(action: any) {
   }
 }
 
+export function* refreshStockxData(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      fetchMarketDataCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
+
 export function* generateLinkPaypal(action: any) {
   yield put(LoadingRequest());
   try {
@@ -201,7 +262,6 @@ export function* deleteProduct(action: any) {
 }
 
 export function* searchStockx(action: any) {
-  //TODO: handle loading
   try {
     const response: APIResponseProps = yield call(
       searchStockxCall,
@@ -218,8 +278,47 @@ export function* searchStockx(action: any) {
   }
 }
 
+export function* searchProducts(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      searchProductsCall,
+      action?.reqData,
+    );
+    if (response.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack(e);
+    console.log(e);
+  }
+}
+
+export function* getRecommendedSearch(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      getRecommendedSearchCall,
+      action?.reqData,
+    );
+    if (response.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack(e);
+    console.log(e);
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(GET_PRODUCT_DETAILS.REQUEST, getSelectedProductDetails);
+  yield takeLatest(GET_HOMESCREEN_PRODUCTS.REQUEST, getHomeScreenProducts);
+  yield takeLatest(
+    GET_HOMESCREEN_PUBLIC_OFFERS.REQUEST,
+    getHomeScreenPublicOffers,
+  );
   yield takeLatest(
     GET_PRODUCT_LISTED_ITEMS.REQUEST,
     getProductListedItemsForOffer,
@@ -227,8 +326,11 @@ export default function* authSaga() {
   yield takeLatest(SEND_TRADE_OFFER.REQUEST, sendTradeOffer);
   yield takeLatest(CREATE_NEW_PRODUCT.REQUEST, createNewProduct);
   yield takeLatest(FETCH_MARKET_DATA.REQUEST, fetchMarketData);
+  yield takeLatest(REFRESH_STOCKX_DATA.REQUEST, refreshStockxData);
   yield takeLatest(GENERATE_LINK_PAYPAL.REQUEST, generateLinkPaypal);
   yield takeLatest(SAVE_PAYPAL.REQUEST, savePaypal);
   yield takeLatest(DELETE_PRODUCT.REQUEST, deleteProduct);
   yield takeLatest(SEARCH_STOCKX.REQUEST, searchStockx);
+  yield takeLatest(SEARCH_PRODUCTS.REQUEST, searchProducts);
+  yield takeLatest(GET_RECOMMENDED_SEARCH.REQUEST, getRecommendedSearch);
 }
