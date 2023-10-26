@@ -5,6 +5,7 @@ import {
   PlaceholderStyle,
   SelectedTextStyle,
   InputSearchStyle,
+  ItemContainerStyle,
   IconStyle,
   SelectedBorder,
   SearchIconContainer,
@@ -52,7 +53,9 @@ const LSDropDown: FC<LSLSDropDownProps> = React.memo(props => {
       placeholderStyle={PlaceholderStyle}
       selectedTextStyle={SelectedTextStyle}
       inputSearchStyle={InputSearchStyle}
+      containerStyle={ItemContainerStyle}
       iconStyle={IconStyle}
+      fontFamily={'Urbanist'}
       data={itemsList}
       search={isSearch}
       maxHeight={300}
