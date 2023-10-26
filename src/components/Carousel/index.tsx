@@ -45,7 +45,7 @@ function CarouselComponent(props: CarouselProps) {
   } = props;
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [viewerVisible, setViewerVisible] = React.useState(false);
-  const w = moderateScale(width) - moderateScale(63);
+
   const renderDots = () => {
     return (
       <DotsContainer>
@@ -57,6 +57,20 @@ function CarouselComponent(props: CarouselProps) {
       </DotsContainer>
     );
   };
+
+  const renderFullScreenDots = ({imageIndex}) => {
+    console.log('IND', imageIndex);
+    return (
+      <DotsContainer fullScreen={true}>
+        <DotsComponent
+          length={imagesArr?.length}
+          active={imageIndex}
+          isActiveBorder={!isProduct}
+        />
+      </DotsContainer>
+    );
+  };
+
   const homeBottomView = () => {
     return (
       <HomeBottomItemContainer>
@@ -86,6 +100,7 @@ function CarouselComponent(props: CarouselProps) {
         imageIndex={activeIndex}
         visible={viewerVisible}
         onRequestClose={() => setViewerVisible(false)}
+        FooterComponent={renderFullScreenDots}
       />
       <Carousel
         panGestureHandlerProps={{

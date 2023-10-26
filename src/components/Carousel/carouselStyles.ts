@@ -32,9 +32,10 @@ export const Image = styled.Image.attrs(props => ({
   ${layout}
 `;
 
-export const DotsContainer = styled.View.attrs(() => ({}))`
+export const DotsContainer = styled.View.attrs(props => ({
+  bottom: props?.fullScreen ? scale(28) : 1,
+}))`
   position: absolute;
-  bottom: 1px;
   align-self: center;
   ${space}
   ${layout}
