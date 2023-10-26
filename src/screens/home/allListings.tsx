@@ -108,7 +108,9 @@ export const AllListingsScreen: FC<any> = () => {
       <InStackHeader
         title={'All Listings'}
         rightIcon={HOME_FILTER_ICON}
+        onlyTitleCenterAlign={true}
         right={true}
+        showRightText={true}
         onRightIconPress={() =>
           navigation?.navigate('FiltersScreen', {query: ''})
         }

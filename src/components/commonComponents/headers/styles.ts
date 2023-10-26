@@ -119,6 +119,29 @@ export const ProfileHeaderText = styled.Text.attrs(props => ({
   ${layout}
 `;
 
+export const RightIconText = styled.Text.attrs(props => ({
+  color: props.theme.colors.black,
+  ml: moderateScale(5),
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-weight: 600;
+  font-family: Urbanist;
+  align-self: center;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const RightIconTextContainer = styled.View.attrs(props => ({
+  flex: 1,
+}))`
+  flex-direction: row;
+  align-items: center;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
 export const StackHeaderText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
   ml: moderateScale(10),
