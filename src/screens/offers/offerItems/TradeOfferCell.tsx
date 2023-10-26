@@ -21,6 +21,7 @@ interface TradeOfferItemProp {
 
 export const TradeOfferCell: FC<TradeOfferItemProp> = props => {
   const {offerItem, topMargin = 20, isInTrade} = props;
+
   const renderSwapView = () => {
     return (
       <EmptyView>

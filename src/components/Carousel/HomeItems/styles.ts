@@ -7,10 +7,12 @@ export const Container = styled(LinearGradient).attrs(() => ({
   flex: 1,
   height: '100%',
   width: '100%',
-  colors: ['#F1F2FF', 'rgba(255, 255, 255, 0)'],
-  start: {x: 0, y: 0},
-  end: {x: 0, y: 1},
+  colors: ['#C8C9FF', '#EDEEFF', 'rgba(255, 255, 255, 0)'],
+  locations: [0, 0.8, 1],
+  start: {x: 0, y: 1},
+  end: {x: 0, y: 0},
 }))`
+  padding-top: ${scale(70)};
   justify-content: center;
   align-items: center;
   ${color}
@@ -19,7 +21,7 @@ export const Container = styled(LinearGradient).attrs(() => ({
 export const HeaderText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
-  font-weight: 900;
+  font-weight: bold;
   font-size: ${scale(19)}px;
   font-family: Mont;
   text-align: center;
@@ -30,7 +32,20 @@ export const HeaderText = styled.Text.attrs(props => ({
 export const HeaderPrimaryText = styled.Text.attrs(props => ({
   color: props.theme.colors.primary,
 }))`
+  font-weight: bold;
   font-family: Mont;
+  ${color}
+`;
+
+export const StepTwoSubText = styled.Text.attrs(props => ({
+  color: props.theme.colors.black,
+}))`
+  font-weight: 400;
+  font-size: 14px;
+  font-family: Urbanist;
+  width: 85%;
+  text-align: center;
+  margin-top: 5px;
   ${color}
 `;
 
@@ -41,7 +56,7 @@ export const HeaderBottomText = styled.Text.attrs(props => ({
 }))`
   font-weight: 600;
   font-size: ${scale(15)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   text-align: center;
   ${color}
   ${space}
@@ -67,7 +82,7 @@ export const PayPalDesText = styled.Text.attrs(() => ({
 }))`
   font-weight: 500;
   font-size: ${scale(10)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   text-align: center;
   ${color}
   ${space}
@@ -114,6 +129,38 @@ export const BottomLeftContainer = styled.View.attrs(() => ({
   ${layout} ${color} ${space} ${border};
 `;
 
+export const RightPersonOneContainer = styled.View.attrs(() => ({
+}))`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  ${layout} ${color} ${space} ${border};
+`;
+
+export const RightPersonTwoContainer = styled.View.attrs(() => ({
+}))`
+  position: absolute;
+  bottom: 0;
+  right: 45;
+  ${layout} ${color} ${space} ${border};
+`;
+
+export const LeftPersonOneContainer = styled.View.attrs(() => ({
+}))`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  ${layout} ${color} ${space} ${border};
+`;
+
+export const LeftPersonTwoContainer = styled.View.attrs(() => ({
+}))`
+  position: absolute;
+  bottom: 0;
+  left: 38px;
+  ${layout} ${color} ${space} ${border};
+`;
+
 export const BottomRightContainer = styled.View.attrs(() => ({
   height: scale(38),
   width: scale(150),
@@ -130,7 +177,7 @@ export const BottomText = styled.Text.attrs(props => ({
   maxWidth: scale(90),
 }))`
   font-size: ${scale(12)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
@@ -176,7 +223,7 @@ export const StepThreeHeaderText = styled.Text.attrs(props => ({
 }))`
   font-weight: 900;
   font-size: ${scale(18)}px;
-  font-family: Inter-Black;
+  font-family: Mont;
   ${color}
   ${space}
 `;

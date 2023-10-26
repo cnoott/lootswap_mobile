@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import {layout, space, color, border} from 'styled-system';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
+import LinearGradient from 'react-native-linear-gradient';
 
 export const Container = styled.View.attrs((props: any) => ({
   flex: 1,
@@ -168,13 +169,17 @@ export const TagLabel = styled.Text.attrs(props => ({
   ${layout}
 `;
 
-export const GuarenteedView = styled.View.attrs((props: any) => ({
+export const GuarenteedView = styled(LinearGradient).attrs((props: any) => ({
   mt: verticalScale(20),
   borderWidth: 0.5,
   borderRadius: scale(20),
   borderColor: props.theme.colors.protectionBorder,
   p: scale(10),
   overflow: 'hidden',
+  colors: ['rgba(98, 103, 254, 0.15)', 'rgba(98, 103, 254, 0.00)'],
+  start: { x: 0, y: 1 },
+  end: { x: 1, y: 0 },
+  locations: [0.205, 0.9988],
 }))`
   flex-direction: row ${space} ${border} ${color};
 `;
@@ -226,6 +231,7 @@ export const DescriptionContainerView = styled.View.attrs((props: any) => ({
   borderColor: props.theme.colors.light_bg,
   p: scale(15),
   overflow: 'hidden',
+  marginBottom: scale(25),
 }))`
   ${space} ${border} ${color};
 `;
@@ -316,3 +322,19 @@ export const SVGImageStyle = {
 export const ProtectionIconStyle = {
   marginTop: verticalScale(5),
 };
+export const ButtonContainer = styled.View.attrs(() => ({
+  mb: verticalScale(5),
+}))`
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  position: absolute;
+  bottom: 2px;
+  width: 100%;
+  ${space}
+  ${layout}
+`;
+
+export const MessageButtonWrapper = styled.View.attrs(() => ({}))`
+  margin-top: 20px;
+`;

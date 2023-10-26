@@ -107,6 +107,7 @@ export const Image = styled.Image.attrs(() => ({
 
 export const ImageGuideContainer = styled.View.attrs(() => ({
   height: height * 0.8,
+  padding: 20,
 }))`
   align-items: center;
   ${space}
@@ -119,7 +120,7 @@ export const ImageGuideModalStyles = {
 };
 
 export const ImageGuideTitleText = styled.Text.attrs(props => ({
-  color: props.theme.colors.primary,
+  color: props.theme.colors.black,
   mt: scale(6),
 }))`
   font-size: ${moderateScale(20)}px;
@@ -130,7 +131,7 @@ export const ImageGuideTitleText = styled.Text.attrs(props => ({
 `;
 
 export const ImageGuideDescText = styled.Text.attrs(props => ({
-  color: 'rgba(158, 158, 158, 1)',
+  color: props.theme.colors.primary,
   mt: scale(6),
   px: scale(10),
 }))`
@@ -145,7 +146,10 @@ export const ImageGuideDescText = styled.Text.attrs(props => ({
 export const ImageGuidePhotosContainer = styled.View.attrs(() => ({
   flex: 1,
   flexWrap: 'wrap',
+  justifyContent: 'center',
 }))`
+  display: flex;
+  margin-top: 10px;
   flex-direction: row ${space};
   ${space}
   ${layout}
@@ -156,8 +160,9 @@ export const ImageGuidePhotoContainer = styled.View.attrs(() => ({
 
 export const ImageGuideLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
+  width: 105,
 }))`
-  font-size: ${moderateScale(14)}px;
+  font-size: ${moderateScale(12)}px;
   font-family: Urbanist;
   text-align: center;
   font-weight: 600;
@@ -170,7 +175,8 @@ export const ImageGuide = styled.Image.attrs(() => ({
   width: scale(90),
   height: scale(90),
   borderRadius: scale(10),
-  m: 10,
+  marginHorizontal: 5,
+  marginBottom: 2,
 }))`
   ${space}
   ${layout}

@@ -8,17 +8,26 @@ import {SceneMap} from 'react-native-tab-view';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {getTradesHistory, getAllMyMessages} from '../../redux/modules';
+import {
+  getTradesHistory,
+  getAllMyMessages,
+  getPublicOffers,
+  deletePublicOffer,
+} from '../../redux/modules';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
+import LSButton from '../../components/commonComponents/LSButton';
+import {SvgXml} from 'react-native-svg';
+import {STOCKX_SEARCH_DROP_DOWN_ARROW} from 'localsvgimages';
 import TradeOfferCell from './offerItems/TradeOfferCell';
 import NoOffersView from './offerItems/NoOffersView';
 import {getTradeStatusColor, daysPast} from '../../utility/utility';
 import NoMessagesView from './offerItems/NoMessagesView';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import {Size, Type} from '../../enums';
 import {
   Container,
   TopTabView,
@@ -37,14 +46,25 @@ import {
   MessagesListView,
   MessageCellContainer,
   ProductNameLabel,
+  PublicOffersFilterContainer,
+  SizeDropdownStyle,
+  ItemTextStyle,
 } from './styles';
+import {ButtonContainer} from '../publicOffers/styles';
+import {SelectedTextStyle} from '../search/stockxScreenStyles';
+import {Dropdown} from 'react-native-element-dropdown';
+import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
+
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [index, setIndex] = useState(0);
+  const [publicOfferFilter, setPublicOfferFilter] = useState({value: 'All'});
+  const [publicOffers, setPublicOffers] = useState([]);
   const [routes] = React.useState([
-    {key: 'first', title: 'Trade offers'},
-    {key: 'second', title: 'Messages'},
+    {key: 'first', title: 'Public Offers'},
+    {key: 'second', title: 'Trade offers'},
+    {key: 'third', title: 'Messages'},
   ]);
   const [selectedTrade, setSelectedTrade] = useState(null);
   const dispatch = useDispatch();
@@ -57,13 +77,29 @@ export const OffersScreen: FC<{}> = () => {
 
   useFocusEffect(
     React.useCallback(() => {
+      const reqData = {
+        type: publicOfferFilter.value,
+        userId: userData?._id,
+      };
+      dispatch(
+        getPublicOffers(
+          reqData,
+          res => {
+            setPublicOffers(res);
+          },
+          err => {
+            console.log('Err => ', err);
+          },
+        ),
+      );
+
       dispatch(
         getTradesHistory({
           userId: userData?._id,
         }),
       );
       dispatch(getAllMyMessages(userData?._id));
-    }, [userData?._id, dispatch]),
+    }, [userData?._id, dispatch, publicOfferFilter]),
   );
 
   const onTradeOffersRefresh = () => {
@@ -84,6 +120,43 @@ export const OffersScreen: FC<{}> = () => {
     navigation.navigate('UserChatScreen', {messageId: msgData._id});
   };
 
+  const handleDeletePublicOffer = (publicOfferId: string) => {
+    const reqData = {
+      userId: userData?._id,
+      publicOfferId: publicOfferId,
+    };
+    dispatch(
+      deletePublicOffer(
+        reqData,
+        res => {
+          const newPublicOffers = publicOffers.filter(
+            offer => offer._id !== publicOfferId
+          );
+          setPublicOffers(newPublicOffers);
+        },
+        err => {
+          console.log('ERROR => ', err);
+        },
+      ),
+    );
+  };
+
+  const renderBottomButtonView = () => {
+    if (index === 0 ) {
+      return (
+        <ButtonContainer>
+          <LSButton
+            title={'Create Public Offer'}
+            size={Size.Large}
+            type={Type.Primary}
+            radius={20}
+            onPress={() => navigation?.navigate('CreatePublicOfferScreen')}
+          />
+        </ButtonContainer>
+      );
+    }
+  };
+
   const RenderUserDetails = ({item}) => {
     const statusColorObj = getTradeStatusColor(item.status);
     return (
@@ -95,9 +168,9 @@ export const OffersScreen: FC<{}> = () => {
                 ? item.sender.profile_picture
                 : item.reciever.profile_picture
             }
-            imageHeight={50}
-            imageWidth={50}
-            imageRadius={30}
+            imageHeight={40}
+            imageWidth={40}
+            imageRadius={10}
           />
           <OwnerDetailsView>
             <NameLabel>
@@ -125,6 +198,16 @@ export const OffersScreen: FC<{}> = () => {
     setSelectedTrade(item._id);
     navigation.navigate('OffersMessageScreen', {item});
   };
+
+  const renderPublicOfferItem = ({item}: any) => {
+    return (
+      <PublicOfferItem
+        publicOffer={item}
+        handleDelete={handleDeletePublicOffer}
+      />
+    );
+  };
+
   const renderOfferItem = ({item}: any) => {
     return (
       <OfferCellContainer
@@ -139,6 +222,7 @@ export const OffersScreen: FC<{}> = () => {
       </OfferCellContainer>
     );
   };
+
 
   const renderMessageItem = ({item}: any) => {
     return (
@@ -171,6 +255,35 @@ export const OffersScreen: FC<{}> = () => {
 
   const FirstRoute = () => (
     <TabContainer>
+      <PublicOffersFilterContainer>
+        <Dropdown
+          style={[SizeDropdownStyle]}
+          selectedTextStyle={SelectedTextStyle}
+          placeholderStyle={SelectedTextStyle}
+          itemTextStyle={ItemTextStyle}
+          placeholder={'All'}
+          labelField={'value'}
+          valueField={'value'}
+          onChange={item => setPublicOfferFilter(item)}
+          data={[{value: 'For You'}, {value: 'My Public Offers'}, {value: 'All'}]}
+          value={publicOfferFilter}
+          maxHeight={300}
+          renderRightIcon={() => <SvgXml xml={STOCKX_SEARCH_DROP_DOWN_ARROW} />}
+        />
+      </PublicOffersFilterContainer>
+      <OffersListView
+        data={publicOffers}
+        renderItem={renderPublicOfferItem}
+        keyExtractor={item => item?._id}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={onTradeOffersRefresh} />
+        }
+      />
+    </TabContainer>
+  );
+
+  const SecondRoute = () => (
+    <TabContainer>
       <OffersListView
         data={historyTrades}
         renderItem={renderOfferItem}
@@ -184,7 +297,7 @@ export const OffersScreen: FC<{}> = () => {
     </TabContainer>
   );
 
-  const SecondRoute = () => (
+  const ThirdRoute = () => (
     <TabContainer>
       <MessagesListView
         data={allMyMessages?.messageDocs || []}
@@ -209,10 +322,11 @@ export const OffersScreen: FC<{}> = () => {
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
+    third: ThirdRoute,
   });
   return (
     <Container>
-      <InStackHeader back={false} title={'Trade feed'} centerAligned={true} />
+      <InStackHeader back={false} title={'Inbox'} centerAligned={true} />
       <TopTabView
         navigationState={{index, routes}}
         renderTabBar={renderTabBar}
@@ -220,6 +334,7 @@ export const OffersScreen: FC<{}> = () => {
         onIndexChange={setIndex}
         initialLayout={{width: layout.width}}
       />
+      {renderBottomButtonView()}
     </Container>
   );
 };

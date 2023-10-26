@@ -43,9 +43,9 @@ export const KeyboardAvoidingView = styled.KeyboardAvoidingView.attrs(() => ({
 export const CustomTabBar = styled(TabBar).attrs(props => ({
   indicatorStyle: {
     backgroundColor: props?.theme?.colors?.primary,
-    width: scale(20),
+    width: scale(40),
     height: scale(3),
-    left: (Dimensions.get('window').width / 2 - scale(20)) / 2,
+    left: (Dimensions.get('window').width / 2 - scale(99)) / 2,
   },
   indicatorContainerStyle: {
     flex: 1,
@@ -235,19 +235,67 @@ export const EmptyRowView = styled.View`
   width: 55%;
 `;
 
+export const AboveItemLabel: any = styled.Text.attrs(props => ({
+  color: props.theme.colors.greySecondary,
+  mb: scale(5),
+}))`
+  font-size: ${moderateScale(15)}px;
+  font-family: Urbanist-Bold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const PublicOfferItemContainer = styled.View.attrs((props: any) => ({
+  px: scale(10),
+}))`
+  ${space}
+  ${border}
+  ${layout}
+`;
+
+export const PublicOffersFilterContainer = styled.View.attrs(props => ({
+  p: scale(5),
+}))`
+  align-items: flex-end;
+  ${layout} ${color} ${space} ${border};
+`;
+
 export const BottomRowView = styled.View.attrs((props: any) => ({
   mt: scale(props?.topMargin || 20),
+  borderWidth: props.isFromHome ? 2 : 0,
+  borderColor: props.isFromHome ? '#F3F3F3' : '',
+  borderRadius: 20,
+  mr: props.isFromHome ? scale(10) : 0,
 }))`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
   ${space}
+  ${border}
+  ${layout}
+`;
+
+export const BottomRowTouchable = styled.TouchableOpacity.attrs(props => ({
+  mt: scale(props?.topMargin || 20),
+  borderWidth: props.isFromHome ? 2 : 0,
+  borderColor: props.isFromHome ? '#F3F3F3' : '',
+  borderRadius: 20,
+  mr: props.isFromHome ? scale(10) : 0,
+}))`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  ${space}
+  ${border}
+  ${layout}
 `;
 
 export const Image: any = styled.Image.attrs((props: any) => ({
   width: scale(props?.size ? props?.size : productImageWidth),
   height: scale(props?.size ? props?.size : productImageWidth),
   borderRadius: scale(10),
+  resizeMode: props?.isStockxItem ? 'contain' : '',
 }))`
   position: absolute;
   align-self: center;
@@ -260,7 +308,7 @@ export const ImageContainer: any = styled.View.attrs((props: any) => ({
   height: scale(props?.size ? props?.size : productImageWidth),
   width: scale(props?.size ? props?.size : productImageWidth),
   borderRadius: scale(10),
-  bg: props.theme.colors.grey,
+  bg: props.theme.colors.white,
   mx: scale(2.5),
   mb: scale(5),
   activeOpacity: 1,
@@ -274,7 +322,7 @@ export const ImageContainerDouble: any = styled.View.attrs((props: any) => ({
   height: scale(props?.size ? props?.size : productImageWidth),
   width: scale(props?.size ? props?.size : productImageWidth),
   borderRadius: scale(10),
-  bg: props.theme.colors.grey,
+  bg: props.theme.colors.white,
   activeOpacity: 1,
 }))`
   align-items: center;
@@ -285,18 +333,18 @@ export const ImageContainerDouble: any = styled.View.attrs((props: any) => ({
   ${layout} ${color} ${space} ${border};
 `;
 
-export const OfferItemContainer = styled.View.attrs(() => ({
-  height: scale(productImageWidth),
-  width: scale(productImageWidth),
+export const OfferItemContainer = styled.View.attrs(props => ({
+  height: scale(props?.size ? props.size : productImageWidth),
+  width: scale(props?.size ? props.size : productImageWidth),
   borderRadius: scale(10),
   mr: scale(5),
 }))`
   ${layout} ${color} ${space};
 `;
 
-export const OfferItemContainerCenter = styled.View.attrs(() => ({
-  height: scale(productImageWidth),
-  width: scale(productImageWidth),
+export const OfferItemContainerCenter = styled.View.attrs(props => ({
+  height: scale(props?.size ? props.size : productImageWidth),
+  width: scale(props?.size ? props.size : productImageWidth),
   borderRadius: scale(10),
   mr: scale(5),
 }))`
@@ -318,7 +366,7 @@ export const SwapButtonContainer = styled.TouchableOpacity.attrs(props => ({
 `;
 
 export const SwapLine = styled.View.attrs(props => ({
-  height: scale(productImageWidth),
+  height: scale(props?.size ? props.size : productImageWidth),
   width: scale(2),
   bg: props.theme.colors.divider,
   alignSelf: 'center',
@@ -402,6 +450,7 @@ export const OfferItemList = styled.FlatList.attrs(() => ({
     flexGrow: 1,
   },
   numColumns: 2,
+  alignItems: 'center',
 }))`
   ${color}
   ${space}
@@ -601,3 +650,69 @@ export const SingleMoneyOfferContainer = styled.View.attrs(props => ({
   justify-content: center;
   ${layout} ${color} ${space};
 `;
+
+export const SizeDropdownStyle = {
+  width: scale(120),
+};
+export const ItemTextStyle = {
+  fontSize: scale(13),
+  fontFamily: 'Urbanist-Bold',
+  fontWeight: '400',
+  color: 'black',
+};
+
+export const PublicOfferDeleteContainer = styled.TouchableOpacity.attrs(props => ({
+  border: 2,
+  borderColor: '#F75555',
+  borderRadius: 100,
+  width: scale(75),
+  height: scale(30),
+}))`
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  ${color}
+  ${space}
+  ${layout}
+  ${border}
+`;
+
+
+export const DeleteText: any = styled.Text.attrs(props => ({
+  color: '#F75555',
+}))`
+  font-size: ${scale(14)}px;
+  font-family: Urbanist-SemiBold;
+  ${space}
+  ${layout}
+  ${color}
+  ${border}
+`;
+
+export const PublicOfferAcceptContainer = styled.View.attrs(props => ({
+  border: 2,
+  backgroundColor: 'rgba(36, 192, 93, .10)',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderColor: '#24C05D',
+  borderRadius: 100,
+  width: scale(75),
+  height: scale(30),
+}))`
+  ${border}
+  ${space}
+  ${color}
+  ${layout}
+`;
+
+export const AcceptText: any = styled.Text.attrs(() => ({
+  color: '#24C05D',
+}))`
+  font-size: ${scale(14)}px;
+  font-family: Urbanist-SemiBold;
+  ${space}
+  ${layout}
+  ${color}
+  ${border}
+`;
+

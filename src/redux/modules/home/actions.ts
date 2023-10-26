@@ -2,6 +2,7 @@ import {
   GET_PRODUCT_DETAILS,
   ADD_PRODUCT,
   GET_PRODUCT_LISTED_ITEMS,
+  GET_HOMESCREEN_PUBLIC_OFFERS,
   SEND_TRADE_OFFER,
   CREATE_NEW_PRODUCT,
   FETCH_MARKET_DATA,
@@ -9,6 +10,9 @@ import {
   SAVE_PAYPAL,
   DELETE_PRODUCT,
   SEARCH_STOCKX,
+  GET_HOMESCREEN_PRODUCTS,
+  GET_RECOMMENDED_SEARCH,
+  REFRESH_STOCKX_DATA,
 } from '../../../constants/actions';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 
@@ -164,6 +168,58 @@ export const searchStockx = (
 ) => {
   return {
     type: SEARCH_STOCKX.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const getHomeScreenProducts = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: GET_HOMESCREEN_PRODUCTS.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const getHomeScreenPublicOffers = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: GET_HOMESCREEN_PUBLIC_OFFERS.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const getRecommendedSearch = ( //TODO move to search actions
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: GET_RECOMMENDED_SEARCH.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const refreshStockxData = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: REFRESH_STOCKX_DATA.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,

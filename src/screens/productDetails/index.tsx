@@ -45,6 +45,8 @@ import {
   NewSellerTagView,
   NewSellerLabel,
   DescriptionContainerView,
+  ButtonContainer,
+  MessageButtonWrapper,
 } from './styles';
 import {LikeTouchable} from '../../components/productCard/styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -80,6 +82,7 @@ import {Alert} from 'custom_top_alert';
 import {Trade_Options} from 'custom_enums';
 import defaultExport from '@react-native-firebase/messaging';
 
+
 const height = Dimensions.get('window').height;
 
 export const ProductDetailsScreen: FC<any> = ({route}) => {
@@ -87,11 +90,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const homeStates: AuthProps = useSelector(state => state.home);
+  const {selectedProductDetails} = homeStates;
   const tradesData: TradeProps = useSelector(state => state.offers);
   const {historyTrades} = tradesData;
   const theme = useTheme();
   const {requestedUserDetails, userData, isLogedIn} = auth;
-  const {selectedProductDetails} = homeStates;
   const {productData = {}, likedParam} = route?.params;
   const [liked, setLiked] = useState(likedParam);
 
@@ -102,9 +105,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     if (
       isLogedIn &&
       userData?.likedProducts?.some(prod => {
-        return (
-          prod?._id === productData?.objectID || prod?._id === productData?._id
-        );
+        return prod?._id === productData?._id;
       })
     ) {
       setLiked(true);
@@ -120,11 +121,10 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     }
     if (productData?.userId) {
       dispatch(getUsersDetailsRequest(productData?.userId));
-      dispatch(getProductDetails(productData?.objectID));
+      dispatch(getProductDetails(productData?._id));
     }
   }, [
     productData?.userId,
-    productData?.objectID,
     isLogedIn,
     likedParam,
     productData?._id,
@@ -136,7 +136,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     }
     const reqData = {
       userId: userData?._id,
-      productId: productData?.objectID,
+      productId: productData?._id,
     };
     setLiked(true);
     dispatch(likeProduct(reqData));
@@ -146,7 +146,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const onUnlikePress = () => {
     const reqData = {
       userId: userData?._id,
-      productId: productData?.objectID,
+      productId: productData?._id,
     };
     setLiked(false);
     dispatch(unlikeProduct(reqData));
@@ -154,7 +154,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   };
 
   const handleGoToTrade = () => {
-    const trade = isAlreadyTrading(historyTrades, productData?.objectID);
+    const trade = isAlreadyTrading(historyTrades, productData?._id);
     if (trade) {
       navigation?.navigate('OffersMessageScreen', {item: trade});
     }
@@ -174,7 +174,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const handleDeleteProduct = () => {
     const reqData = {
       userId: userData?._id,
-      productId: productData?.objectID,
+      productId: productData?._id,
     };
     dispatch(
       deleteProduct(
@@ -194,7 +194,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       userId: userData?._id,
       recieverId: productData?.userId,
       senderId: userData?._id,
-      productId: productData?.objectID,
+      productId: productData?._id,
     };
     dispatch(
       createFirstMessage(
@@ -227,7 +227,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       routes: [{name: 'ProductDetailsScreen'}],
     });
     navigation.navigate('CheckoutScreen', {
-      productData: selectedProductDetails,
+      productData: productData,
     });
   };
 
@@ -240,7 +240,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       getMessageInitiatedStatus(
         JSON.stringify({
           userId: userData?._id,
-          productId: productData?.objectID,
+          productId: productData?._id,
         }),
         (res: any) => {
           if (res?.noMessage) {
@@ -263,9 +263,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       goToLogin();
       return;
     }
-    dispatch(preselectChosenItem(productData?.objectID));
+    dispatch(preselectChosenItem(productData?._id));
 
-    switch (selectedProductDetails.type) {
+    switch (productData.type) {
       case Trade_Options.TradeAndSell:
         navigation.navigate('ChooseOfferTypeScreen');
         break;
@@ -297,20 +297,65 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       </TagsContainer>
     );
   };
-  const renderButtons = () => {
-    if (!selectedProductDetails?.isVisible) {
+
+  const renderInteractButtons = () => {
+    if (isLogedIn && userData?._id === productData?.userId) {
+      return <></>
+    }
+    if (!productData?.isVisible) {
       return (
-        <TopSpace>
+        <ButtonContainer>
           <LSButton
             title={'Item No Longer Avaliable'}
             size={Size.Full}
-            type={Type.Secondary}
+            type={Type.View}
             onPress={() => {}}
           />
-        </TopSpace>
+        </ButtonContainer>
+      );
+    } else if (
+      isLogedIn &&
+      historyTrades &&
+      isAlreadyTrading(historyTrades, productData?._id)
+    ) {
+      return (
+        <ButtonContainer>
+          <LSButton
+            title={'Go To Trade'}
+            size={Size.Full}
+            radius={100}
+            type={Type.Primary}
+            onPress={() => handleGoToTrade()}
+          />
+        </ButtonContainer>
+      );
+    } else {
+      return (
+        <ButtonContainer>
+          <LSButton
+            title={'Send Offer'}
+            size={Size.Custom}
+            customWidth={'45%'}
+            radius={100}
+            type={Type.Primary}
+            onPress={() => onSendOfferPress()}
+          />
+          {productData.type !== 'trade-only' && (
+            <LSButton
+              title={'Buy Now'}
+              size={Size.Custom}
+              customWidth={'45%'}
+              radius={100}
+              type={Type.Secondary}
+              onPress={onBuyNowPress}
+            />
+          )}
+        </ButtonContainer>
       );
     }
+  };
 
+  const renderEditButtons = () => {
     if (isLogedIn && userData?._id === requestedUserDetails?._id) {
       return (
         <TopSpace>
@@ -323,7 +368,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               dispatch(UpdateAddProductData(prodData));
               navigation.navigate('AddProductOverviewScreen', {
                 isFromEdit: true,
-                productId: selectedProductDetails._id,
+                productId: productData._id,
               });
             }}
           />
@@ -336,53 +381,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           />
         </TopSpace>
       );
-    } else if (
-      isLogedIn &&
-      historyTrades &&
-      isAlreadyTrading(historyTrades, productData?.objectID)
-    ) {
-      return (
-        <TopSpace>
-          <LSButton
-            title={'Go To Trade'}
-            size={Size.Full}
-            type={Type.Primary}
-            onPress={() => handleGoToTrade()}
-          />
-        </TopSpace>
-      );
-    } else {
-      return (
-        <TopSpace>
-          {selectedProductDetails.type !== 'trade-only' && (
-            <>
-              <LSButton
-                title={'Buy Now'}
-                size={Size.Full}
-                type={Type.Secondary}
-                onPress={onBuyNowPress}
-              />
-              <TopSpace />
-            </>
-          )}
-          <>
-            <LSButton
-              title={'Send Offer'}
-              size={Size.Full}
-              type={Type.Primary}
-              onPress={() => onSendOfferPress()}
-            />
-            <TopSpace />
-          </>
-          <LSButton
-            title={'Message'}
-            size={Size.Full}
-            type={Type.Grey}
-            onPress={onMessagePress}
-          />
-        </TopSpace>
-      );
-    }
+    } 
+    return <></>
   };
   const renderProtectionView = () => {
     return (
@@ -477,10 +477,13 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             isProduct={true}
             autoPlay={false}
             loop={false}
-            imagesArr={selectedProductDetails?.product_photos}
+            imagesArr={
+              [productData?.primary_photo, ...productData?.secondary_photos]
+            }
             showDummy={false}
           />
           <SubContainer>
+
             <DetailsContainer>
               <DetailsLeftView>
                 {!!productData?.type && renderTags()}
@@ -495,9 +498,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                 {productData?.type !== Trade_Options?.TradeOnly && (
                   <PriceLabel>${productData?.price}</PriceLabel>
                 )}
-                {selectedProductDetails?.type !== Trade_Options?.TradeOnly && (
+                {productData?.type !== Trade_Options?.TradeOnly && (
                   <ShippingLabel>
-                    +${selectedProductDetails?.sellerShippingCost} Shipping Cost
+                    +${productData?.sellerShippingCost} Shipping Cost
                   </ShippingLabel>
                 )}
               </DetailsLeftView>
@@ -511,7 +514,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                     color={'white'}
                   />
                   <ProductDetails>
-                    {selectedProductDetails?.timesLiked}
+                    {productData?.timesLiked}
                   </ProductDetails>
                 </LikeTouchable>
               </DetailsRightView>
@@ -519,14 +522,28 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             <HorizontalBar />
             {renderProtectionView()}
             {requestedUserDetails && <>{renderUserDetailsView()}</>}
-            <HorizontalBar />
+            {isLogedIn && requestedUserDetails?._id !== userData?._id && (
+              <MessageButtonWrapper>
+                <LSButton
+                  title={'Message'}
+                  size={Size.Custom}
+                  customWidth={'100%'}
+                  customHeight={50}
+                  radius={100}
+                  type={Type.Grey}
+                  onPress={onMessagePress}
+                />
+              </MessageButtonWrapper>
+            )}
             {renderDescriptionView()}
             {!!productData?.interestedIn && renderLookingForView()}
-            {renderButtons()}
+            {renderEditButtons()}
             <BottomSpace />
           </SubContainer>
         </ScrollContainer>
       )}
+
+      {renderInteractButtons()}
     </Container>
   );
 };

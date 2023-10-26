@@ -29,7 +29,7 @@ const ChooseAlbumDropdown: FC<ChooseAlbumDropdownProps> = React.memo(props => {
       data={albumList}
       value={selectedAlbum.title}
       labelField={'title'}
-      valueField={'title'}
+      valueField={'value'}
       onChange={item => {
         onSelectAlbum(item);
         console.log('slect', item);

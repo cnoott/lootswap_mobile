@@ -28,6 +28,10 @@ export const DropdownStyleSearch = {
   borderWidth: 1,
 };
 
+export const ItemContainerStyle = {
+  borderRadius: 18,
+};
+
 export const SelectedBorder = {
   borderColor: '#6267FE',
 };

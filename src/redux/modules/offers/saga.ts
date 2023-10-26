@@ -13,6 +13,10 @@ import {
   START_MONEY_OFFER_TRADE,
   EDIT_TRADE_CHECKOUT,
   UNDO_TRADE_CHECKOUT,
+  PUBLIC_OFFER_CHECKOUT,
+  GET_PUBLIC_OFFERS,
+  ACCEPT_PUBLIC_OFFER,
+  DELETE_PUBLIC_OFFER,
 } from '../../../constants/actions';
 import {
   startTradeCheckoutCall,
@@ -28,6 +32,10 @@ import {
   addItemsCall,
   removeItemsCall,
   changeMoneyOfferCall,
+  publicOfferCheckoutCall,
+  getPublicOffersCall,
+  acceptPublicOfferCall,
+  deletePublicOfferCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {
@@ -285,6 +293,83 @@ export function* changeMoneyOffer(action: any) {
   }
 }
 
+export function* publicOfferCheckout(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      publicOfferCheckoutCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
+export function* acceptPublicOffer(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      acceptPublicOfferCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
+export function* getPublicOffers(action: any) {
+  if (action?.reqData?.showLoad) {
+    yield put(LoadingRequest());
+  }
+  try {
+    const response: APIResponseProps = yield call(
+      getPublicOffersCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
+export function* deletePublicOffer(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      deletePublicOfferCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export default function* offersSaga() {
   yield takeLatest(GET_TRADES_HISTORY.REQUEST, getTradesHistory);
   yield takeLatest(GET_TRADE.REQUEST, getTrade);
@@ -299,4 +384,8 @@ export default function* offersSaga() {
   yield takeLatest(ADD_ITEMS.REQUEST, addItems);
   yield takeLatest(REMOVE_ITEMS.REQUEST, removeItems);
   yield takeLatest(CHANGE_MONEY_OFFER.REQUEST, changeMoneyOffer);
+  yield takeLatest(PUBLIC_OFFER_CHECKOUT.REQUEST, publicOfferCheckout);
+  yield takeLatest(ACCEPT_PUBLIC_OFFER.REQUEST, acceptPublicOffer);
+  yield takeLatest(GET_PUBLIC_OFFERS.REQUEST, getPublicOffers);
+  yield takeLatest(DELETE_PUBLIC_OFFER.REQUEST, deletePublicOffer);
 }

@@ -23,7 +23,7 @@ const RatingComponent = (props: RatingComponentProps) => {
       <TopView>
         <EmptyRowView>
           <LSProfileImageComponent
-            profileUrl={ratingData.userId.profile_picture}
+            profileUrl={ratingData?.userId?.profile_picture}
             imageHeight={48}
             imageWidth={48}
             imageRadius={24}
@@ -32,7 +32,7 @@ const RatingComponent = (props: RatingComponentProps) => {
         </EmptyRowView>
         <EmptyRowView>
           <LSTradeButton
-            label={`${'\u2605'} ${ratingData.rating}`}
+            label={`${'\u2605'} ${ratingData?.rating}`}
             isSelected={false}
             paddingX={8}
             paddingY={3}

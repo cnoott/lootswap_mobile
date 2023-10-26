@@ -41,10 +41,10 @@ import {
   BOTTOM_TAB_LOOT_SELECTED,
   BOTTOM_TAB_PROFILE,
   BOTTOM_TAB_PROFILE_SELECTED,
-  BOTTOM_TAB_NOTIFICATION,
-  BOTTOM_TAB_NOTIFICATION_SELECTED,
   BOTTOM_TAB_OFFERS,
   BOTTOM_TAB_OFFERS_SELECTED,
+  HOME_SEARCH_INPUT_ICON,
+  HOME_SEARCH_INPUT_ICON_SELECTED,
 } from 'localsvgimages';
 import {
   TabBarContainer,
@@ -57,11 +57,22 @@ import ListLootSuccessScreen from '../screens/loot/listLootSuccessScreen';
 import PayPalLinkModal from '../components/paypalLinkModal';
 import LinkPaypalScreen from '../screens/profile/linkPaypalScreen';
 import LootEditAddressScreen from '../screens/loot/lootEditAddressScreen';
-import {BOTTOM_TAB_NOTIFICATION_NEW} from '../assets/images/svgs';
 import StartTradeScreen from '../screens/offers/startTrade';
 import EditTradeScreen from '../screens/offers/editTradeScreen';
 import ChooseOfferTypeScreen from '../screens/offers/chooseOfferTypeScreen';
 import SendMoneyOfferScreen from '../screens/offers/sendMoneyOfferScreen';
+import SearchScreen from '../screens/search';
+import StockxScreen from '../screens/search/stockxScreen';
+import HasItScreen from '../screens/search/hasItScreen';
+import TradedItScreen from '../screens/search/tradedItScreen';
+import FoundPublicOffersScreen from '../screens/search/foundPublicOffersScreen';
+import FiltersScreen from '../screens/search/filtersScreen';
+import CreatePublicOfferScreen from '../screens/publicOffers/';
+import CreatePublicOfferCheckoutScreen from '../screens/publicOffers/createPublicOfferCheckoutScreen';
+import BrowsePublicOffersScreen from '../screens/publicOffers/browsePublicOffersScreen';
+import PublicOfferScreen from '../screens/publicOffers/publicOfferScreen';
+import AcceptPublicOfferScreen from '../screens/publicOffers/acceptPublicOfferScreen';
+import AllListingsScreen from '../screens/home/allListings';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -73,11 +84,34 @@ const HomeStackNavigation = () => (
       headerShown: false,
     }}>
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
+    <Stack.Screen name="Notifications" component={NotificationsScreen} />
+    <Stack.Screen
+      name="BrowsePublicOffersScreen"
+      component={BrowsePublicOffersScreen}
+    />
     <Stack.Screen name="LikedProductScreen" component={LikedProductScreen} />
+    <Stack.Screen name="AllListingsScreen" component={AllListingsScreen} />
+    <Stack.Screen name="FiltersScreen" component={FiltersScreen} />
+    <Stack.Screen name="StockxScreen" component={StockxScreen}/>
+    <Stack.Screen name="HasItScreen" component={HasItScreen}/>
+    <Stack.Screen name="TradedItScreen" component={TradedItScreen}/>
     <Stack.Screen name="LinkPaypalScreen" component={LinkPaypalScreen} />
     <Stack.Screen
       name="LootEditAddressScreen"
       component={LootEditAddressScreen}
+    />
+    <Stack.Screen
+      name="CreatePublicOfferScreen"
+      component={CreatePublicOfferScreen}
+    />
+    <Stack.Screen
+      name="CreatePublicOfferCheckoutScreen"
+      component={CreatePublicOfferCheckoutScreen}
+    />
+    <Stack.Screen name="PublicOfferScreen" component={PublicOfferScreen} />
+    <Stack.Screen
+      name="AcceptPublicOfferScreen"
+      component={AcceptPublicOfferScreen}
     />
     <Stack.Screen
       name="ProductDetailsScreen"
@@ -108,6 +142,54 @@ const HomeStackNavigation = () => (
       component={TradeCheckoutSuccessScreen}
     />
     <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
+  </Stack.Navigator>
+);
+
+const SearchStackNavigation = () => (
+  <Stack.Navigator
+    initialRouteName={'SearchScreen'}
+    screenOptions={{
+      headerShown: false,
+    }}>
+    <Stack.Screen name="SearchScreen" component={SearchScreen}/>
+    <Stack.Screen name="FiltersScreen" component={FiltersScreen} />
+    <Stack.Screen name="StockxScreen" component={StockxScreen}/>
+    <Stack.Screen
+      name="CreatePublicOfferScreen"
+      component={CreatePublicOfferScreen}
+    />
+    <Stack.Screen
+      name="CreatePublicOfferCheckoutScreen"
+      component={CreatePublicOfferCheckoutScreen}
+    />
+    <Stack.Screen name="PublicOfferScreen" component={PublicOfferScreen} />
+    <Stack.Screen
+      name="AcceptPublicOfferScreen"
+      component={AcceptPublicOfferScreen}
+    />
+    <Stack.Screen name="HasItScreen" component={HasItScreen}/>
+    <Stack.Screen name="TradedItScreen" component={TradedItScreen}/>
+    <Stack.Screen
+      name="FoundPublicOffersScreen"
+      component={FoundPublicOffersScreen}
+    />
+    <Stack.Screen name="StartTradeScreen" component={StartTradeScreen} />
+    <Stack.Screen
+      name="ChooseOfferTypeScreen"
+      component={ChooseOfferTypeScreen}
+    />
+    <Stack.Screen
+      name="SendMoneyOfferScreen"
+      component={SendMoneyOfferScreen}
+    />
+    <Stack.Screen name="OffersMessageScreen" component={OffersMessageScreen} />
+    <Stack.Screen name="EditTradeScreen" component={EditTradeScreen} />
+
+    <Stack.Screen
+      name="ProductDetailsScreen"
+      component={ProductDetailsScreen}
+    />
+    <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
   </Stack.Navigator>
 );
 
@@ -183,6 +265,15 @@ const OffersStackNavigation = () => (
       headerShown: false,
     }}>
     <Stack.Screen name="OffersScreen" component={OffersScreen} />
+    <Stack.Screen
+      name="CreatePublicOfferScreen"
+      component={CreatePublicOfferScreen}
+    />
+    <Stack.Screen
+      name="CreatePublicOfferCheckoutScreen"
+      component={CreatePublicOfferCheckoutScreen}
+    />
+    <Stack.Screen name="PublicOfferScreen" component={PublicOfferScreen} />
     <Stack.Screen name="OffersMessageScreen" component={OffersMessageScreen} />
     <Stack.Screen
       name="EditMoneyOfferTradeScreen"
@@ -215,23 +306,16 @@ const getTabBarIcon = (isFocused?: boolean, route?: string, userData: any) => {
     case 'Home':
       _source = isFocused ? BOTTOM_TAB_HOME_SELECTED : BOTTOM_TAB_HOME;
       break;
-    case 'Offers/Inbox':
+    case 'Search':
+      _source = isFocused ? HOME_SEARCH_INPUT_ICON_SELECTED : HOME_SEARCH_INPUT_ICON;
+      break;
+    case 'Inbox':
       _source = isFocused ? BOTTOM_TAB_OFFERS_SELECTED : BOTTOM_TAB_OFFERS;
       break;
     case 'Profile':
       _source = isFocused ? BOTTOM_TAB_PROFILE_SELECTED : BOTTOM_TAB_PROFILE;
       break;
-    case 'Notifications':
-      console.log('new notif', userData?.newNotification);
-      if (userData?.newNotification) {
-        _source = BOTTOM_TAB_NOTIFICATION_NEW;
-        break;
-      }
-      _source = isFocused
-        ? BOTTOM_TAB_NOTIFICATION_SELECTED
-        : BOTTOM_TAB_NOTIFICATION;
-      break;
-    case 'List loot':
+    case 'Add loot':
       _source = isFocused ? BOTTOM_TAB_LOOT_SELECTED : BOTTOM_TAB_LOOT;
       break;
     default:
@@ -264,12 +348,12 @@ export const BottomTabs: FC<{}> = () => {
             });
             if (!isFocused && !event.defaultPrevented) {
               // The `merge: true` option makes sure that the params inside the tab screen are preserved
-              if (!isLoggedIn && [1, 2, 3, 4].includes(index)) {
+              if (!isLoggedIn && [2, 3, 4].includes(index)) {
                 navigation.navigate('SignInScreen');
-              } else if (index === 1 && !auth?.userData?.paypal_onboarded) {
+              } else if (index === 3 && !auth?.userData?.paypal_onboarded) {
                 setPayPalModalVisible(true);
               } else if (
-                index === 1 &&
+                index === 3 &&
                 Object.keys(auth.userData?.shipping_address).length < 4
               ) {
                 navigation.navigate('LootEditAddressScreen');
@@ -319,14 +403,14 @@ export const BottomTabs: FC<{}> = () => {
       initialRouteName={'Home'}
       tabBar={props => <MyCustomTabBar {...props} />}>
       <Tab.Screen name="Home" component={HomeStackNavigation} />
+      <Tab.Screen name="Search" component={SearchStackNavigation}/>
+      <Tab.Screen name="Profile" component={ProfileStackNavigation} />
       <Tab.Screen
-        name="List loot"
+        name="Add loot"
         component={LootStackNavigation}
         options={{unmountOnBlur: true}}
       />
-      <Tab.Screen name="Profile" component={ProfileStackNavigation} />
-      <Tab.Screen name="Notifications" component={NotificationsScreen} />
-      <Tab.Screen name="Offers/Inbox" component={OffersStackNavigation} />
+      <Tab.Screen name="Inbox" component={OffersStackNavigation} />
     </Tab.Navigator>
   );
 };

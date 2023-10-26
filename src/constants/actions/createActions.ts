@@ -40,6 +40,10 @@ export const GET_MY_DETAILS_NO_LOAD = {
   ...createActionConst(actions.GET_MY_DETAILS_NO_LOAD),
 };
 
+export const GET_USER_DETAILS_W_STOCKX = {
+  ...createActionConst(actions.GET_USER_DETAILS_W_STOCKX),
+};
+
 export const GET_PRODUCT_DETAILS = {
   ...createActionConst(actions.GET_PRODUCT_DETAILS),
 };
@@ -240,4 +244,68 @@ export const SET_FIRST_TIME_OPEN_FALSE = {
 
 export const SEARCH_STOCKX = {
   ...createActionConst(actions.SEARCH_STOCKX),
+};
+
+export const GET_HOMESCREEN_PRODUCTS = {
+  ...createActionConst(actions.GET_HOMESCREEN_PRODUCTS),
+};
+
+export const GET_HOMESCREEN_PUBLIC_OFFERS = {
+  ...createActionConst(actions.GET_HOMESCREEN_PUBLIC_OFFERS),
+};
+
+export const SEARCH_PRODUCTS = {
+  ...createActionConst(actions.SEARCH_PRODUCTS),
+};
+
+export const SAVE_SEARCH = {
+  ...createActionConst(actions.SAVE_SEARCH),
+};
+
+export const GET_RECOMMENDED_SEARCH = {
+  ...createActionConst(actions.GET_RECOMMENDED_SEARCH),
+};
+
+export const REFRESH_STOCKX_DATA = {
+  ...createActionConst(actions.REFRESH_STOCKX_DATA),
+};
+
+export const GET_LIKED_PRODUCTS = {
+  ...createActionConst(actions.GET_LIKED_PRODUCTS),
+};
+
+export const SELECT_FILTER = {
+  ...createActionConst(actions.SELECT_FILTER),
+};
+
+export const FILTER_PRODUCTS = {
+  ...createActionConst(actions.FILTER_PRODUCTS),
+};
+
+export const CLEAR_FILTERS = {
+  ...createActionConst(actions.CLEAR_FILTERS),
+};
+
+export const GET_AVALIABLE_SIZES = {
+  ...createActionConst(actions.GET_AVALIABLE_SIZES),
+};
+
+export const PUBLIC_OFFER_CHECKOUT = {
+  ...createActionConst(actions.PUBLIC_OFFER_CHECKOUT),
+};
+
+export const ACCEPT_PUBLIC_OFFER = {
+  ...createActionConst(actions.ACCEPT_PUBLIC_OFFER),
+};
+
+export const GET_PUBLIC_OFFERS = {
+  ...createActionConst(actions.GET_PUBLIC_OFFERS),
+};
+
+export const DELETE_PUBLIC_OFFER = {
+  ...createActionConst(actions.DELETE_PUBLIC_OFFER),
+};
+
+export const FETCH_RELATED_ITEM_DATA = {
+  ...createActionConst(actions.FETCH_RELATED_ITEM_DATA),
 };

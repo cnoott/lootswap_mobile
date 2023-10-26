@@ -28,3 +28,12 @@ export const FlatList = styled.FlatList.attrs(() => ({
   ${space}
   ${layout}
 `;
+
+export const StockxFlatList = styled.FlatList.attrs(() => ({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: {flexGrow: 1, backgroundColor: 'white'},
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;

@@ -6,6 +6,8 @@ export enum Size {
   Full = 'fl',
   Fit_To_Width = 'ftw',
   Custom = 'cst',
+  View = 'view',
+  ViewSmall = 'viewsmall',
 }
 export enum Type {
   Primary = 'primary',
@@ -19,6 +21,7 @@ export enum Type {
   Text = 'text',
   Placeholder = 'placeholder',
   Custom = 'custom',
+  View = 'view',
 }
 
 export enum FontFamily {
@@ -56,4 +59,16 @@ export enum Order_Status {
   InTransit = 'in_transit',
   VerifiedCenter = 'verified_center',
   Delivered = 'delivered',
+}
+
+export enum Filter_Type {
+  Category = 'category',
+  Product_Type = 'type',
+  Sizes = 'sizes',
+  Add_Brand = 'add_brand',
+  Remove_Brand = 'remove_brand',
+  Min_Price = 'min_price',
+  Max_Price = 'max_price',
+  Condition = 'condition',
+  Sort_By = 'sort_by',
 }

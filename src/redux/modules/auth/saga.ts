@@ -6,6 +6,7 @@ import {
   SIGN_UP_DATA,
   GET_USER_DETAILS,
   GET_MY_DETAILS,
+  GET_USER_DETAILS_W_STOCKX,
   SET_REG_TOKEN,
   GET_MY_DETAILS_NO_LOAD,
   LIKE_PRODUCT,
@@ -19,6 +20,8 @@ import {
   DELETE_USER,
   VERSION_CHECK,
   SAVE_REFERRAL_LINK,
+  SAVE_SEARCH,
+  GET_LIKED_PRODUCTS,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -53,6 +56,10 @@ import {
   saveReferralLinkRequest,
   saveReferralLinkSuccess,
   saveReferralLinkFailure,
+  saveSearchSuccess,
+  saveSearchFailure,
+  getUserDetailsWStockxFailure,
+  getUserDetailsWStockxSuccess,
 } from './actions';
 import {
   signIn,
@@ -73,6 +80,8 @@ import {
   deleteUserCall,
   versionCheckCall,
   saveReferralLinkCall,
+  getLikedProductsCall,
+  getUserDetailsWStockxCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
@@ -235,6 +244,22 @@ export function* getMyDetailsNoLoad(action: any) {
   }
 }
 
+export function* getUserDetailsWStockx(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      getUserDetailsWStockxCall,
+      action?.userId,
+    );
+    if (response?.success) {
+      yield put(getUserDetailsWStockxSuccess(response.data));
+    } else {
+      yield put(getUserDetailsWStockxFailure(response.error));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function* setRegToken(action: any) {
   try {
     const response: APIResponseProps = yield call(
@@ -304,7 +329,9 @@ export function* editShippingAddr(action: any) {
   }
 }
 export function* updateUser(action: any) {
-  yield put(LoadingRequest());
+  if (!action?.reqData?.noLoad) {
+    yield put(LoadingRequest());
+  }
   try {
     const response: APIResponseProps = yield call(
       updateUserCall,
@@ -313,11 +340,29 @@ export function* updateUser(action: any) {
     yield put(LoadingSuccess());
     if (response?.success) {
       yield put(updateUserSuccess(response.data));
-      Alert.showSuccess('Updated successfully!');
+      if (!action?.reqData?.noLoad) {
+        Alert.showSuccess('Updated successfully!');
+      }
     } else {
       yield put(updateUserFailure());
     }
   } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* saveSearch(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      updateUserCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      saveSearchSuccess();
+    } else {
+      saveSearchFailure();
+    }
+  } catch(e) {
     console.log(e);
   }
 }
@@ -439,6 +484,23 @@ export function* saveReferralLink(action: any) {
   }
 }
 
+export function* getLikedProducts(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      getLikedProductsCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
@@ -459,4 +521,6 @@ export default function* authSaga() {
   yield takeLatest(DELETE_USER.REQUEST, deleteUser);
   yield takeLatest(VERSION_CHECK.REQUEST, versionCheck);
   yield takeLatest(SAVE_REFERRAL_LINK.REQUEST, saveReferralLink);
+  yield takeLatest(SAVE_SEARCH.REQUEST, saveSearch);
+  yield takeLatest(GET_LIKED_PRODUCTS.REQUEST, getLikedProducts);
 }

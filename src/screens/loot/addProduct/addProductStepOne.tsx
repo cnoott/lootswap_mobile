@@ -16,11 +16,13 @@ import {searchStockx} from '../../../redux/modules';
 import {Animated, Dimensions} from 'react-native';
 import useDebounce from '../../../utility/customHooks/useDebouncer';
 import { setListener } from 'appcenter-crashes';
+import ChosenStockxProduct from '../../../components/loot/chosenStockxProduct';
 
 interface ProductStep {
   updateProductData: Function;
   stockxLoading: Boolean;
   setStockxLoading: Function;
+  isFromEdit: Boolean;
 }
 
 export const AddProductStepOne: FC<ProductStep> = props => {
@@ -29,18 +31,19 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
 
-  const {updateProductData, stockxLoading, setStockxLoading} = props;
+  const {updateProductData, stockxLoading, setStockxLoading, isFromEdit} = props;
 
   const dispatch = useDispatch();
 
   const [searchResults, setSearchResults] = useState([]);
+  const [selectedStockxItem, setSelectedStockxItem] = useState(addProductData?.stepOne?.stockxId);
 
   const [alreadySearched, setAlreadySearched] = useState(false);
 
   const [isOpen, setIsOpen] = useState(false);
   const animation = useRef(new Animated.Value(0)).current;
 
-  const drawerWidth = Dimensions.get('window').width * 0.5;
+  const drawerWidth = Dimensions.get('window').width * 0.88;
   const height = animation.interpolate({
     inputRange: [0, 1],
     outputRange: [0, drawerWidth]
@@ -117,35 +120,17 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     updateData({category: item});
   };
 
-  const onSetSizeData = (item: any) => {
+  const handleDeleteStockxItem = () => {
+    setSelectedStockxItem(null);
     reOpenDrawer();
+    updateBrand({stockxUrlKey: null}, null);
+  };
+
+  const onSetSizeData = (item: any) => {
     setSizeData(item);
     updateData({size: item});
   };
 
-  const handleSetSizeList = () => {
-    if (!categoryData) return '';
-
-    if (addProductData?.stepOne?.stockxUrlKey) {
-      if (productName?.includes('Women')) {
-        return 'womens';
-      } else if (productName?.includes('GS')) {
-        return 'gs';
-      } else if (productName?.includes('TD')) {
-        return 'td';
-      } else if (productName?.includes('PS')) {
-        return 'ps';
-      } else if (
-        productName?.includes('Kids') ||
-        productName?.includes('Infants')
-      ) {
-        return 'kids';
-      }
-      return categoryData?.value;
-    } else {
-      return categoryData?.value;
-    }
-  };
 
   const onSetProductName = (item: any) => {
     setAlreadySearched(false);
@@ -155,12 +140,9 @@ export const AddProductStepOne: FC<ProductStep> = props => {
 
   const onSetStockxUrlKey = async (item: any) => {
     setAlreadySearched(true);
+    collapseDrawer();
+    setSelectedStockxItem(item);
     if (!item.urlKey) {
-      return;
-    }
-    if (item.urlKey === addProductData?.stepOne?.stockxUrlKey) {
-      updateBrand({productName: '', stockxUrlKey: null}, null);
-      setProductName('');
       return;
     }
     updateBrand(
@@ -190,22 +172,13 @@ export const AddProductStepOne: FC<ProductStep> = props => {
         },
       ),
     );
-  }, [dispatch, handleDrawerAnimation, productName, userData?._id, setStockxLoading]);
-
-  const debouncedSearchTerm = useDebounce(productName, 1300); //set delay
-  const lastSearchedTerm = useRef('');
-  useEffect(() => {
-    if (
-      !alreadySearched &&
-      debouncedSearchTerm &&
-      debouncedSearchTerm.length > 5 &&
-      debouncedSearchTerm !== lastSearchedTerm.current
-    ) {
-      lastSearchedTerm.current = debouncedSearchTerm;
-      fetchStockxData();
-    }
-  }, [debouncedSearchTerm, alreadySearched, fetchStockxData]);
-
+  }, [
+    dispatch,
+    handleDrawerAnimation,
+    productName,
+    userData?._id,
+    setStockxLoading,
+  ]);
   const renderDropdown = (
     dropdownLabel: string,
     isSearch: boolean,
@@ -234,31 +207,37 @@ export const AddProductStepOne: FC<ProductStep> = props => {
         onSetCategoryData,
         categoryData,
       )}
-      <LSInput
-        onChangeText={onSetProductName}
-        horizontalSpace={'0'}
-        value={productName}
-        leftIcon={SEARCH_INPUT_ICON}
-        placeholder={'Item Name'}
-        onFocus={() => reOpenDrawer()}
-        returnKeyType={'search'}
-      />
+      {!selectedStockxItem && (
+        <LSInput
+          onChangeText={onSetProductName}
+          horizontalSpace={'0'}
+          value={productName}
+          leftIcon={SEARCH_INPUT_ICON}
+          placeholder={'Item Name'}
+          onFocus={() => reOpenDrawer()}
+          returnKeyType={'search'}
+          onSubmitEditing={() => fetchStockxData()}
+        />
+      )}
       <Animated.View style={{height, overflow: 'hidden'}}>
         <StockxSearchResults
           selectedUrlKey={addProductData?.stepOne?.stockxUrlKey}
           searchResults={searchResults}
           loading={stockxLoading}
           onSelectResult={onSetStockxUrlKey}
+          productName={productName}
         />
       </Animated.View>
-
-      {renderDropdown(
-        'Size',
-        true,
-        getSizeList(handleSetSizeList()),
-        onSetSizeData,
-        sizeData,
-        () => collapseDrawer(),
+      {selectedStockxItem && (
+        <ChosenStockxProduct
+          stockxProduct={selectedStockxItem}
+          onDeletePress={handleDeleteStockxItem}
+          categoryData={categoryData}
+          onSetSizeData={onSetSizeData}
+          productName={productName}
+          chosenSize={sizeData}
+          isFromPublicOffers={isFromEdit}
+        />
       )}
     </StepOneContainer>
   );
