@@ -92,7 +92,7 @@ function CarouselComponent(props: CarouselProps) {
           activeOffsetX: [-10, 10],
         }}
         loop={loop}
-        width={isProduct ? w : width}
+        width={width}
         height={isProduct ? height - 30 : height - 5}
         parallaxScrollingOffset={50}
         autoPlay={autoPlay}
@@ -115,7 +115,7 @@ function CarouselComponent(props: CarouselProps) {
             <>
               <ItemCenterContainer onPress={() => setViewerVisible(true)}>
                 <Image
-                  width={isProduct ? w - 10 : width - 30}
+                  width={'100%'}
                   height={height - (isProduct ? 0 : 120)}
                   source={
                     isProduct

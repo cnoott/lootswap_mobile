@@ -60,6 +60,7 @@ export const ItemCenterContainer = styled.TouchableWithoutFeedback.attrs(() => (
 }))`
   align-items: center;
   justify-content: center;
+  width: 100%;
   ${space}
   ${layout}
 `;
@@ -106,4 +107,3 @@ export const SearchBarWrapper = styled.View.attrs(props => ({}))`
   top: 0;
   z-index: 10000px;
 `;
-
