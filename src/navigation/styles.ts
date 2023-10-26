@@ -35,7 +35,7 @@ export const TabItemContainer = styled.View`
 `;
 
 export const TabItemText = styled.Text.attrs(props => ({
-  color: 'black',
+  color: props.isActive ? 'black' : '#747474',
   marginTop: moderateScale(2),
 }))`
   font-weight: ${props => `${props.isActive ? 600 : 400}`};
