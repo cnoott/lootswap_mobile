@@ -133,7 +133,6 @@ export const HomeScreen: FC<{}> = () => {
   }, [publicOffersPage]);
 
   const handleRefresh = async () => {
-    console.log('RERESHING');
     setRefreshing(true);
     ReactNativeHapticFeedback.trigger('impactMedium');
     setPage(0);
@@ -289,7 +288,10 @@ export const HomeScreen: FC<{}> = () => {
         centerAligned={false}
         onRightItemPress={() => goToLikedProducts()}
       />
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={handleRefresh} />
+        }>
         <CarouselComponent
           height={scale(360)}
           isHome={true}
