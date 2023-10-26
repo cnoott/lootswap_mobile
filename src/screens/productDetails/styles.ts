@@ -231,6 +231,7 @@ export const DescriptionContainerView = styled.View.attrs((props: any) => ({
   borderColor: props.theme.colors.light_bg,
   p: scale(15),
   overflow: 'hidden',
+  marginBottom: scale(25),
 }))`
   ${space} ${border} ${color};
 `;
@@ -325,11 +326,15 @@ export const ButtonContainer = styled.View.attrs(() => ({
   mb: verticalScale(5),
 }))`
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  align-items: center;
   position: absolute;
-  bottom: 10px;
+  bottom: 2px;
   width: 100%;
   ${space}
   ${layout}
 `;
 
+export const MessageButtonWrapper = styled.View.attrs(() => ({}))`
+  margin-top: 20px;
+`;
