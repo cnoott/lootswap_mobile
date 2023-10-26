@@ -19,6 +19,7 @@ import {MessageProps} from '../../redux/modules/message/reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
+import LSButton from '../../components/commonComponents/LSButton';
 import {SvgXml} from 'react-native-svg';
 import {STOCKX_SEARCH_DROP_DOWN_ARROW} from 'localsvgimages';
 import TradeOfferCell from './offerItems/TradeOfferCell';
@@ -26,6 +27,7 @@ import NoOffersView from './offerItems/NoOffersView';
 import {getTradeStatusColor, daysPast} from '../../utility/utility';
 import NoMessagesView from './offerItems/NoMessagesView';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import {Size, Type} from '../../enums';
 import {
   Container,
   TopTabView,
@@ -48,9 +50,8 @@ import {
   SizeDropdownStyle,
   ItemTextStyle,
 } from './styles';
-import {
-  SelectedTextStyle,
-} from '../search/stockxScreenStyles';
+import {ButtonContainer} from '../publicOffers/styles';
+import {SelectedTextStyle} from '../search/stockxScreenStyles';
 import {Dropdown} from 'react-native-element-dropdown';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 
@@ -58,7 +59,7 @@ export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [index, setIndex] = useState(0);
-  const [publicOfferFilter, setPublicOfferFilter] = useState({value: 'For You'});
+  const [publicOfferFilter, setPublicOfferFilter] = useState({value: 'All'});
   const [publicOffers, setPublicOffers] = useState([]);
   const [routes] = React.useState([
     {key: 'first', title: 'Public Offers'},
@@ -138,7 +139,22 @@ export const OffersScreen: FC<{}> = () => {
         },
       ),
     );
+  };
 
+  const renderBottomButtonView = () => {
+    if (index === 0 ) {
+      return (
+        <ButtonContainer>
+          <LSButton
+            title={'Create Public Offer'}
+            size={Size.Large}
+            type={Type.Primary}
+            radius={20}
+            onPress={() => navigation?.navigate('CreatePublicOfferScreen')}
+          />
+        </ButtonContainer>
+      );
+    }
   };
 
   const RenderUserDetails = ({item}) => {
@@ -207,6 +223,7 @@ export const OffersScreen: FC<{}> = () => {
     );
   };
 
+
   const renderMessageItem = ({item}: any) => {
     return (
       <MessageCellContainer
@@ -244,7 +261,7 @@ export const OffersScreen: FC<{}> = () => {
           selectedTextStyle={SelectedTextStyle}
           placeholderStyle={SelectedTextStyle}
           itemTextStyle={ItemTextStyle}
-          placeholder={'For You'}
+          placeholder={'All'}
           labelField={'value'}
           valueField={'value'}
           onChange={item => setPublicOfferFilter(item)}
@@ -258,7 +275,6 @@ export const OffersScreen: FC<{}> = () => {
         data={publicOffers}
         renderItem={renderPublicOfferItem}
         keyExtractor={item => item?._id}
-        ListEmptyComponent={() => <NoOffersView navigation={navigation} />}
         refreshControl={
           <RefreshControl refreshing={false} onRefresh={onTradeOffersRefresh} />
         }
@@ -318,6 +334,7 @@ export const OffersScreen: FC<{}> = () => {
         onIndexChange={setIndex}
         initialLayout={{width: layout.width}}
       />
+      {renderBottomButtonView()}
     </Container>
   );
 };
