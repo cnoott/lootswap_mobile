@@ -471,8 +471,9 @@ export const OFFER_REJECTED_HEADER_ICON = `<svg width="20" height="20" viewBox="
 </svg>
 `;
 
-export const LIKE_HEART_ICON = `<svg width="29" height="28" viewBox="0 0 29 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3.96216 13.5314C2.71033 9.62304 4.17333 5.15588 8.2765 3.83404C10.4348 3.13754 12.8172 3.54821 14.6115 4.89804C16.309 3.58554 18.7788 3.14221 20.9348 3.83404C25.038 5.15588 26.5103 9.62304 25.2597 13.5314C23.3113 19.7264 14.6115 24.498 14.6115 24.498C14.6115 24.498 5.97583 19.7987 3.96216 13.5314Z" stroke="#101010" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+export const LIKE_HEART_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1.87187 9.59832C0.798865 6.24832 2.05287 2.41932 5.56987 1.28632C7.41987 0.689322 9.46187 1.04132 10.9999 2.19832C12.4549 1.07332 14.5719 0.693322 16.4199 1.28632C19.9369 2.41932 21.1989 6.24832 20.1269 9.59832C18.4569 14.9083 10.9999 18.9983 10.9999 18.9983C10.9999 18.9983 3.59787 14.9703 1.87187 9.59832Z" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M15 4.69922C16.07 5.04522 16.826 6.00022 16.917 7.12122" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 `;
 
