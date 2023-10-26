@@ -56,7 +56,7 @@ export const HeaderBottomText = styled.Text.attrs(props => ({
 }))`
   font-weight: 600;
   font-size: ${scale(15)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   text-align: center;
   ${color}
   ${space}
@@ -82,7 +82,7 @@ export const PayPalDesText = styled.Text.attrs(() => ({
 }))`
   font-weight: 500;
   font-size: ${scale(10)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   text-align: center;
   ${color}
   ${space}
@@ -177,7 +177,7 @@ export const BottomText = styled.Text.attrs(props => ({
   maxWidth: scale(90),
 }))`
   font-size: ${scale(12)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
