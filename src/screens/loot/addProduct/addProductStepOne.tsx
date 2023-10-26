@@ -22,6 +22,7 @@ interface ProductStep {
   updateProductData: Function;
   stockxLoading: Boolean;
   setStockxLoading: Function;
+  isFromEdit: Boolean;
 }
 
 export const AddProductStepOne: FC<ProductStep> = props => {
@@ -30,12 +31,12 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
 
-  const {updateProductData, stockxLoading, setStockxLoading} = props;
+  const {updateProductData, stockxLoading, setStockxLoading, isFromEdit} = props;
 
   const dispatch = useDispatch();
 
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedStockxItem, setSelectedStockxItem] = useState(null);
+  const [selectedStockxItem, setSelectedStockxItem] = useState(addProductData?.stepOne?.stockxId);
 
   const [alreadySearched, setAlreadySearched] = useState(false);
 
@@ -235,6 +236,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
           onSetSizeData={onSetSizeData}
           productName={productName}
           chosenSize={sizeData}
+          isFromPublicOffers={isFromEdit}
         />
       )}
     </StepOneContainer>

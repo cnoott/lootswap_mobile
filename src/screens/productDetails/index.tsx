@@ -90,6 +90,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const homeStates: AuthProps = useSelector(state => state.home);
+  const {selectedProductDetails} = homeStates;
   const tradesData: TradeProps = useSelector(state => state.offers);
   const {historyTrades} = tradesData;
   const theme = useTheme();
@@ -363,7 +364,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             size={Size.Full}
             type={Type.Secondary}
             onPress={() => {
-              const prodData = configureAndGetLootData(productData);
+              const prodData = configureAndGetLootData(selectedProductDetails);
               dispatch(UpdateAddProductData(prodData));
               navigation.navigate('AddProductOverviewScreen', {
                 isFromEdit: true,
