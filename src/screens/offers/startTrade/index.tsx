@@ -10,7 +10,6 @@ import {StartTradeStepTwo} from './startTradeStepTwo';
 import {StartTradeCheckoutScreen} from './startTradeCheckoutScreen';
 import {ReviewTrade} from './reviewTrade';
 import {useDispatch, useSelector} from 'react-redux';
-import {AuthProps} from '../../../redux/modules/auth/reducer';
 import {useStripe} from '@stripe/stripe-react-native';
 import {calculateMarketValue} from '../../../utility/utility';
 import {
@@ -36,8 +35,6 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation();
   const swiperRef = useRef<any>(null);
-  const homeStates: AuthProps = useSelector(state => state.home);
-  const {selectedProductDetails} = homeStates;
 
   const [currIndex, setCurrIndex] = useState(0);
 
