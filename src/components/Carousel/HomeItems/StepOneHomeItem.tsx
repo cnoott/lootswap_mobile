@@ -76,13 +76,13 @@ export const LSHomeStepOneCarouselItem: FC<HeaderProps> = React.memo(() => {
         customWidth={130}
         customHeight={34}
       />
-      <VerticalSpace space={0} />
       {renderSwapTopView()}
       {renderSwapBottomView()}
       <SwapContainer>
         {renderLeftBottomView()}
         {renderRightBottomView()}
       </SwapContainer>
+      <VerticalSpace space={5} />
     </Container>
   );
 });

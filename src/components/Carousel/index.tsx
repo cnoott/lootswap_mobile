@@ -108,7 +108,7 @@ function CarouselComponent(props: CarouselProps) {
         }}
         loop={loop}
         width={width}
-        height={isProduct ? height - 30 : height - 5}
+        height={isProduct ? height - 30 : height - 25}
         parallaxScrollingOffset={50}
         autoPlay={autoPlay}
         autoPlayInterval={10000}

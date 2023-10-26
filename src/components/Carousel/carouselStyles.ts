@@ -4,7 +4,7 @@ import {moderateScale, scale} from 'react-native-size-matters';
 import Dots from 'react-native-dots-pagination';
 
 export const Container = styled.View.attrs(props => ({
-  height: props.height,
+  height: props.height - 20,
   //bg: props?.isProduct ? props.theme.colors.white : props.theme.colors.screenBg,
   bg: props.theme.colors.white,
 }))`

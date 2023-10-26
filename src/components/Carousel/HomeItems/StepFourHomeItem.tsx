@@ -46,7 +46,7 @@ export const LSHomeStepFourCarouselItem: FC<HeaderProps> = React.memo(() => {
         fitToWidth={'35%'}
         sizeFont={22}
       />
-      <VerticalSpace space={20} />
+      <VerticalSpace space={50} />
     </Container>
   );
 });
