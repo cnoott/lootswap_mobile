@@ -316,3 +316,15 @@ export const SVGImageStyle = {
 export const ProtectionIconStyle = {
   marginTop: verticalScale(5),
 };
+export const ButtonContainer = styled.View.attrs(() => ({
+  mb: verticalScale(5),
+}))`
+  flex-direction: row;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  ${space}
+  ${layout}
+`;
+

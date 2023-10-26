@@ -109,7 +109,10 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
   return (
     <>
       <BrowsePublicOffersContainer>
-      <InStackHeader title={'Public Offers'} />
+      <InStackHeader
+        title={'Public Offers'}
+        onlyTitleCenterAlign={true}
+        />
         <PublicOffersFlatList
           data={publicOffers}
           renderItem={renderPublicOfferItem}

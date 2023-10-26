@@ -45,6 +45,7 @@ import {
   NewSellerTagView,
   NewSellerLabel,
   DescriptionContainerView,
+  ButtonContainer
 } from './styles';
 import {LikeTouchable} from '../../components/productCard/styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -351,6 +352,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     } else {
       return (
         <TopSpace>
+
+
           {productData.type !== 'trade-only' && (
             <>
               <LSButton
