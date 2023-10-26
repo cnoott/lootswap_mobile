@@ -52,6 +52,9 @@ export const InHomeHeader: FC<HeaderProps> = React.memo(props => {
       <LogoImage source={HEADERLOGO} />
       {!!rightIcon && (
         <IconsContainer>
+          <TouchableOpacity onPress={() => onRightItemPress()}>
+            <SvgXml xml={rightIcon} />
+          </TouchableOpacity>
           <TouchableOpacityNotif onPress={() => navigateToNotif()}>
             <SvgXml
               xml={
@@ -61,9 +64,6 @@ export const InHomeHeader: FC<HeaderProps> = React.memo(props => {
               }
             />
           </TouchableOpacityNotif>
-          <TouchableOpacity onPress={() => onRightItemPress()}>
-            <SvgXml xml={rightIcon} />
-          </TouchableOpacity>
         </IconsContainer>
       )}
     </HeaderContainer>

@@ -68,9 +68,13 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   const [imagePickerVisible, setImagePickerVisible] = useState(false);
   const [cameraRoll, setCameraRoll] = useState([]);
 
-  const [isImageGuideVisible, setIsImageGuideVisible] = useState(false);
-  const closeImageGuide = () => setIsImageGuideVisible(false);
-  const openImageGuide = () => setIsImageGuideVisible(true);
+  const [isImageGuideVisible, setIsImageGuideVisible] = useState(true);
+  const openImageGuide = useCallback(() => {
+    setIsImageGuideVisible(true);
+  }, []);
+  const closeImageGuide = useCallback(() => {
+    setIsImageGuideVisible(false);
+  }, []);
 
   const preFilledData =
     addProductData?.stepThree?.length > 0
@@ -291,7 +295,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     </ImagesContainer>
       <ImageGuideComponent
         isVisible={isImageGuideVisible}
-        closeModal={closeImageGuide}
+        onClose={closeImageGuide}
       />
       <LSModal
         isVisible={imagePickerVisible}
