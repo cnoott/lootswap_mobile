@@ -236,7 +236,7 @@ export const LootScreen: FC<any> = ({route}) => {
   };
   return (
     <Container>
-      <InStackHeader back={false} title={'Add Product'} centerAligned={false} />
+      <InStackHeader back={false} title={'Add loot'} centerAligned={false} />
       {renderTopView()}
       <KeyboardAwareScrollView
         scrollEnabled={false}
