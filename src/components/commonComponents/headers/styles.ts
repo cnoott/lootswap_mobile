@@ -459,7 +459,7 @@ export const TouchableOpacity = styled.TouchableOpacity.attrs({
 
 export const TouchableOpacityNotif = styled.TouchableOpacity.attrs({
   hitSlop: {top: 10, left: 10, right: 10, bottom: 10},
-  mr: '10px',
+  ml: '10px',
 })`
   flex-direction: row;
   ${color}

@@ -134,7 +134,7 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
         <TextContainer>
           <TitleText>{loading ? <BlinkingText/> : item?.title}</TitleText>
           <BrandContainer>
-            {loading && <BlinkingBrandText />}<BrandText>{item?.subTitle && `${item.subTitle}`}</BrandText>
+            {loading && <BlinkingBrandText />}<BrandText>{(item?.subTitle && !loading) && `${item.subTitle}`}</BrandText>
           </BrandContainer>
         </TextContainer>
       </ItemContainer>

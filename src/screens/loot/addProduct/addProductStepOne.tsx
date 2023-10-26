@@ -121,6 +121,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
 
   const handleDeleteStockxItem = () => {
     setSelectedStockxItem(null);
+    reOpenDrawer();
     updateBrand({stockxUrlKey: null}, null);
   };
 
@@ -177,21 +178,6 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     userData?._id,
     setStockxLoading,
   ]);
-
-  const debouncedSearchTerm = useDebounce(productName, 1300); //set delay
-  const lastSearchedTerm = useRef('');
-  useEffect(() => {
-    if (
-      !alreadySearched &&
-      debouncedSearchTerm &&
-      debouncedSearchTerm.length > 5 &&
-      debouncedSearchTerm !== lastSearchedTerm.current
-    ) {
-      lastSearchedTerm.current = debouncedSearchTerm;
-      fetchStockxData();
-    }
-  }, [debouncedSearchTerm, alreadySearched, fetchStockxData]);
-
   const renderDropdown = (
     dropdownLabel: string,
     isSearch: boolean,
@@ -229,6 +215,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
           placeholder={'Item Name'}
           onFocus={() => reOpenDrawer()}
           returnKeyType={'search'}
+          onSubmitEditing={() => fetchStockxData()}
         />
       )}
       <Animated.View style={{height, overflow: 'hidden'}}>
