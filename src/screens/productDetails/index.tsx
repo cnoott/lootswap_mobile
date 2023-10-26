@@ -45,7 +45,8 @@ import {
   NewSellerTagView,
   NewSellerLabel,
   DescriptionContainerView,
-  ButtonContainer
+  ButtonContainer,
+  MessageButtonWrapper,
 } from './styles';
 import {LikeTouchable} from '../../components/productCard/styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -295,20 +296,65 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       </TagsContainer>
     );
   };
-  const renderButtons = () => {
+
+  const renderInteractButtons = () => {
+    if (isLogedIn && userData?._id === productData?.userId) {
+      return <></>
+    }
     if (!productData?.isVisible) {
       return (
-        <TopSpace>
+        <ButtonContainer>
           <LSButton
             title={'Item No Longer Avaliable'}
             size={Size.Full}
-            type={Type.Secondary}
+            type={Type.View}
             onPress={() => {}}
           />
-        </TopSpace>
+        </ButtonContainer>
+      );
+    } else if (
+      isLogedIn &&
+      historyTrades &&
+      isAlreadyTrading(historyTrades, productData?._id)
+    ) {
+      return (
+        <ButtonContainer>
+          <LSButton
+            title={'Go To Trade'}
+            size={Size.Full}
+            radius={100}
+            type={Type.Primary}
+            onPress={() => handleGoToTrade()}
+          />
+        </ButtonContainer>
+      );
+    } else {
+      return (
+        <ButtonContainer>
+          <LSButton
+            title={'Send Offer'}
+            size={Size.Custom}
+            customWidth={'45%'}
+            radius={100}
+            type={Type.Primary}
+            onPress={() => onSendOfferPress()}
+          />
+          {productData.type !== 'trade-only' && (
+            <LSButton
+              title={'Buy Now'}
+              size={Size.Custom}
+              customWidth={'45%'}
+              radius={100}
+              type={Type.Secondary}
+              onPress={onBuyNowPress}
+            />
+          )}
+        </ButtonContainer>
       );
     }
+  };
 
+  const renderEditButtons = () => {
     if (isLogedIn && userData?._id === requestedUserDetails?._id) {
       return (
         <TopSpace>
@@ -334,55 +380,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           />
         </TopSpace>
       );
-    } else if (
-      isLogedIn &&
-      historyTrades &&
-      isAlreadyTrading(historyTrades, productData?._id)
-    ) {
-      return (
-        <TopSpace>
-          <LSButton
-            title={'Go To Trade'}
-            size={Size.Full}
-            type={Type.Primary}
-            onPress={() => handleGoToTrade()}
-          />
-        </TopSpace>
-      );
-    } else {
-      return (
-        <TopSpace>
-
-
-          {productData.type !== 'trade-only' && (
-            <>
-              <LSButton
-                title={'Buy Now'}
-                size={Size.Full}
-                type={Type.Secondary}
-                onPress={onBuyNowPress}
-              />
-              <TopSpace />
-            </>
-          )}
-          <>
-            <LSButton
-              title={'Send Offer'}
-              size={Size.Full}
-              type={Type.Primary}
-              onPress={() => onSendOfferPress()}
-            />
-            <TopSpace />
-          </>
-          <LSButton
-            title={'Message'}
-            size={Size.Full}
-            type={Type.Grey}
-            onPress={onMessagePress}
-          />
-        </TopSpace>
-      );
-    }
+    } 
+    return <></>
   };
   const renderProtectionView = () => {
     return (
@@ -483,6 +482,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             showDummy={false}
           />
           <SubContainer>
+
             <DetailsContainer>
               <DetailsLeftView>
                 {!!productData?.type && renderTags()}
@@ -521,14 +521,28 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             <HorizontalBar />
             {renderProtectionView()}
             {requestedUserDetails && <>{renderUserDetailsView()}</>}
-            <HorizontalBar />
+            {isLogedIn && requestedUserDetails?._id !== userData?._id && (
+              <MessageButtonWrapper>
+                <LSButton
+                  title={'Message'}
+                  size={Size.Custom}
+                  customWidth={'100%'}
+                  customHeight={50}
+                  radius={100}
+                  type={Type.Grey}
+                  onPress={onMessagePress}
+                />
+              </MessageButtonWrapper>
+            )}
             {renderDescriptionView()}
             {!!productData?.interestedIn && renderLookingForView()}
-            {renderButtons()}
+            {renderEditButtons()}
             <BottomSpace />
           </SubContainer>
         </ScrollContainer>
       )}
+
+      {renderInteractButtons()}
     </Container>
   );
 };
