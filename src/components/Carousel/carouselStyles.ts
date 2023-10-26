@@ -42,6 +42,7 @@ export const DotsContainer = styled.View.attrs(props => ({
 `;
 
 export const DotsComponent = styled(Dots).attrs(props => ({
+  passiveColor: 'grey',
   activeColor: props?.isActiveBorder
     ? props?.theme?.colors?.white
     : props?.theme?.colors?.primary,
