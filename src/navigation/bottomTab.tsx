@@ -301,13 +301,13 @@ const getTabBarIcon = (isFocused?: boolean, route?: string, userData: any) => {
     case 'Search':
       _source = isFocused ? HOME_SEARCH_INPUT_ICON_SELECTED : HOME_SEARCH_INPUT_ICON;
       break;
-    case 'Offers/Inbox':
+    case 'Inbox':
       _source = isFocused ? BOTTOM_TAB_OFFERS_SELECTED : BOTTOM_TAB_OFFERS;
       break;
     case 'Profile':
       _source = isFocused ? BOTTOM_TAB_PROFILE_SELECTED : BOTTOM_TAB_PROFILE;
       break;
-    case 'List loot':
+    case 'Add loot':
       _source = isFocused ? BOTTOM_TAB_LOOT_SELECTED : BOTTOM_TAB_LOOT;
       break;
     default:
@@ -342,10 +342,10 @@ export const BottomTabs: FC<{}> = () => {
               // The `merge: true` option makes sure that the params inside the tab screen are preserved
               if (!isLoggedIn && [2, 3, 4].includes(index)) {
                 navigation.navigate('SignInScreen');
-              } else if (index === 2 && !auth?.userData?.paypal_onboarded) {
+              } else if (index === 3 && !auth?.userData?.paypal_onboarded) {
                 setPayPalModalVisible(true);
               } else if (
-                index === 2 &&
+                index === 3 &&
                 Object.keys(auth.userData?.shipping_address).length < 4
               ) {
                 navigation.navigate('LootEditAddressScreen');
@@ -396,13 +396,13 @@ export const BottomTabs: FC<{}> = () => {
       tabBar={props => <MyCustomTabBar {...props} />}>
       <Tab.Screen name="Home" component={HomeStackNavigation} />
       <Tab.Screen name="Search" component={SearchStackNavigation}/>
+      <Tab.Screen name="Profile" component={ProfileStackNavigation} />
       <Tab.Screen
-        name="List loot"
+        name="Add loot"
         component={LootStackNavigation}
         options={{unmountOnBlur: true}}
       />
-      <Tab.Screen name="Profile" component={ProfileStackNavigation} />
-      <Tab.Screen name="Offers/Inbox" component={OffersStackNavigation} />
+      <Tab.Screen name="Inbox" component={OffersStackNavigation} />
     </Tab.Navigator>
   );
 };
