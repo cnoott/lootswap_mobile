@@ -19,6 +19,8 @@ import {
 import {Size, Type} from '../../enums';
 import {Formik} from 'formik';
 import {Alert} from 'custom_top_alert';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+
 
 export const AddressScreen: FC<{}> = () => {
   const dispatch = useDispatch();
