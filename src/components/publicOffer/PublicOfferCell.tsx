@@ -52,8 +52,8 @@ export const PublicOfferCell: FC<PublicOfferProps> = props => {
           <AboveItemLabel>Your</AboveItemLabel>
           <TradeOfferItem
             items={receivingStockxProducts.map(prod => prod.stockxId)}
-            moneyOffer={receivingMoneyOffer}
             isInTrade={false}
+            moneyOffer={sendingMoneyOffer}
             isStockxItem={true}
             isFromHome={isFromHome}
           />
@@ -63,7 +63,7 @@ export const PublicOfferCell: FC<PublicOfferProps> = props => {
           <AboveItemLabel>For</AboveItemLabel>
           <TradeOfferItem
             items={sendingProductIds}
-            moneyOffer={sendingMoneyOffer}
+            moneyOffer={receivingMoneyOffer}
             isInTrade={false}
             isStockxItem={false}
             isFromHome={isFromHome}
