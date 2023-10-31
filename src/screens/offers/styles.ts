@@ -133,6 +133,7 @@ export const OffersListView = styled.FlatList.attrs(() => ({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {
     flexGrow: 1,
+    paddingBottom: scale(100),
   },
   mx: scale(10),
   my: scale(10),
