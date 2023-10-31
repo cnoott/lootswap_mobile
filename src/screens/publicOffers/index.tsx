@@ -176,7 +176,6 @@ export const CreatePublicOfferScreen: FC<any> = ({route}) => {
   };
 
   const handleAddAnotherItem = () => {
-    setQuery('');
     handleBack();
   };
 
@@ -189,8 +188,6 @@ export const CreatePublicOfferScreen: FC<any> = ({route}) => {
               publicOffersData={publicOffersData}
               setPublicOffersData={setPublicOffersData}
               handleNext={handleNext}
-              query={query}
-              setQuery={setQuery}
             />
         );
         case 2:
