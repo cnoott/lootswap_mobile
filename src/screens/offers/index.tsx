@@ -49,6 +49,8 @@ import {
   PublicOffersFilterContainer,
   SizeDropdownStyle,
   ItemTextStyle,
+  Badge,
+  BadgeText
 } from './styles';
 import {ButtonContainer} from '../publicOffers/styles';
 import {SelectedTextStyle} from '../search/stockxScreenStyles';
@@ -311,11 +313,38 @@ export const OffersScreen: FC<{}> = () => {
     </TabContainer>
   );
 
+  const countNotifs = (title: string) => {
+    switch(title) {
+      case 'Trade offers':
+        return historyTrades.filter(
+          trade =>
+            (userData?._id === trade.reciever._id && trade.recieverNewMessage) ||
+            (userData?._id === trade.sender._id && trade.senderNewMessage),
+        ).length;
+      case 'Messages':
+        return allMyMessages?.messageDocs.filter(
+          message =>
+            (userData?._id === message.reciever._id && message.recieverNewMessage) ||
+            (userData?._id === message.sender._id && message.senderNewMessage),
+        ).length;
+
+        default:
+          return 0;
+    }
+  };
+
   const renderTabBar = (props: any) => (
     <CustomTabBar
       {...props}
       renderLabel={({route, focused}: any) => (
-        <TabBarLabel focused={focused}>{route.title}</TabBarLabel>
+        <>
+          <TabBarLabel focused={focused}>{route.title}</TabBarLabel>
+          {countNotifs(route.title) !== 0 && (
+            <Badge>
+              <BadgeText>{countNotifs(route.title)}</BadgeText>
+            </Badge>
+          )}
+        </>
       )}
     />
   );
