@@ -73,6 +73,7 @@ import BrowsePublicOffersScreen from '../screens/publicOffers/browsePublicOffers
 import PublicOfferScreen from '../screens/publicOffers/publicOfferScreen';
 import AcceptPublicOfferScreen from '../screens/publicOffers/acceptPublicOfferScreen';
 import AllListingsScreen from '../screens/home/allListings';
+import FooterBadge from '../components/footer/footerBadge';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -328,7 +329,12 @@ const getTabBarIcon = (isFocused?: boolean, route?: string, userData: any) => {
     default:
       break;
   }
-  return <SvgXml xml={_source} />;
+  return (
+    <>
+      <SvgXml xml={_source} />
+      <FooterBadge routeName={route} notifications={userData.notifications}/>
+    </>
+  );
 };
 
 export const BottomTabs: FC<{}> = () => {
