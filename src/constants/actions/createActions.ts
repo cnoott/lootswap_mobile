@@ -309,3 +309,7 @@ export const DELETE_PUBLIC_OFFER = {
 export const FETCH_RELATED_ITEM_DATA = {
   ...createActionConst(actions.FETCH_RELATED_ITEM_DATA),
 };
+
+export const SET_NOTIFS_AS_READ = {
+  ...createActionConst(actions.SET_NOTIFS_AS_READ),
+};

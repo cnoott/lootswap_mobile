@@ -22,6 +22,7 @@ import {
   SAVE_REFERRAL_LINK,
   SAVE_SEARCH,
   GET_LIKED_PRODUCTS,
+  SET_NOTIFS_AS_READ,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -60,6 +61,8 @@ import {
   saveSearchFailure,
   getUserDetailsWStockxFailure,
   getUserDetailsWStockxSuccess,
+  setNotifsAsReadSuccess,
+  setNotifsAsReadFailure,
 } from './actions';
 import {
   signIn,
@@ -82,6 +85,7 @@ import {
   saveReferralLinkCall,
   getLikedProductsCall,
   getUserDetailsWStockxCall,
+  setNotifsAsReadCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
@@ -500,6 +504,21 @@ export function* getLikedProducts(action: any) {
   }
 }
 
+export function* setNotifsAsRead(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      setNotifsAsReadCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      yield put(setNotifsAsReadSuccess(response.data));
+    } else {
+      yield put(setNotifsAsReadFailure());
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
@@ -523,4 +542,5 @@ export default function* authSaga() {
   yield takeLatest(SAVE_REFERRAL_LINK.REQUEST, saveReferralLink);
   yield takeLatest(SAVE_SEARCH.REQUEST, saveSearch);
   yield takeLatest(GET_LIKED_PRODUCTS.REQUEST, getLikedProducts);
+  yield takeLatest(SET_NOTIFS_AS_READ.REQUEST, setNotifsAsRead);
 }

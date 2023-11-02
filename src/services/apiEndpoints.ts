@@ -304,6 +304,13 @@ export const checkoutRateCall = (reqData: any) => {
   );
 };
 
+export const setNotifsAsReadCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/set-notifs-as-read/${reqData?.userId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const generateLinkPaypalCall = (reqData: any) => {
   const {email, redirectUrl, _id} = reqData;
   return handleResponse(

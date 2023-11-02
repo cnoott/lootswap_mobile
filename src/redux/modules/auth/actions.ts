@@ -25,6 +25,7 @@ import {
   PRESELECT_CHOSEN_ITEM,
   SAVE_SEARCH,
   GET_LIKED_PRODUCTS,
+  SET_NOTIFS_AS_READ,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -474,5 +475,27 @@ export const getLikedProducts = (
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
+  };
+};
+
+
+export const setNotifsAsReadRequest = (notifType: string, userId: string) => {
+  return {
+    type: SET_NOTIFS_AS_READ.REQUEST,
+    userId: userId,
+    notifType: notifType,
+  };
+};
+
+export const setNotifsAsReadSuccess = (newNotifs: Array<any>) => {
+  return {
+    type: SET_NOTIFS_AS_READ.SUCCESS,
+    newNotifs: newNotifs,
+  };
+};
+
+export const setNotifsAsReadFailure = () => {
+  return {
+    type: SET_NOTIFS_AS_READ.FAILURE,
   };
 };

@@ -20,6 +20,7 @@ import {
   NEW_NOTIF_TRUE,
   SAVE_REFERRAL_LINK,
   SAVE_SEARCH,
+  SET_NOTIFS_AS_READ,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
 //import messaging from '@react-native-firebase/messaging';
@@ -348,9 +349,13 @@ export default function auth(state = InitialState, action: ActionProps) {
         },
       };
     }
-    case DELETE_USER.REQUEST: {
+    case SET_NOTIFS_AS_READ.SUCCESS: {
       return {
         ...state,
+        userData: {
+          ...state.userData,
+          notifications: payload,
+        },
       };
     }
     case DELETE_USER.SUCCESS: {
