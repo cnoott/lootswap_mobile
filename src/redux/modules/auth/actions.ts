@@ -479,11 +479,10 @@ export const getLikedProducts = (
 };
 
 
-export const setNotifsAsReadRequest = (notifType: string, userId: string) => {
+export const setNotifsAsReadRequest = (reqData: any) => {
   return {
     type: SET_NOTIFS_AS_READ.REQUEST,
-    userId: userId,
-    notifType: notifType,
+    reqData: reqData,
   };
 };
 

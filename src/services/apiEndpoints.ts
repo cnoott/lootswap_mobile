@@ -305,8 +305,9 @@ export const checkoutRateCall = (reqData: any) => {
 };
 
 export const setNotifsAsReadCall = (reqData: any) => {
+  const {notifType} = reqData;
   return handleResponse(
-    api.post(`/set-notifs-as-read/${reqData?.userId}`),
+    api.post(`/set-notifs-as-read/${reqData?.userId}`, {notifType}),
     API_RESPONSE.CODE200,
   );
 };
