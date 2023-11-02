@@ -20,26 +20,20 @@ import SplashScreen from 'react-native-splash-screen';
 import CheckoutScreen from '../screens/buy/checkoutScreen';
 import PublicProfileScreen from '../screens/profile/publicProfileScreen';
 import ProfileReviewsScreen from '../screens/profile/profileReviewsScreen';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {handleNavigation} from '../utility/notification';
-import messaging from '@react-native-firebase/messaging';
 import ProductDetailsScreen from '../screens/productDetails';
 import OffersMessageScreen from '../screens/offers/offerMessageScreen';
 import TrackOrderScreen from '../screens/order/trackOrderScreen';
 import DeviceInfo from 'react-native-device-info';
 import {Alert as AlertModal} from 'react-native';
 import {Linking} from 'react-native';
-import branch from 'react-native-branch';
-import {AuthProps} from '../../redux/modules/auth/reducer';
+import {useNotifications} from '../utility/customHooks/useNotifications';
 
 const Stack = createStackNavigator();
 
 const AppNavigation = () => {
-  const navigation: NavigationProp<any, any> = useNavigation();
   const dispatch = useDispatch();
-  const auth: AuthProps = useSelector(state => state.auth);
-  const {userData} = auth;
-  const [loading, setLoading] = useState(true);
+
+  useNotifications();
 
   useEffect(() => {
     dispatch(
@@ -72,33 +66,7 @@ const AppNavigation = () => {
       ),
     );
 
-    messaging().onNotificationOpenedApp(remoteMessage => {
-      console.log('TEST: opened from bg state:', remoteMessage);
-      handleNavigation(navigation, remoteMessage, dispatch, userData);
-    });
-
-    messaging().onMessage(async () => {
-      console.log('NEW MESSAGE!!!');
-      dispatch(newNotifTrueSuccess());
-    });
-
-    messaging()
-      .getInitialNotification()
-      .then(remoteMessage => {
-        if (remoteMessage) {
-          console.log(
-            'TEST: notificaiton opened from quit state',
-            remoteMessage.notification,
-          );
-          handleNavigation(navigation, remoteMessage, dispatch, userData);
-        }
-        setLoading(false);
-      });
-  }, [navigation, dispatch, userData]);
-
-  if (loading) {
-    return null;
-  }
+  }, [dispatch]);
 
   return (
     <Stack.Navigator

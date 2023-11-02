@@ -55,7 +55,7 @@ export const NotifTitle: any = styled.Text.attrs(props => ({
   maxWidth: '85%',
 }))`
   font-size: ${moderateScale(17)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   font-weight: 700;
   text-align: left;
   ${color}
@@ -68,7 +68,7 @@ export const ActionText: any = styled.Text.attrs(props => ({
   mt: verticalScale(4),
 }))`
   font-size: ${moderateScale(13)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   text-align: left;
   font-weight: 500;
   ${color}
