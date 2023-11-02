@@ -486,10 +486,10 @@ export const setNotifsAsReadRequest = (reqData: any) => {
   };
 };
 
-export const setNotifsAsReadSuccess = (newNotifs: Array<any>) => {
+export const setNotifsAsReadSuccess = (payload: Array<any>) => {
   return {
     type: SET_NOTIFS_AS_READ.SUCCESS,
-    newNotifs: newNotifs,
+    payload: payload,
   };
 };
 
