@@ -4,6 +4,8 @@ export const countNotifs = (
   notifications: Array<any>,
   notifTypes: Array<string>,
 ) => {
+  if (!notifications) 
+    return 0;
   const count = notifications.filter(
     notif => notifTypes.includes(notif.notifType) && !notif.isRead,
   );

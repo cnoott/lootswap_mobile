@@ -332,7 +332,7 @@ const getTabBarIcon = (isFocused?: boolean, route?: string, userData: any) => {
   return (
     <>
       <SvgXml xml={_source} />
-      <FooterBadge routeName={route} notifications={userData.notifications}/>
+      <FooterBadge routeName={route} notifications={userData?.notifications}/>
     </>
   );
 };
