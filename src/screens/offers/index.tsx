@@ -13,6 +13,7 @@ import {
   getAllMyMessages,
   getPublicOffers,
   deletePublicOffer,
+  setNotifsAsReadRequest,
 } from '../../redux/modules';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
@@ -57,6 +58,7 @@ import {SelectedTextStyle} from '../search/stockxScreenStyles';
 import {Dropdown} from 'react-native-element-dropdown';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 
+
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -83,6 +85,10 @@ export const OffersScreen: FC<{}> = () => {
         type: publicOfferFilter.value,
         userId: userData?._id,
       };
+      dispatch(setNotifsAsReadRequest({
+        userId: userData?._id,
+        notifType: 'inbox',
+      }));
       dispatch(
         getPublicOffers(
           reqData,
