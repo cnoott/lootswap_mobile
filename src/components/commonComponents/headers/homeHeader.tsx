@@ -13,6 +13,8 @@ import {
   TouchableOpacity,
   TouchableOpacityNotif,
   IconsContainer,
+  Badge,
+  BadgeText,
 } from './styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
@@ -56,13 +58,9 @@ export const InHomeHeader: FC<HeaderProps> = React.memo(props => {
             <SvgXml xml={rightIcon} />
           </TouchableOpacity>
           <TouchableOpacityNotif onPress={() => navigateToNotif()}>
-            <SvgXml
-              xml={
-                userData?.newNotif
-                ? BOTTOM_TAB_NOTIFICATION_NEW
-                : BOTTOM_TAB_NOTIFICATION
-              }
-            />
+            <SvgXml xml={BOTTOM_TAB_NOTIFICATION} />
+
+            {userData?.newNotification && (<Badge />)}
           </TouchableOpacityNotif>
         </IconsContainer>
       )}
