@@ -46,8 +46,8 @@ export const useNotifications = () => {
         dispatch(newNotifTrueSuccess());
         PushNotificationIOS.addNotificationRequest({
           id: remoteMessage?.data?.objectId,
-          title: remoteMessage?.notificaiton?.title,
-          body: JSON.stringify(remoteMessage),
+          title: remoteMessage?.notification?.title,
+          body: remoteMessage?.notification?.body,
           category: 'localNotification',
           userInfo: {remoteMessage},
         });
