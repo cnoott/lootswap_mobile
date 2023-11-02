@@ -34,7 +34,7 @@ export const OrderDataLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 600;
   ${space}
   ${layout}
@@ -45,7 +45,7 @@ export const TrackingNumberLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.primary,
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 600;
   ${space}
   ${layout}
@@ -110,7 +110,7 @@ export const OrderNameLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
   font-size: ${moderateScale(18)}px;
-  font-family: Inter-Black;
+  font-family: Urbanist-Black;
   font-weight: 700;
   ${space}
   ${layout}
@@ -138,7 +138,7 @@ export const OrderSubDetailsText = styled.Text.attrs(props => ({
   color: props.theme.colors.greySubDetails,
 }))`
   font-size: ${moderateScale(12)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 500;
   ${space}
   ${layout}

@@ -51,10 +51,10 @@ export const NameLabel: any = styled.Text.attrs(props => ({
   numberOfLines: 1,
 }))`
   font-size: ${moderateScale(16)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
-    ${layout}
+  ${layout}
 `;
 
 export const StatusContainerView = styled.View.attrs((props: any) => ({
@@ -77,7 +77,7 @@ export const StatusLabel: any = styled.Text.attrs((props: any) => ({
   color: props?.color,
 }))`
   font-size: ${moderateScale(12)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
     ${layout}
@@ -87,7 +87,7 @@ export const TimeLabel: any = styled.Text.attrs(props => ({
   color: props.theme.colors.greySecondary,
 }))`
   font-size: ${moderateScale(12)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   ${color}
   ${space}
   ${layout}
@@ -131,7 +131,7 @@ export const PrintLabel: any = styled.Text.attrs(props => ({
   ml: scale(5),
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
     ${layout}
@@ -183,7 +183,7 @@ export const OrderTitle: any = styled.Text.attrs(props => ({
   numberOfLines: 2,
 }))`
   font-size: ${moderateScale(18)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
@@ -194,7 +194,7 @@ export const OrderPrice: any = styled.Text.attrs(props => ({
   mt: scale(5),
 }))`
   font-size: ${moderateScale(14)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
         ${layout}
