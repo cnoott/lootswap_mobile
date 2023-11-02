@@ -267,7 +267,6 @@ export const STOCKX_SEARCH_DROP_DOWN_ARROW = `<svg width="20" height="20" viewBo
 </svg>
 `;
 
-
 export const SEARCH_DROPDOWN = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <mask id="mask0_2023_15269" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="2" width="20" height="20">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M2 2H21.4768V21.477H2V2Z" fill="white"/>
