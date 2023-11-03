@@ -4,11 +4,17 @@ export const countNotifs = (
   notifications: Array<any>,
   notifTypes: Array<string>,
 ) => {
-  if (!notifications) 
+  if (!notifications) {
     return 0;
-  const count = notifications.filter(
-    notif => notifTypes.includes(notif.notifType) && !notif.isRead,
-  );
+  }
+  let count;
+  if (notifTypes[0] === 'All') {
+    count = notifications.filter(notif => !notif.isRead);
+  } else {
+    count = notifications.filter(
+      notif => notifTypes.includes(notif.notifType) && !notif.isRead,
+    );
+  }
 
   return count.length;
 };
