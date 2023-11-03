@@ -30,6 +30,7 @@ import {
   SalesListView,
   TradeOrdersListView,
 } from './myOrdersStyle';
+import {Badge, BadgeText} from '../offers/styles';
 
 export const MyOrdersListScreen: FC<any> = ({route}) => {
   const {initialState = 0} = route?.params || {};
@@ -260,11 +261,31 @@ export const MyOrdersListScreen: FC<any> = ({route}) => {
     </TabContainer>
   );
 
+  const countNotifs = (title: string) => {
+    switch(title) {
+      case 'Trade Orders':
+        return tradeOrders.filter(
+          order =>
+            (userData?._id === order.reciever._id && order.recieverNewNotif) ||
+            (userData?._id === order.sender._id && order.senderNewNotif)
+        ).length;
+      default:
+        return 0;
+    }
+  };
+
   const renderTabBar = (props: any) => (
     <CustomTabBar
       {...props}
       renderLabel={({route, focused}: any) => (
-        <TabBarLabel focused={focused}>{route.title}</TabBarLabel>
+        <>
+          <TabBarLabel focused={focused}>{route.title}</TabBarLabel>
+          {countNotifs(route.title) !== 0 && (
+            <Badge>
+              <BadgeText>{countNotifs(route.title)}</BadgeText>
+            </Badge>
+          )}
+        </>
       )}
     />
   );
