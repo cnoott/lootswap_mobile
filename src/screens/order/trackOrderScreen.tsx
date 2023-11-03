@@ -20,7 +20,11 @@ import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {useSelector, useDispatch} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {setFirstTimeOpenFalseRequest, setOrderNotifAsReadRequest} from '../../redux/modules/';
+import {
+  setFirstTimeOpenFalseRequest,
+  setOrderNotifAsReadRequest,
+  setPaypalNotifAsReadRequest,
+} from '../../redux/modules/';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {printLabel, salePrintLabel} from '../../utility/utility';
@@ -54,7 +58,15 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
           orderId: item?._id,
         }),
       );
+    } else {
+      dispatch(
+        setPaypalNotifAsReadRequest({
+          userId: userData?._id,
+          paypalOrderId: item?._id,
+        }),
+      );
     }
+
   }, [dispatch, isTradeOrder, item?._id, userData?._id]);
 
   const shippingStepOptions = () => {

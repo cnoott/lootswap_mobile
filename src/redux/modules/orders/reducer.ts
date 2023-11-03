@@ -73,7 +73,7 @@ export default function loading(state = InitialState, action: ActionProps) {
       const userId = payload.userId;
 
       const updatedTradeOrders = state.paypalOrders.map(order => {
-        const isBuyer = order.buyer._id === userId;
+        const isBuyer = order.buyerId._id === userId;
         if (order._id === paypalOrderId && isBuyer) {
           return {
             ...order,
