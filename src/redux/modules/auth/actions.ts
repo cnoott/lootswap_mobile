@@ -391,9 +391,10 @@ export const newNotifFalseFailure = () => {
   };
 };
 
-export const newNotifTrueSuccess = () => {
+export const newNotifTrueSuccess = (payload: any) => {
   return {
     type: NEW_NOTIF_TRUE.SUCCESS,
+    payload: payload,
   };
 };
 

@@ -5,10 +5,11 @@ import {countNotifs} from '../../utility/notification';
 interface FooterBadgeProps {
   notifications: Array<any>;
   routeName: String;
-};
+  right?: Number;
+}
 
 const FooterBadge: FC<FooterBadgeProps> = props => {
-  const {notifications, routeName} = props;
+  const {notifications, routeName, right = -3} = props;
 
   const numNotifsByRouteName = () => {
     switch (routeName) {
@@ -28,7 +29,7 @@ const FooterBadge: FC<FooterBadgeProps> = props => {
     return <></>
   }
   return (
-    <Badge>
+    <Badge right={right}>
       <BadgeText>{numNotifsByRouteName()}</BadgeText>
     </Badge>
   );
