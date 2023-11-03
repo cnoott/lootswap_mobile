@@ -341,11 +341,13 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case NEW_NOTIF_TRUE.SUCCESS: {
+      console.log('PAYLOAD SUCC', payload);
       return {
         ...state,
         userData: {
           ...state.userData,
           newNotification: true,
+          notifications: [payload, ...state.userData.notifications],
         },
       };
     }

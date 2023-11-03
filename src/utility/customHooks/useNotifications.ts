@@ -43,7 +43,9 @@ export const useNotifications = () => {
     const unsubscribeOnNotificationOpenedApp = messaging().onMessage(
       remoteMessage => {
         console.log('NEW MESSAGE!!!');
-        dispatch(newNotifTrueSuccess());
+        dispatch(
+          newNotifTrueSuccess({notifType: remoteMessage?.data?.notifType}),
+        );
         PushNotificationIOS.addNotificationRequest({
           id: remoteMessage?.data?.objectId,
           title: remoteMessage?.notification?.title,

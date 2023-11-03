@@ -1,6 +1,9 @@
 import styled from 'styled-components/native';
+import {color, layout, space} from 'styled-system';
 
-export const Badge = styled.View`
+export const Badge = styled.View.attrs(props => ({
+  right: props?.right,
+}))`
   background-color: red;
   height: 16px;
   width: 16px;
@@ -9,7 +12,7 @@ export const Badge = styled.View`
   align-items: center;
   position: absolute;
   top: -3px;
-  right: -3px;
+  ${layout} ${color} ${space};
 `;
 
 export const BadgeText = styled.Text`
