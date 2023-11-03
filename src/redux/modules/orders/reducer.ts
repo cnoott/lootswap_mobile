@@ -1,5 +1,8 @@
 // @flow
-import {GET_ALL_ORDERS} from '../../../constants/actions';
+import {
+  GET_ALL_ORDERS,
+  SET_ORDER_NOTIF_AS_READ,
+} from '../../../constants/actions';
 
 export interface OrderProps {
   tradeOrders: any;
@@ -37,6 +40,31 @@ export default function loading(state = InitialState, action: ActionProps) {
         ...state,
         tradeOrders: null,
         paypalOrders: null,
+      };
+    }
+    case SET_ORDER_NOTIF_AS_READ.SUCCESS: {
+      const orderId = payload.orderId;
+      const userId = payload.userId;
+      console.log('PLD', payload);
+
+      const updatedTradeOrders = state.tradeOrders.map(order => {
+        const isReciever = order.reciever._id === userId;
+        if (order._id === orderId && isReciever) {
+          return {
+            ...order,
+            recieverNewNotif: false,
+          };
+        } else if (order._id === orderId && !isReciever) {
+          return {
+            ...order,
+            senderNewNotif: false,
+          };
+        }
+        return order;
+      });
+      return {
+        ...state,
+        tradeOrders: updatedTradeOrders,
       };
     }
     default:

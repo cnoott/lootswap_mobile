@@ -2,7 +2,7 @@
 LootSwap - TRACK ORDER SCREEN
 ***/
 
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {
   Container,
@@ -20,7 +20,7 @@ import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {useSelector, useDispatch} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {setFirstTimeOpenFalseRequest} from '../../redux/modules/';
+import {setFirstTimeOpenFalseRequest, setOrderNotifAsReadRequest} from '../../redux/modules/';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {printLabel, salePrintLabel} from '../../utility/utility';
@@ -35,7 +35,6 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
   const dispatch = useDispatch();
   const {userData} = auth;
 
-
   const isReciever = userData?._id === item?.reciever?._id;
   const isSeller = userData?._id === item?.sellerId?._id;
 
@@ -46,6 +45,17 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
   const base64Img = isReciever
     ? item?.recieverUPSShipmentData?.toWarehouseLabel
     : item?.senderUPSShipmentData?.toWarehouseLabel;
+
+  useEffect(() => {
+    if (isTradeOrder) {
+      dispatch(
+        setOrderNotifAsReadRequest({
+          userId: userData?._id,
+          orderId: item?._id,
+        }),
+      );
+    }
+  }, [dispatch, isTradeOrder, item?._id, userData?._id]);
 
   const shippingStepOptions = () => {
     if (isTradeOrder) {
