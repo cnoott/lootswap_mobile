@@ -8,6 +8,7 @@ import {
   NEW_RATING,
   SET_FIRST_TIME_OPEN_FALSE,
   SET_ORDER_NOTIF_AS_READ,
+  SET_PAYPAL_ORDER_NOTIF_AS_READ,
 } from '../../../constants/actions';
 import {
   getAllOrdersCall,
@@ -18,13 +19,14 @@ import {
   newRatingCall,
   setFirstTimeOpenFalseCall,
   setOrderNotifAsReadCall,
+  setPaypalOrderNotifAsReadCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {
   getAllOrdersSuccess,
   getAllOrdersFailure,
   setOrderNotifAsReadSuccess,
-  setOrderNotifAsReadRequest
+  setPaypalNotifAsReadSuccess,
 } from '../orders/actions';
 
 type APIResponseProps = {
@@ -178,6 +180,22 @@ export function* setOrderNotifAsRead(action: any) {
   }
 }
 
+export function* setPaypalOrderNotifAsRead(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      setPaypalOrderNotifAsReadCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      yield put(setPaypalNotifAsReadSuccess(response.data));
+    } else {
+      console.log('Set order as read fail');
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default function* ordersSaga() {
   yield takeLatest(GET_ALL_ORDERS.REQUEST, getAllOrders);
   yield takeLatest(GET_ORDER.REQUEST, getOrder);
@@ -190,4 +208,8 @@ export default function* ordersSaga() {
   yield takeLatest(NEW_RATING.REQUEST, newRating);
   yield takeLatest(SET_FIRST_TIME_OPEN_FALSE.REQUEST, setFirstTimeOpenFalse);
   yield takeLatest(SET_ORDER_NOTIF_AS_READ.REQUEST, setOrderNotifAsRead);
+  yield takeLatest(
+    SET_PAYPAL_ORDER_NOTIF_AS_READ.REQUEST,
+    setPaypalOrderNotifAsRead,
+  );
 }
