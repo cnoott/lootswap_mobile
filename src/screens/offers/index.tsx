@@ -334,8 +334,8 @@ export const OffersScreen: FC<{}> = () => {
             (userData?._id === message.sender._id && message.senderNewMessage),
         ).length;
 
-        default:
-          return 0;
+      default:
+        return 0;
     }
   };
 
