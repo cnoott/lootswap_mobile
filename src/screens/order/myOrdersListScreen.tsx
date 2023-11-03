@@ -264,7 +264,7 @@ export const MyOrdersListScreen: FC<any> = ({route}) => {
   const countNotifs = (title: string) => {
     switch(title) {
       case 'Trade Orders':
-        return tradeOrders.filter(
+        return tradeOrders?.filter(
           order =>
             (userData?._id === order.reciever._id && order.recieverNewNotif) ||
             (userData?._id === order.sender._id && order.senderNewNotif)
