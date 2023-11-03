@@ -7,7 +7,11 @@ import {useWindowDimensions, RefreshControl} from 'react-native';
 import {SceneMap} from 'react-native-tab-view';
 import {useDispatch, useSelector} from 'react-redux';
 import {OrderProps} from '../../redux/modules/orders/reducer';
-import {getAllOrders, acceptTrade} from '../../redux/modules';
+import {
+  getAllOrders,
+  acceptTrade,
+  setNotifsAsReadRequest,
+} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
@@ -54,6 +58,10 @@ export const MyOrdersListScreen: FC<any> = ({route}) => {
         userId: userData?._id,
       }),
     );
+    dispatch(setNotifsAsReadRequest({
+      userId: userData?._id,
+      notifType: 'orders',
+    }));
   }, [dispatch, userData?._id, initialState]);
 
   const onRefresh = () => {
