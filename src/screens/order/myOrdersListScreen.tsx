@@ -263,6 +263,14 @@ export const MyOrdersListScreen: FC<any> = ({route}) => {
 
   const countNotifs = (title: string) => {
     switch(title) {
+      case 'Purchases':
+        return paypalOrders?.filter(
+          order => userData?._id === order.buyerId._id && order.buyerNewNotif
+        ).length;
+      case 'Sales':
+        return paypalOrders?.filter(
+          order => userData?._id === order.sellerId._id && order.sellerNewNotif
+        ).length;
       case 'Trade Orders':
         return tradeOrders?.filter(
           order =>

@@ -566,7 +566,7 @@ export const setOrderNotifAsReadCall = (reqData: any) => {
 export const setPaypalOrderNotifAsReadCall = (reqData: any) => {
   return handleResponse(
     api.put(
-      `/paypal/new-notif-false/${reqData?.userId}/${reqData?.paypalOrderId}`,
+      `/paypal/new-notif-false/${reqData?.paypalOrderId}/${reqData?.userId}`,
     ),
     API_RESPONSE.CODE200,
   );
