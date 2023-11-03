@@ -556,6 +556,13 @@ export const fetchRelatedItemDataCall = (reqData: any) => {
   );
 };
 
+export const setOrderNotifAsReadCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/order/new-notif-false/${reqData?.userId}/${reqData?.orderId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
