@@ -57,6 +57,7 @@ import {ButtonContainer} from '../publicOffers/styles';
 import {SelectedTextStyle} from '../search/stockxScreenStyles';
 import {Dropdown} from 'react-native-element-dropdown';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
+import CellBadge from '../../components/offers/cellBadge';
 
 
 export const OffersScreen: FC<{}> = () => {
@@ -167,12 +168,16 @@ export const OffersScreen: FC<{}> = () => {
 
   const RenderUserDetails = ({item}) => {
     const statusColorObj = getTradeStatusColor(item.status);
+    const isReciever = userData?._id === item.reciever._id;
+    const showNotifBadge =
+      (isReciever && (item.recieverNewMessage || item.senderHasEdited)) ||
+      (!isReciever && (item.senderNewMessage || item.recieverHasEdited))
     return (
       <RowView>
         <EmptyRowView>
           <LSProfileImageComponent
             profileUrl={
-              userData?._id === item.reciever._id
+              isReciever
                 ? item.sender.profile_picture
                 : item.reciever.profile_picture
             }
@@ -180,9 +185,10 @@ export const OffersScreen: FC<{}> = () => {
             imageWidth={40}
             imageRadius={10}
           />
+          {showNotifBadge && <CellBadge />}
           <OwnerDetailsView>
             <NameLabel>
-              {userData?._id === item?.reciever?._id ? (
+              {isReciever ? (
                 <>{item.sender.name}</>
               ) : (
                 <>{item.reciever.name}</>
@@ -233,23 +239,28 @@ export const OffersScreen: FC<{}> = () => {
 
 
   const renderMessageItem = ({item}: any) => {
+    const isReciever = userData?._id === item.reciever._id;
+    const showNotifBadge =
+      (isReciever && item.recieverNewMessage) ||
+      (!isReciever && item.senderNewMessage)
     return (
       <MessageCellContainer
         key={item?._id}
         onPress={() => goToMessageScreen(item)}>
         <LSProfileImageComponent
           profileUrl={
-            userData?._id === item.reciever._id
+            isReciever
               ? item.sender.profile_picture
               : item.reciever.profile_picture
           }
-          imageHeight={60}
-          imageWidth={60}
-          imageRadius={30}
+          imageHeight={40}
+          imageWidth={40}
+          imageRadius={10}
         />
+        {showNotifBadge && <CellBadge top={5} left={5}/>}
         <OwnerDetailsView>
           <NameLabel>
-            {userData?._id === item?.reciever?._id ? (
+            {isReciever ? (
               <>{item.sender.name}</>
             ) : (
               <>{item.reciever.name}</>
