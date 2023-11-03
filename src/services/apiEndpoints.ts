@@ -563,6 +563,15 @@ export const setOrderNotifAsReadCall = (reqData: any) => {
   );
 };
 
+export const setPaypalOrderNotifAsReadCall = (reqData: any) => {
+  return handleResponse(
+    api.put(
+      `/paypal/new-notif-false/${reqData?.userId}/${reqData?.paypalOrderId}`,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

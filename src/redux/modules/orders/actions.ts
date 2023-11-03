@@ -7,6 +7,7 @@ import {
   NEW_RATING,
   SET_FIRST_TIME_OPEN_FALSE,
   SET_ORDER_NOTIF_AS_READ,
+  SET_PAYPAL_ORDER_NOTIF_AS_READ,
 } from '../../../constants/actions';
 
 export const getAllOrders = (reqData: any) => {
@@ -112,6 +113,20 @@ export const setOrderNotifAsReadRequest = (reqData: any) => {
 export const setOrderNotifAsReadSuccess = (payload: any) => {
   return {
     type: SET_ORDER_NOTIF_AS_READ.SUCCESS,
+    payload: payload,
+  };
+};
+
+export const setPaypalNotifAsReadRequest = (reqData: any) => {
+  return {
+    type: SET_PAYPAL_ORDER_NOTIF_AS_READ.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const setPaypalNotifAsReadSuccess = (payload: any) => {
+  return {
+    type: SET_PAYPAL_ORDER_NOTIF_AS_READ.SUCCESS,
     payload: payload,
   };
 };
