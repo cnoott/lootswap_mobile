@@ -223,7 +223,7 @@ export const DeleteContainer = styled.TouchableOpacity.attrs(props => ({
   height: scale(20),
   width: scale(20),
   borderRadius: scale(10),
-  bg: props.theme.colors.black,
+  bg: props.theme.colors.grey,
   top: 6,
   right: 6,
   hitSlop: {top: 10, left: 10, right: 10, bottom: 10},
