@@ -170,8 +170,8 @@ export const OffersScreen: FC<{}> = () => {
     const statusColorObj = getTradeStatusColor(item.status);
     const isReciever = userData?._id === item.reciever._id;
     const showNotifBadge =
-      (isReciever && (item.recieverNewMessage || item.senderHasEdited)) ||
-      (!isReciever && (item.senderNewMessage || item.recieverHasEdited))
+      (isReciever && (item?.recieverNewMessage || item?.senderHasEdited)) ||
+      (!isReciever && (item?.senderNewMessage || item?.recieverHasEdited))
     return (
       <RowView>
         <EmptyRowView>
@@ -241,8 +241,8 @@ export const OffersScreen: FC<{}> = () => {
   const renderMessageItem = ({item}: any) => {
     const isReciever = userData?._id === item.reciever._id;
     const showNotifBadge =
-      (isReciever && item.recieverNewMessage) ||
-      (!isReciever && item.senderNewMessage)
+      (isReciever && item?.recieverNewMessage) ||
+      (!isReciever && item?.senderNewMessage)
     return (
       <MessageCellContainer
         key={item?._id}

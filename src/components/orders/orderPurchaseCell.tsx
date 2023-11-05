@@ -22,7 +22,7 @@ function OrderPurchaseCell(props: OrderPurchaseProps) {
   const {item, isSales = false, onCellPress = () => {}, userData} = props;
   const isBuyer = item?.buyerId?._id === userData?._id;
   const showNotifBadge =
-    (isBuyer && item.buyerNewNotif) || (!isBuyer && item.sellerNewNotif);
+    (isBuyer && item?.buyerNewNotif) || (!isBuyer && item?.sellerNewNotif);
   const renderImageView = () => {
     return (
       <ImageContainer>

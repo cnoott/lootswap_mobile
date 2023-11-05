@@ -265,17 +265,17 @@ export const MyOrdersListScreen: FC<any> = ({route}) => {
     switch(title) {
       case 'Purchases':
         return paypalOrders?.filter(
-          order => userData?._id === order.buyerId._id && order.buyerNewNotif
+          order => userData?._id === order.buyerId?._id && order?.buyerNewNotif
         ).length;
       case 'Sales':
         return paypalOrders?.filter(
-          order => userData?._id === order.sellerId._id && order.sellerNewNotif
+          order => userData?._id === order?.sellerId?._id && order?.sellerNewNotif
         ).length;
       case 'Trade Orders':
         return tradeOrders?.filter(
           order =>
-            (userData?._id === order.reciever._id && order.recieverNewNotif) ||
-            (userData?._id === order.sender._id && order.senderNewNotif)
+            (userData?._id === order.reciever._id && order?.recieverNewNotif) ||
+            (userData?._id === order.sender._id && order?.senderNewNotif)
         ).length;
       default:
         return 0;
