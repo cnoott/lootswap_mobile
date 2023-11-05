@@ -45,7 +45,8 @@ export const InHomeHeader: FC<HeaderProps> = React.memo(props => {
   };
 
   const auth: AuthProps = useSelector(state => state.auth);
-  const {userData: {notifications}} = auth;
+  const { isLogedIn, userData } = auth;
+
 
   return (
     <HeaderContainer
@@ -60,9 +61,11 @@ export const InHomeHeader: FC<HeaderProps> = React.memo(props => {
           </TouchableOpacity>
           <TouchableOpacityNotif onPress={() => navigateToNotif()}>
             <SvgXml xml={BOTTOM_TAB_NOTIFICATION} />
-            {countNotifs(notifications, ['All']) !== 0 && (
+            {isLogedIn && countNotifs(userData?.notifications, ['All']) !== 0 && (
               <Badge>
-                <BadgeText>{countNotifs(notifications, ['All'])}</BadgeText>
+                <BadgeText>
+                  {countNotifs(userData?.notifications, ['All'])}
+                </BadgeText>
               </Badge>
             )}
           </TouchableOpacityNotif>
