@@ -15,8 +15,8 @@ function OrderTradeOrdersCell(props: OrderPurchaseProps) {
   const {item, onCellPress = () => {}, userData} = props;
   const isReciever = item.reciever._id === userData?._id;
   const showNotifBadge =
-    (isReciever && item.recieverNewNotif) ||
-    (!isReciever && item.senderNewNotif)
+    (isReciever && item?.recieverNewNotif) ||
+    (!isReciever && item?.senderNewNotif)
   return (
     <PurchaseCellContainer onPress={() => onCellPress(true)}>
       <TradeOrderUserDetailView item={item} userData={userData} />
