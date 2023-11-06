@@ -65,9 +65,9 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
     const name = formatData().name;
 
     if (stockxProduct) {
-      if (name.includes('Women')) {
+      if (name?.includes('Women')) {
         return 'womens';
-      } else if (name.includes('GS')) {
+      } else if (name?.includes('GS')) {
         return 'gs';
       } else if (name?.includes('TD')) {
         return 'td';
