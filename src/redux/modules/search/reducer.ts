@@ -216,7 +216,6 @@ export default function loading(state = InitialState, action: ActionProps) {
         categories: [],
         productType: 'tradeable',
         brands: [],
-        avaliableSizes: {},
         minPrice: '',
         maxPrice: '',
         condition: [],
