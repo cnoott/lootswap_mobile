@@ -236,6 +236,12 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     ImagePicker.openCropper({
       path: selectedImages[imageIndex].uri,
       freeStyleCropEnabled: true,
+      includeBase64: false,
+      compressImageQuality: 1,
+      compressImageMaxHeight: 1500,
+      compressImageMaxWidth: 1000,
+      width: 1000,
+      height: 1500,
     })
     .then(image => {
       selectedImages[imageIndex].uri = image.path;
