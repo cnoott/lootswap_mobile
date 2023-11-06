@@ -89,7 +89,7 @@ export const CreatePublicOfferCheckoutScreen: FC<any> = ({route}) => {
       console.log('SUCCESSS!!!');
       navigation.reset({
         index: 0,
-        routes: [{name: 'Offers/Inbox'}],
+        routes: [{name: 'Inbox'}],
       });
 
     }

@@ -80,7 +80,7 @@ const {publicOffer} = route.params;
       console.log('SUCCESSS!!!');
       navigation.reset({
         index: 0,
-        routes: [{name: 'Offers/Inbox'}],
+        routes: [{name: 'Inbox'}],
       });
     }
   };
