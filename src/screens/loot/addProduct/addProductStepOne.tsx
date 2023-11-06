@@ -141,14 +141,21 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   const onSetStockxUrlKey = async (item: any) => {
     setAlreadySearched(true);
     collapseDrawer();
-    setSelectedStockxItem(item);
+    console.log('item',item);
     if (!item.urlKey) {
       return;
     }
     updateBrand(
-      {productName: item.title, stockxUrlKey: item.urlKey},
+      {
+        productName: item.title,
+        stockxUrlKey: item.urlKey,
+        category: item?.category === 'sneakers' ? 'shoes' : '',
+      },
       item.brand,
     );
+    if (item?.category === 'sneakers') {
+      setCategoryData('shoes');
+    }
     setProductName(item.title);
   };
 
