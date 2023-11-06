@@ -200,7 +200,6 @@ export const CheckoutScreen: FC<{}> = props => {
           transparent={true}>
           <Container style={styles.webViewCon}>
             <InStackHeader title={'Checkout'} />
-
             <WebView
               source={{
                 uri: webViewUri,

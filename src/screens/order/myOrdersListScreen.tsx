@@ -7,7 +7,11 @@ import {useWindowDimensions, RefreshControl} from 'react-native';
 import {SceneMap} from 'react-native-tab-view';
 import {useDispatch, useSelector} from 'react-redux';
 import {OrderProps} from '../../redux/modules/orders/reducer';
-import {getAllOrders, acceptTrade} from '../../redux/modules';
+import {
+  getAllOrders,
+  acceptTrade,
+  setNotifsAsReadRequest,
+} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
@@ -26,6 +30,7 @@ import {
   SalesListView,
   TradeOrdersListView,
 } from './myOrdersStyle';
+import {Badge, BadgeText} from '../offers/styles';
 
 export const MyOrdersListScreen: FC<any> = ({route}) => {
   const {initialState = 0} = route?.params || {};
@@ -54,6 +59,10 @@ export const MyOrdersListScreen: FC<any> = ({route}) => {
         userId: userData?._id,
       }),
     );
+    dispatch(setNotifsAsReadRequest({
+      userId: userData?._id,
+      notifType: 'orders',
+    }));
   }, [dispatch, userData?._id, initialState]);
 
   const onRefresh = () => {
@@ -252,11 +261,39 @@ export const MyOrdersListScreen: FC<any> = ({route}) => {
     </TabContainer>
   );
 
+  const countNotifs = (title: string) => {
+    switch(title) {
+      case 'Purchases':
+        return paypalOrders?.filter(
+          order => userData?._id === order.buyerId?._id && order?.buyerNewNotif
+        ).length;
+      case 'Sales':
+        return paypalOrders?.filter(
+          order => userData?._id === order?.sellerId?._id && order?.sellerNewNotif
+        ).length;
+      case 'Trade Orders':
+        return tradeOrders?.filter(
+          order =>
+            (userData?._id === order.reciever._id && order?.recieverNewNotif) ||
+            (userData?._id === order.sender._id && order?.senderNewNotif)
+        ).length;
+      default:
+        return 0;
+    }
+  };
+
   const renderTabBar = (props: any) => (
     <CustomTabBar
       {...props}
       renderLabel={({route, focused}: any) => (
-        <TabBarLabel focused={focused}>{route.title}</TabBarLabel>
+        <>
+          <TabBarLabel focused={focused}>{route.title}</TabBarLabel>
+          {countNotifs(route.title) !== 0 && (
+            <Badge>
+              <BadgeText>{countNotifs(route.title)}</BadgeText>
+            </Badge>
+          )}
+        </>
       )}
     />
   );

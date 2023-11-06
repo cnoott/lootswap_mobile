@@ -26,6 +26,8 @@ import {
 } from 'custom_enums';
 import {NavigationProp} from '@react-navigation/native';
 import RNPrint from 'react-native-print';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+
 /*
 On Launch -
 Checking if current session has expired or not. Session is set to 15 minutes
@@ -1120,11 +1122,13 @@ export const printLabel = async (base64Img: string) => {
 };
 
 export const salePrintLabel = async (imgUrl: string) => {
-  console.log(imgUrl);
   const htmlString = `<img src="${imgUrl}" style="width:50%"/>`;
-  RNPrint.print({
+  const results = await RNHTMLtoPDF.convert({
     html: htmlString,
-  });
+    fileName: 'pdfFile',
+    base64: true,
+  })
+  RNPrint.print({filePath: results.filePath})
 };
 
 export const getPublicProfileFilters = () => {

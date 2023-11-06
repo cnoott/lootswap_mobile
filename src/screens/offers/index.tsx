@@ -13,6 +13,7 @@ import {
   getAllMyMessages,
   getPublicOffers,
   deletePublicOffer,
+  setNotifsAsReadRequest,
 } from '../../redux/modules';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
@@ -49,11 +50,15 @@ import {
   PublicOffersFilterContainer,
   SizeDropdownStyle,
   ItemTextStyle,
+  Badge,
+  BadgeText
 } from './styles';
 import {ButtonContainer} from '../publicOffers/styles';
 import {SelectedTextStyle} from '../search/stockxScreenStyles';
 import {Dropdown} from 'react-native-element-dropdown';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
+import CellBadge from '../../components/offers/cellBadge';
+
 
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
@@ -81,6 +86,10 @@ export const OffersScreen: FC<{}> = () => {
         type: publicOfferFilter.value,
         userId: userData?._id,
       };
+      dispatch(setNotifsAsReadRequest({
+        userId: userData?._id,
+        notifType: 'inbox',
+      }));
       dispatch(
         getPublicOffers(
           reqData,
@@ -159,12 +168,16 @@ export const OffersScreen: FC<{}> = () => {
 
   const RenderUserDetails = ({item}) => {
     const statusColorObj = getTradeStatusColor(item.status);
+    const isReciever = userData?._id === item.reciever._id;
+    const showNotifBadge =
+      (isReciever && (item?.recieverNewMessage || item?.senderHasEdited)) ||
+      (!isReciever && (item?.senderNewMessage || item?.recieverHasEdited))
     return (
       <RowView>
         <EmptyRowView>
           <LSProfileImageComponent
             profileUrl={
-              userData?._id === item.reciever._id
+              isReciever
                 ? item.sender.profile_picture
                 : item.reciever.profile_picture
             }
@@ -172,9 +185,10 @@ export const OffersScreen: FC<{}> = () => {
             imageWidth={40}
             imageRadius={10}
           />
+          {showNotifBadge && <CellBadge />}
           <OwnerDetailsView>
             <NameLabel>
-              {userData?._id === item?.reciever?._id ? (
+              {isReciever ? (
                 <>{item.sender.name}</>
               ) : (
                 <>{item.reciever.name}</>
@@ -225,23 +239,28 @@ export const OffersScreen: FC<{}> = () => {
 
 
   const renderMessageItem = ({item}: any) => {
+    const isReciever = userData?._id === item.reciever._id;
+    const showNotifBadge =
+      (isReciever && item?.recieverNewMessage) ||
+      (!isReciever && item?.senderNewMessage)
     return (
       <MessageCellContainer
         key={item?._id}
         onPress={() => goToMessageScreen(item)}>
         <LSProfileImageComponent
           profileUrl={
-            userData?._id === item.reciever._id
+            isReciever
               ? item.sender.profile_picture
               : item.reciever.profile_picture
           }
-          imageHeight={60}
-          imageWidth={60}
-          imageRadius={30}
+          imageHeight={40}
+          imageWidth={40}
+          imageRadius={10}
         />
+        {showNotifBadge && <CellBadge top={5} left={5}/>}
         <OwnerDetailsView>
           <NameLabel>
-            {userData?._id === item?.reciever?._id ? (
+            {isReciever ? (
               <>{item.sender.name}</>
             ) : (
               <>{item.reciever.name}</>
@@ -311,11 +330,38 @@ export const OffersScreen: FC<{}> = () => {
     </TabContainer>
   );
 
+  const countNotifs = (title: string) => {
+    switch(title) {
+      case 'Trade offers':
+        return historyTrades.filter(
+          trade =>
+            (userData?._id === trade.reciever._id && trade.recieverNewMessage) ||
+            (userData?._id === trade.sender._id && trade.senderNewMessage),
+        ).length;
+      case 'Messages':
+        return allMyMessages?.messageDocs.filter(
+          message =>
+            (userData?._id === message.reciever._id && message.recieverNewMessage) ||
+            (userData?._id === message.sender._id && message.senderNewMessage),
+        ).length;
+
+      default:
+        return 0;
+    }
+  };
+
   const renderTabBar = (props: any) => (
     <CustomTabBar
       {...props}
       renderLabel={({route, focused}: any) => (
-        <TabBarLabel focused={focused}>{route.title}</TabBarLabel>
+        <>
+          <TabBarLabel focused={focused}>{route.title}</TabBarLabel>
+          {countNotifs(route.title) !== 0 && (
+            <Badge>
+              <BadgeText>{countNotifs(route.title)}</BadgeText>
+            </Badge>
+          )}
+        </>
       )}
     />
   );

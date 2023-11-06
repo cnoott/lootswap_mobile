@@ -44,6 +44,7 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {getSignedRequest, uploadFile} from '../../services/imageUploadService';
 import {WEB_APP_URL} from '@env';
 import {Linking} from 'react-native';
+import FooterBadge from '../../components/footer/footerBadge';
 
 type Option = {
   icon: string;
@@ -171,6 +172,13 @@ export const ProfileScreen: FC<{}> = () => {
         key={index}
         onPress={() => onProfileOptionPress(item?.index)}>
         <EmptyRowView>
+          {item?.title === 'Orders' && (
+            <FooterBadge
+              routeName={'Profile'}
+              notifications={userData?.notifications}
+              right={-12}
+            />
+          )}
           <SvgXml xml={item?.icon} />
           <OptionText>{item?.title}</OptionText>
         </EmptyRowView>

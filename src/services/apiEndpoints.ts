@@ -304,6 +304,14 @@ export const checkoutRateCall = (reqData: any) => {
   );
 };
 
+export const setNotifsAsReadCall = (reqData: any) => {
+  const {notifType} = reqData;
+  return handleResponse(
+    api.post(`/set-notifs-as-read/${reqData?.userId}`, {notifType}),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const generateLinkPaypalCall = (reqData: any) => {
   const {email, redirectUrl, _id} = reqData;
   return handleResponse(
@@ -544,6 +552,22 @@ export const getPublicOffersCall = (reqData: any) => {
 export const fetchRelatedItemDataCall = (reqData: any) => {
   return handleResponse(
     api.post(`/fetch-related-item-data`, reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const setOrderNotifAsReadCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/order/new-notif-false/${reqData?.userId}/${reqData?.orderId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const setPaypalOrderNotifAsReadCall = (reqData: any) => {
+  return handleResponse(
+    api.put(
+      `/paypal/new-notif-false/${reqData?.paypalOrderId}/${reqData?.userId}`,
+    ),
     API_RESPONSE.CODE200,
   );
 };

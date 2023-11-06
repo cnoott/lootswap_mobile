@@ -181,3 +181,23 @@ export const ImageGuide = styled.Image.attrs(() => ({
   ${space}
   ${layout}
 `;
+
+export const ImagePickerModalStyle = {
+  margin: 0,
+  justifyContent: 'flex-end',
+};
+
+export const Container = styled.View.attrs(() => ({
+  height: scale(140),
+}))`
+  justify-content: flex-end;
+  ${space}
+  ${layout}
+`;
+
+export const ButtonContainer = styled.View.attrs(() => ({
+  mb: scale(10),
+}))`
+  ${space}
+  ${layout}
+`;

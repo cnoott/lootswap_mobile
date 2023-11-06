@@ -21,7 +21,7 @@ const theme = {
     textGrey: '#6B657A',
     modalBg: 'rgba(0, 0, 0, 0.2)',
     cancel: '#838078',
-    inputBg: '#FAFAFA',
+    inputBg: '#f5f5f5',
     commonSearchBack: '#F5F5F5',
     divider: '#E0E0E0',
     screenBg: '#E7E7E7',
