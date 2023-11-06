@@ -265,7 +265,7 @@ export const Image = styled.Image.attrs(() => ({
   ${layout}
 `;
 
-export const ImageUpload = styled(FastImage).attrs(() => ({
+export const ImageUpload = styled.Image.attrs(() => ({
   width: scale(productImageWidth),
   height: scale(productImageWidth),
   borderRadius: scale(6),
