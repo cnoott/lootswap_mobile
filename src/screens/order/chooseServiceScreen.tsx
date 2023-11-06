@@ -61,22 +61,22 @@ export const ChooseServiceScreen: FC<any> = ({route}) => {
         <TipLabel>Choose Rate</TipLabel>
         <WeightRowView>
           {rateSelectionView(UNITED_STATE_POSTAL_SERVICE_ICON, 1)}
-          {rateSelectionView(FEDEX_ICON, 2)}
-          {rateSelectionView(UPS_ICON, 3)}
+          {rateSelectionView(UPS_ICON, 2)}
         </WeightRowView>
       </ChooseRateContainer>
     );
   };
 
   const sortCmp = (a: any, b: any) => {
-    if (a.amount < b.amount) {
+    if (parseFloat(a.amount) < parseFloat(b.amount)) {
       return -1;
     }
-    if (a.amount > b.amount) {
+    if (parseFloat(a.amount) > parseFloat(b.amount)) {
       return 1;
     }
     return 0;
   };
+
   const handleRatePress = rate => {
     console.log(rate.amount);
     setChosenRate(rate);
@@ -87,8 +87,6 @@ export const ChooseServiceScreen: FC<any> = ({route}) => {
     if (choosenCarrier === 1) {
       carrier = 'USPS';
     } else if (choosenCarrier === 2) {
-      carrier = 'FedEx';
-    } else if (choosenCarrier === 3) {
       carrier = 'UPS';
     }
     const filteredRates = ratesDetails.rates.filter(
@@ -101,7 +99,7 @@ export const ChooseServiceScreen: FC<any> = ({route}) => {
           <TipContainer
             onPress={() => handleRatePress(rate)}
             selected={
-              rate?.servicelevel?.name === chosenRate?.servicelevel?.name
+              rate?.object_id === chosenRate?.object_id
             }>
             <USPSTopView>
               <USPSLabel>{rate.servicelevel.name}</USPSLabel>
@@ -117,7 +115,6 @@ export const ChooseServiceScreen: FC<any> = ({route}) => {
   };
 
   const onCheckoutPress = () => {
-    console.log('yo', paypalOrderId);
     const reqData = {
       userId: userData?._id,
       paypalOrderId: paypalOrderId,
@@ -147,7 +144,6 @@ export const ChooseServiceScreen: FC<any> = ({route}) => {
             Alert.showError(`There was an error with your payment: ${error}`);
           } else {
             const total = parseFloat(res.paypalOrder.total);
-            console.log('TOTA', total);
             navigation.navigate('TradeCheckoutSuccessScreen', {
               isSale: true,
               total: total,

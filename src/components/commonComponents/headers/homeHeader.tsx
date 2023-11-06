@@ -6,6 +6,7 @@ import {BOTTOM_TAB_NOTIFICATION} from 'localsvgimages';
 import {BOTTOM_TAB_NOTIFICATION_NEW} from '../../../assets/images/svgs';
 import {AuthProps} from '../../../redux/modules/auth/reducer';
 import {useSelector} from 'react-redux';
+import {countNotifs} from '../../../utility/notification';
 
 import {
   HeaderContainer,
@@ -13,6 +14,8 @@ import {
   TouchableOpacity,
   TouchableOpacityNotif,
   IconsContainer,
+  Badge,
+  BadgeText,
 } from './styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
@@ -42,7 +45,8 @@ export const InHomeHeader: FC<HeaderProps> = React.memo(props => {
   };
 
   const auth: AuthProps = useSelector(state => state.auth);
-  const {userData} = auth;
+  const { isLogedIn, userData } = auth;
+
 
   return (
     <HeaderContainer
@@ -56,13 +60,14 @@ export const InHomeHeader: FC<HeaderProps> = React.memo(props => {
             <SvgXml xml={rightIcon} />
           </TouchableOpacity>
           <TouchableOpacityNotif onPress={() => navigateToNotif()}>
-            <SvgXml
-              xml={
-                userData?.newNotif
-                ? BOTTOM_TAB_NOTIFICATION_NEW
-                : BOTTOM_TAB_NOTIFICATION
-              }
-            />
+            <SvgXml xml={BOTTOM_TAB_NOTIFICATION} />
+            {isLogedIn && countNotifs(userData?.notifications, ['All']) !== 0 && (
+              <Badge>
+                <BadgeText>
+                  {countNotifs(userData?.notifications, ['All'])}
+                </BadgeText>
+              </Badge>
+            )}
           </TouchableOpacityNotif>
         </IconsContainer>
       )}

@@ -63,6 +63,24 @@ export const CustomTabBar = styled(TabBar).attrs(props => ({
   ${color}
 `;
 
+export const Badge = styled.View`
+  background-color: red;
+  height: 18px;
+  width: 18px;
+  border-radius: 9px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -6px;
+  right: -12px;
+`;
+
+export const BadgeText = styled.Text`
+  color: white;
+  font-size: 14px;
+  font-family: Urbanist-Bold;
+`;
+
 export const Indicator = styled.View.attrs(props => ({
   backgroundColor: props?.theme?.colors?.primary,
   width: '80%',
@@ -133,6 +151,7 @@ export const OffersListView = styled.FlatList.attrs(() => ({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {
     flexGrow: 1,
+    paddingBottom: scale(100),
   },
   mx: scale(10),
   my: scale(10),

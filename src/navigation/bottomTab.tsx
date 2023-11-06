@@ -73,6 +73,7 @@ import BrowsePublicOffersScreen from '../screens/publicOffers/browsePublicOffers
 import PublicOfferScreen from '../screens/publicOffers/publicOfferScreen';
 import AcceptPublicOfferScreen from '../screens/publicOffers/acceptPublicOfferScreen';
 import AllListingsScreen from '../screens/home/allListings';
+import FooterBadge from '../components/footer/footerBadge';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -123,6 +124,8 @@ const HomeStackNavigation = () => (
     />
     <Stack.Screen name="LootScreen" component={LootScreen} />
     <Stack.Screen name="StartTradeScreen" component={StartTradeScreen} />
+
+    <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
     <Stack.Screen
       name="ChooseOfferTypeScreen"
       component={ChooseOfferTypeScreen}
@@ -136,6 +139,10 @@ const HomeStackNavigation = () => (
     <Stack.Screen name="AddressScreenCheckout" component={AddressScreen} />
     <Stack.Screen name="PublicProfileScreen" component={PublicProfileScreen} />
     <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
+    <Stack.Screen
+      name="TradeCheckoutSuccessScreen"
+      component={TradeCheckoutSuccessScreen}
+    />
     <Stack.Screen name="AddressScreenBuyCheckout" component={AddressScreen} />
     <Stack.Screen
       name="BuyCheckoutSuccessScreen"
@@ -214,6 +221,10 @@ const ProfileStackNavigation = () => (
       component={AddProductOverviewScreen}
     />
     <Stack.Screen name="MyOrdersListScreen" component={MyOrdersListScreen} />
+    <Stack.Screen
+      name="TradeCheckoutSuccessScreen"
+      component={TradeCheckoutSuccessScreen}
+    />
     <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
     <Stack.Screen
       name="AcceptTradeCheckoutScreen"
@@ -222,10 +233,6 @@ const ProfileStackNavigation = () => (
     <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
     <Stack.Screen name="ShippingLabelScreen" component={ShippingLabelScreen} />
     <Stack.Screen name="ChooseServiceScreen" component={ChooseServiceScreen} />
-    <Stack.Screen
-      name="TradeCheckoutSuccessScreen"
-      component={TradeCheckoutSuccessScreen}
-    />
     <Stack.Screen name="WalletScreen" component={WalletScreen} />
     <Stack.Screen name="ReferralScreen" component={ReferralScreen} />
   </Stack.Navigator>
@@ -285,6 +292,7 @@ const OffersStackNavigation = () => (
       name="AcceptTradeCheckoutScreen"
       component={AcceptTradeCheckoutScreen}
     />
+    <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
     <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
     <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
     <Stack.Screen name="MoneyOfferCheckoutScreen" component={CheckoutScreen} />
@@ -321,7 +329,12 @@ const getTabBarIcon = (isFocused?: boolean, route?: string, userData: any) => {
     default:
       break;
   }
-  return <SvgXml xml={_source} />;
+  return (
+    <>
+      <SvgXml xml={_source} />
+      <FooterBadge routeName={route} notifications={userData?.notifications}/>
+    </>
+  );
 };
 
 export const BottomTabs: FC<{}> = () => {

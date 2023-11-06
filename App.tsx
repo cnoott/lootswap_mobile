@@ -18,6 +18,7 @@ import StackNavigator from './src/navigation';
 import {StatusBar} from 'react-native';
 import branch from 'react-native-branch';
 import codePush from 'react-native-code-push';
+
 let codePushOptions = {
   updateDialog: true,
   checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,

@@ -491,6 +491,24 @@ export const TouchableOpacityNotif = styled.TouchableOpacity.attrs({
   ${border}
 `;
 
+export const Badge = styled.View`
+  background-color: red;
+  height: 18px;
+  width: 18px;
+  border-radius: 9px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -3px;
+  right: -3px;
+`;
+
+export const BadgeText = styled.Text`
+  color: white;
+  font-size: 15px;
+  font-family: Urbanist-Bold;
+`;
+
 export const EmptyRowView = styled.View`
   flex-direction: row;
   align-items: center;

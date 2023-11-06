@@ -18,14 +18,15 @@ interface StepOneProps {
   publicOffersData: any;
   setPublicOffersData: Function;
   handleNext: Function;
-  query: string;
-  setQuery: Function;
+  setParentResetQuery: Function;
 }
 
 export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
-  const {publicOffersData, setPublicOffersData, handleNext, query, setQuery} =
+  const {publicOffersData, setPublicOffersData, handleNext} =
     props;
   const [isOpen, setIsOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const resetQuery = () => setQuery('');
   const [stockxLoading, setStockxLoading] = useState(true);
   const [searchResults, setSearchResults] = useState([]);
 
@@ -93,6 +94,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
       product => product.urlKey === urlKey,
     );
     handleNext();
+    setQuery('');
     if (alreadyExists) {
       return;
     }

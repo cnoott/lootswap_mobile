@@ -1,5 +1,24 @@
 import {getOrder, getPaypalOrder, getMessagesHistory} from '../redux/modules';
 
+export const countNotifs = (
+  notifications: Array<any>,
+  notifTypes: Array<string>,
+) => {
+  if (!notifications) {
+    return 0;
+  }
+  let count;
+  if (notifTypes[0] === 'All') {
+    count = notifications.filter(notif => !notif.isRead);
+  } else {
+    count = notifications.filter(
+      notif => notifTypes.includes(notif.notifType) && !notif.isRead,
+    );
+  }
+
+  return count.length;
+};
+
 export const handleNavigation = (
   navigation: any,
   message: any,

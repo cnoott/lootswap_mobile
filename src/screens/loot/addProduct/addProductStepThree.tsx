@@ -2,12 +2,12 @@
 LootSwap - ADD_PRODUCT STEP 3
 ***/
 
-import React, {FC, useState, useEffect, useCallback} from 'react';
+import React, {FC, useState, useCallback} from 'react';
 import ImagePicker, { openPicker } from 'react-native-image-crop-picker'; //TODO REMOVE
 import {LSModal} from '../../../components/commonComponents/LSModal';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {Size, Type} from '../../../enums';
-import {Platform, Dimensions} from 'react-native';
+import {Dimensions} from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import FastImage from 'react-native-fast-image';
 import {
@@ -38,7 +38,11 @@ import {
   PhotoGuideText,
 } from './styles';
 import {useSelector} from 'react-redux';
-import {TRASH_WHITE_ICON, CAMERA_ICON} from 'localsvgimages';
+import {
+  TRASH_WHITE_ICON,
+  PROFILE_TRIPPLE_DOT_ICON,
+  CAMERA_ICON,
+} from 'localsvgimages';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 import {Alert} from 'custom_top_alert';
 import {scale} from 'react-native-size-matters';
@@ -46,6 +50,7 @@ import ChooseAlbumDropdown from '../../../components/loot/chooseAlbumDropDown';
 import LSLoader from '../../../components/commonComponents/LSLoader';
 import {useGallery} from '../../../utility/customHooks/useGallery';
 import ImageGuideComponent from '../../../components/loot/imageGuideComponent';
+import EditPhotoModal from '../../../components/loot/editPhotoModal';
 
 const width = Dimensions.get('window').width;
 const productImageWidth = width / 3 - 30;
@@ -66,6 +71,8 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   );
 
   const [imagePickerVisible, setImagePickerVisible] = useState(false);
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(null);
   const [cameraRoll, setCameraRoll] = useState([]);
 
   const [isImageGuideVisible, setIsImageGuideVisible] = useState(true);
@@ -131,6 +138,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       setSelectedImages(newImgArr);
     }
   };
+
 
   const openCamera = async () => {
     if (photos?.length >= 13) {
@@ -223,6 +231,24 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     setProductImagesArr(newImgArr); // Local Update
     updateImagesData(newImgArr.slice(0, -1)); // Reducer Update
   };
+
+  const onEditImage = (imageIndex: number) => {
+    ImagePicker.openCropper({
+      path: selectedImages[imageIndex].uri,
+      freeStyleCropEnabled: true,
+    })
+    .then(image => {
+      selectedImages[imageIndex].uri = image.path;
+      selectedImages[imageIndex].sourceURL = image.path;
+      setEditModalVisible(false);
+    });
+  };
+
+  const onThreeDotsPress = (imageIndex: number) => {
+    setSelectedImageIndex(imageIndex);
+    setEditModalVisible(true);
+  };
+
   const renderAddImageContainer = () => {
     return (
       <Touchable activeOpacity={0.6} onPress={onAddImage} disabledDrag={true}>
@@ -236,10 +262,10 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       </Touchable>
     );
   };
-  const renderDeleteView = (imageIndex: number) => {
+  const renderThreeDots = (imageIndex: number) => {
     return (
-      <DeleteContainer onPress={() => onRemoveImage(imageIndex)}>
-        <SvgXml xml={TRASH_WHITE_ICON} />
+      <DeleteContainer onPress={() => onThreeDotsPress(imageIndex)}>
+        <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
       </DeleteContainer>
     );
   };
@@ -271,7 +297,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         <ImageUpload
           source={{uri: item?.sourceURL, priority: FastImage.priority.low}}
         />
-        {renderDeleteView(0)}
+        {renderThreeDots(order)}
         {order === 0 && renderMainPhotoView()}
       </ImageContainerUpload>
     );
@@ -296,6 +322,12 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       <ImageGuideComponent
         isVisible={isImageGuideVisible}
         onClose={closeImageGuide}
+      />
+      <EditPhotoModal
+        isVisible={editModalVisible}
+        closeModal={() => setEditModalVisible(false)}
+        onDeletePress={() => onRemoveImage(selectedImageIndex)}
+        onEditPress={() => onEditImage(selectedImageIndex)}
       />
       <LSModal
         isVisible={imagePickerVisible}
