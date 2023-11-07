@@ -16,6 +16,7 @@ import LSDropDown from '../commonComponents/LSDropDown';
 import {getSizeList, shoesSizeList} from '../../utility/utility';
 import {SvgXml} from 'react-native-svg';
 import {QUESTION_MARK, TRASH_ICON_RED} from 'localsvgimages';
+import {Alert} from 'custom_top_alert';
 
 interface ChosenStockxProductProps {
   stockxProduct: any;
@@ -87,6 +88,12 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
     }
   };
 
+  const handleOnPress = () => {
+    if (!categoryData.value) {
+      Alert.showError('Please select a category');
+    }
+  };
+
   return (
     <Container>
       <ItemContainer>
@@ -122,6 +129,7 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
         isSearch={false}
         onSelectItem={onSetSizeData}
         selectedValue={chosenSize}
+        onFocus={() => handleOnPress()}
       />
       <TrashIconContainer onPress={onDeletePress}>
         <SvgXml xml={TRASH_ICON_RED}/>

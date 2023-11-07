@@ -154,7 +154,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
       item.brand,
     );
     if (item?.category === 'sneakers') {
-      setCategoryData('shoes');
+      setCategoryData({value: 'shoes', label: 'Shoes'});
     }
     setProductName(item.title);
   };
