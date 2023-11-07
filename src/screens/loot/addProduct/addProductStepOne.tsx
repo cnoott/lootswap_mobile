@@ -141,7 +141,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   const onSetStockxUrlKey = async (item: any) => {
     setAlreadySearched(true);
     collapseDrawer();
-    console.log('item',item);
+    setSelectedStockxItem(item);
     if (!item.urlKey) {
       return;
     }
