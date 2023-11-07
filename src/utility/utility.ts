@@ -1115,7 +1115,11 @@ export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
   }
 };
 export const printLabel = async (base64Img: string) => {
-  const htmlString = `<img src="data:image/png;base64,${base64Img}"/>`;
+  const htmlString = `
+  <div style="display: flex; align-items: center; height: 100vh; transform: rotate(90deg); transform-origin: center center;">
+    <img src="data:image/png;base64,${base64Img}" style="max-width: 80%; max-height: 80%;"/>
+  </div>
+`;
   RNPrint.print({
     html: htmlString,
   });
