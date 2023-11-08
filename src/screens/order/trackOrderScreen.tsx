@@ -16,6 +16,8 @@ import {
 import OrderTrackSteps from '../../components/orderTrack/orderTrackSteps';
 //import OrderStatusDetails from '../../components/orderTrack/orderStatusDetails';
 import TradeOfferCell from '../offers/offerItems/TradeOfferCell';
+import PublicOfferCell from '../../components/publicOffer/PublicOfferCell';
+import RateUserButton from '../../components/orders/rateUserButton';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {useSelector, useDispatch} from 'react-redux';
@@ -168,42 +170,29 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
     />
   );
 
-  const rateUserButton = () => {
-    if (isTradeOrder && isReciever && item?.recieverHasRated) {
-      return <></>;
-    }
-    if (isTradeOrder && !isReciever && item?.senderHasRated) {
-      return <></>;
-    }
-    if (!isTradeOrder && isSeller && item?.sellerHasRated) {
-      return <></>;
-    }
-    if (!isTradeOrder && !isSeller && item?.buyerHasRated) {
-      return <></>;
-    }
-    return (
-      <LSButton
-        title={'Rate User'}
-        size={Size.Extra_Small}
-        type={Type.Success}
-        radius={15}
-        onPress={() =>
-          navigation.navigate('SubmitReviewScreen', {
-            orderDetails: item,
-            isTradeOrder: isTradeOrder,
-          })
-        }
-      />
-    );
-  };
-
   const printLabelRenderOptions = () => {
     if (!isTradeOrder && item?.shippingStep == 3) {
-      return rateUserButton();
+      return (
+        <RateUserButton
+          isTradeOrder={isTradeOrder}
+          isReciever={isReciever}
+          isSeller={isSeller}
+          order={item}
+          navigation={navigation}
+        />
+      );
     }
 
     if (isTradeOrder && item?.recieverStep == 5 && item?.senderStep === 5) {
-      return rateUserButton();
+      return (
+        <RateUserButton
+          isTradeOrder={isTradeOrder}
+          isReciever={isReciever}
+          isSeller={isSeller}
+          order={item}
+          navigation={navigation}
+        />
+      );
     }
 
     if (!isTradeOrder && item?.shippingStep > 0) {
@@ -246,7 +235,18 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
     );
   };
   const renderMultipleOrderCell = () => {
-    return <TradeOfferCell offerItem={item.tradeId} />;
+    if (item?.tradeId) {
+      return <TradeOfferCell offerItem={item.tradeId} />;
+    } else {
+      return (
+        <PublicOfferCell
+          receivingStockxProducts={item?.publicOfferId?.receivingStockxProducts}
+          sendingProductIds={item?.publicOfferId?.sendingProductIds}
+          receivingMoneyOffer={item?.publicOfferId?.receivingMoneyOffer}
+          sendingMoneyOffer={item?.publicOfferId?.sendingMoneyOffer}
+       />
+      );
+    }
   };
   const renderSingleOrderCell = () => {
     return (
