@@ -9,11 +9,14 @@ import {
   Image,
   UserNameText,
   StarContainer,
+  ButtonContainer,
   CommentsText,
 } from './submitReviewScreenStyles';
+import {KeyboardAvoidingView} from './myOrdersStyle';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {useSelector, useDispatch} from 'react-redux';
+import {ScrollView} from 'react-native';
 import {StarIcon} from 'react-native-heroicons/outline';
 import {moderateScale} from 'react-native-size-matters';
 import {StarIcon as StarIconSolid} from 'react-native-heroicons/solid';
@@ -156,28 +159,33 @@ export const SubmitReviewScreen: FC<{}> = ({route}) => {
   return (
     <Container>
       <InStackHeader title={'Give a Rating'} />
+      <KeyboardAvoidingView>
+        <ScrollView>
+        <ProfileContainerView>{renderPfpCondition()}</ProfileContainerView>
+        {renderNameCondition()}
+        {chooseRating()}
 
-      <ProfileContainerView>{renderPfpCondition()}</ProfileContainerView>
-      {renderNameCondition()}
-      {chooseRating()}
+        <CommentsText>Comments</CommentsText>
 
-      <CommentsText>Comments</CommentsText>
-
-      <LSInput
-        onChangeText={setComment}
-        value={comment}
-        placeholder={'How was your experience?'}
-        multiline={true}
-        height={200}
-      />
-
-      <LSButton
-        title={'Submit'}
-        size={Size.Full}
-        type={Type.Primary}
-        radius={20}
-        onPress={() => submitRating()}
-      />
+        <LSInput
+          onChangeText={setComment}
+          value={comment}
+          placeholder={'How was your experience?'}
+          returnKeyLabel={'done'}
+          multiline={true}
+          height={80}
+        />
+        <ButtonContainer>
+          <LSButton
+            title={'Submit'}
+            size={Size.Full}
+            type={Type.Primary}
+            radius={20}
+            onPress={() => submitRating()}
+          />
+        </ButtonContainer>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </Container>
   );
 };
