@@ -29,7 +29,7 @@ function OrderTradeOrdersCell(props: OrderPurchaseProps) {
           sendingProductIds={item?.publicOfferId?.sendingProductIds}
           receivingMoneyOffer={item?.publicOfferId?.receivingMoneyOffer}
           sendingMoneyOffer={item?.publicOfferId?.sendingMoneyOffer}
-         />
+        />
       )}
     </PurchaseCellContainer>
   );
