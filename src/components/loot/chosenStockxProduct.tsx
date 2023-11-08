@@ -56,7 +56,7 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
 
   const formatSizeList = () => {
     console.log(stockxProduct?.sizes);
-    return stockxProduct?.sizes.map(size => ({
+    return stockxProduct?.sizes?.map(size => ({
       label: size.sizeUS,
       value: size.sizeUS,
     }));
