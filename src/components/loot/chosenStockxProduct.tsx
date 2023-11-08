@@ -89,7 +89,7 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
   };
 
   const handleOnPress = () => {
-    if (!categoryData.value) {
+    if (!isFromPublicOffers && !categoryData.value) {
       Alert.showError('Please select a category');
     }
   };
