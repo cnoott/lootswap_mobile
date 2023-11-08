@@ -36,6 +36,7 @@ import {
 import {useSelector} from 'react-redux';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 import {ScrollView} from 'react-native';
+import {getPreownedMarketValue} from '../../../utility/utility';
 
 interface ProductStep {
   updateProductData: Function;
@@ -45,7 +46,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
   const addProductData: ADD_PRODUCT_TYPE = useSelector(
     state => state?.home?.addProductData,
   );
-  const {stepFive} = addProductData;
+  const {stepFive, stepTwo, stepOne} = addProductData;
   const [price, setPrice] = useState(stepFive?.productPrice || 0.0);
   const [dotPosition, setDotPosition] = useState('50');
   const [dotText, setDotText] = useState('$200');
@@ -57,12 +58,20 @@ export const AddProductStepFive: FC<ProductStep> = props => {
     setPrice(priceInput);
     const converted = priceInput;
     const lastSalePrice = addProductData?.stepFive?.median;
+
     if (!lastSalePrice) {
       return;
     }
 
-    // Updated calculation based on 10% range
-    const dotPositionCalc = ((converted - 0.9 * lastSalePrice) / (0.2 * lastSalePrice)) * 100;
+    let dotPositionCalc;
+    if (stepTwo?.condition?.value === 'Pre-owned') {
+      dotPositionCalc =
+        ((priceInput - stepFive.startRange) / (stepFive.endRange - priceInput)) * 100;
+    } else {
+      // Updated calculation based on 10% range
+      dotPositionCalc =
+        ((converted - 0.9 * lastSalePrice) / (0.2 * lastSalePrice)) * 100;
+    }
 
     const positionWithBounds = Math.max(0, Math.min(100, dotPositionCalc));
     setDotPosition(positionWithBounds);
@@ -70,9 +79,9 @@ export const AddProductStepFive: FC<ProductStep> = props => {
     // Updated maxSalePrice based on 10%
     const maxSalePrice = lastSalePrice + lastSalePrice * 0.1;
     if (priceInput >= maxSalePrice) {
-        setDotText(`High $${maxSalePrice.toFixed(2)}`);  // Added toFixed(2) for currency formatting
+      setDotText(`High $${maxSalePrice.toFixed(2)}`);
     } else {
-        setDotText('$' + priceInput);
+      setDotText('$' + priceInput);
     }
   };
   const {updateProductData} = props;
