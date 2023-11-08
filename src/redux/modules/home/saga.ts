@@ -151,8 +151,8 @@ export function* createNewProduct(action: any) {
     if (response?.success) {
       if (!action?.isUpdateCall) {
         action?.successCallBack();
+        yield put(resetAddProductData());
       }
-      yield put(resetAddProductData());
       Alert.showSuccess(
         action?.isUpdateCall
           ? 'Product updated successfully..'
