@@ -10,6 +10,7 @@ import {ADD_PRODUCT_TYPE} from 'custom_types';
 import {
   getAddProductRawData,
   findMarketDataFromSize,
+  getPreownedMarketValue,
 } from '../../../utility/utility';
 
 export interface HomeProps {
@@ -49,8 +50,19 @@ export default function loading(state = InitialState, action: ActionProps) {
         payload,
         state.addProductData.stepOne.size.value,
       );
-      const startRange = sizeData.lastSale - sizeData.lastSale * 0.1;
-      const endRange = sizeData.lastSale + sizeData.lastSale * 0.1;
+      let startRange, endRange;
+      console.log(state?.addProductData?.stepTwo?.condition?.value);
+      if (state?.addProductData?.stepTwo?.condition?.value === 'Pre-owned') {
+        const range = getPreownedMarketValue(
+          sizeData,
+          state?.addProductData?.stepTwo?.preOwnedCondition?.value,
+        );
+        startRange = parseFloat(range[0]);
+        endRange = parseFloat(range[1]);
+      } else {
+        startRange = sizeData.lastSale - sizeData.lastSale * 0.1;
+        endRange = sizeData.lastSale + sizeData.lastSale * 0.1;
+      }
       return {
         ...state,
         addProductData: {
