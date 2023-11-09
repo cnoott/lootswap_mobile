@@ -97,6 +97,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const {requestedUserDetails, userData, isLogedIn} = auth;
   const {productData = {}, likedParam} = route?.params;
   const [liked, setLiked] = useState(likedParam);
+  const [timesLiked, setTimesLiked] = useState(productData?.timesLiked);
 
   useEffect(() => {
     if (likedParam) {
@@ -122,6 +123,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     if (productData?.userId) {
       dispatch(getUsersDetailsRequest(productData?.userId));
       dispatch(getProductDetails(productData?._id));
+      setTimesLiked(selectedProductDetails?.timesLiked);
     }
   }, [
     productData?.userId,
@@ -138,6 +140,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       userId: userData?._id,
       productId: productData?._id,
     };
+    setTimesLiked(timesLiked + 1);
     setLiked(true);
     dispatch(likeProduct(reqData));
     //dispatch(getMyDetailsNoLoadRequest(userData?._id)); //causes rerender which is undesireable
@@ -148,6 +151,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       userId: userData?._id,
       productId: productData?._id,
     };
+    setTimesLiked(timesLiked - 1);
     setLiked(false);
     dispatch(unlikeProduct(reqData));
     //dispatch(getMyDetailsNoLoadRequest(userData?._id)); //this causes rerender which is undesireable
@@ -513,9 +517,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                     xml={liked ? LIKE_HEART_ICON_RED : LIKE_HEART_ICON}
                     color={'white'}
                   />
-                  <ProductDetails>
-                    {productData?.timesLiked}
-                  </ProductDetails>
+                  <ProductDetails>{timesLiked}</ProductDetails>
                 </LikeTouchable>
               </DetailsRightView>
             </DetailsContainer>
