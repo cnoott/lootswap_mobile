@@ -343,7 +343,6 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case NEW_NOTIF_TRUE.SUCCESS: {
-      console.log('PAYLOAD SUCC', payload);
       return {
         ...state,
         userData: {
@@ -396,7 +395,6 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case LIKE_PRODUCT.REQUEST: {
-      console.log(state.userData.likedProducts);
       const productId = action?.reqData?.productId;
       return {
         ...state,
@@ -408,7 +406,6 @@ export default function auth(state = InitialState, action: ActionProps) {
     }
     case UNLIKE_PRODUCT.REQUEST: {
       let productId = action.reqData?.productId;
-      console.log('action!',action);
       let newLikedProducts = state.userData.likedProducts.filter(
         prodId => prodId !== productId,
       );

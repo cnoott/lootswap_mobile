@@ -44,12 +44,12 @@ export const LikedProductScreen: FC<any> = props => {
 
   useEffect(() => {
     if (userData?._id) {
-      dispatch(getMyDetailsRequest(userData?._id));
       dispatch(
         getLikedProducts(
           {userId: userData?._id},
           res => {
-            setLikedStockxProducts(res);
+            setLikedStockxProducts(res.stockxProducts);
+            setLikedProdList(res.products);
           },
           err => {
             console.log('ERR= >', err);
@@ -63,7 +63,7 @@ export const LikedProductScreen: FC<any> = props => {
     return <LSProductCard item={{...item, objectID: item._id}} liked={true} />;
   };
 
-  const handleUnlikeProduct = (stockxProduct: any) => {
+  const handleUnlikeStockxProduct = (stockxProduct: any) => {
     const newLikedStockxProductIds = userData?.likedStockxProducts?.filter(
       productId => productId !== stockxProduct?._id
     );
@@ -80,6 +80,8 @@ export const LikedProductScreen: FC<any> = props => {
       }),
     );
   };
+
+
 
   const handleStockxNavigation = (
     stockxProduct: any,
@@ -102,7 +104,7 @@ export const LikedProductScreen: FC<any> = props => {
           stockxProduct={stockxProduct}
           foundProducts={foundProducts}
           isFromLiked={true}
-          handleUnlikeProduct={handleUnlikeProduct}
+          handleUnlikeProduct={handleUnlikeStockxProduct}
           handleStockxNavigation={handleStockxNavigation}
         />
       </>
@@ -121,7 +123,7 @@ export const LikedProductScreen: FC<any> = props => {
   const FirstRoute = () => (
     <SubContainer>
       <FlatList
-        data={userData?.likedProducts}
+        data={likedProdList}
         renderItem={renderItem}
         keyExtractor={item => item?._id}
         ListEmptyComponent={() => (
