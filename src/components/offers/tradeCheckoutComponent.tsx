@@ -52,6 +52,7 @@ interface TradeCheckoutComponentProps {
   loading: boolean;
   isReciever?: boolean;
   isFromPublicOffers?: boolean;
+  isFromPublicOffersCheckout?: boolean;
 }
 // Also used to checkout public offers
 export const TradeCheckoutComponent: FC<
@@ -69,6 +70,7 @@ export const TradeCheckoutComponent: FC<
     isFromPublicOffers = false,
     receivingMoneyOffer = 0,
     sendingMoneyOffer = 0,
+    isFromPublicOffersCheckout = false,
   } = props;
 
   const navigation: NavigationProp<any, any> = useNavigation();
@@ -123,7 +125,11 @@ export const TradeCheckoutComponent: FC<
   const renderStockxItems = () => {
     return (
       <EmptyView>
-        {renderHeading('You will receive')}
+        {renderHeading(
+          isFromPublicOffersCheckout
+            ? 'You will send'
+            : 'You will receive'
+        )}
         {recieverItems.map(item => {
           return <ReviewStockxItemCell stockxProduct={item} />
         })}

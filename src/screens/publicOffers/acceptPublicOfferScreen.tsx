@@ -108,7 +108,10 @@ export const AcceptPublicOfferScreen: FC<any> = ({route}) => {
       <TradeCheckoutComponent
         isFromStartTrade={true}
         isFromPublicOffers={true}
-        isReciever={false}
+        isFromPublicOffersCheckout={true}
+        receivingMoneyOffer={publicOffer?.receivingMoneyOffer}
+        sendingMoneyOffer={publicOffer?.sendingMoneyOffer}
+        isReciever={true}
         recieverItems={publicOffer.receivingStockxProducts.map(prod => {
           return {...prod.stockxId, chosenSize: prod.chosenSize}
         })}
