@@ -108,6 +108,8 @@ export const CreatePublicOfferCheckoutScreen: FC<any> = ({route}) => {
       <TradeCheckoutComponent
         isFromStartTrade={true}
         isFromPublicOffers={true}
+        receivingMoneyOffer={receivingMoneyOffer}
+        sendingMoneyOffer={sendingMoneyOffer}
         isReciever={false}
         recieverItems={publicOffersData?.receivingStockxProducts}
         senderItems={myItems.filter(item => item.isSelected)}
