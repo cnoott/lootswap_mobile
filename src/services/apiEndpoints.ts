@@ -496,7 +496,7 @@ export const getRecommendedSearchCall = (reqData: any) => {
 
 export const getLikedProductsCall = (reqData: any) => {
   return handleResponse(
-    api.get(`/user/liked-stockx-products/${reqData?.userId}`),
+    api.get(`/user/liked-products/${reqData?.userId}`),
     API_RESPONSE.CODE200,
   );
 };
