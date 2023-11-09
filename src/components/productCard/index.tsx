@@ -47,13 +47,13 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
   useEffect(() => {
     if (
       isLogedIn &&
-      userData?.likedProducts?.some(prod => {
-        return prod?._id === item?._id;
+      userData?.likedProducts?.some(prodId => {
+        return prodId === item?._id;
       })
     ) {
       setLiked(true);
     }
-  }, [isLogedIn, item?._id, userData]);
+  }, [isLogedIn, item?._id, userData, item]);
 
   const onProductPress = () => {
     navigation.navigate('ProductDetailsScreen', {

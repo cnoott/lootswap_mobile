@@ -21,6 +21,8 @@ import {
   SAVE_REFERRAL_LINK,
   SAVE_SEARCH,
   SET_NOTIFS_AS_READ,
+  UNLIKE_PRODUCT,
+  LIKE_PRODUCT,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
 //import messaging from '@react-native-firebase/messaging';
@@ -393,7 +395,31 @@ export default function auth(state = InitialState, action: ActionProps) {
         },
       };
     }
-
+    case LIKE_PRODUCT.REQUEST: {
+      console.log(state.userData.likedProducts);
+      const productId = action?.reqData?.productId;
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          likedProducts: [productId, ...state.userData.likedProducts],
+        },
+      };
+    }
+    case UNLIKE_PRODUCT.REQUEST: {
+      let productId = action.reqData?.productId;
+      console.log('action!',action);
+      let newLikedProducts = state.userData.likedProducts.filter(
+        prodId => prodId !== productId,
+      );
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          likedProducts: newLikedProducts,
+        },
+      };
+    }
     default:
       return state;
   }
