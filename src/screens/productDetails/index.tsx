@@ -77,6 +77,7 @@ import {
   getProductTags,
   configureAndGetLootData,
   isAlreadyTrading,
+  convertUsSizeToEu,
 } from '../../utility/utility';
 import {Alert} from 'custom_top_alert';
 import {Trade_Options} from 'custom_enums';
@@ -497,7 +498,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                   Condition: <BoldText>{productData?.condition}</BoldText>
                 </ProductDetails>
                 <ProductDetails>
-                  Size: <BoldText>{productData?.size}</BoldText>
+                  Size: <BoldText>{convertUsSizeToEu(productData?.size)}</BoldText>
                 </ProductDetails>
                 {productData?.type !== Trade_Options?.TradeOnly && (
                   <PriceLabel>${productData?.price}</PriceLabel>
