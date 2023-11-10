@@ -82,7 +82,7 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
       <ImageGuidePhotoContainer>
         <ImageGuide source={PHOTO_GUIDE_OUTER} />
         <ImageGuideLabel>Outer Side w/</ImageGuideLabel>
-        <ImageGuideLabel>Tagged Username</ImageGuideLabel>
+        <ImageGuideLabel>username on paper</ImageGuideLabel>
       </ImageGuidePhotoContainer>
       <ImageGuidePhotoContainer>
         <ImageGuide source={PHOTO_GUIDE_INNER} />
