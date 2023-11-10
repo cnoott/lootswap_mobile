@@ -114,12 +114,12 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
 
       if (
         item.senderStep < 3 ||
-        typeof item.toSenderTrackingData.trackingNumber === 'undefined'
+        typeof item?.toSenderTrackingData?.trackingNumber === 'undefined'
       ) {
         return senderUPSShipmentData?.toWarehouse?.ShipmentResponse
           .ShipmentResults.PackageResults.TrackingNumber;
       } else {
-        return item?.toSenderTrackingData.trackingNumber;
+        return item?.toSenderTrackingData?.trackingNumber;
       }
     } else {
       if (item.senderPaymentStatus === 'processing') {
@@ -131,12 +131,12 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
 
       if (
         item.recieverStep < 3 ||
-        typeof item.toRecieverTrackingData.trackingNumber === 'undefined'
+        typeof item?.toRecieverTrackingData?.trackingNumber === 'undefined'
       ) {
         return recieverUPSShipmentData?.toWarehouse?.ShipmentResponse
           ?.ShipmentResults?.PackageResults?.TrackingNumber;
       } else {
-        return item?.toRecieverTrackingData.trackingNumber;
+        return item?.toRecieverTrackingData?.trackingNumber;
       }
     }
   };
