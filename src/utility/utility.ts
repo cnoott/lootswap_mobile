@@ -859,7 +859,7 @@ export const getMultipleOrderStepsList = () => {
     },
     {
       index: 4,
-      label: 'Shipped to you\n(transit)',
+      label: 'Shipping to you\n(transit)',
       selectedIcon: ORDER_TRACK_IN_TRANSIT_SELECTED,
       unSelectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
     },
