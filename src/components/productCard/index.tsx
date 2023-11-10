@@ -42,7 +42,12 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData, isLogedIn} = auth;
   const dispatch = useDispatch();
-  const [liked, setLiked] = useState(false);
+
+  const isLiked = () => {
+    return userData?.likedProducts?.some(prodId => {
+      return prodId === item?._id;
+    })
+  };
 
   useEffect(() => {
     if (
@@ -51,14 +56,13 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
         return prodId === item?._id;
       })
     ) {
-      setLiked(true);
     }
   }, [isLogedIn, item?._id, userData, item]);
 
   const onProductPress = () => {
     navigation.navigate('ProductDetailsScreen', {
       productData: item,
-      likedParam: liked,
+      likedParam: isLiked(),
     });
   };
 
@@ -66,7 +70,6 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
     if (!isLogedIn) {
       return;
     }
-    setLiked(true);
     const reqData = {
       userId: userData?._id,
       productId: item?._id,
@@ -81,7 +84,6 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
       userId: userData?._id,
       productId: item?._id,
     };
-    setLiked(false);
     dispatch(unlikeProduct(reqData));
   };
   const renderTradeTags = () => {
@@ -111,10 +113,10 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
         )}
         <LikeTouchable
           onPress={() => {
-            liked ? onUnlikePress() : onLikePress();
+            isLiked() ? onUnlikePress() : onLikePress();
           }}>
           <SvgXml
-            xml={liked ? LIKE_HEART_ICON_RED : LIKE_HEART_ICON_WHITE}
+            xml={isLiked() ? LIKE_HEART_ICON_RED : LIKE_HEART_ICON_WHITE}
             color={'white'}
           />
         </LikeTouchable>
