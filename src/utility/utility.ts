@@ -415,7 +415,6 @@ export const shoesSizeList = [
   {label: '12.5C (30)', value: '12.5C'},
   {label: '13C (31)', value: '13C'},
   {label: '13.5C (31.5)', value: '13.5C'},
-
 ];
 
 export const womenOnlySizes = shoesSizeList.filter(
@@ -433,6 +432,15 @@ export const psSizes = shoesSizeList.filter(
 export const kidsSizes = shoesSizeList.filter(
   obj => obj.label.includes('K') || obj.value.includes('Y'),
 );
+
+export const convertUsSizeToEu = (usSize: string) => {
+  const filteredSizes = shoesSizeList.filter(obj => obj.value === usSize);
+  if (filteredSizes.length === 0) {
+    return usSize;
+  }
+  return filteredSizes[0].label;
+};
+
 export const upperClothingSize = [
   {label: 'XS', value: 'XS'},
   {label: 'S', value: 'S'},
