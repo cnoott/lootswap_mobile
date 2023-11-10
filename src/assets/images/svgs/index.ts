@@ -481,10 +481,10 @@ export const LIKE_HEART_ICON_WHITE = `<svg width="24" height="24" viewBox="0 0 2
 </svg>
 `;
 
-export const LIKE_HEART_ICON_RED = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3.40829 14.5195C2.15646 10.6111 3.62063 5.75196 7.72379 4.43129C9.88213 3.73479 12.5456 4.31579 14.0588 6.40296C15.4856 4.23879 18.2261 3.73946 20.3821 4.43129C24.4841 5.75196 25.9565 10.6111 24.7058 14.5195C22.7575 20.7145 15.9593 23.9415 14.0588 23.9415C12.1595 23.9415 5.42196 20.7868 3.40829 14.5195Z" fill="#F75555"/>
+export const LIKE_HEART_ICON_RED = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1.87187 9.59832C0.798865 6.24832 2.05287 2.41932 5.56987 1.28632C7.41987 0.689322 9.46187 1.04132 10.9999 2.19832C12.4549 1.07332 14.5719 0.693322 16.4199 1.28632C19.9369 2.41932 21.1989 6.24832 20.1269 9.59832C18.4569 14.9083 10.9999 18.9983 10.9999 18.9983C10.9999 18.9983 3.59787 14.9703 1.87187 9.59832Z" stroke="#F75555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="#F75555"/>
+<path d="M15 4.69922C16.07 5.04522 16.826 6.00022 16.917 7.12122" stroke="#212121" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
-
 `;
 
 export const PAY_PAL_LABEL = `<svg width="50" height="15" viewBox="0 0 50 15" fill="none" xmlns="http://www.w3.org/2000/svg">
