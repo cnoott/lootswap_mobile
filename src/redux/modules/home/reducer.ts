@@ -51,7 +51,6 @@ export default function loading(state = InitialState, action: ActionProps) {
         state.addProductData.stepOne.size.value,
       );
       let startRange, endRange;
-      console.log(state?.addProductData?.stepTwo?.condition?.value);
       if (state?.addProductData?.stepTwo?.condition?.value === 'Pre-owned') {
         const range = getPreownedMarketValue(
           sizeData,
