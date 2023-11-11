@@ -110,7 +110,6 @@ export default function loading(state = InitialState, action: ActionProps) {
             filtersSet: true,
           };
         case Filter_Type.Product_Type:
-          console.log("SETTING", filter);
           return {
             ...state,
             productType: filter,
@@ -195,7 +194,6 @@ export default function loading(state = InitialState, action: ActionProps) {
       };
 
     case FILTER_PRODUCTS.SUCCESS:
-      console.log('SUCCESS', payload);
       return {
         ...state,
         searchProducts: payload.products,
