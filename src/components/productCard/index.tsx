@@ -6,6 +6,7 @@ import {LIKE_HEART_ICON_WHITE, LIKE_HEART_ICON_RED} from 'localsvgimages';
 import {
   ItemContainer,
   Image,
+  ImageContainer,
   FreeShipingContainer,
   ShippingText,
   CellBottomView,
@@ -27,6 +28,8 @@ import {
 import {useSelector, useDispatch} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {Animated} from 'react-native';
+import {scale} from 'react-native-size-matters';
 
 interface LSProductCardProps {
   onPress?: Function;
@@ -42,6 +45,43 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData, isLogedIn} = auth;
   const dispatch = useDispatch();
+
+  const [imageLoading, setImageLoading] = useState(true);
+  const [opacity] = useState(new Animated.Value(1));
+
+  const BlinkingImage = () => {
+    return (
+      <Animated.View
+        style={{
+          width: '100%',
+          height: '100%',
+          borderRadius: 10,
+          backgroundColor: 'lightgrey',
+          opacity,
+        }}
+      />
+    );
+  };
+
+  useEffect(() => {
+    const blink = Animated.sequence([
+      Animated.timing(opacity, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+    ]);
+
+    const loop = Animated.loop(blink);
+    loop.start();
+
+    return () => loop.stop();
+  }, [item]);
 
   const isLiked = () => {
     return userData?.likedProducts?.some(prodId => {
@@ -105,7 +145,15 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
       onPress={() => onProductPress()}
       isHorizontalView={isHorizontalView}>
       <EmptyView>
-        <Image source={{uri: item.primary_photo}} />
+        <ImageContainer>
+          {imageLoading && <BlinkingImage />}
+          <Image
+            source={{uri: item.primary_photo}}
+            onLoad={() => {
+              setImageLoading(false)
+            }}
+          />
+        </ImageContainer>
         {item.who_pays === 'seller-pays' && (
           <FreeShipingContainer>
             <ShippingText>Free Shipping</ShippingText>
