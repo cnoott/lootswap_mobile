@@ -222,7 +222,6 @@ export default function loading(state = InitialState, action: ActionProps) {
     case CLEAR_FILTERS.REQUEST:
       return {
         ...state,
-        loading: false,
         categories: [],
         productType: 'tradeable',
         brands: [],
