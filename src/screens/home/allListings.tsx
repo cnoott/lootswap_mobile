@@ -12,6 +12,7 @@ import {
   getHomeScreenProducts,
   clearFiltersRequest,
 } from '../../redux/modules';
+import {handleSubmitFilters} from '../../utility/filtersUtility';
 import {useDispatch, useSelector} from 'react-redux';
 import {SearchProps} from '../../redux/modules/search/reducer';
 import LSProductCard from '../../components/productCard';
@@ -27,8 +28,6 @@ export const AllListingsScreen: FC<any> = () => {
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(0);
-  const [products, setProducts] = useState([]);
-  const [initialLoad, setInitialLoad] = useState(true);
 
   const search: SearchProps = useSelector(state => state.search);
   const {loading, searchProducts} = search;
@@ -36,62 +35,41 @@ export const AllListingsScreen: FC<any> = () => {
   const {filtersSet} = filters;
 
   useEffect(() => {
+    handleSubmitFilters(
+      dispatch,
+      null,
+      {...filters, page, itemsPerPage: ITEMS_PER_PAGE},
+      '',
+    );
+    console.log('calling submit filters');
+  }, [dispatch, page]);
+
+  useEffect(() => {
     dispatch(clearFiltersRequest());
     dispatch(getAvaliableSizesRequest());
-    //handleSubmitFilters(dispatch, null, {sortBy: 'Newly listed'}, '');
+    console.log('calling get sizes');
   }, [dispatch]);
 
-
   useEffect(() => {
-    setInitialLoad(true);
-    const reqData = {
-      itemsPerPage: ITEMS_PER_PAGE,
-      page: page,
-    };
-    dispatch(
-      getHomeScreenProducts(
-        reqData,
-        (res: any) => {
-          setProducts([...products, ...res]);
-          setInitialLoad(false);
-        },
-        (err: any) => {
-          console.log(err);
-          setInitialLoad(false);
-        },
-      ),
-    );
-
-  }, [page]);
-
-  useEffect(() => {
-    setProducts(searchProducts);
+    if (!searchProducts.length) {
+      setPage(0);
+    }
   }, [searchProducts]);
 
   const handleClearFilters = () => {
     dispatch(clearFiltersRequest());
-    setInitialLoad(true);
-    const reqData = {
-      itemsPerPage: ITEMS_PER_PAGE,
-      page: page,
-    };
-    dispatch(
-      getHomeScreenProducts(
-        reqData,
-        (res: any) => {
-          setProducts([...products, ...res]);
-          setInitialLoad(false);
-        },
-        (err: any) => {
-          console.log(err);
-          setInitialLoad(false);
-        },
-      ),
+    setPage(0);
+    handleSubmitFilters(
+      dispatch,
+      null,
+      {page: 0, itemsPerPage: ITEMS_PER_PAGE},
+      '',
     );
+    console.log('clearing filters');
   };
 
   const renderItem = ({item}: any) => {
-    if ((loading || initialLoad) && !page) {
+    if (loading && !page) {
       return <LoadingProductCard key={item} />
     }
     return <LSProductCard item={item} isHorizontalView={false} />;
@@ -117,12 +95,12 @@ export const AllListingsScreen: FC<any> = () => {
       />
       <FlatList
         data={
-          (loading || initialLoad) && !page
+          loading && !page
             ? [1, 2, 3, 4, 5, 6]
-            : products
+            : searchProducts
         }
         renderItem={renderItem}
-        keyExtractor={item => ((loading || initialLoad) ? item : item._id)}
+        keyExtractor={item => item?._id || item}
         numColumns={2}
         onEndReached={() => onEndReached()}
       />

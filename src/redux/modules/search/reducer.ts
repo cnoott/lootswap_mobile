@@ -37,7 +37,7 @@ export const InitialState: SearchProps = {
   minPrice: '',
   maxPrice: '',
   condition: [],
-  sortBy: '',
+  sortBy: 'Newly listed',
   filtersSet: false,
 };
 
@@ -81,9 +81,8 @@ export default function loading(state = InitialState, action: ActionProps) {
         ...state,
         searchProducts: [],
       };
-
     case SELECT_FILTER.UPDATE:
-
+      console.log('SELECT FILTER');
       switch(filterType) {
         case Filter_Type.Category:
           let newSelectedCategories = state.categories;
@@ -96,6 +95,7 @@ export default function loading(state = InitialState, action: ActionProps) {
             ...state,
             categories: newSelectedCategories,
             filtersSet: true,
+            searchProducts: [],
           };
         case Filter_Type.Sizes:
           let newSelectedSizes = state.sizes;
@@ -108,12 +108,14 @@ export default function loading(state = InitialState, action: ActionProps) {
             ...state,
             sizes: newSelectedSizes,
             filtersSet: true,
+            searchProducts: [],
           };
         case Filter_Type.Product_Type:
           return {
             ...state,
             productType: filter,
             filtersSet: true,
+            searchProducts: [],
           };
         case Filter_Type.Add_Brand:
           if (state.brands.includes(filter)) {
@@ -123,12 +125,14 @@ export default function loading(state = InitialState, action: ActionProps) {
             ...state,
             brands: [filter, ...state.brands],
             filtersSet: true,
+            searchProducts: [],
           };
         case Filter_Type.Remove_Brand:
           return {
             ...state,
             brands: state.brands.filter(brand => brand !== filter),
             filtersSet: true,
+            searchProducts: [],
           };
         case Filter_Type.Min_Price:
           if (!state.maxPrice) {
@@ -137,12 +141,14 @@ export default function loading(state = InitialState, action: ActionProps) {
               minPrice: filter,
               maxPrice: 9999,
               filtersSet: true,
+              searchProducts: [],
             };
           }
           return {
             ...state,
             minPrice: filter,
             filtersSet: true,
+            searchProducts: [],
           };
         case Filter_Type.Max_Price:
           if (!state.minPrice) {
@@ -151,12 +157,14 @@ export default function loading(state = InitialState, action: ActionProps) {
               maxPrice: filter,
               minPrice: 0,
               filtersSet: true,
+              searchProducts: [],
             };
           }
           return {
             ...state,
             maxPrice: filter,
             filtersSet: true,
+            searchProducts: [],
           };
 
         case Filter_Type.Condition:
@@ -170,6 +178,7 @@ export default function loading(state = InitialState, action: ActionProps) {
             ...state,
             condition: newSelectedCondition,
             filtersSet: true,
+            searchProducts: [],
           };
 
         case Filter_Type.Sort_By:
@@ -181,6 +190,7 @@ export default function loading(state = InitialState, action: ActionProps) {
             ...state,
             sortBy: newSortBy,
             filtersSet: true,
+            searchProducts: [],
           };
 
         default:
@@ -194,10 +204,12 @@ export default function loading(state = InitialState, action: ActionProps) {
       };
 
     case FILTER_PRODUCTS.SUCCESS:
+      const {products, stockxProducts} = payload;
+      console.log('action', filter);
       return {
         ...state,
-        searchProducts: payload.products,
-        stockxProducts: payload.stockxProducts,
+        searchProducts: [...state.searchProducts, ...products],
+        stockxProducts: stockxProducts,
         loading: false
       };
 
@@ -217,8 +229,9 @@ export default function loading(state = InitialState, action: ActionProps) {
         minPrice: '',
         maxPrice: '',
         condition: [],
-        sortBy: '',
+        sortBy: 'Newly listed',
         filtersSet: false,
+        searchProducts: [],
       };
     default:
       return state;
