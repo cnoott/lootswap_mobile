@@ -480,8 +480,12 @@ export const getAvaliableSizesCall = () => {
 };
 
 export const filterProductsCall = (reqData: any) => {
+  const {page, itemsPerPage} = reqData;
   return handleResponse(
-    api.post(`/products/filter/`, reqData),
+    api.post(
+      `/products/filter/?skip=${page * itemsPerPage}&limit=${itemsPerPage}`,
+      reqData,
+    ),
     API_RESPONSE.CODE200,
   );
 };
