@@ -330,7 +330,7 @@ export const FiltersScreen: FC<any> = ({route}) => {
           title={'Done'}
           size={filtersSet ? Size.Medium : Size.Large}
           type={Type.Primary}
-          onPress={() => 
+          onPress={() =>
             handleSubmitFilters(dispatch, navigation, filters, query)
           }
         />

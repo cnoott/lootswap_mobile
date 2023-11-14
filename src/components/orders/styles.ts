@@ -85,6 +85,7 @@ export const StatusLabel: any = styled.Text.attrs((props: any) => ({
 
 export const TimeLabel: any = styled.Text.attrs(props => ({
   color: props.theme.colors.greySecondary,
+  mb: scale(5),
 }))`
   font-size: ${moderateScale(12)}px;
   font-family: Urbanist;
@@ -101,7 +102,7 @@ export const UserLeftView = styled.View`
 
 export const UserRightView = styled.View.attrs(() => ({
   height: '100%',
-  mt: scale(10),
+  mt: scale(5),
 }))`
   flex-direction: column;
   align-items: flex-end;

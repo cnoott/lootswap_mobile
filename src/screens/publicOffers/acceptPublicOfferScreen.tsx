@@ -1,6 +1,6 @@
 /***
-LootSwap - ACCEPT PUBLIC OFFER SCREEN
-***/
+  LootSwap - ACCEPT PUBLIC OFFER SCREEN
+ ***/
 
 import React, {FC, useState, useEffect, useCallback} from 'react';
 import TradeCheckoutComponent from '../../components/offers/tradeCheckoutComponent';
@@ -21,7 +21,7 @@ type PaymentDetails = {
 };
 
 export const AcceptPublicOfferScreen: FC<any> = ({route}) => {
-const {publicOffer} = route.params;
+  const {publicOffer} = route.params;
 
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
@@ -80,7 +80,18 @@ const {publicOffer} = route.params;
       console.log('SUCCESSS!!!');
       navigation.reset({
         index: 0,
-        routes: [{name: 'Offers/Inbox'}],
+        routes: [
+          {
+            name: 'Profile',
+            state: {
+              routes: [
+                {
+                  name: 'MyOrdersListScreen',
+                },
+              ],
+            },
+          },
+        ],
       });
     }
   };
@@ -97,7 +108,10 @@ const {publicOffer} = route.params;
       <TradeCheckoutComponent
         isFromStartTrade={true}
         isFromPublicOffers={true}
-        isReciever={false}
+        isFromPublicOffersCheckout={true}
+        receivingMoneyOffer={publicOffer?.receivingMoneyOffer}
+        sendingMoneyOffer={publicOffer?.sendingMoneyOffer}
+        isReciever={true}
         recieverItems={publicOffer.receivingStockxProducts.map(prod => {
           return {...prod.stockxId, chosenSize: prod.chosenSize}
         })}

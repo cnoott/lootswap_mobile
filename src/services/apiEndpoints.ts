@@ -480,8 +480,12 @@ export const getAvaliableSizesCall = () => {
 };
 
 export const filterProductsCall = (reqData: any) => {
+  const {page, itemsPerPage} = reqData;
   return handleResponse(
-    api.post(`/products/filter/`, reqData),
+    api.post(
+      `/products/filter/?skip=${page * itemsPerPage}&limit=${itemsPerPage}`,
+      reqData,
+    ),
     API_RESPONSE.CODE200,
   );
 };
@@ -496,7 +500,7 @@ export const getRecommendedSearchCall = (reqData: any) => {
 
 export const getLikedProductsCall = (reqData: any) => {
   return handleResponse(
-    api.get(`/user/liked-stockx-products/${reqData?.userId}`),
+    api.get(`/user/liked-products/${reqData?.userId}`),
     API_RESPONSE.CODE200,
   );
 };

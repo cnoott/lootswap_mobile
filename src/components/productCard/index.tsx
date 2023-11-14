@@ -6,6 +6,7 @@ import {LIKE_HEART_ICON_WHITE, LIKE_HEART_ICON_RED} from 'localsvgimages';
 import {
   ItemContainer,
   Image,
+  ImageContainer,
   FreeShipingContainer,
   ShippingText,
   CellBottomView,
@@ -27,6 +28,8 @@ import {
 import {useSelector, useDispatch} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {Animated} from 'react-native';
+import {scale} from 'react-native-size-matters';
 
 interface LSProductCardProps {
   onPress?: Function;
@@ -42,23 +45,64 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData, isLogedIn} = auth;
   const dispatch = useDispatch();
-  const [liked, setLiked] = useState(false);
+
+  const [imageLoading, setImageLoading] = useState(true);
+  const [opacity] = useState(new Animated.Value(1));
+
+  const BlinkingImage = () => {
+    return (
+      <Animated.View
+        style={{
+          width: '100%',
+          height: '100%',
+          borderRadius: 10,
+          backgroundColor: 'lightgrey',
+          opacity,
+        }}
+      />
+    );
+  };
+
+  useEffect(() => {
+    const blink = Animated.sequence([
+      Animated.timing(opacity, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+    ]);
+
+    const loop = Animated.loop(blink);
+    loop.start();
+
+    return () => loop.stop();
+  }, []);
+
+  const isLiked = () => {
+    return userData?.likedProducts?.some(prodId => {
+      return prodId === item?._id;
+    })
+  };
 
   useEffect(() => {
     if (
       isLogedIn &&
-      userData?.likedProducts?.some(prod => {
-        return prod?._id === item?._id;
+      userData?.likedProducts?.some(prodId => {
+        return prodId === item?._id;
       })
     ) {
-      setLiked(true);
     }
-  }, [isLogedIn, item?._id, userData]);
+  }, [isLogedIn, item?._id, userData, item]);
 
   const onProductPress = () => {
     navigation.navigate('ProductDetailsScreen', {
       productData: item,
-      likedParam: liked,
+      likedParam: isLiked(),
     });
   };
 
@@ -66,7 +110,6 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
     if (!isLogedIn) {
       return;
     }
-    setLiked(true);
     const reqData = {
       userId: userData?._id,
       productId: item?._id,
@@ -81,7 +124,6 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
       userId: userData?._id,
       productId: item?._id,
     };
-    setLiked(false);
     dispatch(unlikeProduct(reqData));
   };
   const renderTradeTags = () => {
@@ -103,7 +145,15 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
       onPress={() => onProductPress()}
       isHorizontalView={isHorizontalView}>
       <EmptyView>
-        <Image source={{uri: item.primary_photo}} />
+        <ImageContainer>
+          {imageLoading && <BlinkingImage />}
+          <Image
+            source={{uri: item.primary_photo}}
+            onLoad={() => {
+              setImageLoading(false)
+            }}
+          />
+        </ImageContainer>
         {item.who_pays === 'seller-pays' && (
           <FreeShipingContainer>
             <ShippingText>Free Shipping</ShippingText>
@@ -111,10 +161,10 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
         )}
         <LikeTouchable
           onPress={() => {
-            liked ? onUnlikePress() : onLikePress();
+            isLiked() ? onUnlikePress() : onLikePress();
           }}>
           <SvgXml
-            xml={liked ? LIKE_HEART_ICON_RED : LIKE_HEART_ICON_WHITE}
+            xml={isLiked() ? LIKE_HEART_ICON_RED : LIKE_HEART_ICON_WHITE}
             color={'white'}
           />
         </LikeTouchable>

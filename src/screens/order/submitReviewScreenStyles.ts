@@ -23,7 +23,6 @@ export const Image = styled.Image.attrs({
   height: scale(100),
   borderRadius: scale(50),
 })`
-  position: absolute;
   align-self: center;
   ${color}
   ${space}
@@ -58,4 +57,10 @@ export const CommentsText = styled.Text.attrs(props => ({
   ${color}
   ${space}
   ${layout}
+`;
+
+
+export const ButtonContainer = styled.View.attrs(() => ({
+}))`
+  margin-top: 20px;
 `;

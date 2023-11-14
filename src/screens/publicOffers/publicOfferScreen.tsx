@@ -89,10 +89,10 @@ const PublicOfferScreen: FC<any> = ({route}) => {
       <InStackHeader title={'Public Offer'} />
       <OfferScrollView>
         {showStockxProducts()}
-        {sendingMoneyOffer !== 0 && showMoneyOffer(sendingMoneyOffer)}
+        {receivingMoneyOffer !== 0 && showMoneyOffer(receivingMoneyOffer)}
         <Spacing />
         {showReceivingLoot()}
-        {receivingMoneyOffer !== 0 && showMoneyOffer(receivingMoneyOffer)}
+        {sendingMoneyOffer !== 0 && showMoneyOffer(sendingMoneyOffer)}
       </OfferScrollView>
       <ButtonContainer>
         <LSButton

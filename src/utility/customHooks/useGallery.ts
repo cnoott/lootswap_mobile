@@ -38,24 +38,6 @@ export const useGallery = ({
   const [albums, setAlbums] = useState([{title:'Recents'}]);
   const [selectedAlbum, setSelectedAlbum] = useState({title: 'Recents'});
 
-  const convertPhotosToJpgFaster = async (edges: Array<any>) => {
-    console.log('faster being called');
-    setIsLoading(true);
-    const convertedPhotos = await Promise.all(
-      edges.map(async edge => {
-        if (Platform.OS === 'ios') {
-          const imageData = await CameraRoll.iosGetImageDataById(
-            edge.node.image.uri,
-            false,
-          );
-          return {uri: imageData.node.image.filepath, key: Math.random() * 100};
-        }
-        return null;
-      })
-    );
-    return convertedPhotos;
-  };
-
   const loadAlbums = useCallback(async () => {
     const fetchedAlbums = await CameraRoll.getAlbums({
       assetType: 'Photos',
@@ -78,7 +60,19 @@ export const useGallery = ({
       groupTypes: 'Album',
       groupName: album.title,
     });
-    let convertedPhotos = await convertPhotosToJpgFaster(edges);
+    // XXX repeating code
+    let convertedPhotos = []
+    edges.forEach(edge => {
+      if (Platform.OS === 'ios') {
+        let newUri = edge.node.image.uri;
+        const photoObject = {uri: newUri, key: Math.random().toString()};
+
+        convertedPhotos.push(photoObject);
+      } else {
+        convertedPhotos.push(null);
+      }
+    });
+
     setPhotos(convertedPhotos.filter(Boolean));
 
     setNextCursor(page_info.end_cursor);
@@ -91,15 +85,25 @@ export const useGallery = ({
     try {
       nextCursor ? setIsLoadingNextPage(true) : setIsLoading(true);
       const {edges, page_info} = await CameraRoll.getPhotos({
-        first: 32,
+        first: 24,
         after: nextCursor,
         assetType: 'Photos',
         ...(selectedAlbum.title !== 'Recents' && {groupTypes: 'Album'}),
         ...(selectedAlbum.title !== 'Recents' && {groupName: selectedAlbum.title})
       });
-      let convertedPhotos = await convertPhotosToJpgFaster(edges);
+      let convertedPhotos = []
+      edges.forEach(edge => {
+        if (Platform.OS === 'ios') {
+          let newUri = edge.node.image.uri;
+          const photoObject = {uri: newUri, key: Math.random().toString()};
+
+          convertedPhotos.push(photoObject);
+        } else {
+          convertedPhotos.push(null);
+        }
+      });
       setPhotos(
-        (prev) => [...(prev ?? []), ...convertedPhotos.filter(Boolean)]
+        (prev) => [...(prev ?? []), ...convertedPhotos]
       );
 
       setNextCursor(page_info.end_cursor);
@@ -121,7 +125,17 @@ export const useGallery = ({
         ...(selectedAlbum.title !== 'Recents' && {groupTypes: 'Album'}),
         ...(selectedAlbum.title !== 'Recents' && {groupName: selectedAlbum.title})
       });
-      const newPhotos = await convertPhotosToJpgFaster(edges);
+      let newPhotos = [];
+      edges.forEach(edge => {
+        if (Platform.OS === 'ios') {
+          let newUri = edge.node.image.uri;
+          const photoObject = {uri: newUri, key: Math.random().toString()};
+
+          newPhotos.push(photoObject);
+        } else {
+          newPhotos.push(null);
+        }
+      });
       setPhotos(newPhotos?.filter(Boolean));
 
       setNextCursor(page_info.end_cursor);

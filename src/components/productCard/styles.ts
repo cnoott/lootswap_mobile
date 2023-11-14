@@ -19,14 +19,25 @@ export const ItemContainer = styled.TouchableOpacity.attrs(props => ({
 `;
 
 export const Image = styled.Image.attrs({
-  height: scale(185),
+  height: '100%',
+  width: '100%',
   borderRadius: scale(productRadius),
 })`
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
   ${color}
   ${space}
   ${layout}
   ${border}
 `;
+
+
+export const ImageContainer = styled.View.attrs(props => ({
+  height: scale(185),
+  borderRadius: scale(productRadius),
+}))``;
 
 export const FreeShipingContainer = styled.View.attrs(() => ({
   px: moderateScale(10),

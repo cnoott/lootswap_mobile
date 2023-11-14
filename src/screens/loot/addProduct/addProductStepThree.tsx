@@ -233,9 +233,17 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   };
 
   const onEditImage = (imageIndex: number) => {
+    console.log("EDITING", selectedImages[imageIndex]);
+
     ImagePicker.openCropper({
       path: selectedImages[imageIndex].uri,
       freeStyleCropEnabled: true,
+      includeBase64: false,
+      compressImageQuality: 1,
+      compressImageMaxHeight: 2500,
+      compressImageMaxWidth: 2000,
+      width: 2000,
+      height: 2500,
     })
     .then(image => {
       selectedImages[imageIndex].uri = image.path;

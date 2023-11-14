@@ -18,6 +18,8 @@ import {
   PrintIcon,
   PrintLabel,
 } from './styles';
+import RateUserButton from '../orders/rateUserButton';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 interface OrderUserDetailViewProps {
   item?: any;
@@ -32,6 +34,31 @@ const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
     item,
   );
   const isSeller = userData?._id === item?.sellerId?._id;
+  const navigation: NavigationProp<any, any> = useNavigation();
+
+
+  const printLabelRenderOptions = () => {
+    if (item?.shippingStep === 3) {
+      return (
+        <RateUserButton
+          isTradeOrder={false}
+          isReciever={false}
+          isSeller={isSeller}
+          order={item}
+          navigation={navigation}
+        />
+      );
+    }
+    if (isSeller && item?.shippingStep > 0) {
+      return (
+        <PrintLabelContainer
+          onPress={() => salePrintLabel(item?.shippoData?.label_url)}>
+          <PrintIcon />
+          <PrintLabel>Print Label</PrintLabel>
+        </PrintLabelContainer>
+      );
+    }
+  };
 
   return (
     <RowView>
@@ -58,13 +85,7 @@ const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
       </UserLeftView>
       <UserRightView>
         <TimeLabel>{daysPast(item?.createdAt)}</TimeLabel>
-        {isSeller && item?.shippingStep > 0 && (
-          <PrintLabelContainer
-            onPress={() => salePrintLabel(item?.shippoData?.label_url)}>
-            <PrintIcon />
-            <PrintLabel>Print Label</PrintLabel>
-          </PrintLabelContainer>
-        )}
+        {printLabelRenderOptions()}
       </UserRightView>
     </RowView>
   );
