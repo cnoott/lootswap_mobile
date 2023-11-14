@@ -61,15 +61,12 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
       if (myValue?.isServerImage) {
         return myValue;
       }
-      if (!myValue.uri.includes('file://')) { //im not sure why the first element always is missing file:// at the beginning
-        myValue.uri = 'file://' + myValue.uri;
-      }
       let resizedImage = await ImageResizer.createResizedImage(
         myValue.uri,
-        600,
-        700,
+        1280,
+        1280,
         'JPEG',
-        89,
+        78,
         0,
         undefined,
         true,

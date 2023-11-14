@@ -103,7 +103,7 @@ export const ChooseServiceScreen: FC<any> = ({route}) => {
             }>
             <USPSTopView>
               <USPSLabel>{rate.servicelevel.name}</USPSLabel>
-              <PriceLabel>{`${rate.amount}`}</PriceLabel>
+              <PriceLabel>{`$${rate.amount}`}</PriceLabel>
             </USPSTopView>
             <DesText>
               {rate.provider} • Estimated days: {rate.estimated_days}

@@ -146,9 +146,16 @@ export const AddProductStepOne: FC<ProductStep> = props => {
       return;
     }
     updateBrand(
-      {productName: item.title, stockxUrlKey: item.urlKey},
+      {
+        productName: item.title,
+        stockxUrlKey: item.urlKey,
+        category: item?.category === 'sneakers' ? {value: 'shoes', label: 'Shoes'} : '',
+      },
       item.brand,
     );
+    if (item?.category === 'sneakers') {
+      setCategoryData({value: 'shoes', label: 'Shoes'});
+    }
     setProductName(item.title);
   };
 

@@ -84,7 +84,7 @@ export const LootScreen: FC<any> = ({route}) => {
         return;
       }
       if (
-        currIndex === 0 &&
+        currIndex === 1 &&
         addProductData?.stepOne?.stockxUrlKey &&
         !fetchedMakretData
       ) {

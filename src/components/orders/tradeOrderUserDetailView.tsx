@@ -18,6 +18,8 @@ import {
   PrintIcon,
   PrintLabel,
 } from './styles';
+import RateUserButton from './rateUserButton';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 interface TradeOrderUserDetailViewProps {
   item?: any;
@@ -29,6 +31,7 @@ interface TradeOrderUserDetailViewProps {
 const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
   const {item = {}, userData} = props;
   const isReciever = item?.reciever?._id === userData?._id;
+  const navigation: NavigationProp<any, any> = useNavigation(); 
   const {labelColor, backColor, text} = tradeOrderShippingStatus(
     userData?._id,
     item,
@@ -36,6 +39,31 @@ const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
   const base64Img = isReciever
     ? item?.recieverUPSShipmentData?.toWarehouseLabel
     : item?.senderUPSShipmentData?.toWarehouseLabel;
+
+  const printRateUserCondition = () => {
+    if (item?.recieverStep === 5 && item?.senderStep === 5) {
+      return (
+        <RateUserButton
+          isTradeOrder={true}
+          isReciever={isReciever}
+          isSeller={false}
+          order={item}
+          navigation={navigation}
+        />
+      );
+    }
+    if (
+      item.recieverPaymentStatus === 'paid' &&
+      item.senderPaymentStatus === 'paid'
+    ) {
+      return (
+        <PrintLabelContainer onPress={() => printLabel(base64Img)}>
+          <PrintIcon />
+          <PrintLabel>Print Label</PrintLabel>
+        </PrintLabelContainer>
+      );
+    }
+  }
 
   return (
     <RowView>
@@ -61,13 +89,7 @@ const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
       </UserLeftView>
       <UserRightView>
         <TimeLabel>{daysPast(item?.createdAt)}</TimeLabel>
-        {item.recieverPaymentStatus === 'paid' &&
-          item.senderPaymentStatus === 'paid' && (
-            <PrintLabelContainer onPress={() => printLabel(base64Img)}>
-              <PrintIcon />
-              <PrintLabel>Print Label</PrintLabel>
-            </PrintLabelContainer>
-          )}
+        {printRateUserCondition()}
       </UserRightView>
     </RowView>
   );

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Dimensions} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import {verticalScale, moderateScale} from 'react-native-size-matters';
@@ -19,6 +19,7 @@ import {
   SearchBarWrapper,
 } from './carouselStyles';
 import ImageView from 'react-native-image-viewing';
+import {Animated} from 'react-native';
 
 interface CarouselProps {
   height?: number;
@@ -43,8 +44,32 @@ function CarouselComponent(props: CarouselProps) {
     loop = true,
     renderSearchBar = () => <></>
   } = props;
-  const [activeIndex, setActiveIndex] = React.useState(0);
-  const [viewerVisible, setViewerVisible] = React.useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [viewerVisible, setViewerVisible] = useState(false);
+
+  const [imageLoading, setImageLoading] = useState(true);
+  const [opacity] = useState(new Animated.Value(1));
+
+  useEffect(() => {
+    const blink = Animated.sequence([
+      Animated.timing(opacity, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+    ]);
+
+    const animLoop = Animated.loop(blink);
+    animLoop.start();
+
+    return () => animLoop.stop();
+  }, []);
+
 
   const renderDots = () => {
     return (
@@ -92,6 +117,20 @@ function CarouselComponent(props: CarouselProps) {
         return <LSHomeStepFourCarouselItem />;
     }
   };
+
+  const LoadingImage = () => {
+    return (
+      <Animated.View
+        style={{
+          width: '100%',
+          height: '100%',
+          borderRadius: 10,
+          backgroundColor: 'lightgrey',
+          opacity,
+        }}
+      />
+    );
+  };
   return (
     <Container height={height} isProduct={isProduct}>
       <SearchBarWrapper>{renderSearchBar()}</SearchBarWrapper>
@@ -129,19 +168,15 @@ function CarouselComponent(props: CarouselProps) {
           ) : (
             <>
               <ItemCenterContainer onPress={() => setViewerVisible(true)}>
-                <Image
-                  width={'100%'}
-                  height={height - (isProduct ? 0 : 120)}
-                  source={
-                    isProduct
-                      ? {
-                          uri: showDummy
-                            ? `https://picsum.photos/id/${index * 20}/200/300`
-                            : item,
-                        }
-                      : NIKE_SHOES_IMAGE
-                  }
-                />
+                <>
+                  {imageLoading && <LoadingImage />}
+                  <Image
+                    width={'100%'}
+                    height={height}
+                    source={{uri: item}}
+                    onLoad={() => setImageLoading(false)}
+                  />
+                </>
               </ItemCenterContainer>
               {!isProduct && homeBottomView()}
             </>

@@ -321,44 +321,47 @@ export const conditionListClothing = [
 ];
 
 export const shoesSizeList = [
-  {label: '3.5M', value: '3.5'},
-  {label: '4M', value: '4'},
-  {label: '4.5M', value: '4.5'},
-  {label: '5M', value: '5'},
-  {label: '5.5M', value: '5.5'},
-  {label: '6M', value: '6'},
-  {label: '6.5M', value: '6.5'},
-  {label: '7M', value: '7'},
-  {label: '7.5M', value: '7.5'},
-  {label: '8M', value: '8'},
-  {label: '8.5M', value: '8.5'},
-  {label: '9M', value: '9'},
-  {label: '9.5M', value: '9.5'},
-  {label: '10M', value: '10'},
-  {label: '10.5M', value: '10.5'},
-  {label: '11M', value: '11'},
-  {label: '11.5M', value: '11.5'},
-  {label: '12M', value: '12'},
-  {label: '12.5M', value: '12.5'},
-  {label: '13M', value: '13'},
-  {label: '13.5M', value: '13.5'},
+  {label: '3.5M (35)', value: '3.5'},
+  {label: '4M (36)', value: '4'},
+  {label: '4.5M (36)', value: '4.5'},
+  {label: '5M (37)', value: '5'},
+  {label: '5.5M (37)', value: '5.5'},
+  {label: '6M (39)', value: '6'},
+  {label: '6.5M (39)', value: '6.5'},
+  {label: '7M (40)  ', value: '7'},
+  {label: '7.5M (40-41)', value: '7.5'},
+  {label: '8M (41)', value: '8'},
+  {label: '8.5M (41-42)', value: '8.5'},
+  {label: '9M (42)', value: '9'},
+  {label: '9.5M (42-43)', value: '9.5'},
+  {label: '10M (43)', value: '10'},
+  {label: '10.5M (43-44)', value: '10.5'},
+  {label: '11M (44)', value: '11'},
+  {label: '11.5M (44-45)', value: '11.5'},
+  {label: '12M (45)', value: '12'},
+  {label: '12.5M (45-46)', value: '12.5'},
+  {label: '13M (46)', value: '13'},
+  {label: '13.5M (46-47)', value: '13.5'},
+  {label: '14M (47)', value: '14'},
+  {label: '14.5M (47-48)', value: '14.5'},
+  {label: '15M (48)', value: '15'},
 
-  {label: '5W', value: '5W'},
-  {label: '5.5W', value: '5.5W'},
-  {label: '6W', value: '6W'},
-  {label: '6.5W', value: '6.5W'},
-  {label: '7W', value: '7W'},
-  {label: '7.5W', value: '7.5W'},
-  {label: '8W', value: '8W'},
-  {label: '8.5W', value: '8.5W'},
-  {label: '9W', value: '9W'},
-  {label: '9.5W', value: '9.5W'},
-  {label: '10W', value: '10W'},
-  {label: '10.5W', value: '10.5W'},
-  {label: '11W', value: '11W'},
-  {label: '11.5W', value: '11.5W'},
-  {label: '12W', value: '12W'},
-  {label: '13W', value: '13W'},
+  {label: '5W (35-36)', value: '5W'},
+  {label: '5.5W (36)', value: '5.5W'},
+  {label: '6W (36-37)', value: '6W'},
+  {label: '6.5W (37)', value: '6.5W'},
+  {label: '7W (37-38)', value: '7W'},
+  {label: '7.5W (38)', value: '7.5W'},
+  {label: '8W (38-39)', value: '8W'},
+  {label: '8.5W (39)', value: '8.5W'},
+  {label: '9W (39-40)', value: '9W'},
+  {label: '9.5W (40)', value: '9.5W'},
+  {label: '10W (40-41)', value: '10W'},
+  {label: '10.5W (41)', value: '10.5W'},
+  {label: '11W (41-42)', value: '11W'},
+  {label: '11.5W (42)', value: '11.5W'},
+  {label: '12W (41-43)', value: '12W'},
+  {label: '13W (43-44)', value: '13W'},
 
   //Youth
   {label: '1Y', value: '1Y'},
@@ -395,24 +398,23 @@ export const shoesSizeList = [
   {label: '12.5K', value: '12.5K'},
   {label: '13K', value: '13K'},
   {label: '13.5K', value: '13.5K'},
-  {label: '1C', value: '1C'},
-  {label: '2C', value: '2C'},
-  {label: '3C', value: '3C'},
-  {label: '4C', value: '4C'},
-  {label: '5C', value: '5C'},
-  {label: '6C', value: '6C'},
-  {label: '7C', value: '7C'},
-  {label: '8C', value: '8C'},
-  {label: '9C', value: '9C'},
-  {label: '10C', value: '10C'},
-  {label: '10.5C', value: '10.5C'},
-  {label: '11C', value: '11C'},
-  {label: '11.5C', value: '11.5C'},
-  {label: '12C', value: '12C'},
-  {label: '12.5C', value: '12.5C'},
-  {label: '13C', value: '13C'},
-  {label: '13.5C', value: '13.5C'},
-
+  {label: '1C (16)', value: '1C'},
+  {label: '2C (17)', value: '2C'},
+  {label: '3C (18.5)', value: '3C'},
+  {label: '4C (19.5)', value: '4C'},
+  {label: '5C (21)', value: '5C'},
+  {label: '6C (22)', value: '6C'},
+  {label: '7C (23.5)', value: '7C'},
+  {label: '8C (25)', value: '8C'},
+  {label: '9C (26)', value: '9C'},
+  {label: '10C (27)', value: '10C'},
+  {label: '10.5C (27.5)', value: '10.5C'},
+  {label: '11C (28)', value: '11C'},
+  {label: '11.5C (28.5)', value: '11.5C'},
+  {label: '12C (29.5)', value: '12C'},
+  {label: '12.5C (30)', value: '12.5C'},
+  {label: '13C (31)', value: '13C'},
+  {label: '13.5C (31.5)', value: '13.5C'},
 ];
 
 export const womenOnlySizes = shoesSizeList.filter(
@@ -430,6 +432,15 @@ export const psSizes = shoesSizeList.filter(
 export const kidsSizes = shoesSizeList.filter(
   obj => obj.label.includes('K') || obj.value.includes('Y'),
 );
+
+export const convertUsSizeToEu = (usSize: string) => {
+  const filteredSizes = shoesSizeList.filter(obj => obj.value === usSize);
+  if (filteredSizes.length === 0) {
+    return usSize;
+  }
+  return filteredSizes[0].label;
+};
+
 export const upperClothingSize = [
   {label: 'XS', value: 'XS'},
   {label: 'S', value: 'S'},
@@ -859,7 +870,7 @@ export const getMultipleOrderStepsList = () => {
     },
     {
       index: 4,
-      label: 'Shipped to you\n(transit)',
+      label: 'Shipping to you\n(transit)',
       selectedIcon: ORDER_TRACK_IN_TRANSIT_SELECTED,
       unSelectedIcon: ORDER_TRACK_IN_TRANSIT_UNSELECTED,
     },
@@ -1115,7 +1126,11 @@ export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
   }
 };
 export const printLabel = async (base64Img: string) => {
-  const htmlString = `<img src="data:image/png;base64,${base64Img}"/>`;
+  const htmlString = `
+  <div style="display: flex; align-items: center; height: 100vh; transform: rotate(90deg); transform-origin: center center;">
+    <img src="data:image/png;base64,${base64Img}" style="max-width: 80%; max-height: 80%;"/>
+  </div>
+`;
   RNPrint.print({
     html: htmlString,
   });

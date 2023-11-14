@@ -37,10 +37,14 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {ORDER_TRACK_PURCHASED} from 'localsvgimages';
 import {SvgXml} from 'react-native-svg';
 import ReviewStockxItemCell from '../../components/publicOffer/reviewStockxItemCell';
+import {MoneyOfferText} from '../../screens/offers/startTrade/styles';
+import { isPending } from '@reduxjs/toolkit';
 
 interface TradeCheckoutComponentProps {
   recieverItems: Array<any>;
   senderItems: Array<any>;
+  receivingMoneyOffer?: Number;
+  sendingMoneyOffer?: Number;
   tradeData?: any;
   isFromStartTrade: boolean;
   paymentDetails: any;
@@ -48,6 +52,7 @@ interface TradeCheckoutComponentProps {
   loading: boolean;
   isReciever?: boolean;
   isFromPublicOffers?: boolean;
+  isFromPublicOffersCheckout?: boolean;
 }
 // Also used to checkout public offers
 export const TradeCheckoutComponent: FC<
@@ -63,6 +68,9 @@ export const TradeCheckoutComponent: FC<
     loading,
     isReciever = false,
     isFromPublicOffers = false,
+    receivingMoneyOffer = 0,
+    sendingMoneyOffer = 0,
+    isFromPublicOffersCheckout = false,
   } = props;
 
   const navigation: NavigationProp<any, any> = useNavigation();
@@ -98,7 +106,17 @@ export const TradeCheckoutComponent: FC<
           }`,
         )}
         {senderItems.map(item => {
-          return <TradeCheckoutItemCell itemData={item} />;
+          return (
+            <>
+              <TradeCheckoutItemCell itemData={item} />
+              {!isReciever && sendingMoneyOffer > 0 && (
+                <MoneyOfferText>{`+$${sendingMoneyOffer}`}</MoneyOfferText>
+              )}
+              {isReciever && receivingMoneyOffer > 0 && (
+                <MoneyOfferText>{`+$${receivingMoneyOffer}`}</MoneyOfferText>
+              )}
+            </>
+          );
         })}
       </EmptyView>
     );
@@ -107,10 +125,17 @@ export const TradeCheckoutComponent: FC<
   const renderStockxItems = () => {
     return (
       <EmptyView>
-        {renderHeading('You will receive')}
+        {renderHeading(
+          isFromPublicOffersCheckout
+            ? 'You will send'
+            : 'You will receive'
+        )}
         {recieverItems.map(item => {
           return <ReviewStockxItemCell stockxProduct={item} />
         })}
+        {receivingMoneyOffer !== 0 && (
+          <MoneyOfferText>{`+$${receivingMoneyOffer}`}</MoneyOfferText>
+        )}
       </EmptyView>
     );
   };

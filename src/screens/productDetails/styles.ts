@@ -102,7 +102,7 @@ export const ProductDetails = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
   my: scale(1),
 }))`
-  font-size: ${moderateScale(12)}px;
+  font-size: ${moderateScale(13)}px;
   font-family: Urbanist-Medium;
   ${color}
   ${space}
@@ -110,7 +110,7 @@ export const ProductDetails = styled.Text.attrs(props => ({
 `;
 
 export const BoldText = styled.Text`
-  font-family: Urbanist-SemiBold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
