@@ -457,7 +457,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               {requestedUserDetails?.ratings.length > 0 ? (
                 <>
                   <StarRatings
-                    rating={Math.floor(requestedUserDetails.ratings.reduce((total, next) => total += next.rating, 0) / requestedUserDetails.ratings.length)}
+                    rating={Math.floor(requestedUserDetails?.ratings?.reduce((total, next) => total += next.rating, 0) / requestedUserDetails?.ratings.length)}
                   />
                   <ShippingLabel>
                     {` (${requestedUserDetails?.ratings?.length} Reviews)`}
@@ -475,76 +475,74 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   return (
     <Container>
       <InStackHeader back={true} title={''} />
-      {requestedUserDetails && (
-        <ScrollContainer>
-          <CarouselComponent
-            height={height / 2 + 40}
-            isProduct={true}
-            autoPlay={false}
-            loop={false}
-            imagesArr={
-              [productData?.primary_photo, ...productData?.secondary_photos]
-            }
-            showDummy={false}
-          />
-          <SubContainer>
+      <ScrollContainer>
+        <CarouselComponent
+          height={height / 2 + 40}
+          isProduct={true}
+          autoPlay={false}
+          loop={false}
+          imagesArr={
+            [productData?.primary_photo, ...productData?.secondary_photos]
+          }
+          showDummy={false}
+        />
+        <SubContainer>
 
-            <DetailsContainer>
-              <DetailsLeftView>
-                {!!productData?.type && renderTags()}
-                <ProductLabel>{productData?.brand}</ProductLabel>
-                <ProductName>{productData?.name}</ProductName>
-                <ProductDetails>
-                  Condition: <BoldText>{productData?.condition}</BoldText>
-                </ProductDetails>
-                <ProductDetails>
-                  Size: <BoldText>{convertUsSizeToEu(productData?.size)}</BoldText>
-                </ProductDetails>
-                {productData?.type !== Trade_Options?.TradeOnly && (
-                  <PriceLabel>${productData?.price}</PriceLabel>
-                )}
-                {productData?.type !== Trade_Options?.TradeOnly && (
-                  <ShippingLabel>
-                    +${productData?.sellerShippingCost} Shipping Cost
-                  </ShippingLabel>
-                )}
-              </DetailsLeftView>
-              <DetailsRightView>
-                <LikeTouchable
-                  onPress={() => {
-                    liked ? onUnlikePress() : onLikePress();
-                  }}>
-                  <SvgXml
-                    xml={liked ? LIKE_HEART_ICON_RED : LIKE_HEART_ICON}
-                    color={'white'}
-                  />
-                  <ProductDetails>{timesLiked}</ProductDetails>
-                </LikeTouchable>
-              </DetailsRightView>
-            </DetailsContainer>
-            <HorizontalBar />
-            {renderProtectionView()}
-            {requestedUserDetails && <>{renderUserDetailsView()}</>}
-            {isLogedIn && requestedUserDetails?._id !== userData?._id && (
-              <MessageButtonWrapper>
-                <LSButton
-                  title={'Message'}
-                  size={Size.Custom}
-                  customWidth={'100%'}
-                  customHeight={50}
-                  radius={100}
-                  type={Type.Grey}
-                  onPress={onMessagePress}
+          <DetailsContainer>
+            <DetailsLeftView>
+              {!!productData?.type && renderTags()}
+              <ProductLabel>{productData?.brand}</ProductLabel>
+              <ProductName>{productData?.name}</ProductName>
+              <ProductDetails>
+                Condition: <BoldText>{productData?.condition}</BoldText>
+              </ProductDetails>
+              <ProductDetails>
+                Size: <BoldText>{convertUsSizeToEu(productData?.size)}</BoldText>
+              </ProductDetails>
+              {productData?.type !== Trade_Options?.TradeOnly && (
+                <PriceLabel>${productData?.price}</PriceLabel>
+              )}
+              {productData?.type !== Trade_Options?.TradeOnly && (
+                <ShippingLabel>
+                  +${productData?.sellerShippingCost} Shipping Cost
+                </ShippingLabel>
+              )}
+            </DetailsLeftView>
+            <DetailsRightView>
+              <LikeTouchable
+                onPress={() => {
+                  liked ? onUnlikePress() : onLikePress();
+                }}>
+                <SvgXml
+                  xml={liked ? LIKE_HEART_ICON_RED : LIKE_HEART_ICON}
+                  color={'white'}
                 />
-              </MessageButtonWrapper>
-            )}
-            {renderDescriptionView()}
-            {!!productData?.interestedIn && renderLookingForView()}
-            {renderEditButtons()}
-            <BottomSpace />
-          </SubContainer>
-        </ScrollContainer>
-      )}
+                <ProductDetails>{timesLiked}</ProductDetails>
+              </LikeTouchable>
+            </DetailsRightView>
+          </DetailsContainer>
+          <HorizontalBar />
+          {renderProtectionView()}
+          {requestedUserDetails && <>{renderUserDetailsView()}</>}
+          {isLogedIn && requestedUserDetails?._id !== userData?._id && (
+            <MessageButtonWrapper>
+              <LSButton
+                title={'Message'}
+                size={Size.Custom}
+                customWidth={'100%'}
+                customHeight={50}
+                radius={100}
+                type={Type.Grey}
+                onPress={onMessagePress}
+              />
+            </MessageButtonWrapper>
+          )}
+          {renderDescriptionView()}
+          {!!productData?.interestedIn && renderLookingForView()}
+          {renderEditButtons()}
+          <BottomSpace />
+        </SubContainer>
+      </ScrollContainer>
 
       {renderInteractButtons()}
     </Container>

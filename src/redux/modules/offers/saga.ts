@@ -54,13 +54,11 @@ type APIResponseProps = {
 };
 
 export function* getTradesHistory(action: any) {
-  yield put(LoadingRequest());
   try {
     const response: APIResponseProps = yield call(
       getTradesHistoryCall,
       action?.reqData,
     );
-    yield put(LoadingSuccess());
     if (response?.success) {
       yield put(getTradesHistorySuccess(response.data));
     } else {

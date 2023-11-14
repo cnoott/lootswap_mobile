@@ -197,7 +197,7 @@ export function* signOutAPI() {
 }
 
 export function* getRequestedUserDetails(action: any) {
-  yield put(LoadingRequest());
+  //yield put(LoadingRequest());
   try {
     const response: APIResponseProps = yield call(
       getRequestedUserDetailsCall,
@@ -215,7 +215,7 @@ export function* getRequestedUserDetails(action: any) {
 }
 
 export function* getMyDetails(action: any) {
-  yield put(LoadingRequest());
+  //yield put(LoadingRequest());
   try {
     const response: APIResponseProps = yield call(
       getRequestedUserDetailsCall,
