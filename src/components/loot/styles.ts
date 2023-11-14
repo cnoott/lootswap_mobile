@@ -155,7 +155,7 @@ export const ImageGuidePhotosContainer = styled.View.attrs(() => ({
   ${layout}
 `;
 
-export const ImageGuidePhotoContainer = styled.View.attrs(() => ({
+export const ImageGuidePhotoContainer = styled.TouchableOpacity.attrs(() => ({
 }))``;
 
 export const ImageGuideLabel = styled.Text.attrs(props => ({
