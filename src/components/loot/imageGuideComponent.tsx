@@ -31,16 +31,31 @@ import {
   PHOTO_GUIDE_BOX,
   PHOTO_GUIDE_INSIDE_BOX,
 } from '../../constants/imageConstants';
+import ImageView from 'react-native-image-viewing';
 
 interface ImageGuideComponentProps {
   isVisible: boolean;
   onClose: Function;
 }
 
+const images = [
+  PHOTO_GUIDE_OUTER,
+  PHOTO_GUIDE_INNER,
+  PHOTO_GUIDE_FRONT,
+  PHOTO_GUIDE_BACK,
+  PHOTO_GUIDE_LABEL,
+  PHOTO_GUIDE_INSOLE,
+  PHOTO_GUIDE_SOLE,
+  PHOTO_GUIDE_BOX,
+  PHOTO_GUIDE_INSIDE_BOX,
+];
+
 export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
   const {isVisible, onClose} = props;
   const {height, width} = Dimensions.get('window');
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [viewerVisible, setViewerVisible] = useState(false);
 
   const w = moderateScale(width) - moderateScale(63);
 
@@ -77,19 +92,24 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
     );
   };
 
+  const handlePressImage = (index: Number) => {
+    setCurrentImage(index);
+    setViewerVisible(true);
+  };
+
   const stepOne = () => (
     <ImageGuidePhotosContainer>
-      <ImageGuidePhotoContainer>
+      <ImageGuidePhotoContainer onPress={() => handlePressImage(0)}>
         <ImageGuide source={PHOTO_GUIDE_OUTER} />
         <ImageGuideLabel>Outer Side w/</ImageGuideLabel>
         <ImageGuideLabel>username on paper</ImageGuideLabel>
       </ImageGuidePhotoContainer>
-      <ImageGuidePhotoContainer>
+      <ImageGuidePhotoContainer onPress={() => handlePressImage(1)}>
         <ImageGuide source={PHOTO_GUIDE_INNER} />
         <ImageGuideLabel>Inner Side</ImageGuideLabel>
       </ImageGuidePhotoContainer>
 
-      <ImageGuidePhotoContainer>
+      <ImageGuidePhotoContainer onPress={() => handlePressImage(2)}>
         <ImageGuide source={PHOTO_GUIDE_FRONT} />
         <ImageGuideLabel>Front</ImageGuideLabel>
       </ImageGuidePhotoContainer>
@@ -98,17 +118,17 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
 
   const stepTwo = () => (
     <ImageGuidePhotosContainer>
-      <ImageGuidePhotoContainer>
+      <ImageGuidePhotoContainer onPress={() => handlePressImage(3)}>
         <ImageGuide source={PHOTO_GUIDE_BACK} />
         <ImageGuideLabel>Heel</ImageGuideLabel>
       </ImageGuidePhotoContainer>
 
-      <ImageGuidePhotoContainer>
+      <ImageGuidePhotoContainer onPress={() => handlePressImage(4)}>
         <ImageGuide source={PHOTO_GUIDE_LABEL} />
         <ImageGuideLabel>Size Tag</ImageGuideLabel>
       </ImageGuidePhotoContainer>
 
-      <ImageGuidePhotoContainer>
+      <ImageGuidePhotoContainer onPress={() => handlePressImage(5)}>
         <ImageGuide source={PHOTO_GUIDE_INSOLE} />
         <ImageGuideLabel>Insoles</ImageGuideLabel>
       </ImageGuidePhotoContainer>
@@ -117,15 +137,15 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
 
   const stepThree = () => (
     <ImageGuidePhotosContainer>
-      <ImageGuidePhotoContainer>
+      <ImageGuidePhotoContainer onPress={() => handlePressImage(6)}>
         <ImageGuide source={PHOTO_GUIDE_SOLE} />
         <ImageGuideLabel>Soles</ImageGuideLabel>
       </ImageGuidePhotoContainer>
-      <ImageGuidePhotoContainer>
+      <ImageGuidePhotoContainer onPress={() => handlePressImage(7)}>
         <ImageGuide source={PHOTO_GUIDE_BOX} />
         <ImageGuideLabel>Box Label</ImageGuideLabel>
       </ImageGuidePhotoContainer>
-      <ImageGuidePhotoContainer>
+      <ImageGuidePhotoContainer onPress={() => handlePressImage(8)}>
         <ImageGuide source={PHOTO_GUIDE_INSIDE_BOX} />
         <ImageGuideLabel>Details & Flaws (optional)</ImageGuideLabel>
       </ImageGuidePhotoContainer>
@@ -174,6 +194,12 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
         <ImageGuideDescText>
           Include 8 of the following images so that your listing can be authenticated.
         </ImageGuideDescText>
+        <ImageView
+          images={images}
+          imageIndex={currentImage}
+          visible={viewerVisible}
+          onRequestClose={() => setViewerVisible(false)}
+        />
         <Carousel
           loop={true}
           width={w}
