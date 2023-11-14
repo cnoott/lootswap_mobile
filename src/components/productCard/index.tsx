@@ -81,7 +81,7 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
     loop.start();
 
     return () => loop.stop();
-  }, [item]);
+  }, []);
 
   const isLiked = () => {
     return userData?.likedProducts?.some(prodId => {

@@ -51,7 +51,7 @@ type APIResponseProps = {
 };
 
 export function* getSelectedProductDetails(action: any) {
-  yield put(LoadingRequest());
+  //yield put(LoadingRequest());
   try {
     const response: APIResponseProps = yield call(
       getRequestedProductDetailsCall,
