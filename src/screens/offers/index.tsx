@@ -333,7 +333,7 @@ export const OffersScreen: FC<{}> = () => {
   const countNotifs = (title: string) => {
     switch(title) {
       case 'Trade offers':
-        return historyTrades.filter(
+        return historyTrades?.filter(
           trade =>
             (userData?._id === trade.reciever._id && trade.recieverNewMessage) ||
             (userData?._id === trade.sender._id && trade.senderNewMessage),
