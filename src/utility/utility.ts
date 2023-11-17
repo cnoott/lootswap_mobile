@@ -170,7 +170,9 @@ export const getProfileOptions = (userData: any) => {
     },
     {
       icon: PROFILE_WALLET,
-      title: userData?.paypal_onboarded ? 'Re-link paypal' : 'Link paypal',
+      title: userData?.paypal_onboarded
+        ? 'Link PayPal (already linked)'
+        : 'Link PayPal',
       index: 8,
     },
     {
