@@ -332,8 +332,7 @@ export const ImageContainer: any = styled.View.attrs((props: any) => ({
   mb: scale(5),
   activeOpacity: 1,
 }))`
-  align-items: center;
-  justify-content: center;
+  position: relative;
   ${layout} ${color} ${space} ${border};
 `;
 
@@ -735,3 +734,33 @@ export const AcceptText: any = styled.Text.attrs(() => ({
   ${border}
 `;
 
+export const SizeTextContainer = styled.View.attrs(() => ({
+  bg: 'rgba(0,0,0,0.5)',
+  borderRadius: 5,
+  minWidth: scale(17),
+}))`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  align-items: center;
+  ${space}
+  ${layout}
+  ${color}
+  ${border}
+`;
+
+export const SizeText: any = styled.Text.attrs(() => ({
+  color: 'white',
+  padding: '2px',
+
+}))`
+  font-size: ${scale(12)}px;
+  font-family: Urbanist-SemiBold;
+  text-shadow-color: black;
+  text-shadow-offset: {width: -2px, height: -2px};
+  text-shadow-radius: 0;
+  ${space}
+  ${layout}
+  ${color}
+  ${border}
+`;
