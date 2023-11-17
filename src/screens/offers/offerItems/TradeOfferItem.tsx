@@ -16,10 +16,13 @@ import {
   TrippleViewOffer,
   SingleMoneyOfferContainer,
   OfferTextSingleOffer,
+  SizeTextContainer,
+  SizeText,
 } from '../styles';
 import {offerCellOnPress} from '../../../utility/utility';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {scale, moderateScale} from 'react-native-size-matters';
+import Svg, {Text} from 'react-native-svg';
 
 interface TradeOfferItemProp {
   items: Array<any>;
@@ -62,6 +65,39 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
     return item?.primary_photo;
   };
 
+  const getSize = (item: any) => {
+    if (isStockxItem) {
+      console.log(item);
+      return item?.chosenSize
+    }
+    return item?.size;
+  };
+
+  const renderSize = (item: any) => {
+    let size;
+    if (isStockxItem) {
+      size = item?.chosenSize;
+    } else {
+      size = item?.size;
+    }
+
+    return (
+    <Svg height="60" width="200">
+      <Text
+        fill="none"
+        stroke="purple"
+        fontSize="20"
+        fontWeight="bold"
+        x="100"
+        y="20"
+        textAnchor="middle"
+        >
+          STROKED TEXT
+        </Text>
+        </Svg>
+    );
+  };
+
   const renderSingleMoneyOfferView = () => {
     return (
       <SingleMoneyOfferContainer>
@@ -80,7 +116,11 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
           source={{uri: itemPhoto}}
           size={isFromHome ? HOME_SIZE : OFFERS_SIZE}
         />
+        <SizeTextContainer>
+          <SizeText>{getSize(items[0])}</SizeText>
+        </SizeTextContainer>
       </ImageContainer>
+
     );
   };
 
@@ -89,8 +129,7 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
     return (
       <OfferItemContainerCenter
         itemsCenter={true}
-        size={isFromHome ? HOME_SIZE : 115}
-      >
+        size={isFromHome ? HOME_SIZE : 115}>
         <Image
           source={{uri: itemPhoto}}
           size={isFromHome ? HOME_SIZE : 115}
@@ -99,6 +138,9 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
         <SingleViewOffer>
           <OfferText>+${moneyOffer}</OfferText>
         </SingleViewOffer>
+        <SizeTextContainer>
+          <SizeText>{getSize(items[0])}</SizeText>
+        </SizeTextContainer>
       </OfferItemContainerCenter>
     );
   };
@@ -110,13 +152,6 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
 
     return (
       <OfferItemContainer size={isFromHome ? moderateScale(90) : undefined}>
-        <ImageContainer size={isFromHome ? fromHomeSize : _size}>
-          <Image
-            source={{uri: itemLeftPhoto}}
-            size={isFromHome ? fromHomeSize : _size}
-            isStockxItem={isStockxItem}
-          />
-        </ImageContainer>
         {isOffer && (
           <DoubleViewOffer>
             <OfferText>${moneyOffer}</OfferText>
@@ -128,7 +163,21 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
             size={isFromHome ? fromHomeSize : _size}
             isStockxItem={isStockxItem}
           />
+        <SizeTextContainer>
+          <SizeText>{getSize(items[1])}</SizeText>
+        </SizeTextContainer>
         </ImageContainerDouble>
+
+        <ImageContainer size={isFromHome ? fromHomeSize : _size}>
+          <Image
+            source={{uri: itemLeftPhoto}}
+            size={isFromHome ? fromHomeSize : _size}
+            isStockxItem={isStockxItem}
+          />
+          <SizeTextContainer>
+            <SizeText>{getSize(items[0])}</SizeText>
+          </SizeTextContainer>
+        </ImageContainer>
       </OfferItemContainer>
     );
   };
@@ -136,6 +185,9 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
     const _size = 58;
     const photoArray = items.map((item: any) => {
       return isStockxItem ? item?.image : item?.primary_photo;
+    });
+    const sizeArray = items.map((item: any) => {
+      return isStockxItem ? item?.chosenSize : item?.size;
     });
     // Adding one extra element to show money offer view at last
     if (showMoneyOffer) {
@@ -161,6 +213,9 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
             size={isFromHome ? moderateScale(40) : _size}
             isStockxItem={isStockxItem}
           />
+          <SizeTextContainer>
+            <SizeText>{sizeArray[index]}</SizeText>
+          </SizeTextContainer>
         </ImageContainer>
       );
     };
