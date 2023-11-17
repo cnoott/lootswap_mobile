@@ -13,20 +13,15 @@ import {
   SectionContainer,
   SectionTopContainer,
   SectionTitleText,
-  PublicOfferItemWrapper,
 } from './styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import LSHomeScreenSearch from '../../components/filterSearch/homeScreenSearch';
 import LSProductCard from '../../components/productCard';
 import {scale} from 'react-native-size-matters';
-import {RefreshControl, Touchable} from 'react-native';
+import {RefreshControl} from 'react-native';
 import {LIKE_HEART_ICON} from 'localsvgimages';
 import useFCMNotifications from '../../utility/customHooks/useFCMNotifications';
 import {useScrollToTop} from '@react-navigation/native';
-import {
-  LoadingRequest,
-  LoadingSuccess,
-} from '../../redux/modules/loading/actions';
 import {
   getHomeScreenProducts,
   getMyDetailsNoLoadRequest,
@@ -289,6 +284,7 @@ export const HomeScreen: FC<{}> = () => {
         onRightItemPress={() => goToLikedProducts()}
       />
       <ScrollView
+        ref={scrollRef}
         refreshControl={
           <RefreshControl refreshing={false} onRefresh={handleRefresh} />
         }>
