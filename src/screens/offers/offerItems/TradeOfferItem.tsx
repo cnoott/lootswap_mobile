@@ -67,35 +67,9 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
 
   const getSize = (item: any) => {
     if (isStockxItem) {
-      console.log(item);
       return item?.chosenSize
     }
     return item?.size;
-  };
-
-  const renderSize = (item: any) => {
-    let size;
-    if (isStockxItem) {
-      size = item?.chosenSize;
-    } else {
-      size = item?.size;
-    }
-
-    return (
-    <Svg height="60" width="200">
-      <Text
-        fill="none"
-        stroke="purple"
-        fontSize="20"
-        fontWeight="bold"
-        x="100"
-        y="20"
-        textAnchor="middle"
-        >
-          STROKED TEXT
-        </Text>
-        </Svg>
-    );
   };
 
   const renderSingleMoneyOfferView = () => {
