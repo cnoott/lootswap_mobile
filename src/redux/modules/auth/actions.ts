@@ -358,6 +358,12 @@ export const deleteNotifRequest = (reqData: any) => {
     reqData: reqData,
   };
 };
+export const deleteNotifUpdate = (reqData: any) => {
+  return {
+    type: DELETE_NOTIF.UPDATE,
+    reqData: reqData,
+  };
+};
 
 export const deleteNotifSuccess = (payload: any) => {
   return {

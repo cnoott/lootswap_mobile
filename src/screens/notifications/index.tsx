@@ -2,7 +2,7 @@
 LootSwap - NOTIFICATIONS SCREEN
 ***/
 
-import React, {FC} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import {RefreshControl} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
@@ -13,6 +13,7 @@ import {
   getMyDetailsRequest,
   getUsersDetailsRequest,
   deleteNotifRequest,
+  deleteNotifUpdate,
   newNotifFalseRequest,
 } from '../../redux/modules';
 import {
@@ -22,7 +23,7 @@ import {
 } from '../../assets/images/svgs';
 import {
   Container,
-  FlastList,
+  FlatList,
   NotifItemContainer,
   IconContainer,
   EmptyView,
@@ -39,7 +40,12 @@ export const NotificationsScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const navigation: NavigationProp<any, any> = useNavigation();
   const dispatch = useDispatch();
+  const [deleteQueue, setDeleteQueue] = useState([]);
+  const deleteTimeoutRef = useRef(null);
+  const deleteQueueRef = useRef([]);
+  const DEBOUNCE_DELAY = 2000; // 2 sec
   const {userData} = auth;
+
   useFocusEffect(
     React.useCallback(() => {
       dispatch(getMyDetailsRequest(userData?._id));
@@ -74,6 +80,30 @@ export const NotificationsScreen: FC<{}> = () => {
     handleNavigation(navigation, message, dispatch, userData);
   };
 
+
+  const handleDeletePress = (notif: any) => {
+    setDeleteQueue(prevQueue => {
+      dispatch(deleteNotifUpdate({notifs: [...prevQueue, notif]}));
+      const updatedQueue = [...prevQueue, notif];
+      deleteQueueRef.current = updatedQueue;
+      return updatedQueue;
+    });
+
+    if (deleteTimeoutRef.current) return;
+
+    deleteTimeoutRef.current = setTimeout(() => {
+      processDeleteQueue(deleteQueueRef.current);
+
+      deleteTimeoutRef.current = null;
+      setDeleteQueue([]);
+      deleteQueueRef.current = [];
+    }, DEBOUNCE_DELAY);
+  };
+
+  const processDeleteQueue = (queue: any) => {
+    dispatch(deleteNotifRequest({userId: userData?._id, notifs: queue}));
+  };
+
   const renderNotifListItem = ({item}: any) => {
     return (
       <Touchable onPress={() => handleNotifPress(item)}>
@@ -86,9 +116,7 @@ export const NotificationsScreen: FC<{}> = () => {
             <ActionText>{item?.body}</ActionText>
           </EmptyView>
           <LSModal.CloseButton
-            onCloseButtonPress={() =>
-              dispatch(deleteNotifRequest({userId: userData?._id, notif: item}))
-            }
+            onCloseButtonPress={() => handleDeletePress(item)}
           />
         </NotifItemContainer>
       </Touchable>
@@ -97,7 +125,7 @@ export const NotificationsScreen: FC<{}> = () => {
   return (
     <Container>
       <InStackHeader back={true} title={'Notifications'} />
-      <FlastList
+      <FlatList
         data={userData?.notifications || []}
         renderItem={renderNotifListItem}
         refreshControl={
