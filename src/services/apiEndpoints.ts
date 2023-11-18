@@ -408,9 +408,10 @@ export const payoutUserCall = (reqData: any) => {
 };
 
 export const deleteNotifCall = (reqData: any) => {
+  console.log('reqdata', reqData?.notifs);
   return handleResponse(
     api.put(`/user/delete-notification/${reqData?.userId}`, {
-      ...reqData?.notif,
+      notifs: reqData?.notifs
     }),
     API_RESPONSE.CODE200,
   );

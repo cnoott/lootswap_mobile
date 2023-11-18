@@ -10,7 +10,7 @@ export const Container = styled.View.attrs(props => ({
   ${layout}
 `;
 
-export const FlastList = styled.FlatList.attrs(() => ({
+export const FlatList = styled.FlatList.attrs(() => ({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {flexGrow: 1, padding: scale(15)},
 }))`
