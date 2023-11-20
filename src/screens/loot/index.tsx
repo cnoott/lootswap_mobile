@@ -77,17 +77,12 @@ export const LootScreen: FC<any> = ({route}) => {
   const handleNext = useCallback(async () => {
     Keyboard.dismiss();
     const canGoNext = validateCreateProductData(currIndex + 1, addProductData);
-    const fetchedMakretData = addProductData?.stepFive?.median;
     if (canGoNext) {
       if (currIndex === 0 && stockxLoading) {
         Alert.showError('Wait until search is done loading');
         return;
       }
-      if (
-        currIndex === 1 &&
-        addProductData?.stepOne?.stockxUrlKey &&
-        !fetchedMakretData
-      ) {
+      if (currIndex === 1 && addProductData?.stepOne?.stockxUrlKey) {
         const reqData = {
           userId: userData?._id,
           stockxUrlKey: addProductData?.stepOne?.stockxUrlKey,
