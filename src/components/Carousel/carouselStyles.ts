@@ -107,5 +107,5 @@ export const SearchBarWrapper = styled.View.attrs(props => ({}))`
   width: 100%;
   position: absolute;
   top: 0;
-  z-index: 10000px;
+  z-index: 10000;
 `;
