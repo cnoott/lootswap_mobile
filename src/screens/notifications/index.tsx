@@ -43,7 +43,7 @@ export const NotificationsScreen: FC<{}> = () => {
   const [deleteQueue, setDeleteQueue] = useState([]);
   const deleteTimeoutRef = useRef(null);
   const deleteQueueRef = useRef([]);
-  const DEBOUNCE_DELAY = 2000; // 2 sec
+  const DEBOUNCE_DELAY = 1200; // 1.2 sec
   const {userData} = auth;
 
   useFocusEffect(
