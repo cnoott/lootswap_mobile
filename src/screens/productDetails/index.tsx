@@ -119,7 +119,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           userId: userData?._id,
         }),
       );
-      console.log('USER HISTORY', historyTrades);
     }
     if (productData?.userId) {
       dispatch(getUsersDetailsRequest(productData?.userId));

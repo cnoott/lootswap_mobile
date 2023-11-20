@@ -1202,7 +1202,6 @@ export const isAlreadyTrading = (
   historyTrades: Array<any>,
   productId: string,
 ) => {
-  console.log('history', historyTrades);
   for (const trade of historyTrades) {
     if (
       trade.recieverItems.some(
