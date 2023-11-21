@@ -40,26 +40,47 @@ const detailsList = [
   },
 ];
 
-const OrderStatusDetails: FC<any> = React.memo(() => {
+function formatAMPM(date: Date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
+
+
+const OrderStatusDetails: FC<any> = React.memo(props => {
+  const {trackingHistory} = props;
   const theme = useTheme();
-  const renderStatusCell = () => {
-    const date = 'Dec 17';
+
+  const renderStatusCell = (detail) => {
+    const date = new Date(detail.object_created);
+    let mm = date.getMonth() + 1;
+    let dd = date.getDate();
+
+    const time = formatAMPM(date);
+
+    const formattedDate = mm + '/' + dd;
+
     return (
       <StatusDetailsContainer>
         <SvgXml xml={ORDER_DETAILS_ICON} />
         <OrderStatusView>
-          <OrderStatusTitleText>Order In Transit - {date}</OrderStatusTitleText>
+          <OrderStatusTitleText>{detail.status} - {formattedDate}</OrderStatusTitleText>
           <OrderStatusDesText>
-            32 Manchester Ave. Ringgold, GA 30736
+            {detail.status_details}
           </OrderStatusDesText>
         </OrderStatusView>
-        <OrderStatusTimeText>15:20 PM</OrderStatusTimeText>
+        <OrderStatusTimeText>{time}</OrderStatusTimeText>
       </StatusDetailsContainer>
     );
   };
-  const renderProgressLine = (detail: any) => {
+  const renderProgressLine = (index: Number) => {
     return (
-      <StatusDetailsDivider key={detail?.index}>
+      <StatusDetailsDivider key={index}>
         <DashLineNew dashColor={theme?.colors?.greySubDetails} />
       </StatusDetailsDivider>
     );
@@ -67,11 +88,11 @@ const OrderStatusDetails: FC<any> = React.memo(() => {
   return (
     <>
       <OrderStatusDetailsText>Order Status Details</OrderStatusDetailsText>
-      {detailsList?.map(detail => {
+      {trackingHistory?.map((detail, index) => {
         return (
           <>
-            {renderStatusCell()}
-            {detail?.index < detailsList?.length && renderProgressLine(detail)}
+            {renderStatusCell(detail)}
+            {index + 1 < trackingHistory?.length && renderProgressLine(index)}
           </>
         );
       })}

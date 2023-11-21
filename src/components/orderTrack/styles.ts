@@ -98,7 +98,7 @@ export const StepLabelText = styled.Text.attrs(props => ({
   maxWidth: scale(props?.isMulti ? (props?.isLast ? 42 : 38) : 68),
 }))`
   font-size: ${() => moderateScale(10)}px;
-  font-family: 'Inter';
+  font-family: 'Urbanist';
   text-align: center;
   ${color}
   ${space}
@@ -127,7 +127,7 @@ export const HeaderTextMain = styled.Text.attrs(props => ({
   numberOfLines: 1,
 }))`
   fontsize: ${() => moderateScale(14)}px;
-  font-family: 'Inter-Bold';
+  font-family: 'Urbanist-Bold';
   ${color}
   ${space}
   ${layout}
@@ -140,7 +140,7 @@ export const HeaderDes = styled.Text.attrs(props => ({
   numberOfLines: 1,
 }))`
   fontsize: ${() => moderateScale(14)}px;
-  font-family: 'Inter-Bold';
+  font-family: 'Urbanist-Bold';
   ${color}
   ${space}
   ${layout}
@@ -156,7 +156,7 @@ export const OrderStatusDetailsText = styled.Text.attrs(props => ({
   my: verticalScale(10),
 }))`
   font-size: ${moderateScale(20)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 700;
   ${space}
   ${layout}
@@ -169,7 +169,7 @@ export const OrderStatusTitleText = styled.Text.attrs(props => ({
   numberOfLines: 1,
 }))`
   fontsize: ${() => moderateScale(14)}px;
-  font-family: 'Inter-Bold';
+  font-family: 'Urbanist-Bold';
   ${color}
   ${space}
   ${layout}
@@ -182,7 +182,7 @@ export const OrderStatusDesText = styled.Text.attrs(props => ({
   mt: verticalScale(5),
 }))`
   fontsize: ${() => moderateScale(12)}px;
-  font-family: 'Inter-Bold';
+  font-family: 'Urbanist-Bold';
   ${color}
   ${space}
   ${layout}
@@ -193,7 +193,7 @@ export const OrderStatusTimeText = styled.Text.attrs(props => ({
   numberOfLines: 1,
 }))`
   fontsize: ${() => moderateScale(10)}px;
-  font-family: 'Inter';
+  font-family: 'Urbanist';
   position: absolute;
   top: 0px;
   right: 0px;
