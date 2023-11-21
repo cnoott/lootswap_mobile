@@ -103,11 +103,8 @@ export const CheckoutScreen: FC<{}> = props => {
         }
         break;
       case 'error':
-        console.log(msg);
         setShowGateway(false);
-        Alert.showError(
-          'There was an error with your transaction. Please try again',
-        );
+        Alert.showError('There was an error with your transaction');
         break;
     }
   };

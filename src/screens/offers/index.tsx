@@ -168,18 +168,18 @@ export const OffersScreen: FC<{}> = () => {
 
   const RenderUserDetails = ({item}) => {
     const statusColorObj = getTradeStatusColor(item.status);
-    const isReciever = userData?._id === item.reciever._id;
+    const isReceiver = userData?._id === item.receiver._id;
     const showNotifBadge =
-      (isReciever && (item?.recieverNewMessage || item?.senderHasEdited)) ||
-      (!isReciever && (item?.senderNewMessage || item?.recieverHasEdited))
+      (isReceiver && (item?.receiverNewMessage || item?.senderHasEdited)) ||
+      (!isReceiver && (item?.senderNewMessage || item?.receiverHasEdited))
     return (
       <RowView>
         <EmptyRowView>
           <LSProfileImageComponent
             profileUrl={
-              isReciever
+              isReceiver
                 ? item.sender.profile_picture
-                : item.reciever.profile_picture
+                : item.receiver.profile_picture
             }
             imageHeight={40}
             imageWidth={40}
@@ -188,10 +188,10 @@ export const OffersScreen: FC<{}> = () => {
           {showNotifBadge && <CellBadge />}
           <OwnerDetailsView>
             <NameLabel>
-              {isReciever ? (
+              {isReceiver ? (
                 <>{item.sender.name}</>
               ) : (
-                <>{item.reciever.name}</>
+                <>{item.receiver.name}</>
               )}
             </NameLabel>
             <StatusContainerView
@@ -239,19 +239,19 @@ export const OffersScreen: FC<{}> = () => {
 
 
   const renderMessageItem = ({item}: any) => {
-    const isReciever = userData?._id === item.reciever._id;
+    const isReceiver = userData?._id === item.receiver._id;
     const showNotifBadge =
-      (isReciever && item?.recieverNewMessage) ||
-      (!isReciever && item?.senderNewMessage)
+      (isReceiver && item?.receiverNewMessage) ||
+      (!isReceiver && item?.senderNewMessage)
     return (
       <MessageCellContainer
         key={item?._id}
         onPress={() => goToMessageScreen(item)}>
         <LSProfileImageComponent
           profileUrl={
-            isReciever
+            isReceiver
               ? item.sender.profile_picture
-              : item.reciever.profile_picture
+              : item.receiver.profile_picture
           }
           imageHeight={40}
           imageWidth={40}
@@ -260,10 +260,10 @@ export const OffersScreen: FC<{}> = () => {
         {showNotifBadge && <CellBadge top={5} left={5}/>}
         <OwnerDetailsView>
           <NameLabel>
-            {isReciever ? (
+            {isReceiver ? (
               <>{item.sender.name}</>
             ) : (
-              <>{item.reciever.name}</>
+              <>{item.receiver.name}</>
             )}
           </NameLabel>
           <ProductNameLabel>{item?.product?.name}</ProductNameLabel>
@@ -333,15 +333,15 @@ export const OffersScreen: FC<{}> = () => {
   const countNotifs = (title: string) => {
     switch(title) {
       case 'Trade offers':
-        return historyTrades.filter(
+        return historyTrades?.filter(
           trade =>
-            (userData?._id === trade.reciever._id && trade.recieverNewMessage) ||
+            (userData?._id === trade.receiver._id && trade.receiverNewMessage) ||
             (userData?._id === trade.sender._id && trade.senderNewMessage),
         ).length;
       case 'Messages':
         return allMyMessages?.messageDocs.filter(
           message =>
-            (userData?._id === message.reciever._id && message.recieverNewMessage) ||
+            (userData?._id === message.receiver._id && message.receiverNewMessage) ||
             (userData?._id === message.sender._id && message.senderNewMessage),
         ).length;
 

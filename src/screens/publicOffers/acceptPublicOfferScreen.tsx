@@ -111,8 +111,8 @@ export const AcceptPublicOfferScreen: FC<any> = ({route}) => {
         isFromPublicOffersCheckout={true}
         receivingMoneyOffer={publicOffer?.receivingMoneyOffer}
         sendingMoneyOffer={publicOffer?.sendingMoneyOffer}
-        isReciever={true}
-        recieverItems={publicOffer.receivingStockxProducts.map(prod => {
+        isReceiver={true}
+        receiverItems={publicOffer.receivingStockxProducts.map(prod => {
           return {...prod.stockxId, chosenSize: prod.chosenSize}
         })}
         senderItems={publicOffer.sendingProductIds}

@@ -170,7 +170,9 @@ export const getProfileOptions = (userData: any) => {
     },
     {
       icon: PROFILE_WALLET,
-      title: userData?.paypal_onboarded ? 'Re-link paypal' : 'Link paypal',
+      title: userData?.paypal_onboarded
+        ? 'Link PayPal (already linked)'
+        : 'Link PayPal',
       index: 8,
     },
     {
@@ -1024,16 +1026,16 @@ export const paypalOrderShippingStatus = (userId: string, paypalOrder: any) => {
 };
 
 export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
-  const {recieverStep, senderStep, reciever} = tradeOrder;
-  const isReciever = userId === reciever?._id;
-  if (isReciever && tradeOrder?.recieverPaymentStatus === 'failed') {
+  const {receiverStep, senderStep, receiver} = tradeOrder;
+  const isReceiver = userId === receiver?._id;
+  if (isReceiver && tradeOrder?.receiverPaymentStatus === 'failed') {
     return {
       text: 'Payment failed, please try again',
       backColor: 'rgba(255, 0, 0, 0.1)',
       labelColor: '#b30000',
     };
   }
-  if (!isReciever && tradeOrder?.senderPaymentStatus === 'failed') {
+  if (!isReceiver && tradeOrder?.senderPaymentStatus === 'failed') {
     return {
       text: 'Payment failed, please try again',
       backColor: 'rgba(255, 0, 0, 0.1)',
@@ -1041,14 +1043,14 @@ export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
     };
   }
 
-  if (isReciever && tradeOrder?.recieverPaymentStatus === 'processing') {
+  if (isReceiver && tradeOrder?.receiverPaymentStatus === 'processing') {
     return {
       text: 'Processing payment',
       backColor: 'rgba(250, 204, 21, 0.1)',
       labelColor: '#e1b505',
     };
   }
-  if (!isReciever && tradeOrder?.senderPaymentStatus === 'processing') {
+  if (!isReceiver && tradeOrder?.senderPaymentStatus === 'processing') {
     return {
       text: 'Processing payment',
       backColor: 'rgba(250, 204, 21, 0.1)',
@@ -1056,14 +1058,14 @@ export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
     };
   }
 
-  if (isReciever && tradeOrder?.recieverPaymentStatus !== 'paid') {
+  if (isReceiver && tradeOrder?.receiverPaymentStatus !== 'paid') {
     return {
       text: 'Waiting for payment',
       backColor: 'rgba(250, 204, 21, 0.1)',
       labelColor: '#e1b505',
     };
   }
-  if (!isReciever && tradeOrder?.senderPaymentStatus !== 'paid') {
+  if (!isReceiver && tradeOrder?.senderPaymentStatus !== 'paid') {
     return {
       text: 'Waiting for payment',
       backColor: 'rgba(250, 204, 21, 0.1)',
@@ -1071,7 +1073,7 @@ export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
     };
   }
 
-  const step = isReciever ? recieverStep : senderStep;
+  const step = isReceiver ? receiverStep : senderStep;
   switch (step) {
     case -3:
     case -2:
@@ -1200,11 +1202,10 @@ export const isAlreadyTrading = (
   historyTrades: Array<any>,
   productId: string,
 ) => {
-  console.log('history', historyTrades);
   for (const trade of historyTrades) {
     if (
-      trade.recieverItems.some(
-        recieverItem => recieverItem._id === productId
+      trade.receiverItems.some(
+        receiverItem => receiverItem._id === productId
       )
     ) {
       return trade;

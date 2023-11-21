@@ -48,13 +48,13 @@ export default function loading(state = InitialState, action: ActionProps) {
       const userId = payload.userId;
 
       const updatedTradeOrders = state.tradeOrders.map(order => {
-        const isReciever = order.reciever._id === userId;
-        if (order._id === orderId && isReciever) {
+        const isReceiver = order.receiver._id === userId;
+        if (order._id === orderId && isReceiver) {
           return {
             ...order,
-            recieverNewNotif: false,
+            receiverNewNotif: false,
           };
-        } else if (order._id === orderId && !isReciever) {
+        } else if (order._id === orderId && !isReceiver) {
           return {
             ...order,
             senderNewNotif: false,

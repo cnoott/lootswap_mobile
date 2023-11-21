@@ -13,10 +13,10 @@ interface OrderPurchaseProps {
 
 function OrderTradeOrdersCell(props: OrderPurchaseProps) {
   const {item, onCellPress = () => {}, userData} = props;
-  const isReciever = item.reciever._id === userData?._id;
+  const isReceiver = item.receiver._id === userData?._id;
   const showNotifBadge =
-    (isReciever && item?.recieverNewNotif) ||
-    (!isReciever && item?.senderNewNotif)
+    (isReceiver && item?.receiverNewNotif) ||
+    (!isReceiver && item?.senderNewNotif)
   return (
     <PurchaseCellContainer onPress={() => onCellPress(true)}>
       <TradeOrderUserDetailView item={item} userData={userData} />

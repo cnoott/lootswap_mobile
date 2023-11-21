@@ -34,7 +34,7 @@ export const SubmitReviewScreen: FC<{}> = ({route}) => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const dispatch = useDispatch();
-  const isReciever = orderDetails?.reciever?._id === userData?._id;
+  const isReceiver = orderDetails?.receiver?._id === userData?._id;
   const isSeller = orderDetails?.sellerId?._id === userData?._id;
   const theme = useTheme();
   const [chosenRating, setChosenRating] = useState(4); // 1,2,3,4,5
@@ -44,7 +44,7 @@ export const SubmitReviewScreen: FC<{}> = ({route}) => {
     let otherUserId;
     let ratingType;
     if (isTradeOrder) {
-      otherUserId = isReciever ? orderDetails?.sender?._id : orderDetails?.reciever?._id;
+      otherUserId = isReceiver ? orderDetails?.sender?._id : orderDetails?.receiver?._id;
       ratingType = 'trade-order';
     } else {
       otherUserId = isSeller ? orderDetails?.buyerId?._id : orderDetails?.sellerId?._id;
@@ -86,10 +86,10 @@ export const SubmitReviewScreen: FC<{}> = ({route}) => {
     if (isTradeOrder) {
       return (
         <>
-          {isReciever ? (
+          {isReceiver ? (
             <Image source={{uri: orderDetails?.sender?.profile_picture}} />
           ) : (
-            <Image source={{uri: orderDetails?.reciever?.profile_picture}} />
+            <Image source={{uri: orderDetails?.receiver?.profile_picture}} />
           )}
         </>
       );
@@ -110,10 +110,10 @@ export const SubmitReviewScreen: FC<{}> = ({route}) => {
     if (isTradeOrder) {
       return (
         <>
-          {isReciever ? (
+          {isReceiver ? (
             <UserNameText>{orderDetails?.sender?.name}</UserNameText>
           ) : (
-            <UserNameText>{orderDetails?.reciever?.name}</UserNameText>
+            <UserNameText>{orderDetails?.receiver?.name}</UserNameText>
           )}
         </>
       );

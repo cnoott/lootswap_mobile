@@ -31,10 +31,10 @@ export const EditTradeModal: FC<EditTradeModalProp> = props => {
     offerItem,
     userData,
   } = props;
-  const isReciever = userData?._id === offerItem?.reciever?._id;
+  const isReceiver = userData?._id === offerItem?.receiver?._id;
 
   const editButtonTextConditions = () => {
-    if (isReciever) {
+    if (isReceiver) {
       return 'Send Counter Offer';
     }
 
@@ -64,7 +64,7 @@ export const EditTradeModal: FC<EditTradeModalProp> = props => {
               onPress={() => onEditTradePress()}
             />
             <TopMargin margin={2} />
-            {!isReciever && offerItem?.isMoneyOffer && (
+            {!isReceiver && offerItem?.isMoneyOffer && (
               <LSButton
                 title={'Change Money Offer'}
                 size={Size.Fit_To_Width}

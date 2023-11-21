@@ -4,19 +4,19 @@ import {Size, Type} from '../../enums';
 
 interface RateUserButtonProps {
   isTradeOrder: boolean;
-  isReciever: boolean;
+  isReceiver: boolean;
   isSeller: boolean;
   order: any;
   navigation: any;
 }
 
 export const RateUserButton: FC<RateUserButtonProps> = props => {
-  const {isTradeOrder, isReciever, isSeller, order, navigation} = props;
+  const {isTradeOrder, isReceiver, isSeller, order, navigation} = props;
 
-  if (isTradeOrder && isReciever && order?.recieverHasRated) {
+  if (isTradeOrder && isReceiver && order?.receiverHasRated) {
     return <></>;
   }
-  if (isTradeOrder && !isReciever && order?.senderHasRated) {
+  if (isTradeOrder && !isReceiver && order?.senderHasRated) {
     return <></>;
   }
   if (!isTradeOrder && isSeller && order?.sellerHasRated) {

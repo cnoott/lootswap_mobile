@@ -30,22 +30,22 @@ interface TradeOrderUserDetailViewProps {
 //
 const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
   const {item = {}, userData} = props;
-  const isReciever = item?.reciever?._id === userData?._id;
+  const isReceiver = item?.receiver?._id === userData?._id;
   const navigation: NavigationProp<any, any> = useNavigation(); 
   const {labelColor, backColor, text} = tradeOrderShippingStatus(
     userData?._id,
     item,
   );
-  const base64Img = isReciever
-    ? item?.recieverUPSShipmentData?.toWarehouseLabel
+  const base64Img = isReceiver
+    ? item?.receiverUPSShipmentData?.toWarehouseLabel
     : item?.senderUPSShipmentData?.toWarehouseLabel;
 
   const printRateUserCondition = () => {
-    if (item?.recieverStep === 5 && item?.senderStep === 5) {
+    if (item?.receiverStep === 5 && item?.senderStep === 5) {
       return (
         <RateUserButton
           isTradeOrder={true}
-          isReciever={isReciever}
+          isReceiver={isReceiver}
           isSeller={false}
           order={item}
           navigation={navigation}
@@ -53,7 +53,7 @@ const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
       );
     }
     if (
-      item.recieverPaymentStatus === 'paid' &&
+      item.receiverPaymentStatus === 'paid' &&
       item.senderPaymentStatus === 'paid'
     ) {
       return (
@@ -70,9 +70,9 @@ const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
       <UserLeftView>
         <LSProfileImageComponent
           profileUrl={
-            isReciever
+            isReceiver
               ? item?.sender?.profile_picture
-              : item?.reciever?.profile_picture
+              : item?.receiver?.profile_picture
           }
           imageHeight={45}
           imageWidth={45}
@@ -80,7 +80,7 @@ const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
         />
         <OwnerDetailsView>
           <NameLabel>
-            {isReciever ? item?.sender?.name : item?.reciever?.name}
+            {isReceiver ? item?.sender?.name : item?.receiver?.name}
           </NameLabel>
           <StatusContainerView bgColor={backColor} borderColor={labelColor}>
             <StatusLabel color={labelColor}>{text}</StatusLabel>

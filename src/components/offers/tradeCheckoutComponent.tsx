@@ -41,7 +41,7 @@ import {MoneyOfferText} from '../../screens/offers/startTrade/styles';
 import { isPending } from '@reduxjs/toolkit';
 
 interface TradeCheckoutComponentProps {
-  recieverItems: Array<any>;
+  receiverItems: Array<any>;
   senderItems: Array<any>;
   receivingMoneyOffer?: Number;
   sendingMoneyOffer?: Number;
@@ -50,7 +50,7 @@ interface TradeCheckoutComponentProps {
   paymentDetails: any;
   openPaymentSheet: Function;
   loading: boolean;
-  isReciever?: boolean;
+  isReceiver?: boolean;
   isFromPublicOffers?: boolean;
   isFromPublicOffersCheckout?: boolean;
 }
@@ -59,14 +59,14 @@ export const TradeCheckoutComponent: FC<
   TradeCheckoutComponentProps
 > = props => {
   const {
-    recieverItems,
+    receiverItems,
     senderItems,
     tradeData = {},
     isFromStartTrade = false,
     paymentDetails = {},
     openPaymentSheet = () => {},
     loading,
-    isReciever = false,
+    isReceiver = false,
     isFromPublicOffers = false,
     receivingMoneyOffer = 0,
     sendingMoneyOffer = 0,
@@ -83,15 +83,15 @@ export const TradeCheckoutComponent: FC<
     return <HeadingLabel>{label}</HeadingLabel>;
   };
 
-  const renderRecieverItems = () => {
+  const renderReceiverItems = () => {
     return (
       <EmptyView>
         {renderHeading(
-          `Item${recieverItems?.length > 1 ? 's' : ''} ${
-            isReciever ? 'you will send' : 'you will receive'
+          `Item${receiverItems?.length > 1 ? 's' : ''} ${
+            isReceiver ? 'you will send' : 'you will receive'
           }`,
         )}
-        {recieverItems.map(item => {
+        {receiverItems.map(item => {
           return <TradeCheckoutItemCell itemData={item} />;
         })}
       </EmptyView>
@@ -102,17 +102,17 @@ export const TradeCheckoutComponent: FC<
       <EmptyView>
         {renderHeading(
           `Item${senderItems.length > 1 ? 's' : ''} ${
-            isReciever ? 'you will receive' : 'you will send'
+            isReceiver ? 'you will receive' : 'you will send'
           }`,
         )}
         {senderItems.map(item => {
           return (
             <>
               <TradeCheckoutItemCell itemData={item} />
-              {!isReciever && sendingMoneyOffer > 0 && (
+              {!isReceiver && sendingMoneyOffer > 0 && (
                 <MoneyOfferText>{`+$${sendingMoneyOffer}`}</MoneyOfferText>
               )}
-              {isReciever && receivingMoneyOffer > 0 && (
+              {isReceiver && receivingMoneyOffer > 0 && (
                 <MoneyOfferText>{`+$${receivingMoneyOffer}`}</MoneyOfferText>
               )}
             </>
@@ -130,7 +130,7 @@ export const TradeCheckoutComponent: FC<
             ? 'You will send'
             : 'You will receive'
         )}
-        {recieverItems.map(item => {
+        {receiverItems.map(item => {
           return <ReviewStockxItemCell stockxProduct={item} />
         })}
         {receivingMoneyOffer !== 0 && (
@@ -232,7 +232,7 @@ export const TradeCheckoutComponent: FC<
             userDetails={userData}
             onPress={() => navigation.navigate('AddressScreenCheckout')}
           />
-          {isFromPublicOffers ? renderStockxItems() : renderRecieverItems()}
+          {isFromPublicOffers ? renderStockxItems() : renderReceiverItems()}
           {renderSendersItems()}
           <VerticalMargin />
           {!userData?.usedInitialPromo && (

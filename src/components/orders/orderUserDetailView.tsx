@@ -42,7 +42,7 @@ const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
       return (
         <RateUserButton
           isTradeOrder={false}
-          isReciever={false}
+          isReceiver={false}
           isSeller={isSeller}
           order={item}
           navigation={navigation}

@@ -302,16 +302,20 @@ export default function auth(state = InitialState, action: ActionProps) {
         ...state,
       };
     }
-    case DELETE_NOTIF.REQUEST: {
+    case DELETE_NOTIF.UPDATE: {
+      console.log('DELETE', action?.reqData?.notifs);
+      const notifIdsToDelete = new Set(action.reqData.notifs.map(notif => notif._id));
+
       return {
         ...state,
         userData: {
           ...state.userData,
           notifications: state.userData.notifications.filter(
-            notif => notif._id !== action.reqData.notif._id,
+            notif => !notifIdsToDelete.has(notif._id)
           ),
         },
       };
+
     }
     case DELETE_NOTIF.SUCCESS: {
       return {

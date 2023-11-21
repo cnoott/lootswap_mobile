@@ -32,7 +32,7 @@ export const TradeOfferCell: FC<TradeOfferItemProp> = props => {
       </EmptyView>
     );
   };
-  if (offerItem?.recieverMoneyOffer > 0) {
+  if (offerItem?.receiverMoneyOffer > 0) {
     return (
       <BottomRowView topMargin={topMargin}>
         <TradeOfferItem
@@ -42,8 +42,8 @@ export const TradeOfferCell: FC<TradeOfferItemProp> = props => {
         />
         {renderSwapView()}
         <TradeOfferItem
-          items={offerItem?.recieverItems}
-          moneyOffer={offerItem?.recieverMoneyOffer}
+          items={offerItem?.receiverItems}
+          moneyOffer={offerItem?.receiverMoneyOffer}
           isInTrade={isInTrade}
         />
       </BottomRowView>
@@ -58,8 +58,8 @@ export const TradeOfferCell: FC<TradeOfferItemProp> = props => {
         />
         {renderSwapView()}
         <TradeOfferItem
-          items={offerItem?.recieverItems}
-          moneyOffer={offerItem?.recieverMoneyOffer}
+          items={offerItem?.receiverItems}
+          moneyOffer={offerItem?.receiverMoneyOffer}
           isInTrade={isInTrade}
         />
       </BottomRowView>

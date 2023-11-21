@@ -8,10 +8,10 @@ export const MessageBoxContainer = styled.View.attrs(props => ({
   minHeight: scale(42),
   maxHeight: scale(420),
   borderRadius: scale(10),
-  borderBottomLeftRadius: scale(props?.self ? 10 : 20),
-  borderTopLeftRadius: scale(props?.self ? 10 : 5),
-  borderBottomRightRadius: scale(props?.self ? 20 : 10),
-  borderTopRightRadius: scale(props?.self ? 5 : 10),
+  borderBottomLeftRadius: scale(props?.self ? 12 : 0),
+  borderTopLeftRadius: scale(props?.self ? 12 : 12),
+  borderBottomRightRadius: scale(props?.self ? 0 : 10),
+  borderTopRightRadius: scale(12),
   bg: props?.self
     ? props?.theme?.colors?.primary
     : props?.theme?.colors?.commonSearchBack,

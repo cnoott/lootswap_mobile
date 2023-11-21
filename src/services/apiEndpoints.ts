@@ -384,7 +384,6 @@ export const editShippingAddrCall = (reqData: any) => {
 };
 
 export const updateUserCall = (reqData: any) => {
-  console.log('reqdata', reqData);
   return handleResponse(
     api.put(`/user/${reqData?.userId}`, {
       userData: reqData?.userData,
@@ -410,7 +409,7 @@ export const payoutUserCall = (reqData: any) => {
 export const deleteNotifCall = (reqData: any) => {
   return handleResponse(
     api.put(`/user/delete-notification/${reqData?.userId}`, {
-      ...reqData?.notif,
+      notifs: reqData?.notifs
     }),
     API_RESPONSE.CODE200,
   );
