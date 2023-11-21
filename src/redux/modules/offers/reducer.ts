@@ -49,7 +49,7 @@ export default function loading(state = InitialState, action: ActionProps) {
     }
     case GET_TRADE_STOCKX.SUCCESS:
     case GET_TRADE.SUCCESS: {
-      const filteredReceiverItems = payload?.reciever?.my_items.filter(
+      const filteredReceiverItems = payload?.receiver?.my_items.filter(
         item => item.isVisible && item.isVirtuallyVerified,
       );
       const filteredSenderItems = payload?.sender?.my_items.filter(
@@ -59,8 +59,8 @@ export default function loading(state = InitialState, action: ActionProps) {
         ...state,
         trade: {
           ...payload,
-          reciever: {
-            ...payload.reciever,
+          receiver: {
+            ...payload.receiver,
             my_items: filteredReceiverItems,
           },
           sender: {

@@ -107,7 +107,7 @@ AcceptTradeCheckoutProps
     <>
       <InStackHeader title={'Trade Checkout'} onlyTitleCenterAlign={true} />
       <TradeCheckoutComponent
-        recieverItems={trade.recieverItems}
+        receiverItems={trade.receiverItems}
         senderItems={trade.senderItems}
         isFromStartTrade={false}
         paymentDetails={paymentDetails}

@@ -49,7 +49,7 @@ export const OffersMessageScreen: FC<{}> = props => {
   const insets = useSafeAreaInsets();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
-  const isReciever = offerItem?.reciever?._id === userData?._id
+  const isReceiver = offerItem?.receiver?._id === userData?._id
   const {socketObj, isConnected}: any = useMessagingService(
     {
       tradeId: tradeId,
@@ -186,7 +186,7 @@ export const OffersMessageScreen: FC<{}> = props => {
     );
     navigation.navigate('EditTradeScreen', {
       trade: offerItem,
-      isReciever: isReciever,
+      isReceiver: isReceiver,
     });
   };
   const onEditMoneyOfferPress = async () => {
@@ -311,9 +311,9 @@ export const OffersMessageScreen: FC<{}> = props => {
     <OfferMessageContainer>
       <LSOfferChatHeader
         title={
-          offerItem?.reciever?._id === userData?._id
+          offerItem?.receiver?._id === userData?._id
             ? offerItem?.sender?.name
-            : offerItem?.reciever?.name
+            : offerItem?.receiver?.name
         }
         onAcceptPress={() => setAcceptDeclineModalVisible(true)}
         onDeclinePress={() => {
@@ -322,9 +322,9 @@ export const OffersMessageScreen: FC<{}> = props => {
         }}
         onTrippleDotPress={() => setEditTradeModalVisible(true)}
         profilePicture={
-          offerItem?.reciever?._id === userData?._id
+          offerItem?.receiver?._id === userData?._id
             ? offerItem?.sender?.profile_picture
-            : offerItem?.reciever?.profile_picture
+            : offerItem?.receiver?.profile_picture
         }
         offerItem={offerItem}
         userData={userData}

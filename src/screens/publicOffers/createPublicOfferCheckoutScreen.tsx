@@ -110,8 +110,8 @@ export const CreatePublicOfferCheckoutScreen: FC<any> = ({route}) => {
         isFromPublicOffers={true}
         receivingMoneyOffer={receivingMoneyOffer}
         sendingMoneyOffer={sendingMoneyOffer}
-        isReciever={false}
-        recieverItems={publicOffersData?.receivingStockxProducts}
+        isReceiver={false}
+        receiverItems={publicOffersData?.receivingStockxProducts}
         senderItems={myItems.filter(item => item.isSelected)}
         loading={loading}
         paymentDetails={paymentDetails}

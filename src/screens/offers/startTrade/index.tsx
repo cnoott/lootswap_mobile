@@ -106,11 +106,11 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     const reqData = {
       userId: userData?._id,
       tradeData: {
-        recieverId: requestedUserDetails?._id,
+        receiverId: requestedUserDetails?._id,
         senderId: userData?._id,
         senderMoneyOffer: myMoneyOffer,
-        recieverMoneyOffer: requestedMoneyOffer,
-        recieverItems: otherUserItems.filter(item => item?.isSelected),
+        receiverMoneyOffer: requestedMoneyOffer,
+        receiverItems: otherUserItems.filter(item => item?.isSelected),
         senderItems: myItems.filter(item => item?.isSelected),
       },
     };
@@ -257,9 +257,9 @@ export const StartTradeScreen: FC<any> = ({route}) => {
         case 4:
           return (
             <StartTradeCheckoutScreen
-              recieverItems={otherUserItems.filter(item => item?.isSelected)}
+              receiverItems={otherUserItems.filter(item => item?.isSelected)}
               senderItems={myItems.filter(item => item?.isSelected)}
-              recieverMoneyOffer={requestedMoneyOffer}
+              receiverMoneyOffer={requestedMoneyOffer}
               senderMoneyOffer={myMoneyOffer}
               paymentDetails={paymentDetails}
               loading={loading}
