@@ -79,6 +79,17 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
     }
   };
 
+  const trackingHistoryOptions = () => {
+    if (isTradeOrder) {
+      return isReceiver
+        ? item?.senderTrackingHistory
+        : item?.receiverTrackingHistory;
+    } else {
+      return item?.trackingHistory;
+    }
+
+  };
+
   const handleShippingInsPress = () => {
     console.log('YOOO');
     setShipInsModalVisible(false);
@@ -272,13 +283,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
           isTradeOrder={isTradeOrder}
         />
         <FullDivider />
-        <OrderStatusDetails
-          trackingHistory={
-            isReceiver
-              ? item?.senderTrackingHistory
-              : item?.receiverTrackingHistory
-          }
-        />
+        <OrderStatusDetails trackingHistory={trackingHistoryOptions()}/>
       </SubContainer>
     </Container>
   );
