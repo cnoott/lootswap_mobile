@@ -122,10 +122,10 @@ export const MyOrdersListScreen: FC<any> = ({route}) => {
   };
 
   const onTradeItemPress = (tradeOrder: any) => {
-    const isReciever = userData?._id === tradeOrder?.reciever?._id;
+    const isReceiver = userData?._id === tradeOrder?.receiver?._id;
 
-    if (isReciever) {
-      switch (tradeOrder.recieverPaymentStatus) {
+    if (isReceiver) {
+      switch (tradeOrder.receiverPaymentStatus) {
         case 'paid':
         case 'processing':
           navigation?.navigate('TrackOrderScreen', {
@@ -139,7 +139,7 @@ export const MyOrdersListScreen: FC<any> = ({route}) => {
           return;
       }
 
-      if (tradeOrder?.recieverSessionStatus === 'complete') {
+      if (tradeOrder?.receiverSessionStatus === 'complete') {
         navigation?.navigate('TrackOrderScreen', {
           isTradeOrder: true,
           item: tradeOrder,
@@ -274,7 +274,7 @@ export const MyOrdersListScreen: FC<any> = ({route}) => {
       case 'Trade Orders':
         return tradeOrders?.filter(
           order =>
-            (userData?._id === order.reciever._id && order?.recieverNewNotif) ||
+            (userData?._id === order.receiver._id && order?.receiverNewNotif) ||
             (userData?._id === order.sender._id && order?.senderNewNotif)
         ).length;
       default:

@@ -41,15 +41,15 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
   const dispatch = useDispatch();
   const {userData} = auth;
 
-  const isReciever = userData?._id === item?.reciever?._id;
+  const isReceiver = userData?._id === item?.receiver?._id;
   const isSeller = userData?._id === item?.sellerId?._id;
 
   const [isShipInsModalVisible, setShipInsModalVisible] = useState(
-    isReciever && item?.recieverFirstTimeOpen || !isReciever && item?.senderFirstTimeOpen
+    isReceiver && item?.receiverFirstTimeOpen || !isReceiver && item?.senderFirstTimeOpen
   );
 
-  const base64Img = isReciever
-    ? item?.recieverUPSShipmentData?.toWarehouseLabel
+  const base64Img = isReceiver
+    ? item?.receiverUPSShipmentData?.toWarehouseLabel
     : item?.senderUPSShipmentData?.toWarehouseLabel;
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
 
   const shippingStepOptions = () => {
     if (isTradeOrder) {
-      return isReciever ? item?.senderStep : item?.recieverStep;
+      return isReceiver ? item?.senderStep : item?.receiverStep;
     } else {
       return item?.shippingStep;
     }
@@ -105,9 +105,9 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       return item?.shippoData?.tracking_number;
     }
 
-    const {recieverUPSShipmentData, senderUPSShipmentData} = item;
+    const {receiverUPSShipmentData, senderUPSShipmentData} = item;
 
-    if (isReciever) {
+    if (isReceiver) {
       if (item.senderPaymentStatus === 'unpaid') {
         return 'Waiting for other user to pay';
       }
@@ -130,13 +130,13 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       }
 
       if (
-        item.recieverStep < 3 ||
-        typeof item?.toRecieverTrackingData?.trackingNumber === 'undefined'
+        item.receiverStep < 3 ||
+        typeof item?.toReceiverTrackingData?.trackingNumber === 'undefined'
       ) {
-        return recieverUPSShipmentData?.toWarehouse?.ShipmentResponse
+        return receiverUPSShipmentData?.toWarehouse?.ShipmentResponse
           ?.ShipmentResults?.PackageResults?.TrackingNumber;
       } else {
-        return item?.toRecieverTrackingData?.trackingNumber;
+        return item?.toReceiverTrackingData?.trackingNumber;
       }
     }
   };
@@ -175,7 +175,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       return (
         <RateUserButton
           isTradeOrder={isTradeOrder}
-          isReciever={isReciever}
+          isReceiver={isReceiver}
           isSeller={isSeller}
           order={item}
           navigation={navigation}
@@ -183,11 +183,11 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       );
     }
 
-    if (isTradeOrder && item?.recieverStep == 5 && item?.senderStep === 5) {
+    if (isTradeOrder && item?.receiverStep == 5 && item?.senderStep === 5) {
       return (
         <RateUserButton
           isTradeOrder={isTradeOrder}
-          isReciever={isReciever}
+          isReceiver={isReceiver}
           isSeller={isSeller}
           order={item}
           navigation={navigation}
@@ -199,7 +199,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       return printLabelButton();
     }
     if (
-      item.recieverPaymentStatus === 'paid' &&
+      item.receiverPaymentStatus === 'paid' &&
       item.senderPaymentStatus === 'paid'
     ) {
       return printLabelButton();

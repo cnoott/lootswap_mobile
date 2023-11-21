@@ -121,5 +121,19 @@ export const handleNavigation = (
           },
         ),
       );
+      break;
+    case 'public-offer':
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Inbox'}],
+      });
+      navigation.navigate('OffersScreen');
+      break;
+    default:
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Home'}],
+      });
+      navigation.navigate('HomeScreen');
   }
 };

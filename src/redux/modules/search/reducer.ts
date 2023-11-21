@@ -231,6 +231,7 @@ export default function loading(state = InitialState, action: ActionProps) {
         sortBy: 'Newly listed',
         filtersSet: false,
         searchProducts: [],
+        sizes: [],
       };
     default:
       return state;

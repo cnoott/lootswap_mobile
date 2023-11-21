@@ -42,7 +42,7 @@ export const EditMoneyOfferTradeScreen: FC<any> = ({route}) => {
     <>
       <InStackHeader title="Edit Shipping Address" />
       <SendMoneyOfferStepOne
-        item={trade.recieverItems[0]}
+        item={trade.receiverItems[0]}
         moneyOffer={moneyOffer}
         setMoneyOffer={setMoneyOffer}
         handleMoneyOfferNext={handleSubmit}

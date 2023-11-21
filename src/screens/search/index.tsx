@@ -45,10 +45,14 @@ import StockxProductCard from '../../components/search/stockxProductCard';
 import {handleSubmitFilters} from '../../utility/filtersUtility';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
+import {useScrollToTop} from '@react-navigation/native';
 
 export const SearchScreen: FC<any> = () => {
   const insets = useSafeAreaInsets();
   const paddingTop = insets.top;
+  const scrollRef = useRef(null);
+  useScrollToTop(scrollRef);
+
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const search: SearchProps = useSelector(state => state.search);
   const {loading, searchProducts} = search;
@@ -261,6 +265,7 @@ export const SearchScreen: FC<any> = () => {
     return (
       <>
         <FlatList
+          ref={scrollRef}
           data={loading ? [1, 2, 3, 4, 5, 6] : search.searchProducts}
           renderItem={renderItem}
           keyExtractor={item => (loading ? item : item._id)}

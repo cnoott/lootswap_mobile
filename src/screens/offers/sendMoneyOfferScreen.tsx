@@ -65,10 +65,10 @@ export const SendMoneyOfferScreen: FC<any> = () => {
     const reqData = {
       userId: userData?._id,
       tradeData: {
-        recieverId: requestedUserDetails?._id,
+        receiverId: requestedUserDetails?._id,
         senderId: userData?._id,
         senderMoneyOffer: moneyOffer,
-        recieverItems: [selectedProductDetails],
+        receiverItems: [selectedProductDetails],
       },
     };
     dispatch(

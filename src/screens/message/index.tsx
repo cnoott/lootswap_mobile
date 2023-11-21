@@ -49,7 +49,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const [messageDoc, setMessageDoc] = useState(null);
   var messagesListRaw: any = useRef([]);
   const {historyMessages} = messageData;
-  const isReciever = historyMessages?.reciever?._id === userData?._id;
+  const isReceiver = historyMessages?.receiver?._id === userData?._id;
   const {socketObj, isConnected}: any = useMessagingService({
     messageId: messageId,
     userId: userData?._id,
@@ -158,7 +158,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
       message: messageText,
       userName: userData?.name,
       userId: userData?._id,
-      isReciever,
+      isReceiver,
     };
     try {
       socketObj.emit('send message', {
@@ -234,9 +234,9 @@ export const UserChatScreen: FC<any> = ({route}) => {
     <Container>
       <InUserChatHeader
         title={
-          isReciever
+          isReceiver
             ? historyMessages?.sender?.name
-            : historyMessages?.reciever?.name
+            : historyMessages?.receiver?.name
         }
         onItemPress={() => {
           navigation.navigate('ProductDetailsChatScreen', {

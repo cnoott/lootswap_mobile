@@ -51,7 +51,9 @@ export const PublicOfferCell: FC<PublicOfferProps> = props => {
         <PublicOfferItemContainer>
           <AboveItemLabel>Your</AboveItemLabel>
           <TradeOfferItem
-            items={receivingStockxProducts.map(prod => prod.stockxId)}
+            items={receivingStockxProducts?.map(prod => {
+              return {...prod.stockxId, chosenSize: prod.chosenSize};
+            })}
             isInTrade={false}
             moneyOffer={receivingMoneyOffer}
             isStockxItem={true}

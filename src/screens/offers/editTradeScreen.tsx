@@ -29,7 +29,7 @@ type PaymentDetails = {
 };
 
 export const EditTradeScreen: FC<any> = ({route}) => {
-  const {isReciever} = route?.params;
+  const {isReceiver} = route?.params;
   const tradeData: TradeProps = useSelector(state => state.offers);
   let trade = tradeData?.trade;
   const [currIndex, setCurrIndex] = useState(0);
@@ -72,11 +72,11 @@ export const EditTradeScreen: FC<any> = ({route}) => {
 
 
 
-  const [recieverItems, setRecieverItems] = useState(() => {
+  const [receiverItems, setReceiverItems] = useState(() => {
     let selectedItems;
     let combinedItems;
-    selectedItems = trade.recieverItems.map(item => ({ ...item, isSelected: true }));
-    combinedItems = [...selectedItems, ...trade?.reciever.my_items];
+    selectedItems = trade.receiverItems.map(item => ({ ...item, isSelected: true }));
+    combinedItems = [...selectedItems, ...trade?.receiver.my_items];
 
     const uniqueItems = combinedItems.reduce((acc, item) => {
       if (!acc.some(accItem => accItem._id === item._id)) {
@@ -91,8 +91,8 @@ export const EditTradeScreen: FC<any> = ({route}) => {
   const [senderMoneyOffer, setSenderMoneyOffer] = useState(
     parseFloat(trade.senderMoneyOffer)
   );
-  const [recieverMoneyOffer, setRecieverMoneyOffer] = useState(
-    parseFloat(trade.recieverMoneyOffer)
+  const [receiverMoneyOffer, setReceiverMoneyOffer] = useState(
+    parseFloat(trade.receiverMoneyOffer)
   );
 
   useEffect(() => {
@@ -113,12 +113,12 @@ export const EditTradeScreen: FC<any> = ({route}) => {
       }, []);
     })();
 
-    // Update recieverItems based on trade prop
-    const updatedRecieverItems = (() => {
+    // Update receiverItems based on trade prop
+    const updatedReceiverItems = (() => {
       let selectedItems;
       let combinedItems;
-      selectedItems = trade.recieverItems.map(item => ({ ...item, isSelected: true }));
-      combinedItems = [...selectedItems, ...trade?.reciever.my_items];
+      selectedItems = trade.receiverItems.map(item => ({ ...item, isSelected: true }));
+      combinedItems = [...selectedItems, ...trade?.receiver.my_items];
 
       return combinedItems.reduce((acc, item) => {
         if (!acc.some(accItem => accItem._id === item._id)) {
@@ -131,7 +131,7 @@ export const EditTradeScreen: FC<any> = ({route}) => {
 
     // Set the state with the updated values
     setSenderItems(updatedSenderItems);
-    setRecieverItems(updatedRecieverItems);
+    setReceiverItems(updatedReceiverItems);
 
   }, [trade]); // The useEffect will run when the trade prop changes
 
@@ -140,11 +140,11 @@ export const EditTradeScreen: FC<any> = ({route}) => {
       case 0:
         return {
         title: `${
-          isReciever ? trade.sender?.name : trade.reciever?.name
+          isReceiver ? trade.sender?.name : trade.receiver?.name
         }'s loot`,
-        profilePicture: isReciever
+        profilePicture: isReceiver
           ? trade.sender?.profile_picture
-          : trade.reciever?.profile_picture
+          : trade.receiver?.profile_picture
       };
       case 1:
         return {
@@ -173,37 +173,37 @@ export const EditTradeScreen: FC<any> = ({route}) => {
         case 1:
           return (
             <StartTradeStepOne
-              otherUserItems={isReciever ? senderItems : recieverItems}
-              setOtherUserItems={isReciever ? setSenderItems : setRecieverItems}
+              otherUserItems={isReceiver ? senderItems : receiverItems}
+              setOtherUserItems={isReceiver ? setSenderItems : setReceiverItems}
             />
         );
         case 2:
           return (
             <StartTradeStepTwo
-              myItems={isReciever ? recieverItems : senderItems}
-              setMyItems={isReciever ? setRecieverItems : setSenderItems} />
+              myItems={isReceiver ? receiverItems : senderItems}
+              setMyItems={isReceiver ? setReceiverItems : setSenderItems} />
         );
         case 3:
           return (
             <ReviewTrade
-              otherUserItems={isReciever ? senderItems : recieverItems}
-              myItems={isReciever ? recieverItems : senderItems}
-              requestedUserDetails={isReciever ? trade.sender : trade.reciever}
-              requestedMoneyOffer={isReciever ? senderMoneyOffer : recieverMoneyOffer}
-              setRequestedMoneyOffer={isReciever ? setSenderMoneyOffer : setRecieverMoneyOffer}
-              myMoneyOffer={isReciever ? recieverMoneyOffer : senderMoneyOffer}
-              setMyMoneyOffer={isReciever ? setRecieverMoneyOffer : setSenderMoneyOffer}
+              otherUserItems={isReceiver ? senderItems : receiverItems}
+              myItems={isReceiver ? receiverItems : senderItems}
+              requestedUserDetails={isReceiver ? trade.sender : trade.receiver}
+              requestedMoneyOffer={isReceiver ? senderMoneyOffer : receiverMoneyOffer}
+              setRequestedMoneyOffer={isReceiver ? setSenderMoneyOffer : setReceiverMoneyOffer}
+              myMoneyOffer={isReceiver ? receiverMoneyOffer : senderMoneyOffer}
+              setMyMoneyOffer={isReceiver ? setReceiverMoneyOffer : setSenderMoneyOffer}
             />
         );
         case 4:
           return (
             <StartTradeCheckoutScreen
-              recieverItems={recieverItems.filter(item => item?.isSelected)}
+              receiverItems={receiverItems.filter(item => item?.isSelected)}
               senderItems={senderItems.filter(item => item?.isSelected)}
               paymentDetails={paymentDetails}
               loading={loading}
               openPaymentSheet={openPaymentSheet}
-              isReciever={isReciever}
+              isReceiver={isReceiver}
             />
         );
       }
@@ -212,9 +212,9 @@ export const EditTradeScreen: FC<any> = ({route}) => {
 
   const initializePaymentSheet = () => {
     const reqData = {
-      recieverItems: recieverItems.filter(item => item?.isSelected),
+      receiverItems: receiverItems.filter(item => item?.isSelected),
         senderItems: senderItems.filter(item => item?.isSelected),
-        recieverMoneyOffer: recieverMoneyOffer,
+        receiverMoneyOffer: receiverMoneyOffer,
       senderMoneyOffer: senderMoneyOffer,
       tradeId: trade._id,
       userId: userData?._id,
@@ -270,17 +270,17 @@ export const EditTradeScreen: FC<any> = ({route}) => {
 
   const handleNext = () => {
     if (currIndex === 2) {
-      const selectedRecieverItems = recieverItems.filter(
+      const selectedReceiverItems = receiverItems.filter(
         _item => _item?.isSelected
       );
       const selectedSenderItems = senderItems.filter(
         _item => _item?.isSelected
       );
-      let myItems = isReciever ? selectedRecieverItems : selectedSenderItems;
-      let otherUserItems = isReciever ? selectedSenderItems : selectedRecieverItems;
+      let myItems = isReceiver ? selectedReceiverItems : selectedSenderItems;
+      let otherUserItems = isReceiver ? selectedSenderItems : selectedReceiverItems;
 
-      const myMoneyOffer = parseInt(isReciever ? recieverMoneyOffer : senderMoneyOffer);
-      const otherMoneyOffer = parseInt(isReciever ? senderMoneyOffer : recieverMoneyOffer);
+      const myMoneyOffer = parseInt(isReceiver ? receiverMoneyOffer : senderMoneyOffer);
+      const otherMoneyOffer = parseInt(isReceiver ? senderMoneyOffer : receiverMoneyOffer);
 
       const myMarketValueString = calculateMarketValue(myItems);
       const otherUserMarketValueString = calculateMarketValue(otherUserItems);
