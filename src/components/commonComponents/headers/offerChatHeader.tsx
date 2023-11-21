@@ -70,9 +70,9 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     const isAccepted = tradeStatus === Trade_Status?.Accepted;
     const isCanceled = tradeStatus === Trade_Status?.Canceled;
     const isPending = !isAccepted && !isCanceled;
-    const isReciever = userData?._id === offerItem?.reciever?._id;
+    const isReceiver = userData?._id === offerItem?.receiver?._id;
     const paidByBothUsers =
-      isReciever || offerItem?.orderId?.senderPaymentStatus === 'paid';
+      isReceiver || offerItem?.orderId?.senderPaymentStatus === 'paid';
 
     const isMoneyOffer =
       offerItem?.senderMoneyOffer > 0 && offerItem?.senderItems.length === 0;
@@ -88,14 +88,14 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       let changeMade = offerItem?.isCounterOffer
         ? 'has sent a counter offer. '
         : 'has changed the trade offer.';
-      if (isReciever) {
-        name = offerItem?.recieverHasEdited
+      if (isReceiver) {
+        name = offerItem?.receiverHasEdited
           ? 'You have'
           : offerItem?.sender?.name;
       } else {
         name = offerItem?.senderHasEdited
           ? 'You have'
-          : offerItem?.reciever?.name;
+          : offerItem?.receiver?.name;
       }
 
       return (
@@ -136,9 +136,9 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
 
     const viewOrderTextOptions = () => {
       if (isMoneyOffer) {
-        if (!isReciever && !offerItem?.paypalOrderId) {
+        if (!isReceiver && !offerItem?.paypalOrderId) {
           return 'Checkout';
-        } else if (isReciever && offerItem?.paypalOrderId?.shippingStep < 1) {
+        } else if (isReceiver && offerItem?.paypalOrderId?.shippingStep < 1) {
           return 'Ship Item';
         } else {
           return 'View Order';
@@ -156,12 +156,12 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       const moneyOfferOnly =
         offerItem.senderItems.length === 0 && offerItem.senderMoneyOffer > 0;
       if (moneyOfferOnly) {
-        if (isReciever && !offerItem?.paypalOrderId) {
+        if (isReceiver && !offerItem?.paypalOrderId) {
           Alert.showError(
             `${offerItem?.sender?.name} must checkout in order to view order. Check back soon`,
           );
           return;
-        } else if (isReciever && offerItem?.paypalOrderId?.shippingStep < 1) {
+        } else if (isReceiver && offerItem?.paypalOrderId?.shippingStep < 1) {
           setShipInsModalVisible(true);
           return;
         }
@@ -174,7 +174,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
         } else {
           //checkout
           navigation.navigate('MoneyOfferCheckoutScreen', {
-            productData: offerItem.recieverItems[0],
+            productData: offerItem.receiverItems[0],
             isMoneyOffer: true,
             tradeData: offerItem,
           });
@@ -184,7 +184,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       offerItem.orderId.tradeId = offerItem;
       let orderData = offerItem.orderId;
       orderData.tradeId = offerItem;
-      orderData.reciever = offerItem.reciever;
+      orderData.receiver = offerItem.receiver;
       orderData.sender = offerItem.sender;
 
       if (paidByBothUsers) {
@@ -203,11 +203,11 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
 
     const RenderOfferStatusAccrordianView = () => {
       const name =
-        offerItem?.reciever?._id === userData?._id
-          ? offerItem?.reciever?.name
+        offerItem?.receiver?._id === userData?._id
+          ? offerItem?.receiver?.name
           : offerItem?.sender?.name;
 
-      const acceptDeclineText = isReciever
+      const acceptDeclineText = isReceiver
         ? `You have ${isAccepted ? 'accepted' : 'declined'} the offer!`
         : `${name} has ${isAccepted ? 'accepted' : 'declined'} your offer!`;
       return (
@@ -245,8 +245,8 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
 
     const getOfferStatusView = () => {
       const isTradeEdited =
-        (isReciever && offerItem?.senderHasEdited) ||
-        (!isReciever && offerItem?.recieverHasEdited);
+        (isReceiver && offerItem?.senderHasEdited) ||
+        (!isReceiver && offerItem?.receiverHasEdited);
 
       if (isTradeEdited) {
         return <RenderTradeOfferEditedView />; // TODO -> NEED TO ADD RENDER CONDITION
@@ -283,9 +283,9 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('PublicProfileScreen', {
-                  requestedUserDetails: isReciever
+                  requestedUserDetails: isReceiver
                     ? offerItem.sender
-                    : offerItem.reciever,
+                    : offerItem.receiver,
                 })
               }>
               <LSProfileImageComponent
@@ -299,7 +299,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
           </EmptyRowView>
           {isPending && (
             <EmptyRowView>
-              {userData?._id === offerItem?.reciever._id && (
+              {userData?._id === offerItem?.receiver._id && (
                 <>
                   <LSButton
                     title={'Accept'}

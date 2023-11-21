@@ -7,36 +7,36 @@ import React, {FC} from 'react';
 import TradeCheckoutComponent from '../../../components/offers/tradeCheckoutComponent';
 
 interface StartTradeCheckoutScreenProps {
-  recieverItems: Array<any>;
+  receiverItems: Array<any>;
   senderItems: Array<any>;
   paymentDetails: any;
   loading: boolean;
   openPaymentSheet: Function;
-  isReciever: boolean;
+  isReceiver: boolean;
 }
 
 export const StartTradeCheckoutScreen: FC<
   StartTradeCheckoutScreenProps
 > = props => {
   const {
-    recieverItems,
+    receiverItems,
     senderItems,
     paymentDetails,
     loading,
     openPaymentSheet,
-    isReciever,
+    isReceiver,
   } = props;
 
   return (
     <>
       <TradeCheckoutComponent
-        recieverItems={recieverItems}
+        receiverItems={receiverItems}
         senderItems={senderItems}
         isFromStartTrade={true}
         paymentDetails={paymentDetails}
         openPaymentSheet={openPaymentSheet}
         loading={loading}
-        isReciever={isReciever}
+        isReceiver={isReceiver}
       />
     </>
   );
