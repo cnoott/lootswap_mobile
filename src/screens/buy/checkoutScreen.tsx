@@ -33,6 +33,7 @@ import {
   getTrade,
 } from '../../redux/modules';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
+import {LoadingSuccess, LoadingRequest} from '../../redux/modules/loading/actions';
 
 //TODO:
 //-handle money offer trades
@@ -159,6 +160,7 @@ export const CheckoutScreen: FC<{}> = props => {
     if (Object.keys(userData?.shipping_address).length < 5) {
       Alert.showError('Please fill out shipping info at the top');
     } else {
+      dispatch(LoadingRequest());
       setShowGateway(true);
       console.log(webViewUri);
     }
@@ -203,6 +205,7 @@ export const CheckoutScreen: FC<{}> = props => {
               }}
               onMessage={onMessage}
               style={{flex: 1}}
+              onLoad={() => dispatch(LoadingSuccess())}
             />
           </Container>
         </Modal>
