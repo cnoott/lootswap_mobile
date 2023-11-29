@@ -12,7 +12,8 @@
 		0C01A7322A03010C00E53601 /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C01A7312A03010C00E53601 /* branch.json */; };
 		0C01A7332A03010C00E53601 /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C01A7312A03010C00E53601 /* branch.json */; };
 		0C01A7342A03010C00E53601 /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C01A7312A03010C00E53601 /* branch.json */; };
-		0C1A406C29940CF800C9E695 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */; };
+		0C42F0662B17E722000F00C3 /* GoogleService-Info-Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C42F0652B17E721000F00C3 /* GoogleService-Info-Dev.plist */; };
+		0C42F0682B17E72C000F00C3 /* GoogleService-Info-Prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C42F0672B17E72C000F00C3 /* GoogleService-Info-Prod.plist */; };
 		0C9F530E2A02FDE90013D568 /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C9F530D2A02FDE90013D568 /* Mont-Heavy.ttf */; };
 		0C9F530F2A02FDE90013D568 /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C9F530D2A02FDE90013D568 /* Mont-Heavy.ttf */; };
 		0C9F53102A02FDE90013D568 /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C9F530D2A02FDE90013D568 /* Mont-Heavy.ttf */; };
@@ -66,7 +67,6 @@
 		187F059D29A277BB006ADA87 /* Urbanist-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A36298CC97000DD3F63 /* Urbanist-Medium.ttf */; };
 		187F059E29A277BB006ADA87 /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B632935F54600EDA81D /* Inter-Bold.otf */; };
 		187F059F29A277BB006ADA87 /* Inter-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B612935F54600EDA81D /* Inter-ExtraBoldItalic.otf */; };
-		187F05A029A277BB006ADA87 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */; };
 		187F05A129A277BB006ADA87 /* Inter-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18163B592935F54500EDA81D /* Inter-LightItalic.otf */; };
 		187F05A229A277BB006ADA87 /* Urbanist-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A31298CC96F00DD3F63 /* Urbanist-Italic.ttf */; };
 		187F05A329A277BB006ADA87 /* Urbanist-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18FD5A2E298CC96F00DD3F63 /* Urbanist-Regular.ttf */; };
@@ -113,7 +113,8 @@
 		00E356F21AD99517003FC87E /* lootswap_mobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = lootswap_mobileTests.m; sourceTree = "<group>"; };
 		0C01A7312A03010C00E53601 /* branch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = branch.json; path = ../branch.json; sourceTree = "<group>"; };
 		0C1A40682994092C00C9E695 /* lootswap_mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = lootswap_mobile.entitlements; path = lootswap_mobile/lootswap_mobile.entitlements; sourceTree = "<group>"; };
-		0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0C42F0652B17E721000F00C3 /* GoogleService-Info-Dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info-Dev.plist"; path = "lootswap_mobile/GoogleService-Info-Dev.plist"; sourceTree = "<group>"; };
+		0C42F0672B17E72C000F00C3 /* GoogleService-Info-Prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info-Prod.plist"; path = "lootswap_mobile/GoogleService-Info-Prod.plist"; sourceTree = "<group>"; };
 		0C9F530D2A02FDE90013D568 /* Mont-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Mont-Heavy.ttf"; path = "../../assets/fonts/Mont-Heavy.ttf"; sourceTree = "<group>"; };
 		0CCDBBC829F1EECD0026B4DB /* Mont-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Mont-Heavy.ttf"; path = "../../assets/fonts/Mont-Heavy.ttf"; sourceTree = "<group>"; };
 		0CCDF8762A57054D00075CF1 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
@@ -218,7 +219,8 @@
 		13B07FAE1A68108700A75B9A /* lootswap_mobile */ = {
 			isa = PBXGroup;
 			children = (
-				0C1A406B29940CF700C9E695 /* GoogleService-Info.plist */,
+				0C42F0652B17E721000F00C3 /* GoogleService-Info-Dev.plist */,
+				0C42F0672B17E72C000F00C3 /* GoogleService-Info-Prod.plist */,
 				0C1A40682994092C00C9E695 /* lootswap_mobile.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -359,6 +361,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "lootswap_mobile" */;
 			buildPhases = (
+				0C42F0642B17DBD2000F00C3 /* ShellScript */,
 				86D02FAB4F2F144337EA2DE1 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -382,6 +385,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 187F05AC29A277BB006ADA87 /* Build configuration list for PBXNativeTarget "lootswap_mobile_development" */;
 			buildPhases = (
+				0C42F06A2B17E7E5000F00C3 /* ShellScript */,
 				54D593D69EB08CF4A1D9EB68 /* [CP] Check Pods Manifest.lock */,
 				187F057E29A277BB006ADA87 /* Start Packager */,
 				187F057F29A277BB006ADA87 /* Sources */,
@@ -467,6 +471,7 @@
 				18163B6D2935F54600EDA81D /* Inter-ExtraLight.otf in Resources */,
 				18FD5A41298CC97200DD3F63 /* Urbanist-SemiBold.ttf in Resources */,
 				18FD5A3E298CC97200DD3F63 /* Urbanist-BlackItalic.ttf in Resources */,
+				0C42F0682B17E72C000F00C3 /* GoogleService-Info-Prod.plist in Resources */,
 				18163B6B2935F54600EDA81D /* Inter-Light.otf in Resources */,
 				0CCDF8772A57054D00075CF1 /* AppCenter-Config.plist in Resources */,
 				18163B6A2935F54600EDA81D /* Inter-Regular.otf in Resources */,
@@ -482,7 +487,6 @@
 				18FD5A48298CC97200DD3F63 /* Urbanist-Medium.ttf in Resources */,
 				18163B712935F54600EDA81D /* Inter-Bold.otf in Resources */,
 				18163B6F2935F54600EDA81D /* Inter-ExtraBoldItalic.otf in Resources */,
-				0C1A406C29940CF800C9E695 /* GoogleService-Info.plist in Resources */,
 				18163B672935F54600EDA81D /* Inter-LightItalic.otf in Resources */,
 				18FD5A43298CC97200DD3F63 /* Urbanist-Italic.ttf in Resources */,
 				18FD5A40298CC97200DD3F63 /* Urbanist-Regular.ttf in Resources */,
@@ -522,13 +526,13 @@
 				187F059829A277BB006ADA87 /* Urbanist-LightItalic.ttf in Resources */,
 				187F059929A277BB006ADA87 /* Urbanist-SemiBoldItalic.ttf in Resources */,
 				187F059A29A277BB006ADA87 /* Inter-Black.otf in Resources */,
+				0C42F0662B17E722000F00C3 /* GoogleService-Info-Dev.plist in Resources */,
 				187F059B29A277BB006ADA87 /* Inter-ExtraLightItalic.otf in Resources */,
 				0C01A7342A03010C00E53601 /* branch.json in Resources */,
 				187F059C29A277BB006ADA87 /* Urbanist-ExtraBoldItalic.ttf in Resources */,
 				187F059D29A277BB006ADA87 /* Urbanist-Medium.ttf in Resources */,
 				187F059E29A277BB006ADA87 /* Inter-Bold.otf in Resources */,
 				187F059F29A277BB006ADA87 /* Inter-ExtraBoldItalic.otf in Resources */,
-				187F05A029A277BB006ADA87 /* GoogleService-Info.plist in Resources */,
 				187F05A129A277BB006ADA87 /* Inter-LightItalic.otf in Resources */,
 				187F05A229A277BB006ADA87 /* Urbanist-Italic.ttf in Resources */,
 				187F05A329A277BB006ADA87 /* Urbanist-Regular.ttf in Resources */,
@@ -557,6 +561,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+		};
+		0C42F0642B17DBD2000F00C3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "    cp -f \"${PROJECT_DIR}/lootswap_mobile/GoogleService-Info-Prod.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\n";
+		};
+		0C42F06A2B17E7E5000F00C3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n    cp -f \"${PROJECT_DIR}/lootswap_mobile/GoogleService-Info-Dev.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\n";
 		};
 		187F057E29A277BB006ADA87 /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -902,6 +940,7 @@
 				INFOPLIST_FILE = lootswap_mobile/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = lootswap;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -935,6 +974,7 @@
 				INFOPLIST_FILE = lootswap_mobile/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = lootswap;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
