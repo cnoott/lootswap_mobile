@@ -14,7 +14,7 @@ import {
   FullDivider,
 } from './trackOrderScreenStyle';
 import OrderTrackSteps from '../../components/orderTrack/orderTrackSteps';
-//import OrderStatusDetails from '../../components/orderTrack/orderStatusDetails';
+import OrderStatusDetails from '../../components/orderTrack/orderStatusDetails';
 import TradeOfferCell from '../offers/offerItems/TradeOfferCell';
 import PublicOfferCell from '../../components/publicOffer/PublicOfferCell';
 import RateUserButton from '../../components/orders/rateUserButton';
@@ -77,6 +77,17 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
     } else {
       return item?.shippingStep;
     }
+  };
+
+  const trackingHistoryOptions = () => {
+    if (isTradeOrder) {
+      return isReceiver
+        ? item?.senderTrackingHistory
+        : item?.receiverTrackingHistory;
+    } else {
+      return item?.trackingHistory;
+    }
+
   };
 
   const handleShippingInsPress = () => {
@@ -272,7 +283,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
           isTradeOrder={isTradeOrder}
         />
         <FullDivider />
-        {/*<OrderStatusDetails />*/}
+        <OrderStatusDetails trackingHistory={trackingHistoryOptions()}/>
       </SubContainer>
     </Container>
   );
