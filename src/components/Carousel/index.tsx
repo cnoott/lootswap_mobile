@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Dimensions} from 'react-native';
+import {Dimensions, View} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import {verticalScale, moderateScale} from 'react-native-size-matters';
 import {LSHomeStepOneCarouselItem} from './HomeItems/StepOneHomeItem';
@@ -168,7 +168,7 @@ function CarouselComponent(props: CarouselProps) {
           ) : (
             <>
               <ItemCenterContainer onPress={() => setViewerVisible(true)}>
-                <>
+                <View>
                   {imageLoading && <LoadingImage />}
                   <Image
                     width={'100%'}
@@ -176,7 +176,7 @@ function CarouselComponent(props: CarouselProps) {
                     source={{uri: item}}
                     onLoad={() => setImageLoading(false)}
                   />
-                </>
+                </View>
               </ItemCenterContainer>
               {!isProduct && homeBottomView()}
             </>
