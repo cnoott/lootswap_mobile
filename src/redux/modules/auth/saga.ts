@@ -90,6 +90,7 @@ import {
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
 import {Alert} from 'custom_top_alert';
+import analytics from '@react-native-firebase/analytics';
 
 type APIResponseProps = {
   success: boolean;
@@ -111,6 +112,7 @@ export function* signInAPI(action: any) {
       resetRoute();
       yield put(signInSuccess(response.data));
       let authData = yield select(getAuthData);
+      analytics().setUserId(response?.data?.user?._id);
       yield put(
         setRegTokenRequest({
           userId: response?.data?.user?._id,
@@ -134,6 +136,8 @@ export function* signUpAPI(action: any) {
       resetRoute();
       yield put(signUpSuccess(response.data));
       let authData = yield select(getAuthData);
+      analytics().setUserId(response?.data?.user?._id);
+      analytics().logSignUp({method: 'email'});
       yield put(
         setRegTokenRequest({
           userId: response?.data?.user?._id,
@@ -289,6 +293,9 @@ export function* likeProduct(action: any) {
     );
     if (response?.success) {
       yield put(likeProductSuccess(response.data));
+      analytics().logAddToWishlist({
+        items: [{item_id: action?.reqData?.productId}],
+      });
     } else {
       yield put(likeProductFailure());
     }

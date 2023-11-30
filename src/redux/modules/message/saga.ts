@@ -18,6 +18,7 @@ import {
   getAllMyMessagesSuccess,
   getAllMyMessagesFailure,
 } from '../message/actions';
+import analytics from '@react-native-firebase/analytics';
 
 type APIResponseProps = {
   success: boolean;
@@ -54,6 +55,10 @@ export function* createFirstMessage(action: any) {
     yield put(LoadingSuccess());
     if (response?.success) {
       action?.successCallBack(response.data);
+      console.log('res data', response.data);
+      analytics().logEvent('new_message', {
+        id: response.data.messageId,
+      });
     } else {
       action?.errorCallBack(response.error);
     }

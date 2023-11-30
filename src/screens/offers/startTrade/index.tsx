@@ -19,6 +19,7 @@ import {
 } from '../../../redux/modules';
 import {Alert} from 'custom_top_alert';
 import RobberyModal from '../../../components/offers/RobberyModal';
+import analytics from '@react-native-firebase/analytics';
 
 type PaymentDetails = {
   platformFee: number;
@@ -149,6 +150,9 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       console.log('error payment sheet', error);
     } else {
       navigation?.replace('OffersMessageScreen', {item: trade});
+      analytics().logEvent('start_trade', {
+        id: trade?._id
+      });
     }
   };
 
