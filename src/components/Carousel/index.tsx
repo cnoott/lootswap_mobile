@@ -6,6 +6,7 @@ import {LSHomeStepOneCarouselItem} from './HomeItems/StepOneHomeItem';
 import {LSHomeStepTwoCarouselItem} from './HomeItems/StepTwoHomeItem';
 import {LSHomeStepThreeCarouselItem} from './HomeItems/StepThreeHomeItem';
 import {LSHomeStepFourCarouselItem} from './HomeItems/StepFourHomeItem';
+import {LSGiveawayHomeItem} from './HomeItems/GiveawayHomeItem.tsx';
 import {NIKE_SHOES_IMAGE} from '../../constants/imageConstants';
 import {
   Container,
@@ -108,7 +109,7 @@ function CarouselComponent(props: CarouselProps) {
   const getHomeCarouselStep = (index: number) => {
     switch (index) {
       case 1:
-        return <LSHomeStepOneCarouselItem />;
+        return <LSGiveawayHomeItem />;
       case 2:
         return <LSHomeStepTwoCarouselItem />;
       case 3:
@@ -149,7 +150,7 @@ function CarouselComponent(props: CarouselProps) {
         width={width}
         height={isProduct ? height - 30 : height - 25}
         parallaxScrollingOffset={50}
-        autoPlay={autoPlay}
+        autoPlay={false}
         autoPlayInterval={10000}
         keyExtractor={item => item}
         data={imagesArr}
