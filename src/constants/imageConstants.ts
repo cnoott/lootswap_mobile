@@ -16,6 +16,7 @@ export const HOME_CAROUSEL_SHOE_FOUR = require('../assets/images/home/home_carou
 export const HOME_CAROUSEL_CLOTH_THREE = require('../assets/images/home/home_carousel_cloth_three.png');
 export const HOME_CAROUSEL_CLOTH_FOUR = require('../assets/images/home/home_carousel_cloth_four.png');
 export const HOME_CAROUSEL_MIDDLE = require('../assets/images/home/home_carousel_middle.png');
+export const HOME_CAROUSEL_GIVEAWAY = require('../assets/images/home/home_carousel_giveaway.png');
 
 export const VERIFY_TRADES = require('../assets/images/home/verify_trades.png');
 export const CASH_BALENCE = require('../assets/images/home/cash_balence.png');

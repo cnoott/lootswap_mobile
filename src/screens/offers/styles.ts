@@ -734,14 +734,37 @@ export const AcceptText: any = styled.Text.attrs(() => ({
   ${border}
 `;
 
-export const SizeTextContainer = styled.View.attrs(() => ({
-  bg: 'rgba(0,0,0,0.5)',
+export const MultiSizeTextContainer = styled.View.attrs(() => ({
+  bg: 'white',
   borderRadius: 5,
   minWidth: scale(17),
 }))`
   position: absolute;
-  bottom: 0;
-  right: 0;
+  top: -4;
+  right: -7;
+  align-items: center;
+  ${space}
+  ${layout}
+  ${color}
+  ${border}
+`;
+export const SingleSizeTextContainer = styled.View.attrs(() => ({
+  bg: 'white',
+  borderRadius: 30,
+  minWidth: scale(17),
+  p: scale(2),
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 3.84,
+  elevation: 5, // for Android
+}))`
+  position: absolute;
+  top: -4;
+  right: -7;
   align-items: center;
   ${space}
   ${layout}
@@ -750,7 +773,7 @@ export const SizeTextContainer = styled.View.attrs(() => ({
 `;
 
 export const SizeText: any = styled.Text.attrs(() => ({
-  color: 'white',
+  color: 'black',
   padding: '2px',
 
 }))`

@@ -20,16 +20,12 @@ import {
   EmptyView,
   LikeTouchable,
 } from './styles';
-import {
-  likeProduct,
-  unlikeProduct,
-  getMyDetailsNoLoadRequest,
-} from '../../redux/modules';
+import {likeProduct, unlikeProduct} from '../../redux/modules';
 import {useSelector, useDispatch} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {Animated} from 'react-native';
-import {scale} from 'react-native-size-matters';
+import analytics from '@react-native-firebase/analytics';
 
 interface LSProductCardProps {
   onPress?: Function;
@@ -103,6 +99,11 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
     navigation.navigate('ProductDetailsScreen', {
       productData: item,
       likedParam: isLiked(),
+    });
+    analytics().logSelectItem({
+      content_type: item?.category,
+      item_list_id: item?._id,
+      item_list_name: item?.name,
     });
   };
 
