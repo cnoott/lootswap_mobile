@@ -30,6 +30,7 @@ import branch from 'react-native-branch';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {Alert} from 'custom_top_alert';
 import {Share} from 'react-native';
+import analytics from '@react-native-firebase/analytics';
 
 export const ReferralScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
@@ -39,13 +40,17 @@ export const ReferralScreen: FC<{}> = () => {
   const copyToClipboard = () => {
     Clipboard.setString(userData?.referralLink);
     Alert.showSuccess('Copied!');
+    analytics().logShare({
+      content_type: 'referral',
+      item_id: userData?._id,
+      method: 'copy to clipboard',
+    });
   };
 
   const onShare = async () => {
     if (!userData?.referralLink) {
       return;
     }
-
     try {
       const result = await Share.share({
         message: `${userData.referralLink}`,
@@ -53,6 +58,11 @@ export const ReferralScreen: FC<{}> = () => {
       });
       if (result.action === Share.sharedAction) {
         Alert.showSuccess('Thanks for sharing!');
+        analytics().logShare({
+          content_type: 'referral',
+          item_id: userData?._id,
+          method: 'share button',
+        });
       }
     } catch (error: any) {
       console.log(error);

@@ -16,7 +16,8 @@ import {
   TrippleViewOffer,
   SingleMoneyOfferContainer,
   OfferTextSingleOffer,
-  SizeTextContainer,
+  MultiSizeTextContainer,
+  SingleSizeTextContainer,
   SizeText,
 } from '../styles';
 import {offerCellOnPress} from '../../../utility/utility';
@@ -90,15 +91,15 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
           source={{uri: itemPhoto}}
           size={isFromHome ? HOME_SIZE : OFFERS_SIZE}
         />
-        <SizeTextContainer>
-          <SizeText>{getSize(items[0])}</SizeText>
-        </SizeTextContainer>
+        <SingleSizeTextContainer>
+          <SizeText>Size {getSize(items[0])}</SizeText>
+        </SingleSizeTextContainer>
       </ImageContainer>
 
     );
   };
 
-  const renderSingleViewWithOffer = () => {
+  const old_renderSingleViewWithOffer = () => {
     const itemPhoto = getImageUri(items[0]);
     return (
       <OfferItemContainerCenter
@@ -112,12 +113,37 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
         <SingleViewOffer>
           <OfferText>+${moneyOffer}</OfferText>
         </SingleViewOffer>
-        <SizeTextContainer>
-          <SizeText>{getSize(items[0])}</SizeText>
-        </SizeTextContainer>
+        <SingleSizeTextContainer>
+          <SizeText>Size {getSize(items[0])}</SizeText>
+        </SingleSizeTextContainer>
+
       </OfferItemContainerCenter>
     );
   };
+
+  const renderSingleViewWithOffer = () => {
+    const _size = 70;
+    const fromHomeSize = scale(45);
+    const itemPhoto = getImageUri(items[0]);
+    return (
+      <OfferItemContainer size={isFromHome ? moderateScale(90) : moderateScale(110)}>
+        <ImageContainerDouble size={isFromHome ? fromHomeSize : _size}>
+          <Image
+            source={{uri: itemPhoto}}
+            size={isFromHome ? fromHomeSize : _size}
+            isStockxItem={isStockxItem}
+          />
+        <MultiSizeTextContainer>
+          <SizeText>{getSize(items[0])}</SizeText>
+        </MultiSizeTextContainer>
+        </ImageContainerDouble>
+        <TrippleViewOffer size={isFromHome ? moderateScale(40): moderateScale(60)}>
+          <OfferText>+${moneyOffer}</OfferText>
+        </TrippleViewOffer>
+      </OfferItemContainer>
+    );
+  };
+
   const renderDoubleView = (isOffer: boolean = false) => {
     const _size = 70;
     const fromHomeSize = scale(45);
@@ -137,9 +163,9 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
             size={isFromHome ? fromHomeSize : _size}
             isStockxItem={isStockxItem}
           />
-        <SizeTextContainer>
+        <MultiSizeTextContainer>
           <SizeText>{getSize(items[1])}</SizeText>
-        </SizeTextContainer>
+        </MultiSizeTextContainer>
         </ImageContainerDouble>
 
         <ImageContainer size={isFromHome ? fromHomeSize : _size}>
@@ -148,9 +174,9 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
             size={isFromHome ? fromHomeSize : _size}
             isStockxItem={isStockxItem}
           />
-          <SizeTextContainer>
+          <MultiSizeTextContainer>
             <SizeText>{getSize(items[0])}</SizeText>
-          </SizeTextContainer>
+          </MultiSizeTextContainer>
         </ImageContainer>
       </OfferItemContainer>
     );
@@ -187,9 +213,9 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
             size={isFromHome ? moderateScale(40) : _size}
             isStockxItem={isStockxItem}
           />
-          <SizeTextContainer>
+          <MultiSizeTextContainer>
             <SizeText>{sizeArray[index]}</SizeText>
-          </SizeTextContainer>
+          </MultiSizeTextContainer>
         </ImageContainer>
       );
     };

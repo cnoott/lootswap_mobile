@@ -250,3 +250,71 @@ export const DiscordContainer = styled.View.attrs(() => ({}))`
 `;
 
 export const EmptyView = styled.View``;
+
+export const GiveawayPrimaryText = styled.Text.attrs(props => ({
+  color: props.theme.colors.white,
+  mt: scale(8),
+  px: scale(25),
+}))`
+  font-weight: bold;
+  font-family: Mont;
+  font-size: ${scale(20)}px; 
+  ${color}
+  ${border}
+  ${layout}
+  ${space}
+`;
+
+export const GiveawayContainer = styled(LinearGradient).attrs(() => ({
+  flex: 1,
+  height: '100%',
+  width: '100%',
+  colors: ['#FFF', '#07924F'],
+  locations: [0, 0.9822],
+  start: {x: 0, y: 0},
+  end: {x: 0, y: 1},
+}))`
+  padding-top: ${scale(20)};
+  justify-content: center;
+  align-items: center;
+  ${color}
+  ${space}
+  ${border}
+`;
+
+export const GiveawayDetailsText = styled.Text.attrs(() => ({
+  color: '#C8F9E1',
+  mt: scale(5),
+  mb: scale(20),
+}))`
+  font-size: ${scale(13)}px;
+  font-family: Inter;
+  font-weight: 500;
+  text-align: center;
+  ${color}
+  ${space}
+`;
+
+export const ReferText = styled.Text.attrs(props => ({
+  color: props.theme.colors.white,
+  width: scale(120),
+}))`
+  position: absolute;
+  bottom: 15;
+  left: 7;
+  font-size: ${scale(13)}px;
+  font-family: Inter;
+  font-weight: 500;
+  text-align: center;
+  line-height: 18px;
+  ${color}
+  ${space}
+  ${layout}
+  ${border}
+`;
+
+export const EnterNowButtonContainer = styled.View.attrs(() => ({}))`
+  position: absolute;
+  bottom: 15;
+  right: 16;
+`;

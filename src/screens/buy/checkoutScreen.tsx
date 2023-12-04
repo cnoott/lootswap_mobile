@@ -33,7 +33,11 @@ import {
   getTrade,
 } from '../../redux/modules';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
-import {LoadingSuccess, LoadingRequest} from '../../redux/modules/loading/actions';
+import {
+  LoadingSuccess,
+  LoadingRequest,
+} from '../../redux/modules/loading/actions';
+import analytics from '@react-native-firebase/analytics';
 
 //TODO:
 //-handle money offer trades
@@ -90,6 +94,19 @@ export const CheckoutScreen: FC<{}> = props => {
               tradeId: tradeData?._id,
             }),
           );
+          analytics().logPurchase({
+            transaction_id: data.info.paypalOrder._id,
+            items: [
+              {
+                item_id: productData?._id,
+                item_category: productData?.category,
+                item_brand: productData?.item_brand,
+                price: productData?.price,
+                item_name: productData?.name,
+              },
+            ],
+          });
+          console.log('paypalinfo', data.info.paypalOrder);
           navigation?.replace('TradeCheckoutSuccessScreen', {
             isSale: true,
             total: renderTotal(),
@@ -163,6 +180,17 @@ export const CheckoutScreen: FC<{}> = props => {
       dispatch(LoadingRequest());
       setShowGateway(true);
       console.log(webViewUri);
+      analytics().logBeginCheckout({
+        items: [
+          {
+            item_id: productData?._id,
+            item_category: productData?.category,
+            item_brand: productData?.item_brand,
+            price: productData?.price,
+            item_name: productData?.name,
+          },
+        ],
+      });
     }
   };
 
