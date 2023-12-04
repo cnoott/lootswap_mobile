@@ -99,7 +99,7 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
     );
   };
 
-  const renderSingleViewWithOffer = () => {
+  const old_renderSingleViewWithOffer = () => {
     const itemPhoto = getImageUri(items[0]);
     return (
       <OfferItemContainerCenter
@@ -116,10 +116,33 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
         <SingleSizeTextContainer>
           <SizeText>Size {getSize(items[0])}</SizeText>
         </SingleSizeTextContainer>
+
       </OfferItemContainerCenter>
     );
   };
 
+  const renderSingleViewWithOffer = () => {
+    const _size = 70;
+    const fromHomeSize = scale(45);
+    const itemPhoto = getImageUri(items[0]);
+    return (
+      <OfferItemContainer size={isFromHome ? moderateScale(90) : moderateScale(110)}>
+        <ImageContainerDouble size={isFromHome ? fromHomeSize : _size}>
+          <Image
+            source={{uri: itemPhoto}}
+            size={isFromHome ? fromHomeSize : _size}
+            isStockxItem={isStockxItem}
+          />
+        <MultiSizeTextContainer>
+          <SizeText>{getSize(items[0])}</SizeText>
+        </MultiSizeTextContainer>
+        </ImageContainerDouble>
+        <TrippleViewOffer size={isFromHome ? moderateScale(40): moderateScale(60)}>
+          <OfferText>+${moneyOffer}</OfferText>
+        </TrippleViewOffer>
+      </OfferItemContainer>
+    );
+  };
 
   const renderDoubleView = (isOffer: boolean = false) => {
     const _size = 70;

@@ -740,8 +740,8 @@ export const MultiSizeTextContainer = styled.View.attrs(() => ({
   minWidth: scale(17),
 }))`
   position: absolute;
-  bottom: 0;
-  right: 0;
+  top: -4;
+  right: -7;
   align-items: center;
   ${space}
   ${layout}
@@ -763,7 +763,7 @@ export const SingleSizeTextContainer = styled.View.attrs(() => ({
   elevation: 5, // for Android
 }))`
   position: absolute;
-  bottom: -4;
+  top: -4;
   right: -7;
   align-items: center;
   ${space}
