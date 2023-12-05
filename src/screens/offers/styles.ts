@@ -258,7 +258,7 @@ export const AboveItemLabel: any = styled.Text.attrs(props => ({
   color: props.theme.colors.greySecondary,
   mb: scale(5),
 }))`
-  font-size: ${moderateScale(15)}px;
+  font-size: ${moderateScale(13)}px;
   font-family: Urbanist-Bold;
   ${color}
   ${space}
@@ -333,6 +333,8 @@ export const ImageContainer: any = styled.View.attrs((props: any) => ({
   activeOpacity: 1,
 }))`
   position: relative;
+  align-items: center;
+  justify-content: center;
   ${layout} ${color} ${space} ${border};
 `;
 
