@@ -49,7 +49,9 @@ export const PublicOfferCell: FC<PublicOfferProps> = props => {
     return (
       <>
         <PublicOfferItemContainer>
-          <AboveItemLabel>Your</AboveItemLabel>
+          <AboveItemLabel>
+            Item{receivingStockxProducts.length > 1 ? 's': ''} you are trading
+          </AboveItemLabel>
           <TradeOfferItem
             items={receivingStockxProducts?.map(prod => {
               return {...prod.stockxId, chosenSize: prod.chosenSize};
@@ -62,7 +64,9 @@ export const PublicOfferCell: FC<PublicOfferProps> = props => {
         </PublicOfferItemContainer>
         {renderSwapView()}
         <PublicOfferItemContainer>
-          <AboveItemLabel>For</AboveItemLabel>
+          <AboveItemLabel>
+            Item{sendingProductIds.length > 1 ? 's' : ''} your are getting
+          </AboveItemLabel>
           <TradeOfferItem
             items={sendingProductIds}
             moneyOffer={sendingMoneyOffer}
