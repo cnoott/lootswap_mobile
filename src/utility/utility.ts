@@ -1227,9 +1227,9 @@ export const getPreownedMarketValue = (
 ) => {
   //return an array
   // use max value when determining 30% below value
-  const lightlyUsedRange = [0.08, 0.18];
-  const moderatleyUsed = [0.19, 0.42];
-  const heavilyUsed = [0.43, 0.5];
+  const lightlyUsedRange = [0.2, 0.3];
+  const moderatleyUsed = [0.5, 0.6];
+  const heavilyUsed = [0.6, 0.8];
   const {lastSale} = stockxSize;
   let range = [];
   switch (preOwnedCondition) {
