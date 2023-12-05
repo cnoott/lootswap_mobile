@@ -738,6 +738,14 @@ export const MultiSizeTextContainer = styled.View.attrs(() => ({
   bg: 'white',
   borderRadius: 5,
   minWidth: scale(17),
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 3.84,
+  elevation: 5, // for Android
 }))`
   position: absolute;
   top: -4;
