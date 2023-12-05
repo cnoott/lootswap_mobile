@@ -221,10 +221,10 @@
 			children = (
 				0C42F0652B17E721000F00C3 /* GoogleService-Info-Dev.plist */,
 				0C42F0672B17E72C000F00C3 /* GoogleService-Info-Prod.plist */,
+				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				0C1A40682994092C00C9E695 /* lootswap_mobile.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
