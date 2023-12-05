@@ -29,10 +29,14 @@ export const resetAddProductData = () => {
   };
 };
 
-export const getProductDetails = (productId: string) => {
+export const getProductDetails = (
+  productId: string,
+  callback?: (product: any) => void,
+) => {
   return {
     type: GET_PRODUCT_DETAILS.REQUEST,
-    productId: productId,
+    productId,
+    callback,
   };
 };
 
