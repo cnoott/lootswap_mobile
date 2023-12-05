@@ -44,7 +44,7 @@ export const LSGiveawayHomeItem: FC<HeaderProps> = React.memo(() => {
           buttonCustomColor={'white'}
           customTextColor={'black'}
           radius={38}
-          onPress={() => Linking.openURL('https://instagram.com')}
+          onPress={() => Linking.openURL('https://www.instagram.com/p/C0ewpMWOdSe/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==')}
           sizeFont={12}
         />
       </EnterNowButtonContainer>
