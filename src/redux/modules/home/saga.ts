@@ -60,6 +60,9 @@ export function* getSelectedProductDetails(action: any) {
     yield put(LoadingSuccess());
     if (response?.success) {
       yield put(getProductDetailsSuccess(response.data));
+      if (action.callback) {
+        action.callback(response.data);
+      }
     } else {
       yield put(getProductDetailsFailure(response.error));
     }

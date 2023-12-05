@@ -1,4 +1,9 @@
-import {getOrder, getPaypalOrder, getMessagesHistory} from '../redux/modules';
+import {
+  getOrder,
+  getPaypalOrder,
+  getMessagesHistory,
+  getProductDetails,
+} from '../redux/modules';
 
 export const countNotifs = (
   notifications: Array<any>,
@@ -97,15 +102,20 @@ export const handleNavigation = (
         screen: 'MyLootScreen',
       });
       break;
-      /* 
     case 'product-promo':
-      navigation.reset({
-        index: 0,
-        routes: [{name: 'Home'}],
-      });
-      navigation.navigate('ProductDetailsScreen');
+      dispatch(
+        getProductDetails(message?.data?.objectId, product => {
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'Home'}],
+          });
+          navigation.navigate('ProductDetailsScreen', {
+            productData: product,
+            likedParam: false,
+          });
+        }),
+      );
       break;
-      */
     case 'wallet':
       navigation.reset({
         index: 0,
