@@ -97,6 +97,15 @@ export const handleNavigation = (
         screen: 'MyLootScreen',
       });
       break;
+      /* 
+    case 'product-promo':
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Home'}],
+      });
+      navigation.navigate('ProductDetailsScreen');
+      break;
+      */
     case 'wallet':
       navigation.reset({
         index: 0,
