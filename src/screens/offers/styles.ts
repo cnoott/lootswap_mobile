@@ -418,12 +418,12 @@ export const SingleViewOffer = styled.View.attrs(props => ({
 `;
 
 export const DoubleViewOffer = styled.View.attrs(props => ({
-  px: scale(8),
-  py: scale(7),
+  px: scale(7),
+  py: scale(6),
   borderRadius: scale(20),
   bg: props.theme.colors.offerColor,
-  top: 20,
-  right: 0,
+  top: 10,
+  right: -8,
 }))`
   align-items: center;
   justify-content: center;
