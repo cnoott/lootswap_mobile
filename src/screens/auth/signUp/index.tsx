@@ -195,7 +195,7 @@ export const CreateAccountScreen: FC<{}> = () => {
 
   const randomizeProfileUrl = () => {
     const seed = Math.floor(Math.random() * 999999);
-    const defaultProfileUrl = `https://avatars.dicebear.com/api/micah/${seed}.png`;
+    const defaultProfileUrl = `https://api.dicebear.com/7.x/micah/png?seed=${seed}.png`;
     setProfileUrl(defaultProfileUrl);
   };
 
