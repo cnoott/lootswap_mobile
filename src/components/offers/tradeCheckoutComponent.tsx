@@ -180,9 +180,9 @@ export const TradeCheckoutComponent: FC<
         </StretchedRowView>
         {renderSummaryDetail(
           'Shipment to verification center',
-          toWarehouseRate,
+          toWarehouseRate?.toFixed(2),
         )}
-        {renderSummaryDetail('Shipment to trader', toUserRate)}
+        {renderSummaryDetail('Shipment to trader', toUserRate?.toFixed(2))}
         {userPayout !== 0 && renderSummaryDetail('Additional Cash offer', userPayout)}
         {discount !== 0 && renderSummaryDetail('Promo Discount', -discount)}
         {/*renderSummaryDetail('Taxes and fees', paymentDetails?.)*/}
