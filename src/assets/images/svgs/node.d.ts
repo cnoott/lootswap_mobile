@@ -90,4 +90,5 @@ declare module 'localsvgimages' {
   export const HOME_RIGHT_PERSON_TWO: any;
   export const HOME_LEFT_PERSON_ONE: any;
   export const HOME_LEFT_PERSON_TWO: any;
+  export const PROMO_ICON: any;
 }

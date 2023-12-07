@@ -14,6 +14,7 @@ import {
   SHOW_PASS_ICON,
   SYNC_WHITE_ICON,
   UPLOAD_WHITE_ICON,
+  PROMO_ICON,
 } from 'localsvgimages';
 import {Formik} from 'formik';
 import * as yup from 'yup';
@@ -61,6 +62,7 @@ type FormProps = {
   email: string;
   password: string;
   username: string;
+  affiliateCode?: string;
 };
 
 export const CreateAccountScreen: FC<{}> = () => {
@@ -71,14 +73,18 @@ export const CreateAccountScreen: FC<{}> = () => {
   const [profileUrl, setProfileUrl] = useState('');
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [referringUserId, setReferringUserId] = useState('');
+  const [affiliateCode, setAffiliateCode] = useState('');
 
   const getReferringUserId = async () => {
     let installParams = await branch.getFirstReferringParams();
-    console.log(installParams);
+    if (installParams?.affiliateCode) {
+      setAffiliateCode(`${installParams?.affiliateCode}`);
+    }
+
+    //Alert.alert(`${JSON.stringify(installParams)}`);
     if (installParams?.userId) {
       setReferringUserId(`${installParams?.userId}`);
       console.log(installParams, 'from signup');
-      //Alert.alert(`${installParams?.userId}`);
     }
   };
 
@@ -136,6 +142,7 @@ export const CreateAccountScreen: FC<{}> = () => {
           email: values?.email,
           name: values?.username,
           password: values?.password,
+          affiliateCode: affiliateCode,
           profile_picture: profileUrl,
           fromMobile: true,
           referringUserId: referringUserId,
@@ -238,6 +245,7 @@ export const CreateAccountScreen: FC<{}> = () => {
           email: '',
           password: '',
           username: '',
+          affiliateCode: '',
         }}
         validationSchema={loginValidationSchema}
         validateOnChange={false}
@@ -272,6 +280,13 @@ export const CreateAccountScreen: FC<{}> = () => {
                 }
                 onRightIconPress={() => setPasswordHidden(!isPasswordHidden)}
                 secureTextEntry={isPasswordHidden}
+              />
+              <LSInput
+                onChangeText={value => setAffiliateCode(value)}
+                value={affiliateCode}
+                placeholder={'Referral Code'}
+                leftIcon={PROMO_ICON}
+                autoCorrect={false}
               />
               <TermsLabel>
                 {'By Creating an account you agree to our\n'}
