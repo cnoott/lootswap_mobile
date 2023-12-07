@@ -76,8 +76,14 @@ export const TradeCheckoutComponent: FC<
   const navigation: NavigationProp<any, any> = useNavigation();
   const auth: AuthProps = useSelector(state => state?.auth);
   const {userData} = auth;
-  const {platformFee, toUserRate, toWarehouseRate, total, userPayout} =
-    paymentDetails;
+  const {
+    platformFee,
+    toUserRate,
+    toWarehouseRate,
+    total,
+    userPayout,
+    discount = 0,
+  } = paymentDetails;
 
   const renderHeading = (label: string) => {
     return <HeadingLabel>{label}</HeadingLabel>;
@@ -170,14 +176,15 @@ export const TradeCheckoutComponent: FC<
         {renderHeading('Purchase Summary')}
         <StretchedRowView>
           <ItemSubLabel>Platform fee</ItemSubLabel>
-          <SummaryText>+${platformFee}</SummaryText>
+          <SummaryText>${platformFee?.toFixed(2)}</SummaryText>
         </StretchedRowView>
         {renderSummaryDetail(
           'Shipment to verification center',
           toWarehouseRate,
         )}
         {renderSummaryDetail('Shipment to trader', toUserRate)}
-        {renderSummaryDetail('Additional Cash offer', userPayout)}
+        {userPayout !== 0 && renderSummaryDetail('Additional Cash offer', userPayout)}
+        {discount !== 0 && renderSummaryDetail('Promo Discount', -discount)}
         {/*renderSummaryDetail('Taxes and fees', paymentDetails?.)*/}
       </EmptyView>
     );
@@ -235,10 +242,18 @@ export const TradeCheckoutComponent: FC<
           {isFromPublicOffers ? renderStockxItems() : renderReceiverItems()}
           {renderSendersItems()}
           <VerticalMargin />
-          {!userData?.usedInitialPromo && (
+
+          {/*!userData?.usedInitialPromo && (
             <PromoContainer>
               <PromoDes>50% off Platform Fee</PromoDes>
               <PromoAppliedLabel>Promo applied </PromoAppliedLabel>
+            </PromoContainer>
+            )*/}
+
+          {discount !== 0 && (
+            <PromoContainer>
+              <PromoDes>10% off First Trade!</PromoDes>
+              <PromoAppliedLabel>Affiliate Promo</PromoAppliedLabel>
             </PromoContainer>
           )}
           <HorizontalBar />
