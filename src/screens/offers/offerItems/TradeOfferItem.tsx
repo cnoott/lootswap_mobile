@@ -220,7 +220,7 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
       );
     };
     return (
-      <OfferItemContainer size={isFromHome ? HOME_SIZE : OFFERS_SIZE}>
+      <OfferItemContainer size={isFromHome ? HOME_SIZE + 10: OFFERS_SIZE}>
         <OfferItemList data={photoArray} renderItem={trippleViewItem} />
       </OfferItemContainer>
     );
