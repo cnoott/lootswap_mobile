@@ -11,8 +11,8 @@ export const Container = styled.View.attrs(props => ({
 `;
 
 export const HeaderContainer = styled.View.attrs({
-  mt: verticalScale(30),
-  mb: verticalScale(40),
+  mt: verticalScale(20),
+  mb: verticalScale(25),
   ml: scale(12),
 })`
   ${space}
@@ -23,7 +23,7 @@ export const HeaderLabel = styled.Text.attrs(props => ({
   ml: scale(15),
 }))`
   font-size: ${scale(25)}px;
-  font-family: Inter-Black;
+  font-family: Urbanist-Black;
   ${color}
   ${space}
   ${layout}
@@ -36,7 +36,7 @@ export const HeaderDesLabel = styled.Text.attrs(props => ({
   ml: scale(15),
 }))`
   font-size: ${scale(12)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 600;
   ${color}
   ${space}
@@ -48,7 +48,7 @@ export const TermsLabel = styled.Text.attrs(props => ({
   my: scale(20),
 }))`
   font-size: ${scale(11)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   align-self: center;
   text-align: center;
   ${color}
@@ -61,7 +61,7 @@ export const TermsLabelDark = styled.Text.attrs(props => ({
   my: scale(20),
 }))`
   font-size: ${scale(12)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   font-weight: 600;
   align-self: center;
   text-align: center;
@@ -80,7 +80,7 @@ export const ForgotPassLabel = styled.Text.attrs(props => ({
   mb: verticalScale(20),
 }))`
   font-size: 16px;
-  font-family: 'Inter-Bold';
+  font-family: 'Urbanist-Bold';
   align-self: center;
   ${color}
   ${space}
@@ -95,8 +95,9 @@ export const FullView = styled.View.attrs({
 
 export const ProfileContainerView = styled.View.attrs({
   width: scale(100),
-  height: scale(100),
+  height: scale(60),
   ml: moderateScale(10),
+  pb: moderateScale(10),
 })`
   align-items: center;
   justify-content: center;
@@ -133,7 +134,7 @@ export const ButtonText1 = styled.Text.attrs(props => ({
   color: props.theme.colors.lightGrey,
 }))`
   font-size: ${scale(13)}px;
-  font-family: 'Inter-Light';
+  font-family: 'Urbanist-Light';
   ${color}
   ${space}
   ${layout}
@@ -143,7 +144,7 @@ export const ButtonText2 = styled.Text.attrs(props => ({
   color: props.theme.colors.primary,
 }))`
   font-size: ${scale(13)}px;
-  font-family: 'Inter-Bold';
+  font-family: 'Urbanist-Bold';
   ${color}
   ${space}
   ${layout}
@@ -189,7 +190,7 @@ export const ProfileText = styled.Text.attrs(props => ({
   mb: scale(5),
 }))`
   font-size: ${scale(16)}px;
-  font-family: 'Inter-Bold';
+  font-family: 'Urbanist-Bold';
   ${color}
   ${space}
   ${layout}
@@ -222,7 +223,7 @@ export const ButtonText = styled.Text.attrs(props => ({
   ml: scale(5),
 }))`
   font-size: ${scale(12)}px;
-  font-family: 'Inter';
+  font-family: 'Urbanist';
   font-weight: 600;
   ${color}
   ${space}
