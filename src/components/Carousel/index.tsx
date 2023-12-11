@@ -6,8 +6,7 @@ import {LSHomeStepOneCarouselItem} from './HomeItems/StepOneHomeItem';
 import {LSHomeStepTwoCarouselItem} from './HomeItems/StepTwoHomeItem';
 import {LSHomeStepThreeCarouselItem} from './HomeItems/StepThreeHomeItem';
 import {LSHomeStepFourCarouselItem} from './HomeItems/StepFourHomeItem';
-import {LSGiveawayHomeItem} from './HomeItems/GiveawayHomeItem.tsx';
-import {NIKE_SHOES_IMAGE} from '../../constants/imageConstants';
+import {LSGiveawayHomeItem} from './HomeItems/GiveawayHomeItem';
 import {
   Container,
   Image,

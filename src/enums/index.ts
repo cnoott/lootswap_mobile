@@ -72,3 +72,9 @@ export enum Filter_Type {
   Condition = 'condition',
   Sort_By = 'sort_by',
 }
+
+export enum Deal_Type {
+  Great = 'great',
+  Fair = 'fair',
+  Bad = 'bad',
+}

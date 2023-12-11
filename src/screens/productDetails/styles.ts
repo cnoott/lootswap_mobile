@@ -120,11 +120,19 @@ export const PriceLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
   mt: scale(5),
 }))`
-  font-size: ${moderateScale(22)}px;
+  font-size: ${moderateScale(24)}px;
   font-family: Urbanist-ExtraBold;
+  margin-right: 5px;
   ${color}
   ${space}
   ${layout}
+`;
+
+export const PriceContainer = styled.View.attrs(() => ({
+}))`
+  align-items: center;
+  display: flex;
+  flex-direction: row;
 `;
 
 export const ShippingLabel = styled.Text.attrs(props => ({
@@ -338,3 +346,4 @@ export const ButtonContainer = styled.View.attrs(() => ({
 export const MessageButtonWrapper = styled.View.attrs(() => ({}))`
   margin-top: 20px;
 `;
+
