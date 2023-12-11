@@ -7,4 +7,6 @@ declare module 'custom_enums' {
   export const Who_Pays_Options: any;
   export const Trade_Status: any;
   export const Order_Status: any;
+  export const Filter_Type: any;
+  export const Deal_Type: any;
 }
