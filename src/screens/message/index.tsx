@@ -58,7 +58,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const appState = useRef(AppState.currentState);
 
   const scrollListToEnd = () => {
-    if (messageListref?.current) {
+    if (messageListref?.current && messagesListRaw.current?.length > 0) {
       setTimeout(() => {
         messageListref?.current?.scrollToLocation({
           sectionIndex: 0,
