@@ -1,4 +1,4 @@
-import {useEffect, useCallback} from 'react';
+import {useEffect, useCallback, useState} from 'react';
 import messaging from '@react-native-firebase/messaging';
 import {useDispatch, useSelector} from 'react-redux'
 import {handleNavigation} from '../notification';
@@ -13,16 +13,16 @@ export const useNotifications = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
 
+
+
   const onRemoteNotification = useCallback(
     (notification: any) => {
       const notifData = notification.getData();
       const isClicked = notifData.userInteraction === 1;
-      //const payload = formatNotificationPayload(notifData);
 
       if (isClicked) {
         console.log('ISCLICKED', notifData);
         handleNavigation(navigation, notifData, dispatch, userData);
-        console.log(JSON.stringify(notifData));
       } else {
         // Do something else with push notification
       }
@@ -38,14 +38,13 @@ export const useNotifications = () => {
     const unsubscribeOnMessage = messaging().onNotificationOpenedApp(
       remoteMessage => {
         console.log('TEST: opened from bg state:', remoteMessage);
-        //const payload = formatNotificationPayload(remoteMessage);
         handleNavigation(navigation, remoteMessage, dispatch, userData);
       },
     );
 
     const unsubscribeOnNotificationOpenedApp = messaging().onMessage(
       remoteMessage => {
-        console.log('NEW MESSAGE!!!');
+        console.log('NEW MESSAGE!!!', remoteMessage);
         dispatch(
           newNotifTrueSuccess({notifType: remoteMessage?.data?.notifType}),
         );
@@ -67,7 +66,6 @@ export const useNotifications = () => {
             'TEST: notificaiton opened from quit state',
             remoteMessage.notification,
           );
-          //const payload = formatNotificationPayload(remoteMessage);
           handleNavigation(navigation, remoteMessage, dispatch, userData);
         }
       });

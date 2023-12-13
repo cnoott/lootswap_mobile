@@ -50,30 +50,33 @@ export const handleNavigation = (
   dispatch: any,
   userData: any,
 ) => {
-  const fomrattedMessage = formatNotificationPayload(message);
-  console.log('FROM HANDLE NAVIGATION', JSON.stringify(fomrattedMessage));
-  switch (fomrattedMessage.data.notifType) {
+  var formattedMessage = formatNotificationPayload(message);
+  if (!formattedMessage?.data?.body) {
+    formattedMessage = message.remoteMessage;
+    console.log(formattedMessage.data, 'new!');
+  }
+  switch (formattedMessage.data.notifType) {
     case 'trade':
       navigation.navigate('OffersMessageScreen', {
-        item: {_id: message?.data?.objectId},
+        item: {_id: formattedMessage?.data?.objectId},
       });
       break;
     case 'message':
       dispatch(
         getMessagesHistory({
           userId: userData?._id,
-          messageId: message?.data?.objectId,
+          messageId: formattedMessage?.data?.objectId,
         }),
       );
       navigation.navigate('UserChatScreen', {
-        messageId: message?.data?.objectId,
+        messageId: formattedMessage?.data?.objectId,
       });
       break;
 
     case 'trade-order':
       dispatch(
         getOrder(
-          {orderId: message?.data?.objectId},
+          {orderId: formattedMessage?.data?.objectId},
           res => {
             navigation.navigate('TrackOrderScreen', {
               isTradeOrder: true,
@@ -102,7 +105,7 @@ export const handleNavigation = (
     case 'paypal-order':
       dispatch(
         getPaypalOrder(
-          {paypalOrderId: message?.data?.objectId},
+          {paypalOrderId: formattedMessage?.data?.objectId},
           res => {
             navigation.navigate('TrackOrderScreen', {
               isTradeOrder: false,
@@ -126,7 +129,7 @@ export const handleNavigation = (
       break;
     case 'product-promo':
       dispatch(
-        getProductDetails(message?.data?.objectId, product => {
+        getProductDetails(formattedMessage?.data?.objectId, product => {
           navigation.reset({
             index: 0,
             routes: [{name: 'Home'}],
@@ -150,7 +153,7 @@ export const handleNavigation = (
     case 'rate-trade':
       dispatch(
         getOrder(
-          {orderId: message?.data?.objectId},
+          {orderId: formattedMessage?.data?.objectId},
           res => {
             navigation.navigate('SubmitReviewScreen', {
               orderDetails: res,
