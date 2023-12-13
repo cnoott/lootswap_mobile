@@ -24,13 +24,35 @@ export const countNotifs = (
   return count.length;
 };
 
+function formatNotificationPayload(originalPayload: any) {
+  return {
+    data: {
+      body: originalPayload?.data?.body ?? originalPayload?.aps?.alert?.body,
+      dateAdded: originalPayload?.data?.dateAdded,
+      isRead: originalPayload?.data?.isRead,
+      notifType: originalPayload?.data?.notifType ?? originalPayload?.notifType,
+      objectId: originalPayload?.data?.objectId ?? originalPayload?.objectId,
+      title: originalPayload?.data?.title ?? originalPayload?.aps?.alert?.title,
+    },
+    from: originalPayload?.['google.c.sender.id'],
+    messageId: originalPayload?.['gcm.message_id'],
+    notification: {
+      body: originalPayload?.data?.body ?? originalPayload?.aps?.alert?.body,
+      title: originalPayload?.data?.title ?? originalPayload?.aps?.alert?.title,
+    },
+  };
+}
+
+
 export const handleNavigation = (
   navigation: any,
   message: any,
   dispatch: any,
   userData: any,
 ) => {
-  switch (message.data.notifType) {
+  const fomrattedMessage = formatNotificationPayload(message);
+  console.log('FROM HANDLE NAVIGATION', JSON.stringify(fomrattedMessage));
+  switch (fomrattedMessage.data.notifType) {
     case 'trade':
       navigation.navigate('OffersMessageScreen', {
         item: {_id: message?.data?.objectId},
