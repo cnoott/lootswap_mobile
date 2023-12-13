@@ -17,9 +17,11 @@ export const useNotifications = () => {
     (notification: any) => {
       const notifData = notification.getData();
       const isClicked = notifData.userInteraction === 1;
+      //const payload = formatNotificationPayload(notifData);
 
       if (isClicked) {
-        handleNavigation(navigation, notifData.remoteMessage, dispatch, userData);
+        console.log('ISCLICKED', notifData);
+        handleNavigation(navigation, notifData, dispatch, userData);
         console.log(JSON.stringify(notifData));
       } else {
         // Do something else with push notification
@@ -36,6 +38,7 @@ export const useNotifications = () => {
     const unsubscribeOnMessage = messaging().onNotificationOpenedApp(
       remoteMessage => {
         console.log('TEST: opened from bg state:', remoteMessage);
+        //const payload = formatNotificationPayload(remoteMessage);
         handleNavigation(navigation, remoteMessage, dispatch, userData);
       },
     );
@@ -64,6 +67,7 @@ export const useNotifications = () => {
             'TEST: notificaiton opened from quit state',
             remoteMessage.notification,
           );
+          //const payload = formatNotificationPayload(remoteMessage);
           handleNavigation(navigation, remoteMessage, dispatch, userData);
         }
       });
