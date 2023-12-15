@@ -129,32 +129,28 @@ export const BottomLeftContainer = styled.View.attrs(() => ({
   ${layout} ${color} ${space} ${border};
 `;
 
-export const RightPersonOneContainer = styled.View.attrs(() => ({
-}))`
+export const RightPersonOneContainer = styled.View.attrs(() => ({}))`
   position: absolute;
   bottom: 0;
   right: 0;
   ${layout} ${color} ${space} ${border};
 `;
 
-export const RightPersonTwoContainer = styled.View.attrs(() => ({
-}))`
+export const RightPersonTwoContainer = styled.View.attrs(() => ({}))`
   position: absolute;
   bottom: 0;
   right: 45;
   ${layout} ${color} ${space} ${border};
 `;
 
-export const LeftPersonOneContainer = styled.View.attrs(() => ({
-}))`
+export const LeftPersonOneContainer = styled.View.attrs(() => ({}))`
   position: absolute;
   bottom: 0;
   left: 0;
   ${layout} ${color} ${space} ${border};
 `;
 
-export const LeftPersonTwoContainer = styled.View.attrs(() => ({
-}))`
+export const LeftPersonTwoContainer = styled.View.attrs(() => ({}))`
   position: absolute;
   bottom: 0;
   left: 38px;
@@ -258,7 +254,7 @@ export const GiveawayPrimaryText = styled.Text.attrs(props => ({
 }))`
   font-weight: bold;
   font-family: Mont;
-  font-size: ${scale(20)}px; 
+  font-size: ${scale(20)}px;
   ${color}
   ${border}
   ${layout}
