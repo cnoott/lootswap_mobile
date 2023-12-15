@@ -504,10 +504,12 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               {productData?.type !== Trade_Options?.TradeOnly && (
                 <PriceContainer>
                   <PriceLabel>${productData?.price}</PriceLabel>
+                  {/*selectedProductDetails?.stockxId && (
                   <DealBadge
-                    dealType={Deal_Type.Great}
                     fromProductPage={true}
+                    item={selectedProductDetails}
                   />
+                  )*/}
                 </PriceContainer>
               )}
               {productData?.type !== Trade_Options?.TradeOnly && (
