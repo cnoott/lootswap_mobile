@@ -19,14 +19,10 @@ import {
   TopAreaContainer,
   VerticalSpace,
 } from './styles';
-import {
-  HOME_CAROUSEL_MIDDLE,
-} from '../../../constants/imageConstants';
+import {HOME_CAROUSEL_MIDDLE} from '../../../constants/imageConstants';
 import {scale} from 'react-native-size-matters';
 
 export const LSHomeStepTwoCarouselItem: FC<any> = React.memo(() => {
-
-
   return (
     <Container>
       <StepThreeHeaderText>
@@ -34,28 +30,28 @@ export const LSHomeStepTwoCarouselItem: FC<any> = React.memo(() => {
         <HeaderPrimaryText> Public Offers</HeaderPrimaryText>
       </StepThreeHeaderText>
       <StepTwoSubText>
-        Avoid sending offers to each user and have your offer displayed to the community.
+        Avoid sending offers to each user and have your offer displayed to the
+        community.
       </StepTwoSubText>
       <Image
         source={HOME_CAROUSEL_MIDDLE}
         width={scale(309)}
         height={scale(125)}
       />
-      <VerticalSpace space={scale(80)}/>
+      <VerticalSpace space={scale(80)} />
       <RightPersonTwoContainer>
-        <SvgXml xml={HOME_RIGHT_PERSON_TWO}/>
+        <SvgXml xml={HOME_RIGHT_PERSON_TWO} />
       </RightPersonTwoContainer>
       <RightPersonOneContainer>
-        <SvgXml xml={HOME_RIGHT_PERSON_ONE}/>
+        <SvgXml xml={HOME_RIGHT_PERSON_ONE} />
       </RightPersonOneContainer>
 
       <LeftPersonOneContainer>
-        <SvgXml xml={HOME_LEFT_PERSON_TWO}/>
+        <SvgXml xml={HOME_LEFT_PERSON_TWO} />
       </LeftPersonOneContainer>
       <LeftPersonTwoContainer>
-        <SvgXml xml={HOME_LEFT_PERSON_ONE}/>
+        <SvgXml xml={HOME_LEFT_PERSON_ONE} />
       </LeftPersonTwoContainer>
-
     </Container>
   );
 });
