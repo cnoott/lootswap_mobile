@@ -118,7 +118,6 @@ export const BoldText = styled.Text`
 
 export const PriceLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  mt: scale(5),
 }))`
   font-size: ${moderateScale(24)}px;
   font-family: Urbanist-ExtraBold;
@@ -129,10 +128,14 @@ export const PriceLabel = styled.Text.attrs(props => ({
 `;
 
 export const PriceContainer = styled.View.attrs(() => ({
+  my: scale(5),
 }))`
   align-items: center;
   display: flex;
   flex-direction: row;
+  ${color}
+  ${space}
+  ${layout}
 `;
 
 export const ShippingLabel = styled.Text.attrs(props => ({
