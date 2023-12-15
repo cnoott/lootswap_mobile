@@ -4,13 +4,85 @@ import {Deal_Type} from 'custom_enums';
 import {Container, Text} from './styles';
 import {GREAT_DEAL_ICON, FAIR_DEAL_ICON, BAD_DEAL_ICON} from 'localsvgimages';
 import {SvgXml} from 'react-native-svg';
+import {findMarketDataFromSize} from '../../utility/utility';
 
 interface DealBadgeProps {
   dealType: typeof Deal_Type;
   fromProductPage: Boolean;
+  item: any;
 }
 export const DealBadge: FC<DealBadgeProps> = props => {
-  const {dealType, fromProductPage} = props;
+  const {dealType, fromProductPage, item} = props;
+
+  // $501 - $800
+  const upperRangeDealType = () => {
+    const {lastSale} = findMarketDataFromSize(item, item.size);
+    const itemPrice = parseFloat(item.price);
+    const marketPrice = parseFloat(lastSale);
+
+    if (itemPrice >= marketPrice + marketPrice + 0.1) {
+      return Deal_Type.Bad;
+    }
+
+    if (
+      itemPrice > marketPrice + marketPrice * 0.04 &&
+      itemPrice <= marketPrice + marketPrice * 0.1
+    ) {
+      return Deal_Type.Fair;
+    }
+
+    if (itemPrice <= marketPrice + marketPrice * 0.4) {
+      return Deal_Type.Great;
+    }
+
+    return Deal_Type.Fair;
+  };
+
+  // $200 - $500
+  const getMidRangeDealType = () => {
+    const {lastSale} = findMarketDataFromSize(item, item.size);
+    const itemPrice = parseFloat(item.price);
+    const marketPrice = parseFloat(lastSale);
+
+    if (itemPrice > marketPrice + marketPrice + 0.15) {
+      return Deal_Type.Bad;
+    }
+
+    if (
+      itemPrice > marketPrice + marketPrice * 0.05 &&
+      itemPrice <= marketPrice + marketPrice * 0.15
+    ) {
+      return Deal_Type.Fair;
+    }
+
+    if (itemPrice <= marketPrice + marketPrice * 0.05) {
+      return Deal_Type.Great;
+    }
+
+    return Deal_Type.Fair;
+  };
+
+  // $1 - 199
+  const lowerRangeDealType = () => {
+    const {lastSale} = findMarketDataFromSize(item, item.size);
+    const itemPrice = parseFloat(item.price);
+    const marketPrice = parseFloat(lastSale);
+
+    if (itemPrice > marketPrice + marketPrice + 0.2) {
+      return Deal_Type.Bad;
+    }
+
+    if (
+      itemPrice > marketPrice + marketPrice * 0.1 &&
+      itemPrice <= marketPrice + marketPrice * 0.2
+    ) {
+      return Deal_Type.Fair;
+    }
+
+    if (itemPrice <= marketPrice + marketPrice * 0.1) {
+      return Deal_Type.Great;
+    }
+  };
 
   const colorAndText = () => {
     switch (dealType) {
