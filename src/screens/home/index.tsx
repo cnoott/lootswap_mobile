@@ -314,6 +314,7 @@ export const HomeScreen: FC<{}> = () => {
           keyExtractor={item => item._id}
           onEndReached={() => onEndReached()}
           horizontal={true}
+          onEndReachedThreshold={0.5}
         />
       </ScrollView>
     </Container>
