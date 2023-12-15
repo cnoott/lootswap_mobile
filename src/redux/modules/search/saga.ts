@@ -24,6 +24,14 @@ type APIResponseProps = {
 
 export function* filterProducts(action: any) {
   try {
+    // I should've seperated the reducer filters with the reducer
+    // search results but since I didnt, I have to make the search
+    // results undefined otherwise the request size will grow with
+    //the total amount of search results, resulting in a
+    // REQ SIZE TOO LARGE err.
+    action.reqData.searchProducts = null;
+    action.reqData.stockxProducts = null;
+
     const response: APIResponseProps = yield call(
       filterProductsCall,
       action?.reqData,

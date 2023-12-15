@@ -13,6 +13,7 @@ export interface SearchProps {
   loading: Boolean;
   searchProducts: Array<any>
   stockxProducts: Array<any>;
+  endReached: Boolean;
   categories: Array<string>;
   sizes: Array<string>;
   productType: string;
@@ -29,6 +30,7 @@ export const InitialState: SearchProps = {
   loading: false,
   searchProducts: [],
   stockxProducts: [],
+  endReached: false,
   categories: [],
   sizes: [],
   productType: 'tradeable',
@@ -80,6 +82,7 @@ export default function loading(state = InitialState, action: ActionProps) {
       return {
         ...state,
         searchProducts: [],
+        endReached: false,
       };
     case SELECT_FILTER.UPDATE:
       console.log('SELECT FILTER');
@@ -204,13 +207,14 @@ export default function loading(state = InitialState, action: ActionProps) {
       };
 
     case FILTER_PRODUCTS.SUCCESS:
-      const {products, stockxProducts} = payload;
+      const {products, stockxProducts, endReached} = payload;
       console.log('action', filter);
       return {
         ...state,
         searchProducts: [...state.searchProducts, ...products],
         stockxProducts: stockxProducts,
-        loading: false
+        loading: false,
+        endReached,
       };
 
     case FILTER_PRODUCTS.FAILURE:
@@ -232,6 +236,7 @@ export default function loading(state = InitialState, action: ActionProps) {
         filtersSet: false,
         searchProducts: [],
         sizes: [],
+        endReached: false,
       };
     default:
       return state;
