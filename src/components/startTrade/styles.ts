@@ -81,7 +81,7 @@ export const BrandText = styled.Text.attrs(props => ({
 
 export const ConditionSizeText = styled.Text.attrs(props => ({
   color: props.theme.colors.greyLabel,
-  width: '97%',
+  width: '92%',
   numberOfLines: 1,
   ellipsizeMode: 'tail',
 }))`
@@ -94,7 +94,7 @@ export const ConditionSizeText = styled.Text.attrs(props => ({
 `;
 export const ConditionSizeResultText = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
-  width: '97%',
+  width: '92%',
   numberOfLines: 1,
   ellipsizeMode: 'tail',
 }))`
