@@ -99,28 +99,6 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
     );
   };
 
-  const old_renderSingleViewWithOffer = () => {
-    const itemPhoto = getImageUri(items[0]);
-    return (
-      <OfferItemContainerCenter
-        itemsCenter={true}
-        size={isFromHome ? HOME_SIZE : 115}>
-        <Image
-          source={{uri: itemPhoto}}
-          size={isFromHome ? HOME_SIZE : 115}
-          isStockxItem={isStockxItem}
-        />
-        <SingleViewOffer>
-          <OfferText>+${moneyOffer}</OfferText>
-        </SingleViewOffer>
-        <SingleSizeTextContainer>
-          <SizeText>Size {getSize(items[0])}</SizeText>
-        </SingleSizeTextContainer>
-
-      </OfferItemContainerCenter>
-    );
-  };
-
   const renderSingleViewWithOffer = () => {
     const _size = 70;
     const fromHomeSize = scale(45);
