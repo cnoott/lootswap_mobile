@@ -224,6 +224,8 @@ export const AddProductStepOne: FC<ProductStep> = props => {
           onFocus={() => reOpenDrawer()}
           returnKeyType={'search'}
           onSubmitEditing={() => fetchStockxData()}
+          autoCorrect={false}
+          spellCheck={false}
         />
       )}
       <Animated.View style={{height, overflow: 'hidden'}}>
