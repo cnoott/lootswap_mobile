@@ -174,13 +174,7 @@ export const handleNavigation = (
       navigation.navigate('OffersScreen');
       break;
     case 'shipping_notif':
-      navigation.reset({
-        index: 0,
-        routes: [{name: 'Profile'}],
-      });
-      navigation.navigate('Profile', {
-        screen: 'AddressScreen',
-      });
+      navigation.navigate('AddressScreen');
       break;
     default:
       navigation.reset({
