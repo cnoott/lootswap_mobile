@@ -136,6 +136,10 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
     }
     dispatch(
       createNewProduct(reqData, isUpdateCall, () => {
+        if (isFromEdit) {
+          navigation?.goBack();
+          return;
+        }
         navigation?.navigate('ListLootSuccessScreen');
       }),
     );
