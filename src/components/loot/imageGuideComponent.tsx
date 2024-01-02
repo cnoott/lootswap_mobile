@@ -30,12 +30,19 @@ import {
   PHOTO_GUIDE_INSOLE,
   PHOTO_GUIDE_BOX,
   PHOTO_GUIDE_INSIDE_BOX,
+  PHOTO_GUIDE_SHIRT_FRONT,
+  PHOTO_GUIDE_SHIRT_BACK,
+  PHOTO_GUIDE_SHIRT_TAG,
+  PHOTO_GUIDE_HAT_FRONT,
+  PHOTO_GUIDE_HAT_BACK,
+  PHOTO_GUIDE_HAT_TAG,
 } from '../../constants/imageConstants';
 import ImageView from 'react-native-image-viewing';
 
 interface ImageGuideComponentProps {
   isVisible: boolean;
   onClose: Function;
+  category: String;
 }
 
 const images = [
@@ -51,7 +58,7 @@ const images = [
 ];
 
 export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
-  const {isVisible, onClose} = props;
+  const {isVisible, onClose, category} = props;
   const {height, width} = Dimensions.get('window');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentImage, setCurrentImage] = useState(0);
@@ -81,6 +88,9 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
   };
 
   const renderDots = () => {
+    if (category !== 'shoes' || category !== 'other') {
+      return <></>
+    }
     return (
       <DotsContainer>
         <DotsComponent
@@ -93,9 +103,49 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
   };
 
   const handlePressImage = (index: Number) => {
+    if (category !== 'shoes') {
+      return;
+    }
     setCurrentImage(index);
     setViewerVisible(true);
   };
+
+  const clothingImageGuide = () => (
+    <ImageGuidePhotosContainer>
+      <ImageGuidePhotoContainer onPress={() => handlePressImage(0)}>
+        <ImageGuide source={PHOTO_GUIDE_SHIRT_FRONT} />
+        <ImageGuideLabel>Front</ImageGuideLabel>
+      </ImageGuidePhotoContainer>
+      <ImageGuidePhotoContainer onPress={() => handlePressImage(1)}>
+        <ImageGuide source={PHOTO_GUIDE_SHIRT_BACK} />
+        <ImageGuideLabel>Back</ImageGuideLabel>
+      </ImageGuidePhotoContainer>
+
+      <ImageGuidePhotoContainer onPress={() => handlePressImage(2)}>
+        <ImageGuide source={PHOTO_GUIDE_SHIRT_TAG} />
+        <ImageGuideLabel>Tag</ImageGuideLabel>
+      </ImageGuidePhotoContainer>
+    </ImageGuidePhotosContainer>
+  );
+
+  const hatsImageGuide = () => (
+    <ImageGuidePhotosContainer>
+      <ImageGuidePhotoContainer onPress={() => handlePressImage(0)}>
+        <ImageGuide source={PHOTO_GUIDE_HAT_FRONT} />
+        <ImageGuideLabel>Front</ImageGuideLabel>
+      </ImageGuidePhotoContainer>
+      <ImageGuidePhotoContainer onPress={() => handlePressImage(1)}>
+        <ImageGuide source={PHOTO_GUIDE_HAT_BACK} />
+        <ImageGuideLabel>Back</ImageGuideLabel>
+      </ImageGuidePhotoContainer>
+
+      <ImageGuidePhotoContainer onPress={() => handlePressImage(2)}>
+        <ImageGuide source={PHOTO_GUIDE_HAT_TAG} />
+        <ImageGuideLabel>Tag</ImageGuideLabel>
+      </ImageGuidePhotoContainer>
+    </ImageGuidePhotosContainer>
+  );
+
 
   const stepOne = () => (
     <ImageGuidePhotosContainer>
@@ -163,6 +213,45 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
     }
   };
 
+  const renderOptions = () => {
+    switch (category) {
+      case 'other':
+      case 'shoes':
+        return (
+          <Carousel
+            loop={true}
+            width={w}
+            autoPlay={false}
+            keyExtractor={item => item}
+            data={[1, 2, 3]}
+            scrollAnimationDuration={400}
+            onSnapToItem={newIndex => setCurrentIndex(newIndex)}
+            mode={'default'}
+            modeConfig={{
+              snapDirection: 'left',
+              stackInterval: 18,
+              parallaxScrollingScale: 0.94,
+              parallaxScrollingOffset: 50,
+            }}
+            renderItem={({index, item}) => (
+              renderCarouselStep(index + 1)
+            )}
+          />
+        );
+
+      case 'shirts':
+      case 'jackets':
+      case 'hoodies':
+      case 'crewnecks':
+      case 'pants':
+      case 'shorts':
+        return clothingImageGuide();
+      case 'hats':
+        return hatsImageGuide();
+
+    }
+  };
+
   return (
     <Animated.View
       style={[
@@ -200,25 +289,7 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
           visible={viewerVisible}
           onRequestClose={() => setViewerVisible(false)}
         />
-        <Carousel
-          loop={true}
-          width={w}
-          autoPlay={false}
-          keyExtractor={item => item}
-          data={[1, 2, 3]}
-          scrollAnimationDuration={400}
-          onSnapToItem={newIndex => setCurrentIndex(newIndex)}
-          mode={'default'}
-          modeConfig={{
-            snapDirection: 'left',
-            stackInterval: 18,
-            parallaxScrollingScale: 0.94,
-            parallaxScrollingOffset: 50,
-          }}
-          renderItem={({index, item}) => (
-            renderCarouselStep(index + 1)
-          )}
-        />
+        {renderOptions()}
       </ImageGuideContainer>
     </Animated.View>
   );
