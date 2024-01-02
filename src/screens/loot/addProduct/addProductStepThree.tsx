@@ -325,6 +325,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         }}
         dragStartAnimation={true}
         itemHeight={scale(productImageWidth)}
+        style={{paddingBottom: '250%'}}
       />
     </ImagesContainer>
       <ImageGuideComponent
