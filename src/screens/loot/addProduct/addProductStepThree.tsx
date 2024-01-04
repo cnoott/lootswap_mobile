@@ -331,7 +331,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       <ImageGuideComponent
         isVisible={isImageGuideVisible}
         onClose={closeImageGuide}
-        category={addProductData?.stepOne?.category.value}
+        category={addProductData?.stepOne?.category?.value}
       />
       <EditPhotoModal
         isVisible={editModalVisible}
