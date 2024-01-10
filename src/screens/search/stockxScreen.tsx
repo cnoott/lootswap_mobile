@@ -103,7 +103,7 @@ export const StockxScreen: FC<any> = ({route}) => {
         },
         err => {
           console.log('ERR => ', err);
-          setMarketData(stockxProduct.sizes);
+          //setMarketData(stockxProduct.sizes);
           setLoadingData(false);
         },
       )
