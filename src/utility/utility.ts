@@ -894,6 +894,7 @@ export const getTradeStatusColor = (status: string) => {
   };
   switch (status) {
     case Trade_Status.Canceled:
+    case Trade_Status.Declined:
       colorData.backColor = 'rgba(240, 62, 62, 0.2)';
       colorData.labelColor = '#F03E3E';
       break;
