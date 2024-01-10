@@ -133,6 +133,7 @@ export const EditAddressComponent: FC<EditAddressComponentProps> = props => {
           }}
           styles={AutocompleteStyles}
           enablePoweredByContainer={false}
+          autocomplete={false}
         />
         <TopSpaceView>
           <LSInput
