@@ -51,6 +51,7 @@ export enum Trade_Status {
   Pending = 'pending',
   Accepted = 'accepted',
   Canceled = 'canceled',
+  Declined = 'declined',
 }
 
 export enum Order_Status {
