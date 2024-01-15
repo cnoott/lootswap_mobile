@@ -325,11 +325,13 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         }}
         dragStartAnimation={true}
         itemHeight={scale(productImageWidth)}
+        style={{paddingBottom: '250%'}}
       />
     </ImagesContainer>
       <ImageGuideComponent
         isVisible={isImageGuideVisible}
         onClose={closeImageGuide}
+        category={addProductData?.stepOne?.category?.value}
       />
       <EditPhotoModal
         isVisible={editModalVisible}

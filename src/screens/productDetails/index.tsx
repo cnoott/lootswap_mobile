@@ -19,6 +19,7 @@ import {
   ProductLabel,
   ProductDetails,
   PriceLabel,
+  PriceContainer,
   TagsContainer,
   TagView,
   TagLabel,
@@ -80,8 +81,10 @@ import {
   convertUsSizeToEu,
 } from '../../utility/utility';
 import {Alert} from 'custom_top_alert';
-import {Trade_Options} from 'custom_enums';
+import {Trade_Options, Deal_Type} from 'custom_enums';
 import defaultExport from '@react-native-firebase/messaging';
+import DealBadge from '../../components/dealBadges';
+
 
 
 const height = Dimensions.get('window').height;
@@ -385,8 +388,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           />
         </TopSpace>
       );
-    } 
-    return <></>
+    }
+    return <></>;
   };
   const renderProtectionView = () => {
     return (
@@ -499,7 +502,15 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                 Size: <BoldText>{convertUsSizeToEu(productData?.size)}</BoldText>
               </ProductDetails>
               {productData?.type !== Trade_Options?.TradeOnly && (
-                <PriceLabel>${productData?.price}</PriceLabel>
+                <PriceContainer>
+                  <PriceLabel>${productData?.price}</PriceLabel>
+                  {/*selectedProductDetails?.stockxId && (
+                  <DealBadge
+                    fromProductPage={true}
+                    item={selectedProductDetails}
+                  />
+                  )*/}
+                </PriceContainer>
               )}
               {productData?.type !== Trade_Options?.TradeOnly && (
                 <ShippingLabel>

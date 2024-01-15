@@ -69,7 +69,8 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     const [isShipInsModalVisible, setShipInsModalVisible] = useState(false);
     const isAccepted = tradeStatus === Trade_Status?.Accepted;
     const isCanceled = tradeStatus === Trade_Status?.Canceled;
-    const isPending = !isAccepted && !isCanceled;
+    const isDeclined = tradeStatus === Trade_Status?.Declined;
+    const isPending = !isAccepted && !isCanceled && !isDeclined;
     const isReceiver = userData?._id === offerItem?.receiver?._id;
     const paidByBothUsers =
       isReceiver || offerItem?.orderId?.senderPaymentStatus === 'paid';
@@ -202,18 +203,27 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     };
 
     const RenderOfferStatusAccrordianView = () => {
-      const name =
-        offerItem?.receiver?._id === userData?._id
-          ? offerItem?.receiver?.name
-          : offerItem?.sender?.name;
+      const otherUsername = isReceiver ? offerItem?.sender?.name : offerItem?.receiver?.name;
 
-      const acceptDeclineText = isReceiver
-        ? `You have ${isAccepted ? 'accepted' : 'declined'} the offer!`
-        : `${name} has ${isAccepted ? 'accepted' : 'declined'} your offer!`;
+
+      let headerText = '';
+
+      if (isCanceled) {
+        headerText = 'The trade has been canceled!';
+      } else if (isDeclined) {
+        headerText = isReceiver
+          ? 'You have declined the trade!'
+          : `${otherUsername} has declined the trade!`;
+      } else if (isAccepted) {
+        headerText = isReceiver
+          ? `You have accepted the offer!`
+          : `${otherUsername} has accepted your offer!`;
+      }
+      
       return (
         <OfferStatusContainer isAccepted={isAccepted}>
           <OfferStatusLeftView>
-            <OfferStatusTitleText>{acceptDeclineText}</OfferStatusTitleText>
+            <OfferStatusTitleText>{headerText}</OfferStatusTitleText>
             <EmptyRowView>
               <SvgXml
                 xml={
@@ -228,7 +238,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
             </EmptyRowView>
           </OfferStatusLeftView>
           <OfferStatusRightView>
-            {!isCanceled && (
+            {!isCanceled && !isDeclined && (
               <LSButton
                 title={viewOrderTextOptions()}
                 size={Size.Extra_Small}

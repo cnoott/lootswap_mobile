@@ -9,7 +9,12 @@ import {
 import {Animated} from 'react-native';
 import {scale} from 'react-native-size-matters';
 
-const LoadingProductCard: FC<{}> = () => {
+interface LoadingProductCardProps {
+  isHorizontalView?: Boolean;
+}
+
+const LoadingProductCard: FC<LoadingProductCardProps> = props => {
+  const {isHorizontalView = false} = props;
   const [opacity] = useState(new Animated.Value(1)); // Initial value for opacity: 1
 
   useEffect(() => {
@@ -77,7 +82,7 @@ const LoadingProductCard: FC<{}> = () => {
 
 
   return (
-    <ItemContainer>
+    <ItemContainer isHorizontalView={isHorizontalView}>
       <EmptyView>
         <BlinkingImage />
       </EmptyView>

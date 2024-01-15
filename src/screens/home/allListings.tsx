@@ -30,7 +30,8 @@ export const AllListingsScreen: FC<any> = () => {
   const [page, setPage] = useState(0);
 
   const search: SearchProps = useSelector(state => state.search);
-  const {loading, searchProducts} = search;
+  const {loading, searchProducts, endReached} = search;
+  const [loadingItems, setLoadingItems] = useState([]);
   const filters: SearchProps = useSelector(state => state.search);
   const {filtersSet} = filters;
 
@@ -41,7 +42,7 @@ export const AllListingsScreen: FC<any> = () => {
       {...filters, page, itemsPerPage: ITEMS_PER_PAGE},
       '',
     );
-    console.log('calling submit filters');
+    console.log('calling submit filters', JSON.stringify(filters).length);
   }, [dispatch, page]);
 
   useEffect(() => {
@@ -56,6 +57,16 @@ export const AllListingsScreen: FC<any> = () => {
     }
   }, [searchProducts]);
 
+  useEffect(() => {
+    if (loading && !endReached) {
+      setLoadingItems(new Array(8).fill({loading: true}));
+      console.log('now loading');
+    } else {
+      setLoadingItems([]);
+      console.log('not loading');
+    }
+  }, [loading]);
+
   const handleClearFilters = () => {
     dispatch(clearFiltersRequest());
     setPage(0);
@@ -68,15 +79,15 @@ export const AllListingsScreen: FC<any> = () => {
     console.log('clearing filters');
   };
 
-  const renderItem = ({item}: any) => {
-    if (loading && !page) {
-      return <LoadingProductCard key={item} />
+  const renderItem = ({item, index}: any) => {
+    if (item.loading) {
+      return <LoadingProductCard key={`loading-${index}`} />
     }
-    return <LSProductCard item={item} isHorizontalView={false} />;
+    return <LSProductCard item={item} isHorizontalView={false} key={item._id}/>;
   };
 
   const onEndReached = () => {
-    if (!loading || !filtersSet) {
+    if ((!loading || !filtersSet) && !endReached) {
       setPage(prevPage => prevPage + 1);
     }
   };
@@ -94,15 +105,14 @@ export const AllListingsScreen: FC<any> = () => {
         }
       />
       <FlatList
-        data={
-          loading && !page
-            ? [1, 2, 3, 4, 5, 6]
-            : searchProducts
-        }
+        data={[...searchProducts, ...loadingItems]}
         renderItem={renderItem}
-        keyExtractor={item => item?._id || item}
+        keyExtractor={(item, index) =>
+          item._id ? item._id.toString() : `loading-${index}`
+        }
         numColumns={2}
         onEndReached={() => onEndReached()}
+        onEndReachedThreshold={0.3}
       />
       {filtersSet && (
         <ClearFiltersButtonContainer>

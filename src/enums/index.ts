@@ -51,6 +51,7 @@ export enum Trade_Status {
   Pending = 'pending',
   Accepted = 'accepted',
   Canceled = 'canceled',
+  Declined = 'declined',
 }
 
 export enum Order_Status {
@@ -71,4 +72,10 @@ export enum Filter_Type {
   Max_Price = 'max_price',
   Condition = 'condition',
   Sort_By = 'sort_by',
+}
+
+export enum Deal_Type {
+  Great = 'great',
+  Fair = 'fair',
+  Bad = 'bad',
 }

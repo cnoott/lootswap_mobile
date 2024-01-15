@@ -57,9 +57,11 @@ export const DotsComponent = styled(Dots).attrs(props => ({
   ${layout}
 `;
 
-export const ItemCenterContainer = styled.TouchableWithoutFeedback.attrs(() => ({
-  flex: 1,
-}))`
+export const ItemCenterContainer = styled.TouchableWithoutFeedback.attrs(
+  () => ({
+    flex: 1,
+  }),
+)`
   align-items: center;
   justify-content: center;
   width: 100%;

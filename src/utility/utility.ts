@@ -677,6 +677,7 @@ export const getSelectedTradeData = (tradeOption: any) => {
 
 const getStepOneDataFromLists = (arrayData: any, catValue: string) => {
   const filteredCategory = arrayData?.filter(cat => cat?.value === catValue);
+  console.log('getstep one', filteredCategory, catValue);
   return filteredCategory[0] || arrayData[0];
 };
 
@@ -722,6 +723,7 @@ const getTradeDataForConfigure = (trade: string) => {
 };
 
 export const configureAndGetLootData = (lootData: any) => {
+  console.log(lootData?.condition, "CONDITION");
   const newLootData: GET_PRODUCT_DETAILS = getAddProductRawData();
   // Configure STEP 1
   newLootData.stepOne.category = getStepOneDataFromLists(
@@ -744,11 +746,10 @@ export const configureAndGetLootData = (lootData: any) => {
     conditionList,
     lootData?.condition,
   );
-  newLootData.stepTwo.condition = getStepOneDataFromLists(
+  newLootData.stepTwo.preOwnedCondition = getStepOneDataFromLists(
     preOwnedConditions,
     lootData?.preOwnedCondition,
   );
-  //TODO: preownedCondtion here
   newLootData.stepTwo.productDescription = lootData?.description;
 
   // Configure STEP 3
@@ -893,6 +894,7 @@ export const getTradeStatusColor = (status: string) => {
   };
   switch (status) {
     case Trade_Status.Canceled:
+    case Trade_Status.Declined:
       colorData.backColor = 'rgba(240, 62, 62, 0.2)';
       colorData.labelColor = '#F03E3E';
       break;

@@ -152,10 +152,8 @@ export function* createNewProduct(action: any) {
     );
     yield put(LoadingSuccess());
     if (response?.success) {
-      if (!action?.isUpdateCall) {
-        action?.successCallBack();
-        yield put(resetAddProductData());
-      }
+      action?.successCallBack();
+      yield put(resetAddProductData());
       Alert.showSuccess(
         action?.isUpdateCall
           ? 'Product updated successfully..'
@@ -204,7 +202,6 @@ export function* refreshStockxData(action: any) {
     console.log(e);
   }
 }
-
 
 export function* generateLinkPaypal(action: any) {
   yield put(LoadingRequest());

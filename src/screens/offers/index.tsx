@@ -250,8 +250,8 @@ export const OffersScreen: FC<{}> = () => {
         <LSProfileImageComponent
           profileUrl={
             isReceiver
-              ? item.sender.profile_picture
-              : item.receiver.profile_picture
+              ? item?.sender?.profile_picture
+              : item.receiver?.profile_picture
           }
           imageHeight={40}
           imageWidth={40}
@@ -261,7 +261,7 @@ export const OffersScreen: FC<{}> = () => {
         <OwnerDetailsView>
           <NameLabel>
             {isReceiver ? (
-              <>{item.sender.name}</>
+              <>{item?.sender?.name}</>
             ) : (
               <>{item.receiver.name}</>
             )}
@@ -341,8 +341,8 @@ export const OffersScreen: FC<{}> = () => {
       case 'Messages':
         return allMyMessages?.messageDocs.filter(
           message =>
-            (userData?._id === message.receiver._id && message.receiverNewMessage) ||
-            (userData?._id === message.sender._id && message.senderNewMessage),
+            (userData?._id === message.receiver?._id && message.receiverNewMessage) ||
+            (userData?._id === message?.sender?._id && message.senderNewMessage),
         ).length;
 
       default:

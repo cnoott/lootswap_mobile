@@ -1,4 +1,4 @@
-import {useEffect, useCallback} from 'react';
+import {useEffect, useCallback, useState} from 'react';
 import messaging from '@react-native-firebase/messaging';
 import {useDispatch, useSelector} from 'react-redux'
 import {handleNavigation} from '../notification';
@@ -13,14 +13,16 @@ export const useNotifications = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
 
+
+
   const onRemoteNotification = useCallback(
     (notification: any) => {
       const notifData = notification.getData();
       const isClicked = notifData.userInteraction === 1;
 
       if (isClicked) {
-        handleNavigation(navigation, notifData.remoteMessage, dispatch, userData);
-        console.log(JSON.stringify(notifData));
+        console.log('ISCLICKED', notifData);
+        handleNavigation(navigation, notifData, dispatch, userData);
       } else {
         // Do something else with push notification
       }
@@ -42,7 +44,7 @@ export const useNotifications = () => {
 
     const unsubscribeOnNotificationOpenedApp = messaging().onMessage(
       remoteMessage => {
-        console.log('NEW MESSAGE!!!');
+        console.log('NEW MESSAGE!!!', remoteMessage);
         dispatch(
           newNotifTrueSuccess({notifType: remoteMessage?.data?.notifType}),
         );

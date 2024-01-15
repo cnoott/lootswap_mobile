@@ -149,7 +149,9 @@ export const AddProductStepOne: FC<ProductStep> = props => {
       {
         productName: item.title,
         stockxUrlKey: item.urlKey,
-        category: item?.category === 'sneakers' ? {value: 'shoes', label: 'Shoes'} : '',
+        category: item?.category === 'sneakers'
+          ? {value: 'shoes', label: 'Shoes'}
+          : {...addProductData?.stepOne?.category},
       },
       item.brand,
     );
@@ -224,6 +226,8 @@ export const AddProductStepOne: FC<ProductStep> = props => {
           onFocus={() => reOpenDrawer()}
           returnKeyType={'search'}
           onSubmitEditing={() => fetchStockxData()}
+          autoCorrect={false}
+          spellCheck={false}
         />
       )}
       <Animated.View style={{height, overflow: 'hidden'}}>

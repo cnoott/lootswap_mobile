@@ -35,6 +35,7 @@ import {Size, Type} from '../../enums';
 import LSButton from '../../components/commonComponents/LSButton';
 import PublicOfferCell from '../../components/publicOffer/PublicOfferCell';
 import {ScrollView} from 'react-native';
+import LoadingProductCard from '../../components/productCard/loadingProductCard';
 
 const ITEMS_PER_PAGE = 8;
 const PUBLIC_OFFERS_PER_PAGE = 4;
@@ -45,6 +46,8 @@ export const HomeScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isModalOpen, setModalOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [loadingItems, setLoadingItems] = useState([]);
+
   const scrollRef = React.useRef(null);
   useScrollToTop(scrollRef);
 
@@ -52,6 +55,7 @@ export const HomeScreen: FC<{}> = () => {
   const {userData, isLogedIn} = auth;
 
   const [products, setProducts] = useState([]);
+  const [endReached, setEndReached] = useState(false);
   const [publicOffers, setPublicOffers] = useState([]);
   const [page, setPage] = useState(0);
   const [publicOffersPage, setPublicOffersPage] = useState(0);
@@ -68,7 +72,8 @@ export const HomeScreen: FC<{}> = () => {
       getHomeScreenProducts(
         reqData,
         (res: any) => {
-          setProducts([...products, ...res]);
+          setProducts([...products, ...res.products]);
+          setEndReached(res.endReached);
           setLoading(false);
         },
         (err: any) => {
@@ -81,6 +86,16 @@ export const HomeScreen: FC<{}> = () => {
       dispatch(getMyDetailsNoLoadRequest(userData?._id));
     }
   }, [page]);
+
+  useEffect(() => {
+    if (loading && !endReached) {
+      setLoadingItems(new Array(8).fill({loading: true}));
+      console.log('now loading');
+    } else {
+      setLoadingItems([]);
+      console.log('not loading');
+    }
+  }, [loading]);
 
   useEffect(() => {
     setPublicOffersLoading(true);
@@ -139,7 +154,8 @@ export const HomeScreen: FC<{}> = () => {
       getHomeScreenProducts(
         reqData,
         (res: any) => {
-          setProducts(res);
+          //setProducts(res.products);
+          setEndReached(res.endReached);
         },
         (err: any) => {
           console.log(err);
@@ -198,7 +214,7 @@ export const HomeScreen: FC<{}> = () => {
   };
 
   const onEndReached = () => {
-    if (!loading) {
+    if (!loading && !endReached) {
       setPage(prevPage => prevPage + 1);
     }
   };
@@ -225,11 +241,13 @@ export const HomeScreen: FC<{}> = () => {
     );
   };
 
-  const renderItem = ({item}: any) => {
-    if (loading) {
-      //return <LoadingProductCard />
+  const renderItem = ({item, index}: any) => {
+    if (item.loading) {
+      return (
+        <LoadingProductCard key={`loading-${index}`} isHorizontalView={true}/>
+      );
     }
-    return <LSProductCard item={item} isHorizontalView={true} />;
+    return <LSProductCard item={item} isHorizontalView={true} key={item._id} />;
   };
 
   const onToggleModal = () => {
@@ -309,11 +327,14 @@ export const HomeScreen: FC<{}> = () => {
         </SectionContainer>
 
         <FlatList
-          data={products}
+          data={[...products, ...loadingItems]}
           renderItem={renderItem}
-          keyExtractor={item => item._id}
+          keyExtractor={(item, index) =>
+            item._id ? item._id.toString() : `loading-${index}`
+          }
           onEndReached={() => onEndReached()}
           horizontal={true}
+          onEndReachedThreshold={0.5}
         />
       </ScrollView>
     </Container>
