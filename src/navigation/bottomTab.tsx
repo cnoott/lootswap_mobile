@@ -86,6 +86,7 @@ const HomeStackNavigation = () => (
     }}>
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
     <Stack.Screen name="Notifications" component={NotificationsScreen} />
+    <Stack.Screen name="AddressScreen" component={AddressScreen} />
     <Stack.Screen
       name="BrowsePublicOffersScreen"
       component={BrowsePublicOffersScreen}
@@ -110,6 +111,7 @@ const HomeStackNavigation = () => (
       component={CreatePublicOfferCheckoutScreen}
     />
     <Stack.Screen name="PublicOfferScreen" component={PublicOfferScreen} />
+    <Stack.Screen name="MoneyOfferCheckoutScreen" component={CheckoutScreen} />
     <Stack.Screen
       name="AcceptPublicOfferScreen"
       component={AcceptPublicOfferScreen}
@@ -190,6 +192,7 @@ const SearchStackNavigation = () => (
       component={SendMoneyOfferScreen}
     />
     <Stack.Screen name="OffersMessageScreen" component={OffersMessageScreen} />
+    <Stack.Screen name="MoneyOfferCheckoutScreen" component={CheckoutScreen} />
     <Stack.Screen name="EditTradeScreen" component={EditTradeScreen} />
 
     <Stack.Screen
@@ -231,6 +234,7 @@ const ProfileStackNavigation = () => (
       component={AcceptTradeCheckoutScreen}
     />
     <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
+    <Stack.Screen name="MoneyOfferCheckoutScreen" component={CheckoutScreen} />
     <Stack.Screen name="ShippingLabelScreen" component={ShippingLabelScreen} />
     <Stack.Screen name="ChooseServiceScreen" component={ChooseServiceScreen} />
     <Stack.Screen name="WalletScreen" component={WalletScreen} />

@@ -24,34 +24,59 @@ export const countNotifs = (
   return count.length;
 };
 
+function formatNotificationPayload(originalPayload: any) {
+  return {
+    data: {
+      body: originalPayload?.data?.body ?? originalPayload?.aps?.alert?.body,
+      dateAdded: originalPayload?.data?.dateAdded,
+      isRead: originalPayload?.data?.isRead,
+      notifType: originalPayload?.data?.notifType ?? originalPayload?.notifType,
+      objectId: originalPayload?.data?.objectId ?? originalPayload?.objectId,
+      title: originalPayload?.data?.title ?? originalPayload?.aps?.alert?.title,
+    },
+    from: originalPayload?.['google.c.sender.id'],
+    messageId: originalPayload?.['gcm.message_id'],
+    notification: {
+      body: originalPayload?.data?.body ?? originalPayload?.aps?.alert?.body,
+      title: originalPayload?.data?.title ?? originalPayload?.aps?.alert?.title,
+    },
+  };
+}
+
+
 export const handleNavigation = (
   navigation: any,
   message: any,
   dispatch: any,
   userData: any,
 ) => {
-  switch (message.data.notifType) {
+  var formattedMessage = formatNotificationPayload(message);
+  if (!formattedMessage?.data?.body) {
+    formattedMessage = message.remoteMessage;
+    console.log(formattedMessage.data, 'new!');
+  }
+  switch (formattedMessage.data.notifType) {
     case 'trade':
       navigation.navigate('OffersMessageScreen', {
-        item: {_id: message?.data?.objectId},
+        item: {_id: formattedMessage?.data?.objectId},
       });
       break;
     case 'message':
       dispatch(
         getMessagesHistory({
           userId: userData?._id,
-          messageId: message?.data?.objectId,
+          messageId: formattedMessage?.data?.objectId,
         }),
       );
       navigation.navigate('UserChatScreen', {
-        messageId: message?.data?.objectId,
+        messageId: formattedMessage?.data?.objectId,
       });
       break;
 
     case 'trade-order':
       dispatch(
         getOrder(
-          {orderId: message?.data?.objectId},
+          {orderId: formattedMessage?.data?.objectId},
           res => {
             navigation.navigate('TrackOrderScreen', {
               isTradeOrder: true,
@@ -80,7 +105,7 @@ export const handleNavigation = (
     case 'paypal-order':
       dispatch(
         getPaypalOrder(
-          {paypalOrderId: message?.data?.objectId},
+          {paypalOrderId: formattedMessage?.data?.objectId},
           res => {
             navigation.navigate('TrackOrderScreen', {
               isTradeOrder: false,
@@ -104,7 +129,7 @@ export const handleNavigation = (
       break;
     case 'product-promo':
       dispatch(
-        getProductDetails(message?.data?.objectId, product => {
+        getProductDetails(formattedMessage?.data?.objectId, product => {
           navigation.reset({
             index: 0,
             routes: [{name: 'Home'}],
@@ -128,7 +153,7 @@ export const handleNavigation = (
     case 'rate-trade':
       dispatch(
         getOrder(
-          {orderId: message?.data?.objectId},
+          {orderId: formattedMessage?.data?.objectId},
           res => {
             navigation.navigate('SubmitReviewScreen', {
               orderDetails: res,
@@ -147,6 +172,9 @@ export const handleNavigation = (
         routes: [{name: 'Inbox'}],
       });
       navigation.navigate('OffersScreen');
+      break;
+    case 'shipping_notif':
+      navigation.navigate('AddressScreen');
       break;
     default:
       navigation.reset({

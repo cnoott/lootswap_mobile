@@ -1,13 +1,22 @@
 import styled from 'styled-components/native';
 import {ViewStyle} from 'react-native';
-import {layout, space} from 'styled-system';
-import {verticalScale, scale} from 'react-native-size-matters';
+import {layout, space, color, border} from 'styled-system';
+import {verticalScale, scale, moderateScale} from 'react-native-size-matters';
 
+export const MainContent = styled.View.attrs(props => ({
+  backgroundColor: props.theme.colors.white,
+  flex: 1,
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
 export const Container = styled.View.attrs(props => ({
   flex: 1,
   backgroundColor: props.theme.colors.secondary,
 }))`
   justify-content: space-between;
+  ${color}
   ${space}
   ${layout}
 `;
@@ -56,3 +65,41 @@ export const AutocompleteStyles = {
     right: scale(25),
   },
 };
+
+export const DisclaimerView = styled.View.attrs((props: any) => ({
+  mt: verticalScale(5),
+  borderWidth: 0.5,
+  borderRadius: scale(20),
+  borderColor: props.theme.colors.protectionBorder,
+  p: scale(12),
+  overflow: 'hidden',
+  mx: scale(22),
+}))`
+  flex-direction: row;
+  align-items: center;
+  ${space} ${border} ${color};
+`;
+
+export const GuarenteedDesView = styled.View.attrs(() => ({
+  ml: scale(16),
+  flex: 1,
+  mx: 20,
+}))`
+  ${space};
+  ${border}
+  ${layout}
+`;
+
+export const DisclaimerTopLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.lightGrey,
+  ml: scale(10),
+  width: '95%',
+}))`
+  font-size: ${moderateScale(13)}px;
+  font-family: Urbanist-Medium;
+  ${color}
+  ${space}
+  ${layout}
+
+`;
+

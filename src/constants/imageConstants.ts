@@ -46,3 +46,11 @@ export const PHOTO_GUIDE_SOLE = require('../assets/images/photoGuide/soles.jpg')
 export const PHOTO_GUIDE_INSOLE = require('../assets/images/photoGuide/insoles.jpg');
 export const PHOTO_GUIDE_INSIDE_BOX = require('../assets/images/photoGuide/inside_box.jpg');
 export const PHOTO_GUIDE_BOX = require('../assets/images/photoGuide/boxside.jpg');
+
+export const PHOTO_GUIDE_SHIRT_FRONT = require('../assets/images/photoGuide/shirt_front.png');
+export const PHOTO_GUIDE_SHIRT_BACK = require('../assets/images/photoGuide/shirt_back.png');
+export const PHOTO_GUIDE_SHIRT_TAG = require('../assets/images/photoGuide/shirt_tag.png');
+
+export const PHOTO_GUIDE_HAT_FRONT = require('../assets/images/photoGuide/hat_front.png');
+export const PHOTO_GUIDE_HAT_BACK = require('../assets/images/photoGuide/hat_back.png');
+export const PHOTO_GUIDE_HAT_TAG = require('../assets/images/photoGuide/hat_tag.png');

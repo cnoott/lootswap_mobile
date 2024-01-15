@@ -61,7 +61,7 @@ export const CheckoutScreen: FC<{}> = props => {
   }, [userData?._id, dispatch, productData?.userId]);
 
   const renderShippingCost = () => {
-    if (productData.type === 'trade-only' || isMoneyOffer) {
+    if (productData.type === 'trade-only') {
       return 0;
     }
     switch (productData.who_pays) {
@@ -76,9 +76,9 @@ export const CheckoutScreen: FC<{}> = props => {
 
   const renderTotal = () => {
     if (isMoneyOffer) {
-      return tradeData?.senderMoneyOffer.toFixed(2);
+      return parseFloat(parseFloat(tradeData?.senderMoneyOffer) + parseFloat(renderShippingCost())).toFixed(2);
     } else {
-      return parseFloat(renderShippingCost()) + parseFloat(productData?.price);
+      return parseFloat(parseFloat(renderShippingCost()) + parseFloat(productData?.price)).toFixed(2);
     }
   };
 
@@ -123,6 +123,7 @@ export const CheckoutScreen: FC<{}> = props => {
       case 'error':
         setShowGateway(false);
         Alert.showError('There was an error with your transaction');
+        console.log(data);
         break;
     }
   };

@@ -7,6 +7,7 @@ import LSInput from '../../../components/commonComponents/LSInput';
 import {SvgXml} from 'react-native-svg';
 import {
   Container,
+  StepFiveContainer,
   HorizontalSpace,
   TradeOptionsText,
   MarketRangeText,
@@ -26,6 +27,7 @@ import {
   MedianText,
   RedBar,
   OrangeGradientBar,
+  KeyboardAvoidingView,
 } from './styles';
 import {
   DOLLOR_TEXT,
@@ -176,40 +178,42 @@ export const AddProductStepFive: FC<ProductStep> = props => {
 
   return (
     <Container>
-      <ScrollView>
-        <HorizontalSpace>
-          <TradeOptionsText>Price</TradeOptionsText>
-        </HorizontalSpace>
-        <LSInput
-          onChangeText={handleSetPrice}
-          placeholder={'0.00'}
-          horizontalSpace={20}
-          topSpace={1}
-          rightIcon={USD_TEXT}
-          leftIcon={DOLLOR_TEXT}
-          keyboardType={'numeric'}
-          onBlurCall={onBlurCall}
-        />
-        {stepFive?.median !== 0 && renderMarketRange()}
-        {renderShippingView()}
-        {!stepFive?.isFreeShipping && (
-          <>
-            <HorizontalSpace>
-              <TradeOptionsText>Shipping Cost</TradeOptionsText>
-            </HorizontalSpace>
-            <LSInput
-              onChangeText={setShippingCost}
-              placeholder={'0.00'}
-              horizontalSpace={20}
-              topSpace={1}
-              rightIcon={USD_TEXT}
-              leftIcon={DOLLOR_TEXT}
-              keyboardType={'numeric'}
-              onBlurCall={onBlurCall}
-            />
-          </>
-        )}
-      </ScrollView>
+      <KeyboardAvoidingView keyboardVerticalOffset={100}>
+        <ScrollView>
+          <HorizontalSpace>
+            <TradeOptionsText>Price</TradeOptionsText>
+          </HorizontalSpace>
+          <LSInput
+            onChangeText={handleSetPrice}
+            placeholder={'0.00'}
+            horizontalSpace={20}
+            topSpace={1}
+            rightIcon={USD_TEXT}
+            leftIcon={DOLLOR_TEXT}
+            keyboardType={'numeric'}
+            onBlurCall={onBlurCall}
+          />
+          {stepFive?.median !== 0 && renderMarketRange()}
+          {renderShippingView()}
+          {!stepFive?.isFreeShipping && (
+            <StepFiveContainer>
+              <HorizontalSpace>
+                <TradeOptionsText>Shipping Cost</TradeOptionsText>
+              </HorizontalSpace>
+              <LSInput
+                onChangeText={setShippingCost}
+                placeholder={'0.00'}
+                horizontalSpace={20}
+                topSpace={1}
+                rightIcon={USD_TEXT}
+                leftIcon={DOLLOR_TEXT}
+                keyboardType={'numeric'}
+                onBlurCall={onBlurCall}
+              />
+            </StepFiveContainer>
+          )}
+        </ScrollView>
+      </KeyboardAvoidingView>
     </Container>
   );
 };

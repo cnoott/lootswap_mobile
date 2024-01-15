@@ -5,6 +5,7 @@ import {Dimensions} from 'react-native';
 import {DraggableGrid} from 'react-native-draggable-grid';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
+import {Platform} from 'react-native';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -14,6 +15,15 @@ const productImageWidth = 100;
 export const Container = styled.View.attrs(props => ({
   flex: 1,
   backgroundColor: props.theme.colors.secondary,
+}))`
+  ${space}
+  ${layout}
+`;
+
+export const StepFiveContainer = styled.View.attrs(props => ({
+  flex: 1,
+  backgroundColor: props.theme.colors.white,
+  paddingBottom: 200,
 }))`
   ${space}
   ${layout}
@@ -603,3 +613,11 @@ export const Innercontainer = {
   margin: moderateScale(15),
   marginHorizontal: moderateScale(25),
 };
+
+export const KeyboardAvoidingView = styled.KeyboardAvoidingView.attrs(() => ({
+  flex: 1,
+  behavior: Platform.OS === 'ios' ? 'padding' : 'height',
+}))`
+  ${space}
+  ${layout}
+`;

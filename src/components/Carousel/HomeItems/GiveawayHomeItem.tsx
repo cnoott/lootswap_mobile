@@ -18,7 +18,6 @@ interface HeaderProps {
 }
 
 export const LSGiveawayHomeItem: FC<HeaderProps> = React.memo(() => {
-
   return (
     <GiveawayContainer>
       <Image
@@ -26,9 +25,7 @@ export const LSGiveawayHomeItem: FC<HeaderProps> = React.memo(() => {
         width={scale(207)}
         height={scale(126)}
       />
-      <GiveawayPrimaryText>
-        Jordan 4 Retro SB Pine Green
-      </GiveawayPrimaryText>
+      <GiveawayPrimaryText>Jordan 4 Retro SB Pine Green</GiveawayPrimaryText>
       <GiveawayDetailsText>
         {`Rules: Follow us and upload 1 item
         Each extra item uploaded → 1 more entry 🎟️`}
@@ -44,7 +41,11 @@ export const LSGiveawayHomeItem: FC<HeaderProps> = React.memo(() => {
           buttonCustomColor={'white'}
           customTextColor={'black'}
           radius={38}
-          onPress={() => Linking.openURL('https://www.instagram.com/p/C0ewpMWOdSe/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==')}
+          onPress={() =>
+            Linking.openURL(
+              'https://www.instagram.com/p/C0ewpMWOdSe/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==',
+            )
+          }
           sizeFont={12}
         />
       </EnterNowButtonContainer>
