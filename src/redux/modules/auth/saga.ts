@@ -181,13 +181,14 @@ export function* signOutAPI() {
   yield put(LoadingRequest());
   try {
     let authData = yield select(getAuthData);
+    let removeToken = true;
     yield put(
       setRegTokenRequest(
         {
           userId: authData?.userData?._id,
           token: authData?.fcmToken,
         },
-        true,
+        removeToken,
       ), // Remove FCM Token Call
     );
     yield delay(500);
