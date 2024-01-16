@@ -28,6 +28,7 @@ import {Alert as AlertModal} from 'react-native';
 import {Linking} from 'react-native';
 import {useNotifications} from '../utility/customHooks/useNotifications';
 import analytics from '@react-native-firebase/analytics';
+import useFCMNotifications from '../utility/customHooks/useFCMNotifications';
 
 const Stack = createStackNavigator();
 
@@ -35,6 +36,7 @@ const AppNavigation = () => {
   const dispatch = useDispatch();
 
   useNotifications();
+  useFCMNotifications();
 
   useEffect(() => {
     dispatch(
