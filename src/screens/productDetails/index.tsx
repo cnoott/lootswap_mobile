@@ -84,7 +84,7 @@ import {Alert} from 'custom_top_alert';
 import {Trade_Options, Deal_Type} from 'custom_enums';
 import defaultExport from '@react-native-firebase/messaging';
 import DealBadge from '../../components/dealBadges';
-
+import analytics from '@react-native-firebase/analytics';
 
 
 const height = Dimensions.get('window').height;
@@ -211,6 +211,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           navigation.navigate('UserChatScreen', {
             messageId: res.messageId,
           });
+          const currentEpochTime = Math.floor(new Date().getTime() / 1000);
+          analytics().logEvent('start_message', {
+            id: res.messageId,
+            timestamp: currentEpochTime
+          })
         },
         (error: any) => {
           console.log('error ===', error);
@@ -256,6 +261,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             navigation.navigate('UserChatScreen', {
               messageId: res.messageId,
             });
+            const currentEpochTime = Math.floor(new Date().getTime() / 1000);
+            analytics().logEvent('start_message', {
+              id: res.messageId,
+              timestamp: currentEpochTime
+            })
           }
         },
         () => {
