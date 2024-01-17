@@ -340,7 +340,7 @@ export const getPaypalOrderCall = (reqData: any) => {
   );
 };
 
-export const setRegTokenCall = (reqData: any) => {
+export const setFCMTokenCall = (reqData: any) => {
   return handleResponse(
     api.post('/save-fcm-token', reqData),
     API_RESPONSE.CODE200,

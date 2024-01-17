@@ -8,7 +8,6 @@ import {
   GET_USER_DETAILS,
   PRESELECT_CHOSEN_ITEM,
   GET_MY_DETAILS,
-  SET_REG_TOKEN,
   GET_MY_DETAILS_NO_LOAD,
   GET_USER_DETAILS_W_STOCKX,
   SET_FCM_TOKEN,
@@ -25,8 +24,6 @@ import {
   LIKE_PRODUCT,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
-//import messaging from '@react-native-firebase/messaging';
-//import {setRegTokenRequest} from '../../../redux/modules';
 
 export interface AuthProps {
   isLoading?: boolean;
@@ -264,25 +261,11 @@ export default function auth(state = InitialState, action: ActionProps) {
         ...state,
       };
     }
-    case SET_REG_TOKEN.REQUEST: {
-      return {
-        ...state,
-      };
-    }
-    case SET_REG_TOKEN.SUCCESS: {
-      return {
-        ...state,
-      };
-    }
-    case SET_REG_TOKEN.FAILURE: {
-      return {
-        ...state,
-      };
-    }
     case SET_FCM_TOKEN.REQUEST: {
+      console.log('setting fcm token', action.reqData);
       return {
         ...state,
-        fcmToken: fcmToken,
+        fcmToken: action?.reqData,
       };
     }
     case UPDATE_USER.REQUEST: {
