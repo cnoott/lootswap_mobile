@@ -46,7 +46,11 @@ const useFCMNotifications = () => {
 
     if (token) {
       const userId = isLogedIn ? userData?._id : null;
-      const tokenData = {token, expiry, userId};
+      const tokenData = {
+        token,
+        expiry: expiry.toISOString(),
+        userId,
+      };
 
       console.log('FCM Token ====', tokenData);
       dispatch(setFCMTokenRequest(tokenData));
