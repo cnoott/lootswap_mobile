@@ -19,8 +19,6 @@ const useFCMNotifications = () => {
   const {userData, isLogedIn, fcmToken} = auth;
 
   useEffect(() => {
-    console.log('setting reg here', fcmToken);
-
     if (!fcmToken || new Date() > new Date(fcmToken?.expiry)) {
       configureNotifPermission();
     }
@@ -45,7 +43,6 @@ const useFCMNotifications = () => {
     const token = await messaging().getToken();
     const expiry = new Date();
     expiry.setMonth(expiry.getMonth() + 1);
-    console.log('setting reg');
 
     if (token) {
       const userId = isLogedIn ? userData?._id : null;
