@@ -18,6 +18,7 @@ import {
   LoadingRequest,
   LoadingSuccess,
 } from '../../redux/modules/loading/actions';
+import analytics from '@react-native-firebase/analytics';
 //TODO:
 //      - LoadingRequest
 export const LinkPaypalScreen: FC<{}> = props => {
@@ -78,6 +79,10 @@ export const LinkPaypalScreen: FC<{}> = props => {
           } else {
             navigation.goBack();
           }
+          const currentEpochTime = Math.floor(new Date().getTime() / 1000);
+          analytics().logEvent('end_link_paypal', {
+            timestamp: currentEpochTime
+          })
         },
         error => {
           console.log(error);
