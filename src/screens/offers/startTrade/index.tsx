@@ -153,6 +153,11 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       analytics().logEvent('start_trade', {
         id: trade?._id
       });
+      const currentEpochTime = Math.floor(new Date().getTime() / 1000);
+      analytics().logEvent('complete_start_trade_offer', {
+        id: trade?._id,
+        timestamp: currentEpochTime
+      });
     }
   };
 
