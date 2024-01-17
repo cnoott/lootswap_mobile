@@ -67,6 +67,7 @@ import {
 import {
   signIn,
   signUp,
+  signOut,
   getProfileImageSignedURL,
   uploadProfileImage,
   getRequestedUserDetailsCall,
@@ -164,11 +165,12 @@ export function* uploadProfileImgAPI(action: any) {
   }
 }
 
-export function* signOutAPI() {
+export function* signOutAPI(action: any) {
   yield put(LoadingRequest());
   try {
     let authData = yield select(getAuthData);
     yield delay(500);
+    yield call(signOut, action?.reqData);
     yield put(signOutSuccess());
     yield put(LoadingSuccess());
     resetRoute();

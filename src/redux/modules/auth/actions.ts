@@ -76,9 +76,10 @@ export const signUpFailure = (error: any) => {
   };
 };
 
-export const signOutRequest = () => {
+export const signOutRequest = (reqData: any) => {
   return {
     type: SIGN_OUT.REQUEST,
+    reqData: reqData,
   };
 };
 
