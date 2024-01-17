@@ -111,14 +111,7 @@ export function* signInAPI(action: any) {
     if (response?.success) {
       resetRoute();
       yield put(signInSuccess(response.data));
-      let authData = yield select(getAuthData);
       analytics().setUserId(response?.data?.user?._id);
-      yield put(
-        setFCMTokenRequest({
-          userId: response?.data?.user?._id,
-          token: authData?.fcmToken,
-        }),
-      );
     } else {
       yield put(signInFailure(response.error));
     }
@@ -138,12 +131,6 @@ export function* signUpAPI(action: any) {
       let authData = yield select(getAuthData);
       analytics().setUserId(response?.data?.user?._id);
       analytics().logSignUp({method: 'email'});
-      yield put(
-        setFCMTokenRequest({
-          userId: response?.data?.user?._id,
-          token: authData?.fcmToken,
-        }),
-      );
     } else {
       yield put(signUpFailure(response.error));
     }
@@ -181,16 +168,6 @@ export function* signOutAPI() {
   yield put(LoadingRequest());
   try {
     let authData = yield select(getAuthData);
-    let removeToken = true;
-    yield put(
-      setFCMTokenRequest(
-        {
-          userId: authData?.userData?._id,
-          token: authData?.fcmToken,
-        },
-        removeToken,
-      ), // Remove FCM Token Call
-    );
     yield delay(500);
     yield put(signOutSuccess());
     yield put(LoadingSuccess());
