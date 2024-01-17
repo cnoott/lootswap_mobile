@@ -25,6 +25,7 @@ import {SvgXml} from 'react-native-svg';
 import {SWAP_ICON_HOME_CAROASAL} from 'localsvgimages';
 import {useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
+import analytics from '@react-native-firebase/analytics';
 
 export const ChooseOfferTypeScreen: FC<any> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
@@ -39,6 +40,11 @@ export const ChooseOfferTypeScreen: FC<any> = () => {
       userData: userData,
       initialIsMoneyOffer: false,
       selectedProduct: selectedProductDetails,
+    });
+    const currentEpochTime = Math.floor(new Date().getTime() / 1000);
+    analytics().logEvent('begin_start_trade_offer', {
+      id: trade?._id,
+      timestamp: currentEpochTime
     });
   };
 
