@@ -44,6 +44,10 @@ export const signUp = (body: any) => {
   return handleResponse(api.post('signup', body), API_RESPONSE.CODE200);
 };
 
+export const signOut = (body: any) => {
+  return handleResponse(api.post('signout', body), API_RESPONSE.CODE200);
+};
+
 export const getProfileImageSignedURL = (body: any) => {
   const {type} = body;
   const newName = Math.floor(Math.random() * 9999) + encodeURIComponent('test');

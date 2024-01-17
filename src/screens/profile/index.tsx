@@ -138,7 +138,7 @@ export const ProfileScreen: FC<{}> = () => {
     });
   };
   const onSignoutPress = () => {
-    dispatch(signOutRequest());
+    dispatch(signOutRequest({userId: userData?._id}));
   };
   const renderProfileUploadView = () => {
     return (
