@@ -2,7 +2,7 @@ import React, {FC, useState, useEffect} from 'react';
 import {Platform, Keyboard} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {SvgXml} from 'react-native-svg';
 import {
   LOOT_SWAP_LOGO,
@@ -25,7 +25,7 @@ import {Size, Type} from '../../../enums';
 import {signUpRequest} from '../../../redux/modules';
 import {WEB_APP_URL} from '@env';
 import {Linking} from 'react-native';
-
+import {AuthProps} from '../../../redux/modules/auth/reducer';
 import {
   Container,
   HeaderContainer,
@@ -67,7 +67,10 @@ type FormProps = {
 
 export const CreateAccountScreen: FC<{}> = () => {
   const dispatch = useDispatch();
-  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
+  const navigation: NavigationProp<any, any> = useNavigation();
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {fcmToken} = auth;
+
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const [isImageUploading, setImageUploading] = useState(false);
   const [profileUrl, setProfileUrl] = useState('');
@@ -146,6 +149,7 @@ export const CreateAccountScreen: FC<{}> = () => {
           profile_picture: profileUrl,
           fromMobile: true,
           referringUserId: referringUserId,
+          fcmToken: fcmToken.token,
         }),
       );
     } else {
