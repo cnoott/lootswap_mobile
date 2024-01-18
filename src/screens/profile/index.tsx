@@ -45,7 +45,7 @@ import {getSignedRequest, uploadFile} from '../../services/imageUploadService';
 import {WEB_APP_URL} from '@env';
 import {Linking} from 'react-native';
 import FooterBadge from '../../components/footer/footerBadge';
-import analytics from '@react-native-firebase/analytics';
+import { loggingService } from '../../services/loggingService';
 
 type Option = {
   icon: string;
@@ -140,10 +140,7 @@ export const ProfileScreen: FC<{}> = () => {
   };
   const onSignoutPress = () => {
     dispatch(signOutRequest());
-    const currentEpochTime = Math.floor(new Date().getTime() / 1000);
-    analytics().logEvent('sign_out', {
-      timestamp: currentEpochTime
-    })
+    loggingService().logEvent('sign_out')
   };
   const renderProfileUploadView = () => {
     return (

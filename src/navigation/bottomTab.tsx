@@ -74,7 +74,7 @@ import PublicOfferScreen from '../screens/publicOffers/publicOfferScreen';
 import AcceptPublicOfferScreen from '../screens/publicOffers/acceptPublicOfferScreen';
 import AllListingsScreen from '../screens/home/allListings';
 import FooterBadge from '../components/footer/footerBadge';
-import analytics from '@react-native-firebase/analytics';
+import { loggingService } from '../services/loggingService';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -366,10 +366,7 @@ export const BottomTabs: FC<{}> = () => {
             });
             if (!isFocused && !event.defaultPrevented) {
               if (index === 3) {
-                const currentEpochTime = Math.floor(new Date().getTime() / 1000);
-                analytics().logEvent('start_add_loot', {
-                  timestamp: currentEpochTime
-                })
+                loggingService().logEvent('start_add_loot');
               }
               // The `merge: true` option makes sure that the params inside the tab screen are preserved
               if (!isLoggedIn && [2, 3, 4].includes(index)) {

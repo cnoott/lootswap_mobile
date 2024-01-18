@@ -57,7 +57,7 @@ import {Alert} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import branch from 'react-native-branch';
 import {Alert as AlertModal} from 'react-native';
-import analytics from '@react-native-firebase/analytics';
+import { loggingService } from '../../../services/loggingService';
 
 type FormProps = {
   email: string;
@@ -149,10 +149,7 @@ export const CreateAccountScreen: FC<{}> = () => {
           referringUserId: referringUserId,
         }),
       );
-      const currentEpochTime = Math.floor(new Date().getTime() / 1000);
-      analytics().logEvent('end_create_account', {
-        timestamp: currentEpochTime
-      })
+      loggingService().logEvent('end_create_account');
     } else {
       Alert.alert('Please select profile picture');
     }
