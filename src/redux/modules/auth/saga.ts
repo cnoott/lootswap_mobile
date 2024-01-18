@@ -113,6 +113,7 @@ export function* signInAPI(action: any) {
       yield put(signInSuccess(response.data));
       let authData = yield select(getAuthData);
       loggingService().setUserId(response?.data?.user?._id);
+      loggingService().setUserStatus('logged_in');
       yield put(
         setRegTokenRequest({
           userId: response?.data?.user?._id,
@@ -138,6 +139,7 @@ export function* signUpAPI(action: any) {
       let authData = yield select(getAuthData);
       loggingService().setUserId(response?.data?.user?._id);
       loggingService().logEvent('sign_up', {method: 'email'})
+      loggingService().setUserStatus('logged_in');
       yield put(
         setRegTokenRequest({
           userId: response?.data?.user?._id,

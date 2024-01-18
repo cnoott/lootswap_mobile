@@ -141,6 +141,7 @@ export const ProfileScreen: FC<{}> = () => {
   const onSignoutPress = () => {
     dispatch(signOutRequest());
     loggingService().logEvent('sign_out')
+    loggingService().setUserStatus('not_logged_in');
   };
   const renderProfileUploadView = () => {
     return (
