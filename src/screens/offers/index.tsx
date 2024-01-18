@@ -58,7 +58,7 @@ import {SelectedTextStyle} from '../search/stockxScreenStyles';
 import {Dropdown} from 'react-native-element-dropdown';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 import CellBadge from '../../components/offers/cellBadge';
-import analytics from '@react-native-firebase/analytics';
+import { loggingService } from '../../services/loggingService';
 
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
@@ -152,10 +152,7 @@ export const OffersScreen: FC<{}> = () => {
 
   const goToCreatePublicOfferScreen = () => {
     navigation?.navigate('CreatePublicOfferScreen');
-    const currentEpochTime = Math.floor(new Date().getTime() / 1000);
-    analytics().logEvent('start_create_public_offer', {
-      timestamp: currentEpochTime
-    })
+    loggingService().logEvent('start_create_public_offer')
   }
 
   const renderBottomButtonView = () => {

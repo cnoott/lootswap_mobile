@@ -11,7 +11,7 @@ import {publicOfferCheckout} from '../../redux/modules';
 import {Alert} from 'custom_top_alert';
 import {LSStartTradeHeader} from '../../components/commonComponents/headers/startTradeHeader';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import analytics from '@react-native-firebase/analytics';
+import { loggingService } from '../../services/loggingService';
 
 type PaymentDetails = {
   platformFee: number;
@@ -92,10 +92,7 @@ export const CreatePublicOfferCheckoutScreen: FC<any> = ({route}) => {
         index: 0,
         routes: [{name: 'Inbox'}],
       });
-      const currentEpochTime = Math.floor(new Date().getTime() / 1000);
-      analytics().logEvent('end_create_public_offer', {
-        timestamp: currentEpochTime
-      })
+      loggingService().logEvent('end_create_public_offer')
     }
   };
 

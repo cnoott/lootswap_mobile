@@ -43,7 +43,7 @@ import {getSelectedTradeData} from '../../utility/utility';
 import {createNewProduct} from '../../redux/modules';
 import {getSignedRequest, uploadFile} from '../../services/imageUploadService';
 import ImageResizer from '@bam.tech/react-native-image-resizer';
-import analytics from '@react-native-firebase/analytics';
+import { loggingService } from '../../services/loggingService';
 
 export const AddProductOverviewScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -142,11 +142,9 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
           return;
         }
         navigation?.navigate('ListLootSuccessScreen');
-        const currentEpochTime = Math.floor(new Date().getTime() / 1000);
-        analytics().logEvent('end_add_loot', {
+        loggingService().logEvent('end_add_loot', {
           loot: reqData,
-          timestamp: currentEpochTime
-        })
+        });
       }),
     );
   };

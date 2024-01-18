@@ -16,7 +16,7 @@ import {getPublicOffers, deletePublicOffer} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import analytics from '@react-native-firebase/analytics';
+import { loggingService } from '../../services/loggingService';
 
 const ITEMS_PER_PAGE = 6;
 
@@ -88,10 +88,7 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
   };
   const goToCreatePublicOfferScreen = () => {
     navigation?.navigate('CreatePublicOfferScreen');
-    const currentEpochTime = Math.floor(new Date().getTime() / 1000);
-    analytics().logEvent('start_create_public_offer', {
-      timestamp: currentEpochTime
-    })
+    loggingService().logEvent('start_create_public_offer')
   }
 
   const renderBottomButtonView = () => {

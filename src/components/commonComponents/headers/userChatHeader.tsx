@@ -24,7 +24,7 @@ import OfferForSellOnlyCell from '../../../screens/offers/offerItems/OfferForSel
 import {Size, Type} from '../../../enums';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import Collapsible from 'react-native-collapsible';
-import analytics from '@react-native-firebase/analytics';
+import { loggingService } from '../../../services/loggingService';
 
 interface HeaderProps {
   title?: string;
@@ -62,10 +62,7 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
 
     const onBackArrowPress = () => {
       navigation.goBack();
-      const currentEpochTime = Math.floor(new Date().getTime() / 1000);
-      analytics().logEvent('end_message', {
-        timestamp: currentEpochTime
-      })
+      loggingService().logEvent('end_message')
     }
 
     return (

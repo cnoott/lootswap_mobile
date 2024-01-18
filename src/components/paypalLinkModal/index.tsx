@@ -11,7 +11,7 @@ import {LSModal} from '../../components/commonComponents/LSModal';
 import {SvgXml} from 'react-native-svg';
 import {Size, Type} from '../../enums';
 import LSButton from '../../components/commonComponents/LSButton';
-import analytics from '@react-native-firebase/analytics';
+import { loggingService } from '../../services/loggingService';
 
 export const PayPalLinkModal = props => {
   const {isPayPalModalVisible, setPayPalModalVisible} = props;
@@ -22,10 +22,7 @@ export const PayPalLinkModal = props => {
       goToListLoot: true,
     });
     setPayPalModalVisible(false);
-    const currentEpochTime = Math.floor(new Date().getTime() / 1000);
-    analytics().logEvent('start_link_paypal', {
-      timestamp: currentEpochTime
-    })
+    loggingService().logEvent('start_link_paypal')
   };
 
   const handleCancelPayPalModal = () => {

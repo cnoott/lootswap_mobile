@@ -34,7 +34,7 @@ import {
 import {scale} from 'react-native-size-matters';
 import {Linking} from 'react-native';
 import {WEB_APP_URL} from '@env';
-import analytics from '@react-native-firebase/analytics';
+import { loggingService } from '../../../services/loggingService';
 
 type FormProps = {
   emailUsername: string;
@@ -89,10 +89,7 @@ export const AuthScreen: FC<{}> = () => {
       <BottomButton
         onPress={() => {
           navigation.navigate('CreateAccountScreen');
-          const currentEpochTime = Math.floor(new Date().getTime() / 1000);
-          analytics().logEvent('start_create_account', {
-            timestamp: currentEpochTime
-          })
+          loggingService().logEvent('start_create_account');
         }}>
         <ButtonText1>Don’t have an account?</ButtonText1>
         <ButtonText2>Create Account</ButtonText2>
