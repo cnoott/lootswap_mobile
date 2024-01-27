@@ -46,7 +46,7 @@ import {handleSubmitFilters} from '../../utility/filtersUtility';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {useScrollToTop} from '@react-navigation/native';
-import analytics from '@react-native-firebase/analytics';
+import { loggingService } from '../../services/loggingService';
 
 export const SearchScreen: FC<any> = () => {
   const insets = useSafeAreaInsets();
@@ -140,7 +140,9 @@ export const SearchScreen: FC<any> = () => {
     }
     swiperRef?.current?.scrollTo(currPage + 1);
     handleSubmitFilters(dispatch, null, filters, searchQuery);
-    analytics().logSearch({search_term: searchQuery});
+    loggingService().logEvent('search', {
+      search_term: searchQuery
+    });
   };
 
   const goBack = () => {

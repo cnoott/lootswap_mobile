@@ -57,6 +57,7 @@ import {Alert} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import branch from 'react-native-branch';
 import {Alert as AlertModal} from 'react-native';
+import { loggingService } from '../../../services/loggingService';
 
 type FormProps = {
   email: string;
@@ -148,6 +149,7 @@ export const CreateAccountScreen: FC<{}> = () => {
           referringUserId: referringUserId,
         }),
       );
+      loggingService().logEvent('end_create_account');
     } else {
       Alert.alert('Please select profile picture');
     }

@@ -18,6 +18,7 @@ import {
   LoadingRequest,
   LoadingSuccess,
 } from '../../redux/modules/loading/actions';
+import { loggingService } from '../../services/loggingService';
 //TODO:
 //      - LoadingRequest
 export const LinkPaypalScreen: FC<{}> = props => {
@@ -78,6 +79,7 @@ export const LinkPaypalScreen: FC<{}> = props => {
           } else {
             navigation.goBack();
           }
+          loggingService().logEvent('end_link_paypal');
         },
         error => {
           console.log(error);

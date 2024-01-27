@@ -24,6 +24,7 @@ import OfferForSellOnlyCell from '../../../screens/offers/offerItems/OfferForSel
 import {Size, Type} from '../../../enums';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import Collapsible from 'react-native-collapsible';
+import { loggingService } from '../../../services/loggingService';
 
 interface HeaderProps {
   title?: string;
@@ -59,11 +60,16 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
       );
     };
 
+    const onBackArrowPress = () => {
+      navigation.goBack();
+      loggingService().logEvent('end_message')
+    }
+
     return (
       <>
         <ProfileHeaderContainer>
           <EmptyRowView>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity onPress={() => onBackArrowPress()}>
               <SvgXml xml={LEFT_BLACK_ARROW} />
             </TouchableOpacity>
             <StackHeaderText>{title}</StackHeaderText>

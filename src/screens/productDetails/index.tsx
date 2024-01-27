@@ -84,7 +84,7 @@ import {Alert} from 'custom_top_alert';
 import {Trade_Options, Deal_Type} from 'custom_enums';
 import defaultExport from '@react-native-firebase/messaging';
 import DealBadge from '../../components/dealBadges';
-
+import { loggingService } from '../../services/loggingService';
 
 
 const height = Dimensions.get('window').height;
@@ -211,6 +211,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           navigation.navigate('UserChatScreen', {
             messageId: res.messageId,
           });
+          loggingService().logEvent('start_message', {
+            id: res.messageId,
+          });
         },
         (error: any) => {
           console.log('error ===', error);
@@ -255,6 +258,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           } else {
             navigation.navigate('UserChatScreen', {
               messageId: res.messageId,
+            });
+            loggingService().logEvent('start_message', {
+              id: res.messageId,
             });
           }
         },
