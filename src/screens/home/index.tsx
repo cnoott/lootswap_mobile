@@ -20,7 +20,6 @@ import LSProductCard from '../../components/productCard';
 import {scale} from 'react-native-size-matters';
 import {RefreshControl} from 'react-native';
 import {LIKE_HEART_ICON} from 'localsvgimages';
-import useFCMNotifications from '../../utility/customHooks/useFCMNotifications';
 import {useScrollToTop} from '@react-navigation/native';
 import {
   getHomeScreenProducts,
@@ -41,7 +40,6 @@ const ITEMS_PER_PAGE = 8;
 const PUBLIC_OFFERS_PER_PAGE = 4;
 
 export const HomeScreen: FC<{}> = () => {
-  useFCMNotifications();
   const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isModalOpen, setModalOpen] = useState(false);

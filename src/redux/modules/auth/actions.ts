@@ -7,7 +7,6 @@ import {
   GET_MY_DETAILS,
   GET_USER_DETAILS_W_STOCKX,
   SAVE_NOTIF_PERMISSION,
-  SET_REG_TOKEN,
   GET_MY_DETAILS_NO_LOAD,
   LIKE_PRODUCT,
   UNLIKE_PRODUCT,
@@ -77,9 +76,10 @@ export const signUpFailure = (error: any) => {
   };
 };
 
-export const signOutRequest = () => {
+export const signOutRequest = (reqData: any) => {
   return {
     type: SIGN_OUT.REQUEST,
+    reqData: reqData,
   };
 };
 
@@ -222,31 +222,6 @@ export const saveNotifPermissions = (status: boolean) => {
   };
 };
 
-export const setRegTokenRequest = (
-  reqData: any,
-  isRemoveToken: boolean = false,
-) => {
-  return {
-    type: SET_REG_TOKEN.REQUEST,
-    reqData: reqData,
-    isRemoveToken: isRemoveToken,
-  };
-};
-
-export const setRegTokenSuccess = (payload: any) => {
-  return {
-    type: SET_REG_TOKEN.SUCCESS,
-    payload,
-  };
-};
-
-export const setRegTokenFailure = (payload: any) => {
-  return {
-    type: SET_REG_TOKEN.FAILURE,
-    payload,
-  };
-};
-
 export const likeProduct = (reqData: any) => {
   return {
     type: LIKE_PRODUCT.REQUEST,
@@ -286,10 +261,28 @@ export const unlikeProductFailure = () => {
   };
 };
 
-export const setFCMTokenRequest = (fcmToken: any) => {
+export const setFCMTokenRequest = (
+  reqData: any,
+  isRemoveToken: boolean = false,
+) => {
   return {
     type: SET_FCM_TOKEN.REQUEST,
-    fcmToken: fcmToken,
+    reqData: reqData,
+    isRemoveToken: isRemoveToken,
+  };
+};
+
+export const setFCMTokenSuccess = (payload: any) => {
+  return {
+    type: SET_FCM_TOKEN.SUCCESS,
+    payload,
+  };
+};
+
+export const setFCMTokenFailure = (payload: any) => {
+  return {
+    type: SET_FCM_TOKEN.FAILURE,
+    payload,
   };
 };
 

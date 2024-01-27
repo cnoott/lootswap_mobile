@@ -139,7 +139,7 @@ export const ProfileScreen: FC<{}> = () => {
     });
   };
   const onSignoutPress = () => {
-    dispatch(signOutRequest());
+    dispatch(signOutRequest({userId: userData?._id}));
     loggingService().logEvent('sign_out')
     loggingService().setUserStatus('not_logged_in');
   };
