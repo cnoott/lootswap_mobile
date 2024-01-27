@@ -27,8 +27,8 @@ import DeviceInfo from 'react-native-device-info';
 import {Alert as AlertModal} from 'react-native';
 import {Linking} from 'react-native';
 import {useNotifications} from '../utility/customHooks/useNotifications';
-import analytics from '@react-native-firebase/analytics';
 import useFCMNotifications from '../utility/customHooks/useFCMNotifications';
+import { loggingService } from '../services/loggingService';
 
 const Stack = createStackNavigator();
 
@@ -149,7 +149,7 @@ const StackNavigator: FC<{}> = () => {
         const previousRouteName = navRef.current;
         const currentRouteName = navigationRef.current.getCurrentRoute().name;
         if (previousRouteName !== currentRouteName) {
-          await analytics().logScreenView({
+          loggingService().logScreenView({
             screen_name: currentRouteName,
             screen_class: currentRouteName,
           });

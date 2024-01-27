@@ -35,6 +35,7 @@ import {scale} from 'react-native-size-matters';
 import {Linking} from 'react-native';
 import {WEB_APP_URL} from '@env';
 import {AuthProps} from '../../../redux/modules/auth/reducer';
+import { loggingService } from '../../../services/loggingService';
 
 type FormProps = {
   emailUsername: string;
@@ -93,6 +94,7 @@ export const AuthScreen: FC<{}> = () => {
       <BottomButton
         onPress={() => {
           navigation.navigate('CreateAccountScreen');
+          loggingService().logEvent('start_create_account');
         }}>
         <ButtonText1>Don’t have an account?</ButtonText1>
         <ButtonText2>Create Account</ButtonText2>

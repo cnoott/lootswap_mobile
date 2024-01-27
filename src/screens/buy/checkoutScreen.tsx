@@ -37,7 +37,7 @@ import {
   LoadingSuccess,
   LoadingRequest,
 } from '../../redux/modules/loading/actions';
-import analytics from '@react-native-firebase/analytics';
+import { loggingService } from '../../services/loggingService';
 
 //TODO:
 //-handle money offer trades
@@ -94,7 +94,7 @@ export const CheckoutScreen: FC<{}> = props => {
               tradeId: tradeData?._id,
             }),
           );
-          analytics().logPurchase({
+          loggingService().logEvent('purchase', {
             transaction_id: data.info.paypalOrder._id,
             items: [
               {
@@ -181,7 +181,7 @@ export const CheckoutScreen: FC<{}> = props => {
       dispatch(LoadingRequest());
       setShowGateway(true);
       console.log(webViewUri);
-      analytics().logBeginCheckout({
+      loggingService().logEvent('begin_checkout', {
         items: [
           {
             item_id: productData?._id,
