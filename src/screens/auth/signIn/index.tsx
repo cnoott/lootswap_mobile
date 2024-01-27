@@ -2,7 +2,7 @@ import React, {FC, useState, useEffect} from 'react';
 import {Keyboard} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {SvgXml} from 'react-native-svg';
 import {
   LOOT_SWAP_LOGO,
@@ -34,6 +34,7 @@ import {
 import {scale} from 'react-native-size-matters';
 import {Linking} from 'react-native';
 import {WEB_APP_URL} from '@env';
+import {AuthProps} from '../../../redux/modules/auth/reducer';
 import { loggingService } from '../../../services/loggingService';
 
 type FormProps = {
@@ -43,6 +44,8 @@ type FormProps = {
 
 export const AuthScreen: FC<{}> = () => {
   const dispatch = useDispatch();
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {fcmToken} = auth;
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
@@ -76,10 +79,12 @@ export const AuthScreen: FC<{}> = () => {
 
   const onSubmit = (values: FormProps) => {
     Keyboard.dismiss();
+    console.log('FCM', fcmToken);
     dispatch(
       signInRequest({
         email: values?.emailUsername,
         password: values?.password,
+        fcmToken: fcmToken.token,
       }),
     );
   };

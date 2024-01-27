@@ -27,6 +27,7 @@ import DeviceInfo from 'react-native-device-info';
 import {Alert as AlertModal} from 'react-native';
 import {Linking} from 'react-native';
 import {useNotifications} from '../utility/customHooks/useNotifications';
+import useFCMNotifications from '../utility/customHooks/useFCMNotifications';
 import { loggingService } from '../services/loggingService';
 
 const Stack = createStackNavigator();
@@ -35,6 +36,7 @@ const AppNavigation = () => {
   const dispatch = useDispatch();
 
   useNotifications();
+  useFCMNotifications();
 
   useEffect(() => {
     dispatch(

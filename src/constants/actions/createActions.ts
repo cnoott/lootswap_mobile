@@ -175,10 +175,6 @@ export const SAVE_NOTIF_PERMISSION = {
   ...createActionConst(actions.SAVE_NOTIF_PERMISSION),
 };
 
-export const SET_REG_TOKEN = {
-  ...createActionConst(actions.SET_REG_TOKEN),
-};
-
 export const LIKE_PRODUCT = {
   ...createActionConst(actions.LIKE_PRODUCT),
 };

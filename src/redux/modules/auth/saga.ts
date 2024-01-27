@@ -7,7 +7,7 @@ import {
   GET_USER_DETAILS,
   GET_MY_DETAILS,
   GET_USER_DETAILS_W_STOCKX,
-  SET_REG_TOKEN,
+  SET_FCM_TOKEN,
   GET_MY_DETAILS_NO_LOAD,
   LIKE_PRODUCT,
   UNLIKE_PRODUCT,
@@ -36,13 +36,13 @@ import {
   getUsersDetailsFailure,
   getMyDetailsSuccess,
   getMyDetailsFailure,
-  setRegTokenSuccess,
-  setRegTokenFailure,
+  setFCMTokenRequest,
+  setFCMTokenSuccess,
+  setFCMTokenFailure,
   likeProductSuccess,
   likeProductFailure,
   unlikeProductSuccess,
   unlikeProductFailure,
-  setRegTokenRequest,
   updateUserSuccess,
   updateUserFailure,
   deleteNotifRequest,
@@ -67,10 +67,11 @@ import {
 import {
   signIn,
   signUp,
+  signOut,
   getProfileImageSignedURL,
   uploadProfileImage,
   getRequestedUserDetailsCall,
-  setRegTokenCall,
+  setFCMTokenCall,
   likeProductCall,
   unlikeProductCall,
   removeRegTokenCall,
@@ -179,20 +180,12 @@ export function* uploadProfileImgAPI(action: any) {
   }
 }
 
-export function* signOutAPI() {
+export function* signOutAPI(action: any) {
   yield put(LoadingRequest());
   try {
     let authData = yield select(getAuthData);
-    yield put(
-      setRegTokenRequest(
-        {
-          userId: authData?.userData?._id,
-          token: authData?.fcmToken,
-        },
-        true,
-      ), // Remove FCM Token Call
-    );
     yield delay(500);
+    yield call(signOut, action?.reqData);
     yield put(signOutSuccess());
     yield put(LoadingSuccess());
     resetRoute();
@@ -270,16 +263,16 @@ export function* getUserDetailsWStockx(action: any) {
   }
 }
 
-export function* setRegToken(action: any) {
+export function* setFCMToken(action: any) {
   try {
     const response: APIResponseProps = yield call(
-      action?.isRemoveToken ? removeRegTokenCall : setRegTokenCall,
+      action?.isRemoveToken ? removeRegTokenCall : setFCMTokenCall,
       action?.reqData,
     );
     if (response?.success) {
-      yield put(setRegTokenSuccess(response.data));
+      yield put(setFCMTokenSuccess(response.data));
     } else {
-      yield put(setRegTokenFailure(response.error));
+      yield put(setFCMTokenFailure(response.error));
     }
   } catch (e) {
     console.log(e);
@@ -537,7 +530,7 @@ export default function* authSaga() {
   yield takeLatest(GET_USER_DETAILS.REQUEST, getRequestedUserDetails);
   yield takeLatest(GET_MY_DETAILS.REQUEST, getMyDetails);
   yield takeLatest(GET_MY_DETAILS_NO_LOAD.REQUEST, getMyDetailsNoLoad);
-  yield takeLatest(SET_REG_TOKEN.REQUEST, setRegToken);
+  yield takeLatest(SET_FCM_TOKEN.REQUEST, setFCMToken);
   yield takeLatest(LIKE_PRODUCT.REQUEST, likeProduct);
   yield takeLatest(UNLIKE_PRODUCT.REQUEST, unlikeProduct);
   yield takeLatest(EDIT_SHIPPING_ADDR.REQUEST, editShippingAddr);
