@@ -58,7 +58,7 @@ import {SelectedTextStyle} from '../search/stockxScreenStyles';
 import {Dropdown} from 'react-native-element-dropdown';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 import CellBadge from '../../components/offers/cellBadge';
-
+import { loggingService } from '../../services/loggingService';
 
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
@@ -150,6 +150,11 @@ export const OffersScreen: FC<{}> = () => {
     );
   };
 
+  const goToCreatePublicOfferScreen = () => {
+    navigation?.navigate('CreatePublicOfferScreen');
+    loggingService().logEvent('start_create_public_offer')
+  }
+
   const renderBottomButtonView = () => {
     if (index === 0 ) {
       return (
@@ -159,7 +164,7 @@ export const OffersScreen: FC<{}> = () => {
             size={Size.Large}
             type={Type.Primary}
             radius={20}
-            onPress={() => navigation?.navigate('CreatePublicOfferScreen')}
+            onPress={() => goToCreatePublicOfferScreen()}
           />
         </ButtonContainer>
       );

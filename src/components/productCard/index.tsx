@@ -25,7 +25,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {Animated} from 'react-native';
-import analytics from '@react-native-firebase/analytics';
+import { loggingService } from '../../services/loggingService';
 
 interface LSProductCardProps {
   onPress?: Function;
@@ -100,7 +100,7 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
       productData: item,
       likedParam: isLiked(),
     });
-    analytics().logSelectItem({
+    loggingService().logEvent('select_item', {
       content_type: item?.category,
       item_list_id: item?._id,
       item_list_name: item?.name,

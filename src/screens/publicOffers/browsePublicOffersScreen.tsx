@@ -16,7 +16,7 @@ import {getPublicOffers, deletePublicOffer} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-
+import { loggingService } from '../../services/loggingService';
 
 const ITEMS_PER_PAGE = 6;
 
@@ -86,6 +86,10 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
       />
     );
   };
+  const goToCreatePublicOfferScreen = () => {
+    navigation?.navigate('CreatePublicOfferScreen');
+    loggingService().logEvent('start_create_public_offer')
+  }
 
   const renderBottomButtonView = () => {
     return (
@@ -95,7 +99,7 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
           size={Size.Large}
           type={Type.Primary}
           radius={20}
-          onPress={() => navigation?.navigate('CreatePublicOfferScreen')}
+          onPress={() => goToCreatePublicOfferScreen()}
         />
       </ButtonContainer>
     );
