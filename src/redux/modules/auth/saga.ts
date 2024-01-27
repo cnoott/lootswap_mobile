@@ -91,7 +91,7 @@ import {
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
 import {Alert} from 'custom_top_alert';
-import analytics from '@react-native-firebase/analytics';
+import { loggingService } from '../../../services/loggingService';
 
 type APIResponseProps = {
   success: boolean;
@@ -112,7 +112,15 @@ export function* signInAPI(action: any) {
     if (response?.success) {
       resetRoute();
       yield put(signInSuccess(response.data));
-      analytics().setUserId(response?.data?.user?._id);
+      let authData = yield select(getAuthData);
+      loggingService().setUserId(response?.data?.user?._id);
+      loggingService().setUserStatus('logged_in');
+      yield put(
+        setRegTokenRequest({
+          userId: response?.data?.user?._id,
+          token: authData?.fcmToken,
+        }),
+      );
     } else {
       yield put(signInFailure(response.error));
     }
@@ -130,8 +138,15 @@ export function* signUpAPI(action: any) {
       resetRoute();
       yield put(signUpSuccess(response.data));
       let authData = yield select(getAuthData);
-      analytics().setUserId(response?.data?.user?._id);
-      analytics().logSignUp({method: 'email'});
+      loggingService().setUserId(response?.data?.user?._id);
+      loggingService().logEvent('sign_up', {method: 'email'})
+      loggingService().setUserStatus('logged_in');
+      yield put(
+        setRegTokenRequest({
+          userId: response?.data?.user?._id,
+          token: authData?.fcmToken,
+        }),
+      );
     } else {
       yield put(signUpFailure(response.error));
     }
@@ -273,7 +288,7 @@ export function* likeProduct(action: any) {
     );
     if (response?.success) {
       yield put(likeProductSuccess(response.data));
-      analytics().logAddToWishlist({
+      loggingService().logEvent('add_to_wishlist', {
         items: [{item_id: action?.reqData?.productId}],
       });
     } else {
