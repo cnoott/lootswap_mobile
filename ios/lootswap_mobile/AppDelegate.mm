@@ -3,7 +3,7 @@
 #import <AppCenterReactNativeAnalytics.h>
 #import <AppCenterReactNativeCrashes.h>
 #import <CodePush/CodePush.h>
-
+#import <Firebase.h>
 #import <RNBranch/RNBranch.h>
 #import <React/RCTLinkingManager.h>
 
@@ -13,7 +13,6 @@
 #import <React/RCTRootView.h>
 
 #import <React/RCTAppSetupUtils.h>
-#import <Firebase.h>
 #import "RNFBMessagingModule.h"
 
 // To enable push notifs while app is in foreground
