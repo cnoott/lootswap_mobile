@@ -108,7 +108,7 @@ function CarouselComponent(props: CarouselProps) {
   const getHomeCarouselStep = (index: number) => {
     switch (index) {
       case 1:
-        return <LSGiveawayHomeItem />;
+        return <LSHomeStepOneCarouselItem />;
       case 2:
         return <LSHomeStepTwoCarouselItem />;
       case 3:
