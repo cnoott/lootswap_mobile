@@ -40,7 +40,7 @@ import {HomeProps} from '../../redux/modules/home/reducer';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {LoadingRequest} from '../../redux/modules/loading/actions';
 import {getSelectedTradeData} from '../../utility/utility';
-import {createNewProduct} from '../../redux/modules';
+import {createNewProduct, resetAddProductData} from '../../redux/modules';
 import {getSignedRequest, uploadFile} from '../../services/imageUploadService';
 import ImageResizer from '@bam.tech/react-native-image-resizer';
 import { loggingService } from '../../services/loggingService';
@@ -151,6 +151,7 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
   const onBackCall = () => {
     if (isFromEdit) {
       navigation.goBack();
+      dispatch(resetAddProductData());
     } else {
       if (stepFour?.tradeOptions?.isTradeOnly) {
         navigation.goBack();
