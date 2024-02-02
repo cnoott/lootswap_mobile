@@ -204,7 +204,7 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case PRESELECT_CHOSEN_ITEM.SUCCESS: {
-      let items = [...state.requestedUserDetails.my_items];
+      let items = [...state.requestedUserDetails?.my_items];
       const productId = action?.productId;
       const foundItemIndex = items?.findIndex(item => item?._id === productId);
       const foundItem = items[foundItemIndex];
