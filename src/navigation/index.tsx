@@ -38,10 +38,12 @@ const AppNavigation = () => {
   useNotifications();
   useFCMNotifications();
 
+  /*
   useEffect(() => {
     dispatch(
       versionCheck(
         (latestVersionRes: String) => {
+
           if (latestVersionRes !== DeviceInfo.getVersion()) {
             AlertModal.alert(
               'Update Avaliable',
@@ -70,6 +72,7 @@ const AppNavigation = () => {
     );
 
   }, [dispatch]);
+  */
 
   return (
     <Stack.Navigator
