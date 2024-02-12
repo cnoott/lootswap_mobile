@@ -52,7 +52,8 @@ const PublicOfferScreen: FC<any> = ({route}) => {
       <MarketValueContainer>
         <MarketValueTitle>Total Est. Market Value: </MarketValueTitle>
         <MarketValueText>
-          {calculateMarketValue(sendingProductIds)}
+          {/*calculateMarketValue(sendingProductIds)*/}
+          $373
         </MarketValueText>
       </MarketValueContainer>
     </>
@@ -98,8 +99,8 @@ const PublicOfferScreen: FC<any> = ({route}) => {
         <LSButton
           title={'Checkout Public Offer'}
           size={Size.Large}
-          type={publicOffer?.isCompatible ? Type.Primary : Type.Grey}
-          disabled={!publicOffer.isCompatible}
+          type={Type.Primary}
+          disabled={false}
           radius={20}
           onPress={() =>
             navigation.navigate('AcceptPublicOfferScreen', {
