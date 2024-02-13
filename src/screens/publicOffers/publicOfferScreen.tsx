@@ -53,7 +53,7 @@ const PublicOfferScreen: FC<any> = ({route}) => {
         <MarketValueTitle>Total Est. Market Value: </MarketValueTitle>
         <MarketValueText>
           {/*calculateMarketValue(sendingProductIds)*/}
-          $373
+          $584-$668
         </MarketValueText>
       </MarketValueContainer>
     </>
