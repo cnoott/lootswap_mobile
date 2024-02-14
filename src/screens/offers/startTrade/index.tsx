@@ -200,7 +200,6 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       Alert.showError('Please select at least one item');
       return false;
     } else if (currIndex === 2) {
-
       var otherUserMarketString = calculateMarketValue(otherUserSelected);
       var myMarketString = calculateMarketValue(mySelected);
       if (otherUserMarketString === 'Unknown' || myMarketString === 'Unknown') {
@@ -211,7 +210,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       otherUserMarketValue += requestedMoneyOffer;
       myMarketValue += myMoneyOffer;
 
-      if (myMarketValue < otherUserMarketValue * 0.7) {
+      if (myMarketValue <= otherUserMarketValue * 0.7) {
         setRobberyModalVisible(true);
         return false
       }
