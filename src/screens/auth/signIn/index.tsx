@@ -155,7 +155,7 @@ export const AuthScreen: FC<{}> = () => {
                 />
               </Spacing>
               <Touchable onPress={() => handlePressForgotPass()}>
-                <ForgotPassLabel>Forgot the password?</ForgotPassLabel>
+                <ForgotPassLabel>Forgot password?</ForgotPassLabel>
               </Touchable>
             </FullView>
           );

@@ -45,11 +45,13 @@ export const HeaderDesLabel = styled.Text.attrs(props => ({
 
 export const Touchable = styled.TouchableOpacity.attrs({
   hitSlop: {left: 20, right: 20, top: 10, bottom: 10},
-})``;
+  mt: verticalScale(45),
+})`
+  ${space}
+`;
 
 export const ForgotPassLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  mt: verticalScale(45),
 }))`
   font-size: 16px;
   font-family: Inter-Bold;
