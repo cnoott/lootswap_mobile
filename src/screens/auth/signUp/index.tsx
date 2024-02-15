@@ -287,13 +287,6 @@ export const CreateAccountScreen: FC<{}> = () => {
                 onRightIconPress={() => setPasswordHidden(!isPasswordHidden)}
                 secureTextEntry={isPasswordHidden}
               />
-              <LSInput
-                onChangeText={value => setAffiliateCode(value)}
-                value={affiliateCode}
-                placeholder={'Referral Code'}
-                leftIcon={PROMO_ICON}
-                autoCorrect={false}
-              />
               <TermsLabel>
                 {'By Creating an account you agree to our\n'}
                 <TermsLabelDark onPress={() => handleLinkPress('TOS')}>
