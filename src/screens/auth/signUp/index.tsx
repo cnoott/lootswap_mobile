@@ -13,8 +13,10 @@ import {HEADERLOGO} from '../../../constants/imageConstants';
 import {GOOGLE_ICON, APPLE_ICON} from 'localsvgimages';
 import {Size, Type} from '../../../enums';
 import {View} from 'react-native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 export const CreateAccountScreen: FC<{}> = () => {
+  const navigation: NavigationProp<any, any> = useNavigation();
 
   return (
     <CreateContainer>
@@ -27,6 +29,7 @@ export const CreateAccountScreen: FC<{}> = () => {
           size={Size.Full}
           type={Type.Primary}
           radius={30}
+          onPress={() => navigation.navigate('EmailSignupScreen')}
         />
         <View style={{marginBottom: 15}} />
         <LSButton
@@ -46,7 +49,9 @@ export const CreateAccountScreen: FC<{}> = () => {
         />
       </ButtonsContainer>
 
-      <SignInContainer>
+      <SignInContainer
+        onPress={() => navigation.navigate('SignInScreen')}
+      >
         <HaveAccountText>Already have an account?</HaveAccountText>
         <SigninText>Sign in</SigninText>
       </SignInContainer>

@@ -33,7 +33,7 @@ export const HeaderContainer = styled.View.attrs({
   ${space}
 `;
 
-export const SignInContainer = styled.View.attrs(() => ({
+export const SignInContainer = styled.TouchableOpacity.attrs(() => ({
 }))`
   flex-direction: row;
   justify-content: space-between;
