@@ -4,6 +4,7 @@ import {
   SIGN_IN_DATA,
   SIGN_UP_DATA,
   SIGNIN_WITH_GOOGLE,
+  SIGNIN_WITH_APPLE,
   SIGN_OUT,
   PROFILE_IMG_UPLOAD,
   GET_USER_DETAILS,
@@ -67,6 +68,7 @@ export default function auth(state = InitialState, action: ActionProps) {
 
   switch (type) {
     case SIGNIN_WITH_GOOGLE.REQUEST:
+    case SIGNIN_WITH_APPLE.REQUEST:
     case SIGN_IN_DATA.REQUEST: {
       return {
         ...state,
@@ -75,6 +77,7 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case SIGNIN_WITH_GOOGLE.SUCCESS:
+    case SIGNIN_WITH_APPLE.SUCCESS:
     case SIGN_IN_DATA.SUCCESS: {
       return {
         ...state,
@@ -86,6 +89,7 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case SIGNIN_WITH_GOOGLE.UPDATE:
+    case SIGNIN_WITH_APPLE.UPDATE:
     case SIGN_IN_DATA.UPDATE: {
       return {
         ...state,
@@ -97,6 +101,7 @@ export default function auth(state = InitialState, action: ActionProps) {
     }
 
     case SIGNIN_WITH_GOOGLE.FAILURE:
+    case SIGNIN_WITH_APPLE.FAILURE:
     case SIGN_IN_DATA.FAILURE: {
       return {
         ...state,
