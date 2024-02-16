@@ -1,5 +1,5 @@
 import React, {FC, useState, useEffect} from 'react';
-import {Keyboard} from 'react-native';
+import {Keyboard, View} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch, useSelector} from 'react-redux';
@@ -15,6 +15,8 @@ import {Formik} from 'formik';
 import * as yup from 'yup';
 import LSInput from '../../../components/commonComponents/LSInput';
 import LSButton from '../../../components/commonComponents/LSButton';
+import GoogleButton from '../../../components/signInButtons/GoogleButton';
+import AppleButton from '../../../components/signInButtons/AppleButton';
 import {signInRequest} from '../../../redux/modules';
 import {Size, Type} from '../../../enums';
 import {
@@ -147,13 +149,17 @@ export const AuthScreen: FC<{}> = () => {
               <Spacing>
                 <LSButton
                   title={'Login'}
-                  size={Size.Fit_To_Width}
+                  size={Size.Full}
                   type={Type.Primary}
                   fitToWidth={'90%'}
                   radius={20}
                   onPress={handleSubmit}
                 />
               </Spacing>
+              <View style={{marginBottom: 15}} />
+              <GoogleButton fcmToken={fcmToken} />
+              <View style={{marginBottom: 15}} />
+              <AppleButton fcmToken={fcmToken} />
               <Touchable onPress={() => handlePressForgotPass()}>
                 <ForgotPassLabel>Forgot password?</ForgotPassLabel>
               </Touchable>
@@ -181,7 +187,7 @@ export const AuthScreen: FC<{}> = () => {
         keyboardShouldPersistTaps={'handled'}>
         {renderHeaderLogo()}
         <HeaderLabel>Login</HeaderLabel>
-        <HeaderDesLabel>Welcome back lootswap member.</HeaderDesLabel>
+        <HeaderDesLabel>Welcome back!.</HeaderDesLabel>
         {renderBody()}
         {renderBottomView()}
       </KeyboardAwareScrollView>
