@@ -560,6 +560,7 @@ export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
   yield takeLatest(SIGN_OUT.REQUEST, signOutAPI);
+  yield takeLatest(SIGNIN_WITH_GOOGLE.REQUEST, signInWithGoogleAPI);
   yield takeLatest(PROFILE_IMG_UPLOAD.REQUEST, uploadProfileImgAPI);
   yield takeLatest(GET_USER_DETAILS.REQUEST, getRequestedUserDetails);
   yield takeLatest(GET_MY_DETAILS.REQUEST, getMyDetails);
