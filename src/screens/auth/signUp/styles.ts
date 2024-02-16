@@ -54,7 +54,7 @@ export const TitleLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
   font-size: ${scale(25)}px;
-  font-family: Urbanist-SemiBold;
+  font-family: Urbanist-Bold;
   align-self: center;
   ${color}
   ${space}
