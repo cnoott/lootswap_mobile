@@ -80,10 +80,14 @@ export const HomeScreen: FC<{}> = () => {
         },
       ),
     );
+
+  }, [page]);
+
+  useEffect(() => {
     if (isLogedIn) {
       dispatch(getMyDetailsNoLoadRequest(userData?._id));
     }
-  }, [page]);
+  }, [isLogedIn]);
 
   useEffect(() => {
     if (loading && !endReached) {

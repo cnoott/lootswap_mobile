@@ -88,6 +88,7 @@ const HomeStackNavigation = () => (
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
     <Stack.Screen name="Notifications" component={NotificationsScreen} />
     <Stack.Screen name="AddressScreen" component={AddressScreen} />
+    <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
     <Stack.Screen
       name="BrowsePublicOffersScreen"
       component={BrowsePublicOffersScreen}
