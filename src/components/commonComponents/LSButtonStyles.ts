@@ -10,6 +10,7 @@ export const ButtonContainer = styled.TouchableOpacity.attrs(props => ({
   borderWidth: props.border,
   activeOpacity: 0.6,
 }))`
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   align-self: center;
