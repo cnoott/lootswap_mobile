@@ -10,12 +10,33 @@ export const Container = styled.View.attrs(props => ({
   ${color}
 `;
 
+export const CreateContainer = styled.View.attrs(props => ({
+  flex: 1,
+  bg: props.theme.colors.white,
+}))`
+  justify-content: space-evenly;
+  align-items: center;
+  ${color}
+`;
+
+export const ButtonsContainer = styled.View.attrs(() => ({
+}))`
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
 export const HeaderContainer = styled.View.attrs({
   mt: verticalScale(20),
   mb: verticalScale(25),
   ml: scale(12),
 })`
   ${space}
+`;
+
+export const SignInContainer = styled.View.attrs(() => ({
+}))`
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 export const HeaderLabel = styled.Text.attrs(props => ({
@@ -28,6 +49,18 @@ export const HeaderLabel = styled.Text.attrs(props => ({
   ${space}
   ${layout}
 `;
+
+export const TitleLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+}))`
+  font-size: ${scale(25)}px;
+  font-family: Urbanist-SemiBold;
+  align-self: center;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
 
 export const HeaderDesLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.greySecondary,
@@ -178,6 +211,16 @@ export const Innercontainer: ViewStyle = {
   flex: 1,
 };
 
+export const LogoImage = styled.Image.attrs({
+  width: scale(220),
+  height: scale(45),
+})`
+  align-self: center;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
 export const ProfileRightView = styled.View.attrs(() => ({
   ml: scale(10),
 }))`
@@ -225,6 +268,24 @@ export const ButtonText = styled.Text.attrs(props => ({
   font-size: ${scale(12)}px;
   font-family: 'Urbanist';
   font-weight: 600;
+  ${color}
+  ${space}
+`;
+
+export const HaveAccountText = styled.Text.attrs(() => ({
+  ml: scale(5),
+}))`
+  font-size: ${scale(13)}px;
+  font-family: 'Urbanist-Light';
+  ${color}
+  ${space}
+`;
+
+export const SigninText = styled.Text.attrs(() => ({
+  ml: scale(5),
+}))`
+  font-size: ${scale(13)}px;
+  font-family: 'Urbanist-SemiBold';
   ${color}
   ${space}
 `;
