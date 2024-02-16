@@ -14,9 +14,18 @@ import {GOOGLE_ICON, APPLE_ICON} from 'localsvgimages';
 import {Size, Type} from '../../../enums';
 import {View} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 
 export const CreateAccountScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation();
+
+  const googleSignUp = async () => {
+    const userInfo = await GoogleSignin.signIn();
+    console.log('USER INFO', userInfo);
+  };
 
   return (
     <CreateContainer>
@@ -38,6 +47,7 @@ export const CreateAccountScreen: FC<{}> = () => {
           type={Type.Grey}
           radius={30}
           icon={GOOGLE_ICON}
+          onPress={googleSignUp}
         />
         <View style={{marginBottom: 15}} />
         <LSButton
