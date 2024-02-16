@@ -23,6 +23,13 @@ export const CreateAccountScreen: FC<{}> = () => {
 
       <ButtonsContainer>
         <LSButton
+          title={'Continue with Email'}
+          size={Size.Full}
+          type={Type.Primary}
+          radius={30}
+        />
+        <View style={{marginBottom: 15}} />
+        <LSButton
           title={'Continue with Google'}
           size={Size.Full}
           type={Type.Grey}
@@ -36,13 +43,6 @@ export const CreateAccountScreen: FC<{}> = () => {
           type={Type.Secondary}
           radius={30}
           icon={APPLE_ICON}
-        />
-        <View style={{marginBottom: 15}} />
-        <LSButton
-          title={'Continue with Email'}
-          size={Size.Full}
-          type={Type.Primary}
-          radius={30}
         />
       </ButtonsContainer>
 
