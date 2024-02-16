@@ -94,4 +94,6 @@ declare module 'localsvgimages' {
   export const GREAT_DEAL_ICON: any;
   export const FAIR_DEAL_ICON: any;
   export const BAD_DEAL_ICON: any;
+  export const GOOGLE_ICON: any;
+  export const APPLE_ICON: any;
 }
