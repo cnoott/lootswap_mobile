@@ -18,13 +18,27 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import {signInWithGoogleRequest} from '../../../redux/modules';
+import {useDispatch, useSelector} from 'react-redux';
+import {AuthProps} from '../../../redux/modules/auth/reducer';
+
 
 export const CreateAccountScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation();
+  const dispatch = useDispatch();
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {fcmToken} = auth;
 
   const googleSignUp = async () => {
     const userInfo = await GoogleSignin.signIn();
     console.log('USER INFO', userInfo);
+
+    dispatch(
+      signInWithGoogleRequest({
+        ...userInfo,
+        fcmToken: fcmToken,
+      }),
+    );
   };
 
   return (
