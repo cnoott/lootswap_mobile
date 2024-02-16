@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {
   CreateContainer,
   TitleLabel,
@@ -21,7 +21,7 @@ import {
 import {signInWithGoogleRequest} from '../../../redux/modules';
 import {useDispatch, useSelector} from 'react-redux';
 import {AuthProps} from '../../../redux/modules/auth/reducer';
-
+import branch from 'react-native-branch';
 
 export const CreateAccountScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation();
@@ -29,14 +29,26 @@ export const CreateAccountScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {fcmToken} = auth;
 
+  const [referringUserId, setReferringUserId] = useState('');
+
+  const getReferringUserId = async () => { // XXX repeating code
+    let installParams = await branch.getFirstReferringParams();
+    if (installParams?.userId) {
+      setReferringUserId(`${installParams?.userId}`);
+      console.log(installParams, 'from google signup');
+    }
+  };
+
   const googleSignUp = async () => {
     const userInfo = await GoogleSignin.signIn();
-    console.log('USER INFO', userInfo);
+    console.log('token', fcmToken.token);
 
     dispatch(
       signInWithGoogleRequest({
         ...userInfo,
-        fcmToken: fcmToken,
+        userData: userInfo.user,
+        fcmToken: fcmToken.token,
+        referringUserId: referringUserId,
       }),
     );
   };

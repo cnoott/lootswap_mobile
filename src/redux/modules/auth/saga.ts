@@ -39,7 +39,6 @@ import {
   getUsersDetailsFailure,
   getMyDetailsSuccess,
   getMyDetailsFailure,
-  setFCMTokenRequest,
   setFCMTokenSuccess,
   setFCMTokenFailure,
   likeProductSuccess,
@@ -95,7 +94,7 @@ import {
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
 import {Alert} from 'custom_top_alert';
-import { loggingService } from '../../../services/loggingService';
+import {loggingService} from '../../../services/loggingService';
 
 type APIResponseProps = {
   success: boolean;
@@ -116,15 +115,8 @@ export function* signInAPI(action: any) {
     if (response?.success) {
       resetRoute();
       yield put(signInSuccess(response.data));
-      let authData = yield select(getAuthData);
       loggingService().setUserId(response?.data?.user?._id);
       loggingService().setUserStatus('logged_in');
-      yield put(
-        setFCMTokenRequest({
-          userId: response?.data?.user?._id,
-          token: authData?.fcmToken,
-        }),
-      );
     } else {
       yield put(signInFailure(response.error));
     }
@@ -141,16 +133,10 @@ export function* signUpAPI(action: any) {
     if (response?.success) {
       resetRoute();
       yield put(signUpSuccess(response.data));
-      let authData = yield select(getAuthData);
       loggingService().setUserId(response?.data?.user?._id);
       loggingService().logEvent('sign_up', {method: 'email'})
       loggingService().setUserStatus('logged_in');
-      yield put(
-        setFCMTokenRequest({
-          userId: response?.data?.user?._id,
-          token: authData?.fcmToken,
-        }),
-      );
+
     } else {
       yield put(signUpFailure(response.error));
     }
@@ -175,12 +161,6 @@ export function* signInWithGoogleAPI(action: any) {
       loggingService().setUserId(response?.data?.user?._id);
       loggingService().logEvent('sign_up', {method: 'google'})
       loggingService().setUserStatus('logged_in');
-      yield put(
-        setFCMTokenRequest({
-          userId: response?.data?.user?._id,
-          token: authData?.fcmToken,
-        }),
-      );
     } else {
       yield put(signUpFailure(response.error));
     }
