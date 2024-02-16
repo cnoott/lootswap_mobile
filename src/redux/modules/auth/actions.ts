@@ -26,6 +26,7 @@ import {
   GET_LIKED_PRODUCTS,
   SET_NOTIFS_AS_READ,
   SIGNIN_WITH_GOOGLE,
+  SIGNIN_WITH_APPLE,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -80,6 +81,34 @@ export const signInWithGoogleUpdate = (payload: any) => {
 export const signInWithGoogleFailure = (error: any) => {
   return {
     type: SIGNIN_WITH_GOOGLE.FAILURE,
+    error,
+  };
+};
+
+export const signInWithAppleRequest = (reqData: any) => {
+  return {
+    type: SIGNIN_WITH_APPLE.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const signInWithAppleSuccess = (payload: any) => {
+  return {
+    type: SIGNIN_WITH_APPLE.SUCCESS,
+    payload,
+  };
+};
+
+export const signInWithAppleUpdate = (payload: any) => {
+  return {
+    type: SIGNIN_WITH_APPLE.UPDATE,
+    payload,
+  };
+};
+
+export const signInWithAppleFailure = (error: any) => {
+  return {
+    type: SIGNIN_WITH_APPLE.FAILURE,
     error,
   };
 };

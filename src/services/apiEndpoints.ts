@@ -55,6 +55,13 @@ export const signInWithGoogleCall = (body: any) => {
   );
 };
 
+export const signInWithAppleCall = (body: any) => {
+  return handleResponse(
+    api.post('signin-with-apple', body),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const getProfileImageSignedURL = (body: any) => {
   const {type} = body;
   const newName = Math.floor(Math.random() * 9999) + encodeURIComponent('test');
