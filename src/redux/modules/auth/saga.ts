@@ -95,6 +95,7 @@ import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
 import {Alert} from 'custom_top_alert';
 import {loggingService} from '../../../services/loggingService';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 type APIResponseProps = {
   success: boolean;
@@ -197,11 +198,11 @@ export function* uploadProfileImgAPI(action: any) {
 export function* signOutAPI(action: any) {
   yield put(LoadingRequest());
   try {
-    let authData = yield select(getAuthData);
     yield delay(500);
     yield call(signOut, action?.reqData);
     yield put(signOutSuccess());
     yield put(LoadingSuccess());
+    GoogleSignin.signOut();
     resetRoute();
   } catch (e) {
     yield put(LoadingSuccess());
