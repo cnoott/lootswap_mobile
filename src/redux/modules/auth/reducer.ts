@@ -3,6 +3,7 @@
 import {
   SIGN_IN_DATA,
   SIGN_UP_DATA,
+  SIGNIN_WITH_GOOGLE,
   SIGN_OUT,
   PROFILE_IMG_UPLOAD,
   GET_USER_DETAILS,
@@ -65,6 +66,7 @@ export default function auth(state = InitialState, action: ActionProps) {
   const {type, payload, error, clearOldData = true, fcmToken} = action;
 
   switch (type) {
+    case SIGNIN_WITH_GOOGLE.REQUEST:
     case SIGN_IN_DATA.REQUEST: {
       return {
         ...state,
@@ -72,6 +74,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         error: null,
       };
     }
+    case SIGNIN_WITH_GOOGLE.SUCCESS:
     case SIGN_IN_DATA.SUCCESS: {
       return {
         ...state,
@@ -82,6 +85,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         error: null,
       };
     }
+    case SIGNIN_WITH_GOOGLE.UPDATE:
     case SIGN_IN_DATA.UPDATE: {
       return {
         ...state,
@@ -91,6 +95,8 @@ export default function auth(state = InitialState, action: ActionProps) {
         error: null,
       };
     }
+
+    case SIGNIN_WITH_GOOGLE.FAILURE:
     case SIGN_IN_DATA.FAILURE: {
       return {
         ...state,

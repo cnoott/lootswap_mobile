@@ -48,6 +48,13 @@ export const signOut = (body: any) => {
   return handleResponse(api.post('signout', body), API_RESPONSE.CODE200);
 };
 
+export const signInWithGoogleCall = (body: any) => {
+  return handleResponse(
+    api.post('signin-with-google', body),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const getProfileImageSignedURL = (body: any) => {
   const {type} = body;
   const newName = Math.floor(Math.random() * 9999) + encodeURIComponent('test');

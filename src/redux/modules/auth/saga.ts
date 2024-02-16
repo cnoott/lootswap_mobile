@@ -3,6 +3,7 @@ import {
   PROFILE_IMG_UPLOAD,
   SIGN_IN_DATA,
   SIGN_OUT,
+  SIGNIN_WITH_GOOGLE,
   SIGN_UP_DATA,
   GET_USER_DETAILS,
   GET_MY_DETAILS,
@@ -30,6 +31,8 @@ import {
   signUpSuccess,
   signUpFailure,
   signOutSuccess,
+  signInWithGoogleSuccess,
+  signInWithGoogleFailure,
   profileImgUploadSuccess,
   profileImgUploadFailure,
   getUsersDetailsSuccess,
@@ -68,6 +71,7 @@ import {
   signIn,
   signUp,
   signOut,
+  signInWithGoogleCall,
   getProfileImageSignedURL,
   uploadProfileImage,
   getRequestedUserDetailsCall,
@@ -116,7 +120,7 @@ export function* signInAPI(action: any) {
       loggingService().setUserId(response?.data?.user?._id);
       loggingService().setUserStatus('logged_in');
       yield put(
-        setRegTokenRequest({
+        setFCMTokenRequest({
           userId: response?.data?.user?._id,
           token: authData?.fcmToken,
         }),
@@ -142,7 +146,37 @@ export function* signUpAPI(action: any) {
       loggingService().logEvent('sign_up', {method: 'email'})
       loggingService().setUserStatus('logged_in');
       yield put(
-        setRegTokenRequest({
+        setFCMTokenRequest({
+          userId: response?.data?.user?._id,
+          token: authData?.fcmToken,
+        }),
+      );
+    } else {
+      yield put(signUpFailure(response.error));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* signInWithGoogleAPI(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      signInWithGoogleCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+
+    if (response?.success) {
+      resetRoute();
+      yield put(signUpSuccess(response.data));
+      let authData = yield select(getAuthData);
+      loggingService().setUserId(response?.data?.user?._id);
+      loggingService().logEvent('sign_up', {method: 'google'})
+      loggingService().setUserStatus('logged_in');
+      yield put(
+        setFCMTokenRequest({
           userId: response?.data?.user?._id,
           token: authData?.fcmToken,
         }),
