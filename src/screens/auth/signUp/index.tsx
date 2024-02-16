@@ -14,10 +14,7 @@ import {GOOGLE_ICON, APPLE_ICON} from 'localsvgimages';
 import {Size, Type} from '../../../enums';
 import {View} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {
-  GoogleSignin,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {signInWithGoogleRequest} from '../../../redux/modules';
 import {useDispatch, useSelector} from 'react-redux';
 import {AuthProps} from '../../../redux/modules/auth/reducer';
