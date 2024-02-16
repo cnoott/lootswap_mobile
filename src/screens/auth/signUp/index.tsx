@@ -10,20 +10,17 @@ import {
 } from './styles';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {HEADERLOGO} from '../../../constants/imageConstants';
-import {APPLE_ICON} from 'localsvgimages';
 import {Size, Type} from '../../../enums';
 import {View} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {signInWithAppleRequest} from '../../../redux/modules';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {AuthProps} from '../../../redux/modules/auth/reducer';
 import branch from 'react-native-branch';
-import {appleAuth} from '@invertase/react-native-apple-authentication';
 import GoogleButton from '../../../components/signInButtons/GoogleButton';
+import AppleButton from '../../../components/signInButtons/AppleButton';
 
 export const CreateAccountScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation();
-  const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const {fcmToken} = auth;
 
@@ -47,27 +44,6 @@ export const CreateAccountScreen: FC<{}> = () => {
     }
   };
 
-  const appleSignUp = async () => {
-    const appleAuthRequestResponse = await appleAuth.performRequest({
-      requestedOperation: appleAuth.Operation.LOGIN,
-      requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
-    });
-
-    const credentialState = await appleAuth.getCredentialStateForUser(
-      appleAuthRequestResponse.user
-    );
-
-    if (credentialState === appleAuth.State.AUTHORIZED) {
-      console.log(appleAuthRequestResponse);
-      dispatch(
-        signInWithAppleRequest({
-          ...appleAuthRequestResponse,
-          fcmToken: fcmToken.token,
-          referringUserId: referringUserId,
-        }),
-      );
-    }
-  };
 
   return (
     <CreateContainer>
@@ -85,14 +61,7 @@ export const CreateAccountScreen: FC<{}> = () => {
         <View style={{marginBottom: 15}} />
         <GoogleButton fcmToken={fcmToken} referringUserId={referringUserId} />
         <View style={{marginBottom: 15}} />
-        <LSButton
-          title={'Continue with Apple'}
-          size={Size.Full}
-          type={Type.Secondary}
-          radius={30}
-          icon={APPLE_ICON}
-          onPress={appleSignUp}
-        />
+        <AppleButton fcmToken={fcmToken} referringUserId={referringUserId} />
       </ButtonsContainer>
       <SignInContainer
         onPress={() => navigation.navigate('SignInScreen')}
