@@ -10,16 +10,16 @@ import {
 } from './styles';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {HEADERLOGO} from '../../../constants/imageConstants';
-import {GOOGLE_ICON, APPLE_ICON} from 'localsvgimages';
+import {APPLE_ICON} from 'localsvgimages';
 import {Size, Type} from '../../../enums';
 import {View} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {signInWithGoogleRequest, signInWithAppleRequest} from '../../../redux/modules';
+import {signInWithAppleRequest} from '../../../redux/modules';
 import {useDispatch, useSelector} from 'react-redux';
 import {AuthProps} from '../../../redux/modules/auth/reducer';
 import branch from 'react-native-branch';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
+import GoogleButton from '../../../components/signInButtons/GoogleButton';
 
 export const CreateAccountScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation();
@@ -29,26 +29,22 @@ export const CreateAccountScreen: FC<{}> = () => {
 
   const [referringUserId, setReferringUserId] = useState('');
 
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      getReferringUserId();
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
   const getReferringUserId = async () => { // XXX repeating code
     let installParams = await branch.getFirstReferringParams();
     if (installParams?.userId) {
       setReferringUserId(`${installParams?.userId}`);
       console.log(installParams, 'from google signup');
     }
-  };
-
-  const googleSignUp = async () => {
-    const userInfo = await GoogleSignin.signIn();
-    console.log('token', fcmToken.token);
-
-    dispatch(
-      signInWithGoogleRequest({
-        ...userInfo,
-        userData: userInfo.user,
-        fcmToken: fcmToken.token,
-        referringUserId: referringUserId,
-      }),
-    );
   };
 
   const appleSignUp = async () => {
@@ -87,14 +83,7 @@ export const CreateAccountScreen: FC<{}> = () => {
           onPress={() => navigation.navigate('EmailSignupScreen')}
         />
         <View style={{marginBottom: 15}} />
-        <LSButton
-          title={'Continue with Google'}
-          size={Size.Full}
-          type={Type.Grey}
-          radius={30}
-          icon={GOOGLE_ICON}
-          onPress={googleSignUp}
-        />
+        <GoogleButton fcmToken={fcmToken} referringUserId={referringUserId} />
         <View style={{marginBottom: 15}} />
         <LSButton
           title={'Continue with Apple'}
@@ -105,7 +94,6 @@ export const CreateAccountScreen: FC<{}> = () => {
           onPress={appleSignUp}
         />
       </ButtonsContainer>
-
       <SignInContainer
         onPress={() => navigation.navigate('SignInScreen')}
       >
