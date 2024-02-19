@@ -150,7 +150,7 @@ export const EmailSignupScreen: FC<{}> = () => {
           profile_picture: profileUrl,
           fromMobile: true,
           referringUserId: referringUserId,
-          fcmToken: fcmToken.token,
+          fcmToken: fcmToken?.token,
         }),
       );
       loggingService().logEvent('end_create_account');

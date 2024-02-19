@@ -30,7 +30,7 @@ function AppleButton(props: AppleButtonProps) {
       dispatch(
         signInWithAppleRequest({
           ...appleAuthRequestResponse,
-          fcmToken: fcmToken.token,
+          fcmToken: fcmToken?.token,
           referringUserId: referringUserId,
         }),
       );
