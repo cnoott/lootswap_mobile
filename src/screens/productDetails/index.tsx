@@ -126,7 +126,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     if (productData?.userId) {
       dispatch(getUsersDetailsRequest(productData?.userId));
       dispatch(getProductDetails(productData?._id));
-      setTimesLiked(selectedProductDetails?.timesLiked);
+      setTimesLiked(parseInt(selectedProductDetails?.timesLiked));
     }
   }, [
     productData?.userId,

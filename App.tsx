@@ -18,6 +18,7 @@ import StackNavigator from './src/navigation';
 import {StatusBar} from 'react-native';
 import branch from 'react-native-branch';
 import codePush from 'react-native-code-push';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 let codePushOptions = {
   updateDialog: true,
@@ -35,7 +36,13 @@ const App = () => {
       // params will never be null if error is null
       let installParams = await branch.getFirstReferringParams();
       console.log('from app.js', installParams);
-    })
+    });
+
+    GoogleSignin.configure({
+      googleServicePlistPath: __DEV__
+        ? 'GoogleService-Info-Dev'
+        : 'GoogleService-Info-Prod',
+    });
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useState, useRef} from 'react';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSButton from '../../components/commonComponents/LSButton';
 import DeliveryAddressComponent from '../../components/orders/deliveryAddressComponent';
@@ -38,9 +38,12 @@ import {
   LoadingRequest,
 } from '../../redux/modules/loading/actions';
 import { loggingService } from '../../services/loggingService';
+import {Dimensions} from 'react-native';
+import {verticalScale} from 'react-native-size-matters';
+
+const height = Dimensions.get('window').height - verticalScale(200);
 
 //TODO:
-//-handle money offer trades
 //- move styles out of file
 //- put url in env
 export const CheckoutScreen: FC<{}> = props => {
@@ -55,10 +58,17 @@ export const CheckoutScreen: FC<{}> = props => {
   const {userData, requestedUserDetails} = auth;
   const [showGateway, setShowGateway] = useState(false);
 
+  const [extendCheckoutButton, setExtendCheckoutButton] = useState(true);
+  const scrollViewRef = useRef();
+
   useEffect(() => {
     dispatch(getMyDetailsRequest(userData?._id));
     dispatch(getUsersDetailsRequest(productData?.userId));
   }, [userData?._id, dispatch, productData?.userId]);
+
+  const scrollToBottom = () => {
+    scrollViewRef.current.scrollToEnd({ animated: true });
+  };
 
   const renderShippingCost = () => {
     if (productData.type === 'trade-only') {
@@ -85,6 +95,11 @@ export const CheckoutScreen: FC<{}> = props => {
   const onMessage = msg => {
     const data = JSON.parse(msg.nativeEvent.data);
     switch (data.status) {
+      case 'onClick':
+        setExtendCheckoutButton(true);
+        scrollToBottom();
+        break;
+
       case 'success':
         setShowGateway(false);
         if (isMoneyOffer) {
@@ -197,13 +212,13 @@ export const CheckoutScreen: FC<{}> = props => {
 
   const renderCheckOutButton = () => {
     return (
-      <LSButton
-        title={'CHECK OUT'}
-        size={Size.Fit_To_Width}
-        type={Type.Primary}
-        radius={20}
-        fitToWidth={'100%'}
-        onPress={() => showWebView()}
+      <WebView
+        source={{
+          uri: webViewUri,
+        }}
+        onMessage={onMessage}
+        style={{height: extendCheckoutButton ? height : 200}}
+        onLoad={() => dispatch(LoadingSuccess())}
       />
     );
   };
@@ -246,7 +261,7 @@ export const CheckoutScreen: FC<{}> = props => {
     <Container>
       <InStackHeader title={'Checkout'} onlyTitleCenterAlign={true} />
       <HorizontalBar />
-      <ScrollSubContainer>
+      <ScrollSubContainer ref={scrollViewRef}>
         <DeliveryAddressComponent
           userDetails={userData}
           onPress={() => navigation?.navigate('AddressScreenBuyCheckout')}
