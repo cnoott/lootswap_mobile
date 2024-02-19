@@ -23,7 +23,7 @@ function GoogleButton(props: GoogleButtonProps) {
       signInWithGoogleRequest({
         ...userInfo,
         userData: userInfo.user,
-        fcmToken: fcmToken.token,
+        fcmToken: fcmToken?.token,
         referringUserId: referringUserId,
       }),
     );

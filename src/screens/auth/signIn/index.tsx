@@ -86,7 +86,7 @@ export const AuthScreen: FC<{}> = () => {
       signInRequest({
         email: values?.emailUsername,
         password: values?.password,
-        fcmToken: fcmToken.token,
+        fcmToken: fcmToken?.token,
       }),
     );
   };
