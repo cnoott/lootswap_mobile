@@ -7,6 +7,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import DropdownAlert from 'react-native-dropdownalert';
 import AuthScreen from '../screens/auth/signIn';
 import CreateAccountScreen from '../screens/auth/signUp';
+import EmailSignupScreen from '../screens/auth/signUp/emailSignupScreen';
 import BottomTabs from './bottomTab';
 import {useSelector, useDispatch} from 'react-redux';
 import LSLoader from '../components/commonComponents/LSLoader';
@@ -86,6 +87,11 @@ const AppNavigation = () => {
       <Stack.Screen
         name="CreateAccountScreen"
         component={CreateAccountScreen}
+        options={{presentation: 'modal'}}
+      />
+      <Stack.Screen
+        name="EmailSignupScreen"
+        component={EmailSignupScreen}
         options={{presentation: 'modal'}}
       />
       <Stack.Screen name="UserChatScreen" component={UserChatScreen} />

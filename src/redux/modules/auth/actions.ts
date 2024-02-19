@@ -25,6 +25,8 @@ import {
   SAVE_SEARCH,
   GET_LIKED_PRODUCTS,
   SET_NOTIFS_AS_READ,
+  SIGNIN_WITH_GOOGLE,
+  SIGNIN_WITH_APPLE,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -51,6 +53,62 @@ export const signInUpdate = (payload: any) => {
 export const signInFailure = (error: any) => {
   return {
     type: SIGN_IN_DATA.FAILURE,
+    error,
+  };
+};
+
+export const signInWithGoogleRequest = (reqData: any) => {
+  return {
+    type: SIGNIN_WITH_GOOGLE.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const signInWithGoogleSuccess = (payload: any) => {
+  return {
+    type: SIGNIN_WITH_GOOGLE.SUCCESS,
+    payload,
+  };
+};
+
+export const signInWithGoogleUpdate = (payload: any) => {
+  return {
+    type: SIGNIN_WITH_GOOGLE.UPDATE,
+    payload,
+  };
+};
+
+export const signInWithGoogleFailure = (error: any) => {
+  return {
+    type: SIGNIN_WITH_GOOGLE.FAILURE,
+    error,
+  };
+};
+
+export const signInWithAppleRequest = (reqData: any) => {
+  return {
+    type: SIGNIN_WITH_APPLE.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const signInWithAppleSuccess = (payload: any) => {
+  return {
+    type: SIGNIN_WITH_APPLE.SUCCESS,
+    payload,
+  };
+};
+
+export const signInWithAppleUpdate = (payload: any) => {
+  return {
+    type: SIGNIN_WITH_APPLE.UPDATE,
+    payload,
+  };
+};
+
+export const signInWithAppleFailure = (error: any) => {
+  return {
+    type: SIGNIN_WITH_APPLE.FAILURE,
     error,
   };
 };

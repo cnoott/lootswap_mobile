@@ -3,6 +3,7 @@ import {useTheme} from 'styled-components';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
 import {ButtonContainer, BText} from './LSButtonStyles';
 import {Size, Type} from '../../enums';
+import {SvgXml} from 'react-native-svg';
 import {TouchableOpacityProps, Dimensions} from 'react-native';
 import { borderLeft } from 'styled-system';
 
@@ -17,6 +18,7 @@ interface ButtonProps extends TouchableOpacityProps {
   sizeFont?: number;
   customHeight?: number;
   customWidth?: number;
+  icon?: any;
 }
 
 const windowWidth = Dimensions.get('window').width;
@@ -35,6 +37,7 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
     sizeFont = 16,
     customWidth = 110,
     customHeight = 48,
+    icon,
   } = props;
   let width = scale(60);
   let height = verticalScale(26);
@@ -160,6 +163,7 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
       {...getColors()}
       type={type}
       size={size}>
+      {icon && <SvgXml xml={icon} style={{marginRight: 15}}/>}
       <BText {...props} {...getSize()} {...getColors()} type={type} disabled>
         {children || title}
       </BText>

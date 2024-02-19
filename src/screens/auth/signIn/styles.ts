@@ -23,7 +23,7 @@ export const HeaderLabel = styled.Text.attrs(props => ({
   ml: scale(15),
 }))`
   font-size: ${scale(25)}px;
-  font-family: Inter-Black;
+  font-family: Urbanist-Black;
   ${color}
   ${space}
   ${layout}
@@ -32,11 +32,11 @@ export const HeaderLabel = styled.Text.attrs(props => ({
 export const HeaderDesLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.greySecondary,
   mt: scale(2),
-  mb: verticalScale(46),
+  mb: verticalScale(10),
   ml: scale(15),
 }))`
   font-size: ${scale(12)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   font-weight: 600;
   ${color}
   ${space}
@@ -45,14 +45,16 @@ export const HeaderDesLabel = styled.Text.attrs(props => ({
 
 export const Touchable = styled.TouchableOpacity.attrs({
   hitSlop: {left: 20, right: 20, top: 10, bottom: 10},
-})``;
+  mt: verticalScale(40),
+})`
+  ${space}
+`;
 
 export const ForgotPassLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
-  mt: verticalScale(45),
 }))`
-  font-size: 16px;
-  font-family: Inter-Bold;
+  font-size: 14px;
+  font-family: Urbanist-Bold;
   font-weight: 500;
   align-self: center;
   ${color}
@@ -82,7 +84,7 @@ export const ButtonText1 = styled.Text.attrs(props => ({
   color: props.theme.colors.lightGrey,
 }))`
   font-size: ${moderateScale(13)}px;
-  font-family: 'Inter-Light';
+  font-family: 'Urbanist-Light';
   ${color}
   ${space}
   ${layout}
@@ -92,7 +94,7 @@ export const ButtonText2 = styled.Text.attrs(props => ({
   color: props.theme.colors.primary,
 }))`
   font-size: ${moderateScale(13)}px;
-  font-family: 'Inter-Bold';
+  font-family: 'Urbanist-Bold';
   ${color}
   ${space}
   ${layout}

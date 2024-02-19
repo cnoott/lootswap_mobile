@@ -176,6 +176,9 @@ export const handleNavigation = (
     case 'shipping_notif':
       navigation.navigate('AddressScreen');
       break;
+    case 'profile_notif':
+      navigation.navigate('EditProfileScreen');
+      break;
     default:
       navigation.reset({
         index: 0,

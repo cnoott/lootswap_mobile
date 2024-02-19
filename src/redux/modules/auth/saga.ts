@@ -3,6 +3,8 @@ import {
   PROFILE_IMG_UPLOAD,
   SIGN_IN_DATA,
   SIGN_OUT,
+  SIGNIN_WITH_GOOGLE,
+  SIGNIN_WITH_APPLE,
   SIGN_UP_DATA,
   GET_USER_DETAILS,
   GET_MY_DETAILS,
@@ -30,13 +32,14 @@ import {
   signUpSuccess,
   signUpFailure,
   signOutSuccess,
+  signInWithGoogleSuccess,
+  signInWithGoogleFailure,
   profileImgUploadSuccess,
   profileImgUploadFailure,
   getUsersDetailsSuccess,
   getUsersDetailsFailure,
   getMyDetailsSuccess,
   getMyDetailsFailure,
-  setFCMTokenRequest,
   setFCMTokenSuccess,
   setFCMTokenFailure,
   likeProductSuccess,
@@ -68,6 +71,7 @@ import {
   signIn,
   signUp,
   signOut,
+  signInWithGoogleCall,
   getProfileImageSignedURL,
   uploadProfileImage,
   getRequestedUserDetailsCall,
@@ -87,11 +91,13 @@ import {
   getLikedProductsCall,
   getUserDetailsWStockxCall,
   setNotifsAsReadCall,
+  signInWithAppleCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
 import {Alert} from 'custom_top_alert';
-import { loggingService } from '../../../services/loggingService';
+import {loggingService} from '../../../services/loggingService';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 type APIResponseProps = {
   success: boolean;
@@ -112,15 +118,8 @@ export function* signInAPI(action: any) {
     if (response?.success) {
       resetRoute();
       yield put(signInSuccess(response.data));
-      let authData = yield select(getAuthData);
       loggingService().setUserId(response?.data?.user?._id);
       loggingService().setUserStatus('logged_in');
-      yield put(
-        setRegTokenRequest({
-          userId: response?.data?.user?._id,
-          token: authData?.fcmToken,
-        }),
-      );
     } else {
       yield put(signInFailure(response.error));
     }
@@ -137,16 +136,56 @@ export function* signUpAPI(action: any) {
     if (response?.success) {
       resetRoute();
       yield put(signUpSuccess(response.data));
-      let authData = yield select(getAuthData);
       loggingService().setUserId(response?.data?.user?._id);
       loggingService().logEvent('sign_up', {method: 'email'})
       loggingService().setUserStatus('logged_in');
-      yield put(
-        setRegTokenRequest({
-          userId: response?.data?.user?._id,
-          token: authData?.fcmToken,
-        }),
-      );
+
+    } else {
+      yield put(signUpFailure(response.error));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* signInWithGoogleAPI(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      signInWithGoogleCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+
+    if (response?.success) {
+      resetRoute();
+      yield put(signUpSuccess(response.data));
+      loggingService().setUserId(response?.data?.user?._id);
+      loggingService().logEvent('sign_up', {method: 'google'})
+      loggingService().setUserStatus('logged_in');
+    } else {
+      yield put(signUpFailure(response.error));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* signInWithAppleAPI(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      signInWithAppleCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+
+    if (response?.success) {
+      resetRoute();
+      yield put(signUpSuccess(response.data));
+      loggingService().setUserId(response?.data?.user?._id);
+      loggingService().logEvent('sign_up', {method: 'apple'})
+      loggingService().setUserStatus('logged_in');
     } else {
       yield put(signUpFailure(response.error));
     }
@@ -183,11 +222,11 @@ export function* uploadProfileImgAPI(action: any) {
 export function* signOutAPI(action: any) {
   yield put(LoadingRequest());
   try {
-    let authData = yield select(getAuthData);
     yield delay(500);
     yield call(signOut, action?.reqData);
     yield put(signOutSuccess());
     yield put(LoadingSuccess());
+    GoogleSignin.signOut();
     resetRoute();
   } catch (e) {
     yield put(LoadingSuccess());
@@ -526,6 +565,8 @@ export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
   yield takeLatest(SIGN_OUT.REQUEST, signOutAPI);
+  yield takeLatest(SIGNIN_WITH_GOOGLE.REQUEST, signInWithGoogleAPI);
+  yield takeLatest(SIGNIN_WITH_APPLE.REQUEST, signInWithAppleAPI);
   yield takeLatest(PROFILE_IMG_UPLOAD.REQUEST, uploadProfileImgAPI);
   yield takeLatest(GET_USER_DETAILS.REQUEST, getRequestedUserDetails);
   yield takeLatest(GET_MY_DETAILS.REQUEST, getMyDetails);

@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.2.0</string>
+	<string>2.3.5</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -36,9 +36,17 @@
 				<string>lootswap</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.82288270183-bnffad6i28k86q8ib136nboc2ulcrno2</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.2.0</string>
+	<string>2.3.5</string>
 	<key>CodePushDeploymentKey</key>
 	<string>MLSTmi_7H9-wh-ijIcugIAywADZr5_QT5QA8r</string>
 	<key>LSRequiresIPhoneOS</key>

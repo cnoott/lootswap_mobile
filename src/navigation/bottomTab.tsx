@@ -88,6 +88,7 @@ const HomeStackNavigation = () => (
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
     <Stack.Screen name="Notifications" component={NotificationsScreen} />
     <Stack.Screen name="AddressScreen" component={AddressScreen} />
+    <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
     <Stack.Screen
       name="BrowsePublicOffersScreen"
       component={BrowsePublicOffersScreen}
@@ -370,7 +371,7 @@ export const BottomTabs: FC<{}> = () => {
               }
               // The `merge: true` option makes sure that the params inside the tab screen are preserved
               if (!isLoggedIn && [2, 3, 4].includes(index)) {
-                navigation.navigate('SignInScreen');
+                navigation.navigate('CreateAccountScreen');
               } else if (index === 3 && !auth?.userData?.paypal_onboarded) {
                 setPayPalModalVisible(true);
               } else if (

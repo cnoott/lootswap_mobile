@@ -125,6 +125,7 @@ export const EditAddressComponent: FC<EditAddressComponentProps> = props => {
             console.log('DETAILs', JSON.stringify(details));
             handleAutofillChange(data, details);
           }}
+          onFail={err => console.log('fail', err)}
           query={{
             key: GOOGLE_MAPS_KEY,
             language: 'en',
