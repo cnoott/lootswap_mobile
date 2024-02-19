@@ -25,12 +25,20 @@ const useFCMNotifications = () => {
     console.log('Environment ====', Config?.ENV);
   }, []);
 
-  useEffect(() => {
+  const updateUserIdInToken = async () => {
     console.log('setting userid in notif token');
-    if (isLogedIn && userData?._id) {
+    const permissionStatus = await messaging().hasPermission();
+    const isPermissionGranted = checkForPermissionGranted(permissionStatus);
+    if (isPermissionGranted && isLogedIn && userData?._id) {
       dispatch(setFCMTokenRequest({...fcmToken, userId: userData._id}));
     }
+
+  };
+
+  useEffect(() => {
+    updateUserIdInToken();
   }, [isLogedIn]);
+
 
   const configureNotifPermission = async () => {
     const permissionStatus = await messaging().hasPermission();
