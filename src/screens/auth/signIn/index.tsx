@@ -47,7 +47,7 @@ type FormProps = {
 export const AuthScreen: FC<{}> = () => {
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
-  const {fcmToken} = auth;
+  const {fcmToken = {}} = auth;
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
@@ -81,7 +81,6 @@ export const AuthScreen: FC<{}> = () => {
 
   const onSubmit = (values: FormProps) => {
     Keyboard.dismiss();
-    console.log('FCM', fcmToken);
     dispatch(
       signInRequest({
         email: values?.emailUsername,
