@@ -21,11 +21,20 @@ function AppleButton(props: AppleButtonProps) {
       requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
     });
 
+    dispatch(
+      signInWithAppleRequest({
+        ...appleAuthRequestResponse,
+        fcmToken: fcmToken?.token,
+        referringUserId: referringUserId,
+      }),
+    );
+
+    /*
     const credentialState = await appleAuth.getCredentialStateForUser(
       appleAuthRequestResponse.user
     );
 
-    if (credentialState === appleAuth.State.AUTHORIZED) {
+    if (true || credentialState === appleAuth.State.AUTHORIZED) {
       console.log(appleAuthRequestResponse);
       dispatch(
         signInWithAppleRequest({
@@ -35,6 +44,7 @@ function AppleButton(props: AppleButtonProps) {
         }),
       );
     }
+    */
   };
 
   return (
