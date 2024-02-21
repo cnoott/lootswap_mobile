@@ -325,3 +325,7 @@ export const SIGNIN_WITH_GOOGLE = {
 export const SIGNIN_WITH_APPLE = {
   ...createActionConst(actions.SIGNIN_WITH_APPLE),
 };
+
+export const SAVE_INSTALL_PARAMS = {
+  ...createActionConst(actions.SAVE_INSTALL_PARAMS),
+};
