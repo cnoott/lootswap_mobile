@@ -2,17 +2,14 @@ import React from 'react';
 import {Size, Type} from '../../enums';
 import LSButton from '../commonComponents/LSButton';
 import {APPLE_ICON} from 'localsvgimages';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {signInWithAppleRequest} from '../../redux/modules';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 
-interface AppleButtonProps {
-  fcmToken?: any;
-  referringUserId?: string;
-}
-
-function AppleButton(props: AppleButtonProps) {
-  const {fcmToken = '', referringUserId = ''} = props;
+function AppleButton() {
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {fcmToken, referringUserId, marketingChannel} = auth;
   const dispatch = useDispatch();
 
   const appleSignUp = async () => {
@@ -26,6 +23,7 @@ function AppleButton(props: AppleButtonProps) {
         ...appleAuthRequestResponse,
         fcmToken: fcmToken?.token,
         referringUserId: referringUserId,
+        marketingChannel: marketingChannel,
       }),
     );
 
