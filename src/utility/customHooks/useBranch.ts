@@ -19,7 +19,6 @@ const useBranch = () => {
       console.log('Branch IO Install Params', installParams);
 
       //Alert.alert(`${JSON.stringify(installParams)}`);
-
       // TODO: affiliate codes
       dispatch(
         saveInstallParams({
@@ -29,8 +28,6 @@ const useBranch = () => {
       );
     });
   }, []);
-
-
 };
 
 export default useBranch;
