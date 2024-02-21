@@ -156,9 +156,9 @@ export const AuthScreen: FC<{}> = () => {
                 />
               </Spacing>
               <View style={{marginBottom: 15}} />
-              <GoogleButton fcmToken={fcmToken} />
+              <GoogleButton />
               <View style={{marginBottom: 15}} />
-              <AppleButton fcmToken={fcmToken} />
+              <AppleButton />
               <Touchable onPress={() => handlePressForgotPass()}>
                 <ForgotPassLabel>Forgot password?</ForgotPassLabel>
               </Touchable>
