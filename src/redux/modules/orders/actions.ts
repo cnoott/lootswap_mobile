@@ -8,6 +8,7 @@ import {
   SET_FIRST_TIME_OPEN_FALSE,
   SET_ORDER_NOTIF_AS_READ,
   SET_PAYPAL_ORDER_NOTIF_AS_READ,
+  FETCH_PAYPAL_CHECKOUT_LINK,
 } from '../../../constants/actions';
 
 export const getAllOrders = (reqData: any) => {
@@ -128,5 +129,18 @@ export const setPaypalNotifAsReadSuccess = (payload: any) => {
   return {
     type: SET_PAYPAL_ORDER_NOTIF_AS_READ.SUCCESS,
     payload: payload,
+  };
+};
+
+export const fetchPaypalCheckoutLink = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: FETCH_PAYPAL_CHECKOUT_LINK.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
   };
 };
