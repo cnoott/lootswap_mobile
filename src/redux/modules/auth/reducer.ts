@@ -25,6 +25,7 @@ import {
   UNLIKE_PRODUCT,
   LIKE_PRODUCT,
   SAVE_INSTALL_PARAMS,
+  SKIP_PAYPAL_ONBOARDING,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
 
@@ -42,6 +43,7 @@ export interface AuthProps {
   fcmToken?: any;
   marketingChannel?: string;
   referringUserId?: string;
+  skippedPaypalOnboarding?: boolean;
 }
 
 type ActionProps = {
@@ -66,6 +68,7 @@ export const InitialState: AuthProps = {
   fcmToken: null,
   marketingChannel: undefined,
   referringUserId: undefined,
+  skippedPaypalOnboarding: false,
 };
 
 export default function auth(state = InitialState, action: ActionProps) {
@@ -160,6 +163,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         authToken: null,
         isLogedIn: false,
         error: null,
+        skippedPaypalOnboarding: false,
       };
     }
     case SIGN_OUT.FAILURE: {
@@ -170,6 +174,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         data: null,
         authToken: null,
         isLogedIn: false,
+        skippedPaypalOnboarding: false,
       };
     }
 
@@ -314,7 +319,6 @@ export default function auth(state = InitialState, action: ActionProps) {
           ),
         },
       };
-
     }
     case DELETE_NOTIF.SUCCESS: {
       return {
@@ -425,6 +429,12 @@ export default function auth(state = InitialState, action: ActionProps) {
         ...state,
         referringUserId: payload?.referringUserId,
         marketingChannel: payload?.marketingChannel,
+      };
+    }
+    case SKIP_PAYPAL_ONBOARDING.REQUEST: {
+      return {
+        ...state,
+        skippedPaypalOnboarding: true,
       };
     }
     default:

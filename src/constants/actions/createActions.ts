@@ -329,3 +329,7 @@ export const SIGNIN_WITH_APPLE = {
 export const SAVE_INSTALL_PARAMS = {
   ...createActionConst(actions.SAVE_INSTALL_PARAMS),
 };
+
+export const SKIP_PAYPAL_ONBOARDING = {
+  ...createActionConst(actions.SKIP_PAYPAL_ONBOARDING),
+};

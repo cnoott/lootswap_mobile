@@ -28,6 +28,7 @@ import {
   SIGNIN_WITH_GOOGLE,
   SIGNIN_WITH_APPLE,
   SAVE_INSTALL_PARAMS,
+  SKIP_PAYPAL_ONBOARDING,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -562,5 +563,11 @@ export const saveInstallParams = (installParams: any) => {
   return {
     type: SAVE_INSTALL_PARAMS.REQUEST,
     payload: installParams,
+  };
+};
+
+export const skipPaypalOnboarding = () => {
+  return {
+    type: SKIP_PAYPAL_ONBOARDING.REQUEST,
   };
 };
