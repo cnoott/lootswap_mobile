@@ -47,13 +47,15 @@ export const PayPalLinkModal = props => {
           />
           <TopMinMargin />
           <LSButton
-            title={'Cancel'}
+            title={'Skip for now'}
             size={Size.Fit_To_Width}
             type={Type.Grey}
             radius={20}
             onPress={handleCancelPayPalModal}
           />
         </PayPalSubContainer>
+
+        <LSModal.CloseButton onCloseButtonPress={handleCancelPayPalModal}/>
       </LSModal.Container>
     </LSModal>
   );
