@@ -351,7 +351,8 @@ export const BottomTabs: FC<{}> = () => {
    */
   const MyCustomTabBar = ({state, descriptors, navigation}) => {
     const auth: AuthProps = useSelector(reduxState => reduxState.auth);
-    const {isLoggedIn} = getInitialRoute(auth.userData);
+    const {userData, skippedPaypalOnboarding} = auth;
+    const {isLoggedIn} = getInitialRoute(userData);
     const [isPayPalModalVisible, setPayPalModalVisible] = useState(false);
     return (
       <TabBarContainer>
@@ -372,13 +373,12 @@ export const BottomTabs: FC<{}> = () => {
               // The `merge: true` option makes sure that the params inside the tab screen are preserved
               if (!isLoggedIn && [2, 3, 4].includes(index)) {
                 navigation.navigate('CreateAccountScreen');
-              } else if (index === 3 && !auth?.userData?.paypal_onboarded) {
-                setPayPalModalVisible(true);
               } else if (
                 index === 3 &&
-                Object.keys(auth.userData?.shipping_address).length < 4
+                !userData?.paypal_onboarded &&
+                !skippedPaypalOnboarding
               ) {
-                navigation.navigate('LootEditAddressScreen');
+                setPayPalModalVisible(true);
               } else {
                 navigation.navigate({name: route.name, merge: true});
               }
