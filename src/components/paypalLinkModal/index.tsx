@@ -5,6 +5,7 @@ import {
   TopMinMargin,
   PayPalSubContainer,
   TopMaxMargin,
+  SubText,
 } from './styles';
 import {PAY_PAL_IMAGE, LINK_PAYPAL_TEXT} from 'localsvgimages';
 import {LSModal} from '../../components/commonComponents/LSModal';
@@ -22,7 +23,12 @@ export const PayPalLinkModal = props => {
       goToListLoot: true,
     });
     setPayPalModalVisible(false);
-    loggingService().logEvent('start_link_paypal')
+    loggingService().logEvent('start_link_paypal');
+  };
+
+  const handleSkipPayPalModal = () => {
+    loggingService().logEvent('skip_link_paypal');
+
   };
 
   const handleCancelPayPalModal = () => {
@@ -37,6 +43,7 @@ export const PayPalLinkModal = props => {
           <SvgXml xml={PAY_PAL_IMAGE} />
           <TopMargin />
           <SvgXml xml={LINK_PAYPAL_TEXT} />
+          <SubText>You can still trade without linking PayPal</SubText>
           <TopMaxMargin />
           <LSButton
             title={'Link PayPal account'}
@@ -54,8 +61,7 @@ export const PayPalLinkModal = props => {
             onPress={handleCancelPayPalModal}
           />
         </PayPalSubContainer>
-
-        <LSModal.CloseButton onCloseButtonPress={handleCancelPayPalModal}/>
+        <LSModal.CloseButton onCloseButtonPress={handleCancelPayPalModal} />
       </LSModal.Container>
     </LSModal>
   );
