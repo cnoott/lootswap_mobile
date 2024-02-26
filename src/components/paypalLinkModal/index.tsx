@@ -12,7 +12,7 @@ import {LSModal} from '../../components/commonComponents/LSModal';
 import {SvgXml} from 'react-native-svg';
 import {Size, Type} from '../../enums';
 import LSButton from '../../components/commonComponents/LSButton';
-import { loggingService } from '../../services/loggingService';
+import {loggingService} from '../../services/loggingService';
 
 export const PayPalLinkModal = props => {
   const {isPayPalModalVisible, setPayPalModalVisible} = props;
@@ -28,7 +28,6 @@ export const PayPalLinkModal = props => {
 
   const handleSkipPayPalModal = () => {
     loggingService().logEvent('skip_link_paypal');
-
   };
 
   const handleCancelPayPalModal = () => {
@@ -54,7 +53,7 @@ export const PayPalLinkModal = props => {
           />
           <TopMinMargin />
           <LSButton
-            title={'Skip for now'}
+            title={'Only trade items for now'}
             size={Size.Fit_To_Width}
             type={Type.Grey}
             radius={20}
