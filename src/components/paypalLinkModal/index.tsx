@@ -13,10 +13,13 @@ import {SvgXml} from 'react-native-svg';
 import {Size, Type} from '../../enums';
 import LSButton from '../../components/commonComponents/LSButton';
 import {loggingService} from '../../services/loggingService';
+import {useDispatch} from 'react-redux';
+import {skipPaypalOnboarding} from '../../redux/modules';
 
 export const PayPalLinkModal = props => {
   const {isPayPalModalVisible, setPayPalModalVisible} = props;
-  const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
+  const navigation: NavigationProp<any, any> = useNavigation();
+  const dispatch = useDispatch();
 
   const handleLinkPayPal = () => {
     navigation.navigate('LinkPaypalScreen', {
@@ -26,7 +29,8 @@ export const PayPalLinkModal = props => {
     loggingService().logEvent('start_link_paypal');
   };
 
-  const handleSkipPayPalModal = () => {
+  const handleSkipPayPal = () => {
+    dispatch(skipPaypalOnboarding());
     loggingService().logEvent('skip_link_paypal');
     navigation.navigate('Add loot', {
       screen: 'LootScreen',
@@ -60,7 +64,7 @@ export const PayPalLinkModal = props => {
             size={Size.Fit_To_Width}
             type={Type.Grey}
             radius={20}
-            onPress={handleSkipPayPalModal}
+            onPress={handleSkipPayPal}
           />
         </PayPalSubContainer>
         <LSModal.CloseButton onCloseButtonPress={handleCancelPayPalModal} />
