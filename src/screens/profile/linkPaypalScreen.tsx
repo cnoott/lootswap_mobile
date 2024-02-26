@@ -36,6 +36,7 @@ export const LinkPaypalScreen: FC<{}> = props => {
       redirectUrl: `${WEB_APP_URL}/mobile-link-paypal`,
       _id: userData?._id,
     };
+    loggingService().logEvent('start_link_paypal');
     dispatch(LoadingRequest());
     dispatch(
       generateLinkPaypal(
@@ -62,24 +63,18 @@ export const LinkPaypalScreen: FC<{}> = props => {
         reqData,
         () => {
           dispatch(getMyDetailsRequest(userData?._id));
+          loggingService().logEvent('end_link_paypal');
           if (goToListLoot) {
             navigation.reset({
               index: 0,
               routes: [{name: 'Home'}],
             });
-            if (Object.keys(userData?.shipping_address).length < 3) {
-              navigation.navigate('List loot', {
-                screen: 'LootEditAddressScreen',
-              });
-            } else {
-              navigation.navigate('List loot', {
-                screen: 'LootScreen',
-              });
-            }
+            navigation.navigate('Add loot', {
+              screen: 'LootScreen',
+            });
           } else {
             navigation.goBack();
           }
-          loggingService().logEvent('end_link_paypal');
         },
         error => {
           console.log(error);
@@ -90,7 +85,7 @@ export const LinkPaypalScreen: FC<{}> = props => {
 
   return (
     <Container>
-      <InStackHeader title={'Link Paypal'} />
+      <InStackHeader title={'Link PayPal'} />
       {!loading && (
         <WebView
           onLoad={() => dispatch(LoadingSuccess())}
