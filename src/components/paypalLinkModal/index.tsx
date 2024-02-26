@@ -28,6 +28,9 @@ export const PayPalLinkModal = props => {
 
   const handleSkipPayPalModal = () => {
     loggingService().logEvent('skip_link_paypal');
+    navigation.navigate('Add loot', {
+      screen: 'LootScreen',
+    });
   };
 
   const handleCancelPayPalModal = () => {
@@ -57,7 +60,7 @@ export const PayPalLinkModal = props => {
             size={Size.Fit_To_Width}
             type={Type.Grey}
             radius={20}
-            onPress={handleCancelPayPalModal}
+            onPress={handleSkipPayPalModal}
           />
         </PayPalSubContainer>
         <LSModal.CloseButton onCloseButtonPress={handleCancelPayPalModal} />
