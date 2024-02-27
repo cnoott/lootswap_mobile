@@ -9,6 +9,7 @@ import {
   SET_ORDER_NOTIF_AS_READ,
   SET_PAYPAL_ORDER_NOTIF_AS_READ,
   FETCH_PAYPAL_CHECKOUT_LINK,
+  CAPTURE_PAYPAL_ORDER,
 } from '../../../constants/actions';
 
 export const getAllOrders = (reqData: any) => {
@@ -139,6 +140,19 @@ export const fetchPaypalCheckoutLink = (
 ) => {
   return {
     type: FETCH_PAYPAL_CHECKOUT_LINK.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const capturePaypalOrder = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: CAPTURE_PAYPAL_ORDER.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,

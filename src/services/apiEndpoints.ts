@@ -600,6 +600,13 @@ export const fetchPaypalCheckoutLinkCall = (reqData: any) => {
   );
 };
 
+export const capturePaypalOrderCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/capture-order/${reqData?.orderId}/${reqData?.itemId}/${reqData?.userId}`, reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

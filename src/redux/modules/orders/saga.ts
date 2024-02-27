@@ -10,6 +10,7 @@ import {
   SET_ORDER_NOTIF_AS_READ,
   SET_PAYPAL_ORDER_NOTIF_AS_READ,
   FETCH_PAYPAL_CHECKOUT_LINK,
+  CAPTURE_PAYPAL_ORDER,
 } from '../../../constants/actions';
 import {
   getAllOrdersCall,
@@ -22,6 +23,7 @@ import {
   setOrderNotifAsReadCall,
   setPaypalOrderNotifAsReadCall,
   fetchPaypalCheckoutLinkCall,
+  capturePaypalOrderCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {
@@ -217,6 +219,25 @@ export function* fetchPaypalCheckoutLink(action: any) {
   }
 }
 
+export function* capturePaypalOrder(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      capturePaypalOrderCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export default function* ordersSaga() {
   yield takeLatest(GET_ALL_ORDERS.REQUEST, getAllOrders);
   yield takeLatest(GET_ORDER.REQUEST, getOrder);
@@ -234,4 +255,5 @@ export default function* ordersSaga() {
     setPaypalOrderNotifAsRead,
   );
   yield takeLatest(FETCH_PAYPAL_CHECKOUT_LINK.REQUEST, fetchPaypalCheckoutLink);
+  yield takeLatest(CAPTURE_PAYPAL_ORDER.REQUEST, capturePaypalOrderCall);
 }
