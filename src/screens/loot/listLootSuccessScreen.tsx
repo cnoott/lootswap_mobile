@@ -34,7 +34,12 @@ const ListLootSuccessScreen: FC<{}> = props => {
         type={Type.Primary}
         radius={20}
         fitToWidth={'90%'}
-        onPress={() => navigation.navigate('HomeScreen')}
+        onPress={() => {
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'Home'}],
+          });
+        }}
       />
     </Container>
   );
