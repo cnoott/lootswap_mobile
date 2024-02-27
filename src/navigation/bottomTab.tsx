@@ -256,6 +256,7 @@ const LootStackNavigation = () => (
       name="LootEditAddressScreen"
       component={LootEditAddressScreen}
     />
+    <Stack.Screen name="LinkPaypalScreen" component={LinkPaypalScreen} />
     <Stack.Screen
       name="ProductDetailsMyLootScreen"
       component={ProductDetailsScreen}
@@ -427,11 +428,7 @@ export const BottomTabs: FC<{}> = () => {
       <Tab.Screen name="Home" component={HomeStackNavigation} />
       <Tab.Screen name="Search" component={SearchStackNavigation}/>
       <Tab.Screen name="Profile" component={ProfileStackNavigation} />
-      <Tab.Screen
-        name="Add loot"
-        component={LootStackNavigation}
-        options={{unmountOnBlur: true}}
-      />
+      <Tab.Screen name="Add loot" component={LootStackNavigation} />
       <Tab.Screen name="Inbox" component={OffersStackNavigation} />
     </Tab.Navigator>
   );
