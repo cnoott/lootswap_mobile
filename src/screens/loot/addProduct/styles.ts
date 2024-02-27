@@ -488,15 +488,6 @@ export const TradeButtonText = styled.Text.attrs(props => ({
   ${space}
 `;
 
-export const SkippedPaypalText = styled.Text.attrs(props => ({
-  color: 'red',
-}))`
-  font-size: ${moderateScale(14)}px;
-  font-family: Urbanist-SemiBold;
-  ${color}
-  ${space}
-`;
-
 export const EmptyView = styled.View``;
 
 export const ShippingDes = styled.Text.attrs(props => ({
@@ -532,7 +523,7 @@ export const RecTagContainer = styled.View.attrs(() => ({
   align-self: flex-start ${layout} ${color} ${space};
 `;
 
-export const PaypalDisclaimerView = styled.View.attrs((props: any) => ({
+export const PaypalDisclaimerView = styled.TouchableOpacity.attrs((props: any) => ({
   mt: verticalScale(5),
   borderRadius: 10,
   bg: 'rgba(250, 204, 21, .2)',
