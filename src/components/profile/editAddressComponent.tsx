@@ -22,11 +22,12 @@ import {useNavigation, NavigationProp} from '@react-navigation/native';
 import {BOTTOM_TAB_HOME} from 'localsvgimages';
 
 interface EditAddressComponentProps {
-  isFromAddLoot?: Boolean;
+  handleNavigation: Function;
+  showDisclaimer: Boolean;
 }
 
 export const EditAddressComponent: FC<EditAddressComponentProps> = props => {
-  const {isFromAddLoot = false} = props;
+  const {handleNavigation = () => {}, showDisclaimer = false} = props;
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
@@ -66,15 +67,7 @@ export const EditAddressComponent: FC<EditAddressComponentProps> = props => {
         () => {
           Alert.showSuccess('Saved!');
           dispatch(getMyDetailsRequest(userData?._id));
-          if (isFromAddLoot) {
-            navigation.reset({
-              index: 0,
-              routes: [{name: 'Home'}],
-            });
-            navigation.navigate('Add loot', {
-              screen: 'LootScreen',
-            });
-          }
+          handleNavigation();
         },
         error => {
           Alert.showError(error);
@@ -103,11 +96,11 @@ export const EditAddressComponent: FC<EditAddressComponentProps> = props => {
   return (
     <>
       <EmptyTopView>
-        {isFromAddLoot && (
+        {showDisclaimer && (
           <DisclaimerView>
             <SvgXml xml={BOTTOM_TAB_HOME} />
             <DisclaimerTopLabel>
-              In order to continue listing an item, you must enter your shipping info
+              In order to continue, you must enter your shipping info
             </DisclaimerTopLabel>
           </DisclaimerView>
         )}
