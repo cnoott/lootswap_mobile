@@ -40,7 +40,6 @@ import {
 } from '../../redux/modules';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 import {Alert} from 'custom_top_alert';
-import PayPalLinkModal from '../../components/paypalLinkModal';
 
 export const LootScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -243,7 +242,6 @@ export const LootScreen: FC<any> = ({route}) => {
         </SwiperComponent>
       </KeyboardAwareScrollView>
       {renderBottomButtonView()}
-      <PayPalLinkModal />
     </Container>
   );
 };
