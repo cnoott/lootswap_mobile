@@ -56,7 +56,6 @@ import PublicProfileScreen from '../screens/profile/publicProfileScreen';
 import ListLootSuccessScreen from '../screens/loot/listLootSuccessScreen';
 import PayPalLinkModal from '../components/paypalLinkModal';
 import LinkPaypalScreen from '../screens/profile/linkPaypalScreen';
-import LootEditAddressScreen from '../screens/loot/lootEditAddressScreen';
 import StartTradeScreen from '../screens/offers/startTrade';
 import EditTradeScreen from '../screens/offers/editTradeScreen';
 import ChooseOfferTypeScreen from '../screens/offers/chooseOfferTypeScreen';
@@ -74,7 +73,7 @@ import PublicOfferScreen from '../screens/publicOffers/publicOfferScreen';
 import AcceptPublicOfferScreen from '../screens/publicOffers/acceptPublicOfferScreen';
 import AllListingsScreen from '../screens/home/allListings';
 import FooterBadge from '../components/footer/footerBadge';
-import { loggingService } from '../services/loggingService';
+import {loggingService} from '../services/loggingService';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -100,10 +99,6 @@ const HomeStackNavigation = () => (
     <Stack.Screen name="HasItScreen" component={HasItScreen}/>
     <Stack.Screen name="TradedItScreen" component={TradedItScreen}/>
     <Stack.Screen name="LinkPaypalScreen" component={LinkPaypalScreen} />
-    <Stack.Screen
-      name="LootEditAddressScreen"
-      component={LootEditAddressScreen}
-    />
     <Stack.Screen
       name="CreatePublicOfferScreen"
       component={CreatePublicOfferScreen}
@@ -252,10 +247,7 @@ const LootStackNavigation = () => (
     }}>
     <Stack.Screen name="LootScreen" component={LootScreen} />
     <Stack.Screen name="MyLootScreen" component={MyLootScreen} />
-    <Stack.Screen
-      name="LootEditAddressScreen"
-      component={LootEditAddressScreen}
-    />
+
     <Stack.Screen name="LinkPaypalScreen" component={LinkPaypalScreen} />
     <Stack.Screen
       name="ProductDetailsMyLootScreen"
