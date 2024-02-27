@@ -96,4 +96,5 @@ declare module 'localsvgimages' {
   export const BAD_DEAL_ICON: any;
   export const GOOGLE_ICON: any;
   export const APPLE_ICON: any;
+  export const WALLET_BACKGROUND: any;
 }
