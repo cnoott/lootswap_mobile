@@ -2,7 +2,7 @@
 LootSwap - ADD_PRODUCT STEP 4
 ***/
 
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import LSInput from '../../../components/commonComponents/LSInput';
 import {
   Container,
@@ -11,12 +11,20 @@ import {
   TradeButton,
   TradeButtonText,
   RecTagContainer,
+  SkippedPaypalText,
   FreeTag,
   EmptyView,
   TouchableRowTradeOptions,
+  PaypalDisclaimerView,
+  DisclaimerText,
+  DisclaimerTextUnderlined,
 } from './styles';
 import {useSelector} from 'react-redux';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
+import {AuthProps} from '../../../redux/modules/auth/reducer';
+import {SvgXml} from 'react-native-svg';
+import { WARNING_ICON } from '../../../assets/images/svgs';
+
 
 interface ProductStep {
   updateProductData: Function;
@@ -29,6 +37,16 @@ export const AddProductStepFour: FC<ProductStep> = props => {
   const {stepFour} = addProductData;
   const [tradeDes, setTradeDes] = useState(stepFour?.tradeDescription || '');
   const {updateProductData} = props;
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData, skippedPaypalOnboarding} = auth;
+
+
+  useEffect(() => {
+    if (!userData?.paypal_onboarded && skippedPaypalOnboarding) {
+      onChangeTrade(2);
+    }
+  }, []);
+
   const onChangeTrade = (index = 1) => {
     const newData = {
       isTradeAndSell: false,
@@ -78,10 +96,15 @@ export const AddProductStepFour: FC<ProductStep> = props => {
     isSelected: boolean,
     onPress: Function,
   ) => {
+    const disableSellOptions =
+      skippedPaypalOnboarding && !userData?.paypal_onboarded && label !== 'Trade Only';
     return (
-      <TouchableRowTradeOptions onPress={onPress}>
-        <TradeButton selected={isSelected}>
-          <TradeButtonText selected={isSelected}>{label}</TradeButtonText>
+      <TouchableRowTradeOptions
+        onPress={onPress}
+        disabled={disableSellOptions}
+      >
+        <TradeButton selected={isSelected} disabled={disableSellOptions}>
+          <TradeButtonText selected={isSelected} disabled={disableSellOptions}>{label}</TradeButtonText>
         </TradeButton>
         {label === 'Trade and Sell' && (
           <RecTagContainer>
@@ -94,7 +117,7 @@ export const AddProductStepFour: FC<ProductStep> = props => {
   const renderTradeView = () => {
     return (
       <EmptyView>
-        <TradeOptionsText>Trade Options</TradeOptionsText>
+        <TradeOptionsText>Do you want to trade or sell your item?</TradeOptionsText>
         {renderTradeButton(
           'Trade and Sell',
           stepFour?.tradeOptions?.isTradeAndSell,
@@ -109,7 +132,7 @@ export const AddProductStepFour: FC<ProductStep> = props => {
           'Sell Only',
           stepFour?.tradeOptions?.isSellOnly,
           () => onChangeTrade(3),
-        )}
+        )} 
       </EmptyView>
     );
   };
@@ -117,14 +140,20 @@ export const AddProductStepFour: FC<ProductStep> = props => {
     <Container>
       <HorizontalSpace>
         {renderTradeView()}
+        <PaypalDisclaimerView>
+          <SvgXml xml={WARNING_ICON} />
+          <DisclaimerText>
+            In order to sell your item, you need to link your PayPal. <DisclaimerTextUnderlined>Tap here to link</DisclaimerTextUnderlined>
+          </DisclaimerText>
+        </PaypalDisclaimerView>
         {!addProductData?.stepOne?.stockxUrlKey && (
           <TradeOptionsText>
             Are there any particular items you wish to trade this item for?
           </TradeOptionsText>
         )}
-        </HorizontalSpace>
+      </HorizontalSpace>
 
-        {!addProductData?.stepOne?.stockxUrlKey && (
+      {!addProductData?.stepOne?.stockxUrlKey && (
         <LSInput
           onChangeText={setTradeDes}
           value={tradeDes}
@@ -134,7 +163,7 @@ export const AddProductStepFour: FC<ProductStep> = props => {
           horizontalSpace={20}
           onBlurCall={onBlurCall}
         />
-        )}
+      )}
     </Container>
   );
 };
