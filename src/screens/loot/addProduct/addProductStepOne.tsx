@@ -161,6 +161,14 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     setProductName(item.title);
   };
 
+ const debouncedSearchTerm = useDebounce(productName, 150); //set delay
+  useEffect(() => {
+    if (debouncedSearchTerm && debouncedSearchTerm.length > 5) {
+      fetchStockxData();
+    }
+  }, [debouncedSearchTerm]);
+
+
   const fetchStockxData = useCallback(() => {
     setStockxLoading(true);
     handleDrawerAnimation();
