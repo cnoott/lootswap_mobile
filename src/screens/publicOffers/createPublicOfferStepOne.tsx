@@ -143,7 +143,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
             stockxLoading ? [1, 2, 3, 4, 5, 6, 7, 8] : searchResults
           }
           loading={stockxLoading}
-          onSelectResult={({title, urlKey}) => handleSelectStockx(title, urlKey)}
+          onSelectResult={({name, urlKey}) => handleSelectStockx(name, urlKey)}
           showTitle={false}
         />
       </Animated.View>
