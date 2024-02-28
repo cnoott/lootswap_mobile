@@ -120,9 +120,9 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
             <BlinkingImage/>
           ) : (
             <>
-              {item.thumbUrl ? (
+              {item.image ? (
                 <Image
-                  source={{uri: item.thumbUrl, priority: FastImage.priority.low}}
+                  source={{uri: item.image, priority: FastImage.priority.low}}
                   resizeMode={FastImage.resizeMode.contain}
                 />
               ) : (
@@ -132,7 +132,7 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
           )}
         </ImageContainer>
         <TextContainer>
-          <TitleText>{loading ? <BlinkingText/> : item?.title}</TitleText>
+          <TitleText>{loading ? <BlinkingText/> : item?.name}</TitleText>
           <BrandContainer>
             {loading && <BlinkingBrandText />}<BrandText>{(item?.subTitle && !loading) && `${item.subTitle}`}</BrandText>
           </BrandContainer>
@@ -148,8 +148,8 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
         ...searchResults,
         {
           urlKey: null,
-          thumbUrl: '',
-          title: 'My item is not here',
+          image: '',
+          name: 'My item is not here',
           subTitle: `Add new item "${productName}"`,
         },
       ];
