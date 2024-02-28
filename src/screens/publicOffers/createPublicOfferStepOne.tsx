@@ -1,4 +1,4 @@
-import React, {FC, useRef, useState, useCallback} from 'react';
+import React, {FC, useRef, useState, useCallback, useEffect} from 'react';
 import {StepContainer} from './styles';
 import LSInput from '../../components/commonComponents/LSInput';
 import {SEARCH_INPUT_ICON} from 'localsvgimages';
@@ -8,6 +8,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {searchStockx} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {refreshStockxData} from '../../redux/modules';
+import useDebounce from '../../utility/customHooks/useDebouncer';
 import {
   LoadingRequest,
   LoadingSuccess,
@@ -62,6 +63,13 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
     }).start();
     setIsOpen(!isOpen);
   }, [animation, isOpen, stockxLoading]);
+
+  const debouncedSearchTerm = useDebounce(query, 150); //set delay
+  useEffect(() => {
+    if (debouncedSearchTerm && debouncedSearchTerm.length > 5) {
+      fetchStockxData();
+    }
+  }, [debouncedSearchTerm]);
 
   const fetchStockxData = useCallback(() => {
     setStockxLoading(true);
