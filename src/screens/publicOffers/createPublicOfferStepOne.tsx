@@ -64,7 +64,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
     setIsOpen(!isOpen);
   }, [animation, isOpen, stockxLoading]);
 
-  const debouncedSearchTerm = useDebounce(query, 150); //set delay
+  const debouncedSearchTerm = useDebounce(query, 210); //set delay
   useEffect(() => {
     if (debouncedSearchTerm && debouncedSearchTerm.length > 5) {
       fetchStockxData();
