@@ -161,7 +161,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     setProductName(item.title);
   };
 
- const debouncedSearchTerm = useDebounce(productName, 150); //set delay
+ const debouncedSearchTerm = useDebounce(productName, 210); //set delay
   useEffect(() => {
     if (debouncedSearchTerm && debouncedSearchTerm.length > 5) {
       fetchStockxData();
