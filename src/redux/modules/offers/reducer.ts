@@ -44,7 +44,7 @@ export default function loading(state = InitialState, action: ActionProps) {
     case GET_TRADE.REQUEST: {
       return {
         ...state,
-        trade: null,
+        //trade: null,
       };
     }
     case GET_TRADE_STOCKX.SUCCESS:
