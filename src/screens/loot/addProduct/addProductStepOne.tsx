@@ -153,7 +153,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
           ? {value: 'shoes', label: 'Shoes'}
           : {...addProductData?.stepOne?.category},
       },
-      item.brand,
+      null,
     );
     if (item?.category === 'sneakers') {
       setCategoryData({value: 'shoes', label: 'Shoes'});

@@ -79,7 +79,7 @@ export const LootScreen: FC<any> = ({route}) => {
 
     const canGoNext = validateCreateProductData(currIndex + 1, addProductData);
     if (canGoNext) {
-      loggingService().logEvent('add_loot_step: ' + currIndex);
+      //loggingService().logEvent('add_loot_step' + currIndex);
       if (currIndex === 0 && stockxLoading) {
         Alert.showError('Wait until search is done loading');
         return;
