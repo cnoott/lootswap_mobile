@@ -8,16 +8,16 @@ import Foundation
 import UIKit
 import CorePayments
 import PayPalNativePayments
-
+import React
 
 @objc(PayPalModule)
-class PayPalModule: NSObject, RCTBridgeModule {
+class PayPalModule: RCTEventEmitter {
   // Make sure you have this static function
-  static func moduleName() -> String! {
+  override static func moduleName() -> String! {
     return "PayPalModule"
   }
   
-  static func requiresMainQueueSetup() -> Bool {
+  override static func requiresMainQueueSetup() -> Bool {
     return false
   }
   
@@ -26,6 +26,14 @@ class PayPalModule: NSObject, RCTBridgeModule {
   @objc func setupPayPal(_ clientID: String) {
     let config = CoreConfig(clientID: clientID, environment: .sandbox) // Change to .live for production
     paypalNativeClient = PayPalNativeCheckoutClient(config: config)
+  }
+  
+  override func supportedEvents() -> [String]! {
+      return ["onPayPalCheckoutFinished"]
+  }
+  
+  func emitCheckoutEvent(withResult result: Any) {
+    sendEvent(withName: "onPayPalCheckoutFinished", body: result)
   }
 
   @objc func startPayPalCheckout(_ orderID: String, resolver: @escaping RCTPromiseResolveBlock, rejecter: @escaping RCTPromiseRejectBlock) {
@@ -49,18 +57,22 @@ class PayPalModule: NSObject, RCTBridgeModule {
           }
       }
   }
-
 }
 
 extension PayPalModule: PayPalNativeCheckoutDelegate {
+
   func paypal(_ payPalClient: PayPalNativePayments.PayPalNativeCheckoutClient, didFinishWithResult result: PayPalNativePayments.PayPalNativeCheckoutResult) {
-    
-    
+      print(result)
+      emitCheckoutEvent(withResult: ["status": "success", "orderID": result.orderID])
   }
+  
+  
   
     
     func paypal(_ payPalClient: PayPalNativeCheckoutClient, didFinishWithError error: CoreSDKError) {
         // Handle error
+      emitCheckoutEvent(withResult: ["status": "error"])
+
     }
     
     func paypalDidCancel(_ payPalClient: PayPalNativeCheckoutClient) {
