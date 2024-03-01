@@ -6,7 +6,7 @@ import {Size, Type} from 'custom_enums';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {WebView} from 'react-native-webview';
-import {StyleSheet, Modal} from 'react-native';
+import {StyleSheet, NativeModules, NativeEventEmitter, Dimensions} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {WEB_APP_URL} from '@env';
 import {Alert} from 'custom_top_alert';
@@ -31,15 +31,15 @@ import {
   getMyDetailsRequest,
   getUsersDetailsRequest,
   getTrade,
+  createPaypalOrder,
+  capturePaypalOrder,
 } from '../../redux/modules';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
-import {
-  LoadingSuccess,
-  LoadingRequest,
-} from '../../redux/modules/loading/actions';
 import { loggingService } from '../../services/loggingService';
-import {Dimensions} from 'react-native';
 import {verticalScale} from 'react-native-size-matters';
+
+const {PayPalModule} = NativeModules;
+const payPalModuleEmitter = new NativeEventEmitter(PayPalModule);
 
 const height = Dimensions.get('window').height - verticalScale(200);
 
@@ -59,15 +59,105 @@ export const CheckoutScreen: FC<{}> = props => {
   const [showGateway, setShowGateway] = useState(false);
 
   const [extendCheckoutButton, setExtendCheckoutButton] = useState(true);
+  const [paypalOrderId, setPaypalOrderId] = useState('');
   const scrollViewRef = useRef();
 
   useEffect(() => {
+    const subscription = payPalModuleEmitter.addListener(
+      'onPayPalCheckoutFinished',
+      resultData => {
+        if (resultData.status === 'error') {
+          Alert.showError('Error checking out, please try again');
+          return;
+        }
+        console.log('paypal checkout finished', resultData);
+        const reqData = {
+          productId: productData?._id,
+          userId: userData?._id,
+          isMoneyOffer: isMoneyOffer,
+          tradeId: tradeData?._id,
+          paypalId: resultData.orderID,
+          email: userData?.email,
+        }
+        dispatch(
+          capturePaypalOrder(
+            reqData,
+            res => {
+              handleNavigation(res);
+            },
+            err => {
+              Alert.showError('Error finishing checkout, please try again');
+            },
+          ),
+        );
+      },
+    );
+
     dispatch(getMyDetailsRequest(userData?._id));
     dispatch(getUsersDetailsRequest(productData?.userId));
+    const reqData = {
+      productId: productData?._id,
+      userId: userData?._id,
+      isMoneyOffer: isMoneyOffer,
+      tradeId: tradeData?._id
+    };
+
+    dispatch(
+      createPaypalOrder(
+        reqData,
+        res => {
+          console.log(res);
+          PayPalModule.setupPayPal(res.clientId);
+          setPaypalOrderId(res.id)
+        },
+        err => {
+          // TODO: better handle error
+          Alert.showError('Error checking out');
+        },
+      ),
+    );
+
+    return () => subscription.remove();
   }, [userData?._id, dispatch, productData?.userId]);
 
   const scrollToBottom = () => {
     scrollViewRef.current.scrollToEnd({ animated: true });
+  };
+
+  const handleNavigation = (responseData) => {
+    if (isMoneyOffer) {
+      dispatch(
+        getTrade({
+          userId: userData?._id,
+          tradeId: tradeData?._id,
+        }),
+      );
+      loggingService().logEvent('purchase', {
+        transaction_id: responseData.paypalOrder._id,
+        items: [
+          {
+            item_id: productData?._id,
+            item_category: productData?.category,
+            item_brand: productData?.item_brand,
+            price: productData?.price,
+            item_name: productData?.name,
+          },
+        ],
+      });
+      console.log('paypalinfo', responseData.paypalOrder);
+      navigation?.replace('TradeCheckoutSuccessScreen', {
+        isSale: true,
+        total: renderTotal(),
+        paypalOrderData: responseData.paypalOrder,
+      });
+    } else {
+      navigation?.replace('BuyCheckoutSuccessScreen', {
+        isSale: true,
+        total: renderTotal(),
+        paypalOrderData: responseData.paypalOrder,
+      });
+    }
+
   };
 
   const renderShippingCost = () => {
@@ -91,6 +181,7 @@ export const CheckoutScreen: FC<{}> = props => {
       return parseFloat(parseFloat(renderShippingCost()) + parseFloat(productData?.price)).toFixed(2);
     }
   };
+
 
   const onMessage = msg => {
     const data = JSON.parse(msg.nativeEvent.data);
@@ -210,7 +301,23 @@ export const CheckoutScreen: FC<{}> = props => {
     }
   };
 
+  const startPaypal = async () => {
+    if (paypalOrderId) {
+      const result = await PayPalModule.startPayPalCheckout(paypalOrderId)
+      console.log('RESULT', result);
+    } else {
+      Alert.showError('There was an issue with checkout, please try again');
+    }
+  };
+
   const renderCheckOutButton = () => {
+
+    return (
+          <LSButton
+            onPress={() => startPaypal()}
+            title={'Checkout'}
+          />
+    );
     return (
       <WebView
         source={{
@@ -218,7 +325,6 @@ export const CheckoutScreen: FC<{}> = props => {
         }}
         onMessage={onMessage}
         style={{height: extendCheckoutButton ? height : 200}}
-        onLoad={() => dispatch(LoadingSuccess())}
       />
     );
   };
@@ -229,32 +335,6 @@ export const CheckoutScreen: FC<{}> = props => {
         <TradeCheckoutItemCell itemData={productData} />
       </EmptyView>
     );
-  };
-
-  const paypalGateway = () => {
-    if (showGateway) {
-      return (
-        <Modal
-          visible={true}
-          onDismiss={() => setShowGateway(false)}
-          onRequestClose={() => setShowGateway(false)}
-          animationType={'slide'}
-          presentationStyle={'fullScreen'}
-          transparent={true}>
-          <Container style={styles.webViewCon}>
-            <InStackHeader title={'Checkout'} />
-            <WebView
-              source={{
-                uri: webViewUri,
-              }}
-              onMessage={onMessage}
-              style={{flex: 1}}
-              onLoad={() => dispatch(LoadingSuccess())}
-            />
-          </Container>
-        </Modal>
-      );
-    }
   };
 
   return (
@@ -278,7 +358,6 @@ export const CheckoutScreen: FC<{}> = props => {
         <VerticalMargin />
         {renderCheckOutButton()}
         <VerticalMargin margin={20} />
-        {paypalGateway()}
       </ScrollSubContainer>
     </Container>
   );
