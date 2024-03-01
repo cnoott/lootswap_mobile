@@ -333,3 +333,7 @@ export const SAVE_INSTALL_PARAMS = {
 export const SKIP_PAYPAL_ONBOARDING = {
   ...createActionConst(actions.SKIP_PAYPAL_ONBOARDING),
 };
+
+export const CREATE_PAYPAL_ORDER = {
+  ...createActionConst(actions.CREATE_PAYPAL_ORDER),
+};
