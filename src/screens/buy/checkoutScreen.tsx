@@ -27,7 +27,7 @@ import {
 } from '../../components/offers/tradeCheckoutStyle';
 import {
   getMyDetailsRequest,
-  getUsersDetailsRequest,
+  getProductDetails,
   getTrade,
   createPaypalOrder,
   capturePaypalOrder,
@@ -132,6 +132,7 @@ export const CheckoutScreen: FC<{}> = props => {
           },
         ],
       });
+      dispatch(getProductDetails(productData?._id));
       console.log('paypalinfo', responseData.paypalOrder);
       navigation?.replace('TradeCheckoutSuccessScreen', {
         isSale: true,
