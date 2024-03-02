@@ -147,19 +147,27 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     }
     updateBrand(
       {
-        productName: item.title,
+        productName: item.name,
         stockxUrlKey: item.urlKey,
         category: item?.category === 'sneakers'
           ? {value: 'shoes', label: 'Shoes'}
           : {...addProductData?.stepOne?.category},
       },
-      item.brand,
+      null,
     );
     if (item?.category === 'sneakers') {
       setCategoryData({value: 'shoes', label: 'Shoes'});
     }
     setProductName(item.title);
   };
+
+ const debouncedSearchTerm = useDebounce(productName, 210); //set delay
+  useEffect(() => {
+    if (debouncedSearchTerm && debouncedSearchTerm.length > 5) {
+      fetchStockxData();
+    }
+  }, [debouncedSearchTerm]);
+
 
   const fetchStockxData = useCallback(() => {
     setStockxLoading(true);

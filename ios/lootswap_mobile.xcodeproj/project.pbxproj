@@ -11,11 +11,17 @@
 		0C01A7322A03010C00E53601 /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C01A7312A03010C00E53601 /* branch.json */; };
 		0C01A7332A03010C00E53601 /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C01A7312A03010C00E53601 /* branch.json */; };
 		0C01A7342A03010C00E53601 /* branch.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C01A7312A03010C00E53601 /* branch.json */; };
+		0C1AC88B2B9126510041EE50 /* PayPalNativePayments in Frameworks */ = {isa = PBXBuildFile; productRef = 0C1AC88A2B9126510041EE50 /* PayPalNativePayments */; };
+		0C1AC88D2B9127E70041EE50 /* PayPalNativePayments in Frameworks */ = {isa = PBXBuildFile; productRef = 0C1AC88C2B9127E70041EE50 /* PayPalNativePayments */; };
 		0C42F0662B17E722000F00C3 /* GoogleService-Info-Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C42F0652B17E721000F00C3 /* GoogleService-Info-Dev.plist */; };
 		0C42F0682B17E72C000F00C3 /* GoogleService-Info-Prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C42F0672B17E72C000F00C3 /* GoogleService-Info-Prod.plist */; };
 		0C9F530E2A02FDE90013D568 /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C9F530D2A02FDE90013D568 /* Mont-Heavy.ttf */; };
 		0C9F530F2A02FDE90013D568 /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C9F530D2A02FDE90013D568 /* Mont-Heavy.ttf */; };
 		0C9F53102A02FDE90013D568 /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C9F530D2A02FDE90013D568 /* Mont-Heavy.ttf */; };
+		0CA9043C2B9148E200104572 /* PayPalModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9043B2B9148E200104572 /* PayPalModule.swift */; };
+		0CA9043D2B9148E200104572 /* PayPalModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA9043B2B9148E200104572 /* PayPalModule.swift */; };
+		0CA904452B91513F00104572 /* PayPalModuleBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA904442B91513F00104572 /* PayPalModuleBridge.m */; };
+		0CA904462B91513F00104572 /* PayPalModuleBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA904442B91513F00104572 /* PayPalModuleBridge.m */; };
 		0CCDBBC929F1EECD0026B4DB /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CCDBBC829F1EECD0026B4DB /* Mont-Heavy.ttf */; };
 		0CCDBBCA29F1EECD0026B4DB /* Mont-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CCDBBC829F1EECD0026B4DB /* Mont-Heavy.ttf */; };
 		0CCDF8772A57054D00075CF1 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0CCDF8762A57054D00075CF1 /* AppCenter-Config.plist */; };
@@ -117,6 +123,10 @@
 		0C42F0652B17E721000F00C3 /* GoogleService-Info-Dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info-Dev.plist"; path = "lootswap_mobile/GoogleService-Info-Dev.plist"; sourceTree = "<group>"; };
 		0C42F0672B17E72C000F00C3 /* GoogleService-Info-Prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info-Prod.plist"; path = "lootswap_mobile/GoogleService-Info-Prod.plist"; sourceTree = "<group>"; };
 		0C9F530D2A02FDE90013D568 /* Mont-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Mont-Heavy.ttf"; path = "../../assets/fonts/Mont-Heavy.ttf"; sourceTree = "<group>"; };
+		0CA904392B9148E100104572 /* lootswap_mobile-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "lootswap_mobile-Bridging-Header.h"; sourceTree = "<group>"; };
+		0CA9043A2B9148E100104572 /* lootswap_mobile_development-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "lootswap_mobile_development-Bridging-Header.h"; sourceTree = "<group>"; };
+		0CA9043B2B9148E200104572 /* PayPalModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPalModule.swift; sourceTree = "<group>"; };
+		0CA904442B91513F00104572 /* PayPalModuleBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayPalModuleBridge.m; sourceTree = "<group>"; };
 		0CCDBBC829F1EECD0026B4DB /* Mont-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Mont-Heavy.ttf"; path = "../../assets/fonts/Mont-Heavy.ttf"; sourceTree = "<group>"; };
 		0CCDF8762A57054D00075CF1 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* lootswap_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lootswap_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				816B01660BD7DE24ED570319 /* libPods-lootswap_mobile.a in Frameworks */,
+				0C1AC88D2B9127E70041EE50 /* PayPalNativePayments in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F03496AE126586040AB85D85 /* libPods-lootswap_mobile-lootswap_mobile_development.a in Frameworks */,
+				0C1AC88B2B9126510041EE50 /* PayPalNativePayments in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +306,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				0CA9043B2B9148E200104572 /* PayPalModule.swift */,
+				0CA904442B91513F00104572 /* PayPalModuleBridge.m */,
 				0CCDF8762A57054D00075CF1 /* AppCenter-Config.plist */,
 				0C01A7312A03010C00E53601 /* branch.json */,
 				18163B562935F50E00EDA81D /* fonts */,
@@ -304,6 +318,8 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
 				187F05B029A277BC006ADA87 /* lootswap_mobile_development-Info.plist */,
+				0CA904392B9148E100104572 /* lootswap_mobile-Bridging-Header.h */,
+				0CA9043A2B9148E100104572 /* lootswap_mobile_development-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -377,6 +393,9 @@
 			dependencies = (
 			);
 			name = lootswap_mobile;
+			packageProductDependencies = (
+				0C1AC88C2B9127E70041EE50 /* PayPalNativePayments */,
+			);
 			productName = lootswap_mobile;
 			productReference = 13B07F961A680F5B00A75B9A /* lootswap_mobile.app */;
 			productType = "com.apple.product-type.application";
@@ -400,6 +419,9 @@
 			dependencies = (
 			);
 			name = lootswap_mobile_development;
+			packageProductDependencies = (
+				0C1AC88A2B9126510041EE50 /* PayPalNativePayments */,
+			);
 			productName = lootswap_mobile;
 			productReference = 187F05AF29A277BB006ADA87 /* lootswap_mobile_development.app */;
 			productType = "com.apple.product-type.application";
@@ -417,7 +439,10 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1500;
+					};
+					187F057C29A277BB006ADA87 = {
+						LastSwiftMigration = 1500;
 					};
 				};
 			};
@@ -430,6 +455,9 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
+			packageReferences = (
+				0C1AC8892B9126500041EE50 /* XCRemoteSwiftPackageReference "paypal-ios" */,
+			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -846,7 +874,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CA904452B91513F00104572 /* PayPalModuleBridge.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				0CA9043C2B9148E200104572 /* PayPalModule.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -855,7 +885,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CA904462B91513F00104572 /* PayPalModuleBridge.m in Sources */,
 				187F058029A277BB006ADA87 /* AppDelegate.mm in Sources */,
+				0CA9043D2B9148E200104572 /* PayPalModule.swift in Sources */,
 				187F058129A277BB006ADA87 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -875,6 +907,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AA9DA813018B48C4216C0619 /* Pods-lootswap_mobile-lootswap_mobileTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -903,6 +936,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 447D602BA47227C49ECB8D43 /* Pods-lootswap_mobile-lootswap_mobileTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
@@ -940,7 +974,7 @@
 				INFOPLIST_FILE = lootswap_mobile/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = lootswap;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -953,6 +987,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = lootswap_mobile;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "lootswap_mobile-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -974,7 +1009,7 @@
 				INFOPLIST_FILE = lootswap_mobile/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = lootswap;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -987,6 +1022,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = lootswap_mobile;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "lootswap_mobile-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1006,7 +1042,7 @@
 				DEVELOPMENT_TEAM = 6P22K9PRC6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "lootswap_mobile_development-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1019,6 +1055,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "lootswap_mobile_development-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1038,7 +1075,7 @@
 				DEVELOPMENT_ASSET_PATHS = lootswap_mobile/Images.xcassets;
 				DEVELOPMENT_TEAM = 6P22K9PRC6;
 				INFOPLIST_FILE = "lootswap_mobile_development-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1051,6 +1088,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "lootswap_mobile_development-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1105,7 +1143,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -1170,7 +1208,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -1233,6 +1271,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0C1AC8892B9126500041EE50 /* XCRemoteSwiftPackageReference "paypal-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/paypal/paypal-ios/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0C1AC88A2B9126510041EE50 /* PayPalNativePayments */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0C1AC8892B9126500041EE50 /* XCRemoteSwiftPackageReference "paypal-ios" */;
+			productName = PayPalNativePayments;
+		};
+		0C1AC88C2B9127E70041EE50 /* PayPalNativePayments */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0C1AC8892B9126500041EE50 /* XCRemoteSwiftPackageReference "paypal-ios" */;
+			productName = PayPalNativePayments;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }

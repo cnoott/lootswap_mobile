@@ -325,3 +325,19 @@ export const SIGNIN_WITH_GOOGLE = {
 export const SIGNIN_WITH_APPLE = {
   ...createActionConst(actions.SIGNIN_WITH_APPLE),
 };
+
+export const SAVE_INSTALL_PARAMS = {
+  ...createActionConst(actions.SAVE_INSTALL_PARAMS),
+};
+
+export const SKIP_PAYPAL_ONBOARDING = {
+  ...createActionConst(actions.SKIP_PAYPAL_ONBOARDING),
+};
+
+export const CREATE_PAYPAL_ORDER = {
+  ...createActionConst(actions.CREATE_PAYPAL_ORDER),
+};
+
+export const CAPTURE_PAYPAL_ORDER = {
+  ...createActionConst(actions.CAPTURE_PAYPAL_ORDER),
+};

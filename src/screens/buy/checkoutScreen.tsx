@@ -1,14 +1,12 @@
-import React, {FC, useEffect, useState, useRef} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSButton from '../../components/commonComponents/LSButton';
 import DeliveryAddressComponent from '../../components/orders/deliveryAddressComponent';
 import {Size, Type} from 'custom_enums';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {useDispatch, useSelector} from 'react-redux';
-import {WebView} from 'react-native-webview';
-import {StyleSheet, Modal} from 'react-native';
+import {NativeModules, NativeEventEmitter} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {WEB_APP_URL} from '@env';
 import {Alert} from 'custom_top_alert';
 import {
   Container,
@@ -29,23 +27,17 @@ import {
 } from '../../components/offers/tradeCheckoutStyle';
 import {
   getMyDetailsRequest,
-  getUsersDetailsRequest,
+  getProductDetails,
   getTrade,
+  createPaypalOrder,
+  capturePaypalOrder,
 } from '../../redux/modules';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
-import {
-  LoadingSuccess,
-  LoadingRequest,
-} from '../../redux/modules/loading/actions';
-import { loggingService } from '../../services/loggingService';
-import {Dimensions} from 'react-native';
-import {verticalScale} from 'react-native-size-matters';
+import {loggingService} from '../../services/loggingService';
 
-const height = Dimensions.get('window').height - verticalScale(200);
+const {PayPalModule} = NativeModules;
+const payPalModuleEmitter = new NativeEventEmitter(PayPalModule);
 
-//TODO:
-//- move styles out of file
-//- put url in env
 export const CheckoutScreen: FC<{}> = props => {
   const {
     productData,
@@ -55,19 +47,106 @@ export const CheckoutScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation();
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state?.auth);
-  const {userData, requestedUserDetails} = auth;
-  const [showGateway, setShowGateway] = useState(false);
+  const {userData} = auth;
+  const userNoAddress = Object.keys(userData?.shipping_address || {}).length < 5;
 
-  const [extendCheckoutButton, setExtendCheckoutButton] = useState(true);
-  const scrollViewRef = useRef();
+  const [paypalOrderId, setPaypalOrderId] = useState('');
 
   useEffect(() => {
-    dispatch(getMyDetailsRequest(userData?._id));
-    dispatch(getUsersDetailsRequest(productData?.userId));
-  }, [userData?._id, dispatch, productData?.userId]);
+    if (userNoAddress) {
+      return;
+    }
+    const subscription = payPalModuleEmitter.addListener(
+      'onPayPalCheckoutFinished',
+      resultData => {
+        if (resultData.status === 'error') {
+          Alert.showError('Error checking out, please try again');
+          return;
+        }
+        console.log('paypal checkout finished', resultData);
+        const reqData = {
+          productId: productData?._id,
+          userId: userData?._id,
+          isMoneyOffer: isMoneyOffer,
+          tradeId: tradeData?._id,
+          paypalId: resultData.orderID,
+          email: userData?.email,
+        }
+        dispatch(
+          capturePaypalOrder(
+            reqData,
+            res => {
+              handleNavigation(res);
+            },
+            err => {
+              Alert.showError('Error finishing checkout, please try again');
+            },
+          ),
+        );
+      },
+    );
+    if (isMoneyOffer) {
+      dispatch(getMyDetailsRequest(userData?._id));
+    }
+    const reqData = {
+      productId: productData?._id,
+      userId: userData?._id,
+      isMoneyOffer: isMoneyOffer,
+      tradeId: tradeData?._id
+    };
 
-  const scrollToBottom = () => {
-    scrollViewRef.current.scrollToEnd({ animated: true });
+    dispatch(
+      createPaypalOrder(
+        reqData,
+        res => {
+          console.log(res);
+          PayPalModule.setupPayPal(res.clientId);
+          setPaypalOrderId(res.id)
+        },
+        err => {
+          Alert.showError('Error checking out, please try again');
+        },
+      ),
+    );
+
+    return () => subscription.remove();
+  }, [userData?._id, dispatch, productData?.userId, userData?.shipping_address.street1]);
+
+  const handleNavigation = (responseData: any) => {
+    if (isMoneyOffer) {
+      dispatch(
+        getTrade({
+          userId: userData?._id,
+          tradeId: tradeData?._id,
+        }),
+      );
+      loggingService().logEvent('purchase', {
+        transaction_id: responseData.paypalOrder._id,
+        items: [
+          {
+            item_id: productData?._id,
+            item_category: productData?.category,
+            item_brand: productData?.item_brand,
+            price: productData?.price,
+            item_name: productData?.name,
+          },
+        ],
+      });
+      dispatch(getProductDetails(productData?._id));
+      console.log('paypalinfo', responseData.paypalOrder);
+      navigation?.replace('TradeCheckoutSuccessScreen', {
+        isSale: true,
+        total: renderTotal(),
+        paypalOrderData: responseData.paypalOrder,
+      });
+    } else {
+      navigation?.replace('BuyCheckoutSuccessScreen', {
+        isSale: true,
+        total: renderTotal(),
+        paypalOrderData: responseData.paypalOrder,
+      });
+    }
+
   };
 
   const renderShippingCost = () => {
@@ -92,56 +171,6 @@ export const CheckoutScreen: FC<{}> = props => {
     }
   };
 
-  const onMessage = msg => {
-    const data = JSON.parse(msg.nativeEvent.data);
-    switch (data.status) {
-      case 'onClick':
-        setExtendCheckoutButton(true);
-        scrollToBottom();
-        break;
-
-      case 'success':
-        setShowGateway(false);
-        if (isMoneyOffer) {
-          dispatch(
-            getTrade({
-              userId: userData?._id,
-              tradeId: tradeData?._id,
-            }),
-          );
-          loggingService().logEvent('purchase', {
-            transaction_id: data.info.paypalOrder._id,
-            items: [
-              {
-                item_id: productData?._id,
-                item_category: productData?.category,
-                item_brand: productData?.item_brand,
-                price: productData?.price,
-                item_name: productData?.name,
-              },
-            ],
-          });
-          console.log('paypalinfo', data.info.paypalOrder);
-          navigation?.replace('TradeCheckoutSuccessScreen', {
-            isSale: true,
-            total: renderTotal(),
-            paypalOrderData: data.info.paypalOrder,
-          });
-        } else {
-          navigation?.replace('BuyCheckoutSuccessScreen', {
-            isSale: true,
-            total: renderTotal(),
-            paypalOrderData: data.info.paypalOrder,
-          });
-        }
-        break;
-      case 'error':
-        setShowGateway(false);
-        Alert.showError('There was an error with your transaction');
-        console.log(data);
-        break;
-    }
-  };
 
   const renderHeading = (label: string) => {
     return <HeadingLabel>{label}</HeadingLabel>;
@@ -159,13 +188,13 @@ export const CheckoutScreen: FC<{}> = props => {
     return (
       <EmptyView>
         {renderHeading('Purchase Summary')}
-        {renderSummaryDetail('Shipping', renderShippingCost().toFixed(2))}
         {renderSummaryDetail(
           'Product cost',
           isMoneyOffer
             ? tradeData?.senderMoneyOffer.toFixed(2)
             : productData?.price.toFixed(2),
         )}
+        {renderSummaryDetail('Shipping', renderShippingCost().toFixed(2))}
         {/*renderSummaryDetail('Taxes and fees', paymentDetails?.)*/}
       </EmptyView>
     );
@@ -178,24 +207,13 @@ export const CheckoutScreen: FC<{}> = props => {
       </StretchedRowView>
     );
   };
-  const webViewUri =
-    `${WEB_APP_URL}/mobile-checkout?` +
-    `email=${encodeURIComponent(userData?.email)}` +
-    `&merchantId=${encodeURIComponent(
-      requestedUserDetails?.paypal_info?.merchantIdInPayPal,
-    )}` +
-    `&itemId=${encodeURIComponent(productData?._id)}` +
-    `&userId=${encodeURIComponent(userData?._id)}` +
-    `&isMoneyOffer=${encodeURIComponent(isMoneyOffer)}` +
-    `&tradeId=${isMoneyOffer && encodeURIComponent(tradeData?._id)}`;
 
-  const showWebView = () => {
-    if (Object.keys(userData?.shipping_address).length < 5) {
-      Alert.showError('Please fill out shipping info at the top');
-    } else {
-      dispatch(LoadingRequest());
-      setShowGateway(true);
-      console.log(webViewUri);
+  const startPaypal = async () => {
+    if (userNoAddress) {
+      Alert.showError('Please edit your shipping address at the top');
+      return;
+    }
+    if (paypalOrderId) {
       loggingService().logEvent('begin_checkout', {
         items: [
           {
@@ -207,18 +225,22 @@ export const CheckoutScreen: FC<{}> = props => {
           },
         ],
       });
+
+      const result = await PayPalModule.startPayPalCheckout(paypalOrderId)
+    } else {
+      Alert.showError('There was an issue with checkout, please try again');
     }
   };
 
   const renderCheckOutButton = () => {
     return (
-      <WebView
-        source={{
-          uri: webViewUri,
-        }}
-        onMessage={onMessage}
-        style={{height: extendCheckoutButton ? height : 200}}
-        onLoad={() => dispatch(LoadingSuccess())}
+      <LSButton
+        title={'Checkout with PayPal'}
+        size={Size.Fit_To_Width}
+        type={userNoAddress ? Type.Disabled : Type.Primary}
+        radius={20}
+        fitToWidth={'100%'}
+        onPress={startPaypal}
       />
     );
   };
@@ -231,40 +253,18 @@ export const CheckoutScreen: FC<{}> = props => {
     );
   };
 
-  const paypalGateway = () => {
-    if (showGateway) {
-      return (
-        <Modal
-          visible={true}
-          onDismiss={() => setShowGateway(false)}
-          onRequestClose={() => setShowGateway(false)}
-          animationType={'slide'}
-          presentationStyle={'fullScreen'}
-          transparent={true}>
-          <Container style={styles.webViewCon}>
-            <InStackHeader title={'Checkout'} />
-            <WebView
-              source={{
-                uri: webViewUri,
-              }}
-              onMessage={onMessage}
-              style={{flex: 1}}
-              onLoad={() => dispatch(LoadingSuccess())}
-            />
-          </Container>
-        </Modal>
-      );
-    }
-  };
-
   return (
     <Container>
       <InStackHeader title={'Checkout'} onlyTitleCenterAlign={true} />
       <HorizontalBar />
-      <ScrollSubContainer ref={scrollViewRef}>
+      <ScrollSubContainer>
         <DeliveryAddressComponent
           userDetails={userData}
-          onPress={() => navigation?.navigate('AddressScreenBuyCheckout')}
+          onPress={() =>
+            navigation?.navigate('AddressScreenBuyCheckout', {
+              isFromBuyCheckout: true,
+            })
+          }
         />
         {renderItem()}
         <VerticalMargin />
@@ -278,26 +278,8 @@ export const CheckoutScreen: FC<{}> = props => {
         <VerticalMargin />
         {renderCheckOutButton()}
         <VerticalMargin margin={20} />
-        {paypalGateway()}
       </ScrollSubContainer>
     </Container>
   );
 };
-//For modal
-const styles = StyleSheet.create({
-  webViewCon: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-  wbHead: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f9f9f9',
-    zIndex: 25,
-    elevation: 2,
-  },
-});
 export default CheckoutScreen;

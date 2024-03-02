@@ -9,6 +9,7 @@ import {
 } from './styles';
 import {SvgXml} from 'react-native-svg';
 import {EDIT_PRIMARY_ICON_BOTTOM_LINE} from '../../assets/images/svgs';
+import {WARNING_ICON} from 'localsvgimages';
 
 interface DeliveryAddressProps {
   userDetails: any;
@@ -17,13 +18,17 @@ interface DeliveryAddressProps {
 
 function DeliveryAddressComponent(props: DeliveryAddressProps) {
   const {userDetails, onPress} = props;
+  const userDidNotFillAddr = Object.keys(userDetails?.shipping_address).length < 5;
   return (
     <DeliveryAddContainer>
       <DeliveryAddSubContainer>
-        <DeliveryAddressLabel>Delivery Address</DeliveryAddressLabel>
+        <DeliveryAddressLabel>
+          Delivery Address
+          {userDidNotFillAddr && <SvgXml xml={WARNING_ICON} width={20} />}
+        </DeliveryAddressLabel>
         <DeliveryAddressText>
-          {Object.keys(userDetails?.shipping_address).length < 5 && (
-            <>Please fill out address to continue checking out</>
+          {userDidNotFillAddr && (
+            <>Please fill out your address to continue checking out</>
           )}
           {userDetails?.shipping_address?.street1}
           {', '}

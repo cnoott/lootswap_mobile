@@ -89,10 +89,10 @@ export const EditTradeScreen: FC<any> = ({route}) => {
   });
 
   const [senderMoneyOffer, setSenderMoneyOffer] = useState(
-    parseFloat(trade.senderMoneyOffer)
+    parseFloat(trade?.senderMoneyOffer)
   );
   const [receiverMoneyOffer, setReceiverMoneyOffer] = useState(
-    parseFloat(trade.receiverMoneyOffer)
+    parseFloat(trade?.receiverMoneyOffer)
   );
 
   useEffect(() => {
@@ -248,19 +248,18 @@ export const EditTradeScreen: FC<any> = ({route}) => {
 
   const openPaymentSheet = async () => {
     const {error} = await presentPaymentSheet();
-    console.log('CALLING HERE ASDFLKJDSLF');
+    console.log('TRADE DATA', trade);
     if (error) {
       Alert.showError(error?.message);
     } else {
-      dispatch(LoadingRequest());
       setTimeout(async () => {
-        await dispatch(
+        navigation.goBack();
+        dispatch(
           getTrade({
             userId: userData?._id,
             tradeId: trade._id,
           })
         );
-        navigation.goBack();
       }, 1000);
       //settimeout then refetch trade
     }

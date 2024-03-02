@@ -48,8 +48,8 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
       return stockxProduct;
     } else {
       return {
-        name: stockxProduct.title,
-        image: stockxProduct.thumbUrl,
+        name: stockxProduct.name,
+        image: stockxProduct.image,
       };
     }
   };
