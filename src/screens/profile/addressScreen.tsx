@@ -26,6 +26,10 @@ export const AddressScreen: FC<{}> = props => {
   const dispatch = useDispatch();
 
   const handleNavigation = () => {
+    console.log('isfrom', isFromBuyCheckout);
+    if (isFromBuyCheckout) {
+      navigation.goBack();
+    }
     if (isFromTradeCheckout) {
       const moneyOfferOnly =
         offerItem.senderItems.length === 0 && offerItem.senderMoneyOffer > 0;
