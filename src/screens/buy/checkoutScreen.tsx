@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState, useRef} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSButton from '../../components/commonComponents/LSButton';
 import DeliveryAddressComponent from '../../components/orders/deliveryAddressComponent';
@@ -47,12 +47,15 @@ export const CheckoutScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation();
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state?.auth);
-  const {userData, requestedUserDetails} = auth;
+  const {userData} = auth;
+  const userNoAddress = Object.keys(userData?.shipping_address || {}).length < 5;
 
   const [paypalOrderId, setPaypalOrderId] = useState('');
-  const scrollViewRef = useRef();
 
   useEffect(() => {
+    if (userNoAddress) {
+      return;
+    }
     const subscription = payPalModuleEmitter.addListener(
       'onPayPalCheckoutFinished',
       resultData => {
@@ -82,9 +85,9 @@ export const CheckoutScreen: FC<{}> = props => {
         );
       },
     );
-
-    dispatch(getMyDetailsRequest(userData?._id));
-    dispatch(getUsersDetailsRequest(productData?.userId));
+    if (isMoneyOffer) {
+      dispatch(getMyDetailsRequest(userData?._id));
+    }
     const reqData = {
       productId: productData?._id,
       userId: userData?._id,
@@ -101,15 +104,14 @@ export const CheckoutScreen: FC<{}> = props => {
           setPaypalOrderId(res.id)
         },
         err => {
-          // TODO: better handle error
-          Alert.showError('Error checking out');
+          Alert.showError('Error checking out, please try again');
         },
       ),
     );
 
     return () => subscription.remove();
-  }, [userData?._id, dispatch, productData?.userId]);
- 
+  }, [userData?._id, dispatch, productData?.userId, userData?.shipping_address.street1]);
+
   const handleNavigation = (responseData: any) => {
     if (isMoneyOffer) {
       dispatch(
@@ -206,6 +208,10 @@ export const CheckoutScreen: FC<{}> = props => {
   };
 
   const startPaypal = async () => {
+    if (userNoAddress) {
+      Alert.showError('Please edit your shipping address at the top');
+      return;
+    }
     if (paypalOrderId) {
       loggingService().logEvent('begin_checkout', {
         items: [
@@ -230,7 +236,7 @@ export const CheckoutScreen: FC<{}> = props => {
       <LSButton
         title={'Checkout with PayPal'}
         size={Size.Fit_To_Width}
-        type={Type.Primary}
+        type={userNoAddress ? Type.Disabled : Type.Primary}
         radius={20}
         fitToWidth={'100%'}
         onPress={startPaypal}
@@ -250,10 +256,14 @@ export const CheckoutScreen: FC<{}> = props => {
     <Container>
       <InStackHeader title={'Checkout'} onlyTitleCenterAlign={true} />
       <HorizontalBar />
-      <ScrollSubContainer ref={scrollViewRef}>
+      <ScrollSubContainer>
         <DeliveryAddressComponent
           userDetails={userData}
-          onPress={() => navigation?.navigate('AddressScreenBuyCheckout')}
+          onPress={() =>
+            navigation?.navigate('AddressScreenBuyCheckout', {
+              isFromBuyCheckout: true,
+            })
+          }
         />
         {renderItem()}
         <VerticalMargin />
