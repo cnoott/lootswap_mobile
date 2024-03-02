@@ -88,18 +88,18 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
   };
 
   const renderDots = () => {
-    if (category !== 'shoes' || category !== 'other') {
-      return <></>
+    if (category === 'shoes' || category === 'other') {
+      return (
+        <DotsContainer>
+          <DotsComponent
+            length={3}
+            active={currentIndex}
+            isActiveBorder={true}
+          />
+        </DotsContainer>
+      );
     }
-    return (
-      <DotsContainer>
-        <DotsComponent
-          length={3}
-          active={currentIndex}
-          isActiveBorder={true}
-        />
-      </DotsContainer>
-    );
+    return <></>
   };
 
   const handlePressImage = (index: Number) => {

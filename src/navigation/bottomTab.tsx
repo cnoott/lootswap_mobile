@@ -56,7 +56,6 @@ import PublicProfileScreen from '../screens/profile/publicProfileScreen';
 import ListLootSuccessScreen from '../screens/loot/listLootSuccessScreen';
 import PayPalLinkModal from '../components/paypalLinkModal';
 import LinkPaypalScreen from '../screens/profile/linkPaypalScreen';
-import LootEditAddressScreen from '../screens/loot/lootEditAddressScreen';
 import StartTradeScreen from '../screens/offers/startTrade';
 import EditTradeScreen from '../screens/offers/editTradeScreen';
 import ChooseOfferTypeScreen from '../screens/offers/chooseOfferTypeScreen';
@@ -74,7 +73,7 @@ import PublicOfferScreen from '../screens/publicOffers/publicOfferScreen';
 import AcceptPublicOfferScreen from '../screens/publicOffers/acceptPublicOfferScreen';
 import AllListingsScreen from '../screens/home/allListings';
 import FooterBadge from '../components/footer/footerBadge';
-import { loggingService } from '../services/loggingService';
+import {loggingService} from '../services/loggingService';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -100,10 +99,6 @@ const HomeStackNavigation = () => (
     <Stack.Screen name="HasItScreen" component={HasItScreen}/>
     <Stack.Screen name="TradedItScreen" component={TradedItScreen}/>
     <Stack.Screen name="LinkPaypalScreen" component={LinkPaypalScreen} />
-    <Stack.Screen
-      name="LootEditAddressScreen"
-      component={LootEditAddressScreen}
-    />
     <Stack.Screen
       name="CreatePublicOfferScreen"
       component={CreatePublicOfferScreen}
@@ -252,10 +247,8 @@ const LootStackNavigation = () => (
     }}>
     <Stack.Screen name="LootScreen" component={LootScreen} />
     <Stack.Screen name="MyLootScreen" component={MyLootScreen} />
-    <Stack.Screen
-      name="LootEditAddressScreen"
-      component={LootEditAddressScreen}
-    />
+
+    <Stack.Screen name="LinkPaypalScreen" component={LinkPaypalScreen} />
     <Stack.Screen
       name="ProductDetailsMyLootScreen"
       component={ProductDetailsScreen}
@@ -351,7 +344,8 @@ export const BottomTabs: FC<{}> = () => {
    */
   const MyCustomTabBar = ({state, descriptors, navigation}) => {
     const auth: AuthProps = useSelector(reduxState => reduxState.auth);
-    const {isLoggedIn} = getInitialRoute(auth.userData);
+    const {userData, skippedPaypalOnboarding} = auth;
+    const {isLoggedIn} = getInitialRoute(userData);
     const [isPayPalModalVisible, setPayPalModalVisible] = useState(false);
     return (
       <TabBarContainer>
@@ -372,13 +366,12 @@ export const BottomTabs: FC<{}> = () => {
               // The `merge: true` option makes sure that the params inside the tab screen are preserved
               if (!isLoggedIn && [2, 3, 4].includes(index)) {
                 navigation.navigate('CreateAccountScreen');
-              } else if (index === 3 && !auth?.userData?.paypal_onboarded) {
-                setPayPalModalVisible(true);
               } else if (
                 index === 3 &&
-                Object.keys(auth.userData?.shipping_address).length < 4
+                !userData?.paypal_onboarded &&
+                !skippedPaypalOnboarding
               ) {
-                navigation.navigate('LootEditAddressScreen');
+                setPayPalModalVisible(true);
               } else {
                 navigation.navigate({name: route.name, merge: true});
               }
@@ -427,11 +420,7 @@ export const BottomTabs: FC<{}> = () => {
       <Tab.Screen name="Home" component={HomeStackNavigation} />
       <Tab.Screen name="Search" component={SearchStackNavigation}/>
       <Tab.Screen name="Profile" component={ProfileStackNavigation} />
-      <Tab.Screen
-        name="Add loot"
-        component={LootStackNavigation}
-        options={{unmountOnBlur: true}}
-      />
+      <Tab.Screen name="Add loot" component={LootStackNavigation} />
       <Tab.Screen name="Inbox" component={OffersStackNavigation} />
     </Tab.Navigator>
   );

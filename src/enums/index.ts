@@ -14,6 +14,7 @@ export enum Type {
   Secondary = 'secondary',
   Message = 'message',
   Grey = 'grey',
+  Disabled = 'disabled',
   Error = 'error',
   Success = 'success',
   Link = 'link',

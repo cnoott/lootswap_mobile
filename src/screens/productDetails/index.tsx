@@ -315,7 +315,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     if (isLogedIn && userData?._id === productData?.userId) {
       return <></>
     }
-    if (!productData?.isVisible) {
+    if (!selectedProductDetails?.isVisible) {
       return (
         <ButtonContainer>
           <LSButton
@@ -329,7 +329,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     } else if (
       isLogedIn &&
       historyTrades &&
-      isAlreadyTrading(historyTrades, productData?._id)
+      isAlreadyTrading(historyTrades, selectedProductDetails?._id)
     ) {
       return (
         <ButtonContainer>
@@ -353,7 +353,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
             type={Type.Primary}
             onPress={() => onSendOfferPress()}
           />
-          {productData.type !== 'trade-only' && (
+          {selectedProductDetails.type !== 'trade-only' && (
             <LSButton
               title={'Buy Now'}
               size={Size.Custom}

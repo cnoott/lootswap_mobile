@@ -230,7 +230,20 @@ export const OffersMessageScreen: FC<{}> = props => {
   const renderMessage = (isSelf = false, item: any) => {
     return <MessageCell self={isSelf} item={item?.message} />;
   };
+
+  // This code sorta repeats itself in the addressScreen.
+  // Too many side effects to generalize
   const handleAcceptTrade = () => {
+    const addressNotFilled =
+      Object.keys(auth.userData?.shipping_address).length < 4;
+    if (addressNotFilled) {
+      navigation?.navigate('AddressScreenCheckout', {
+        isFromTradeCheckout: true
+      });
+      closeModal();
+      return;
+    }
+
     setAcceptDeclineModalVisible(false);
     const reqData = {
       tradeId: tradeId,

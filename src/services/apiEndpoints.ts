@@ -593,6 +593,22 @@ export const setPaypalOrderNotifAsReadCall = (reqData: any) => {
   );
 };
 
+export const createPaypalOrderCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/create-order/${reqData?.productId}/${reqData?.userId}`, reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+export const capturePaypalOrderCall = (reqData: any) => {
+  return handleResponse(
+    api.post(
+      `/capture-order/${reqData?.paypalId}/${reqData?.productId}/${reqData?.userId}`,
+      reqData,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {

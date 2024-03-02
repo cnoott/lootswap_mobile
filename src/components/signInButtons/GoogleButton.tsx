@@ -2,17 +2,14 @@ import React from 'react';
 import {Size, Type} from '../../enums';
 import LSButton from '../commonComponents/LSButton';
 import {GOOGLE_ICON} from 'localsvgimages';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {signInWithGoogleRequest} from '../../redux/modules';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 
-interface GoogleButtonProps {
-  fcmToken?: any;
-  referringUserId?: string;
-}
-
-function GoogleButton(props: GoogleButtonProps) {
-  const {fcmToken = '', referringUserId = ''} = props;
+function GoogleButton() {
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {fcmToken, referringUserId, marketingChannel} = auth;
   const dispatch = useDispatch();
 
   const googleSignUp = async () => {
@@ -25,6 +22,7 @@ function GoogleButton(props: GoogleButtonProps) {
         userData: userInfo.user,
         fcmToken: fcmToken?.token,
         referringUserId: referringUserId,
+        marketingChannel: marketingChannel,
       }),
     );
   };

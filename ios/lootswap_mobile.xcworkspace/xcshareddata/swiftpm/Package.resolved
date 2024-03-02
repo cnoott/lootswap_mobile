@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "paypal-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/paypal/paypal-ios/",
+      "state" : {
+        "revision" : "29307dec8c267d85aac89b19c433ee357c50b038",
+        "version" : "1.1.0"
+      }
+    }
+  ],
+  "version" : 2
+}

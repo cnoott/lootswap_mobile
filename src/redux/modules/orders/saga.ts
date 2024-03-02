@@ -9,6 +9,8 @@ import {
   SET_FIRST_TIME_OPEN_FALSE,
   SET_ORDER_NOTIF_AS_READ,
   SET_PAYPAL_ORDER_NOTIF_AS_READ,
+  CREATE_PAYPAL_ORDER,
+  CAPTURE_PAYPAL_ORDER,
 } from '../../../constants/actions';
 import {
   getAllOrdersCall,
@@ -20,6 +22,8 @@ import {
   setFirstTimeOpenFalseCall,
   setOrderNotifAsReadCall,
   setPaypalOrderNotifAsReadCall,
+  createPaypalOrderCall,
+  capturePaypalOrderCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {
@@ -196,6 +200,44 @@ export function* setPaypalOrderNotifAsRead(action: any) {
   }
 }
 
+export function* createPaypalOrder(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      createPaypalOrderCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack();
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
+export function* capturePaypalOrder(action: any) {
+  yield put(LoadingRequest());
+  try {
+    const response: APIResponseProps = yield call(
+      capturePaypalOrderCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack();
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export default function* ordersSaga() {
   yield takeLatest(GET_ALL_ORDERS.REQUEST, getAllOrders);
   yield takeLatest(GET_ORDER.REQUEST, getOrder);
@@ -212,4 +254,6 @@ export default function* ordersSaga() {
     SET_PAYPAL_ORDER_NOTIF_AS_READ.REQUEST,
     setPaypalOrderNotifAsRead,
   );
+  yield takeLatest(CREATE_PAYPAL_ORDER.REQUEST, createPaypalOrder);
+  yield takeLatest(CAPTURE_PAYPAL_ORDER.REQUEST, capturePaypalOrder);
 }

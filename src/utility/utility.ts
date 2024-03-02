@@ -781,7 +781,7 @@ export const validateCreateProductData = (
       break;
     case 2:
       const {brand, condition, preOwnedCondition, productDescription} = prodData?.stepTwo;
-      if (brand && condition && productDescription) {
+      if (brand.value && condition && productDescription) {
         if (condition.value === 'Pre-owned' && !preOwnedCondition) {
           return false;
         }

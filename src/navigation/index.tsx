@@ -29,6 +29,7 @@ import {Alert as AlertModal} from 'react-native';
 import {Linking} from 'react-native';
 import {useNotifications} from '../utility/customHooks/useNotifications';
 import useFCMNotifications from '../utility/customHooks/useFCMNotifications';
+import useBranch from '../utility/customHooks/useBranch';
 import { loggingService } from '../services/loggingService';
 
 const Stack = createStackNavigator();
@@ -38,6 +39,7 @@ const AppNavigation = () => {
 
   useNotifications();
   useFCMNotifications();
+  useBranch();
 
   useEffect(() => {
     dispatch(
