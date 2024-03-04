@@ -28,7 +28,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const resetQuery = () => setQuery('');
-  const [stockxLoading, setStockxLoading] = useState(true);
+  const [stockxLoading, setStockxLoading] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
 
   const dispatch = useDispatch();
@@ -64,14 +64,15 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
     setIsOpen(!isOpen);
   }, [animation, isOpen, stockxLoading]);
 
-  const debouncedSearchTerm = useDebounce(query, 210); //set delay
+  const debouncedSearchTerm = useDebounce(query, 313); //set delay
   useEffect(() => {
-    if (debouncedSearchTerm && debouncedSearchTerm.length > 5) {
+    if (!stockxLoading && debouncedSearchTerm && debouncedSearchTerm.length > 5) {
       fetchStockxData();
     }
   }, [debouncedSearchTerm]);
 
   const fetchStockxData = useCallback(() => {
+    if (stockxLoading) return;
     setStockxLoading(true);
     handleDrawerAnimation();
     const reqData = {
