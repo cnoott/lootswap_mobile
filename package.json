@@ -38,7 +38,7 @@
     "add": "^2.0.6",
     "appcenter": "4.4.5",
     "appcenter-analytics": "4.4.5",
-    "appcenter-cli": "^2.14.0",
+    "appcenter-cli": "^3.0.0",
     "appcenter-crashes": "4.4.5",
     "axios": "^1.2.0",
     "babel-plugin-dotenv-import": "^3.0.1",
