@@ -22,7 +22,7 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 let codePushOptions = {
   updateDialog: true,
   checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-  installMode: codePush.InstallMode.ON_NEXT_RESUME, //might change it to ON_NEXT_RESUME if its too jarring
+  installMode: codePush.InstallMode.ON_NEXT_SUSPEND,
 };
 
 const App = () => {
