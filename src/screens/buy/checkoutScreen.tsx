@@ -100,7 +100,7 @@ export const CheckoutScreen: FC<{}> = props => {
         reqData,
         res => {
           console.log(res);
-          PayPalModule.setupPayPal(res.clientId);
+          PayPalModule.setupPayPal(res.clientId, __DEV__ ? 'sandbox' : 'live');
           setPaypalOrderId(res.id)
         },
         err => {
