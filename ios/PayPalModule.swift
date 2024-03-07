@@ -23,8 +23,9 @@ class PayPalModule: RCTEventEmitter {
   
   var paypalNativeClient: PayPalNativeCheckoutClient?
   
-  @objc func setupPayPal(_ clientID: String) {
-    let config = CoreConfig(clientID: clientID, environment: .sandbox) // Change to .live for production
+  @objc func setupPayPal(_ clientID: String, environment: String) {
+    let isProduction = environment == "live"
+    let config = CoreConfig(clientID: clientID, environment: isProduction ? .live : .sandbox) // Change to .live for production
     paypalNativeClient = PayPalNativeCheckoutClient(config: config)
   }
   

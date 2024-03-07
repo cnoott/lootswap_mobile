@@ -10,6 +10,7 @@ import {
   SHOW_HIDE_PASS_ICON,
   LOCK_ICON,
   SHOW_PASS_ICON,
+  TRADE_MODAL_CLOSE_BUTTON,
 } from 'localsvgimages';
 import {Formik} from 'formik';
 import * as yup from 'yup';
@@ -33,6 +34,7 @@ import {
   HeaderDesLabel,
   Spacing,
 } from './styles';
+import {CloseTouchable} from '../signUp/styles';
 import {scale} from 'react-native-size-matters';
 import {Linking} from 'react-native';
 import {WEB_APP_URL} from '@env';
@@ -185,6 +187,9 @@ export const AuthScreen: FC<{}> = () => {
         contentContainerStyle={Innercontainer}
         keyboardShouldPersistTaps={'handled'}>
         {renderHeaderLogo()}
+        <CloseTouchable onPress={navigation.goBack}>
+          <SvgXml xml={TRADE_MODAL_CLOSE_BUTTON} />
+        </CloseTouchable>
         <HeaderLabel>Login</HeaderLabel>
         <HeaderDesLabel>Welcome back!.</HeaderDesLabel>
         {renderBody()}

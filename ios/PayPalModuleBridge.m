@@ -16,7 +16,7 @@
 // The name here is used to call it from JavaScript.
 @interface RCT_EXTERN_MODULE(PayPalModule, NSObject)
 
-RCT_EXTERN_METHOD(setupPayPal:(NSString *)clientID)
+RCT_EXTERN_METHOD(setupPayPal:(NSString *)clientID environment:(NSString *)environment)
 RCT_EXTERN_METHOD(startPayPalCheckout:(NSString *)orderID resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter)
 
 @end
