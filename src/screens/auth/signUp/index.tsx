@@ -7,6 +7,7 @@ import {
   SignInContainer,
   HaveAccountText,
   SigninText,
+  CloseTouchable,
 } from './styles';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {HEADERLOGO} from '../../../constants/imageConstants';
@@ -17,6 +18,8 @@ import {useSelector} from 'react-redux';
 import {AuthProps} from '../../../redux/modules/auth/reducer';
 import GoogleButton from '../../../components/signInButtons/GoogleButton';
 import AppleButton from '../../../components/signInButtons/AppleButton';
+import {SvgXml} from 'react-native-svg';
+import {TRADE_MODAL_CLOSE_BUTTON} from 'localsvgimages';
 
 export const CreateAccountScreen: FC<{}> = () => {
   const navigation: NavigationProp<any, any> = useNavigation();
@@ -25,6 +28,9 @@ export const CreateAccountScreen: FC<{}> = () => {
 
   return (
     <CreateContainer>
+      <CloseTouchable onPress={navigation.goBack}>
+        <SvgXml xml={TRADE_MODAL_CLOSE_BUTTON} />
+      </CloseTouchable>
       <LogoImage source={HEADERLOGO} />
       <TitleLabel>Create Your Account</TitleLabel>
 

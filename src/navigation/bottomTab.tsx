@@ -418,7 +418,7 @@ export const BottomTabs: FC<{}> = () => {
       initialRouteName={'Home'}
       tabBar={props => <MyCustomTabBar {...props} />}>
       <Tab.Screen name="Home" component={HomeStackNavigation} />
-      <Tab.Screen name="Search" component={SearchStackNavigation}/>
+      <Tab.Screen name="Search" component={SearchStackNavigation} />
       <Tab.Screen name="Profile" component={ProfileStackNavigation} />
       <Tab.Screen name="Add loot" component={LootStackNavigation} />
       <Tab.Screen name="Inbox" component={OffersStackNavigation} />

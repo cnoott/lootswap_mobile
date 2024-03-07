@@ -13,6 +13,7 @@ import {
   LoadingRequest,
   LoadingSuccess,
 } from '../../redux/modules/loading/actions'
+import {verticalScale} from 'react-native-size-matters';
 import {Alert} from 'custom_top_alert';
 
 interface StepOneProps {
@@ -35,7 +36,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const animation = useRef(new Animated.Value(0)).current;
-  const drawerWidth = Dimensions.get('window').height;
+  const drawerWidth = Dimensions.get('window').height - verticalScale(280);
   const height = animation.interpolate({
     inputRange: [0, 1],
     outputRange: [0, drawerWidth]
@@ -74,6 +75,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
   const fetchStockxData = useCallback(() => {
     if (stockxLoading) return;
     setStockxLoading(true);
+    setSearchResults([]);
     handleDrawerAnimation();
     const reqData = {
       userId: userData?._id,
@@ -148,9 +150,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
       <Animated.View style={{height, overflow: 'hidden'}}>
         <StockxSearchResults
           selectedUrlKey={''}
-          searchResults={
-            stockxLoading ? [1, 2, 3, 4, 5, 6, 7, 8] : searchResults
-          }
+          searchResults={searchResults}
           loading={stockxLoading}
           onSelectResult={({name, urlKey}) => handleSelectStockx(name, urlKey)}
           showTitle={false}
