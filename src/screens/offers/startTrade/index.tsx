@@ -213,7 +213,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       if (myMarketValue <= otherUserMarketValue * 0.7) {
         console.log('unfair trade')
         //setRobberyModalVisible(true);
-        return false
+        //return false
       }
       return true;
     }
