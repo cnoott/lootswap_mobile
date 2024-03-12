@@ -22,7 +22,7 @@ interface StockxProductCardProps {
   handleUnlikeProduct?: Function;
 }
 
-export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
+export const StockxProductCard: FC<StockxProductCardProps> = props => {
   const {
     stockxProduct,
     productCount,
@@ -36,8 +36,7 @@ export const StockxProductCard: FC<StockxProductCardProps> = (props) => {
     <StockxContainer
       onPress={() => handleStockxNavigation(stockxProduct)}
       border={border}
-      isFromLiked={isFromLiked}
-    >
+      isFromLiked={isFromLiked}>
       {isFromLiked && (
         <LikeTouchable onPress={() => handleUnlikeProduct(stockxProduct)}>
           <SvgXml xml={LIKE_HEART_ICON_RED} color={'white'} />

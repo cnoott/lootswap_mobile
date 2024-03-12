@@ -33,7 +33,7 @@ function OrderPurchaseCell(props: OrderPurchaseProps) {
   return (
     <PurchaseCellContainer onPress={() => onCellPress()}>
       <OrderUserDetailView item={item} isSales={isSales} userData={userData} />
-      {showNotifBadge && <CellBadge top={12} left={8}/>}
+      {showNotifBadge && <CellBadge top={12} left={8} />}
       <DetailsContainer>
         {renderImageView()}
         <DetailsRightView>

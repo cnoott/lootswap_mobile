@@ -22,11 +22,9 @@ interface GalleryLogic {
   hasNextPage: boolean;
 }
 
-export const useGallery = ({
-  pageSize = 15,
-}: GalleryOptions): GalleryLogic => {
-
-  const isAboveIOS14 = Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 14;
+export const useGallery = ({pageSize = 15}: GalleryOptions): GalleryLogic => {
+  const isAboveIOS14 =
+    Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 14;
   const isAndroid = Platform.OS === 'android';
 
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +33,7 @@ export const useGallery = ({
   const [hasNextPage, setHasNextPage] = useState(false);
   const [nextCursor, setNextCursor] = useState<string>();
   const [photos, setPhotos] = useState<any[]>();
-  const [albums, setAlbums] = useState([{title:'Recents'}]);
+  const [albums, setAlbums] = useState([{title: 'Recents'}]);
   const [selectedAlbum, setSelectedAlbum] = useState({title: 'Recents'});
 
   const loadAlbums = useCallback(async () => {
@@ -61,7 +59,7 @@ export const useGallery = ({
       groupName: album.title,
     });
     // XXX repeating code
-    let convertedPhotos = []
+    let convertedPhotos = [];
     edges.forEach(edge => {
       if (Platform.OS === 'ios') {
         let newUri = edge.node.image.uri;
@@ -89,9 +87,11 @@ export const useGallery = ({
         after: nextCursor,
         assetType: 'Photos',
         ...(selectedAlbum.title !== 'Recents' && {groupTypes: 'Album'}),
-        ...(selectedAlbum.title !== 'Recents' && {groupName: selectedAlbum.title})
+        ...(selectedAlbum.title !== 'Recents' && {
+          groupName: selectedAlbum.title,
+        }),
       });
-      let convertedPhotos = []
+      let convertedPhotos = [];
       edges.forEach(edge => {
         if (Platform.OS === 'ios') {
           let newUri = edge.node.image.uri;
@@ -102,9 +102,7 @@ export const useGallery = ({
           convertedPhotos.push(null);
         }
       });
-      setPhotos(
-        (prev) => [...(prev ?? []), ...convertedPhotos]
-      );
+      setPhotos(prev => [...(prev ?? []), ...convertedPhotos]);
 
       setNextCursor(page_info.end_cursor);
       setHasNextPage(page_info.has_next_page);
@@ -123,7 +121,9 @@ export const useGallery = ({
         first: !photos || photos.length < pageSize ? pageSize : photos.length,
         assetType: 'Photos',
         ...(selectedAlbum.title !== 'Recents' && {groupTypes: 'Album'}),
-        ...(selectedAlbum.title !== 'Recents' && {groupName: selectedAlbum.title})
+        ...(selectedAlbum.title !== 'Recents' && {
+          groupName: selectedAlbum.title,
+        }),
       });
       let newPhotos = [];
       edges.forEach(edge => {
@@ -156,17 +156,20 @@ export const useGallery = ({
   }, [selectedAlbum]);
 
   useEffect(() => {
-    console.log('loadalbums')
+    console.log('loadalbums');
     loadAlbums();
   }, [loadAlbums]);
 
   useEffect(() => {
-    console.log('emitter')
+    console.log('emitter');
     let subscription: EmitterSubscription;
     if (isAboveIOS14) {
-      subscription = cameraRollEventEmitter.addListener('onLibrarySelectionChange', (_event) => {
-        getUnloadedPictures();
-      });
+      subscription = cameraRollEventEmitter.addListener(
+        'onLibrarySelectionChange',
+        _event => {
+          getUnloadedPictures();
+        },
+      );
     }
 
     return () => {
@@ -188,4 +191,3 @@ export const useGallery = ({
     hasNextPage,
   };
 };
-

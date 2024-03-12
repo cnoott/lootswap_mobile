@@ -71,7 +71,7 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
       });
       setProductDes(prodDesc);
       return;
-    } else if (addProductData?.stepOne?.stockxUrlKey){
+    } else if (addProductData?.stepOne?.stockxUrlKey) {
       setProductDes('');
     }
     setConditionData(item);

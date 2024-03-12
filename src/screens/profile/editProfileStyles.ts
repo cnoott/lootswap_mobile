@@ -23,8 +23,7 @@ export const Container = styled.View.attrs(props => ({
 
 export const EmptyTopView = styled.View``;
 
-export const GoogleContainer = styled.View.attrs(() => ({
-}))`
+export const GoogleContainer = styled.View.attrs(() => ({}))`
   ${space}
   ${layout}
 `;
@@ -100,6 +99,4 @@ export const DisclaimerTopLabel = styled.Text.attrs(props => ({
   ${color}
   ${space}
   ${layout}
-
 `;
-

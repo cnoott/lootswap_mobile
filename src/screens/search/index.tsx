@@ -46,7 +46,7 @@ import {handleSubmitFilters} from '../../utility/filtersUtility';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {useScrollToTop} from '@react-navigation/native';
-import { loggingService } from '../../services/loggingService';
+import {loggingService} from '../../services/loggingService';
 
 export const SearchScreen: FC<any> = () => {
   const insets = useSafeAreaInsets();
@@ -141,7 +141,7 @@ export const SearchScreen: FC<any> = () => {
     swiperRef?.current?.scrollTo(currPage + 1);
     handleSubmitFilters(dispatch, null, filters, searchQuery);
     loggingService().logEvent('search', {
-      search_term: searchQuery
+      search_term: searchQuery,
     });
   };
 
@@ -161,7 +161,7 @@ export const SearchScreen: FC<any> = () => {
 
   const renderItem = ({item}: any) => {
     if (loading) {
-      return <LoadingProductCard key={item} />
+      return <LoadingProductCard key={item} />;
     }
     return <LSProductCard item={item} isHorizontalView={false} />;
   };
@@ -207,15 +207,12 @@ export const SearchScreen: FC<any> = () => {
 
   const renderRecentSearches = () => {
     if (recommendedResults.length) {
-      return renderRecommendedSearch()
+      return renderRecommendedSearch();
     }
-    if (
-      !isLogedIn ||
-      (isLogedIn && !userData?.recentSearches?.length)
-    ) {
+    if (!isLogedIn || (isLogedIn && !userData?.recentSearches?.length)) {
       return (
         <EmptySearchContainer>
-          <SvgXml xml={EMPTY_SEARCH_ICON}/>
+          <SvgXml xml={EMPTY_SEARCH_ICON} />
           <EmptySearchText>{`Search for your\nnew loot`}</EmptySearchText>
         </EmptySearchContainer>
       );

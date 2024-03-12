@@ -25,7 +25,7 @@ import {CustomTabBar, TabBarLabel, TopTabView} from '../offers/styles';
 import {SceneMap} from 'react-native-tab-view';
 import {useWindowDimensions} from 'react-native';
 import StockxProductCard from '../../components/search/stockxProductCard';
-import { handleNavigation } from '../../utility/notification';
+import {handleNavigation} from '../../utility/notification';
 
 export const LikedProductScreen: FC<any> = props => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -65,10 +65,10 @@ export const LikedProductScreen: FC<any> = props => {
 
   const handleUnlikeStockxProduct = (stockxProduct: any) => {
     const newLikedStockxProductIds = userData?.likedStockxProducts?.filter(
-      productId => productId !== stockxProduct?._id
+      productId => productId !== stockxProduct?._id,
     );
     const newLikedStockxProducts = likedStockxProducts?.filter(
-      product => product?._doc._id !== stockxProduct?._id
+      product => product?._doc._id !== stockxProduct?._id,
     );
     setLikedStockxProducts(newLikedStockxProducts);
 
@@ -81,18 +81,15 @@ export const LikedProductScreen: FC<any> = props => {
     );
   };
 
-
-
   const handleStockxNavigation = (
     stockxProduct: any,
     foundProducts: Array<any>,
   ) => {
     navigation?.navigate('StockxScreen', {
       stockxProduct: stockxProduct,
-      foundProducts: foundProducts
+      foundProducts: foundProducts,
     });
   };
-
 
   const stockxRenderItem = ({item}) => {
     const stockxProduct = item._doc;

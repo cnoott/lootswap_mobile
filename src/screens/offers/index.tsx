@@ -51,14 +51,14 @@ import {
   SizeDropdownStyle,
   ItemTextStyle,
   Badge,
-  BadgeText
+  BadgeText,
 } from './styles';
 import {ButtonContainer} from '../publicOffers/styles';
 import {SelectedTextStyle} from '../search/stockxScreenStyles';
 import {Dropdown} from 'react-native-element-dropdown';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 import CellBadge from '../../components/offers/cellBadge';
-import { loggingService } from '../../services/loggingService';
+import {loggingService} from '../../services/loggingService';
 
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
@@ -86,10 +86,12 @@ export const OffersScreen: FC<{}> = () => {
         type: publicOfferFilter.value,
         userId: userData?._id,
       };
-      dispatch(setNotifsAsReadRequest({
-        userId: userData?._id,
-        notifType: 'inbox',
-      }));
+      dispatch(
+        setNotifsAsReadRequest({
+          userId: userData?._id,
+          notifType: 'inbox',
+        }),
+      );
       dispatch(
         getPublicOffers(
           reqData,
@@ -139,7 +141,7 @@ export const OffersScreen: FC<{}> = () => {
         reqData,
         res => {
           const newPublicOffers = publicOffers.filter(
-            offer => offer._id !== publicOfferId
+            offer => offer._id !== publicOfferId,
           );
           setPublicOffers(newPublicOffers);
         },
@@ -152,11 +154,11 @@ export const OffersScreen: FC<{}> = () => {
 
   const goToCreatePublicOfferScreen = () => {
     navigation?.navigate('CreatePublicOfferScreen');
-    loggingService().logEvent('start_create_public_offer')
-  }
+    loggingService().logEvent('start_create_public_offer');
+  };
 
   const renderBottomButtonView = () => {
-    if (index === 0 ) {
+    if (index === 0) {
       return (
         <ButtonContainer>
           <LSButton
@@ -176,7 +178,7 @@ export const OffersScreen: FC<{}> = () => {
     const isReceiver = userData?._id === item.receiver._id;
     const showNotifBadge =
       (isReceiver && (item?.receiverNewMessage || item?.senderHasEdited)) ||
-      (!isReceiver && (item?.senderNewMessage || item?.receiverHasEdited))
+      (!isReceiver && (item?.senderNewMessage || item?.receiverHasEdited));
     return (
       <RowView>
         <EmptyRowView>
@@ -193,11 +195,7 @@ export const OffersScreen: FC<{}> = () => {
           {showNotifBadge && <CellBadge />}
           <OwnerDetailsView>
             <NameLabel>
-              {isReceiver ? (
-                <>{item.sender.name}</>
-              ) : (
-                <>{item.receiver.name}</>
-              )}
+              {isReceiver ? <>{item.sender.name}</> : <>{item.receiver.name}</>}
             </NameLabel>
             <StatusContainerView
               bgColor={statusColorObj?.backColor}
@@ -213,7 +211,7 @@ export const OffersScreen: FC<{}> = () => {
     );
   };
 
-  const tradeOfferCellOnPress = (item) => {
+  const tradeOfferCellOnPress = item => {
     setSelectedTrade(item._id);
     navigation.navigate('OffersMessageScreen', {item});
   };
@@ -242,12 +240,11 @@ export const OffersScreen: FC<{}> = () => {
     );
   };
 
-
   const renderMessageItem = ({item}: any) => {
     const isReceiver = userData?._id === item.receiver._id;
     const showNotifBadge =
       (isReceiver && item?.receiverNewMessage) ||
-      (!isReceiver && item?.senderNewMessage)
+      (!isReceiver && item?.senderNewMessage);
     return (
       <MessageCellContainer
         key={item?._id}
@@ -262,14 +259,10 @@ export const OffersScreen: FC<{}> = () => {
           imageWidth={40}
           imageRadius={10}
         />
-        {showNotifBadge && <CellBadge top={5} left={5}/>}
+        {showNotifBadge && <CellBadge top={5} left={5} />}
         <OwnerDetailsView>
           <NameLabel>
-            {isReceiver ? (
-              <>{item?.sender?.name}</>
-            ) : (
-              <>{item.receiver.name}</>
-            )}
+            {isReceiver ? <>{item?.sender?.name}</> : <>{item.receiver.name}</>}
           </NameLabel>
           <ProductNameLabel>{item?.product?.name}</ProductNameLabel>
         </OwnerDetailsView>
@@ -289,7 +282,11 @@ export const OffersScreen: FC<{}> = () => {
           labelField={'value'}
           valueField={'value'}
           onChange={item => setPublicOfferFilter(item)}
-          data={[{value: 'For You'}, {value: 'My Public Offers'}, {value: 'All'}]}
+          data={[
+            {value: 'For You'},
+            {value: 'My Public Offers'},
+            {value: 'All'},
+          ]}
           value={publicOfferFilter}
           maxHeight={300}
           renderRightIcon={() => <SvgXml xml={STOCKX_SEARCH_DROP_DOWN_ARROW} />}
@@ -336,18 +333,21 @@ export const OffersScreen: FC<{}> = () => {
   );
 
   const countNotifs = (title: string) => {
-    switch(title) {
+    switch (title) {
       case 'Trade offers':
         return historyTrades?.filter(
           trade =>
-            (userData?._id === trade.receiver._id && trade.receiverNewMessage) ||
+            (userData?._id === trade.receiver._id &&
+              trade.receiverNewMessage) ||
             (userData?._id === trade.sender._id && trade.senderNewMessage),
         ).length;
       case 'Messages':
         return allMyMessages?.messageDocs.filter(
           message =>
-            (userData?._id === message.receiver?._id && message.receiverNewMessage) ||
-            (userData?._id === message?.sender?._id && message.senderNewMessage),
+            (userData?._id === message.receiver?._id &&
+              message.receiverNewMessage) ||
+            (userData?._id === message?.sender?._id &&
+              message.senderNewMessage),
         ).length;
 
       default:

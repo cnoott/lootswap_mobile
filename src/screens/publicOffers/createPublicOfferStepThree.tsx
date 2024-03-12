@@ -12,7 +12,7 @@ export const CreatePublicOfferStepThree: FC<StepThreeProps> = props => {
 
   return (
     <StepContainer>
-      <StartTradeStepTwo myItems={myItems} setMyItems={setMyItems}/>
+      <StartTradeStepTwo myItems={myItems} setMyItems={setMyItems} />
     </StepContainer>
   );
 };

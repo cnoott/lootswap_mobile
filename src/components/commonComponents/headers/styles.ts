@@ -31,8 +31,7 @@ export const HeaderContainer = styled.View.attrs((props: any) => ({
   ${layout}
 `;
 
-export const IconsContainer = styled.View.attrs(() => ({
-}))`
+export const IconsContainer = styled.View.attrs(() => ({}))`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -40,7 +39,6 @@ export const IconsContainer = styled.View.attrs(() => ({
   ${space}
   ${layout}
 `;
-
 
 export const ProfileHeaderContainer = styled.View.attrs(() => ({
   height: scale(Platform.OS === 'ios' ? 84 : 64),

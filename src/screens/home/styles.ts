@@ -73,14 +73,12 @@ export const SectionTitleText = styled.Text.attrs(props => ({
   ${space}
 `;
 
-export const SectionTopContainer = styled.View.attrs(() => ({
-}))`
+export const SectionTopContainer = styled.View.attrs(() => ({}))`
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
   ${space}
   ${layout}
-
 `;
 
 export const SectionContainer = styled.View.attrs(() => ({
@@ -90,7 +88,6 @@ export const SectionContainer = styled.View.attrs(() => ({
   ${layout}
 `;
 
-export const ViewButtonContainer = styled.View.attrs(() => ({
-}))``;
+export const ViewButtonContainer = styled.View.attrs(() => ({}))``;
 
 export const EmptyView = styled.View``;

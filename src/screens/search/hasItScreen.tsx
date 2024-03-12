@@ -14,7 +14,7 @@ export const HasItScreen: FC<any> = ({route}) => {
   const {stockxProduct, foundProducts} = route.params;
 
   const renderItem = ({item}: any) => {
-    return <LSProductCard item={item} />
+    return <LSProductCard item={item} />;
   };
 
   return (

@@ -95,9 +95,9 @@ const HomeStackNavigation = () => (
     <Stack.Screen name="LikedProductScreen" component={LikedProductScreen} />
     <Stack.Screen name="AllListingsScreen" component={AllListingsScreen} />
     <Stack.Screen name="FiltersScreen" component={FiltersScreen} />
-    <Stack.Screen name="StockxScreen" component={StockxScreen}/>
-    <Stack.Screen name="HasItScreen" component={HasItScreen}/>
-    <Stack.Screen name="TradedItScreen" component={TradedItScreen}/>
+    <Stack.Screen name="StockxScreen" component={StockxScreen} />
+    <Stack.Screen name="HasItScreen" component={HasItScreen} />
+    <Stack.Screen name="TradedItScreen" component={TradedItScreen} />
     <Stack.Screen name="LinkPaypalScreen" component={LinkPaypalScreen} />
     <Stack.Screen
       name="CreatePublicOfferScreen"
@@ -157,9 +157,9 @@ const SearchStackNavigation = () => (
     screenOptions={{
       headerShown: false,
     }}>
-    <Stack.Screen name="SearchScreen" component={SearchScreen}/>
+    <Stack.Screen name="SearchScreen" component={SearchScreen} />
     <Stack.Screen name="FiltersScreen" component={FiltersScreen} />
-    <Stack.Screen name="StockxScreen" component={StockxScreen}/>
+    <Stack.Screen name="StockxScreen" component={StockxScreen} />
     <Stack.Screen
       name="CreatePublicOfferScreen"
       component={CreatePublicOfferScreen}
@@ -173,8 +173,8 @@ const SearchStackNavigation = () => (
       name="AcceptPublicOfferScreen"
       component={AcceptPublicOfferScreen}
     />
-    <Stack.Screen name="HasItScreen" component={HasItScreen}/>
-    <Stack.Screen name="TradedItScreen" component={TradedItScreen}/>
+    <Stack.Screen name="HasItScreen" component={HasItScreen} />
+    <Stack.Screen name="TradedItScreen" component={TradedItScreen} />
     <Stack.Screen
       name="FoundPublicOffersScreen"
       component={FoundPublicOffersScreen}
@@ -314,7 +314,9 @@ const getTabBarIcon = (isFocused?: boolean, route?: string, userData: any) => {
       _source = isFocused ? BOTTOM_TAB_HOME_SELECTED : BOTTOM_TAB_HOME;
       break;
     case 'Search':
-      _source = isFocused ? HOME_SEARCH_INPUT_ICON_SELECTED : HOME_SEARCH_INPUT_ICON;
+      _source = isFocused
+        ? HOME_SEARCH_INPUT_ICON_SELECTED
+        : HOME_SEARCH_INPUT_ICON;
       break;
     case 'Inbox':
       _source = isFocused ? BOTTOM_TAB_OFFERS_SELECTED : BOTTOM_TAB_OFFERS;
@@ -331,7 +333,7 @@ const getTabBarIcon = (isFocused?: boolean, route?: string, userData: any) => {
   return (
     <>
       <SvgXml xml={_source} />
-      <FooterBadge routeName={route} notifications={userData?.notifications}/>
+      <FooterBadge routeName={route} notifications={userData?.notifications} />
     </>
   );
 };

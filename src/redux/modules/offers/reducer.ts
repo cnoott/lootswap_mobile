@@ -1,10 +1,14 @@
 // @flow
 
-import {GET_TRADES_HISTORY, GET_TRADE, GET_TRADE_STOCKX} from '../../../constants/actions';
+import {
+  GET_TRADES_HISTORY,
+  GET_TRADE,
+  GET_TRADE_STOCKX,
+} from '../../../constants/actions';
 
 export interface TradeProps {
   historyTrades: Array<any>;
-  publicOffers: Array<any>
+  publicOffers: Array<any>;
   trade: any;
 }
 

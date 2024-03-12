@@ -38,7 +38,6 @@ export const AcceptPublicOfferScreen: FC<any> = ({route}) => {
   const {initPaymentSheet, presentPaymentSheet} = useStripe();
   const navigation: NavigationProp<any, any> = useNavigation();
 
-
   const initializePaymentSheet = useCallback(() => {
     const reqData = {
       userId: userData?._id,
@@ -64,7 +63,7 @@ export const AcceptPublicOfferScreen: FC<any> = ({route}) => {
           console.log('ERRORR => ', err);
         },
       ),
-    )
+    );
   }, [dispatch, userData?._id, publicOffer]);
 
   useEffect(() => {
@@ -113,7 +112,7 @@ export const AcceptPublicOfferScreen: FC<any> = ({route}) => {
         sendingMoneyOffer={publicOffer?.sendingMoneyOffer}
         isReceiver={true}
         receiverItems={publicOffer.receivingStockxProducts.map(prod => {
-          return {...prod.stockxId, chosenSize: prod.chosenSize}
+          return {...prod.stockxId, chosenSize: prod.chosenSize};
         })}
         senderItems={publicOffer.sendingProductIds}
         loading={loading}

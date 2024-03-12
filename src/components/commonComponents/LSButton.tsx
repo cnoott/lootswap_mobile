@@ -5,7 +5,7 @@ import {ButtonContainer, BText} from './LSButtonStyles';
 import {Size, Type} from '../../enums';
 import {SvgXml} from 'react-native-svg';
 import {TouchableOpacityProps, Dimensions} from 'react-native';
-import { borderLeft } from 'styled-system';
+import {borderLeft} from 'styled-system';
 
 interface ButtonProps extends TouchableOpacityProps {
   title?: string;
@@ -168,7 +168,7 @@ const LSButton: FC<ButtonProps> = React.memo(props => {
       {...getColors()}
       type={type}
       size={size}>
-      {icon && <SvgXml xml={icon} style={{marginRight: 15}}/>}
+      {icon && <SvgXml xml={icon} style={{marginRight: 15}} />}
       <BText {...props} {...getSize()} {...getColors()} type={type} disabled>
         {children || title}
       </BText>

@@ -9,10 +9,10 @@ const useBranch = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    branch.subscribe(async ({ error, params }) => {
+    branch.subscribe(async ({error, params}) => {
       if (error) {
-        console.error('Error from Branch: ' + error)
-        return
+        console.error('Error from Branch: ' + error);
+        return;
       }
       // params will never be null if error is null
       let installParams = await branch.getFirstReferringParams();

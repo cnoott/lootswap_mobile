@@ -80,7 +80,6 @@ const LoadingProductCard: FC<LoadingProductCardProps> = props => {
     );
   };
 
-
   return (
     <ItemContainer isHorizontalView={isHorizontalView}>
       <EmptyView>
@@ -103,5 +102,3 @@ const LoadingProductCard: FC<LoadingProductCardProps> = props => {
 };
 
 export default LoadingProductCard;
-
-

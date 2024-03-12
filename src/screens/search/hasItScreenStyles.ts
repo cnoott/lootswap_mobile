@@ -9,8 +9,7 @@ export const Container = styled.View.attrs(props => ({
   ${layout} ${space} ${color} ${border}
 `;
 
-export const StockxProductCardContainer = styled.View.attrs(props => ({
-}))`
+export const StockxProductCardContainer = styled.View.attrs(props => ({}))`
   margin-bottom: ${scale(5)}px;
   align-items: center;
   ${layout} ${space} ${color} ${border}

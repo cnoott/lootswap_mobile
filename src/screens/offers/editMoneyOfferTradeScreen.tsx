@@ -5,7 +5,6 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {changeMoneyOffer, getTrade} from '../../redux/modules';
 import {useDispatch} from 'react-redux';
 
-
 export const EditMoneyOfferTradeScreen: FC<any> = ({route}) => {
   const {trade, userData} = route.params;
   const [moneyOffer, setMoneyOffer] = useState(trade.senderMoneyOffer);

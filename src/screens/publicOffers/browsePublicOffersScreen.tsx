@@ -16,7 +16,7 @@ import {getPublicOffers, deletePublicOffer} from '../../redux/modules';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import { loggingService } from '../../services/loggingService';
+import {loggingService} from '../../services/loggingService';
 
 const ITEMS_PER_PAGE = 6;
 
@@ -65,7 +65,7 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
         reqData,
         res => {
           const newPublicOffers = publicOffers.filter(
-            offer => offer._id !== publicOfferId
+            offer => offer._id !== publicOfferId,
           );
           setPublicOffers(newPublicOffers);
         },
@@ -74,9 +74,7 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
         },
       ),
     );
-
   };
-
 
   const renderPublicOfferItem = ({item}: any) => {
     return (
@@ -88,8 +86,8 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
   };
   const goToCreatePublicOfferScreen = () => {
     navigation?.navigate('CreatePublicOfferScreen');
-    loggingService().logEvent('start_create_public_offer')
-  }
+    loggingService().logEvent('start_create_public_offer');
+  };
 
   const renderBottomButtonView = () => {
     return (
@@ -113,10 +111,7 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
   return (
     <>
       <BrowsePublicOffersContainer>
-      <InStackHeader
-        title={'Public Offers'}
-        onlyTitleCenterAlign={true}
-        />
+        <InStackHeader title={'Public Offers'} onlyTitleCenterAlign={true} />
         <PublicOffersFlatList
           data={publicOffers}
           renderItem={renderPublicOfferItem}

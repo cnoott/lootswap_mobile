@@ -68,7 +68,9 @@ export const AddProductStepFive: FC<ProductStep> = props => {
     let dotPositionCalc;
     if (stepTwo?.condition?.value === 'Pre-owned') {
       dotPositionCalc =
-        ((priceInput - stepFive.startRange) / (stepFive.endRange - priceInput)) * 100;
+        ((priceInput - stepFive.startRange) /
+          (stepFive.endRange - priceInput)) *
+        100;
     } else {
       // Updated calculation based on 10% range
       dotPositionCalc =
@@ -157,7 +159,8 @@ export const AddProductStepFive: FC<ProductStep> = props => {
       <HorizontalSpace>
         <Divider />
         <TradeOptionsText>
-            Estimated Market Range: <MarketRangeText>{`${stepFive?.startRange} - ${stepFive?.endRange}`}</MarketRangeText>
+          Estimated Market Range:{' '}
+          <MarketRangeText>{`${stepFive?.startRange} - ${stepFive?.endRange}`}</MarketRangeText>
         </TradeOptionsText>
         <MedianContainer dotPosition={dotPosition}>
           <MedianTextContainer>
@@ -169,7 +172,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
           <OrangeGradientBar />
           <RedBar />
           <MedianDotContainer dotPosition={dotPosition}>
-            <MedianDot/>
+            <MedianDot />
           </MedianDotContainer>
         </RangeBarContainer>
       </HorizontalSpace>

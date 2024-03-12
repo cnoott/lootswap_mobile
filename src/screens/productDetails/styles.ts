@@ -188,8 +188,8 @@ export const GuarenteedView = styled(LinearGradient).attrs((props: any) => ({
   p: scale(10),
   overflow: 'hidden',
   colors: ['rgba(98, 103, 254, 0.15)', 'rgba(98, 103, 254, 0.00)'],
-  start: { x: 0, y: 1 },
-  end: { x: 1, y: 0 },
+  start: {x: 0, y: 1},
+  end: {x: 1, y: 0},
   locations: [0.205, 0.9988],
 }))`
   flex-direction: row ${space} ${border} ${color};
@@ -349,4 +349,3 @@ export const ButtonContainer = styled.View.attrs(() => ({
 export const MessageButtonWrapper = styled.View.attrs(() => ({}))`
   margin-top: 20px;
 `;
-

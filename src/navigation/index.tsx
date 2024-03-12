@@ -30,7 +30,7 @@ import {Linking} from 'react-native';
 import {useNotifications} from '../utility/customHooks/useNotifications';
 import useFCMNotifications from '../utility/customHooks/useFCMNotifications';
 import useBranch from '../utility/customHooks/useBranch';
-import { loggingService } from '../services/loggingService';
+import {loggingService} from '../services/loggingService';
 
 const Stack = createStackNavigator();
 
@@ -71,7 +71,6 @@ const AppNavigation = () => {
         },
       ),
     );
-
   }, [dispatch]);
 
   return (

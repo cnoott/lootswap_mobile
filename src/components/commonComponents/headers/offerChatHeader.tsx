@@ -203,8 +203,9 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     };
 
     const RenderOfferStatusAccrordianView = () => {
-      const otherUsername = isReceiver ? offerItem?.sender?.name : offerItem?.receiver?.name;
-
+      const otherUsername = isReceiver
+        ? offerItem?.sender?.name
+        : offerItem?.receiver?.name;
 
       let headerText = '';
 
@@ -219,7 +220,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
           ? `You have accepted the offer!`
           : `${otherUsername} has accepted your offer!`;
       }
-      
+
       return (
         <OfferStatusContainer isAccepted={isAccepted}>
           <OfferStatusLeftView>

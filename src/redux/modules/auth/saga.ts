@@ -137,9 +137,8 @@ export function* signUpAPI(action: any) {
       resetRoute();
       yield put(signUpSuccess(response.data));
       loggingService().setUserId(response?.data?.user?._id);
-      loggingService().logEvent('sign_up', {method: 'email'})
+      loggingService().logEvent('sign_up', {method: 'email'});
       loggingService().setUserStatus('logged_in');
-
     } else {
       yield put(signUpFailure(response.error));
     }
@@ -161,7 +160,7 @@ export function* signInWithGoogleAPI(action: any) {
       resetRoute();
       yield put(signUpSuccess(response.data));
       loggingService().setUserId(response?.data?.user?._id);
-      loggingService().logEvent('sign_up', {method: 'google'})
+      loggingService().logEvent('sign_up', {method: 'google'});
       loggingService().setUserStatus('logged_in');
     } else {
       yield put(signUpFailure(response.error));
@@ -184,7 +183,7 @@ export function* signInWithAppleAPI(action: any) {
       resetRoute();
       yield put(signUpSuccess(response.data));
       loggingService().setUserId(response?.data?.user?._id);
-      loggingService().logEvent('sign_up', {method: 'apple'})
+      loggingService().logEvent('sign_up', {method: 'apple'});
       loggingService().setUserStatus('logged_in');
     } else {
       yield put(signUpFailure(response.error));
@@ -407,7 +406,7 @@ export function* saveSearch(action: any) {
     } else {
       saveSearchFailure();
     }
-  } catch(e) {
+  } catch (e) {
     console.log(e);
   }
 }

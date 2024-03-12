@@ -538,7 +538,6 @@ export const getLikedProducts = (
   };
 };
 
-
 export const setNotifsAsReadRequest = (reqData: any) => {
   return {
     type: SET_NOTIFS_AS_READ.REQUEST,
