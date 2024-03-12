@@ -10,7 +10,7 @@ import CreateAccountScreen from '../screens/auth/signUp';
 import EmailSignupScreen from '../screens/auth/signUp/emailSignupScreen';
 import BottomTabs from './bottomTab';
 import {useSelector, useDispatch} from 'react-redux';
-import LSLoader from '../components/commonComponents/LSLoader';
+//import LSLoader from '../components/commonComponents/LSLoader'; Deprecated
 import {LoadingProps} from '../redux/modules/loading/reducer';
 import {versionCheck, newNotifTrueSuccess} from '../redux/modules';
 import {Alert} from 'custom_top_alert';
@@ -170,7 +170,7 @@ const StackNavigator: FC<{}> = () => {
         }}>
         <Stack.Screen name="AppScreens" component={AppNavigation} />
       </Stack.Navigator>
-      {<LSLoader isVisible={loading?.isLoading} />}
+      {/*<LSLoader isVisible={loading?.isLoading} />*/}
       {
         <DropdownAlert
           ref={ref => {
