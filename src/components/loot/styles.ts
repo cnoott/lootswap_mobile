@@ -155,8 +155,9 @@ export const ImageGuidePhotosContainer = styled.View.attrs(() => ({
   ${layout}
 `;
 
-export const ImageGuidePhotoContainer = styled.TouchableOpacity.attrs(() => ({
-}))``;
+export const ImageGuidePhotoContainer = styled.TouchableOpacity.attrs(
+  () => ({}),
+)``;
 
 export const ImageGuideLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.black,

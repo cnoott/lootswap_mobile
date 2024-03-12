@@ -81,9 +81,11 @@ export const AllListingsScreen: FC<any> = () => {
 
   const renderItem = ({item, index}: any) => {
     if (item.loading) {
-      return <LoadingProductCard key={`loading-${index}`} />
+      return <LoadingProductCard key={`loading-${index}`} />;
     }
-    return <LSProductCard item={item} isHorizontalView={false} key={item._id}/>;
+    return (
+      <LSProductCard item={item} isHorizontalView={false} key={item._id} />
+    );
   };
 
   const onEndReached = () => {

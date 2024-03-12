@@ -45,7 +45,8 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
   const isSeller = userData?._id === item?.sellerId?._id;
 
   const [isShipInsModalVisible, setShipInsModalVisible] = useState(
-    isReceiver && item?.receiverFirstTimeOpen || !isReceiver && item?.senderFirstTimeOpen
+    (isReceiver && item?.receiverFirstTimeOpen) ||
+      (!isReceiver && item?.senderFirstTimeOpen),
   );
 
   const base64Img = isReceiver
@@ -68,7 +69,6 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
         }),
       );
     }
-
   }, [dispatch, isTradeOrder, item?._id, userData?._id]);
 
   const shippingStepOptions = () => {
@@ -87,7 +87,6 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
     } else {
       return item?.trackingHistory;
     }
-
   };
 
   const handleShippingInsPress = () => {
@@ -255,7 +254,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
           sendingProductIds={item?.publicOfferId?.sendingProductIds}
           receivingMoneyOffer={item?.publicOfferId?.receivingMoneyOffer}
           sendingMoneyOffer={item?.publicOfferId?.sendingMoneyOffer}
-       />
+        />
       );
     }
   };
@@ -283,7 +282,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
           isTradeOrder={isTradeOrder}
         />
         <FullDivider />
-        <OrderStatusDetails trackingHistory={trackingHistoryOptions()}/>
+        <OrderStatusDetails trackingHistory={trackingHistoryOptions()} />
       </SubContainer>
     </Container>
   );

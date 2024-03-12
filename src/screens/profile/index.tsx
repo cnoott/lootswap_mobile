@@ -45,7 +45,7 @@ import {getSignedRequest, uploadFile} from '../../services/imageUploadService';
 import {WEB_APP_URL} from '@env';
 import {Linking} from 'react-native';
 import FooterBadge from '../../components/footer/footerBadge';
-import { loggingService } from '../../services/loggingService';
+import {loggingService} from '../../services/loggingService';
 
 type Option = {
   icon: string;
@@ -140,7 +140,7 @@ export const ProfileScreen: FC<{}> = () => {
   };
   const onSignoutPress = () => {
     dispatch(signOutRequest({userId: userData?._id}));
-    loggingService().logEvent('sign_out')
+    loggingService().logEvent('sign_out');
     loggingService().setUserStatus('not_logged_in');
   };
   const renderProfileUploadView = () => {

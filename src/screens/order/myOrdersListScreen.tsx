@@ -59,10 +59,12 @@ export const MyOrdersListScreen: FC<any> = ({route}) => {
         userId: userData?._id,
       }),
     );
-    dispatch(setNotifsAsReadRequest({
-      userId: userData?._id,
-      notifType: 'orders',
-    }));
+    dispatch(
+      setNotifsAsReadRequest({
+        userId: userData?._id,
+        notifType: 'orders',
+      }),
+    );
   }, [dispatch, userData?._id, initialState]);
 
   const onRefresh = () => {
@@ -262,20 +264,21 @@ export const MyOrdersListScreen: FC<any> = ({route}) => {
   );
 
   const countNotifs = (title: string) => {
-    switch(title) {
+    switch (title) {
       case 'Purchases':
         return paypalOrders?.filter(
-          order => userData?._id === order.buyerId?._id && order?.buyerNewNotif
+          order => userData?._id === order.buyerId?._id && order?.buyerNewNotif,
         ).length;
       case 'Sales':
         return paypalOrders?.filter(
-          order => userData?._id === order?.sellerId?._id && order?.sellerNewNotif
+          order =>
+            userData?._id === order?.sellerId?._id && order?.sellerNewNotif,
         ).length;
       case 'Trade Orders':
         return tradeOrders?.filter(
           order =>
             (userData?._id === order.receiver._id && order?.receiverNewNotif) ||
-            (userData?._id === order.sender._id && order?.senderNewNotif)
+            (userData?._id === order.sender._id && order?.senderNewNotif),
         ).length;
       default:
         return 0;

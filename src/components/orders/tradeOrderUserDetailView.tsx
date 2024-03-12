@@ -31,7 +31,7 @@ interface TradeOrderUserDetailViewProps {
 const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
   const {item = {}, userData} = props;
   const isReceiver = item?.receiver?._id === userData?._id;
-  const navigation: NavigationProp<any, any> = useNavigation(); 
+  const navigation: NavigationProp<any, any> = useNavigation();
   const {labelColor, backColor, text} = tradeOrderShippingStatus(
     userData?._id,
     item,
@@ -63,7 +63,7 @@ const TradeOrderUserDetailView = (props: TradeOrderUserDetailViewProps) => {
         </PrintLabelContainer>
       );
     }
-  }
+  };
 
   return (
     <RowView>

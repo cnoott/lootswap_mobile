@@ -1,12 +1,7 @@
 import React, {useState} from 'react';
 import {TOOLTIP_ICON} from 'localsvgimages';
 import {SvgXml} from 'react-native-svg';
-import {
-  Container,
-  IconContainer,
-  TooltipText,
-  ModalContainer,
-} from './styles';
+import {Container, IconContainer, TooltipText, ModalContainer} from './styles';
 import {LSModal} from '../commonComponents/LSModal';
 
 interface TooltipProps {
@@ -24,7 +19,7 @@ const Tooltip = (props: TooltipProps) => {
         onBackdropPress={() => setModalVisible(false)}>
         <LSModal.Container>
           <ModalContainer>
-            <SvgXml xml={TOOLTIP_ICON} width={32} height={32}/>
+            <SvgXml xml={TOOLTIP_ICON} width={32} height={32} />
             <TooltipText>{text}</TooltipText>
           </ModalContainer>
           <LSModal.CloseButton
@@ -33,7 +28,7 @@ const Tooltip = (props: TooltipProps) => {
         </LSModal.Container>
       </LSModal>
       <IconContainer onPress={() => setModalVisible(true)}>
-        <SvgXml xml={TOOLTIP_ICON} width={20} height={20}/>
+        <SvgXml xml={TOOLTIP_ICON} width={20} height={20} />
       </IconContainer>
     </>
   );

@@ -43,9 +43,11 @@ export const ReviewTrade: FC<ReviewTradeProps> = props => {
   const showMyLoot = () => (
     <>
       <TradeReviewText> Your loot </TradeReviewText>
-      {myItems.filter(item => item?.isSelected).map(item => (
-        <StartTradeItemCell item={item} isReview={true} />
-      ))}
+      {myItems
+        .filter(item => item?.isSelected)
+        .map(item => (
+          <StartTradeItemCell item={item} isReview={true} />
+        ))}
       <MarketValueContainer>
         <MarketValueTitle>Total Est. Market Value: </MarketValueTitle>
         <MarketValueText>
@@ -60,14 +62,16 @@ export const ReviewTrade: FC<ReviewTradeProps> = props => {
       <TradeReviewTextTwo>
         For {requestedUserDetails.name}'s loot
       </TradeReviewTextTwo>
-      {otherUserItems.filter(item => item?.isSelected).map(item => (
-        <StartTradeItemCell item={item} isReview={true} />
-      ))}
+      {otherUserItems
+        .filter(item => item?.isSelected)
+        .map(item => (
+          <StartTradeItemCell item={item} isReview={true} />
+        ))}
       <MarketValueContainer>
         <MarketValueTitle>Total Est. Market Value: </MarketValueTitle>
         <MarketValueText>
           {calculateMarketValue(
-            otherUserItems.filter(item => item?.isSelected)
+            otherUserItems.filter(item => item?.isSelected),
           )}
         </MarketValueText>
       </MarketValueContainer>

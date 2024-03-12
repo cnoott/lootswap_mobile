@@ -1,4 +1,4 @@
-import styled from 'styled-components/native'
+import styled from 'styled-components/native';
 import {layout, space, color, border, backgroundColor} from 'styled-system';
 import {moderateScale, scale, verticalScale} from 'react-native-size-matters';
 
@@ -73,8 +73,7 @@ export const PublicOffersFlatList = styled.FlatList.attrs(() => ({
   ${layout}
 `;
 
-export const MoneyContainer = styled.View.attrs(() => ({
-}))`
+export const MoneyContainer = styled.View.attrs(() => ({}))`
   ${space}
   ${layout}
 `;

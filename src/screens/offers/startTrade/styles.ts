@@ -145,13 +145,15 @@ export const ORText = styled.Text.attrs(props => ({
   ${color}
 `;
 
-export const TradeOfferButtonConatiner = styled.TouchableOpacity.attrs(props => ({
-  width: scale(250),
-  height: verticalScale(170),
-  bg: props.theme.colors.primary,
-  borderRadius: scale(30),
-  activeOpacity: 0.6,
-}))`
+export const TradeOfferButtonConatiner = styled.TouchableOpacity.attrs(
+  props => ({
+    width: scale(250),
+    height: verticalScale(170),
+    bg: props.theme.colors.primary,
+    borderRadius: scale(30),
+    activeOpacity: 0.6,
+  }),
+)`
   align-items: center;
   justify-content: center;
   align-self: center;
@@ -198,13 +200,15 @@ export const ButtonSubText = styled.Text.attrs(props => ({
   ${color}
 `;
 
-export const MoneyOfferButtonConatiner = styled.TouchableOpacity.attrs(props => ({
+export const MoneyOfferButtonConatiner = styled.TouchableOpacity.attrs(
+  props => ({
     width: scale(250),
     height: verticalScale(170),
     bg: props.theme.colors.successColor,
     borderRadius: scale(30),
     activeOpacity: 0.6,
-}))`
+  }),
+)`
   align-items: center;
   justify-content: center;
   align-self: center;
@@ -244,7 +248,7 @@ export const Image = styled.Image.attrs((props: any) => ({
 
 export const KeyboardAvoidingView = styled.KeyboardAvoidingView.attrs(() => ({
   behavior: Platform.OS === 'ios' ? 'padding' : 'height',
-  flex:1,
+  flex: 1,
 }))`
   ${space}
   ${layout}
@@ -284,7 +288,6 @@ export const InvalidText = styled.Text.attrs(props => ({
   ${layout}
   ${color}
 `;
-
 
 export const Line = styled.View.attrs(props => ({
   borderBottomColor: props.notValid

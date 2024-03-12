@@ -24,7 +24,7 @@ import OfferForSellOnlyCell from '../../../screens/offers/offerItems/OfferForSel
 import {Size, Type} from '../../../enums';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import Collapsible from 'react-native-collapsible';
-import { loggingService } from '../../../services/loggingService';
+import {loggingService} from '../../../services/loggingService';
 
 interface HeaderProps {
   title?: string;
@@ -62,8 +62,8 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
 
     const onBackArrowPress = () => {
       navigation.goBack();
-      loggingService().logEvent('end_message')
-    }
+      loggingService().logEvent('end_message');
+    };
 
     return (
       <>

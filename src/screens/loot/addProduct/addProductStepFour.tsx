@@ -25,7 +25,6 @@ import {SvgXml} from 'react-native-svg';
 import {WARNING_ICON} from 'localsvgimages';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
-
 interface ProductStep {
   updateProductData: Function;
 }
@@ -40,7 +39,6 @@ export const AddProductStepFour: FC<ProductStep> = props => {
   const {updateProductData} = props;
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData, skippedPaypalOnboarding} = auth;
-
 
   useEffect(() => {
     if (!userData?.paypal_onboarded && skippedPaypalOnboarding) {
@@ -103,12 +101,11 @@ export const AddProductStepFour: FC<ProductStep> = props => {
       label !== 'Trade Only';
 
     return (
-      <TouchableRowTradeOptions
-        onPress={onPress}
-        disabled={disableSellOptions}
-      >
+      <TouchableRowTradeOptions onPress={onPress} disabled={disableSellOptions}>
         <TradeButton selected={isSelected} disabled={disableSellOptions}>
-          <TradeButtonText selected={isSelected} disabled={disableSellOptions}>{label}</TradeButtonText>
+          <TradeButtonText selected={isSelected} disabled={disableSellOptions}>
+            {label}
+          </TradeButtonText>
         </TradeButton>
         {label === 'Trade and Sell' && (
           <RecTagContainer>
@@ -121,7 +118,9 @@ export const AddProductStepFour: FC<ProductStep> = props => {
   const renderTradeView = () => {
     return (
       <EmptyView>
-        <TradeOptionsText>Do you want to trade or sell your item?</TradeOptionsText>
+        <TradeOptionsText>
+          Do you want to trade or sell your item?
+        </TradeOptionsText>
         {renderTradeButton(
           'Trade and Sell',
           stepFour?.tradeOptions?.isTradeAndSell,
@@ -155,7 +154,10 @@ export const AddProductStepFour: FC<ProductStep> = props => {
           <PaypalDisclaimerView onPress={onDisclaimerPress}>
             <SvgXml xml={WARNING_ICON} />
             <DisclaimerText>
-              In order to sell your item, you need to link your PayPal. <DisclaimerTextUnderlined>Tap here to link</DisclaimerTextUnderlined>
+              In order to sell your item, you need to link your PayPal.{' '}
+              <DisclaimerTextUnderlined>
+                Tap here to link
+              </DisclaimerTextUnderlined>
             </DisclaimerText>
           </PaypalDisclaimerView>
         )}

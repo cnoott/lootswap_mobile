@@ -427,7 +427,7 @@ export const payoutUserCall = (reqData: any) => {
 export const deleteNotifCall = (reqData: any) => {
   return handleResponse(
     api.put(`/user/delete-notification/${reqData?.userId}`, {
-      notifs: reqData?.notifs
+      notifs: reqData?.notifs,
     }),
     API_RESPONSE.CODE200,
   );
@@ -634,7 +634,8 @@ const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
         return errorObj;
       } else if (res.status === 401) {
         return;
-      } else if (res.status === 500) { //XXX not being called
+      } else if (res.status === 500) {
+        //XXX not being called
         var debounce_fun = _.debounce(() => {
           const err = ApiHelper.retrieveDetailMessageFromResponse(res);
           if (err === 'Token is expire!' && !isTokenExpired) {

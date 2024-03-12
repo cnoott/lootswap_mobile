@@ -2,7 +2,6 @@
   LootSwap - PUBLIC OFFER SCREEN
  ***/
 
-
 import React, {FC, useState, useRef, useEffect} from 'react';
 import {
   BrowsePublicOffersContainer,
@@ -46,7 +45,9 @@ const PublicOfferScreen: FC<any> = ({route}) => {
         <StartTradeItemCell
           item={item}
           isReview={true}
-          onPress={() => navigation.navigate('ProductDetailsScreen', {productData: item})}
+          onPress={() =>
+            navigation.navigate('ProductDetailsScreen', {productData: item})
+          }
         />
       ))}
       <MarketValueContainer>
@@ -69,9 +70,13 @@ const PublicOfferScreen: FC<any> = ({route}) => {
       <MarketValueContainer>
         <MarketValueTitle>Total Est. Market Value: </MarketValueTitle>
         <MarketValueText>
-          ${receivingStockxProducts.reduce(
-            (sum, product) => sum + findMarketDataFromSize(product.stockxId, product.chosenSize)?.lastSale,
-              0
+          $
+          {receivingStockxProducts.reduce(
+            (sum, product) =>
+              sum +
+              findMarketDataFromSize(product.stockxId, product.chosenSize)
+                ?.lastSale,
+            0,
           )}
         </MarketValueText>
       </MarketValueContainer>

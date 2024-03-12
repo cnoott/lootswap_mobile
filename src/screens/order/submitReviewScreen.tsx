@@ -44,13 +44,18 @@ export const SubmitReviewScreen: FC<{}> = ({route}) => {
     let otherUserId;
     let ratingType;
     if (isTradeOrder) {
-      otherUserId = isReceiver ? orderDetails?.sender?._id : orderDetails?.receiver?._id;
+      otherUserId = isReceiver
+        ? orderDetails?.sender?._id
+        : orderDetails?.receiver?._id;
       ratingType = 'trade-order';
     } else {
-      otherUserId = isSeller ? orderDetails?.buyerId?._id : orderDetails?.sellerId?._id;
+      otherUserId = isSeller
+        ? orderDetails?.buyerId?._id
+        : orderDetails?.sellerId?._id;
       ratingType = 'paypal-order';
     }
-    const reqData = { //I know some of the attributes are redudant (too lazy to change backend)
+    const reqData = {
+      //I know some of the attributes are redudant (too lazy to change backend)
       userId: userData?._id,
       otherUserId: otherUserId,
       orderId: orderDetails?._id,
@@ -148,11 +153,10 @@ export const SubmitReviewScreen: FC<{}> = ({route}) => {
               key={ratIndex}
               size={moderateScale(45)}
               onPress={() => setChosenRating(ratIndex + 1)}
-          />
+            />
           );
         }
       })}
-
     </StarContainer>
   );
 
@@ -161,29 +165,29 @@ export const SubmitReviewScreen: FC<{}> = ({route}) => {
       <InStackHeader title={'Give a Rating'} />
       <KeyboardAvoidingView>
         <ScrollView>
-        <ProfileContainerView>{renderPfpCondition()}</ProfileContainerView>
-        {renderNameCondition()}
-        {chooseRating()}
+          <ProfileContainerView>{renderPfpCondition()}</ProfileContainerView>
+          {renderNameCondition()}
+          {chooseRating()}
 
-        <CommentsText>Comments</CommentsText>
+          <CommentsText>Comments</CommentsText>
 
-        <LSInput
-          onChangeText={setComment}
-          value={comment}
-          placeholder={'How was your experience?'}
-          returnKeyLabel={'done'}
-          multiline={true}
-          height={80}
-        />
-        <ButtonContainer>
-          <LSButton
-            title={'Submit'}
-            size={Size.Full}
-            type={Type.Primary}
-            radius={20}
-            onPress={() => submitRating()}
+          <LSInput
+            onChangeText={setComment}
+            value={comment}
+            placeholder={'How was your experience?'}
+            returnKeyLabel={'done'}
+            multiline={true}
+            height={80}
           />
-        </ButtonContainer>
+          <ButtonContainer>
+            <LSButton
+              title={'Submit'}
+              size={Size.Full}
+              type={Type.Primary}
+              radius={20}
+              onPress={() => submitRating()}
+            />
+          </ButtonContainer>
         </ScrollView>
       </KeyboardAvoidingView>
     </Container>

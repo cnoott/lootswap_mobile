@@ -56,7 +56,7 @@ import {
 import {Alert} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {Alert as AlertModal} from 'react-native';
-import { loggingService } from '../../../services/loggingService';
+import {loggingService} from '../../../services/loggingService';
 
 type FormProps = {
   email: string;

@@ -84,8 +84,7 @@ import {Alert} from 'custom_top_alert';
 import {Trade_Options, Deal_Type} from 'custom_enums';
 import defaultExport from '@react-native-firebase/messaging';
 import DealBadge from '../../components/dealBadges';
-import { loggingService } from '../../services/loggingService';
-
+import {loggingService} from '../../services/loggingService';
 
 const height = Dimensions.get('window').height;
 
@@ -128,12 +127,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       dispatch(getProductDetails(productData?._id));
       setTimesLiked(parseInt(selectedProductDetails?.timesLiked));
     }
-  }, [
-    productData?.userId,
-    isLogedIn,
-    likedParam,
-    productData?._id,
-  ]);
+  }, [productData?.userId, isLogedIn, likedParam, productData?._id]);
 
   const onLikePress = () => {
     if (!isLogedIn) {
@@ -313,7 +307,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
 
   const renderInteractButtons = () => {
     if (isLogedIn && userData?._id === productData?.userId) {
-      return <></>
+      return <></>;
     }
     if (!selectedProductDetails?.isVisible) {
       return (
@@ -465,7 +459,12 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               {requestedUserDetails?.ratings.length > 0 ? (
                 <>
                   <StarRatings
-                    rating={Math.floor(requestedUserDetails?.ratings?.reduce((total, next) => total += next.rating, 0) / requestedUserDetails?.ratings.length)}
+                    rating={Math.floor(
+                      requestedUserDetails?.ratings?.reduce(
+                        (total, next) => (total += next.rating),
+                        0,
+                      ) / requestedUserDetails?.ratings.length,
+                    )}
                   />
                   <ShippingLabel>
                     {` (${requestedUserDetails?.ratings?.length} Reviews)`}
@@ -489,13 +488,13 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           isProduct={true}
           autoPlay={false}
           loop={false}
-          imagesArr={
-            [productData?.primary_photo, ...productData?.secondary_photos]
-          }
+          imagesArr={[
+            productData?.primary_photo,
+            ...productData?.secondary_photos,
+          ]}
           showDummy={false}
         />
         <SubContainer>
-
           <DetailsContainer>
             <DetailsLeftView>
               {!!productData?.type && renderTags()}
@@ -505,7 +504,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                 Condition: <BoldText>{productData?.condition}</BoldText>
               </ProductDetails>
               <ProductDetails>
-                Size: <BoldText>{convertUsSizeToEu(productData?.size)}</BoldText>
+                Size:{' '}
+                <BoldText>{convertUsSizeToEu(productData?.size)}</BoldText>
               </ProductDetails>
               {productData?.type !== Trade_Options?.TradeOnly && (
                 <PriceContainer>

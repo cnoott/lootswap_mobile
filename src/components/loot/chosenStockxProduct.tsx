@@ -42,7 +42,6 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
     isFromPublicOffers = false,
   } = props;
 
-
   const formatData = () => {
     if (isFromPublicOffers) {
       return stockxProduct;
@@ -74,10 +73,7 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
         return 'td';
       } else if (name?.includes('PS')) {
         return 'ps';
-      } else if (
-        name?.includes('Kids') ||
-        name?.includes('Infants')
-      ) {
+      } else if (name?.includes('Kids') || name?.includes('Infants')) {
         return 'kids';
       }
       if (categoryData) {
@@ -110,7 +106,7 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
             </ImageContainer>
           ) : (
             <SvgContainer>
-              <SvgXml xml={QUESTION_MARK} width={'100%'}/>
+              <SvgXml xml={QUESTION_MARK} width={'100%'} />
             </SvgContainer>
           )}
         </>
@@ -121,10 +117,13 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
           </TitleText>
           <TitleText></TitleText>
         </TextContainer>
-
       </ItemContainer>
       <LSDropDown
-        itemsList={isFromPublicOffers ? formatSizeList() : getSizeList(handleSetSizeList())}
+        itemsList={
+          isFromPublicOffers
+            ? formatSizeList()
+            : getSizeList(handleSetSizeList())
+        }
         dropdownLabel={'Select Size'}
         isSearch={false}
         onSelectItem={onSetSizeData}
@@ -132,7 +131,7 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
         onFocus={() => handleOnPress()}
       />
       <TrashIconContainer onPress={onDeletePress}>
-        <SvgXml xml={TRASH_ICON_RED}/>
+        <SvgXml xml={TRASH_ICON_RED} />
       </TrashIconContainer>
     </Container>
   );

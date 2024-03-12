@@ -30,7 +30,7 @@ import branch from 'react-native-branch';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {Alert} from 'custom_top_alert';
 import {Share} from 'react-native';
-import { loggingService } from '../../services/loggingService';
+import {loggingService} from '../../services/loggingService';
 
 export const ReferralScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
@@ -62,7 +62,7 @@ export const ReferralScreen: FC<{}> = () => {
           content_type: 'referral',
           item_id: userData?._id,
           method: 'share button',
-        })
+        });
       }
     } catch (error: any) {
       console.log(error);

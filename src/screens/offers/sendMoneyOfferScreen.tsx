@@ -43,9 +43,7 @@ export const SendMoneyOfferScreen: FC<any> = () => {
     }
     const minimumPrice = selectedProductDetails?.price * 0.6;
     if (selectedProductDetails?.price && parseFloat(offer) < minimumPrice) {
-      setNotValidMsg(
-        `Please make an offer of at least ${minimumPrice}`
-      );
+      setNotValidMsg(`Please make an offer of at least ${minimumPrice}`);
       return;
     }
 
@@ -82,7 +80,6 @@ export const SendMoneyOfferScreen: FC<any> = () => {
         },
       ),
     );
-
   };
 
   return (
@@ -130,7 +127,6 @@ export const SendMoneyOfferScreen: FC<any> = () => {
       </SendOfferContainer>
     </KeyboardAvoidingView>
   );
-
 };
 
 export default SendMoneyOfferScreen;

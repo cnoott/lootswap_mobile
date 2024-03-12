@@ -18,7 +18,7 @@ import {
   getAllMyMessagesSuccess,
   getAllMyMessagesFailure,
 } from '../message/actions';
-import { loggingService } from '../../../services/loggingService';
+import {loggingService} from '../../../services/loggingService';
 
 type APIResponseProps = {
   success: boolean;

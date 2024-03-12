@@ -80,7 +80,6 @@ export const HomeScreen: FC<{}> = () => {
         },
       ),
     );
-
   }, [page]);
 
   useEffect(() => {
@@ -167,7 +166,8 @@ export const HomeScreen: FC<{}> = () => {
     setPublicOffersPage(0);
     setRefreshing(false);
 
-    if (isLogedIn) { // same code as above in the useEffect XXX 
+    if (isLogedIn) {
+      // same code as above in the useEffect XXX
       const publicOfferReqData = {
         type: 'Browse',
         userId: userData?._id,
@@ -204,7 +204,6 @@ export const HomeScreen: FC<{}> = () => {
         ),
       );
     }
-
   };
 
   const goToLikedProducts = () => {
@@ -246,7 +245,7 @@ export const HomeScreen: FC<{}> = () => {
   const renderItem = ({item, index}: any) => {
     if (item.loading) {
       return (
-        <LoadingProductCard key={`loading-${index}`} isHorizontalView={true}/>
+        <LoadingProductCard key={`loading-${index}`} isHorizontalView={true} />
       );
     }
     return <LSProductCard item={item} isHorizontalView={true} key={item._id} />;
@@ -324,7 +323,6 @@ export const HomeScreen: FC<{}> = () => {
               radius={20}
               onPress={() => navigation?.navigate('AllListingsScreen')}
             />
-
           </SectionTopContainer>
         </SectionContainer>
 

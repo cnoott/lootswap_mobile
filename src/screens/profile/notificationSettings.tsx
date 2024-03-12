@@ -4,7 +4,7 @@ LootSwap - NOTIFICATION SETTINGS SCREEN
 
 import React, {FC} from 'react';
 import {Switch} from 'react-native';
-import {useDispatch,useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useTheme} from 'styled-components';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {updateUser} from '../../redux/modules';
@@ -25,7 +25,7 @@ export const NotificationSettingScreen: FC<{}> = () => {
   // destructure the notification_settings from userData
   const {notification_settings} = userData || {};
 
-  const onToggleChange = (settingName,value) => {
+  const onToggleChange = (settingName, value) => {
     const newNotificatonSettings = {
       ...notification_settings,
       [settingName]: value,
@@ -40,8 +40,8 @@ export const NotificationSettingScreen: FC<{}> = () => {
     );
   };
 
-const renderItems = (label, settingName) => {
-     const isEnabled = notification_settings?.[settingName];
+  const renderItems = (label, settingName) => {
+    const isEnabled = notification_settings?.[settingName];
     return (
       <ItemContainer key={settingName}>
         <ItemLabel>{label}</ItemLabel>
@@ -52,7 +52,7 @@ const renderItems = (label, settingName) => {
           }}
           thumbColor={isEnabled ? theme.colors.white : theme.colors.white}
           ios_backgroundColor={theme.colors.grey}
-          onValueChange={value => onToggleChange(settingName,value)}
+          onValueChange={value => onToggleChange(settingName, value)}
           value={isEnabled}
         />
       </ItemContainer>

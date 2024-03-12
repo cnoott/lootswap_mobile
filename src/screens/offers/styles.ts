@@ -681,13 +681,15 @@ export const ItemTextStyle = {
   color: 'black',
 };
 
-export const PublicOfferDeleteContainer = styled.TouchableOpacity.attrs(props => ({
-  border: 2,
-  borderColor: '#F75555',
-  borderRadius: 100,
-  width: scale(75),
-  height: scale(30),
-}))`
+export const PublicOfferDeleteContainer = styled.TouchableOpacity.attrs(
+  props => ({
+    border: 2,
+    borderColor: '#F75555',
+    borderRadius: 100,
+    width: scale(75),
+    height: scale(30),
+  }),
+)`
   align-items: center;
   justify-content: center;
   flex-direction: row;
@@ -696,7 +698,6 @@ export const PublicOfferDeleteContainer = styled.TouchableOpacity.attrs(props =>
   ${layout}
   ${border}
 `;
-
 
 export const DeleteText: any = styled.Text.attrs(props => ({
   color: '#F75555',
@@ -785,7 +786,6 @@ export const SingleSizeTextContainer = styled.View.attrs(() => ({
 export const SizeText: any = styled.Text.attrs(() => ({
   color: 'black',
   padding: '2px',
-
 }))`
   font-size: ${scale(12)}px;
   font-family: Urbanist-SemiBold;
