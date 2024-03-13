@@ -24,20 +24,20 @@ import OfferForSellOnlyCell from '../../../screens/offers/offerItems/OfferForSel
 import {Size, Type} from '../../../enums';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import Collapsible from 'react-native-collapsible';
-import { loggingService } from '../../../services/loggingService';
+import {loggingService} from '../../../services/loggingService';
+import {ProfileHeaderComponent} from './profileHeaderComponent';
 
 interface HeaderProps {
   title?: string;
   onItemPress: Function;
   productData?: any;
+  otherUserData?: any;
 }
 
 export const InUserChatHeader: FC<HeaderProps> = React.memo(
-  ({title, onItemPress, productData}) => {
-    const theme = useTheme();
+  ({title, onItemPress, productData, otherUserData}) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
     const [accOpen, setAccOpen] = useState(true);
-    const onTrippleDotPress = () => {};
 
     const renderOfferCellView = () => {
       return <OfferForSellOnlyCell itemData={productData} />;
@@ -60,40 +60,22 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
       );
     };
 
-    const onBackArrowPress = () => {
-      navigation.goBack();
-      loggingService().logEvent('end_message')
-    }
-
     return (
       <>
         <ProfileHeaderContainer>
           <EmptyRowView>
-            <TouchableOpacity onPress={() => onBackArrowPress()}>
-              <SvgXml xml={LEFT_BLACK_ARROW} />
-            </TouchableOpacity>
-            <StackHeaderText>{title}</StackHeaderText>
-          </EmptyRowView>
-          {true ? (
-            <LSButton
-              title={'View Item'}
-              size={Size.Extra_Small}
-              type={Type.Secondary}
-              onPress={() => onItemPress()}
+            <ProfileHeaderComponent
+              otherUserName={title}
+              otherUserData={otherUserData}
+              otherUserPfp={otherUserData?.profile_picture}
             />
-          ) : (
-            <EmptyRowView>
-              <ProfileRightTouchable onPress={onTrippleDotPress}>
-                <PhoneIcon
-                  size={moderateScale(20)}
-                  color={theme?.colors?.black}
-                />
-              </ProfileRightTouchable>
-              <ProfileRightTouchable onPress={onTrippleDotPress}>
-                <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
-              </ProfileRightTouchable>
-            </EmptyRowView>
-          )}
+          </EmptyRowView>
+          <LSButton
+            title={'View Item'}
+            size={Size.Extra_Small}
+            type={Type.Secondary}
+            onPress={() => onItemPress()}
+          />
         </ProfileHeaderContainer>
         {renderProductViewContainer()}
       </>

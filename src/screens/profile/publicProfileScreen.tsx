@@ -166,7 +166,8 @@ export const PublicProfileScreen: FC<{}> = ({route}) => {
           data={requestedUserDetails?.my_items.filter(
             item =>
               (showAll || item.type === filterItem) &&
-              item.isVirtuallyVerified == true,
+              item.isVirtuallyVerified == true &&
+              item.isVisible,
           )}
           renderItem={({item}) => renderTradeItem(item)}
         />

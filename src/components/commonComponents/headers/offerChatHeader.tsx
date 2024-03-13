@@ -6,11 +6,9 @@ import {SvgXml} from 'react-native-svg';
 import {Alert} from 'custom_top_alert';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {
-  OfferChatHeaderText,
   ProfileHeaderContainer,
   ProfileLeftTouchable,
   EmptyRowView,
-  TouchableOpacity,
   SpaceRowView,
   ChatOfferContainer,
   OfferStatusContainer,
@@ -24,22 +22,21 @@ import {
   OfferEditedStatusTitleText,
 } from './styles';
 import {
-  LEFT_BLACK_ARROW,
   ACCORDIAN_DOWN_ELLIPSE,
   OFFER_ACCEPTED_HEADER_ICON,
   OFFER_REJECTED_HEADER_ICON,
   ACCORDIAN_UP_ELLIPSE,
+  PROFILE_TRIPPLE_DOT_ICON,
 } from 'localsvgimages';
-import {PROFILE_TRIPPLE_DOT_ICON} from 'localsvgimages';
 import LSButton from '../LSButton';
 import {Size, Type} from '../../../enums';
-import {LSProfileImageComponent} from '../profileImage';
 import TradeOfferCell from '../../../screens/offers/offerItems/TradeOfferCell';
 //import OfferForSellOnlyCell from '../../../screens/offers/offerItems/OfferForSellOnlyCell';
 import {Trade_Status} from 'custom_enums';
 import Collapsible from 'react-native-collapsible';
 import {LSModal} from '../LSModal';
 import ShippingInstructionModalComponent from '../../orders/shippingInstructionModalComponent';
+import {ProfileHeaderComponent} from './profileHeaderComponent';
 
 interface HeaderProps {
   profilePicture: string;
@@ -287,25 +284,13 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       <ChatOfferContainer>
         <ProfileHeaderContainer>
           <EmptyRowView>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <SvgXml xml={LEFT_BLACK_ARROW} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('PublicProfileScreen', {
-                  requestedUserDetails: isReceiver
-                    ? offerItem.sender
-                    : offerItem.receiver,
-                })
-              }>
-              <LSProfileImageComponent
-                profileUrl={profilePicture}
-                imageHeight={34}
-                imageWidth={34}
-                imageRadius={17}
-              />
-              <OfferChatHeaderText>{title}</OfferChatHeaderText>
-            </TouchableOpacity>
+            <ProfileHeaderComponent
+              otherUserName={title}
+              otherUserData={
+                isReceiver ? offerItem?.sender : offerItem?.receiver
+              }
+              otherUserPfp={profilePicture}
+            />
           </EmptyRowView>
           {isPending && (
             <EmptyRowView>
