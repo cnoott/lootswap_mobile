@@ -91,12 +91,10 @@ export const UserChatScreen: FC<any> = ({route}) => {
       appState.current = nextAppState;
     });
     if (!isFocused) {
-      
       subscription.remove();
       socketObj?.removeAllListeners();
       socketObj?.close();
       socketObj?.disconnect();
-
     }
     dispatch(
       getMessagesHistory({
@@ -247,6 +245,9 @@ export const UserChatScreen: FC<any> = ({route}) => {
           });
         }}
         productData={historyMessages?.product}
+        otherUserData={
+          isReceiver ? historyMessages?.sender : historyMessages?.receiver
+        }
       />
       <KeyboardAvoidingView>
         <SubContainer>{renderMessagesListView()}</SubContainer>
