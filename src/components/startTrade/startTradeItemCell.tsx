@@ -14,7 +14,10 @@ import {
   AnimatedCheckBox,
   Image,
 } from './styles';
-import {findMarketDataFromSize, getPreownedMarketValue} from '../../utility/utility';
+import {
+  findMarketDataFromSize,
+  getPreownedMarketValue,
+} from '../../utility/utility';
 
 interface StartTradeItemCellProps {
   item: any;
@@ -34,13 +37,13 @@ const StartTradeItemCell: FC<StartTradeItemCellProps> = React.memo(props => {
         return 'Not available';
       }
       if (foundSize && product.condition !== 'Pre-owned') {
-        return `$${foundSize.lastSale}`
+        return `$${foundSize.lastSale}`;
       } else if (foundSize && product.condition === 'Pre-owned') {
         const range = getPreownedMarketValue(
           foundSize,
           product?.preOwnedCondition,
         );
-        return `$${range[0]} - $${range[1]} `
+        return `$${range[0]} - $${range[1]} `;
       }
     }
   };
@@ -88,14 +91,13 @@ const StartTradeItemCell: FC<StartTradeItemCellProps> = React.memo(props => {
       {!isMoneyOffer &&
         item.stockxId &&
         findMarketDataFromSize(item.stockxId, item.size) && (
-        <DesBottomContainer>
-          <ConditionSizeText>Est. Value: </ConditionSizeText>
-          <ConditionSizeResultText>
+          <DesBottomContainer>
+            <ConditionSizeText>Est. Value: </ConditionSizeText>
+            <ConditionSizeResultText>
               {getEstRange(item)}
-          </ConditionSizeResultText>
-        </DesBottomContainer>
-      )}
-
+            </ConditionSizeResultText>
+          </DesBottomContainer>
+        )}
     </DesContainer>
   );
 

@@ -121,7 +121,7 @@ export const LootScreen: FC<any> = ({route}) => {
           stepFive: {
             ...addProductData?.stepFive,
             median: undefined,
-          }
+          },
         });
       }
     }
@@ -184,9 +184,9 @@ export const LootScreen: FC<any> = ({route}) => {
                 stockxLoading={stockxLoading}
                 setStockxLoading={setStockxLoading}
               />
-          );
+            );
           case 2:
-            return <AddProductStepTwo updateProductData={updateProductData} />
+            return <AddProductStepTwo updateProductData={updateProductData} />;
           case 3:
             return (
               <AddProductStepThree updateProductData={updateProductData} />
@@ -211,7 +211,7 @@ export const LootScreen: FC<any> = ({route}) => {
             />
           );
         case 2:
-          return <AddProductStepTwo updateProductData={updateProductData} />
+          return <AddProductStepTwo updateProductData={updateProductData} />;
         case 3:
           return <AddProductStepThree updateProductData={updateProductData} />;
         case 4:
@@ -227,7 +227,6 @@ export const LootScreen: FC<any> = ({route}) => {
               isFromEdit={isFromEdit}
             />
           );
-
       }
     }
   };

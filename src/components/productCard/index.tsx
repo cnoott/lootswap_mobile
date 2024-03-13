@@ -25,7 +25,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {Animated} from 'react-native';
-import { loggingService } from '../../services/loggingService';
+import {loggingService} from '../../services/loggingService';
 
 interface LSProductCardProps {
   onPress?: Function;
@@ -82,7 +82,7 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
   const isLiked = () => {
     return userData?.likedProducts?.some(prodId => {
       return prodId === item?._id;
-    })
+    });
   };
 
   useEffect(() => {
@@ -151,7 +151,7 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
           <Image
             source={{uri: item.primary_photo}}
             onLoad={() => {
-              setImageLoading(false)
+              setImageLoading(false);
             }}
           />
         </ImageContainer>

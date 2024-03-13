@@ -13,9 +13,7 @@ import {
   AnimatedCheckBox,
   Image,
 } from '../startTrade/styles';
-import {
-  findMarketDataFromSize,
-} from '../../utility/utility';
+import {findMarketDataFromSize} from '../../utility/utility';
 
 interface ReviewStockxItemProps {
   stockxProduct: any;
@@ -50,7 +48,8 @@ const ReviewStockxItemCell: FC<ReviewStockxItemProps> = React.memo(props => {
       <DesBottomContainer>
         <ConditionSizeText>Est. Value: </ConditionSizeText>
         <ConditionSizeResultText>
-          ${
+          $
+          {
             findMarketDataFromSize(stockxProduct, stockxProduct?.chosenSize)
               ?.lastSale
           }
@@ -70,4 +69,3 @@ const ReviewStockxItemCell: FC<ReviewStockxItemProps> = React.memo(props => {
 });
 
 export default ReviewStockxItemCell;
-

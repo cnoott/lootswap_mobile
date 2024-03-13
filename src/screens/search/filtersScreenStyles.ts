@@ -192,4 +192,3 @@ export const MinPriceContainer = styled.View.attrs(() => ({
 export const HorizontalMarginView = styled.View`
   width: 15px;
 `;
-

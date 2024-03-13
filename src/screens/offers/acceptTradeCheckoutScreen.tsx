@@ -26,7 +26,7 @@ type PaymentDetails = {
 };
 
 export const AcceptTradeCheckoutScreen: FC<
-AcceptTradeCheckoutProps
+  AcceptTradeCheckoutProps
 > = props => {
   const {trade} = props.route.params;
   const auth: AuthProps = useSelector(state => state.auth);
@@ -97,7 +97,6 @@ AcceptTradeCheckoutProps
       });
     }
   };
-
 
   useEffect(() => {
     initializePaymentSheet();

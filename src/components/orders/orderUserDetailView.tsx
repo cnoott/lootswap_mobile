@@ -36,7 +36,6 @@ const OrderUserDetailView = (props: OrderUserDetailViewProps) => {
   const isSeller = userData?._id === item?.sellerId?._id;
   const navigation: NavigationProp<any, any> = useNavigation();
 
-
   const printLabelRenderOptions = () => {
     if (item?.shippingStep === 3) {
       return (

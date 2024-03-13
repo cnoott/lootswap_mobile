@@ -18,7 +18,7 @@ import {
   LoadingRequest,
   LoadingSuccess,
 } from '../../redux/modules/loading/actions';
-import { loggingService } from '../../services/loggingService';
+import {loggingService} from '../../services/loggingService';
 //TODO:
 //      - LoadingRequest
 export const LinkPaypalScreen: FC<{}> = props => {

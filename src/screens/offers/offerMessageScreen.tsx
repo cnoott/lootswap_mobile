@@ -49,7 +49,7 @@ export const OffersMessageScreen: FC<{}> = props => {
   const insets = useSafeAreaInsets();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
-  const isReceiver = offerItem?.receiver?._id === userData?._id
+  const isReceiver = offerItem?.receiver?._id === userData?._id;
   const {socketObj, isConnected}: any = useMessagingService(
     {
       tradeId: tradeId,
@@ -72,7 +72,7 @@ export const OffersMessageScreen: FC<{}> = props => {
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
       if (appState.current === 'background' && nextAppState === 'active') {
-        console.log('back from bg!')
+        console.log('back from bg!');
         dispatch(
           getTrade({
             userId: userData?._id,
@@ -154,7 +154,10 @@ export const OffersMessageScreen: FC<{}> = props => {
       messagesListRaw.current = messagesData;
       setMessagesList(messagesData);
 
-      if (content.message === 'trade-accepted-message' || content.message === 'Trade-update') {
+      if (
+        content.message === 'trade-accepted-message' ||
+        content.message === 'Trade-update'
+      ) {
         // Getting Trade data again
         dispatch(
           getTrade({
@@ -238,7 +241,7 @@ export const OffersMessageScreen: FC<{}> = props => {
       Object.keys(auth.userData?.shipping_address).length < 4;
     if (addressNotFilled) {
       navigation?.navigate('AddressScreenCheckout', {
-        isFromTradeCheckout: true
+        isFromTradeCheckout: true,
       });
       closeModal();
       return;

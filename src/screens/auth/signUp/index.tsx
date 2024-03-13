@@ -55,5 +55,4 @@ export const CreateAccountScreen: FC<{}> = () => {
   );
 };
 
-
 export default CreateAccountScreen;

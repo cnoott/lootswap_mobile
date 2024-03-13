@@ -3,7 +3,7 @@ LootSwap - ADD_PRODUCT STEP 3
 ***/
 
 import React, {FC, useState, useCallback} from 'react';
-import ImagePicker, { openPicker } from 'react-native-image-crop-picker'; //TODO REMOVE
+import ImagePicker, {openPicker} from 'react-native-image-crop-picker'; //TODO REMOVE
 import {LSModal} from '../../../components/commonComponents/LSModal';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {Size, Type} from '../../../enums';
@@ -116,7 +116,9 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   };
 
   const onSelectImage = (node: any) => {
-    const foundIndex = selectedImages.findIndex(image => image.uri === node.item.uri);
+    const foundIndex = selectedImages.findIndex(
+      image => image.uri === node.item.uri,
+    );
     if (foundIndex !== -1) {
       const newImgArr = [...selectedImages];
       newImgArr.splice(foundIndex, 1);
@@ -127,7 +129,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         return;
       }
       const fileData = {
-       uri: node.item.uri,
+        uri: node.item.uri,
         type: 'image/jpeg',
         isServerImage: false,
         sourceURL: node.item.uri,
@@ -138,7 +140,6 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       setSelectedImages(newImgArr);
     }
   };
-
 
   const openCamera = async () => {
     if (photos?.length >= 13) {
@@ -233,7 +234,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   };
 
   const onEditImage = (imageIndex: number) => {
-    console.log("EDITING", selectedImages[imageIndex]);
+    console.log('EDITING', selectedImages[imageIndex]);
 
     ImagePicker.openCropper({
       path: selectedImages[imageIndex].uri,
@@ -244,8 +245,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       compressImageMaxWidth: 2000,
       width: 2000,
       height: 2500,
-    })
-    .then(image => {
+    }).then(image => {
       selectedImages[imageIndex].uri = image.path;
       selectedImages[imageIndex].sourceURL = image.path;
       setEditModalVisible(false);
@@ -312,22 +312,22 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   };
   return (
     <>
-    <PhotoGuideText onPress={openImageGuide}>Photo Guide</PhotoGuideText>
-    <ImagesContainer enableScroll={enableScroll}>
-      <AddProductsList
-        data={productImagesArr}
-        renderItem={renderProductImageContainer}
-        onDragging={() => setEnableScroll(false)}
-        onDragRelease={data => {
-          setProductImagesArr(data);
-          updateImagesData(data?.slice(0, -1)); // Updating Reducer Data
-          setEnableScroll(true);
-        }}
-        dragStartAnimation={true}
-        itemHeight={scale(productImageWidth)}
-        style={{paddingBottom: '250%'}}
-      />
-    </ImagesContainer>
+      <PhotoGuideText onPress={openImageGuide}>Photo Guide</PhotoGuideText>
+      <ImagesContainer enableScroll={enableScroll}>
+        <AddProductsList
+          data={productImagesArr}
+          renderItem={renderProductImageContainer}
+          onDragging={() => setEnableScroll(false)}
+          onDragRelease={data => {
+            setProductImagesArr(data);
+            updateImagesData(data?.slice(0, -1)); // Updating Reducer Data
+            setEnableScroll(true);
+          }}
+          dragStartAnimation={true}
+          itemHeight={scale(productImageWidth)}
+          style={{paddingBottom: '250%'}}
+        />
+      </ImagesContainer>
       <ImageGuideComponent
         isVisible={isImageGuideVisible}
         onClose={closeImageGuide}
@@ -343,11 +343,10 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         isVisible={imagePickerVisible}
         style={ImagePickerModalStyle}
         onBackdropPress={() => closeModal()}>
-
         <LSModal.BottomContainer>
           {imagePicker()}
-          <LSLoader isVisible={isLoading || isLoadingNextPage || isReloading}/>
-        <LSModal.CloseButton onCloseButtonPress={() => closeModal()} />
+          <LSLoader isVisible={isLoading || isLoadingNextPage || isReloading} />
+          <LSModal.CloseButton onCloseButtonPress={() => closeModal()} />
         </LSModal.BottomContainer>
       </LSModal>
     </>

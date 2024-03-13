@@ -18,7 +18,8 @@ interface DeliveryAddressProps {
 
 function DeliveryAddressComponent(props: DeliveryAddressProps) {
   const {userDetails, onPress} = props;
-  const userDidNotFillAddr = Object.keys(userDetails?.shipping_address).length < 5;
+  const userDidNotFillAddr =
+    Object.keys(userDetails?.shipping_address).length < 5;
   return (
     <DeliveryAddContainer>
       <DeliveryAddSubContainer>

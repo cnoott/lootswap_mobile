@@ -419,8 +419,8 @@ export const shoesSizeList = [
   {label: '13.5C (31.5)', value: '13.5C'},
 ];
 
-export const womenOnlySizes = shoesSizeList.filter(
-  obj => obj.label.includes('W')
+export const womenOnlySizes = shoesSizeList.filter(obj =>
+  obj.label.includes('W'),
 );
 
 export const gsSizes = shoesSizeList.filter(obj => obj.label.includes('Y'));
@@ -686,14 +686,14 @@ const getStepThreeDataFromLists = (lootData: any) => {
     return {
       sourceURL: photo,
       isServerImage: true,
-      key: `${Math.random() * 100}`
+      key: `${Math.random() * 100}`,
     };
   });
   return [
     {
       sourceURL: lootData?.primary_photo,
       isServerImage: true,
-      key: `${Math.random() * 100}`
+      key: `${Math.random() * 100}`,
     },
     ...allPhotos,
   ];
@@ -723,7 +723,7 @@ const getTradeDataForConfigure = (trade: string) => {
 };
 
 export const configureAndGetLootData = (lootData: any) => {
-  console.log(lootData?.condition, "CONDITION");
+  console.log(lootData?.condition, 'CONDITION');
   const newLootData: GET_PRODUCT_DETAILS = getAddProductRawData();
   // Configure STEP 1
   newLootData.stepOne.category = getStepOneDataFromLists(
@@ -780,7 +780,8 @@ export const validateCreateProductData = (
       }
       break;
     case 2:
-      const {brand, condition, preOwnedCondition, productDescription} = prodData?.stepTwo;
+      const {brand, condition, preOwnedCondition, productDescription} =
+        prodData?.stepTwo;
       if (brand.value && condition && productDescription) {
         if (condition.value === 'Pre-owned' && !preOwnedCondition) {
           return false;
@@ -1146,8 +1147,8 @@ export const salePrintLabel = async (imgUrl: string) => {
     html: htmlString,
     fileName: 'pdfFile',
     base64: true,
-  })
-  RNPrint.print({filePath: results.filePath})
+  });
+  RNPrint.print({filePath: results.filePath});
 };
 
 export const getPublicProfileFilters = () => {
@@ -1206,9 +1207,7 @@ export const isAlreadyTrading = (
 ) => {
   for (const trade of historyTrades) {
     if (
-      trade.receiverItems.some(
-        receiverItem => receiverItem._id === productId
-      )
+      trade.receiverItems.some(receiverItem => receiverItem._id === productId)
     ) {
       return trade;
     }
@@ -1219,7 +1218,7 @@ export const isAlreadyTrading = (
 export const findMarketDataFromSize = (stockxProduct: any, size: string) => {
   console.log('finding', size);
   return stockxProduct?.sizes?.find(
-    sizeMarketData => sizeMarketData.sizeUS === size
+    sizeMarketData => sizeMarketData.sizeUS === size,
   );
 };
 
@@ -1255,7 +1254,7 @@ export const getPreownedMarketValue = (
 
 const hasTradeOnly = (products: Array<any>) => {
   return products.find(
-    product => product.type === 'trade-only' && !product.stockxId
+    product => product.type === 'trade-only' && !product.stockxId,
   );
 };
 

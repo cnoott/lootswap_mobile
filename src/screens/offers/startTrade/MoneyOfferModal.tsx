@@ -29,7 +29,8 @@ export const MoneyOfferModal: FC<MoneyOfferProps> = props => {
   } = props;
 
   const [tempMyMoneyOffer, setTempMyMoneyOffer] = useState(myMoneyOffer);
-  const [tempRequestedMoneyOffer, setTempRequestedMoneyOffer] = useState(requestedMoneyOffer);
+  const [tempRequestedMoneyOffer, setTempRequestedMoneyOffer] =
+    useState(requestedMoneyOffer);
 
   const priceValidation = () => {
     if (!tempMyMoneyOffer) {

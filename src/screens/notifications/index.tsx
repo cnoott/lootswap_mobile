@@ -80,7 +80,6 @@ export const NotificationsScreen: FC<{}> = () => {
     handleNavigation(navigation, message, dispatch, userData);
   };
 
-
   const handleDeletePress = (notif: any) => {
     setDeleteQueue(prevQueue => {
       dispatch(deleteNotifUpdate({notifs: [...prevQueue, notif]}));

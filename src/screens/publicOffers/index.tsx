@@ -7,10 +7,7 @@ import {ProgressBar, SwiperComponent} from '../loot/styles';
 import {LSStartTradeHeader} from '../../components/commonComponents/headers/startTradeHeader';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
-import {
-  Container,
-  ButtonContainer,
-} from './styles';
+import {Container, ButtonContainer} from './styles';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {useSelector, useDispatch} from 'react-redux';
 import CreatePublicOfferStepOne from './createPublicOfferStepOne';
@@ -24,7 +21,8 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 const NUMBER_OF_STEPS = 4;
 
 export const CreatePublicOfferScreen: FC<any> = ({route}) => {
-  const {preselectedStockxItem = {}, skipFirstScreen = false} = route?.params || {};
+  const {preselectedStockxItem = {}, skipFirstScreen = false} =
+    route?.params || {};
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const dispatch = useDispatch();
@@ -33,9 +31,7 @@ export const CreatePublicOfferScreen: FC<any> = ({route}) => {
   const [myItems, setMyItems] = useState(userData?.my_items);
 
   const swiperRef = useRef<any>(null);
-  const [currPage, setCurrPage] = useState(
-    skipFirstScreen ? 1 : 0,
-  );
+  const [currPage, setCurrPage] = useState(skipFirstScreen ? 1 : 0);
   const handleBack = () => {
     if (currPage === 0) {
       navigation.goBack();
@@ -46,7 +42,7 @@ export const CreatePublicOfferScreen: FC<any> = ({route}) => {
   const handleNext = () => {
     if (canGoNext()) {
       if (currPage === 3) {
-        navigation?.navigate('CreatePublicOfferCheckoutScreen',{
+        navigation?.navigate('CreatePublicOfferCheckoutScreen', {
           publicOffersData: publicOffersData,
           myItems: myItems,
         });
@@ -83,7 +79,7 @@ export const CreatePublicOfferScreen: FC<any> = ({route}) => {
     switch (currPage) {
       case 1:
         if (receivingMoneyOffer?.length === 0) {
-          return false
+          return false;
         }
 
         let allSizesFilled = true;
@@ -114,7 +110,6 @@ export const CreatePublicOfferScreen: FC<any> = ({route}) => {
         return 'Your loot';
       case 3:
         return 'Review Offer';
-
     }
   };
 
@@ -123,7 +118,8 @@ export const CreatePublicOfferScreen: FC<any> = ({route}) => {
       <LSStartTradeHeader
         title={headerTitle()}
         subText={
-          (currPage === 0 || currPage === 1) && 'Select up to 3 items you want to trade for'
+          (currPage === 0 || currPage === 1) &&
+          'Select up to 3 items you want to trade for'
         }
         profilePicture={userData?.profile_picture}
         showPfp={headerTitle() === 'Your loot'}
@@ -148,10 +144,12 @@ export const CreatePublicOfferScreen: FC<any> = ({route}) => {
 
   const handleSelectSize = (urlKey: any, size: any) => {
     const newReceivingStockxProducts = JSON.parse(
-      JSON.stringify(receivingStockxProducts)
+      JSON.stringify(receivingStockxProducts),
     );
 
-    const foundIndex = newReceivingStockxProducts.findIndex(product => product.urlKey === urlKey);
+    const foundIndex = newReceivingStockxProducts.findIndex(
+      product => product.urlKey === urlKey,
+    );
 
     if (foundIndex !== -1) {
       newReceivingStockxProducts[foundIndex].chosenSize = size.value;
@@ -189,7 +187,7 @@ export const CreatePublicOfferScreen: FC<any> = ({route}) => {
               setPublicOffersData={setPublicOffersData}
               handleNext={handleNext}
             />
-        );
+          );
         case 2:
           return (
             <CreatePublicOfferStepTwo
@@ -215,7 +213,6 @@ export const CreatePublicOfferScreen: FC<any> = ({route}) => {
               setPublicOffersData={setPublicOffersData}
             />
           );
-
       }
     });
   };
@@ -223,7 +220,10 @@ export const CreatePublicOfferScreen: FC<any> = ({route}) => {
   return (
     <Container>
       {renderTopView()}
-      <SwiperComponent ref={swiperRef} onIndexChanged={setCurrPage} index={currPage}>
+      <SwiperComponent
+        ref={swiperRef}
+        onIndexChanged={setCurrPage}
+        index={currPage}>
         {renderSteps()}
       </SwiperComponent>
       {renderBottomButtonView()}

@@ -163,7 +163,7 @@ export const SearchScreen: FC<any> = () => {
     };
     handleSubmitFilters(dispatch, null, searchData, searchQuery);
     loggingService().logEvent('search', {
-      search_term: searchQuery
+      search_term: searchQuery,
     });
   };
 
@@ -230,15 +230,12 @@ export const SearchScreen: FC<any> = () => {
 
   const renderRecentSearches = () => {
     if (recommendedResults.length) {
-      return renderRecommendedSearch()
+      return renderRecommendedSearch();
     }
-    if (
-      !isLogedIn ||
-      (isLogedIn && !userData?.recentSearches?.length)
-    ) {
+    if (!isLogedIn || (isLogedIn && !userData?.recentSearches?.length)) {
       return (
         <EmptySearchContainer>
-          <SvgXml xml={EMPTY_SEARCH_ICON}/>
+          <SvgXml xml={EMPTY_SEARCH_ICON} />
           <EmptySearchText>{`Search for your\nnew loot`}</EmptySearchText>
         </EmptySearchContainer>
       );
