@@ -1,6 +1,6 @@
 import * as React from 'react';
 import TradeOfferCell from '../../screens/offers/offerItems/TradeOfferCell';
-import PublicOfferCell from '../../components/publicOffer/PublicOfferCell'; 
+import PublicOfferCell from '../../components/publicOffer/PublicOfferCell';
 import {PurchaseCellContainer} from './styles';
 import TradeOrderUserDetailView from './tradeOrderUserDetailView';
 import CellBadge from '../../components/offers/cellBadge';
@@ -16,11 +16,11 @@ function OrderTradeOrdersCell(props: OrderPurchaseProps) {
   const isReceiver = item.receiver._id === userData?._id;
   const showNotifBadge =
     (isReceiver && item?.receiverNewNotif) ||
-    (!isReceiver && item?.senderNewNotif)
+    (!isReceiver && item?.senderNewNotif);
   return (
     <PurchaseCellContainer onPress={() => onCellPress(true)}>
       <TradeOrderUserDetailView item={item} userData={userData} />
-      {showNotifBadge && <CellBadge top={15} left={8}/>}
+      {showNotifBadge && <CellBadge top={15} left={8} />}
       {item.tradeId ? (
         <TradeOfferCell offerItem={item?.tradeId} />
       ) : (

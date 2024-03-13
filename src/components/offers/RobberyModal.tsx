@@ -26,10 +26,10 @@ export const RobberyModal: FC<RobberyModalProps> = props => {
           <ModalBodyText>
             The estimated market value of your offer is more than
             <PercentText> 30% below </PercentText>the value of what your asking.
-
           </ModalBodyText>
           <ModalBodyText>
-            Tweak your offer to make it more enticing for the other person before you send it over.
+            Tweak your offer to make it more enticing for the other person
+            before you send it over.
           </ModalBodyText>
 
           <LSButton
@@ -40,7 +40,6 @@ export const RobberyModal: FC<RobberyModalProps> = props => {
             fitToWidth={'90%'}
             onPress={() => closeModal()}
           />
-
         </ModalContainerView>
         <LSModal.CloseButton onCloseButtonPress={() => closeModal()} />
       </LSModal.BottomContainer>

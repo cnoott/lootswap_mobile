@@ -12,17 +12,12 @@ export const FoundPublicOffersScreen: FC<any> = ({route}) => {
   const {stockxProduct, foundPublicOffers} = route.params;
 
   const renderPublicOfferItem = ({item}: any) => {
-    return (
-      <PublicOfferItem
-        publicOffer={item}
-      />
-    );
+    return <PublicOfferItem publicOffer={item} />;
   };
-
 
   return (
     <>
-      <InStackHeader title={'Public Offers'}/>
+      <InStackHeader title={'Public Offers'} />
       <Container>
         <PublicOffersFlatList
           data={foundPublicOffers}

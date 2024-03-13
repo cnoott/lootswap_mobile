@@ -18,7 +18,6 @@ import Tooltip from '../../components/tooltip/tooltip';
 import {SvgXml} from 'react-native-svg';
 import {QUESTION_MARK} from 'localsvgimages';
 
-
 interface SearchResult {
   imgUrl: String;
   name: String;
@@ -38,11 +37,11 @@ interface StockxResultProps {
 export const StockxSearchResults: FC<StockxResultProps> = props => {
   const {
     searchResults = [],
-      onSelectResult,
+    onSelectResult,
     loading = true,
-      selectedUrlKey,
+    selectedUrlKey,
     productName = '',
-      showTitle = true
+    showTitle = true,
   } = props;
 
   const [opacity] = useState(new Animated.Value(1)); // Initial value for opacity: 1
@@ -94,7 +93,6 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
     );
   };
 
-
   const BlinkingImage = () => {
     return (
       <Animated.View
@@ -117,7 +115,7 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
         isSelected={selectedUrlKey === item?.urlKey}>
         <ImageContainer>
           {loading ? (
-            <BlinkingImage/>
+            <BlinkingImage />
           ) : (
             <>
               {item.image ? (
@@ -126,15 +124,18 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
                   resizeMode={FastImage.resizeMode.contain}
                 />
               ) : (
-                <SvgXml xml={QUESTION_MARK} width={'90%'}/>
+                <SvgXml xml={QUESTION_MARK} width={'90%'} />
               )}
             </>
           )}
         </ImageContainer>
         <TextContainer>
-          <TitleText>{loading ? <BlinkingText/> : item?.name}</TitleText>
+          <TitleText>{loading ? <BlinkingText /> : item?.name}</TitleText>
           <BrandContainer>
-            {loading && <BlinkingBrandText />}<BrandText>{(item?.subTitle && !loading) && `${item.subTitle}`}</BrandText>
+            {loading && <BlinkingBrandText />}
+            <BrandText>
+              {item?.subTitle && !loading && `${item.subTitle}`}
+            </BrandText>
           </BrandContainer>
         </TextContainer>
       </ItemContainer>

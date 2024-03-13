@@ -12,7 +12,7 @@ import useDebounce from '../../utility/customHooks/useDebouncer';
 import {
   LoadingRequest,
   LoadingSuccess,
-} from '../../redux/modules/loading/actions'
+} from '../../redux/modules/loading/actions';
 import {verticalScale} from 'react-native-size-matters';
 import {Alert} from 'custom_top_alert';
 
@@ -24,8 +24,7 @@ interface StepOneProps {
 }
 
 export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
-  const {publicOffersData, setPublicOffersData, handleNext} =
-    props;
+  const {publicOffersData, setPublicOffersData, handleNext} = props;
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const resetQuery = () => setQuery('');
@@ -39,7 +38,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
   const drawerWidth = Dimensions.get('window').height - verticalScale(280);
   const height = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, drawerWidth]
+    outputRange: [0, drawerWidth],
   });
 
   const handleDrawerAnimation = useCallback(() => {
@@ -47,7 +46,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
     Animated.timing(animation, {
       toValue: 1,
       duration: 400,
-      useNativeDriver: false
+      useNativeDriver: false,
     }).start();
     setIsOpen(!isOpen);
   }, [animation, isOpen]);
@@ -60,14 +59,18 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
     Animated.timing(animation, {
       toValue: 0,
       duration: 400,
-      useNativeDriver: false
+      useNativeDriver: false,
     }).start();
     setIsOpen(!isOpen);
   }, [animation, isOpen, stockxLoading]);
 
   const debouncedSearchTerm = useDebounce(query, 313); //set delay
   useEffect(() => {
-    if (!stockxLoading && debouncedSearchTerm && debouncedSearchTerm.length > 5) {
+    if (
+      !stockxLoading &&
+      debouncedSearchTerm &&
+      debouncedSearchTerm.length > 5
+    ) {
       fetchStockxData();
     }
   }, [debouncedSearchTerm]);
@@ -131,7 +134,7 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
           console.log('ERR => ', err);
           dispatch(LoadingSuccess());
         },
-      )
+      ),
     );
   };
 

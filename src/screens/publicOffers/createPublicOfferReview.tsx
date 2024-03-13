@@ -2,7 +2,10 @@ import React, {FC, useState} from 'react';
 import {StepContainer} from './styles';
 import StartTradeItemCell from '../../components/startTrade/startTradeItemCell';
 import MoneyOfferModal from '../offers/startTrade/MoneyOfferModal';
-import {calculateMarketValue, findMarketDataFromSize} from '../../utility/utility';
+import {
+  calculateMarketValue,
+  findMarketDataFromSize,
+} from '../../utility/utility';
 import {
   ScrollSubContainer,
   TradeReviewText,
@@ -28,11 +31,11 @@ interface ReviewProps {
 
 export const CreatePublicOfferReview: FC<ReviewProps> = props => {
   const {myItems, setMyItems, publicOffersData, setPublicOffersData} = props;
-  const {receivingStockxProducts, receivingMoneyOffer, sendingMoneyOffer} = publicOffersData;
+  const {receivingStockxProducts, receivingMoneyOffer, sendingMoneyOffer} =
+    publicOffersData;
 
   const [moneyModalVisible, setMoneyModalVisible] = useState(false);
   const [isSendingOffer, setIsSendingOffer] = useState(true);
-
 
   const setSendingMoneyOffer = (moneyOffer: number) => {
     setPublicOffersData({
@@ -52,9 +55,11 @@ export const CreatePublicOfferReview: FC<ReviewProps> = props => {
     return (
       <>
         <TradeReviewText> Your loot </TradeReviewText>
-        {myItems.filter(item => item?.isSelected).map(item => (
-          <StartTradeItemCell item={item} isReview={true} />
-        ))}
+        {myItems
+          .filter(item => item?.isSelected)
+          .map(item => (
+            <StartTradeItemCell item={item} isReview={true} />
+          ))}
         <MarketValueContainer>
           <MarketValueTitle>Total Est. Market Value: </MarketValueTitle>
           <MarketValueText>
@@ -97,7 +102,7 @@ export const CreatePublicOfferReview: FC<ReviewProps> = props => {
           radius={30}
           onPress={() => {
             sendingOffer ? setIsSendingOffer(true) : setIsSendingOffer(false);
-            setMoneyModalVisible(true)
+            setMoneyModalVisible(true);
           }}
         />
       </EditMoneyContainer>
@@ -114,16 +119,18 @@ export const CreatePublicOfferReview: FC<ReviewProps> = props => {
         <MarketValueContainer>
           <MarketValueTitle>Total Est. Market Value: </MarketValueTitle>
           <MarketValueText>
-            ${receivingStockxProducts.reduce(
-              (sum, product) => sum + findMarketDataFromSize(product, product.chosenSize)?.lastSale,
-                0
+            $
+            {receivingStockxProducts.reduce(
+              (sum, product) =>
+                sum +
+                findMarketDataFromSize(product, product.chosenSize)?.lastSale,
+              0,
             )}
           </MarketValueText>
         </MarketValueContainer>
       </>
     );
   };
-
 
   return (
     <>

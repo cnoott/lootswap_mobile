@@ -68,7 +68,7 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
 
   const getSize = (item: any) => {
     if (isStockxItem) {
-      return item?.chosenSize
+      return item?.chosenSize;
     }
     return item?.size;
   };
@@ -95,7 +95,6 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
           <SizeText>Size {getSize(items[0])}</SizeText>
         </SingleSizeTextContainer>
       </ImageContainer>
-
     );
   };
 
@@ -104,18 +103,19 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
     const fromHomeSize = scale(45);
     const itemPhoto = getImageUri(items[0]);
     return (
-      <OfferItemContainer size={isFromHome ? HOME_SIZE: OFFERS_SIZE}>
+      <OfferItemContainer size={isFromHome ? HOME_SIZE : OFFERS_SIZE}>
         <ImageContainerDouble size={isFromHome ? fromHomeSize : _size}>
           <Image
             source={{uri: itemPhoto}}
             size={isFromHome ? fromHomeSize : _size}
             isStockxItem={isStockxItem}
           />
-        <MultiSizeTextContainer>
-          <SizeText>{getSize(items[0])}</SizeText>
-        </MultiSizeTextContainer>
+          <MultiSizeTextContainer>
+            <SizeText>{getSize(items[0])}</SizeText>
+          </MultiSizeTextContainer>
         </ImageContainerDouble>
-        <TrippleViewOffer size={isFromHome ? moderateScale(45): moderateScale(50)}>
+        <TrippleViewOffer
+          size={isFromHome ? moderateScale(45) : moderateScale(50)}>
           <OfferText>+${moneyOffer}</OfferText>
         </TrippleViewOffer>
       </OfferItemContainer>
@@ -141,9 +141,9 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
             size={isFromHome ? fromHomeSize : _size}
             isStockxItem={isStockxItem}
           />
-        <MultiSizeTextContainer>
-          <SizeText>{getSize(items[1])}</SizeText>
-        </MultiSizeTextContainer>
+          <MultiSizeTextContainer>
+            <SizeText>{getSize(items[1])}</SizeText>
+          </MultiSizeTextContainer>
         </ImageContainerDouble>
 
         <ImageContainer size={isFromHome ? fromHomeSize : _size}>
@@ -198,7 +198,7 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
       );
     };
     return (
-      <OfferItemContainer size={isFromHome ? HOME_SIZE + 10: OFFERS_SIZE}>
+      <OfferItemContainer size={isFromHome ? HOME_SIZE + 10 : OFFERS_SIZE}>
         <OfferItemList data={photoArray} renderItem={trippleViewItem} />
       </OfferItemContainer>
     );

@@ -123,7 +123,6 @@ export const EditAddressComponent: FC<EditAddressComponentProps> = props => {
             key: GOOGLE_MAPS_KEY,
             language: 'en',
             components: 'country:us',
-
           }}
           styles={AutocompleteStyles}
           enablePoweredByContainer={false}

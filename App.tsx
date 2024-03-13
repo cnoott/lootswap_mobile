@@ -20,9 +20,9 @@ import codePush from 'react-native-code-push';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 let codePushOptions = {
-  updateDialog: true,
+  updateDialog: false,
   checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-  installMode: codePush.InstallMode.ON_NEXT_SUSPEND,
+  installMode: codePush.InstallMode.ON_NEXT_RESTART,
 };
 
 const App = () => {

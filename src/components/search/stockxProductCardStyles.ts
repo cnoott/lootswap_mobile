@@ -82,4 +82,3 @@ export const StockxNumListingsText = styled.Text.attrs(props => ({
   ${space}
   ${layout}
 `;
-

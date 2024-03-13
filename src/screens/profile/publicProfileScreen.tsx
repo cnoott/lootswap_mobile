@@ -37,7 +37,10 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {getPublicProfileFilters} from '../../utility/utility';
 
 export const PublicProfileScreen: FC<{}> = ({route}) => {
-  const {requestedUserDetails, requestedUserDetails: {ratings}} = route?.params;
+  const {
+    requestedUserDetails,
+    requestedUserDetails: {ratings},
+  } = route?.params;
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [selectedFilterId, setSelectedFilter] = useState(1);
 
@@ -88,11 +91,17 @@ export const PublicProfileScreen: FC<{}> = ({route}) => {
       {requestedUserDetails?.ratings.length > 0 ? (
         <>
           <StarRatings
-            rating={Math.floor(ratings.reduce((total, next) => total += next.rating, 0) / ratings.length)}
+            rating={Math.floor(
+              ratings.reduce((total, next) => (total += next.rating), 0) /
+                ratings.length,
+            )}
             starColor={'#FF5726'}
           />
           <RatingText>
-            {(ratings.reduce((total, next) => total += next.rating, 0) / ratings.length).toFixed(2)}
+            {(
+              ratings.reduce((total, next) => (total += next.rating), 0) /
+              ratings.length
+            ).toFixed(2)}
           </RatingText>
         </>
       ) : (

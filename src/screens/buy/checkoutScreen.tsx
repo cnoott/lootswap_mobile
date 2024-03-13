@@ -48,7 +48,8 @@ export const CheckoutScreen: FC<{}> = props => {
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state?.auth);
   const {userData} = auth;
-  const userNoAddress = Object.keys(userData?.shipping_address || {}).length < 5;
+  const userNoAddress =
+    Object.keys(userData?.shipping_address || {}).length < 5;
 
   const [paypalOrderId, setPaypalOrderId] = useState('');
 
@@ -71,7 +72,7 @@ export const CheckoutScreen: FC<{}> = props => {
           tradeId: tradeData?._id,
           paypalId: resultData.orderID,
           email: userData?.email,
-        }
+        };
         dispatch(
           capturePaypalOrder(
             reqData,
@@ -92,7 +93,7 @@ export const CheckoutScreen: FC<{}> = props => {
       productId: productData?._id,
       userId: userData?._id,
       isMoneyOffer: isMoneyOffer,
-      tradeId: tradeData?._id
+      tradeId: tradeData?._id,
     };
 
     dispatch(
@@ -101,7 +102,7 @@ export const CheckoutScreen: FC<{}> = props => {
         res => {
           console.log(res);
           PayPalModule.setupPayPal(res.clientId, __DEV__ ? 'sandbox' : 'live');
-          setPaypalOrderId(res.id)
+          setPaypalOrderId(res.id);
         },
         err => {
           Alert.showError('Error checking out, please try again');
@@ -110,7 +111,12 @@ export const CheckoutScreen: FC<{}> = props => {
     );
 
     return () => subscription.remove();
-  }, [userData?._id, dispatch, productData?.userId, userData?.shipping_address.street1]);
+  }, [
+    userData?._id,
+    dispatch,
+    productData?.userId,
+    userData?.shipping_address.street1,
+  ]);
 
   const handleNavigation = (responseData: any) => {
     if (isMoneyOffer) {
@@ -146,7 +152,6 @@ export const CheckoutScreen: FC<{}> = props => {
         paypalOrderData: responseData.paypalOrder,
       });
     }
-
   };
 
   const renderShippingCost = () => {
@@ -165,12 +170,16 @@ export const CheckoutScreen: FC<{}> = props => {
 
   const renderTotal = () => {
     if (isMoneyOffer) {
-      return parseFloat(parseFloat(tradeData?.senderMoneyOffer) + parseFloat(renderShippingCost())).toFixed(2);
+      return parseFloat(
+        parseFloat(tradeData?.senderMoneyOffer) +
+          parseFloat(renderShippingCost()),
+      ).toFixed(2);
     } else {
-      return parseFloat(parseFloat(renderShippingCost()) + parseFloat(productData?.price)).toFixed(2);
+      return parseFloat(
+        parseFloat(renderShippingCost()) + parseFloat(productData?.price),
+      ).toFixed(2);
     }
   };
-
 
   const renderHeading = (label: string) => {
     return <HeadingLabel>{label}</HeadingLabel>;
@@ -226,7 +235,7 @@ export const CheckoutScreen: FC<{}> = props => {
         ],
       });
 
-      const result = await PayPalModule.startPayPalCheckout(paypalOrderId)
+      const result = await PayPalModule.startPayPalCheckout(paypalOrderId);
     } else {
       Alert.showError('There was an issue with checkout, please try again');
     }

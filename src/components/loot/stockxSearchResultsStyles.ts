@@ -12,7 +12,7 @@ export const Container = styled.View.attrs(props => ({
   backgroundColor: '#FAFAFA',
   bg: props.theme.colors.white,
   shadowColor: '#000',
-  shadowOffset: { width: 0, height: 1 },
+  shadowOffset: {width: 0, height: 1},
   shadowOpacity: 0.2,
   shadowRadius: 4,
   elevation: 20,

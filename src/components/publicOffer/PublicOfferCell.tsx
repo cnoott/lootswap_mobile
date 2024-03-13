@@ -37,7 +37,7 @@ export const PublicOfferCell: FC<PublicOfferProps> = props => {
   const renderSwapView = () => {
     return (
       <EmptyView>
-        <SwapLine size={95}/>
+        <SwapLine size={95} />
         <SwapButtonContainer>
           <SvgXml xml={SWAP_ICON} />
         </SwapButtonContainer>
@@ -50,7 +50,7 @@ export const PublicOfferCell: FC<PublicOfferProps> = props => {
       <>
         <PublicOfferItemContainer>
           <AboveItemLabel>
-            Item{receivingStockxProducts.length > 1 ? 's': ''} you are trading
+            Item{receivingStockxProducts.length > 1 ? 's' : ''} you are trading
           </AboveItemLabel>
           <TradeOfferItem
             items={receivingStockxProducts?.map(prod => {
@@ -95,6 +95,6 @@ export const PublicOfferCell: FC<PublicOfferProps> = props => {
       </BottomRowView>
     );
   }
-}
+};
 
 export default PublicOfferCell;

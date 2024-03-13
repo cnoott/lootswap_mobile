@@ -38,7 +38,7 @@ import {ORDER_TRACK_PURCHASED} from 'localsvgimages';
 import {SvgXml} from 'react-native-svg';
 import ReviewStockxItemCell from '../../components/publicOffer/reviewStockxItemCell';
 import {MoneyOfferText} from '../../screens/offers/startTrade/styles';
-import { isPending } from '@reduxjs/toolkit';
+import {isPending} from '@reduxjs/toolkit';
 
 interface TradeCheckoutComponentProps {
   receiverItems: Array<any>;
@@ -131,12 +131,10 @@ export const TradeCheckoutComponent: FC<
     return (
       <EmptyView>
         {renderHeading(
-          isFromPublicOffersCheckout
-            ? 'You will send'
-            : 'You will receive'
+          isFromPublicOffersCheckout ? 'You will send' : 'You will receive',
         )}
         {receiverItems.map(item => {
-          return <ReviewStockxItemCell stockxProduct={item} />
+          return <ReviewStockxItemCell stockxProduct={item} />;
         })}
         {receivingMoneyOffer !== 0 && (
           <MoneyOfferText>{`+$${receivingMoneyOffer}`}</MoneyOfferText>
@@ -178,7 +176,8 @@ export const TradeCheckoutComponent: FC<
           <SummaryText>${platformFee?.toFixed(2)}</SummaryText>
         </StretchedRowView>
         {renderSummaryDetail('Shipping', shippingCost?.toFixed(2))}
-        {userPayout !== 0 && renderSummaryDetail('Additional Cash offer', userPayout)}
+        {userPayout !== 0 &&
+          renderSummaryDetail('Additional Cash offer', userPayout)}
         {discount !== 0 && renderSummaryDetail('Promo Discount', -discount)}
         {/*renderSummaryDetail('Taxes and fees', paymentDetails?.)*/}
       </EmptyView>

@@ -204,7 +204,8 @@ export const getHomeScreenPublicOffers = (
   };
 };
 
-export const getRecommendedSearch = ( //TODO move to search actions
+export const getRecommendedSearch = (
+  //TODO move to search actions
   reqData: any,
   successCallBack: Function,
   errorCallBack: Function,

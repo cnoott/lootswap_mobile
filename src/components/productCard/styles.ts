@@ -33,7 +33,6 @@ export const Image = styled.Image.attrs({
   ${border}
 `;
 
-
 export const ImageContainer = styled.View.attrs(props => ({
   height: scale(185),
   borderRadius: scale(productRadius),

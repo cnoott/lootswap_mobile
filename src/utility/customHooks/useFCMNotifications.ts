@@ -43,7 +43,6 @@ const useFCMNotifications = () => {
     updateUserIdInToken();
   }, [userData?._id]);
 
-
   const configureNotifPermission = async () => {
     const permissionStatus = await messaging().hasPermission();
     const isPermissionGranted = checkForPermissionGranted(permissionStatus);
