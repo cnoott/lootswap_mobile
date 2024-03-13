@@ -48,6 +48,8 @@ import {Size, Type} from '../../enums';
 import {useScrollToTop} from '@react-navigation/native';
 import {loggingService} from '../../services/loggingService';
 
+const ITEMS_PER_PAGE = 16;
+
 export const SearchScreen: FC<any> = () => {
   const insets = useSafeAreaInsets();
   const paddingTop = insets.top;
@@ -56,13 +58,16 @@ export const SearchScreen: FC<any> = () => {
 
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const search: SearchProps = useSelector(state => state.search);
-  const {loading, searchProducts} = search;
+  const {loading, searchProducts, endReached} = search;
   const filters: SearchProps = useSelector(state => state.search);
   const {stockxProducts, filtersSet} = filters;
 
   const dispatch = useDispatch();
   const [query, setQuery] = useState('');
   const [recommendedResults, setRecommendedResults] = useState([]);
+
+  const [page, setPage] = useState(0);
+  const [loadingItems, setLoadingItems] = useState([]);
 
   const swiperRef = useRef<any>(null);
   const [currPage, setCurrPage] = useState(0);
@@ -77,6 +82,17 @@ export const SearchScreen: FC<any> = () => {
     }
     dispatch(getAvaliableSizesRequest());
   }, [debouncedSearchTerm, searchProducts.length]);
+
+  //TODO: end reached
+  useEffect(() => {
+    if (loading && !endReached) {
+      setLoadingItems(new Array(8).fill({loading: true}));
+      console.log('now loading');
+    } else {
+      setLoadingItems([]);
+      console.log('not loading');
+    }
+  }, [loading])
 
   const handleNavigateToFilters = () => {
     swiperRef?.current?.scrollTo(2);
@@ -134,12 +150,18 @@ export const SearchScreen: FC<any> = () => {
     if (!searchQuery) {
       return;
     }
-
+    setPage(0);
     if (isLogedIn) {
       handleSaveSearch(searchQuery);
     }
     swiperRef?.current?.scrollTo(currPage + 1);
-    handleSubmitFilters(dispatch, null, filters, searchQuery);
+
+    const searchData = {
+      ...filters,
+      page: 0,
+      itemsPerPage: ITEMS_PER_PAGE,
+    };
+    handleSubmitFilters(dispatch, null, searchData, searchQuery);
     loggingService().logEvent('search', {
       search_term: searchQuery,
     });
@@ -159,11 +181,11 @@ export const SearchScreen: FC<any> = () => {
     swiperRef?.current?.scrollTo(0);
   };
 
-  const renderItem = ({item}: any) => {
-    if (loading) {
-      return <LoadingProductCard key={item} />;
+  const renderItem = ({item, index}: any) => {
+    if (item.loading) {
+      return <LoadingProductCard key={`loading-${index}`} />
     }
-    return <LSProductCard item={item} isHorizontalView={false} />;
+    return <LSProductCard item={item} isHorizontalView={false} key={item._id}/>;
   };
 
   const handlePressRecentSearch = (recentSearch: string) => {
@@ -173,6 +195,7 @@ export const SearchScreen: FC<any> = () => {
 
   const handleClearFilters = () => {
     dispatch(clearFiltersRequest());
+    setPage(0);
     handleSubmitFilters(dispatch, null, {}, query);
   };
 
@@ -262,17 +285,32 @@ export const SearchScreen: FC<any> = () => {
     </>
   );
 
+  const handleSearchEndReached = () => {
+    if (loading || endReached) {
+      return;
+    }
+    const searchData = {
+      ...filters,
+      page: page + 1,
+      itemsPerPage: ITEMS_PER_PAGE,
+    };
+    setPage(prevPage => prevPage + 1);
+    handleSubmitFilters(dispatch, null, searchData, query);
+  };
+
   const renderSearchResults = () => {
     return (
       <>
         <FlatList
           ref={scrollRef}
-          data={loading ? [1, 2, 3, 4, 5, 6] : search.searchProducts}
+          data={[...search.searchProducts, ...loadingItems]}
           renderItem={renderItem}
-          keyExtractor={item => (loading ? item : item._id)}
+          keyExtractor={(item, index) =>
+            item._id ? item._id.toString() : `loading-${index}`
+          }
           ListHeaderComponent={renderStockxResults()}
           numColumns={2}
-          //onEndReached={() => onEndReached()}
+          onEndReached={() => handleSearchEndReached()}
         />
         {filtersSet && (
           <ClearFiltersButtonContainer>
