@@ -160,6 +160,19 @@ const SearchStackNavigation = () => (
     <Stack.Screen name="SearchScreen" component={SearchScreen} />
     <Stack.Screen name="FiltersScreen" component={FiltersScreen} />
     <Stack.Screen name="StockxScreen" component={StockxScreen} />
+
+    <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
+    <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
+    <Stack.Screen
+      name="TradeCheckoutSuccessScreen"
+      component={TradeCheckoutSuccessScreen}
+    />
+    <Stack.Screen name="AddressScreenBuyCheckout" component={AddressScreen} />
+    <Stack.Screen
+      name="BuyCheckoutSuccessScreen"
+      component={TradeCheckoutSuccessScreen}
+    />
+
     <Stack.Screen
       name="CreatePublicOfferScreen"
       component={CreatePublicOfferScreen}
