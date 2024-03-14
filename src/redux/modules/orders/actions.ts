@@ -8,8 +8,11 @@ import {
   SET_FIRST_TIME_OPEN_FALSE,
   SET_ORDER_NOTIF_AS_READ,
   SET_PAYPAL_ORDER_NOTIF_AS_READ,
+<<<<<<< HEAD
   FETCH_PAYPAL_CHECKOUT_LINK,
   CAPTURE_PAYPAL_ORDER,
+=======
+>>>>>>> parent of 1cd411c (redux + saga impelementation for fetch paypal api call)
 } from '../../../constants/actions';
 
 export const getAllOrders = (reqData: any) => {
@@ -132,6 +135,7 @@ export const setPaypalNotifAsReadSuccess = (payload: any) => {
     payload: payload,
   };
 };
+<<<<<<< HEAD
 
 export const fetchPaypalCheckoutLink = (
   reqData: any,
@@ -158,3 +162,5 @@ export const capturePaypalOrder = (
     errorCallBack: errorCallBack,
   };
 };
+=======
+>>>>>>> parent of 1cd411c (redux + saga impelementation for fetch paypal api call)

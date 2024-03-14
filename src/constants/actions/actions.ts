@@ -91,6 +91,9 @@ export const actions = {
   SET_PAYPAL_ORDER_NOTIF_AS_READ: 'SET_PAYPAL_ORDER_NOTIF_AS_READ',
   SIGNIN_WITH_GOOGLE: 'SIGNIN_WITH_GOOGLE',
   SIGNIN_WITH_APPLE: 'SIGNIN_WITH_APPLE',
+<<<<<<< HEAD
   FETCH_PAYPAL_CHECKOUT_LINK: 'FETCH_PAYPAL_CHECKOUT_LINK',
   CAPTURE_PAYPAL_ORDER: 'CAPTURE_PAYPAL_ORDER',
+=======
+>>>>>>> parent of 1cd411c (redux + saga impelementation for fetch paypal api call)
 };
