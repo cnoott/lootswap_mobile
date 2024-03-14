@@ -240,6 +240,32 @@ export const CheckoutScreen: FC<{}> = props => {
       Alert.showError('There was an issue with checkout, please try again');
     }
   };
+  // ToDo: handle when approve link is not there
+  const handleCheckout = () => {
+    const reqData = {
+      productId: productData?._id,
+      userId: userData?._id,
+      email: userData?.email,
+      tradeId: tradeData?._id,
+    };
+    dispatch(
+      fetchPaypalCheckoutLink(
+        reqData,
+        res => {
+          const approveLink = res.links.find(link => link.rel === 'approve');
+          if (approveLink && approveLink.href) {
+            setApprovalUrl(approveLink.href); // Save the approval URL
+            setModalVisible(true); // Show the modal
+            dispatch(LoadingSuccess());
+          }
+        },
+        error => {
+          Alert.showError('There was an error with your transaction');
+          console.log(error);
+        },
+      ),
+    );
+  };
 
   const renderCheckOutButton = () => {
     return (
@@ -261,7 +287,6 @@ export const CheckoutScreen: FC<{}> = props => {
       </EmptyView>
     );
   };
-
   return (
     <Container>
       <InStackHeader title={'Checkout'} onlyTitleCenterAlign={true} />
@@ -284,8 +309,12 @@ export const CheckoutScreen: FC<{}> = props => {
         <HorizontalBar />
         <VerticalMargin />
         {renderTotalView()}
+        <LSButton onPress={() => handleCheckout()} title="Checkout with PayPal" />
+        {renderApprovalModal()}
         <VerticalMargin />
-        {renderCheckOutButton()}
+        {//renderCheckOutButton()}
+        }
+
         <VerticalMargin margin={20} />
       </ScrollSubContainer>
     </Container>

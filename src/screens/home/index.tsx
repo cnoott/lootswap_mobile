@@ -35,6 +35,7 @@ import LSButton from '../../components/commonComponents/LSButton';
 import PublicOfferCell from '../../components/publicOffer/PublicOfferCell';
 import {ScrollView} from 'react-native';
 import LoadingProductCard from '../../components/productCard/loadingProductCard';
+import LoadingPublicOfferCell from '../../components/publicOffer/LoadingPublicOfferCell';
 
 const ITEMS_PER_PAGE = 8;
 const PUBLIC_OFFERS_PER_PAGE = 4;
@@ -45,6 +46,7 @@ export const HomeScreen: FC<{}> = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [loadingItems, setLoadingItems] = useState([]);
+  const [loadingPublicOffersItems, setLoadingPublicOffersItems] = useState([]);
 
   const scrollRef = React.useRef(null);
   useScrollToTop(scrollRef);
@@ -54,11 +56,12 @@ export const HomeScreen: FC<{}> = () => {
 
   const [products, setProducts] = useState([]);
   const [endReached, setEndReached] = useState(false);
-  const [publicOffers, setPublicOffers] = useState([]);
+  const [PublicOfferEndReached, setPublicOfferEndReached] = useState(false);
   const [page, setPage] = useState(0);
   const [publicOffersPage, setPublicOffersPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [publicOffersLoading, setPublicOffersLoading] = useState(false);
+  const [publicOffers, setPublicOffers] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -94,9 +97,19 @@ export const HomeScreen: FC<{}> = () => {
       console.log('now loading');
     } else {
       setLoadingItems([]);
-      console.log('not loading');
+      console.log('not loading items');
     }
   }, [loading]);
+
+  useEffect(() => {
+    if (publicOffersLoading && !PublicOfferEndReached) {
+      setLoadingPublicOffersItems(new Array(4).fill({publicOffersLoading: true}));
+      console.log('now loading');
+    } else {
+      setLoadingPublicOffersItems([]);
+      console.log('not loading public offers');
+    }
+  }, [publicOffersLoading]);
 
   useEffect(() => {
     setPublicOffersLoading(true);
@@ -114,6 +127,7 @@ export const HomeScreen: FC<{}> = () => {
           reqData,
           (res: any) => {
             setPublicOffers([...publicOffers, ...res]);
+            setPublicOfferEndReached(res);
             setPublicOffersLoading(false);
           },
           (err: any) => {
@@ -132,6 +146,7 @@ export const HomeScreen: FC<{}> = () => {
           reqData,
           (res: any) => {
             setPublicOffers([...publicOffers, ...res]);
+            setPublicOfferEndReached(res);
             setPublicOffersLoading(false);
           },
           (err: any) => {
@@ -155,7 +170,6 @@ export const HomeScreen: FC<{}> = () => {
       getHomeScreenProducts(
         reqData,
         (res: any) => {
-          //setProducts(res.products);
           setEndReached(res.endReached);
         },
         (err: any) => {
@@ -180,7 +194,7 @@ export const HomeScreen: FC<{}> = () => {
         getPublicOffers(
           publicOfferReqData,
           (res: any) => {
-            setPublicOffers(res);
+            setPublicOfferEndReached(res.PublicOfferEndReached);
           },
           (err: any) => {
             console.log('ERR => ', err);
@@ -196,7 +210,7 @@ export const HomeScreen: FC<{}> = () => {
         getHomeScreenPublicOffers(
           publicOfferReqData,
           (res: any) => {
-            setPublicOffers(res);
+            setPublicOfferEndReached(res);
           },
           (err: any) => {
             console.log('ERR => ', err);
@@ -221,15 +235,23 @@ export const HomeScreen: FC<{}> = () => {
   };
 
   const onPublicOffersEndReached = () => {
-    if (!publicOffersLoading) {
+    if (!publicOffersLoading && !PublicOfferEndReached) {
       setPublicOffersPage(prevPage => prevPage + 1);
     }
   };
 
-  const renderPublicOfferItem = ({item, key}: any) => {
+  const renderPublicOfferItem = ({item, index}: any) => {
+    if (item.publicOffersLoading) {
+      return (
+        <LoadingPublicOfferCell
+          key={`publicOffersLoading-${index}`}
+          isFromHome={true}
+        />
+      );
+    }
     return (
       <PublicOfferCell
-        key={key}
+        key={index}
         receivingStockxProducts={item.receivingStockxProducts}
         sendingProductIds={item.sendingProductIds}
         receivingMoneyOffer={item.receivingMoneyOffer}
@@ -272,11 +294,14 @@ export const HomeScreen: FC<{}> = () => {
             }
           />
         </SectionTopContainer>
+
         <PublicOffersFlatList
-          data={publicOffers}
+          data={[...publicOffers, ...loadingPublicOffersItems]}
           renderItem={renderPublicOfferItem}
-          keyExtractor={item => item?._id}
           horizontal={true}
+          keyExtractor={(item, index) =>
+            item._id ? item._id.toString() : `publicOffersLoading-${index}`
+          }
           onEndReached={() => onPublicOffersEndReached()}
         />
       </SectionContainer>

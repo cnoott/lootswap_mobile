@@ -230,7 +230,7 @@ export function* capturePaypalOrder(action: any) {
     if (response?.success) {
       action?.successCallBack(response.data);
     } else {
-      action?.errorCallBack();
+      action?.errorCallBack(response.error);
     }
   } catch (e) {
     action?.errorCallBack();

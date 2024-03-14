@@ -17,12 +17,15 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {loggingService} from '../../services/loggingService';
+import LoadingPublicOfferCell from '../../components/publicOffer/LoadingPublicOfferCell';
+
 
 const ITEMS_PER_PAGE = 6;
 
 export const BrowsePublicOffersScreen: FC<any> = () => {
   const [publicOffers, setPublicOffers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingItems, setLoadingItems] = useState([]);
   const [page, setPage] = useState(0);
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
@@ -38,22 +41,31 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
       itemsPerPage: ITEMS_PER_PAGE,
       showLoad: page > 0 ? false : true,
     };
-    setLoading(true);
     dispatch(
       getPublicOffers(
         reqData,
         res => {
           console.log('RESPONSE', res);
           setPublicOffers([...publicOffers, ...res]);
+          setLoadingItems([]); // Clear loading items once data is loaded
           setLoading(false);
         },
         err => {
           console.log('ERR => ', err);
+          setLoadingItems([]); // Also clear loading items on error
           setLoading(false);
         },
       ),
     );
   }, [page]);
+
+  useEffect(() => {
+    if (loading) {
+      if (publicOffers.length === 0) {
+        setLoadingItems(new Array(6).fill({loading:true}));
+      }
+    }
+  }, [loading, publicOffers.length]);
 
   const handleDeletePublicOffer = (publicOfferId: string) => {
     const reqData = {
@@ -77,12 +89,16 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
   };
 
   const renderPublicOfferItem = ({item}: any) => {
-    return (
-      <PublicOfferItem
-        publicOffer={item}
-        handleDelete={handleDeletePublicOffer}
-      />
-    );
+    if (item.loading) {
+      return <LoadingPublicOfferCell />;
+    } else {
+      return (
+        <PublicOfferItem
+          publicOffer={item}
+          handleDelete={handleDeletePublicOffer}
+        />
+      );
+    }
   };
   const goToCreatePublicOfferScreen = () => {
     navigation?.navigate('CreatePublicOfferScreen');
@@ -113,10 +129,12 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
       <BrowsePublicOffersContainer>
         <InStackHeader title={'Public Offers'} onlyTitleCenterAlign={true} />
         <PublicOffersFlatList
-          data={publicOffers}
+          data={[...publicOffers, ...loadingItems]} // Combine actual data with loading placeholders
           renderItem={renderPublicOfferItem}
-          keyExtractor={item => item?._id}
-          onEndReached={() => onEndReached()}
+          keyExtractor={(item, index) =>
+            item._id ? item._id.toString() : `loading-${index}`
+          }
+          onEndReached={onEndReached}
           onEndReachedThreshold={0.99}
         />
       </BrowsePublicOffersContainer>
