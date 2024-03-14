@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import {Animated,View, StyleSheet, Text} from 'react-native';
+import {Animated, View, StyleSheet, Text} from 'react-native';
 import {
   RowView,
   OfferCellContainer,
