@@ -27,6 +27,15 @@ export const PublicOfferItemContainer = styled.View.attrs((props: any) => ({
   ${layout}
 `;
 
+export const BottomRowView = styled.View.attrs((props: any) => ({
+  mt: scale(props?.topMargin || 20),
+}))`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  ${space}
+`;
+
 export const styles = StyleSheet.create({
   container: {
     padding: scale(10),
