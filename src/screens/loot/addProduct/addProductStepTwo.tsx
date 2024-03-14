@@ -71,7 +71,7 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
       });
       setProductDes(prodDesc);
       return;
-    } else if (addProductData?.stepOne?.stockxUrlKey){
+    } else if (addProductData?.stepOne?.stockxUrlKey) {
       setProductDes('');
     }
     setConditionData(item);
@@ -111,14 +111,11 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
   return (
     <StepOneContainer>
       {renderDropdown(
-        addProductData?.stepOne?.stockxUrlKey ?
-          addProductData?.stepTwo?.brand.label :
-          'Search Brand/Designer',
+        'Search Brand/Designer',
         true,
         brandsList,
         onSetBrandData,
         addProductData?.stepTwo?.brand,
-        addProductData?.stepOne?.stockxUrlKey
       )}
       {renderDropdown(
         'Condition',

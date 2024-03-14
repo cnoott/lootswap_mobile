@@ -25,7 +25,7 @@ import {SvgXml} from 'react-native-svg';
 import {SWAP_ICON_HOME_CAROASAL} from 'localsvgimages';
 import {useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import { loggingService } from '../../services/loggingService';
+import {loggingService} from '../../services/loggingService';
 
 export const ChooseOfferTypeScreen: FC<any> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
@@ -41,7 +41,7 @@ export const ChooseOfferTypeScreen: FC<any> = () => {
       initialIsMoneyOffer: false,
       selectedProduct: selectedProductDetails,
     });
-    loggingService().logEvent('begin_start_trade_offer')
+    loggingService().logEvent('begin_start_trade_offer');
   };
 
   const handleMoneyOfferNext = () => {

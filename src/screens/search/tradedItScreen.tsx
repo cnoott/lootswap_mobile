@@ -12,11 +12,9 @@ export const TradedItScreen: FC<any> = ({route}) => {
   const {foundTrades} = route.params;
 
   const renderOfferItem = ({item}: any) => {
-    console.log("ITEM", item);
+    console.log('ITEM', item);
     return (
-      <OfferCellContainer
-        key={item._id}
-        onPress={() => {}}>
+      <OfferCellContainer key={item._id} onPress={() => {}}>
         <TradeOfferCell offerItem={item} isInTrade={false} />
       </OfferCellContainer>
     );
@@ -31,7 +29,6 @@ export const TradedItScreen: FC<any> = ({route}) => {
           renderItem={renderOfferItem}
           keyExtractor={item => item._id}
         />
-
       </Container>
     </>
   );

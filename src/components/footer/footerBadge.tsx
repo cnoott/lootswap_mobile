@@ -26,7 +26,7 @@ const FooterBadge: FC<FooterBadgeProps> = props => {
     }
   };
   if (!numNotifsByRouteName()) {
-    return <></>
+    return <></>;
   }
   return (
     <Badge right={right}>

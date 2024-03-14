@@ -2,9 +2,7 @@ import styled from 'styled-components/native';
 import {color, layout, space} from 'styled-system';
 import {moderateScale, scale} from 'react-native-size-matters';
 
-export const IconContainer = styled.TouchableOpacity.attrs(() => ({
-}))``;
-
+export const IconContainer = styled.TouchableOpacity.attrs(() => ({}))``;
 
 export const ModalContainer = styled.View.attrs(() => ({}))`
   padding: 10px;

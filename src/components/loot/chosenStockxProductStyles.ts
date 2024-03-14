@@ -41,13 +41,12 @@ export const ImageContainer = styled.View.attrs(props => ({
   ${layout} ${color} ${space} ${border};
 `;
 
-export const TrashIconContainer = styled.TouchableOpacity.attrs(() => ({
-}))`
+export const TrashIconContainer = styled.TouchableOpacity.attrs(() => ({}))`
   position: absolute;
   top: 9px;
   right: 9px;
   ${layout} ${color} ${space} ${border};
-`
+`;
 
 export const SvgContainer = styled.View.attrs(props => ({
   height: verticalScale(40),
@@ -56,7 +55,6 @@ export const SvgContainer = styled.View.attrs(props => ({
   justify-content: center;
   ${layout} ${color} ${space} ${border};
 `;
-
 
 export const Image = styled(FastImage).attrs(() => ({
   resizeMode: 'contain',

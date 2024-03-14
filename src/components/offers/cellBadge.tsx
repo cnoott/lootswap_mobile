@@ -7,10 +7,9 @@ interface CellBadgeProps {
   left?: Number;
 }
 
-const CellBadge: FC<CellBadgeProps> = (props) => {
+const CellBadge: FC<CellBadgeProps> = props => {
   const opacity = useRef(new Animated.Value(1)).current;
   const {left = -3, top = -3} = props;
-
 
   useEffect(() => {
     const blinkingAnimation = Animated.loop(
@@ -33,13 +32,7 @@ const CellBadge: FC<CellBadgeProps> = (props) => {
     return () => blinkingAnimation.stop();
   }, [opacity]);
 
-  return (
-    <AnimatedBadge
-      style={{opacity}}
-      top={top}
-      left={left}
-    />
-  );
+  return <AnimatedBadge style={{opacity}} top={top} left={left} />;
 };
 
 export default CellBadge;

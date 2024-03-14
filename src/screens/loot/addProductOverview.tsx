@@ -43,7 +43,7 @@ import {getSelectedTradeData} from '../../utility/utility';
 import {createNewProduct, resetAddProductData} from '../../redux/modules';
 import {getSignedRequest, uploadFile} from '../../services/imageUploadService';
 import ImageResizer from '@bam.tech/react-native-image-resizer';
-import { loggingService } from '../../services/loggingService';
+import {loggingService} from '../../services/loggingService';
 
 export const AddProductOverviewScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -246,7 +246,7 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
   const renderProductTypeView = () => {
     return (
       <>
-        {renderSectionHeader('Product Type',false, 2)}
+        {renderSectionHeader('Product Type', false, 2)}
         {renderSubProductInfo('Brand', `${stepTwo?.brand?.label}`)}
         {renderSubProductInfo('Condition', `${stepTwo?.condition?.label}`)}
         {stepTwo?.condition?.label === 'Pre-owned' &&

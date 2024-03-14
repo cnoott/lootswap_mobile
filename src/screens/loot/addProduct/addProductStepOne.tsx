@@ -15,7 +15,7 @@ import {StockxSearchResults} from '../../../components/loot/stockxSearchResults'
 import {searchStockx} from '../../../redux/modules';
 import {Animated, Dimensions} from 'react-native';
 import useDebounce from '../../../utility/customHooks/useDebouncer';
-import { setListener } from 'appcenter-crashes';
+import {setListener} from 'appcenter-crashes';
 import ChosenStockxProduct from '../../../components/loot/chosenStockxProduct';
 
 interface ProductStep {
@@ -31,12 +31,15 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
 
-  const {updateProductData, stockxLoading, setStockxLoading, isFromEdit} = props;
+  const {updateProductData, stockxLoading, setStockxLoading, isFromEdit} =
+    props;
 
   const dispatch = useDispatch();
 
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedStockxItem, setSelectedStockxItem] = useState(addProductData?.stepOne?.stockxId);
+  const [selectedStockxItem, setSelectedStockxItem] = useState(
+    addProductData?.stepOne?.stockxId,
+  );
 
   const [alreadySearched, setAlreadySearched] = useState(false);
 
@@ -46,7 +49,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   const drawerWidth = Dimensions.get('window').width * 0.88;
   const height = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, drawerWidth]
+    outputRange: [0, drawerWidth],
   });
 
   const handleDrawerAnimation = useCallback(() => {
@@ -54,7 +57,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     Animated.timing(animation, {
       toValue: 1,
       duration: 400,
-      useNativeDriver: false
+      useNativeDriver: false,
     }).start();
     setIsOpen(!isOpen);
   }, [animation, isOpen]);
@@ -68,7 +71,7 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     Animated.timing(animation, {
       toValue: 0,
       duration: 400,
-      useNativeDriver: false
+      useNativeDriver: false,
     }).start();
     setIsOpen(!isOpen);
   }, [animation, isOpen, stockxLoading]);
@@ -131,7 +134,6 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     updateData({size: item});
   };
 
-
   const onSetProductName = (item: any) => {
     setAlreadySearched(false);
     setProductName(item);
@@ -147,13 +149,14 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     }
     updateBrand(
       {
-        productName: item.title,
+        productName: item.name,
         stockxUrlKey: item.urlKey,
-        category: item?.category === 'sneakers'
-          ? {value: 'shoes', label: 'Shoes'}
-          : {...addProductData?.stepOne?.category},
+        category:
+          item?.category === 'sneakers'
+            ? {value: 'shoes', label: 'Shoes'}
+            : {...addProductData?.stepOne?.category},
       },
-      item.brand,
+      null,
     );
     if (item?.category === 'sneakers') {
       setCategoryData({value: 'shoes', label: 'Shoes'});
@@ -161,7 +164,19 @@ export const AddProductStepOne: FC<ProductStep> = props => {
     setProductName(item.title);
   };
 
+  const debouncedSearchTerm = useDebounce(productName, 313); //set delay
+  useEffect(() => {
+    if (
+      !stockxLoading &&
+      debouncedSearchTerm &&
+      debouncedSearchTerm.length > 5
+    ) {
+      fetchStockxData();
+    }
+  }, [debouncedSearchTerm]);
+
   const fetchStockxData = useCallback(() => {
+    if (stockxLoading) return;
     setStockxLoading(true);
     handleDrawerAnimation();
     const reqData = {

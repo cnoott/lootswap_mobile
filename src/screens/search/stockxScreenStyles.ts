@@ -3,8 +3,7 @@ import {layout, space, color, border} from 'styled-system';
 import FastImage from 'react-native-fast-image';
 import styled from 'styled-components/native';
 
-export const Container = styled.View.attrs(props => ({
-}))`
+export const Container = styled.View.attrs(props => ({}))`
   padding-horizontal: 8px;
 `;
 
@@ -70,8 +69,7 @@ export const ProductDetailsContainer = styled.View.attrs(props => ({
   ${layout} ${color} ${space} ${border};
 `;
 
-export const SectionContainer = styled.View.attrs(props => ({
-}))``;
+export const SectionContainer = styled.View.attrs(props => ({}))``;
 
 export const SelectSizeText = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
@@ -113,8 +111,7 @@ export const MarketRangeText = styled.Text.attrs(props => ({
   ${layout}
 `;
 
-export const BottomContainer = styled.View.attrs(() => ({
-}))`
+export const BottomContainer = styled.View.attrs(() => ({}))`
   margin-top: ${verticalScale(20)}px;
   padding-horizontal: ${scale(10)}px;
   margin-bottom: ${verticalScale(120)}px;
@@ -132,7 +129,6 @@ export const BottomTitle = styled.Text.attrs(props => ({
   ${space}
   ${layout}
 `;
-
 
 export const DataContainer = styled.View.attrs(props => ({}))`
   margin-bottom: 10px;

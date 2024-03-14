@@ -19,6 +19,7 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {loggingService} from '../../services/loggingService';
 import LoadingPublicOfferCell from '../../components/publicOffer/LoadingPublicOfferCell';
 
+
 const ITEMS_PER_PAGE = 6;
 
 export const BrowsePublicOffersScreen: FC<any> = () => {

@@ -46,17 +46,16 @@ function formatAMPM(date: Date) {
   var ampm = hours >= 12 ? 'pm' : 'am';
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0'+minutes : minutes;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
   var strTime = hours + ':' + minutes + ' ' + ampm;
   return strTime;
 }
-
 
 const OrderStatusDetails: FC<any> = React.memo(props => {
   const {trackingHistory} = props;
   const theme = useTheme();
 
-  const renderStatusCell = (detail) => {
+  const renderStatusCell = detail => {
     const date = new Date(detail.object_created);
     let mm = date.getMonth() + 1;
     let dd = date.getDate();
@@ -69,10 +68,10 @@ const OrderStatusDetails: FC<any> = React.memo(props => {
       <StatusDetailsContainer>
         <SvgXml xml={ORDER_DETAILS_ICON} />
         <OrderStatusView>
-          <OrderStatusTitleText>{detail.status} - {formattedDate}</OrderStatusTitleText>
-          <OrderStatusDesText>
-            {detail.status_details}
-          </OrderStatusDesText>
+          <OrderStatusTitleText>
+            {detail.status} - {formattedDate}
+          </OrderStatusTitleText>
+          <OrderStatusDesText>{detail.status_details}</OrderStatusDesText>
         </OrderStatusView>
         <OrderStatusTimeText>{time}</OrderStatusTimeText>
       </StatusDetailsContainer>

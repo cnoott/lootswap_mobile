@@ -17,7 +17,9 @@ import {getProfileReviewsFilters} from '../../utility/utility';
 import {EmptyListContainer, NoOffersMessage} from '../offers/styles';
 
 export const ProfileReviewsScreen: FC<{}> = ({route}) => {
-  const {requestedUserDetails: {ratings}} = route?.params;
+  const {
+    requestedUserDetails: {ratings},
+  } = route?.params;
   const [selectedFilterId, setSelectedFilter] = useState(1);
   const onFilterPress = (filterId: any) => {
     setSelectedFilter(filterId);
@@ -40,19 +42,20 @@ export const ProfileReviewsScreen: FC<{}> = ({route}) => {
   return (
     <Container>
       {ratings.length === 0 ? (
-        <InStackHeader
-          title={'Ratings'}
-        />
+        <InStackHeader title={'Ratings'} />
       ) : (
         <InStackHeader
-          title={`${(ratings.reduce((total, next) => total += next.rating, 0) / ratings.length).toFixed(2)} Rating Average`}
+          title={`${(
+            ratings.reduce((total, next) => (total += next.rating), 0) /
+            ratings.length
+          ).toFixed(2)} Rating Average`}
         />
       )}
       <SubContainer>
         {ratings.length === 0 ? (
-        <EmptyListContainer>
-          <NoOffersMessage>No Ratings</NoOffersMessage>
-        </EmptyListContainer>
+          <EmptyListContainer>
+            <NoOffersMessage>No Ratings</NoOffersMessage>
+          </EmptyListContainer>
         ) : (
           <ItemsListView
             data={ratings}

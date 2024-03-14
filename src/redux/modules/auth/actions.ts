@@ -27,6 +27,8 @@ import {
   SET_NOTIFS_AS_READ,
   SIGNIN_WITH_GOOGLE,
   SIGNIN_WITH_APPLE,
+  SAVE_INSTALL_PARAMS,
+  SKIP_PAYPAL_ONBOARDING,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -536,7 +538,6 @@ export const getLikedProducts = (
   };
 };
 
-
 export const setNotifsAsReadRequest = (reqData: any) => {
   return {
     type: SET_NOTIFS_AS_READ.REQUEST,
@@ -554,5 +555,18 @@ export const setNotifsAsReadSuccess = (payload: Array<any>) => {
 export const setNotifsAsReadFailure = () => {
   return {
     type: SET_NOTIFS_AS_READ.FAILURE,
+  };
+};
+
+export const saveInstallParams = (installParams: any) => {
+  return {
+    type: SAVE_INSTALL_PARAMS.REQUEST,
+    payload: installParams,
+  };
+};
+
+export const skipPaypalOnboarding = () => {
+  return {
+    type: SKIP_PAYPAL_ONBOARDING.REQUEST,
   };
 };

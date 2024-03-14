@@ -20,6 +20,7 @@ const useFCMNotifications = () => {
 
   useEffect(() => {
     if (!fcmToken || new Date() > new Date(fcmToken?.expiry)) {
+      console.log('callign confiutre');
       configureNotifPermission();
     }
     console.log('Environment ====', Config?.ENV);
@@ -30,15 +31,17 @@ const useFCMNotifications = () => {
     const permissionStatus = await messaging().hasPermission();
     const isPermissionGranted = checkForPermissionGranted(permissionStatus);
     if (isPermissionGranted && isLogedIn && userData?._id) {
-      dispatch(setFCMTokenRequest({...fcmToken, userId: userData._id}));
+      if (fcmToken.token && fcmToken.expiry) {
+        dispatch(setFCMTokenRequest({...fcmToken, userId: userData._id}));
+      } else {
+        registerDeviceAndGetToken();
+      }
     }
-
   };
 
   useEffect(() => {
     updateUserIdInToken();
-  }, [isLogedIn]);
-
+  }, [userData?._id]);
 
   const configureNotifPermission = async () => {
     const permissionStatus = await messaging().hasPermission();

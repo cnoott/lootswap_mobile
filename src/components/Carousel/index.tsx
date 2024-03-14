@@ -42,7 +42,7 @@ function CarouselComponent(props: CarouselProps) {
     showDummy = true,
     autoPlay = true,
     loop = true,
-    renderSearchBar = () => <></>
+    renderSearchBar = () => <></>,
   } = props;
   const [activeIndex, setActiveIndex] = useState(0);
   const [viewerVisible, setViewerVisible] = useState(false);
@@ -69,7 +69,6 @@ function CarouselComponent(props: CarouselProps) {
 
     return () => animLoop.stop();
   }, []);
-
 
   const renderDots = () => {
     return (

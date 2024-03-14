@@ -27,7 +27,11 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
 import {getMessagesHistory} from '../../redux/modules/message/actions';
 import {getConfiguredMessageData} from '../../utility/utility';
-import {NavigationProp, useNavigation, useIsFocused} from '@react-navigation/native';
+import {
+  NavigationProp,
+  useNavigation,
+  useIsFocused,
+} from '@react-navigation/native';
 import {AppState} from 'react-native';
 
 export const UserChatScreen: FC<any> = ({route}) => {
@@ -71,7 +75,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
       if (appState.current === 'background' && nextAppState === 'active') {
-        console.log('back from bg!')
+        console.log('back from bg!');
         dispatch(
           getMessagesHistory({
             userId: userData?._id,
@@ -80,7 +84,8 @@ export const UserChatScreen: FC<any> = ({route}) => {
         );
         scrollListToEnd();
       } else if (
-        appState.current === 'active' && nextAppState === 'background'
+        appState.current === 'active' &&
+        nextAppState === 'background'
       ) {
         console.log('bg!');
         subscription.remove();
@@ -91,12 +96,10 @@ export const UserChatScreen: FC<any> = ({route}) => {
       appState.current = nextAppState;
     });
     if (!isFocused) {
-      
       subscription.remove();
       socketObj?.removeAllListeners();
       socketObj?.close();
       socketObj?.disconnect();
-
     }
     dispatch(
       getMessagesHistory({
@@ -136,17 +139,17 @@ export const UserChatScreen: FC<any> = ({route}) => {
         messagesListRaw?.current?.length > 0
           ? [...messagesListRaw.current, content]
           : [content];
-          messagesListRaw.current = messagesData;
-          const newData = getConfiguredMessageData(messagesData);
-          setMessagesList(newData);
-          if (messageListref?.current) {
-            setTimeout(() => {
-              messageListref?.current?.scrollToLocation({
-                sectionIndex: 0,
-                itemIndex: messagesListRaw.current?.length - 1,
-              });
-            }, 100);
-          }
+      messagesListRaw.current = messagesData;
+      const newData = getConfiguredMessageData(messagesData);
+      setMessagesList(newData);
+      if (messageListref?.current) {
+        setTimeout(() => {
+          messageListref?.current?.scrollToLocation({
+            sectionIndex: 0,
+            itemIndex: messagesListRaw.current?.length - 1,
+          });
+        }, 100);
+      }
     });
   };
 
@@ -247,6 +250,9 @@ export const UserChatScreen: FC<any> = ({route}) => {
           });
         }}
         productData={historyMessages?.product}
+        otherUserData={
+          isReceiver ? historyMessages?.sender : historyMessages?.receiver
+        }
       />
       <KeyboardAvoidingView>
         <SubContainer>{renderMessagesListView()}</SubContainer>

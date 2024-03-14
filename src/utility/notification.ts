@@ -43,7 +43,6 @@ function formatNotificationPayload(originalPayload: any) {
   };
 }
 
-
 export const handleNavigation = (
   navigation: any,
   message: any,

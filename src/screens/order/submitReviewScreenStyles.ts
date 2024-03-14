@@ -59,8 +59,6 @@ export const CommentsText = styled.Text.attrs(props => ({
   ${layout}
 `;
 
-
-export const ButtonContainer = styled.View.attrs(() => ({
-}))`
+export const ButtonContainer = styled.View.attrs(() => ({}))`
   margin-top: 20px;
 `;

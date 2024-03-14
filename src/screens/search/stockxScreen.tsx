@@ -106,7 +106,7 @@ export const StockxScreen: FC<any> = ({route}) => {
           //setMarketData(stockxProduct.sizes);
           setLoadingData(false);
         },
-      )
+      ),
     );
 
     dispatch(
@@ -131,7 +131,7 @@ export const StockxScreen: FC<any> = ({route}) => {
     const startRange = Math.floor(lastSale - lastSale * 0.1);
     const endRange = Math.floor(lastSale + lastSale * 0.1);
 
-    return `$${startRange} - $${endRange}`
+    return `$${startRange} - $${endRange}`;
   };
 
   const LoadingMarketData = () => {
@@ -202,7 +202,7 @@ export const StockxScreen: FC<any> = ({route}) => {
     let likedStockxProducts = [];
     if (isProductLiked()) {
       likedStockxProducts = userData?.likedStockxProducts?.filter(
-        productId => productId !== stockxProduct?._id
+        productId => productId !== stockxProduct?._id,
       );
     } else {
       likedStockxProducts = [
@@ -232,7 +232,7 @@ export const StockxScreen: FC<any> = ({route}) => {
           <TitleText>{stockxProduct.name}</TitleText>
           <MiddleContainer>
             <ImageContainer>
-              <StockxImage source={{uri: stockxProduct?.image}}/>
+              <StockxImage source={{uri: stockxProduct?.image}} />
             </ImageContainer>
             <ProductDetailsContainer>
               <SectionContainer>
@@ -252,25 +252,34 @@ export const StockxScreen: FC<any> = ({route}) => {
                     data={marketData}
                     value={selectedSize}
                     maxHeight={300}
-                    renderRightIcon={() => <SvgXml xml={STOCKX_SEARCH_DROP_DOWN_ARROW} />}
+                    renderRightIcon={() => (
+                      <SvgXml xml={STOCKX_SEARCH_DROP_DOWN_ARROW} />
+                    )}
                   />
                 )}
               </SectionContainer>
               <SectionContainer>
                 <SelectSizeText>Estimated Market Value:</SelectSizeText>
                 {!selectedSize && <MarketRangeText>...</MarketRangeText>}
-                {selectedSize &&
-                  <MarketRangeText>{calcMarketRange(selectedSize?.lastSale)}</MarketRangeText>
-                }
+                {selectedSize && (
+                  <MarketRangeText>
+                    {calcMarketRange(selectedSize?.lastSale)}
+                  </MarketRangeText>
+                )}
               </SectionContainer>
             </ProductDetailsContainer>
           </MiddleContainer>
           <BottomContainer>
             <BottomTitle>Item data:</BottomTitle>
             <DataContainer>
-              <DataRowContainer onPress={() => handleFoundPublicOffersNavigation()}>
+              <DataRowContainer
+                onPress={() => handleFoundPublicOffersNavigation()}>
                 <NumberDataText>
-                  {loadingItemData ? (<LoadingItemData />) : foundPublicOffers?.length}
+                  {loadingItemData ? (
+                    <LoadingItemData />
+                  ) : (
+                    foundPublicOffers?.length
+                  )}
                 </NumberDataText>
                 <DataLabelText>
                   Public Offers
@@ -280,7 +289,11 @@ export const StockxScreen: FC<any> = ({route}) => {
 
               <DataRowContainer onPress={() => handleHasItNavigation()}>
                 <NumberDataText>
-                  {loadingItemData ? (<LoadingItemData />) : foundProducts?.length}
+                  {loadingItemData ? (
+                    <LoadingItemData />
+                  ) : (
+                    foundProducts?.length
+                  )}
                 </NumberDataText>
                 <DataLabelText>
                   Has It
@@ -289,7 +302,7 @@ export const StockxScreen: FC<any> = ({route}) => {
               </DataRowContainer>
               <DataRowContainer onPress={() => handleTradedItNavigation()}>
                 <NumberDataText>
-                  {loadingItemData ? (<LoadingItemData />) : foundTrades?.length}
+                  {loadingItemData ? <LoadingItemData /> : foundTrades?.length}
                 </NumberDataText>
                 <DataLabelText>
                   Traded It
@@ -300,14 +313,15 @@ export const StockxScreen: FC<any> = ({route}) => {
             <LSButton
               title={'Create an offer'}
               size={Size.Full}
-              type={(!isLogedIn || loadingData) ? Type.Grey : Type.Primary}
+              type={!isLogedIn || loadingData ? Type.Grey : Type.Primary}
               disabled={loadingData || !isLogedIn}
               radius={20}
               onPress={() =>
                 navigation?.navigate('CreatePublicOfferScreen', {
                   preselectedStockxItem: {...stockxProduct, sizes: marketData},
                   skipFirstScreen: true,
-                })}
+                })
+              }
             />
           </BottomContainer>
         </ScrollView>

@@ -72,8 +72,7 @@ export const RecentSearchesTitle = styled.Text.attrs(props => ({
   ${color}
 `;
 
-export const RecentSearchesTextContainer = styled.View.attrs(() => ({
-}))`
+export const RecentSearchesTextContainer = styled.View.attrs(() => ({}))`
   ${space}
   ${layout}
   ${color}
@@ -107,8 +106,6 @@ export const ClearRecentSearchesText = styled.Text.attrs(props => ({
   ${space}
 `;
 
-
-
 export const StockxBrandContainer = styled.View.attrs(() => ({
   flex: 1,
   alignItems: 'center',
@@ -117,7 +114,6 @@ export const StockxBrandContainer = styled.View.attrs(() => ({
 }))`
   flex-direction: row ${space};
 `;
-
 
 export const StockxFlatList = styled.FlatList.attrs(() => ({
   horizontal: true,
@@ -140,8 +136,7 @@ export const FullDivider = styled.View.attrs(props => ({
   ${color}
 `;
 
-export const ClearFiltersButtonContainer = styled.View.attrs(() => ({
-}))`
+export const ClearFiltersButtonContainer = styled.View.attrs(() => ({}))`
   position: absolute;
   bottom: 0;
   width: 100%;

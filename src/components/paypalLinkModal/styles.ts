@@ -1,6 +1,6 @@
 import {verticalScale} from 'react-native-size-matters';
 import styled from 'styled-components/native';
-import {layout, space} from 'styled-system';
+import {layout, color, space} from 'styled-system';
 
 export const PayPalSubContainer = styled.View.attrs(() => ({}))`
   align-items: center;
@@ -26,7 +26,18 @@ export const TopMinMargin = styled.View.attrs(() => ({
 `;
 
 export const TopMaxMargin = styled.View.attrs(() => ({
-  mt: verticalScale(60),
+  mt: verticalScale(45),
 }))`
   ${space}
+`;
+
+export const SubText = styled.Text.attrs(props => ({
+  color: props?.theme?.colors.textGrey,
+  mt: verticalScale(8),
+}))`
+  font-size: 14px;
+  font-family: Urbanist;
+  ${color}
+  ${space}
+  ${layout}
 `;

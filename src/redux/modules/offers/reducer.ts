@@ -1,10 +1,14 @@
 // @flow
 
-import {GET_TRADES_HISTORY, GET_TRADE, GET_TRADE_STOCKX} from '../../../constants/actions';
+import {
+  GET_TRADES_HISTORY,
+  GET_TRADE,
+  GET_TRADE_STOCKX,
+} from '../../../constants/actions';
 
 export interface TradeProps {
   historyTrades: Array<any>;
-  publicOffers: Array<any>
+  publicOffers: Array<any>;
   trade: any;
 }
 
@@ -44,7 +48,7 @@ export default function loading(state = InitialState, action: ActionProps) {
     case GET_TRADE.REQUEST: {
       return {
         ...state,
-        trade: null,
+        //trade: null,
       };
     }
     case GET_TRADE_STOCKX.SUCCESS:

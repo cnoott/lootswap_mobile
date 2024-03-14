@@ -40,7 +40,7 @@ import {
 } from '../../redux/modules';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 import {Alert} from 'custom_top_alert';
-import PayPalLinkModal from '../../components/paypalLinkModal';
+import {loggingService} from '../../services/loggingService';
 
 export const LootScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -76,8 +76,10 @@ export const LootScreen: FC<any> = ({route}) => {
   };
   const handleNext = useCallback(async () => {
     Keyboard.dismiss();
+
     const canGoNext = validateCreateProductData(currIndex + 1, addProductData);
     if (canGoNext) {
+      //loggingService().logEvent('add_loot_step' + currIndex);
       if (currIndex === 0 && stockxLoading) {
         Alert.showError('Wait until search is done loading');
         return;
@@ -119,7 +121,7 @@ export const LootScreen: FC<any> = ({route}) => {
           stepFive: {
             ...addProductData?.stepFive,
             median: undefined,
-          }
+          },
         });
       }
     }
@@ -182,9 +184,9 @@ export const LootScreen: FC<any> = ({route}) => {
                 stockxLoading={stockxLoading}
                 setStockxLoading={setStockxLoading}
               />
-          );
+            );
           case 2:
-            return <AddProductStepTwo updateProductData={updateProductData} />
+            return <AddProductStepTwo updateProductData={updateProductData} />;
           case 3:
             return (
               <AddProductStepThree updateProductData={updateProductData} />
@@ -209,7 +211,7 @@ export const LootScreen: FC<any> = ({route}) => {
             />
           );
         case 2:
-          return <AddProductStepTwo updateProductData={updateProductData} />
+          return <AddProductStepTwo updateProductData={updateProductData} />;
         case 3:
           return <AddProductStepThree updateProductData={updateProductData} />;
         case 4:
@@ -225,7 +227,6 @@ export const LootScreen: FC<any> = ({route}) => {
               isFromEdit={isFromEdit}
             />
           );
-
       }
     }
   };
@@ -243,7 +244,6 @@ export const LootScreen: FC<any> = ({route}) => {
         </SwiperComponent>
       </KeyboardAwareScrollView>
       {renderBottomButtonView()}
-      <PayPalLinkModal />
     </Container>
   );
 };

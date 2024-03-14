@@ -98,9 +98,7 @@ export const ChooseServiceScreen: FC<any> = ({route}) => {
         {sortedRates.map(rate => (
           <TipContainer
             onPress={() => handleRatePress(rate)}
-            selected={
-              rate?.object_id === chosenRate?.object_id
-            }>
+            selected={rate?.object_id === chosenRate?.object_id}>
             <USPSTopView>
               <USPSLabel>{rate.servicelevel.name}</USPSLabel>
               <PriceLabel>{`$${rate.amount}`}</PriceLabel>

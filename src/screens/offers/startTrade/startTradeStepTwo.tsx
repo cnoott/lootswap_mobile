@@ -15,7 +15,7 @@ export const StartTradeStepTwo: FC<StartTradeStepTwo> = props => {
     const offerItems = [...myItems];
     const alreadySelectedItems = offerItems?.filter(_fil => _fil?.isSelected);
     const foundItemIndex = offerItems?.findIndex(
-      _item => _item?._id === itemId
+      _item => _item?._id === itemId,
     );
 
     if (offerItems[foundItemIndex]?.isSelected) {
@@ -36,7 +36,7 @@ export const StartTradeStepTwo: FC<StartTradeStepTwo> = props => {
     <>
       <SelectLootText> Select Loot ({myItems.length})</SelectLootText>
       <SelectedLootText>
-        {myItems.filter(_item => _item?.isSelected).length}/3 Items 
+        {myItems.filter(_item => _item?.isSelected).length}/3 Items
       </SelectedLootText>
 
       <FlatList

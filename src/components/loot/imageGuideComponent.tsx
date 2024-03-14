@@ -11,10 +11,7 @@ import {
   ImageGuide,
   ImageGuideLabel,
 } from './styles';
-import {
-  DotsContainer,
-  DotsComponent,
-} from '../Carousel/carouselStyles';
+import {DotsContainer, DotsComponent} from '../Carousel/carouselStyles';
 import {TRADE_MODAL_CLOSE_BUTTON} from 'localsvgimages';
 import {SvgXml} from 'react-native-svg';
 import {CloseTouchable} from '../commonComponents/LSModalStyles';
@@ -66,9 +63,7 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
 
   const w = moderateScale(width) - moderateScale(63);
 
-  const translateY = useRef(
-    new Animated.Value(isVisible ? 0 : height),
-  ).current;
+  const translateY = useRef(new Animated.Value(isVisible ? 0 : height)).current;
 
   useEffect(() => {
     Animated.timing(translateY, {
@@ -88,18 +83,18 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
   };
 
   const renderDots = () => {
-    if (category !== 'shoes' || category !== 'other') {
-      return <></>
+    if (category === 'shoes' || category === 'other') {
+      return (
+        <DotsContainer>
+          <DotsComponent
+            length={3}
+            active={currentIndex}
+            isActiveBorder={true}
+          />
+        </DotsContainer>
+      );
     }
-    return (
-      <DotsContainer>
-        <DotsComponent
-          length={3}
-          active={currentIndex}
-          isActiveBorder={true}
-        />
-      </DotsContainer>
-    );
+    return <></>;
   };
 
   const handlePressImage = (index: Number) => {
@@ -145,7 +140,6 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
       </ImageGuidePhotoContainer>
     </ImageGuidePhotosContainer>
   );
-
 
   const stepOne = () => (
     <ImageGuidePhotosContainer>
@@ -233,9 +227,7 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
               parallaxScrollingScale: 0.94,
               parallaxScrollingOffset: 50,
             }}
-            renderItem={({index, item}) => (
-              renderCarouselStep(index + 1)
-            )}
+            renderItem={({index, item}) => renderCarouselStep(index + 1)}
           />
         );
 
@@ -248,7 +240,6 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
         return clothingImageGuide();
       case 'hats':
         return hatsImageGuide();
-
     }
   };
 
@@ -272,8 +263,7 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
           shadowRadius: 3.84,
           elevation: 5,
         },
-      ]}
-    >
+      ]}>
       {renderDots()}
       <ImageGuideContainer>
         <CloseTouchable onPress={() => handleClose()}>
@@ -281,7 +271,8 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
         </CloseTouchable>
         <ImageGuideTitleText>Photo Guide</ImageGuideTitleText>
         <ImageGuideDescText>
-          Include 8 of the following images so that your listing can be authenticated.
+          Include 8 of the following images so that your listing can be
+          authenticated.
         </ImageGuideDescText>
         <ImageView
           images={images}

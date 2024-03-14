@@ -9,11 +9,8 @@ import {
   SET_FIRST_TIME_OPEN_FALSE,
   SET_ORDER_NOTIF_AS_READ,
   SET_PAYPAL_ORDER_NOTIF_AS_READ,
-<<<<<<< HEAD
-  FETCH_PAYPAL_CHECKOUT_LINK,
+  CREATE_PAYPAL_ORDER,
   CAPTURE_PAYPAL_ORDER,
-=======
->>>>>>> parent of 1cd411c (redux + saga impelementation for fetch paypal api call)
 } from '../../../constants/actions';
 import {
   getAllOrdersCall,
@@ -25,11 +22,8 @@ import {
   setFirstTimeOpenFalseCall,
   setOrderNotifAsReadCall,
   setPaypalOrderNotifAsReadCall,
-<<<<<<< HEAD
-  fetchPaypalCheckoutLinkCall,
+  createPaypalOrderCall,
   capturePaypalOrderCall,
-=======
->>>>>>> parent of 1cd411c (redux + saga impelementation for fetch paypal api call)
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {
@@ -206,19 +200,18 @@ export function* setPaypalOrderNotifAsRead(action: any) {
   }
 }
 
-<<<<<<< HEAD
-export function* fetchPaypalCheckoutLink(action: any) {
+export function* createPaypalOrder(action: any) {
   yield put(LoadingRequest());
   try {
     const response: APIResponseProps = yield call(
-      fetchPaypalCheckoutLinkCall,
+      createPaypalOrderCall,
       action?.reqData,
     );
     yield put(LoadingSuccess());
     if (response?.success) {
       action?.successCallBack(response.data);
     } else {
-      action?.errorCallBack(response.error);
+      action?.errorCallBack();
     }
   } catch (e) {
     action?.errorCallBack();
@@ -245,8 +238,6 @@ export function* capturePaypalOrder(action: any) {
   }
 }
 
-=======
->>>>>>> parent of 1cd411c (redux + saga impelementation for fetch paypal api call)
 export default function* ordersSaga() {
   yield takeLatest(GET_ALL_ORDERS.REQUEST, getAllOrders);
   yield takeLatest(GET_ORDER.REQUEST, getOrder);
@@ -263,9 +254,6 @@ export default function* ordersSaga() {
     SET_PAYPAL_ORDER_NOTIF_AS_READ.REQUEST,
     setPaypalOrderNotifAsRead,
   );
-<<<<<<< HEAD
-  yield takeLatest(FETCH_PAYPAL_CHECKOUT_LINK.REQUEST, fetchPaypalCheckoutLink);
-  yield takeLatest(CAPTURE_PAYPAL_ORDER.REQUEST, capturePaypalOrderCall);
-=======
->>>>>>> parent of 1cd411c (redux + saga impelementation for fetch paypal api call)
+  yield takeLatest(CREATE_PAYPAL_ORDER.REQUEST, createPaypalOrder);
+  yield takeLatest(CAPTURE_PAYPAL_ORDER.REQUEST, capturePaypalOrder);
 }

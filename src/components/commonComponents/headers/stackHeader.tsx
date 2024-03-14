@@ -80,7 +80,7 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
         ) : (
           <EmptyBox />
         )}
-        </ProfileHeaderContainer>
+      </ProfileHeaderContainer>
     );
   }
   return (
@@ -101,7 +101,6 @@ export const InStackHeader: FC<HeaderProps> = React.memo(props => {
       ) : (
         <EmptyBox />
       )}
-
 
       {printLabel && printLabelButton()}
     </ProfileHeaderContainer>

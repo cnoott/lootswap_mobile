@@ -10,6 +10,7 @@ import {
   SHOW_HIDE_PASS_ICON,
   LOCK_ICON,
   SHOW_PASS_ICON,
+  TRADE_MODAL_CLOSE_BUTTON,
 } from 'localsvgimages';
 import {Formik} from 'formik';
 import * as yup from 'yup';
@@ -33,11 +34,12 @@ import {
   HeaderDesLabel,
   Spacing,
 } from './styles';
+import {CloseTouchable} from '../signUp/styles';
 import {scale} from 'react-native-size-matters';
 import {Linking} from 'react-native';
 import {WEB_APP_URL} from '@env';
 import {AuthProps} from '../../../redux/modules/auth/reducer';
-import { loggingService } from '../../../services/loggingService';
+import {loggingService} from '../../../services/loggingService';
 
 type FormProps = {
   emailUsername: string;
@@ -47,7 +49,7 @@ type FormProps = {
 export const AuthScreen: FC<{}> = () => {
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
-  const {fcmToken} = auth;
+  const {fcmToken = {}} = auth;
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
@@ -81,7 +83,6 @@ export const AuthScreen: FC<{}> = () => {
 
   const onSubmit = (values: FormProps) => {
     Keyboard.dismiss();
-    console.log('FCM', fcmToken);
     dispatch(
       signInRequest({
         email: values?.emailUsername,
@@ -157,9 +158,9 @@ export const AuthScreen: FC<{}> = () => {
                 />
               </Spacing>
               <View style={{marginBottom: 15}} />
-              <GoogleButton fcmToken={fcmToken} />
+              <GoogleButton />
               <View style={{marginBottom: 15}} />
-              <AppleButton fcmToken={fcmToken} />
+              <AppleButton />
               <Touchable onPress={() => handlePressForgotPass()}>
                 <ForgotPassLabel>Forgot password?</ForgotPassLabel>
               </Touchable>
@@ -186,6 +187,9 @@ export const AuthScreen: FC<{}> = () => {
         contentContainerStyle={Innercontainer}
         keyboardShouldPersistTaps={'handled'}>
         {renderHeaderLogo()}
+        <CloseTouchable onPress={navigation.goBack}>
+          <SvgXml xml={TRADE_MODAL_CLOSE_BUTTON} />
+        </CloseTouchable>
         <HeaderLabel>Login</HeaderLabel>
         <HeaderDesLabel>Welcome back!.</HeaderDesLabel>
         {renderBody()}

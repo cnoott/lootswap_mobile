@@ -427,7 +427,7 @@ export const payoutUserCall = (reqData: any) => {
 export const deleteNotifCall = (reqData: any) => {
   return handleResponse(
     api.put(`/user/delete-notification/${reqData?.userId}`, {
-      notifs: reqData?.notifs
+      notifs: reqData?.notifs,
     }),
     API_RESPONSE.CODE200,
   );
@@ -593,16 +593,18 @@ export const setPaypalOrderNotifAsReadCall = (reqData: any) => {
   );
 };
 
-export const fetchPaypalCheckoutLinkCall = (reqData: any) => {
+export const createPaypalOrderCall = (reqData: any) => {
   return handleResponse(
     api.post(`/create-order/${reqData?.productId}/${reqData?.userId}`, reqData),
     API_RESPONSE.CODE200,
   );
 };
-
 export const capturePaypalOrderCall = (reqData: any) => {
   return handleResponse(
-    api.post(`/capture-order/${reqData?.orderId}/${reqData?.itemId}/${reqData?.userId}`, reqData),
+    api.post(
+      `/capture-order/${reqData?.paypalId}/${reqData?.productId}/${reqData?.userId}`,
+      reqData,
+    ),
     API_RESPONSE.CODE200,
   );
 };
@@ -632,7 +634,8 @@ const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
         return errorObj;
       } else if (res.status === 401) {
         return;
-      } else if (res.status === 500) { //XXX not being called
+      } else if (res.status === 500) {
+        //XXX not being called
         var debounce_fun = _.debounce(() => {
           const err = ApiHelper.retrieveDetailMessageFromResponse(res);
           if (err === 'Token is expire!' && !isTokenExpired) {

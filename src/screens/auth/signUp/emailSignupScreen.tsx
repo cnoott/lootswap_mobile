@@ -55,47 +55,27 @@ import {
 } from '../../../services/imageUploadService';
 import {Alert} from 'react-native';
 import {scale} from 'react-native-size-matters';
-import branch from 'react-native-branch';
 import {Alert as AlertModal} from 'react-native';
-import { loggingService } from '../../../services/loggingService';
+import {loggingService} from '../../../services/loggingService';
 
 type FormProps = {
   email: string;
   password: string;
   username: string;
-  affiliateCode?: string;
 };
 
 export const EmailSignupScreen: FC<{}> = () => {
   const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation();
   const auth: AuthProps = useSelector(state => state.auth);
-  const {fcmToken} = auth;
+  const {fcmToken, referringUserId, marketingChannel} = auth;
 
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const [isImageUploading, setImageUploading] = useState(false);
   const [profileUrl, setProfileUrl] = useState('');
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-  const [referringUserId, setReferringUserId] = useState('');
-  const [affiliateCode, setAffiliateCode] = useState('');
-
-  const getReferringUserId = async () => {
-    let installParams = await branch.getFirstReferringParams();
-    if (installParams?.affiliateCode) {
-      setAffiliateCode(`${installParams?.affiliateCode}`);
-    }
-
-    //Alert.alert(`${JSON.stringify(installParams)}`);
-    if (installParams?.userId) {
-      setReferringUserId(`${installParams?.userId}`);
-      console.log(installParams, 'from signup');
-    }
-  };
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      getReferringUserId();
-    }, 1000);
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       () => {
@@ -146,10 +126,10 @@ export const EmailSignupScreen: FC<{}> = () => {
           email: values?.email,
           name: values?.username,
           password: values?.password,
-          affiliateCode: affiliateCode,
           profile_picture: profileUrl,
           fromMobile: true,
           referringUserId: referringUserId,
+          marketingChannel: marketingChannel,
           fcmToken: fcmToken?.token,
         }),
       );
@@ -251,7 +231,6 @@ export const EmailSignupScreen: FC<{}> = () => {
           email: '',
           password: '',
           username: '',
-          affiliateCode: '',
         }}
         validationSchema={loginValidationSchema}
         validateOnChange={false}

@@ -59,7 +59,7 @@ export const ShippingLabelScreen: FC<any> = ({route}) => {
     }
 
     const convertedPounds =
-      (parseFloat(ozWeight || 0) * 0.0625) + parseFloat(lbWeight || 0);
+      parseFloat(ozWeight || 0) * 0.0625 + parseFloat(lbWeight || 0);
     const rounded = convertedPounds.toFixed(4);
     const dim = {
       length: sizeLength,

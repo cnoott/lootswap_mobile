@@ -1,6 +1,6 @@
 import {useEffect, useCallback, useState} from 'react';
 import messaging from '@react-native-firebase/messaging';
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux';
 import {handleNavigation} from '../notification';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
@@ -12,8 +12,6 @@ export const useNotifications = () => {
   const navigation: NavigationProp<any, any> = useNavigation();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
-
-
 
   const onRemoteNotification = useCallback(
     (notification: any) => {
@@ -33,7 +31,10 @@ export const useNotifications = () => {
   );
 
   useEffect(() => {
-    PushNotificationIOS.addEventListener('localNotification', onRemoteNotification);
+    PushNotificationIOS.addEventListener(
+      'localNotification',
+      onRemoteNotification,
+    );
 
     const unsubscribeOnMessage = messaging().onNotificationOpenedApp(
       remoteMessage => {

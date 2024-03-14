@@ -11,7 +11,7 @@ import {Filter_Type} from '../../../enums';
 
 export interface SearchProps {
   loading: Boolean;
-  searchProducts: Array<any>
+  searchProducts: Array<any>;
   stockxProducts: Array<any>;
   endReached: Boolean;
   categories: Array<string>;
@@ -86,11 +86,13 @@ export default function loading(state = InitialState, action: ActionProps) {
       };
     case SELECT_FILTER.UPDATE:
       console.log('SELECT FILTER');
-      switch(filterType) {
+      switch (filterType) {
         case Filter_Type.Category:
           let newSelectedCategories = state.categories;
           if (state.categories.includes(filter)) {
-            newSelectedCategories = newSelectedCategories.filter(cat => cat !== filter);
+            newSelectedCategories = newSelectedCategories.filter(
+              cat => cat !== filter,
+            );
           } else {
             newSelectedCategories.push(filter);
           }
@@ -173,7 +175,9 @@ export default function loading(state = InitialState, action: ActionProps) {
         case Filter_Type.Condition:
           let newSelectedCondition = state.condition;
           if (state.condition.includes(filter)) {
-            newSelectedCondition = newSelectedCondition.filter(cat => cat !== filter);
+            newSelectedCondition = newSelectedCondition.filter(
+              cat => cat !== filter,
+            );
           } else {
             newSelectedCondition.push(filter);
           }

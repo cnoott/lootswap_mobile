@@ -18,11 +18,8 @@ import {
   PriceSubMinMaxLabel,
   MinPriceContainer,
   HorizontalMarginView,
-} from './filtersScreenStyles'
-import {
-  categoryList,
-  brandsList,
-} from '../../utility/utility';
+} from './filtersScreenStyles';
+import {categoryList, brandsList} from '../../utility/utility';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -38,9 +35,6 @@ import {Size, Type, Filter_Type} from '../../enums';
 import LSSearchableDropdown from '../../components/commonComponents/LSSearchableDropdown';
 import LSInput from '../../components/commonComponents/LSInput';
 import {DOLLOR_TEXT} from 'localsvgimages';
-
-
-
 
 export const FiltersScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -94,7 +88,6 @@ export const FiltersScreen: FC<any> = ({route}) => {
           onPress={() =>
             onSetFilter(dispatch, Filter_Type.Sort_By, 'Low price')
           }
-
         />
         <AnimatedCheckBox
           isChecked={filterIsSelected(filters, 'High price')}
@@ -104,10 +97,8 @@ export const FiltersScreen: FC<any> = ({route}) => {
           onPress={() =>
             onSetFilter(dispatch, Filter_Type.Sort_By, 'High price')
           }
-
         />
       </EmptyView>
-
     );
   };
 
@@ -167,7 +158,6 @@ export const FiltersScreen: FC<any> = ({route}) => {
           onPress={() =>
             onSetFilter(dispatch, Filter_Type.Condition, 'New with defect')
           }
-
         />
         <AnimatedCheckBox
           isChecked={filterIsSelected(filters, 'Pre-owned')}
@@ -177,12 +167,10 @@ export const FiltersScreen: FC<any> = ({route}) => {
           onPress={() =>
             onSetFilter(dispatch, Filter_Type.Condition, 'Pre-owned')
           }
-
         />
       </EmptyView>
     );
   };
-
 
   const renderListFilter = (
     data: Array<any>,
@@ -190,7 +178,7 @@ export const FiltersScreen: FC<any> = ({route}) => {
     filterType: Filter_Type,
   ) => {
     if (!data?.length) {
-      return <></>
+      return <></>;
     }
     return (
       <EmptyView>
@@ -208,9 +196,7 @@ export const FiltersScreen: FC<any> = ({route}) => {
       <SelectedBrandButton
         onPress={() => onSetFilter(dispatch, Filter_Type.Remove_Brand, item)}
         key={index}>
-        <FilterButtonText isSelected={true}>
-          {item}
-        </FilterButtonText>
+        <FilterButtonText isSelected={true}>{item}</FilterButtonText>
         <CloseIcon />
       </SelectedBrandButton>
     );
@@ -222,11 +208,10 @@ export const FiltersScreen: FC<any> = ({route}) => {
         <ListTitleText>Brands</ListTitleText>
         <LSSearchableDropdown
           placeHolder="Search brand"
-          itemsList={
-            brandsList.map(
-              brand => ({id: brand.value, name: brand.label})
-            )
-          }
+          itemsList={brandsList.map(brand => ({
+            id: brand.value,
+            name: brand.label,
+          }))}
           onItemPress={(value: any) =>
             onSetFilter(dispatch, Filter_Type.Add_Brand, value.id)
           }

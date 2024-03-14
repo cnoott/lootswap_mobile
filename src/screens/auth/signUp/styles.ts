@@ -19,8 +19,7 @@ export const CreateContainer = styled.View.attrs(props => ({
   ${color}
 `;
 
-export const ButtonsContainer = styled.View.attrs(() => ({
-}))`
+export const ButtonsContainer = styled.View.attrs(() => ({}))`
   flex-direction: column;
   justify-content: space-between;
 `;
@@ -33,8 +32,7 @@ export const HeaderContainer = styled.View.attrs({
   ${space}
 `;
 
-export const SignInContainer = styled.TouchableOpacity.attrs(() => ({
-}))`
+export const SignInContainer = styled.TouchableOpacity.attrs(() => ({}))`
   flex-direction: row;
   justify-content: space-between;
 `;
@@ -60,7 +58,6 @@ export const TitleLabel = styled.Text.attrs(props => ({
   ${space}
   ${layout}
 `;
-
 
 export const HeaderDesLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.greySecondary,
@@ -293,4 +290,12 @@ export const SigninText = styled.Text.attrs(() => ({
 export const EmptyRowView = styled.View`
   flex-direction: row;
   align-items: center;
+`;
+
+export const CloseTouchable = styled.TouchableOpacity.attrs(() => ({
+  hitSlop: {top: 10, left: 10, right: 10, bottom: 10},
+}))`
+  position: absolute;
+  top: 15px;
+  right: 15px ${layout} ${space};
 `;

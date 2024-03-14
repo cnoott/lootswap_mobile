@@ -24,6 +24,8 @@ import {
   SET_NOTIFS_AS_READ,
   UNLIKE_PRODUCT,
   LIKE_PRODUCT,
+  SAVE_INSTALL_PARAMS,
+  SKIP_PAYPAL_ONBOARDING,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
 
@@ -39,6 +41,9 @@ export interface AuthProps {
   requestedUserDetails?: any;
   isLogedIn?: boolean;
   fcmToken?: any;
+  marketingChannel?: string;
+  referringUserId?: string;
+  skippedPaypalOnboarding?: boolean;
 }
 
 type ActionProps = {
@@ -61,6 +66,9 @@ export const InitialState: AuthProps = {
   requestedUserDetails: null,
   isLogedIn: false,
   fcmToken: null,
+  marketingChannel: undefined,
+  referringUserId: undefined,
+  skippedPaypalOnboarding: false,
 };
 
 export default function auth(state = InitialState, action: ActionProps) {
@@ -155,6 +163,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         authToken: null,
         isLogedIn: false,
         error: null,
+        skippedPaypalOnboarding: false,
       };
     }
     case SIGN_OUT.FAILURE: {
@@ -165,6 +174,7 @@ export default function auth(state = InitialState, action: ActionProps) {
         data: null,
         authToken: null,
         isLogedIn: false,
+        skippedPaypalOnboarding: false,
       };
     }
 
@@ -298,18 +308,19 @@ export default function auth(state = InitialState, action: ActionProps) {
     }
     case DELETE_NOTIF.UPDATE: {
       console.log('DELETE', action?.reqData?.notifs);
-      const notifIdsToDelete = new Set(action.reqData.notifs.map(notif => notif._id));
+      const notifIdsToDelete = new Set(
+        action.reqData.notifs.map(notif => notif._id),
+      );
 
       return {
         ...state,
         userData: {
           ...state.userData,
           notifications: state.userData.notifications.filter(
-            notif => !notifIdsToDelete.has(notif._id)
+            notif => !notifIdsToDelete.has(notif._id),
           ),
         },
       };
-
     }
     case DELETE_NOTIF.SUCCESS: {
       return {
@@ -413,6 +424,19 @@ export default function auth(state = InitialState, action: ActionProps) {
           ...state.userData,
           likedProducts: newLikedProducts,
         },
+      };
+    }
+    case SAVE_INSTALL_PARAMS.REQUEST: {
+      return {
+        ...state,
+        referringUserId: payload?.referringUserId,
+        marketingChannel: payload?.marketingChannel,
+      };
+    }
+    case SKIP_PAYPAL_ONBOARDING.REQUEST: {
+      return {
+        ...state,
+        skippedPaypalOnboarding: true,
       };
     }
     default:

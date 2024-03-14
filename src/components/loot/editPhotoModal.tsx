@@ -3,11 +3,7 @@ import {LSModal} from '../commonComponents/LSModal';
 import LSButton from '../commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 
-import {
-  ImagePickerModalStyle,
-  Container,
-  ButtonContainer,
-} from './styles';
+import {ImagePickerModalStyle, Container, ButtonContainer} from './styles';
 
 interface EditPhotoProps {
   isVisible: boolean;
@@ -24,7 +20,6 @@ const EditPhotoModal: FC<EditPhotoProps> = props => {
       isVisible={isVisible}
       style={ImagePickerModalStyle}
       onBackdropPress={() => closeModal()}>
-
       <LSModal.BottomContainer>
         <Container>
           <ButtonContainer>
@@ -52,7 +47,6 @@ const EditPhotoModal: FC<EditPhotoProps> = props => {
         </Container>
       </LSModal.BottomContainer>
     </LSModal>
-
   );
 };
 

@@ -18,7 +18,6 @@ import Tooltip from '../../components/tooltip/tooltip';
 import {SvgXml} from 'react-native-svg';
 import {QUESTION_MARK} from 'localsvgimages';
 
-
 interface SearchResult {
   imgUrl: String;
   name: String;
@@ -38,11 +37,11 @@ interface StockxResultProps {
 export const StockxSearchResults: FC<StockxResultProps> = props => {
   const {
     searchResults = [],
-      onSelectResult,
+    onSelectResult,
     loading = true,
-      selectedUrlKey,
+    selectedUrlKey,
     productName = '',
-      showTitle = true
+    showTitle = true,
   } = props;
 
   const [opacity] = useState(new Animated.Value(1)); // Initial value for opacity: 1
@@ -94,7 +93,6 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
     );
   };
 
-
   const BlinkingImage = () => {
     return (
       <Animated.View
@@ -117,24 +115,27 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
         isSelected={selectedUrlKey === item?.urlKey}>
         <ImageContainer>
           {loading ? (
-            <BlinkingImage/>
+            <BlinkingImage />
           ) : (
             <>
-              {item.thumbUrl ? (
+              {item.image ? (
                 <Image
-                  source={{uri: item.thumbUrl, priority: FastImage.priority.low}}
+                  source={{uri: item.image, priority: FastImage.priority.low}}
                   resizeMode={FastImage.resizeMode.contain}
                 />
               ) : (
-                <SvgXml xml={QUESTION_MARK} width={'90%'}/>
+                <SvgXml xml={QUESTION_MARK} width={'90%'} />
               )}
             </>
           )}
         </ImageContainer>
         <TextContainer>
-          <TitleText>{loading ? <BlinkingText/> : item?.title}</TitleText>
+          <TitleText>{loading ? <BlinkingText /> : item?.name}</TitleText>
           <BrandContainer>
-            {loading && <BlinkingBrandText />}<BrandText>{(item?.subTitle && !loading) && `${item.subTitle}`}</BrandText>
+            {loading && <BlinkingBrandText />}
+            <BrandText>
+              {item?.subTitle && !loading && `${item.subTitle}`}
+            </BrandText>
           </BrandContainer>
         </TextContainer>
       </ItemContainer>
@@ -148,8 +149,8 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
         ...searchResults,
         {
           urlKey: null,
-          thumbUrl: '',
-          title: 'My item is not here',
+          image: '',
+          name: 'My item is not here',
           subTitle: `Add new item "${productName}"`,
         },
       ];

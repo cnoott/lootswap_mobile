@@ -16,28 +16,17 @@ import ReduxStore from './src/redux/store/store';
 import theme from './src/theme';
 import StackNavigator from './src/navigation';
 import {StatusBar} from 'react-native';
-import branch from 'react-native-branch';
 import codePush from 'react-native-code-push';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 let codePushOptions = {
-  updateDialog: true,
+  updateDialog: false,
   checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-  installMode: codePush.InstallMode.IMMEDIATE, //might change it to ON_NEXT_RESUME if its too jarring
+  installMode: codePush.InstallMode.ON_NEXT_RESTART,
 };
 
 const App = () => {
   useEffect(() => {
-    branch.subscribe(async ({ error, params }) => {
-      if (error) {
-        console.error('Error from Branch: ' + error)
-        return
-      }
-      // params will never be null if error is null
-      let installParams = await branch.getFirstReferringParams();
-      console.log('from app.js', installParams);
-    });
-
     GoogleSignin.configure({
       googleServicePlistPath: __DEV__
         ? 'GoogleService-Info-Dev'

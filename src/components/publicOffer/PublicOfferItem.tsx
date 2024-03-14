@@ -17,7 +17,7 @@ import {SvgXml} from 'react-native-svg';
 import {useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import { isCameraPresent } from 'react-native-device-info';
+import {isCameraPresent} from 'react-native-device-info';
 import {Alert} from 'react-native';
 
 interface PublicOfferProps {
@@ -25,7 +25,7 @@ interface PublicOfferProps {
   handleDelete?: Function;
 }
 
-export const PublicOfferItem: FC<PublicOfferProps> = (props) => {
+export const PublicOfferItem: FC<PublicOfferProps> = props => {
   const {publicOffer, handleDelete = () => {}} = props;
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData, isLogedIn} = auth;
@@ -46,7 +46,7 @@ export const PublicOfferItem: FC<PublicOfferProps> = (props) => {
     if (isLogedIn && userData?._id === publicOffer?.userId._id) {
       return (
         <PublicOfferDeleteContainer onPress={() => handleConfirmDelete()}>
-          <SvgXml xml={TRASH_ICON_SMALL} style={{'marginTop': 5}}/>
+          <SvgXml xml={TRASH_ICON_SMALL} style={{marginTop: 5}} />
           <DeleteText>Delete</DeleteText>
         </PublicOfferDeleteContainer>
       );

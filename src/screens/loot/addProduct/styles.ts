@@ -173,19 +173,20 @@ export const ImageContainerUpload = styled.View.attrs(props => ({
   ${layout} ${color} ${space} ${border};
 `;
 
-export const CameraRollImageContainer = styled.TouchableOpacity.attrs(props => ({
-  height: scale(productImageWidth),
-  width: scale(productImageWidth),
-  borderRadius: scale(16),
-  bg: props.theme.colors.grey,
-  m: scale(1),
-}))`
+export const CameraRollImageContainer = styled.TouchableOpacity.attrs(
+  props => ({
+    height: scale(productImageWidth),
+    width: scale(productImageWidth),
+    borderRadius: scale(16),
+    bg: props.theme.colors.grey,
+    m: scale(1),
+  }),
+)`
   align-items: center;
   align-self: center;
   justify-content: center;
   ${layout} ${color} ${space} ${border};
 `;
-
 
 export const ImageContainerNew = styled.View.attrs((props: any) => ({
   height: scale(productImageWidth),
@@ -199,14 +200,16 @@ export const ImageContainerNew = styled.View.attrs((props: any) => ({
   ${layout} ${color} ${space};
 `;
 
-export const TakePhotoButtonContainer = styled.TouchableOpacity.attrs(props => ({
-  height: scale(35),
-  width: scale(120),
-  borderRadius: scale(60),
-  bg: 'rgba(98, 103, 254, 0.1)',
-  mb: scale(10),
-  ml: scale(11),
-}))`
+export const TakePhotoButtonContainer = styled.TouchableOpacity.attrs(
+  props => ({
+    height: scale(35),
+    width: scale(120),
+    borderRadius: scale(60),
+    bg: 'rgba(98, 103, 254, 0.1)',
+    mb: scale(10),
+    ml: scale(11),
+  }),
+)`
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -348,8 +351,7 @@ export const MarketRangeText = styled.Text.attrs(props => ({
   ${layout}
 `;
 
-export const RangeBarContainer = styled.View.attrs(props => ({
-}))`
+export const RangeBarContainer = styled.View.attrs(props => ({}))`
   flex-direction: row;
   align-items: center;
   position: relative;
@@ -370,8 +372,8 @@ export const GreenBar = styled.View.attrs(props => ({
 
 export const OrangeGradientBar = styled(LinearGradient).attrs(props => ({
   colors: ['yellow', 'orange'],
-  start: { x: 0, y: 0 },
-  end: { x: 1, y: 0 },
+  start: {x: 0, y: 0},
+  end: {x: 1, y: 0},
   borderRadius: 12,
   width: '40px',
 }))`
@@ -418,7 +420,7 @@ export const MedianDot = styled.View.attrs(props => ({
 `;
 
 export const MedianContainer = styled.View.attrs(props => ({
-  left: `${Math.min(Math.max(props.dotPosition-10, 0), 85)}%`
+  left: `${Math.min(Math.max(props.dotPosition - 10, 0), 85)}%`,
 }))`
   justify-content: center;
 `;
@@ -434,8 +436,7 @@ export const MedianTextContainer = styled.View.attrs(props => ({
   ${layout} ${space} ${border}
 `;
 
-export const MedianText = styled.Text.attrs(props => ({
-}))`
+export const MedianText = styled.Text.attrs(props => ({}))`
   text-align: center;
   color: white;
   font-size: ${moderateScale(13)}px;
@@ -444,7 +445,6 @@ export const MedianText = styled.Text.attrs(props => ({
   ${color}
   ${space}
 `;
-
 
 export const ShippingOptionsText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
@@ -461,10 +461,14 @@ export const TradeButton = styled.View.attrs(props => ({
   px: scale(15),
   py: scale(8),
   borderRadius: scale(20),
-  bg: props?.selected ? props.theme.colors.black : props.theme.colors.white,
+  bg: props.disabled
+    ? '#E5E5E5'
+    : props.selected
+    ? props.theme.colors.black
+    : props.theme.colors.white,
   my: scale(5),
   borderWidth: 1,
-  borderColor: props.theme.colors.black,
+  borderColor: props.disabled ? 'white' : props.theme.colors.black,
 }))`
   align-items: center;
   justify-content: center;
@@ -472,7 +476,11 @@ export const TradeButton = styled.View.attrs(props => ({
 `;
 
 export const TradeButtonText = styled.Text.attrs(props => ({
-  color: props?.selected ? props.theme.colors.white : props.theme.colors.black,
+  color: props.disabled
+    ? '#AEAEAE'
+    : props.selected
+    ? props.theme.colors.white
+    : props.theme.colors.black,
 }))`
   font-size: ${moderateScale(14)}px;
   font-family: Urbanist-SemiBold;
@@ -513,6 +521,44 @@ export const RecTagContainer = styled.View.attrs(() => ({
   align-items: center;
   justify-content: center;
   align-self: flex-start ${layout} ${color} ${space};
+`;
+
+export const PaypalDisclaimerView = styled.TouchableOpacity.attrs(
+  (props: any) => ({
+    mt: verticalScale(5),
+    borderRadius: 10,
+    bg: 'rgba(250, 204, 21, .2)',
+    p: scale(5),
+    height: verticalScale(45),
+  }),
+)`
+  flex-direction: row;
+  align-items: center;
+  ${space} ${border} ${color} ${layout};
+`;
+export const DisclaimerText = styled.Text.attrs(props => ({
+  color: '#FF981F',
+  ml: scale(10),
+  width: '95%',
+}))`
+  font-size: ${moderateScale(13.5)}px;
+  font-family: Urbanist-SemiBold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+export const DisclaimerTextUnderlined = styled.Text.attrs(props => ({
+  color: '#FF981F',
+  ml: scale(10),
+  width: '95%',
+}))`
+  font-size: ${moderateScale(13.5)}px;
+  font-family: Urbanist-SemiBold;
+  text-decoration: underline;
+  text-decoration-color: #ff981f;
+  ${color}
+  ${space}
+  ${layout}
 `;
 
 export const FreeTag = styled.Text.attrs(() => ({

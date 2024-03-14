@@ -19,7 +19,7 @@ import {
 } from '../../../redux/modules';
 import {Alert} from 'custom_top_alert';
 import RobberyModal from '../../../components/offers/RobberyModal';
-import { loggingService } from '../../../services/loggingService';
+import {loggingService} from '../../../services/loggingService';
 
 type PaymentDetails = {
   platformFee: number;
@@ -29,7 +29,7 @@ type PaymentDetails = {
   userPayout: number;
 };
 
-const NUMBER_OF_STEPS = 5
+const NUMBER_OF_STEPS = 5;
 
 export const StartTradeScreen: FC<any> = ({route}) => {
   const {requestedUserDetails, userData} = route?.params;
@@ -41,7 +41,9 @@ export const StartTradeScreen: FC<any> = ({route}) => {
 
   const [robberyModalVisible, setRobberyModalVisible] = useState(false);
 
-  const [otherUserItems, setOtherUserItems] = useState(requestedUserDetails.my_items);
+  const [otherUserItems, setOtherUserItems] = useState(
+    requestedUserDetails.my_items,
+  );
   const [myItems, setMyItems] = useState(userData?.my_items);
 
   const [myMoneyOffer, setMyMoneyOffer] = useState(0);
@@ -62,8 +64,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
 
   useEffect(() => {
     console.log('STARTING');
-  },[]);
-
+  }, []);
 
   const headerTitleOptions = () => {
     switch (currIndex) {
@@ -86,9 +87,8 @@ export const StartTradeScreen: FC<any> = ({route}) => {
         return {
           title: 'Checkout & Submit Offer',
           profilePicture: '',
-       };
+        };
     }
-
   };
 
   const renderTopView = () => (
@@ -136,7 +136,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
           setTrade(res.trade);
         },
         error => {
-          Alert.showError('Error in checking out')
+          Alert.showError('Error in checking out');
         },
       ),
     );
@@ -151,9 +151,9 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     } else {
       navigation?.replace('OffersMessageScreen', {item: trade});
       loggingService().logEvent('start_trade', {
-        id: trade?._id
+        id: trade?._id,
       });
-      loggingService().logEvent('complete_start_trade_offer')
+      loggingService().logEvent('complete_start_trade_offer');
     }
   };
 
@@ -211,8 +211,9 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       myMarketValue += myMoneyOffer;
 
       if (myMarketValue <= otherUserMarketValue * 0.7) {
-        setRobberyModalVisible(true);
-        return false
+        console.log('unfair trade');
+        //setRobberyModalVisible(true);
+        //return false
       }
       return true;
     }

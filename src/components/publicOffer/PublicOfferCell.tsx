@@ -37,7 +37,7 @@ export const PublicOfferCell: FC<PublicOfferProps> = props => {
   const renderSwapView = () => {
     return (
       <EmptyView>
-        <SwapLine size={95}/>
+        <SwapLine size={95} />
         <SwapButtonContainer>
           <SvgXml xml={SWAP_ICON} />
         </SwapButtonContainer>

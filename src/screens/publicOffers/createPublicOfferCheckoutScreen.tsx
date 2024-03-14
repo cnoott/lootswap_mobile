@@ -11,7 +11,7 @@ import {publicOfferCheckout} from '../../redux/modules';
 import {Alert} from 'custom_top_alert';
 import {LSStartTradeHeader} from '../../components/commonComponents/headers/startTradeHeader';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import { loggingService } from '../../services/loggingService';
+import {loggingService} from '../../services/loggingService';
 
 type PaymentDetails = {
   platformFee: number;
@@ -67,7 +67,7 @@ export const CreatePublicOfferCheckoutScreen: FC<any> = ({route}) => {
           console.log('ERRORR => ', err);
         },
       ),
-    )
+    );
   }, [
     dispatch,
     myItems,
@@ -92,10 +92,9 @@ export const CreatePublicOfferCheckoutScreen: FC<any> = ({route}) => {
         index: 0,
         routes: [{name: 'Inbox'}],
       });
-      loggingService().logEvent('end_create_public_offer')
+      loggingService().logEvent('end_create_public_offer');
     }
   };
-
 
   return (
     <>

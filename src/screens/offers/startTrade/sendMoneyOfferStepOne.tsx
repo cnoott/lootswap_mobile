@@ -46,7 +46,7 @@ export const SendMoneyOfferStepOne: FC<SendMoneyOfferStepOneProps> = props => {
     ) {
       setNotValidMsg('Please enter a valid dollar amount');
       setNotValidMsg(
-        `Please make an offer of at least ${parseFloat(item?.price) / 2}`
+        `Please make an offer of at least ${parseFloat(item?.price) / 2}`,
       );
     }
   };
@@ -67,11 +67,7 @@ export const SendMoneyOfferStepOne: FC<SendMoneyOfferStepOneProps> = props => {
     <KeyboardAvoidingView>
       <SendOfferContainer>
         <View>
-          <StartTradeItemCell
-            item={item}
-            isReview={true}
-            isMoneyOffer={true}
-          />
+          <StartTradeItemCell item={item} isReview={true} isMoneyOffer={true} />
         </View>
         <View>
           <OfferPriceText>Offer Price</OfferPriceText>
@@ -91,7 +87,7 @@ export const SendMoneyOfferStepOne: FC<SendMoneyOfferStepOneProps> = props => {
             />
           </MoneyOfferInputContainer>
           <Line notValid={notValidMsg} />
-          {notValidMsg && (<InvalidText>{notValidMsg}</InvalidText>)}
+          {notValidMsg && <InvalidText>{notValidMsg}</InvalidText>}
           <SubText>Shipping and taxes calculated in the next step</SubText>
         </View>
 
