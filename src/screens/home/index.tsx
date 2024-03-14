@@ -57,7 +57,7 @@ export const HomeScreen: FC<{}> = () => {
   const [products, setProducts] = useState([]);
   const [publicOffers, setPublicOffers] = useState([]);
   const [endReached, setEndReached] = useState(false);
-  const [PublicOfferEndReached, setPublicOfferEndReached] = useState(false);
+  const [publicOfferEndReached, setPublicOfferEndReached] = useState(false);
   const [page, setPage] = useState(0);
   const [publicOffersPage, setPublicOffersPage] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -102,7 +102,7 @@ export const HomeScreen: FC<{}> = () => {
   }, [loading]);
 
   useEffect(() => {
-    if (publicOffersLoading && !PublicOfferEndReached) {
+    if (publicOffersLoading && !publicOfferEndReached) {
       setLoadingPublicOffersItems(new Array(4).fill({publicOffersLoading: true}));
       console.log('now loading');
     } else {
@@ -111,7 +111,7 @@ export const HomeScreen: FC<{}> = () => {
     }
   }, [publicOffersLoading]);
 
-useEffect(() => {
+  useEffect(() => {
     setPublicOffersLoading(true);
     if (isLogedIn) {
       const reqData = {
@@ -194,7 +194,7 @@ useEffect(() => {
         getPublicOffers(
           publicOfferReqData,
           (res: any) => {
-            setPublicOfferEndReached(res.PublicOfferEndReached);
+            setPublicOfferEndReached(res);
           },
           (err: any) => {
             console.log('ERR => ', err);
@@ -234,8 +234,8 @@ useEffect(() => {
     }
   };
 
-  const onPublicOffersEndReached = () => {
-    if (!publicOffersLoading && !PublicOfferEndReached) {
+  const onPublicOfferEndReached = () => {
+    if (!publicOffersLoading && !publicOfferEndReached) {
       setPublicOffersPage(prevPage => prevPage + 1);
     }
   };
@@ -277,7 +277,7 @@ useEffect(() => {
     setModalOpen(isOpen => !isOpen);
   };
 
-const renderPublicOffers = () => {
+  const renderPublicOffers = () => {
     return (
       <SectionContainer>
         <SectionTopContainer>
@@ -302,7 +302,7 @@ const renderPublicOffers = () => {
           keyExtractor={(item, index) =>
             item._id ? item._id.toString() : `publicOffersLoading-${index}`
           }
-          onEndReached={() => onPublicOffersEndReached()}
+          onEndReached={() => onPublicOfferEndReached()}
         />
       </SectionContainer>
     );
