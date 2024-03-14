@@ -80,25 +80,21 @@ const LoadingPublicOfferCell: FC<LoadingPublicOfferCellProps> = props => {
     </>
   );
 
-  const renderContent = () => {
-    if (isFromHome) {
-      return (
-        <HomePublicOfferCard topMargin={5} isFromHome={isFromHome}>
-          <HomeScreenOfferPlaceholder />
-        </HomePublicOfferCard>
-      );
-    }
+  if (isFromHome) {
     return (
-      <>
-        <OfferCellContainer>
-          <UserDetailsPlaceholder />
-          <OfferDetailsPlaceholder />
-        </OfferCellContainer>
-      </>
+      <HomePublicOfferCard topMargin={5} isFromHome={isFromHome}>
+        <HomeScreenOfferPlaceholder />
+      </HomePublicOfferCard>
     );
-  };
-
-  return renderContent();
+  }
+  return (
+    <>
+      <OfferCellContainer>
+        <UserDetailsPlaceholder />
+        <OfferDetailsPlaceholder />
+      </OfferCellContainer>
+    </>
+  );
 };
 
 export default LoadingPublicOfferCell;
