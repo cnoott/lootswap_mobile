@@ -2,7 +2,7 @@
 LootSwap - LOOT LIST SCREEN
 ***/
 
-import React, {FC, useRef, useState, useCallback} from 'react';
+import React, {FC, useRef, useState, useCallback, useEffect} from 'react';
 import {Keyboard} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useSelector, useDispatch} from 'react-redux';
@@ -79,7 +79,9 @@ export const LootScreen: FC<any> = ({route}) => {
 
     const canGoNext = validateCreateProductData(currIndex + 1, addProductData);
     if (canGoNext) {
-      //loggingService().logEvent('add_loot_step' + currIndex);
+      loggingService().logEvent(`start_add_loot_step_${currIndex}`, {
+        addProductData: JSON.stringify(addProductData)
+      });
       if (currIndex === 0 && stockxLoading) {
         Alert.showError('Wait until search is done loading');
         return;
