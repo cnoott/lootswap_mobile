@@ -368,8 +368,10 @@ export const shoesSizeList = [
   //Youth
   {label: '1Y', value: '1Y'},
   {label: '1.5Y', value: '1.5Y'},
-  {label: '2Y', value: '2.5Y'},
-  {label: '3Y', value: '3.5Y'},
+  {label: '2Y', value: '2Y'},
+  {label: '2.5Y', value: '2.5Y'},
+  {label: '3Y', value: '3Y'},
+  {label: '3.5Y', value: '3.5Y'},
   {label: '4Y', value: '4Y'},
   {label: '4.5Y', value: '4.5Y'},
   {label: '5Y', value: '5Y'},
