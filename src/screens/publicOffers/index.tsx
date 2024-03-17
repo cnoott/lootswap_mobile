@@ -17,6 +17,7 @@ import CreatePublicOfferReview from './createPublicOfferReview';
 import {getMyDetailsNoLoadRequest} from '../../redux/modules';
 import {Alert} from 'custom_top_alert';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {loggingService} from '../../services/loggingService';
 
 const NUMBER_OF_STEPS = 4;
 
@@ -30,6 +31,7 @@ export const CreatePublicOfferScreen: FC<any> = ({route}) => {
 
   const [myItems, setMyItems] = useState(userData?.my_items);
 
+
   const swiperRef = useRef<any>(null);
   const [currPage, setCurrPage] = useState(skipFirstScreen ? 1 : 0);
   const handleBack = () => {
@@ -41,6 +43,9 @@ export const CreatePublicOfferScreen: FC<any> = ({route}) => {
   };
   const handleNext = () => {
     if (canGoNext()) {
+      loggingService().logEvent(
+        `start_create_public_offer_step_${currPage + 1}`
+      );
       if (currPage === 3) {
         navigation?.navigate('CreatePublicOfferCheckoutScreen', {
           publicOffersData: publicOffersData,
@@ -50,6 +55,10 @@ export const CreatePublicOfferScreen: FC<any> = ({route}) => {
       swiperRef?.current?.scrollTo(currPage + 1);
     }
   };
+
+  useEffect(() => {
+    loggingService().logEvent(`start_create_public_offer`);
+  });
 
   useEffect(() => {
     if (skipFirstScreen) {

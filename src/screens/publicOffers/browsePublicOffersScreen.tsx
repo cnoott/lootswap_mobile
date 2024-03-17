@@ -101,7 +101,6 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
   };
   const goToCreatePublicOfferScreen = () => {
     navigation?.navigate('CreatePublicOfferScreen');
-    loggingService().logEvent('start_create_public_offer');
   };
 
   const renderBottomButtonView = () => {
