@@ -50,7 +50,7 @@ import {loggingService} from '../../services/loggingService';
 
 const ITEMS_PER_PAGE = 16;
 
-export const SearchScreen: FC<any> = () => {
+export const SearchScreen: FC<any> = props => {
   const insets = useSafeAreaInsets();
   const paddingTop = insets.top;
   const scrollRef = useRef(null);
@@ -101,6 +101,8 @@ export const SearchScreen: FC<any> = () => {
     });
   };
 
+  // TODO: make this apart of the search api call
+  // instead of a seperate call to save the recent searches
   const handleSaveSearch = (search: string) => {
     let newRecentSearches = userData?.recentSearches;
     if (newRecentSearches.includes(search)) {
@@ -156,11 +158,18 @@ export const SearchScreen: FC<any> = () => {
     }
     swiperRef?.current?.scrollTo(currPage + 1);
 
-    const searchData = {
+    let searchData = {
       ...filters,
       page: 0,
       itemsPerPage: ITEMS_PER_PAGE,
     };
+
+    if (isLogedIn) {
+      searchData = {
+        ...searchData,
+        userId: userData?._id,
+      };
+    }
     handleSubmitFilters(dispatch, null, searchData, searchQuery);
     loggingService().logEvent('search', {
       search_term: searchQuery,
