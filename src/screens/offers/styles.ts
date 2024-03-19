@@ -348,8 +348,8 @@ export const ImageContainerDouble: any = styled.View.attrs((props: any) => ({
   align-items: center;
   justify-content: center;
   position: absolute;
-  right: 0px;
-  bottom: 0px;
+  right: -12px;
+  bottom: -5px;
   ${layout} ${color} ${space} ${border};
 `;
 
@@ -359,6 +359,7 @@ export const OfferItemContainer = styled.View.attrs(props => ({
   borderRadius: scale(10),
   mr: scale(5),
 }))`
+ 
   ${layout} ${color} ${space};
 `;
 
@@ -422,8 +423,8 @@ export const DoubleViewOffer = styled.View.attrs(props => ({
   py: scale(6),
   borderRadius: scale(20),
   bg: props.theme.colors.offerColor,
-  top: 10,
-  right: -8,
+  top: -5,
+  right: -25,
 }))`
   align-items: center;
   justify-content: center;
@@ -471,6 +472,7 @@ export const OfferItemList = styled.FlatList.attrs(() => ({
   },
   numColumns: 2,
   alignItems: 'center',
+  width: scale(128),
 }))`
   ${color}
   ${space}
