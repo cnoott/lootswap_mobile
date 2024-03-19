@@ -26,6 +26,7 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
   const [loading, setLoading] = useState(true);
   const [loadingItems, setLoadingItems] = useState([]);
   const [page, setPage] = useState(0);
+  const [endReached, setEndReached] = useState(false);
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const dispatch = useDispatch();
@@ -45,7 +46,8 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
         reqData,
         res => {
           console.log('RESPONSE', res);
-          setPublicOffers([...publicOffers, ...res]);
+          setPublicOffers([...publicOffers, ...res.publicOffers]);
+          setEndReached(res.endReached);
           setLoadingItems([]); // Clear loading items once data is loaded
           setLoading(false);
         },
