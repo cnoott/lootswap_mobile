@@ -19,11 +19,13 @@ import {
   MultiSizeTextContainer,
   SingleSizeTextContainer,
   SizeText,
+  Pressable,
 } from '../styles';
 import {offerCellOnPress} from '../../../utility/utility';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {scale, moderateScale} from 'react-native-size-matters';
 import Svg, {Text} from 'react-native-svg';
+import OfferItemImage from '../../../components/offers/offerItemImage';
 
 interface TradeOfferItemProp {
   items: Array<any>;
@@ -31,6 +33,7 @@ interface TradeOfferItemProp {
   isInTrade?: boolean;
   isStockxItem?: boolean;
   isFromHome?: boolean;
+  isPressable?: boolean;
 }
 
 export interface ListRenderItemInfo {
@@ -85,11 +88,12 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
     const itemPhoto = getImageUri(items[0]);
     return (
       <ImageContainer size={isFromHome ? HOME_SIZE : OFFERS_SIZE}>
-        <Image
-          isStockxItem={isStockxItem}
-          isFromHome={isFromHome}
-          source={{uri: itemPhoto}}
+        <OfferItemImage
+          source={itemPhoto}
           size={isFromHome ? HOME_SIZE : OFFERS_SIZE}
+          isPressable={isInTrade}
+          isStockxItem={isStockxItem}
+          productData={items[0]}
         />
         <SingleSizeTextContainer>
           <SizeText>Size {getSize(items[0])}</SizeText>
@@ -99,23 +103,25 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
   };
 
   const renderSingleViewWithOffer = () => {
-    const _size = 70;
+    const _size = 75;
     const fromHomeSize = scale(45);
     const itemPhoto = getImageUri(items[0]);
     return (
       <OfferItemContainer size={isFromHome ? HOME_SIZE : OFFERS_SIZE}>
         <ImageContainerDouble size={isFromHome ? fromHomeSize : _size}>
-          <Image
-            source={{uri: itemPhoto}}
+          <OfferItemImage
+            source={itemPhoto}
             size={isFromHome ? fromHomeSize : _size}
+            isPressable={isInTrade}
             isStockxItem={isStockxItem}
+            productData={items[0]}
           />
           <MultiSizeTextContainer>
             <SizeText>{getSize(items[0])}</SizeText>
           </MultiSizeTextContainer>
         </ImageContainerDouble>
         <TrippleViewOffer
-          size={isFromHome ? moderateScale(45) : moderateScale(50)}>
+          size={isFromHome ? moderateScale(45) : moderateScale(55)}>
           <OfferText>+${moneyOffer}</OfferText>
         </TrippleViewOffer>
       </OfferItemContainer>
@@ -132,14 +138,16 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
       <OfferItemContainer size={isFromHome ? HOME_SIZE : OFFERS_SIZE}>
         {isOffer && (
           <DoubleViewOffer>
-            <OfferText>${moneyOffer}</OfferText>
+            <OfferText>+${moneyOffer}</OfferText>
           </DoubleViewOffer>
         )}
         <ImageContainerDouble size={isFromHome ? fromHomeSize : _size}>
-          <Image
-            source={{uri: itemRightPhoto}}
+          <OfferItemImage
+            source={itemRightPhoto}
             size={isFromHome ? fromHomeSize : _size}
+            isPressable={isInTrade}
             isStockxItem={isStockxItem}
+            productData={items[1]}
           />
           <MultiSizeTextContainer>
             <SizeText>{getSize(items[1])}</SizeText>
@@ -147,10 +155,12 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
         </ImageContainerDouble>
 
         <ImageContainer size={isFromHome ? fromHomeSize : _size}>
-          <Image
-            source={{uri: itemLeftPhoto}}
+          <OfferItemImage
+            source={itemLeftPhoto}
             size={isFromHome ? fromHomeSize : _size}
+            isPressable={isInTrade}
             isStockxItem={isStockxItem}
+            productData={items[0]}
           />
           <MultiSizeTextContainer>
             <SizeText>{getSize(items[0])}</SizeText>
@@ -186,11 +196,14 @@ export const TradeOfferItem: FC<TradeOfferItemProp> = props => {
       }
       return (
         <ImageContainer size={isFromHome ? moderateScale(40) : _size}>
-          <Image
-            source={{uri: item}}
+          <OfferItemImage
+            source={item}
             size={isFromHome ? moderateScale(40) : _size}
+            isPressable={isInTrade}
             isStockxItem={isStockxItem}
+            productData={items[index]}
           />
+
           <MultiSizeTextContainer>
             <SizeText>{sizeArray[index]}</SizeText>
           </MultiSizeTextContainer>
