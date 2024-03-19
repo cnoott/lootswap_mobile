@@ -38,7 +38,7 @@ import LoadingProductCard from '../../components/productCard/loadingProductCard'
 import LoadingPublicOfferCell from '../../components/publicOffer/LoadingPublicOfferCell';
 
 const ITEMS_PER_PAGE = 8;
-const PUBLIC_OFFERS_PER_PAGE = 2;
+const PUBLIC_OFFERS_PER_PAGE = 5;
 
 export const HomeScreen: FC<{}> = () => {
   const dispatch = useDispatch();
