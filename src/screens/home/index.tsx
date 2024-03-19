@@ -2,7 +2,7 @@
   LootSwap - FIRST TAB HOME SCREEN
  ***/
 
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState, useEffect, useCallback} from 'react';
 import {InHomeHeader} from '../../components/commonComponents/headers/homeHeader';
 import CarouselComponent from '../../components/Carousel';
 import {
@@ -38,7 +38,7 @@ import LoadingProductCard from '../../components/productCard/loadingProductCard'
 import LoadingPublicOfferCell from '../../components/publicOffer/LoadingPublicOfferCell';
 
 const ITEMS_PER_PAGE = 8;
-const PUBLIC_OFFERS_PER_PAGE = 4;
+const PUBLIC_OFFERS_PER_PAGE = 2;
 
 export const HomeScreen: FC<{}> = () => {
   const dispatch = useDispatch();
@@ -57,32 +57,14 @@ export const HomeScreen: FC<{}> = () => {
   const [products, setProducts] = useState([]);
   const [publicOffers, setPublicOffers] = useState([]);
   const [endReached, setEndReached] = useState(false);
-  const [publicOfferEndReached, setPublicOfferEndReached] = useState(false);
+  const [publicOffersEndReached, setPublicOffersEndReached] = useState(false);
   const [page, setPage] = useState(0);
   const [publicOffersPage, setPublicOffersPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [publicOffersLoading, setPublicOffersLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
-    const reqData = {
-      itemsPerPage: ITEMS_PER_PAGE,
-      page: page,
-    };
-    dispatch(
-      getHomeScreenProducts(
-        reqData,
-        (res: any) => {
-          setProducts([...products, ...res.products]);
-          setEndReached(res.endReached);
-          setLoading(false);
-        },
-        (err: any) => {
-          console.log(err);
-          setLoading(false);
-        },
-      ),
-    );
+    fetchHomeScreenProducts();
   }, [page]);
 
   useEffect(() => {
@@ -102,7 +84,7 @@ export const HomeScreen: FC<{}> = () => {
   }, [loading]);
 
   useEffect(() => {
-    if (publicOffersLoading && !publicOfferEndReached) {
+    if (publicOffersLoading && !publicOffersEndReached) {
       setLoadingPublicOffersItems(new Array(4).fill({publicOffersLoading: true}));
       console.log('now loading');
     } else {
@@ -112,6 +94,33 @@ export const HomeScreen: FC<{}> = () => {
   }, [publicOffersLoading]);
 
   useEffect(() => {
+    fetchHomeScreenPublicOffers();
+  }, [publicOffersPage]);
+
+  const fetchHomeScreenProducts = useCallback(() => {
+    setLoading(true);
+    const reqData = {
+      itemsPerPage: ITEMS_PER_PAGE,
+      page: page,
+    };
+    dispatch(
+      getHomeScreenProducts(
+        reqData,
+        (res: any) => {
+          setProducts([...products, ...res.products]);
+          setEndReached(res.endReached);
+          setLoading(false);
+        },
+        (err: any) => {
+          console.log(err);
+          setLoading(false);
+        },
+      ),
+    );
+
+  }, [page]);
+
+  const fetchHomeScreenPublicOffers = useCallback(() => {
     setPublicOffersLoading(true);
     if (isLogedIn) {
       const reqData = {
@@ -126,8 +135,8 @@ export const HomeScreen: FC<{}> = () => {
         getPublicOffers(
           reqData,
           (res: any) => {
-            setPublicOffers([...publicOffers, ...res]);
-            setPublicOfferEndReached(res);
+            setPublicOffers([...publicOffers, ...res.publicOffers]);
+            setPublicOffersEndReached(res.endReached);
             setPublicOffersLoading(false);
           },
           (err: any) => {
@@ -145,8 +154,8 @@ export const HomeScreen: FC<{}> = () => {
         getHomeScreenPublicOffers(
           reqData,
           (res: any) => {
-            setPublicOffers([...publicOffers, ...res]);
-            setPublicOfferEndReached(res);
+            setPublicOffers([...publicOffers, ...res.publicOffers]);
+            setPublicOffersEndReached(res.endReached);
             setPublicOffersLoading(false);
           },
           (err: any) => {
@@ -158,66 +167,22 @@ export const HomeScreen: FC<{}> = () => {
     }
   }, [publicOffersPage]);
 
+
   const handleRefresh = async () => {
     setRefreshing(true);
     ReactNativeHapticFeedback.trigger('impactMedium');
-    setPage(0);
-    const reqData = {
-      itemsPerPage: ITEMS_PER_PAGE,
-      page: page,
-    };
-    dispatch(
-      getHomeScreenProducts(
-        reqData,
-        (res: any) => {
-          setEndReached(res.endReached);
-        },
-        (err: any) => {
-          console.log(err);
-        },
-      ),
-    );
-    setPublicOffersPage(0);
-    setRefreshing(false);
-
-    if (isLogedIn) {
-      // same code as above in the useEffect XXX
-      const publicOfferReqData = {
-        type: 'Browse',
-        userId: userData?._id,
-        pagination: true,
-        page: page,
-        itemsPerPage: PUBLIC_OFFERS_PER_PAGE,
-        showLoad: false,
-      };
-      dispatch(
-        getPublicOffers(
-          publicOfferReqData,
-          (res: any) => {
-            setPublicOfferEndReached(res);
-          },
-          (err: any) => {
-            console.log('ERR => ', err);
-          },
-        ),
-      );
-    } else {
-      const publicOfferReqData = {
-        itemsPerPage: PUBLIC_OFFERS_PER_PAGE,
-        page: publicOffersPage,
-      };
-      dispatch(
-        getHomeScreenPublicOffers(
-          publicOfferReqData,
-          (res: any) => {
-            setPublicOfferEndReached(res);
-          },
-          (err: any) => {
-            console.log('ERR => ', err);
-          },
-        ),
-      );
+    if (page !== 0) {
+      setPage(0);
     }
+    if (publicOffersPage !== 0) {
+      setPublicOffersPage(0);
+    }
+    setPublicOffers([])
+    setProducts([])
+    setPublicOffersEndReached(false);
+    setEndReached(false);
+    fetchHomeScreenPublicOffers();
+    fetchHomeScreenProducts();
   };
 
   const goToLikedProducts = () => {
@@ -235,7 +200,9 @@ export const HomeScreen: FC<{}> = () => {
   };
 
   const onPublicOfferEndReached = () => {
-    if (!publicOffersLoading && !publicOfferEndReached) {
+    console.log('next', publicOffersLoading, publicOffersEndReached);
+    if (!publicOffersLoading && !publicOffersEndReached) {
+    console.log('setting next');
       setPublicOffersPage(prevPage => prevPage + 1);
     }
   };
