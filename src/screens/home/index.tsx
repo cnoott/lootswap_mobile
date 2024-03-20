@@ -288,7 +288,13 @@ export const HomeScreen: FC<{}> = () => {
         <LoadingProductCard key={`loading-${index}`} isHorizontalView={true} />
       );
     }
-    return <LSProductCard item={item} isHorizontalView={true} key={item._id} />;
+    return (
+      <LSProductCard
+        item={item}
+        isHorizontalView={true}
+        key={`${item._id}${index}`}
+      />
+    );
   };
 
   const onToggleModal = () => {
@@ -342,7 +348,7 @@ export const HomeScreen: FC<{}> = () => {
       <>
         <SectionContainer>
           <SectionTopContainer>
-            <SectionTitleText>All Listings</SectionTitleText>
+            <SectionTitleText>Recently Added</SectionTitleText>
             <LSButton
               title={'View All'}
               size={Size.ViewSmall}
@@ -378,7 +384,9 @@ export const HomeScreen: FC<{}> = () => {
               size={Size.ViewSmall}
               type={Type.View}
               radius={20}
-              onPress={() => navigation?.navigate('AllListingsScreen')}
+              onPress={() => navigation?.navigate('AllListingsScreen', {
+                hotItems: true,
+              })}
             />
           </SectionTopContainer>
         </SectionContainer>
