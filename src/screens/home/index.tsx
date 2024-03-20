@@ -23,6 +23,7 @@ import {LIKE_HEART_ICON} from 'localsvgimages';
 import {useScrollToTop} from '@react-navigation/native';
 import {
   getHomeScreenProducts,
+  getHotProducts,
   getMyDetailsNoLoadRequest,
   getHomeScreenPublicOffers,
   getPublicOffers,
@@ -46,6 +47,7 @@ export const HomeScreen: FC<{}> = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [loadingItems, setLoadingItems] = useState([]);
+  const [hotLoadingItems, setHotLoadingItems] = useState([]);
   const [loadingPublicOffersItems, setLoadingPublicOffersItems] = useState([]);
 
   const scrollRef = React.useRef(null);
@@ -55,17 +57,25 @@ export const HomeScreen: FC<{}> = () => {
   const {userData, isLogedIn} = auth;
 
   const [products, setProducts] = useState([]);
+  const [hotProducts, setHotProducts] = useState([]);
   const [publicOffers, setPublicOffers] = useState([]);
   const [endReached, setEndReached] = useState(false);
+  const [hotEndReached, setHotEndReached] = useState(false);
   const [publicOffersEndReached, setPublicOffersEndReached] = useState(false);
   const [page, setPage] = useState(0);
+  const [hotPage, setHotPage] = useState(0);
   const [publicOffersPage, setPublicOffersPage] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [hotProductsLoading, setHotProductsLoading] = useState(false);
   const [publicOffersLoading, setPublicOffersLoading] = useState(false);
 
   useEffect(() => {
     fetchHomeScreenProducts();
   }, [page]);
+
+  useEffect(() => {
+    fetchHotProducts();
+  }, [hotPage]);
 
   useEffect(() => {
     if (isLogedIn) {
@@ -84,6 +94,16 @@ export const HomeScreen: FC<{}> = () => {
   }, [loading]);
 
   useEffect(() => {
+    if (hotProductsLoading && !hotEndReached) {
+      setHotLoadingItems(new Array(8).fill({loading: true}));
+      console.log('now loading');
+    } else {
+      setHotLoadingItems([]);
+      console.log('not loading');
+    }
+  }, [hotProductsLoading]);
+
+  useEffect(() => {
     if (publicOffersLoading && !publicOffersEndReached) {
       setLoadingPublicOffersItems(new Array(4).fill({publicOffersLoading: true}));
       console.log('now loading');
@@ -96,6 +116,31 @@ export const HomeScreen: FC<{}> = () => {
   useEffect(() => {
     fetchHomeScreenPublicOffers();
   }, [publicOffersPage]);
+
+
+  const fetchHotProducts = useCallback(() => {
+    setHotProductsLoading(true);
+    const reqData = {
+      itemsPerPage: ITEMS_PER_PAGE,
+      page: hotPage,
+    };
+    console.log('CALLING!!!');
+    dispatch(
+      getHotProducts(
+        reqData,
+        (res: any) => {
+          console.log('REZ', res.hotProducts);
+          setHotProducts([...hotProducts, ...res.hotProducts]);
+          setHotEndReached(res.endReached);
+          setHotProductsLoading(false);
+        },
+        (err: any) => {
+          console.log(err);
+          setHotProductsLoading(false);
+        },
+      ),
+    );
+  }, [hotPage]);
 
   const fetchHomeScreenProducts = useCallback(() => {
     setLoading(true);
@@ -199,6 +244,12 @@ export const HomeScreen: FC<{}> = () => {
     }
   };
 
+  const hotOnEndReached = () => {
+    if (!hotProductsLoading && !hotEndReached) {
+      setHotPage(prevPage => prevPage + 1);
+    }
+  };
+
   const onPublicOfferEndReached = () => {
     console.log('next', publicOffersLoading, publicOffersEndReached);
     if (!publicOffersLoading && !publicOffersEndReached) {
@@ -286,25 +337,9 @@ export const HomeScreen: FC<{}> = () => {
     );
   };
 
-  return (
-    <Container>
-      <InHomeHeader
-        isHome={true}
-        rightIcon={LIKE_HEART_ICON}
-        centerAligned={false}
-        onRightItemPress={() => goToLikedProducts()}
-      />
-      <ScrollView
-        ref={scrollRef}
-        refreshControl={
-          <RefreshControl refreshing={false} onRefresh={handleRefresh} />
-        }>
-        <CarouselComponent
-          height={scale(360)}
-          isHome={true}
-          renderSearchBar={renderSearchBar}
-        />
-        {renderPublicOffers()}
+  const renderAllProductsSection = () => {
+    return (
+      <>
         <SectionContainer>
           <SectionTopContainer>
             <SectionTitleText>All Listings</SectionTitleText>
@@ -328,6 +363,61 @@ export const HomeScreen: FC<{}> = () => {
           horizontal={true}
           onEndReachedThreshold={0.5}
         />
+      </>
+    );
+  };
+
+  const renderHotProductsSection = () => {
+    return (
+      <>
+        <SectionContainer>
+          <SectionTopContainer>
+            <SectionTitleText>Popular Listings</SectionTitleText>
+            <LSButton
+              title={'View All'}
+              size={Size.ViewSmall}
+              type={Type.View}
+              radius={20}
+              onPress={() => navigation?.navigate('AllListingsScreen')}
+            />
+          </SectionTopContainer>
+        </SectionContainer>
+
+        <FlatList
+          data={[...hotProducts, ...hotLoadingItems]} // TODO: loading items
+          renderItem={renderItem}
+          keyExtractor={(item, index) =>
+            item._id ? item._id.toString() : `loading-${index}`
+          }
+          onEndReached={() => hotOnEndReached()}
+          horizontal={true}
+          onEndReachedThreshold={0.5}
+        />
+      </>
+    );
+  };
+
+  return (
+    <Container>
+      <InHomeHeader
+        isHome={true}
+        rightIcon={LIKE_HEART_ICON}
+        centerAligned={false}
+        onRightItemPress={() => goToLikedProducts()}
+      />
+      <ScrollView
+        ref={scrollRef}
+        refreshControl={
+          <RefreshControl refreshing={false} onRefresh={handleRefresh} />
+        }>
+        <CarouselComponent
+          height={scale(360)}
+          isHome={true}
+          renderSearchBar={renderSearchBar}
+        />
+        {renderPublicOffers()}
+        {renderHotProductsSection()}
+        {renderAllProductsSection()}
       </ScrollView>
     </Container>
   );
