@@ -2,7 +2,7 @@
 LootSwap - OFFERS SCREEN
 ***/
 
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {useWindowDimensions, RefreshControl} from 'react-native';
 import {SceneMap} from 'react-native-tab-view';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -59,6 +59,7 @@ import {Dropdown} from 'react-native-element-dropdown';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 import CellBadge from '../../components/offers/cellBadge';
 import {loggingService} from '../../services/loggingService';
+import LoadingPublicOfferCell from '../../components/publicOffer/LoadingPublicOfferCell.tsx';
 
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
@@ -66,6 +67,8 @@ export const OffersScreen: FC<{}> = () => {
   const [index, setIndex] = useState(0);
   const [publicOfferFilter, setPublicOfferFilter] = useState({value: 'All'});
   const [publicOffers, setPublicOffers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadingItems, setLoadingItems] = useState([]);
   const [routes] = React.useState([
     {key: 'first', title: 'Public Offers'},
     {key: 'second', title: 'Trade offers'},
@@ -96,10 +99,15 @@ export const OffersScreen: FC<{}> = () => {
         getPublicOffers(
           reqData,
           res => {
-            setPublicOffers(res.publicOffers);
+            setPublicOffers([...publicOffers, ...res.publicOffers]);
+            setLoadingItems([]); // Clear loading items once data is loaded
+            setLoading(false);
+            console.log(res);
           },
           err => {
             console.log('Err => ', err);
+            setLoadingItems([]); // Also clear loading items on error
+            setLoading(false);
           },
         ),
       );
@@ -112,6 +120,14 @@ export const OffersScreen: FC<{}> = () => {
       dispatch(getAllMyMessages(userData?._id));
     }, [userData?._id, dispatch, publicOfferFilter]),
   );
+
+  useEffect(() => {
+    if (loading) {
+      if (publicOffers.length === 0) {
+        setLoadingItems(new Array(6).fill({loading: true}));
+      }
+    }
+  }, [loading, publicOffers.length]);
 
   const onTradeOffersRefresh = () => {
     ReactNativeHapticFeedback.trigger('impactMedium');
@@ -154,6 +170,7 @@ export const OffersScreen: FC<{}> = () => {
 
   const goToCreatePublicOfferScreen = () => {
     navigation?.navigate('CreatePublicOfferScreen');
+    loggingService().logEvent('start_create_public_offer');
   };
 
   const renderBottomButtonView = () => {
@@ -216,8 +233,12 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const renderPublicOfferItem = ({item}: any) => {
+    if (item.loading) {
+      return <LoadingPublicOfferCell />;
+    }
     return (
       <PublicOfferItem
+        key={item._id}
         publicOffer={item}
         handleDelete={handleDeletePublicOffer}
       />
@@ -292,7 +313,7 @@ export const OffersScreen: FC<{}> = () => {
         />
       </PublicOffersFilterContainer>
       <OffersListView
-        data={publicOffers}
+        data={[...publicOffers, ...loadingItems]}
         renderItem={renderPublicOfferItem}
         keyExtractor={item => item?._id}
         refreshControl={
