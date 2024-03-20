@@ -96,7 +96,7 @@ export const OffersScreen: FC<{}> = () => {
         getPublicOffers(
           reqData,
           res => {
-            setPublicOffers(res);
+            setPublicOffers(res.publicOffers);
           },
           err => {
             console.log('Err => ', err);
