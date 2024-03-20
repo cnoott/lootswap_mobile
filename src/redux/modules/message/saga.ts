@@ -69,7 +69,6 @@ export function* createFirstMessage(action: any) {
 }
 
 export function* getMessageHistory(action: any) {
-  //yield put(LoadingRequest());
   try {
     const response: APIResponseProps = yield call(
       getMessageHistoryCall,
@@ -87,7 +86,6 @@ export function* getMessageHistory(action: any) {
 }
 
 export function* getAllMyMessage(action: any) {
-  yield put(LoadingRequest());
   try {
     const response: APIResponseProps = yield call(
       getAllMyMessagesCall,
