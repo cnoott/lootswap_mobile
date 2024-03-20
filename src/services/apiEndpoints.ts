@@ -139,6 +139,17 @@ export const getHomeScreenProductsCall = (reqData: any) => {
   );
 };
 
+export const getHotProductsCall = (reqData: any) => {
+  return handleResponse(
+    api.get(
+      `hot-products/?skip=${reqData.page * reqData.itemsPerPage}&limit=${
+        reqData.itemsPerPage
+      }`,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const sendTradeOfferCall = (reqData: any) => {
   return handleResponse(
     api.post(`start-trade/${reqData?.sender}`, reqData),

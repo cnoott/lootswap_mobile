@@ -246,6 +246,10 @@ export const GET_HOMESCREEN_PRODUCTS = {
   ...createActionConst(actions.GET_HOMESCREEN_PRODUCTS),
 };
 
+export const GET_HOT_PRODUCTS = {
+  ...createActionConst(actions.GET_HOT_PRODUCTS),
+};
+
 export const GET_HOMESCREEN_PUBLIC_OFFERS = {
   ...createActionConst(actions.GET_HOMESCREEN_PUBLIC_OFFERS),
 };
