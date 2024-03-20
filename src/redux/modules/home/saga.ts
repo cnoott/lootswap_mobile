@@ -334,6 +334,7 @@ export function* getRecommendedSearch(action: any) {
 export default function* authSaga() {
   yield takeLatest(GET_PRODUCT_DETAILS.REQUEST, getSelectedProductDetails);
   yield takeLatest(GET_HOMESCREEN_PRODUCTS.REQUEST, getHomeScreenProducts);
+  yield takeLatest(GET_HOT_PRODUCTS.REQUEST, getHotProducts);
   yield takeLatest(
     GET_HOMESCREEN_PUBLIC_OFFERS.REQUEST,
     getHomeScreenPublicOffers,
