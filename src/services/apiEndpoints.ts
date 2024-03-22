@@ -116,7 +116,7 @@ export const createFirstMessageCall = (reqData: any) => {
 
 export const sendMessageCall = (reqData: any) => {
   return handleResponse(
-    api.post(`message/${reqData?.userId}`, reqData),
+    api.post(`message/${reqData?.userId}/${reqData?.messageId}`, reqData),
     API_RESPONSE.CODE200,
   );
 };
