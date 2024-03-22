@@ -1,6 +1,7 @@
 import {
   GET_MESSAGE_INITIATED_STATUS,
   CREATE_FIRST_MESSAGE,
+  SEND_MESSAGE,
   GET_MESSAGES_HISTORY,
   GET_ALL_MY_MESSAGES,
 } from '../../../constants/actions';
@@ -31,6 +32,13 @@ export const createFirstMessage = (
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
+  };
+};
+
+export const sendMessage = (reqData: any) => {
+  return {
+    type: SEND_MESSAGE.REQUEST,
+    reqData: reqData,
   };
 };
 
