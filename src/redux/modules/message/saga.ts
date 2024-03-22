@@ -2,12 +2,14 @@ import {takeLatest, call, put} from 'redux-saga/effects';
 import {
   GET_MESSAGE_INITIATED_STATUS,
   CREATE_FIRST_MESSAGE,
+  SEND_MESSAGE,
   GET_MESSAGES_HISTORY,
   GET_ALL_MY_MESSAGES,
 } from '../../../constants/actions';
 import {
   getMessageInitiatedstatusCall,
   createFirstMessageCall,
+  sendMessageCall,
   getMessageHistoryCall,
   getAllMyMessagesCall,
 } from '../../../services/apiEndpoints';
@@ -68,6 +70,23 @@ export function* createFirstMessage(action: any) {
   }
 }
 
+export function* sendMessage(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      sendMessageCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      console.log('message sent');
+    } else {
+      console.log('err sending message');
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export function* getMessageHistory(action: any) {
   //yield put(LoadingRequest());
   try {
@@ -110,6 +129,7 @@ export default function* messageSaga() {
     getMessageInitiatedstatus,
   );
   yield takeLatest(CREATE_FIRST_MESSAGE.REQUEST, createFirstMessage);
+  yield takeLatest(SEND_MESSAGE.REQUEST, sendMessage);
   yield takeLatest(GET_MESSAGES_HISTORY.REQUEST, getMessageHistory);
   yield takeLatest(GET_ALL_MY_MESSAGES.REQUEST, getAllMyMessage);
 }

@@ -114,6 +114,13 @@ export const createFirstMessageCall = (reqData: any) => {
   );
 };
 
+export const sendMessageCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`message/${reqData?.userId}`, reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const getMessageHistoryCall = (reqData: any) => {
   return handleResponse(
     api.get(`message/${reqData?.userId}/${reqData?.messageId}`),

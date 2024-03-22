@@ -56,6 +56,10 @@ export const CREATE_FIRST_MESSAGE = {
   ...createActionConst(actions.CREATE_FIRST_MESSAGE),
 };
 
+export const SEND_MESSAGE = {
+  ...createActionConst(actions.SEND_MESSAGE),
+};
+
 export const GET_MESSAGES_HISTORY = {
   ...createActionConst(actions.GET_MESSAGES_HISTORY),
 };
