@@ -6,6 +6,7 @@ declare module '@env' {
   export const StripeApiKey: string;
   export const WEB_APP_URL: string;
   export const GOOGLE_MAPS_KEY: string;
+  export const PUSHER_API_KEY: string;
 }
 
 declare module 'custom_types' {
