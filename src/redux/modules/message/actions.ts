@@ -50,10 +50,11 @@ export const receiveMessage = (newMessage: any) => {
   };
 };
 
-export const getMessagesHistory = (reqData: any) => {
+export const getMessagesHistory = (reqData: any, showLoad: Boolean = true) => {
   return {
     type: GET_MESSAGES_HISTORY.REQUEST,
     reqData: reqData,
+    showLoad: showLoad,
   };
 };
 

@@ -35,7 +35,9 @@ export default function loading(state = InitialState, action: ActionProps) {
     case GET_MESSAGES_HISTORY.REQUEST: {
       return {
         ...state,
-        historyMessages: InitialState.historyMessages,
+        historyMessages: action?.showLoad
+          ? InitialState.historyMessages
+          : state.historyMessages,
       };
     }
     case GET_MESSAGES_HISTORY.SUCCESS: {

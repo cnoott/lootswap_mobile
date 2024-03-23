@@ -25,19 +25,14 @@ import MessageCell from '../../components/message/messageCell';
 import useMessagingService from '../../services/useMessagingService';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
-import {
-  getMessagesHistory,
-  sendMessage,
-  receiveMessage,
-} from '../../redux/modules/message/actions';
+import {getMessagesHistory} from '../../redux/modules/message/actions';
 import {getConfiguredMessageData} from '../../utility/utility';
 import {
   NavigationProp,
   useNavigation,
   useIsFocused,
 } from '@react-navigation/native';
-import {AppState, FlatList} from 'react-native';
-import {Pusher, PusherEvent} from '@pusher/pusher-websocket-react-native';
+import {AppState} from 'react-native';
 
 export const UserChatScreen: FC<any> = ({route}) => {
   const {messageId} = route?.params;
@@ -51,7 +46,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const isFocused = useIsFocused();
 
   const insets = useSafeAreaInsets();
-  const messageListref = useRef<FlatList>(null);
+  const messageListref = useRef(null);
   const [messageText, setMessageText] = useState('');
   const [isSocketInitDone, setSocketInitDone] = useState(false);
   const [messagesList, setMessagesList] = useState<any>([]);
@@ -77,101 +72,88 @@ export const UserChatScreen: FC<any> = ({route}) => {
     }
   };
 
-/*
-  useEffect(() => {
-    const initPusher = async () => {
-      const pusher = await Pusher.getInstance();
-      await pusher.subscribe({
-        channelName: messageId,
-        onEvent: (event: PusherEvent) => {
-          console.log('event', userData?.name, event);
-          const {eventName} = event;
-          const data = JSON.parse(event.data);
-          const messagesData =
-            messagesListRaw?.current?.length > 0
-              ? [...messagesListRaw.current, data]
-              : [data];
-          messagesListRaw.current = messagesData;
-          const newData = getConfiguredMessageData(messagesData);
-          console.log('set messages list');
-          setMessagesList(prevMessagesList => {
-            console.log('prev', userData?.name, prevMessagesList);
-            console.log('new', userData?.name, newData);
-            return newData;
-          });
-          console.log('SETTED');
-          if (messageListref?.current) {
-            setTimeout(() => {
-              messageListref?.current?.scrollToLocation({
-                sectionIndex: 0,
-                itemIndex: messagesListRaw.current?.length - 1,
-              });
-            }, 100);
-          }
-        },
-      });
-    };
-    initPusher();
-  }, [historyMessages]);
-  */
- 
-  useEffect(() => {
-    const initPusher = async () => {
-      const pusher = await Pusher.getInstance();
-      await pusher.subscribe({
-        channelName: messageId,
-        onEvent: (event: PusherEvent) => {
-          console.log('event', event);
-          const newMessage = JSON.parse(event.data);
-          dispatch(receiveMessage(newMessage));
-        },
-      });
-    };
-
-    initPusher();
-
-    return async () => {
-      console.log('unsuscribing');
-      const pusher = await Pusher.getInstance();
-      pusher.unsubscribe(messageId);
-    };
-  },[]);
-
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
       if (appState.current === 'background' && nextAppState === 'active') {
-        console.log('back from bg');
-        const showLoad = false;
+        console.log('back from bg!');
         dispatch(
-          getMessagesHistory(
-            {
-              userId: userData?._id,
-              messageId: messageId,
-            },
-            showLoad,
-          ),
+          getMessagesHistory({
+            userId: userData?._id,
+            messageId: messageId,
+          }),
         );
+        scrollListToEnd();
       } else if (
         appState.current === 'active' &&
         nextAppState === 'background'
       ) {
-        console.log('going to bg');
+        console.log('bg!');
+        subscription.remove();
+        socketObj?.removeAllListeners();
+        socketObj?.close();
+        socketObj?.disconnect();
       }
       appState.current = nextAppState;
     });
-    return () => subscription.remove()
-  }, []);
+    if (!isFocused) {
+      subscription.remove();
+      socketObj?.removeAllListeners();
+      socketObj?.close();
+      socketObj?.disconnect();
+    }
+    dispatch(
+      getMessagesHistory({
+        userId: userData?._id,
+        messageId: messageId,
+      }),
+    );
+
+    return () => {
+      subscription.remove();
+      socketObj?.removeAllListeners();
+      socketObj?.close();
+      socketObj?.disconnect();
+    };
+  }, [isFocused]);
 
   useEffect(() => {
-   dispatch(
-    getMessagesHistory({
-      userId: userData?._id,
-      messageId: messageId,
-    }),
-  );  
-  }, [])
+    if (historyMessages && historyMessages?.messages) {
+      setMessageDoc(historyMessages);
+      messagesListRaw.current = historyMessages?.messages;
+      setMessagesList(getConfiguredMessageData(historyMessages?.messages));
+    }
+  }, [historyMessages]);
 
-  const handleSendMessage = () => {
+  useEffect(() => {
+    if (socketObj && isConnected && !isSocketInitDone) {
+      initSocket(socketObj);
+      setSocketInitDone(true);
+    }
+  }, [socketObj, isConnected, isSocketInitDone]);
+
+  const initSocket = (_socketObj: any) => {
+    // Listner for receiving messages
+    _socketObj.on('send message', ({content}) => {
+      //{content, from, to}
+      const messagesData =
+        messagesListRaw?.current?.length > 0
+          ? [...messagesListRaw.current, content]
+          : [content];
+      messagesListRaw.current = messagesData;
+      const newData = getConfiguredMessageData(messagesData);
+      setMessagesList(newData);
+      if (messageListref?.current) {
+        setTimeout(() => {
+          messageListref?.current?.scrollToLocation({
+            sectionIndex: 0,
+            itemIndex: messagesListRaw.current?.length - 1,
+          });
+        }, 100);
+      }
+    });
+  };
+
+  const sendMessage = () => {
     if (messageText === '') {
       return;
     }
@@ -179,11 +161,13 @@ export const UserChatScreen: FC<any> = ({route}) => {
       message: messageText,
       userName: userData?.name,
       userId: userData?._id,
-      messageId,
       isReceiver,
     };
     try {
-      dispatch(sendMessage(messageObj));
+      socketObj.emit('send message', {
+        content: messageObj,
+        to: messageId,
+      });
       setMessageText('');
     } catch (error) {
       console.log('Error ===', error);
@@ -192,7 +176,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
 
   const renderRightInputView = () => {
     return (
-      <Touchable onPress={handleSendMessage}>
+      <Touchable onPress={sendMessage}>
         <InputRightButtonView>
           <PaperAirplaneIcon
             size={moderateScale(20)}
@@ -218,27 +202,34 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const renderMessage = (messageInfo: any, isSelf = false) => {
     return <MessageCell self={isSelf} item={messageInfo?.message} />;
   };
+  const renderListHeader = () => {
+    return null; // shelving for now
+  };
+  // const renderListHeader = (title: string) => {
+  //   return (
+  //     <ListHeaderContainer>
+  //       <ListHeaderText>{title}</ListHeaderText>
+  //     </ListHeaderContainer>
+  //   );
+  // };
   const renderMessagesListView = () => {
     return (
-      <FlatList
-        ref={it => messageListref.current = it}
-        data={historyMessages.messages}
-        initialScrollIndex={
-          historyMessages.messages ? historyMessages.messages.length - 1 : 0
-        }
+      <SectionList
+        ref={messageListref}
+        sections={messagesList}
         keyExtractor={(item, index) => item?.message + index}
         renderItem={({item}) =>
           renderMessage(item, item?.userId === userData?._id)
         }
+        // renderSectionHeader={({section: {title}}) => renderListHeader(title)}
+        renderSectionHeader={() => renderListHeader()}
+        initialScrollIndex={messagesListRaw?.current?.length - 1}
         getItemLayout={(data, index) => ({
           length: 100,
           offset: 100 * index,
           index,
           data,
         })}
-        onContentSizeChange={() =>
-          messageListref.current?.scrollToEnd({animated: true})
-        }
       />
     );
   };
