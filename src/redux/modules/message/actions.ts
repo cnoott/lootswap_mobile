@@ -2,6 +2,7 @@ import {
   GET_MESSAGE_INITIATED_STATUS,
   CREATE_FIRST_MESSAGE,
   SEND_MESSAGE,
+  RECEIVE_MESSAGE,
   GET_MESSAGES_HISTORY,
   GET_ALL_MY_MESSAGES,
 } from '../../../constants/actions';
@@ -39,6 +40,13 @@ export const sendMessage = (reqData: any) => {
   return {
     type: SEND_MESSAGE.REQUEST,
     reqData: reqData,
+  };
+};
+
+export const receiveMessage = (newMessage: any) => {
+  return {
+    type: RECEIVE_MESSAGE.REQUEST,
+    payload: newMessage,
   };
 };
 

@@ -60,6 +60,10 @@ export const SEND_MESSAGE = {
   ...createActionConst(actions.SEND_MESSAGE),
 };
 
+export const RECEIVE_MESSAGE = {
+  ...createActionConst(actions.RECEIVE_MESSAGE),
+};
+
 export const GET_MESSAGES_HISTORY = {
   ...createActionConst(actions.GET_MESSAGES_HISTORY),
 };
