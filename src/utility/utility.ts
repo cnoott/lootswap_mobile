@@ -185,7 +185,7 @@ export const getProfileOptions = (userData: any) => {
 };
 export const getConfiguredMessageData = (messageList: any) => {
   const data = {
-    title: '19/12/2022',
+    title: 'section 1',
     data: messageList,
   };
   return [data];

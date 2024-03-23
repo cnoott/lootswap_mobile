@@ -125,7 +125,10 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const goToMessageScreen = (msgData: any) => {
-    navigation.navigate('UserChatScreen', {messageId: msgData._id});
+    navigation.navigate('UserChatScreen', {
+      messageId: msgData._id,
+      key: new Date().toString(),
+    });
   };
 
   const handleDeletePublicOffer = (publicOfferId: string) => {
