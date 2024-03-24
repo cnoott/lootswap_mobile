@@ -5,6 +5,7 @@ import {
   SEND_MESSAGE,
   GET_MESSAGES_HISTORY,
   GET_ALL_MY_MESSAGES,
+  JOIN_OR_LEAVE_CHANNEL,
 } from '../../../constants/actions';
 import {
   getMessageInitiatedstatusCall,
@@ -12,6 +13,7 @@ import {
   sendMessageCall,
   getMessageHistoryCall,
   getAllMyMessagesCall,
+  joinOrLeaveChannelCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {
@@ -87,6 +89,23 @@ export function* sendMessage(action: any) {
   }
 }
 
+export function* joinOrLeaveChannel(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      joinOrLeaveChannelCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      console.log('connected to channel');
+    } else {
+      console.log('err connecting to channel');
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export function* getMessageHistory(action: any) {
   if (action.showLoad) {
     yield put(LoadingRequest());
@@ -132,6 +151,7 @@ export default function* messageSaga() {
   );
   yield takeLatest(CREATE_FIRST_MESSAGE.REQUEST, createFirstMessage);
   yield takeLatest(SEND_MESSAGE.REQUEST, sendMessage);
+  yield takeLatest(JOIN_OR_LEAVE_CHANNEL.REQUEST, joinOrLeaveChannel);
   yield takeLatest(GET_MESSAGES_HISTORY.REQUEST, getMessageHistory);
   yield takeLatest(GET_ALL_MY_MESSAGES.REQUEST, getAllMyMessage);
 }
