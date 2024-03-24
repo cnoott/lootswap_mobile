@@ -353,3 +353,7 @@ export const CREATE_PAYPAL_ORDER = {
 export const CAPTURE_PAYPAL_ORDER = {
   ...createActionConst(actions.CAPTURE_PAYPAL_ORDER),
 };
+
+export const JOIN_OR_LEAVE_CHANNEL = {
+  ...createActionConst(actions.JOIN_OR_LEAVE_CHANNEL),
+};

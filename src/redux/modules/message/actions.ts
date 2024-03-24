@@ -5,6 +5,7 @@ import {
   RECEIVE_MESSAGE,
   GET_MESSAGES_HISTORY,
   GET_ALL_MY_MESSAGES,
+  JOIN_OR_LEAVE_CHANNEL,
 } from '../../../constants/actions';
 
 /**
@@ -39,6 +40,13 @@ export const createFirstMessage = (
 export const sendMessage = (reqData: any) => {
   return {
     type: SEND_MESSAGE.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const joinOrLeaveChannel = (reqData: any) => {
+  return {
+    type: JOIN_OR_LEAVE_CHANNEL.REQUEST,
     reqData: reqData,
   };
 };
