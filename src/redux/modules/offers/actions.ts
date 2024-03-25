@@ -40,10 +40,11 @@ export const getTradesHistoryFailure = (error: any) => {
   };
 };
 
-export const getTrade = (reqData: any) => {
+export const getTrade = (reqData: any, showLoad: Boolean = true) => {
   return {
     type: GET_TRADE.REQUEST,
     reqData: reqData,
+    showLoad: showLoad,
   };
 };
 
