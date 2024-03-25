@@ -89,10 +89,13 @@ export const OffersMessageScreen: FC<{}> = props => {
         const showLoad = false;
         // TODO: show load
         dispatch(
-          getTrade({
-            userId: userData?._id,
-            tradeId: tradeId,
-          }),
+          getTrade(
+            {
+              userId: userData?._id,
+              tradeId: tradeId,
+            },
+            showLoad,
+          ),
         );
         dispatch(
           joinOrLeaveChannel({

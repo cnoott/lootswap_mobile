@@ -144,7 +144,9 @@ export function* undoTradeCheckout(action: any) {
 }
 
 export function* getTrade(action: any) {
-  yield put(LoadingRequest());
+  if (action.showLoad) {
+    yield put(LoadingRequest());
+  }
   try {
     const response: APIResponseProps = yield call(
       getTradeCall,
