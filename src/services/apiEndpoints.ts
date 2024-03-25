@@ -166,7 +166,7 @@ export const sendTradeOfferCall = (reqData: any) => {
 
 export const sendTradeMessageCall = (reqData: any) => {
   return handleResponse(
-    api.post(`trade/message/${reqData?.userId}/${reqData?.messageId}`, reqData),
+    api.post(`trade/message/${reqData?.userId}/${reqData?.tradeId}`, reqData),
     API_RESPONSE.CODE200,
   );
 };
