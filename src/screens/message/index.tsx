@@ -93,7 +93,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
           }),
         );
       } else if (
-        appState.current === 'active' && 
+        appState.current === 'active' &&
         nextAppState.match(/inactive|background/)
       ) {
         console.log('going to bg');
