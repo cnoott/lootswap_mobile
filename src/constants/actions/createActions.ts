@@ -108,6 +108,14 @@ export const GET_TRADE = {
   ...createActionConst(actions.GET_TRADE),
 };
 
+export const SEND_TRADE_MESSAGE = {
+  ...createActionConst(actions.SEND_TRADE_MESSAGE),
+};
+
+export const RECEIVE_TRADE_MESSAGE = {
+  ...createActionConst(actions.RECEIVE_TRADE_MESSAGE),
+};
+
 export const GET_TRADE_STOCKX = {
   ...createActionConst(actions.GET_TRADE_STOCKX),
 };

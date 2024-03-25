@@ -164,6 +164,13 @@ export const sendTradeOfferCall = (reqData: any) => {
   );
 };
 
+export const sendTradeMessageCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`trade/message/${reqData?.userId}/${reqData?.messageId}`, reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const startTradeCheckoutCall = (reqData: any) => {
   return handleResponse(
     api.post(`start-trade-checkout/${reqData?.userId}`, reqData.tradeData),
