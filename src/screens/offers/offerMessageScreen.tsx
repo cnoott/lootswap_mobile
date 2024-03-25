@@ -16,14 +16,14 @@ import {
   cancelTrade,
   getTrade,
   getTradeStockx,
-  getTradesHistory,
   sendTradeMessage,
+  joinOrLeaveChannel,
+  receiveTradeMessage,
 } from '../../redux/modules';
 import LSInput from '../../components/commonComponents/LSInput';
 import MessageCell from '../../components/message/messageCell';
 import EditTradeModal from './offerItems/EditTradeModal';
 import AcceptDeclineModal from './offerItems/AcceptDeclineModal';
-import useMessagingService from '../../services/useMessagingService';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {Alert} from 'custom_top_alert';
 import {
@@ -41,7 +41,7 @@ import {Pusher, PusherEvent} from '@pusher/pusher-websocket-react-native';
 
 export const OffersMessageScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
-  const messageListref = useRef(null);
+  const messageListref = useRef<FlatList>(null);
   const tradeId = props.route?.params.item._id;
   const tradeData: TradeProps = useSelector(state => state.offers);
   let offerItem = tradeData?.trade;
@@ -52,24 +52,13 @@ export const OffersMessageScreen: FC<{}> = props => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
   const isReceiver = offerItem?.receiver?._id === userData?._id;
-  const {socketObj, isConnected}: any = useMessagingService(
-    {
-      tradeId: tradeId,
-      userId: userData?._id,
-    },
-    true,
-  );
   const [messageText, setMessageText] = useState('');
   const appState = useRef(AppState.currentState);
 
-  const [messagesList, setMessagesList] = useState<any>([]);
   const [isAcceptDeclineModalVisible, setAcceptDeclineModalVisible] =
     useState(false);
   const [isDecline, setDecline] = useState(false);
   const [isEditTradeModalVisible, setEditTradeModalVisible] = useState(false);
-
-  const [isListnerAdded, setIsListnerAdded] = useState(false);
-  var messagesListRaw: any = useRef([]);
 
   useEffect(() => {
     const initPusher = async () => {
@@ -79,9 +68,7 @@ export const OffersMessageScreen: FC<{}> = props => {
         onEvent: (event: PusherEvent) => {
           console.log('event', event);
           const newMessage = JSON.parse(event.data);
-          console.log("MESSGE!", newMessage);
-          //recieve trade message
-          //dispatch(receiveMessage(newMessage));
+          dispatch(receiveTradeMessage(newMessage));
         },
       });
     };
@@ -97,106 +84,72 @@ export const OffersMessageScreen: FC<{}> = props => {
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
-      if (appState.current === 'background' && nextAppState === 'active') {
-        console.log('back from bg!');
+      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+        console.log('back from bg');
+        const showLoad = false;
+        // TODO: show load
         dispatch(
           getTrade({
             userId: userData?._id,
             tradeId: tradeId,
           }),
         );
-        if (socketObj && isConnected && !isListnerAdded) {
-          socketObj?.connect();
-        }
-
-        scrollListToEnd();
-      } else if (nextAppState.match(/inactive|background/)) {
-        console.log('GOING TO BG');
-        socketObj?.disconnect();
-        setIsListnerAdded(false);
+        dispatch(
+          joinOrLeaveChannel({
+            userId: userData?._id,
+            join: true,
+            channel: tradeId,
+          }),
+        );
+      } else if (
+        appState.current === 'active' &&
+        nextAppState.match(/inactive|background/)
+      ) {
+        console.log('going to bg');
+        dispatch(
+          joinOrLeaveChannel({
+            userId: userData?._id,
+            join: false,
+            channel: tradeId,
+          }),
+        );
       }
       appState.current = nextAppState;
     });
+    return () => subscription.remove();
+  }, []);
 
+  useEffect(() => {
     dispatch(
       getTrade({
         userId: userData?._id,
         tradeId: tradeId,
       }),
     );
+
     dispatch(
-      getTradesHistory({
+      joinOrLeaveChannel({
         userId: userData?._id,
+        join: true,
+        channel: tradeId,
       }),
     );
+
     return () => {
-      subscription.remove();
-    };
-  }, [dispatch, userData?._id]);
-
-  useEffect(() => {
-    if (socketObj && isConnected && !isListnerAdded) {
-      setIsListnerAdded(true);
-      initSocket(socketObj);
-    }
-  }, [socketObj, isConnected]);
-
-  useEffect(() => {
-    if (tradeData?.trade) {
-      offerItem = tradeData?.trade;
-      setMessagesList([...tradeData?.trade?.messages]);
-      messagesListRaw.current = tradeData?.trade?.messages || [];
-    }
-    scrollListToEnd();
-  }, [tradeData]);
-
-  useEffect(() => {
-    return () => {
-      socketObj?.disconnect();
-      socketObj?.removeAllListeners();
-      socketObj?.close();
-      setIsListnerAdded(false);
+      dispatch(
+        joinOrLeaveChannel({
+          userId: userData?._id,
+          join: false,
+          channel: tradeId,
+        }),
+      );
     };
   }, []);
 
-  const scrollListToEnd = () => {
-    if (messageListref?.current) {
-      setTimeout(() => {
-        messageListref?.current?.scrollToEnd({animating: true});
-      }, 500);
-    }
-  };
-
-  const initSocket = (_socketObj: any) => {
-    _socketObj.on('private message', ({content, from}: any) => {
-      const messageData = {
-        ...content,
-        isSelf: from === userData?._id,
-      };
-      const messagesData =
-        messagesListRaw?.current?.length > 0
-          ? [...messagesListRaw.current, messageData]
-          : [content];
-      messagesListRaw.current = messagesData;
-      setMessagesList(messagesData);
-
-      if (
-        content.message === 'trade-accepted-message' ||
-        content.message === 'Trade-update'
-      ) {
-        // Getting Trade data again
-        dispatch(
-          getTrade({
-            userId: userData?._id,
-            tradeId: tradeId,
-          }),
-        );
-      }
-      scrollListToEnd();
-    });
-  };
-
   const sendMessage = () => {
+    if (messageText === '') {
+      return;
+    }
     const messageObj = {
       message: messageText,
       userName: userData?.name,
@@ -335,10 +288,10 @@ export const OffersMessageScreen: FC<{}> = props => {
     return (
       <ChatContainer>
         <FlatList
-          ref={messageListref}
-          initialScrollIndex={messageListref?.length - 1}
-          data={messagesList}
-          extraData={messagesList}
+          ref={it => messageListref.current = it}
+          initialScrollIndex={offerItem ? offerItem.messages.length - 1 : 0}
+          data={offerItem ? offerItem.messages : []}
+          //extraData={messagesList}
           renderItem={({item}) =>
             renderMessage(item?.userName === userData?.name, item)
           }
@@ -348,6 +301,9 @@ export const OffersMessageScreen: FC<{}> = props => {
             index,
             data,
           })}
+          onContentSizeChange={() =>
+            messageListref.current?.scrollToEnd({animated: true})
+          }
         />
       </ChatContainer>
     );
