@@ -630,7 +630,7 @@ export const capturePaypalOrderCall = (reqData: any) => {
 
 export const joinOrLeaveChannelCall = (reqData: any) => {
   return handleResponse(
-    api.post(`/join-or-leave-channel/${reqData?.userId}`),
+    api.post(`/join-or-leave-channel/${reqData?.userId}`, reqData),
     API_RESPONSE.CODE200,
   );
 };
