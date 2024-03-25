@@ -27,6 +27,7 @@ import {
   getMessagesHistory,
   sendMessage,
   receiveMessage,
+  joinOrLeaveChannel,
 } from '../../redux/modules/message/actions';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AppState, FlatList} from 'react-native';
@@ -72,7 +73,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
-      if (appState.current === 'background' && nextAppState === 'active') {
+      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
         console.log('back from bg');
         const showLoad = false;
         dispatch(
@@ -84,25 +85,57 @@ export const UserChatScreen: FC<any> = ({route}) => {
             showLoad,
           ),
         );
+        dispatch(
+          joinOrLeaveChannel({
+            userId: userData?._id,
+            join: true,
+            channel: messageId,
+          }),
+        );
       } else if (
-        appState.current === 'active' &&
-        nextAppState === 'background'
+        appState.current === 'active' && 
+        nextAppState.match(/inactive|background/)
       ) {
         console.log('going to bg');
+        dispatch(
+          joinOrLeaveChannel({
+            userId: userData?._id,
+            join: false,
+            channel: messageId,
+          }),
+        );
       }
       appState.current = nextAppState;
     });
-    return () => subscription.remove()
+    return () => subscription.remove();
   }, []);
 
   useEffect(() => {
-   dispatch(
-    getMessagesHistory({
-      userId: userData?._id,
-      messageId: messageId,
-    }),
-  );  
-  }, [])
+    dispatch(
+      getMessagesHistory({
+        userId: userData?._id,
+        messageId: messageId,
+      }),
+    );
+
+    dispatch(
+      joinOrLeaveChannel({
+        userId: userData?._id,
+        join: true,
+        channel: messageId,
+      }),
+    );
+
+    return () => {
+      dispatch(
+        joinOrLeaveChannel({
+          userId: userData?._id,
+          join: false,
+          channel: messageId,
+        }),
+      );
+    };
+  }, []);
 
   const handleSendMessage = () => {
     if (messageText === '') {
