@@ -17,6 +17,7 @@ import {
   getTrade,
   getTradeStockx,
   getTradesHistory,
+  sendTradeMessage,
 } from '../../redux/modules';
 import LSInput from '../../components/commonComponents/LSInput';
 import MessageCell from '../../components/message/messageCell';
@@ -36,6 +37,7 @@ import {
 } from './styles';
 import {FlatList, AppState} from 'react-native';
 import {TradeProps} from '../../redux/modules/offers/reducer';
+import {Pusher, PusherEvent} from '@pusher/pusher-websocket-react-native';
 
 export const OffersMessageScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -68,6 +70,30 @@ export const OffersMessageScreen: FC<{}> = props => {
 
   const [isListnerAdded, setIsListnerAdded] = useState(false);
   var messagesListRaw: any = useRef([]);
+
+  useEffect(() => {
+    const initPusher = async () => {
+      const pusher = await Pusher.getInstance();
+      await pusher.subscribe({
+        channelName: tradeId,
+        onEvent: (event: PusherEvent) => {
+          console.log('event', event);
+          const newMessage = JSON.parse(event.data);
+          console.log("MESSGE!", newMessage);
+          //recieve trade message
+          //dispatch(receiveMessage(newMessage));
+        },
+      });
+    };
+
+    initPusher();
+
+    return async () => {
+      console.log('unsuscribing');
+      const pusher = await Pusher.getInstance();
+      pusher.unsubscribe(tradeId);
+    };
+  },[]);
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
@@ -171,11 +197,14 @@ export const OffersMessageScreen: FC<{}> = props => {
   };
 
   const sendMessage = () => {
-    const content = {message: messageText, userName: userData?.name};
-    socketObj.emit('private message', {
-      content: content,
-      to: offerItem?._id,
-    });
+    const messageObj = {
+      message: messageText,
+      userName: userData?.name,
+      userId: userData?._id,
+      tradeId,
+      isReceiver,
+    };
+    dispatch(sendTradeMessage(messageObj));
     setMessageText('');
   };
 
