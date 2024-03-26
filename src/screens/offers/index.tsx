@@ -2,11 +2,10 @@
 LootSwap - OFFERS SCREEN
 ***/
 
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {useWindowDimensions, RefreshControl} from 'react-native';
 import {SceneMap} from 'react-native-tab-view';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {useFocusEffect} from '@react-navigation/native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {
   getTradesHistory,
@@ -80,38 +79,36 @@ export const OffersScreen: FC<{}> = () => {
   const messagesStoreData: MessageProps = useSelector(state => state.message);
   const {allMyMessages} = messagesStoreData;
 
-  useFocusEffect(
-    React.useCallback(() => {
-      const reqData = {
-        type: publicOfferFilter.value,
+  useEffect(() => {
+    const reqData = {
+      type: publicOfferFilter.value,
+      userId: userData?._id,
+    };
+    dispatch(
+      setNotifsAsReadRequest({
         userId: userData?._id,
-      };
-      dispatch(
-        setNotifsAsReadRequest({
-          userId: userData?._id,
-          notifType: 'inbox',
-        }),
-      );
-      dispatch(
-        getPublicOffers(
-          reqData,
-          res => {
-            setPublicOffers(res.publicOffers);
-          },
-          err => {
-            console.log('Err => ', err);
-          },
-        ),
-      );
+        notifType: 'inbox',
+      }),
+    );
+    dispatch(
+      getPublicOffers(
+        reqData,
+        res => {
+          setPublicOffers(res.publicOffers);
+        },
+        err => {
+          console.log('Err => ', err);
+        },
+      ),
+    );
 
-      dispatch(
-        getTradesHistory({
-          userId: userData?._id,
-        }),
-      );
-      dispatch(getAllMyMessages(userData?._id));
-    }, [userData?._id, dispatch, publicOfferFilter]),
-  );
+    dispatch(
+      getTradesHistory({
+        userId: userData?._id,
+      }),
+    );
+    dispatch(getAllMyMessages(userData?._id));
+  }, [publicOfferFilter]);
 
   const onTradeOffersRefresh = () => {
     ReactNativeHapticFeedback.trigger('impactMedium');
@@ -128,7 +125,10 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const goToMessageScreen = (msgData: any) => {
-    navigation.navigate('UserChatScreen', {messageId: msgData._id});
+    navigation.navigate('UserChatScreen', {
+      messageId: msgData._id,
+      key: new Date().toString(),
+    });
   };
 
   const handleDeletePublicOffer = (publicOfferId: string) => {

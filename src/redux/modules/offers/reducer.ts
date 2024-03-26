@@ -4,6 +4,7 @@ import {
   GET_TRADES_HISTORY,
   GET_TRADE,
   GET_TRADE_STOCKX,
+  RECEIVE_TRADE_MESSAGE,
 } from '../../../constants/actions';
 
 export interface TradeProps {
@@ -42,7 +43,7 @@ export default function loading(state = InitialState, action: ActionProps) {
     case GET_TRADES_HISTORY.FAILURE: {
       return {
         ...state,
-        historyTrades: null,
+        historyTrades: [],
       };
     }
     case GET_TRADE.REQUEST: {
@@ -77,7 +78,18 @@ export default function loading(state = InitialState, action: ActionProps) {
     case GET_TRADE.FAILURE: {
       return {
         ...state,
-        trade: null,
+        trade: InitialState.trade,
+      };
+    }
+    case RECEIVE_TRADE_MESSAGE.REQUEST: {
+      const newMessage = payload;
+      console.log('new message', newMessage);
+      return {
+        ...state,
+        trade: {
+          ...state.trade,
+          messages: [...state.trade.messages, newMessage],
+        },
       };
     }
     default:

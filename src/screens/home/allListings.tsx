@@ -23,9 +23,10 @@ import {Size, Type} from '../../enums';
 
 const ITEMS_PER_PAGE = 8;
 
-export const AllListingsScreen: FC<any> = () => {
+export const AllListingsScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation();
   const dispatch = useDispatch();
+  const {hotItems = false} = route?.params ?? false;
 
   const [page, setPage] = useState(0);
 
@@ -39,7 +40,7 @@ export const AllListingsScreen: FC<any> = () => {
     handleSubmitFilters(
       dispatch,
       null,
-      {...filters, page, itemsPerPage: ITEMS_PER_PAGE},
+      {...filters, page, itemsPerPage: ITEMS_PER_PAGE, hotItems},
       '',
     );
     console.log('calling submit filters', JSON.stringify(filters).length);

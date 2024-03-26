@@ -11,6 +11,7 @@ import {
   DELETE_PRODUCT,
   SEARCH_STOCKX,
   GET_HOMESCREEN_PRODUCTS,
+  GET_HOT_PRODUCTS,
   GET_RECOMMENDED_SEARCH,
   REFRESH_STOCKX_DATA,
 } from '../../../constants/actions';
@@ -185,6 +186,19 @@ export const getHomeScreenProducts = (
 ) => {
   return {
     type: GET_HOMESCREEN_PRODUCTS.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const getHotProducts = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: GET_HOT_PRODUCTS.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
