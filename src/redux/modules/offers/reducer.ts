@@ -10,6 +10,7 @@ export interface TradeProps {
   historyTrades: Array<any>;
   publicOffers: Array<any>;
   trade: any;
+  tradeLoading: boolean;
 }
 
 type ActionProps = {
@@ -21,6 +22,7 @@ export const InitialState: TradeProps = {
   historyTrades: [],
   publicOffers: [],
   trade: null,
+  tradeLoading: false,
 };
 
 export default function loading(state = InitialState, action: ActionProps) {
@@ -30,6 +32,7 @@ export default function loading(state = InitialState, action: ActionProps) {
     case GET_TRADES_HISTORY.REQUEST: {
       return {
         ...state,
+        tradeLoading: true,
       };
     }
     case GET_TRADES_HISTORY.SUCCESS: {
@@ -37,6 +40,7 @@ export default function loading(state = InitialState, action: ActionProps) {
         ...state,
         historyTrades: payload.trades,
         publicOffers: payload.publicOffers,
+        tradeLoading: false,
       };
     }
     case GET_TRADES_HISTORY.FAILURE: {
