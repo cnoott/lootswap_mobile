@@ -56,6 +56,14 @@ export const CREATE_FIRST_MESSAGE = {
   ...createActionConst(actions.CREATE_FIRST_MESSAGE),
 };
 
+export const SEND_MESSAGE = {
+  ...createActionConst(actions.SEND_MESSAGE),
+};
+
+export const RECEIVE_MESSAGE = {
+  ...createActionConst(actions.RECEIVE_MESSAGE),
+};
+
 export const GET_MESSAGES_HISTORY = {
   ...createActionConst(actions.GET_MESSAGES_HISTORY),
 };
@@ -98,6 +106,14 @@ export const GET_TRADES_HISTORY = {
 
 export const GET_TRADE = {
   ...createActionConst(actions.GET_TRADE),
+};
+
+export const SEND_TRADE_MESSAGE = {
+  ...createActionConst(actions.SEND_TRADE_MESSAGE),
+};
+
+export const RECEIVE_TRADE_MESSAGE = {
+  ...createActionConst(actions.RECEIVE_TRADE_MESSAGE),
 };
 
 export const GET_TRADE_STOCKX = {
@@ -246,6 +262,10 @@ export const GET_HOMESCREEN_PRODUCTS = {
   ...createActionConst(actions.GET_HOMESCREEN_PRODUCTS),
 };
 
+export const GET_HOT_PRODUCTS = {
+  ...createActionConst(actions.GET_HOT_PRODUCTS),
+};
+
 export const GET_HOMESCREEN_PUBLIC_OFFERS = {
   ...createActionConst(actions.GET_HOMESCREEN_PUBLIC_OFFERS),
 };
@@ -340,4 +360,8 @@ export const CREATE_PAYPAL_ORDER = {
 
 export const CAPTURE_PAYPAL_ORDER = {
   ...createActionConst(actions.CAPTURE_PAYPAL_ORDER),
+};
+
+export const JOIN_OR_LEAVE_CHANNEL = {
+  ...createActionConst(actions.JOIN_OR_LEAVE_CHANNEL),
 };

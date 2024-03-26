@@ -1,8 +1,11 @@
 import {
   GET_MESSAGE_INITIATED_STATUS,
   CREATE_FIRST_MESSAGE,
+  SEND_MESSAGE,
+  RECEIVE_MESSAGE,
   GET_MESSAGES_HISTORY,
   GET_ALL_MY_MESSAGES,
+  JOIN_OR_LEAVE_CHANNEL,
 } from '../../../constants/actions';
 
 /**
@@ -34,10 +37,32 @@ export const createFirstMessage = (
   };
 };
 
-export const getMessagesHistory = (reqData: any) => {
+export const sendMessage = (reqData: any) => {
+  return {
+    type: SEND_MESSAGE.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const joinOrLeaveChannel = (reqData: any) => {
+  return {
+    type: JOIN_OR_LEAVE_CHANNEL.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const receiveMessage = (newMessage: any) => {
+  return {
+    type: RECEIVE_MESSAGE.REQUEST,
+    payload: newMessage,
+  };
+};
+
+export const getMessagesHistory = (reqData: any, showLoad: Boolean = true) => {
   return {
     type: GET_MESSAGES_HISTORY.REQUEST,
     reqData: reqData,
+    showLoad: showLoad,
   };
 };
 
