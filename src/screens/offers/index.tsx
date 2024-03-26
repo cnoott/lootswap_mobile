@@ -82,6 +82,7 @@ export const OffersScreen: FC<{}> = () => {
   const {historyTrades} = tradesData;
   const messagesStoreData: MessageProps = useSelector(state => state.message);
   const {allMyMessages} = messagesStoreData;
+  const tradeLoading = useSelector(state => state.offers.tradeLoading);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -325,16 +326,27 @@ export const OffersScreen: FC<{}> = () => {
 
   const SecondRoute = () => (
     <TabContainer>
-      <OffersListView
-        data={historyTrades}
-        renderItem={renderOfferItem}
-        keyExtractor={item => item._id}
-        extraData={selectedTrade}
-        ListEmptyComponent={() => <NoOffersView navigation={navigation} />}
-        refreshControl={
-          <RefreshControl refreshing={false} onRefresh={onTradeOffersRefresh} />
-        }
-      />
+      {tradeLoading ? (
+        <>
+          {Array.from({length: 6}, (_, idx) => (
+            <LoadingPublicOfferCell key={idx} />
+          ))}
+        </>
+      ) : (
+        <OffersListView
+          data={historyTrades}
+          renderItem={renderOfferItem}
+          keyExtractor={item => item._id.toString()}
+          extraData={selectedTrade}
+          ListEmptyComponent={<NoOffersView navigation={navigation} />}
+          refreshControl={
+            <RefreshControl
+              refreshing={false}
+              onRefresh={onTradeOffersRefresh}
+            />
+          }
+        />
+      )}
     </TabContainer>
   );
 
