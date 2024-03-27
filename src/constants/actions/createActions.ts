@@ -108,6 +108,10 @@ export const GET_TRADES_HISTORY = {
   ...createActionConst(actions.GET_TRADES_HISTORY),
 };
 
+export const CLEAR_TRADE_NOTIF = {
+  ...createActionConst(actions.CLEAR_TRADE_NOTIF),
+};
+
 export const GET_TRADE = {
   ...createActionConst(actions.GET_TRADE),
 };

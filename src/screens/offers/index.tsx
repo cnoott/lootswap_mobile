@@ -14,6 +14,7 @@ import {
   deletePublicOffer,
   setNotifsAsReadRequest,
   clearMessageNotif,
+  clearTradeNotif,
 } from '../../redux/modules';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
@@ -222,6 +223,12 @@ export const OffersScreen: FC<{}> = () => {
 
   const tradeOfferCellOnPress = item => {
     setSelectedTrade(item._id);
+    dispatch(
+      clearTradeNotif({
+        userId: userData?._id,
+        tradeData: item,
+      }),
+    );
     navigation.navigate('OffersMessageScreen', {item});
   };
 
