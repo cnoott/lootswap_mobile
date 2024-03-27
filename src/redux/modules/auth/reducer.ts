@@ -229,6 +229,9 @@ export default function auth(state = InitialState, action: ActionProps) {
       const productId = action?.productId;
       const foundItemIndex = items?.findIndex(item => item?._id === productId);
       const foundItem = items[foundItemIndex];
+      if (!foundItem) {
+        return {...state};
+      }
       foundItem.isSelected = true;
       items = items.filter(item => item?._id !== productId);
 
