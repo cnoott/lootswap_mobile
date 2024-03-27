@@ -28,6 +28,7 @@ import {
   sendMessage,
   receiveMessage,
   joinOrLeaveChannel,
+  clearMessageNotif,
 } from '../../redux/modules/message/actions';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AppState, FlatList} from 'react-native';
@@ -136,6 +137,17 @@ export const UserChatScreen: FC<any> = ({route}) => {
       );
     };
   }, []);
+
+  useEffect(() => {
+    if (historyMessages?._id) {
+      dispatch(
+        clearMessageNotif({
+          userId: userData?._id,
+          msgData: historyMessages,
+        }),
+      );
+    }
+  }, [historyMessages]);
 
   const handleSendMessage = () => {
     if (messageText === '') {

@@ -13,8 +13,6 @@ import {
   getPublicOffers,
   deletePublicOffer,
   setNotifsAsReadRequest,
-  clearMessageNotif,
-  clearTradeNotif,
 } from '../../redux/modules';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
@@ -127,15 +125,6 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const goToMessageScreen = (msgData: any) => {
-    // remove red bubble
-    console.log(msgData.receiver._id);
-    dispatch(
-      clearMessageNotif({
-        userId: userData?._id,
-        msgData: msgData,
-      }),
-    );
-
     navigation.navigate('UserChatScreen', {
       messageId: msgData._id,
       key: new Date().toString(),
@@ -223,12 +212,7 @@ export const OffersScreen: FC<{}> = () => {
 
   const tradeOfferCellOnPress = item => {
     setSelectedTrade(item._id);
-    dispatch(
-      clearTradeNotif({
-        userId: userData?._id,
-        tradeData: item,
-      }),
-    );
+
     navigation.navigate('OffersMessageScreen', {item});
   };
 

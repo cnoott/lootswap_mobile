@@ -19,6 +19,7 @@ import {
   sendTradeMessage,
   joinOrLeaveChannel,
   receiveTradeMessage,
+  clearTradeNotif,
 } from '../../redux/modules';
 import LSInput from '../../components/commonComponents/LSInput';
 import MessageCell from '../../components/message/messageCell';
@@ -135,6 +136,13 @@ export const OffersMessageScreen: FC<{}> = props => {
         userId: userData?._id,
         join: true,
         channel: tradeId,
+      }),
+    );
+
+    dispatch(
+      clearTradeNotif({
+        userId: userData?._id,
+        tradeData: tradeId,
       }),
     );
 

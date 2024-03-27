@@ -127,7 +127,7 @@ const StackNavigator: FC<{}> = () => {
     isReadyRef.current = true;
   };
 
-  const linking = {
+  const linking = { // wtf
     prefixes: ['lootswap://'],
     config: {
       screens: {
