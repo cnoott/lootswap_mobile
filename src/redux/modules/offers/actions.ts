@@ -1,5 +1,6 @@
 import {
   GET_TRADES_HISTORY,
+  CLEAR_TRADE_NOTIF,
   GET_TRADE,
   GET_TRADE_STOCKX,
   ACCEPT_TRADE_CHECKOUT,
@@ -48,6 +49,12 @@ export const getTrade = (reqData: any, showLoad: Boolean = true) => {
   };
 };
 
+export const clearTradeNotif = (payload: any) => {
+  return {
+    type: CLEAR_TRADE_NOTIF.REQUEST,
+    payload: payload,
+  };
+};
 export const sendTradeMessage = (reqData: any) => {
   return {
     type: SEND_TRADE_MESSAGE.REQUEST,
