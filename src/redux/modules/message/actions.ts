@@ -4,6 +4,7 @@ import {
   SEND_MESSAGE,
   RECEIVE_MESSAGE,
   GET_MESSAGES_HISTORY,
+  CLEAR_MESSAGE_NOTIF,
   GET_ALL_MY_MESSAGES,
   JOIN_OR_LEAVE_CHANNEL,
 } from '../../../constants/actions';
@@ -63,6 +64,13 @@ export const getMessagesHistory = (reqData: any, showLoad: Boolean = true) => {
     type: GET_MESSAGES_HISTORY.REQUEST,
     reqData: reqData,
     showLoad: showLoad,
+  };
+};
+
+export const clearMessageNotif = (payload: any) => {
+  return {
+    type: CLEAR_MESSAGE_NOTIF.REQUEST,
+    payload: payload,
   };
 };
 

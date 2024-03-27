@@ -68,6 +68,10 @@ export const GET_MESSAGES_HISTORY = {
   ...createActionConst(actions.GET_MESSAGES_HISTORY),
 };
 
+export const CLEAR_MESSAGE_NOTIF = {
+  ...createActionConst(actions.CLEAR_MESSAGE_NOTIF),
+};
+
 export const SAVE_SENT_MESSAGE = {
   ...createActionConst(actions.SAVE_SENT_MESSAGE),
 };
