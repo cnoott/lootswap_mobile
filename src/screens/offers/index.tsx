@@ -60,6 +60,7 @@ import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 import CellBadge from '../../components/offers/cellBadge';
 import {loggingService} from '../../services/loggingService';
 import LoadingPublicOfferCell from '../../components/publicOffer/LoadingPublicOfferCell.tsx';
+import LoadingMessageCell from '../../components/message/LoadingMessageCell.tsx';
 
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
@@ -83,6 +84,7 @@ export const OffersScreen: FC<{}> = () => {
   const messagesStoreData: MessageProps = useSelector(state => state.message);
   const {allMyMessages} = messagesStoreData;
   const tradeLoading = useSelector(state => state.offers.tradeLoading);
+  const messageLoading = useSelector(state => state.message.messageLoading);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -101,13 +103,13 @@ export const OffersScreen: FC<{}> = () => {
           reqData,
           res => {
             setPublicOffers([...publicOffers, ...res.publicOffers]);
-            setLoadingItems([]); // Clear loading items once data is loaded
+            setLoadingItems([]);
             setLoading(false);
             console.log(res);
           },
           err => {
             console.log('Err => ', err);
-            setLoadingItems([]); // Also clear loading items on error
+            setLoadingItems([]);
             setLoading(false);
           },
         ),
@@ -352,15 +354,23 @@ export const OffersScreen: FC<{}> = () => {
 
   const ThirdRoute = () => (
     <TabContainer>
-      <MessagesListView
-        data={allMyMessages?.messageDocs || []}
-        renderItem={renderMessageItem}
-        keyExtractor={(item: any) => item?._id}
-        ListEmptyComponent={() => <NoMessagesView />}
-        refreshControl={
-          <RefreshControl refreshing={false} onRefresh={onMessagesRefresh} />
-        }
-      />
+      {messageLoading ? (
+        <>
+          {Array.from({length: 8}, (_, idx) => (
+            <LoadingMessageCell key={idx} />
+          ))}
+        </>
+      ) : (
+        <MessagesListView
+          data={allMyMessages?.messageDocs || []}
+          renderItem={renderMessageItem}
+          keyExtractor={(item: any) => item?._id}
+          ListEmptyComponent={() => <NoMessagesView />}
+          refreshControl={
+            <RefreshControl refreshing={false} onRefresh={onMessagesRefresh} />
+          }
+        />
+      )}
     </TabContainer>
   );
 

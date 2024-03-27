@@ -84,8 +84,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: scale(5),
   },
   homeImagePlaceholderWrapper: {
-    alignItems: 'center', // This will center the rectangle above the image
-    //marginHorizontal: scale(20.1), // Adds horizontal margin between the image wrappers
+    alignItems: 'center',
     padding: scale(0.5),
   },
   homeImagePlaceholder: {
@@ -95,10 +94,10 @@ export const styles = StyleSheet.create({
     backgroundColor: 'darkgrey',
   },
   homeTextPlaceholder: {
-    width: scale(100), // Set the width less than the image to look like a label
-    height: scale(10), // Set a smaller height for the rectangle shape
-    backgroundColor: 'darkgrey', // Your desired color for the rectangle
-    marginBottom: scale(5), // Space between the rectangle and the image
-    borderRadius: scale(5), // Optional: if you want rounded corners
+    width: scale(100),
+    height: scale(10),
+    backgroundColor: 'darkgrey',
+    marginBottom: scale(5),
+    borderRadius: scale(5),
   },
 });
