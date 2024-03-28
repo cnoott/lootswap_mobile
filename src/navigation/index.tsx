@@ -26,10 +26,18 @@ import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import CheckoutScreen from '../screens/buy/checkoutScreen';
 import PublicProfileScreen from '../screens/profile/publicProfileScreen';
+import EditMoneyOfferTradeScreen from '../screens/offers/editMoneyOfferTradeScreen';
 import ProfileReviewsScreen from '../screens/profile/profileReviewsScreen';
 import ProductDetailsScreen from '../screens/productDetails';
+import SendMoneyOfferScreen from '../screens/offers/sendMoneyOfferScreen';
+import AddressScreen from '../screens/profile/addressScreen';
 import OffersMessageScreen from '../screens/offers/offerMessageScreen';
 import TrackOrderScreen from '../screens/order/trackOrderScreen';
+import ChooseOfferTypeScreen from '../screens/offers/chooseOfferTypeScreen';
+import EditTradeScreen from '../screens/offers/editTradeScreen';
+import TradeCheckoutSuccessScreen from '../screens/offers/tradeCheckoutSuccessScreen';
+import LootScreen from '../screens/loot';
+import StartTradeScreen from '../screens/offers/startTrade';
 import DeviceInfo from 'react-native-device-info';
 import {Alert as AlertModal} from 'react-native';
 import {Linking, AppState} from 'react-native';
@@ -132,11 +140,41 @@ const AppNavigation = () => {
         component={EmailSignupScreen}
         options={{presentation: 'modal'}}
       />
+
       <Stack.Screen name="UserChatScreen" component={UserChatScreen} />
+      <Stack.Screen
+        name="ChooseOfferTypeScreen"
+        component={ChooseOfferTypeScreen}
+      />
+      <Stack.Screen name="AddressScreenCheckout" component={AddressScreen} />
+      <Stack.Screen name="AddressScreenBuyCheckout" component={AddressScreen} />
+      <Stack.Screen
+        name="BuyCheckoutSuccessScreen"
+        component={TradeCheckoutSuccessScreen}
+      />
+      <Stack.Screen
+        name="TradeCheckoutSuccessScreen"
+        component={TradeCheckoutSuccessScreen}
+      />
+      <Stack.Screen name="StartTradeScreen" component={StartTradeScreen} />
+      <Stack.Screen name="LootScreen" component={LootScreen} />
+      <Stack.Screen
+        name="SendMoneyOfferScreen"
+        component={SendMoneyOfferScreen}
+      />
       <Stack.Screen
         name="OffersMessageScreen"
         component={OffersMessageScreen}
       />
+      <Stack.Screen
+        name="MoneyOfferCheckoutScreen"
+        component={CheckoutScreen}
+      />
+      <Stack.Screen
+        name="EditMoneyOfferTradeScreen"
+        component={EditMoneyOfferTradeScreen}
+      />
+      <Stack.Screen name="EditTradeScreen" component={EditTradeScreen} />
       <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
       <Stack.Screen
         name="ProductDetailsChatScreen"
