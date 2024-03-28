@@ -29,13 +29,13 @@ import {ProfileHeaderComponent} from './profileHeaderComponent';
 
 interface HeaderProps {
   title?: string;
-  onItemPress: Function;
+  onRightDotsPress: Function;
   productData?: any;
   otherUserData?: any;
 }
 
 export const InUserChatHeader: FC<HeaderProps> = React.memo(
-  ({title, onItemPress, productData, otherUserData}) => {
+  ({title, onRightDotsPress, productData, otherUserData}) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
     const [accOpen, setAccOpen] = useState(true);
 
@@ -70,12 +70,9 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
               otherUserPfp={otherUserData?.profile_picture}
             />
           </EmptyRowView>
-          <LSButton
-            title={'View Item'}
-            size={Size.Extra_Small}
-            type={Type.Secondary}
-            onPress={() => onItemPress()}
-          />
+          <ProfileRightTouchable onPress={onRightDotsPress}>
+            <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
+          </ProfileRightTouchable>
         </ProfileHeaderContainer>
         {renderProductViewContainer()}
       </>
