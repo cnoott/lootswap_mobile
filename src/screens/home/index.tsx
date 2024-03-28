@@ -24,7 +24,6 @@ import {useScrollToTop} from '@react-navigation/native';
 import {
   getHomeScreenProducts,
   getHotProducts,
-  getMyDetailsNoLoadRequest,
   getHomeScreenPublicOffers,
   getPublicOffers,
 } from '../../redux/modules';
@@ -76,12 +75,6 @@ export const HomeScreen: FC<{}> = () => {
   useEffect(() => {
     fetchHotProducts();
   }, [hotPage]);
-
-  useEffect(() => {
-    if (isLogedIn) {
-      dispatch(getMyDetailsNoLoadRequest(userData?._id));
-    }
-  }, [isLogedIn]);
 
   useEffect(() => {
     if (loading && !endReached) {
