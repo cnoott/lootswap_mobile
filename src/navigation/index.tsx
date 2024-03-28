@@ -58,6 +58,7 @@ const AppNavigation = () => {
         console.log('back from bg home');
         if (isLogedIn) {
           dispatch(getMyDetailsNoLoadRequest(userData?._id));
+          //dispatch();
         }
       }
 
