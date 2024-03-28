@@ -30,10 +30,16 @@ import {
   joinOrLeaveChannel,
   clearMessageNotif,
 } from '../../redux/modules/message/actions';
-import {setNotifAsRead} from '../../redux/modules';
+import {
+  setNotifAsRead,
+  preselectChosenItem,
+  getUsersDetailsRequest,
+} from '../../redux/modules';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AppState, FlatList} from 'react-native';
 import {Pusher, PusherEvent} from '@pusher/pusher-websocket-react-native';
+import MessageOptionsModal from '../../components/message/MessageOptionsModal';
+import { handleSendOfferNavigation } from '../../utility/utility';
 
 export const UserChatScreen: FC<any> = ({route}) => {
   const {messageId} = route?.params;
@@ -42,7 +48,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const messageData: MessageProps = useSelector(state => state.message);
-  const {userData} = auth;
+  const {userData, requestedUserDetails} = auth;
 
   const insets = useSafeAreaInsets();
   const messageListref = useRef<FlatList>(null);
@@ -50,6 +56,8 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const {historyMessages} = messageData;
   const isReceiver = historyMessages?.receiver?._id === userData?._id;
   const appState = useRef(AppState.currentState);
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const initPusher = async () => {
@@ -127,6 +135,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
         channel: messageId,
       }),
     );
+    
 
     return () => {
       dispatch(
@@ -148,6 +157,13 @@ export const UserChatScreen: FC<any> = ({route}) => {
         }),
       );
       dispatch(setNotifAsRead({objectId: messageId}));
+
+      // Fetches the product owners details
+      // for send offer/buy now
+      const otherUserId = isReceiver
+        ? historyMessages.sender._id
+        : historyMessages.receiver._id;
+      dispatch(getUsersDetailsRequest(otherUserId));
     }
   }, [historyMessages]);
 
@@ -222,6 +238,22 @@ export const UserChatScreen: FC<any> = ({route}) => {
       />
     );
   };
+
+  const handleOpenModal = () => {
+    setModalVisible(true);
+  };
+
+  const handleSendOfferPress = () => {
+    setModalVisible(false);
+    dispatch(preselectChosenItem(historyMessages?.product?._id));
+
+    handleSendOfferNavigation(
+      navigation,
+      historyMessages?.product?.type,
+      userData,
+      requestedUserDetails,
+    );
+  };
   return (
     <Container>
       <InUserChatHeader
@@ -230,14 +262,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
             ? historyMessages?.sender?.name
             : historyMessages?.receiver?.name
         }
-        onItemPress={() => {
-          navigation.navigate('ProductDetailsChatScreen', {
-            productData: {
-              ...historyMessages?.product,
-              objectID: historyMessages?.product?._id,
-            },
-          });
-        }}
+        onRightDotsPress={handleOpenModal}
         productData={historyMessages?.product}
         otherUserData={
           isReceiver ? historyMessages?.sender : historyMessages?.receiver
@@ -250,6 +275,11 @@ export const UserChatScreen: FC<any> = ({route}) => {
           {renderRightInputView()}
         </InputContainer>
       </KeyboardAvoidingView>
+      <MessageOptionsModal
+        isModalVisible={modalVisible}
+        onSendOfferPress={handleSendOfferPress}
+        onCloseModal={() => setModalVisible(false)}
+      />
     </Container>
   );
 };

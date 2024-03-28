@@ -1299,3 +1299,28 @@ export const calculateMarketValue = (products: Array<any>) => {
 
   return '$' + allPrices.reduce((partialSum, price) => partialSum + price, 0);
 };
+
+export const handleSendOfferNavigation = (
+  navigation: any,
+  productType: string,
+  userData: any,
+  requestedUserDetails: any,
+) => {
+  switch (productType) {
+    case Trade_Options.TradeAndSell:
+      navigation.navigate('ChooseOfferTypeScreen');
+      break;
+    case Trade_Options.TradeOnly:
+      navigation.navigate('StartTradeScreen', {
+        requestedUserDetails: requestedUserDetails,
+        userData: userData,
+      });
+      break;
+    case Trade_Options.SellOnly:
+      navigation.navigate('SendMoneyOfferScreen');
+      break;
+    default:
+      navigation.navigate('ChooseOfferTypeScreen');
+      break;
+  }
+};

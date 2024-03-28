@@ -79,6 +79,7 @@ import {
   configureAndGetLootData,
   isAlreadyTrading,
   convertUsSizeToEu,
+  handleSendOfferNavigation,
 } from '../../utility/utility';
 import {Alert} from 'custom_top_alert';
 import {Trade_Options, Deal_Type} from 'custom_enums';
@@ -268,23 +269,12 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     }
     dispatch(preselectChosenItem(productData?._id));
 
-    switch (productData.type) {
-      case Trade_Options.TradeAndSell:
-        navigation.navigate('ChooseOfferTypeScreen');
-        break;
-      case Trade_Options.TradeOnly:
-        navigation.navigate('StartTradeScreen', {
-          requestedUserDetails: requestedUserDetails,
-          userData: userData,
-        });
-        break;
-      case Trade_Options.SellOnly:
-        navigation.navigate('SendMoneyOfferScreen');
-        break;
-      default:
-        navigation.navigate('ChooseOfferTypeScreen');
-        break;
-    }
+    handleSendOfferNavigation(
+      navigation,
+      productData.type,
+      userData,
+      requestedUserDetails,
+    );
   };
 
   const renderTags = () => {

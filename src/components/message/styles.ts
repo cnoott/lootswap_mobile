@@ -79,3 +79,32 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
   },
 });
+
+export const ModalStyles = {
+  margin: 0,
+  justifyContent: 'flex-end',
+};
+
+export const ModalHeaderText: any = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+}))`
+  font-size: ${moderateScale(20)}px;
+  font-family: Urbanist-Bold;
+  text-align: center;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const ModalContainerView = styled.View.attrs(() => ({
+  pt: scale(10),
+  pb: scale(20),
+}))`
+  ${space}
+`;
+
+export const TopMargin = styled.View.attrs(props => ({
+  mt: verticalScale(props?.margin || 20),
+}))`
+  ${space}
+`;

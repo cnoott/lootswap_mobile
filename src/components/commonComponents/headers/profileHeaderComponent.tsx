@@ -4,7 +4,7 @@ import {
   OfferChatHeaderText,
 } from './styles';
 import {LSProfileImageComponent} from '../profileImage';
-import {LEFT_BLACK_ARROW} from 'localsvgimages';
+import {LEFT_BLACK_ARROW, PROFILE_TRIPPLE_DOT_ICON} from 'localsvgimages';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {SvgXml} from 'react-native-svg';
 
