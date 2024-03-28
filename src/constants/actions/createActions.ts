@@ -338,6 +338,10 @@ export const SET_NOTIFS_AS_READ = {
   ...createActionConst(actions.SET_NOTIFS_AS_READ),
 };
 
+export const SET_NOTIF_AS_READ = {
+  ...createActionConst(actions.SET_NOTIF_AS_READ),
+};
+
 export const SET_ORDER_NOTIF_AS_READ = {
   ...createActionConst(actions.SET_ORDER_NOTIF_AS_READ),
 };

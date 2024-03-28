@@ -30,6 +30,7 @@ import {
   joinOrLeaveChannel,
   clearMessageNotif,
 } from '../../redux/modules/message/actions';
+import {setNotifAsRead} from '../../redux/modules';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AppState, FlatList} from 'react-native';
 import {Pusher, PusherEvent} from '@pusher/pusher-websocket-react-native';
@@ -146,6 +147,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
           msgData: historyMessages,
         }),
       );
+      dispatch(setNotifAsRead({objectId: messageId}));
     }
   }, [historyMessages]);
 

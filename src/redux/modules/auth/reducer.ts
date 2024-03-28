@@ -22,6 +22,7 @@ import {
   SAVE_REFERRAL_LINK,
   SAVE_SEARCH,
   SET_NOTIFS_AS_READ,
+  SET_NOTIF_AS_READ,
   UNLIKE_PRODUCT,
   LIKE_PRODUCT,
   SAVE_INSTALL_PARAMS,
@@ -355,6 +356,7 @@ export default function auth(state = InitialState, action: ActionProps) {
       };
     }
     case NEW_NOTIF_TRUE.SUCCESS: {
+      console.log('paylodz', payload);
       return {
         ...state,
         userData: {
@@ -370,6 +372,25 @@ export default function auth(state = InitialState, action: ActionProps) {
         userData: {
           ...state.userData,
           notifications: payload,
+        },
+      };
+    }
+
+    case SET_NOTIF_AS_READ.REQUEST: {
+      const {objectId} = payload;
+      const updatedNoitfs = state.userData.notifications.map((notif: any) => {
+        if (notif?.objectId && objectId === notif.objectId) {
+          return {...notif, isRead: true};
+        } else {
+          return notif;
+        }
+      });
+
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          notifications: updatedNoitfs,
         },
       };
     }
