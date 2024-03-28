@@ -12,7 +12,12 @@ import BottomTabs from './bottomTab';
 import {useSelector, useDispatch} from 'react-redux';
 import LSLoader from '../components/commonComponents/LSLoader';
 import {LoadingProps} from '../redux/modules/loading/reducer';
-import {versionCheck, getMyDetailsNoLoadRequest} from '../redux/modules';
+import {
+  versionCheck,
+  getMyDetailsNoLoadRequest,
+  getTradesHistory,
+  getAllMyMessages,
+} from '../redux/modules';
 import {AuthProps} from '../redux/modules/auth/reducer';
 import {Alert} from 'custom_top_alert';
 import {isReadyRef, navigationRef} from './navigationHelper';
@@ -58,7 +63,12 @@ const AppNavigation = () => {
         console.log('back from bg home');
         if (isLogedIn) {
           dispatch(getMyDetailsNoLoadRequest(userData?._id));
-          //dispatch();
+          dispatch(
+            getTradesHistory({
+              userId: userData?._id,
+            }),
+          );
+          dispatch(getAllMyMessages(userData?._id));
         }
       }
 
