@@ -12,7 +12,8 @@ import BottomTabs from './bottomTab';
 import {useSelector, useDispatch} from 'react-redux';
 import LSLoader from '../components/commonComponents/LSLoader';
 import {LoadingProps} from '../redux/modules/loading/reducer';
-import {versionCheck, newNotifTrueSuccess} from '../redux/modules';
+import {versionCheck, getMyDetailsNoLoadRequest} from '../redux/modules';
+import {AuthProps} from '../redux/modules/auth/reducer';
 import {Alert} from 'custom_top_alert';
 import {isReadyRef, navigationRef} from './navigationHelper';
 import UserChatScreen from '../screens/message';
@@ -26,7 +27,7 @@ import OffersMessageScreen from '../screens/offers/offerMessageScreen';
 import TrackOrderScreen from '../screens/order/trackOrderScreen';
 import DeviceInfo from 'react-native-device-info';
 import {Alert as AlertModal} from 'react-native';
-import {Linking} from 'react-native';
+import {Linking, AppState} from 'react-native';
 import {useNotifications} from '../utility/customHooks/useNotifications';
 import useFCMNotifications from '../utility/customHooks/useFCMNotifications';
 import useBranch from '../utility/customHooks/useBranch';
@@ -36,10 +37,35 @@ const Stack = createStackNavigator();
 
 const AppNavigation = () => {
   const dispatch = useDispatch();
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData, isLogedIn} = auth;
+  const appState = useRef(AppState.currentState);
 
   useNotifications();
   useFCMNotifications();
   useBranch();
+
+  useEffect(() => {
+    if (isLogedIn) {
+      console.log('cdalling here');
+      dispatch(getMyDetailsNoLoadRequest(userData?._id));
+    }
+  }, [isLogedIn]);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+        console.log('back from bg home');
+        if (isLogedIn) {
+          dispatch(getMyDetailsNoLoadRequest(userData?._id));
+        }
+      }
+
+      appState.current = nextAppState;
+    });
+
+    return () => subscription.remove();
+  }, []);
 
   useEffect(() => {
     dispatch(
