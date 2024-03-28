@@ -2,11 +2,10 @@
 LootSwap - OFFERS SCREEN
 ***/
 
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {useWindowDimensions, RefreshControl} from 'react-native';
 import {SceneMap} from 'react-native-tab-view';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {useFocusEffect} from '@react-navigation/native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {
   getTradesHistory,
@@ -86,12 +85,11 @@ export const OffersScreen: FC<{}> = () => {
   const tradeLoading = useSelector(state => state.offers.tradeLoading);
   const messageLoading = useSelector(state => state.message.messageLoading);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      const reqData = {
-        type: publicOfferFilter.value,
-        userId: userData?._id,
-      };
+  useEffect(() => {
+    const reqData = {
+      type: publicOfferFilter.value,
+      userId: userData?._id,
+    };
       dispatch(
         setNotifsAsReadRequest({
           userId: userData?._id,
@@ -115,14 +113,13 @@ export const OffersScreen: FC<{}> = () => {
         ),
       );
 
-      dispatch(
-        getTradesHistory({
-          userId: userData?._id,
-        }),
-      );
-      dispatch(getAllMyMessages(userData?._id));
-    }, [userData?._id, dispatch, publicOfferFilter]),
-  );
+    dispatch(
+      getTradesHistory({
+        userId: userData?._id,
+      }),
+    );
+    dispatch(getAllMyMessages(userData?._id));
+  }, [publicOfferFilter]);
 
   useEffect(() => {
     if (loading) {
@@ -147,7 +144,10 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const goToMessageScreen = (msgData: any) => {
-    navigation.navigate('UserChatScreen', {messageId: msgData._id});
+    navigation.navigate('UserChatScreen', {
+      messageId: msgData._id,
+      key: new Date().toString(),
+    });
   };
 
   const handleDeletePublicOffer = (publicOfferId: string) => {

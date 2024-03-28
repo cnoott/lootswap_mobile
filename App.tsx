@@ -18,6 +18,8 @@ import StackNavigator from './src/navigation';
 import {StatusBar} from 'react-native';
 import codePush from 'react-native-code-push';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {Pusher} from '@pusher/pusher-websocket-react-native';
+import {PUSHER_API_KEY} from '@env';
 
 let codePushOptions = {
   updateDialog: false,
@@ -32,6 +34,18 @@ const App = () => {
         ? 'GoogleService-Info-Dev'
         : 'GoogleService-Info-Prod',
     });
+
+    const initPusher = async () => {
+      const pusher = Pusher.getInstance();
+      await pusher.init({
+        apiKey: PUSHER_API_KEY,
+        cluster: 'us2'
+      });
+
+      await pusher.connect();
+    };
+
+    initPusher();
   }, []);
 
   return (

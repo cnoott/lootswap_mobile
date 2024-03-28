@@ -2,14 +2,18 @@ import {takeLatest, call, put} from 'redux-saga/effects';
 import {
   GET_MESSAGE_INITIATED_STATUS,
   CREATE_FIRST_MESSAGE,
+  SEND_MESSAGE,
   GET_MESSAGES_HISTORY,
   GET_ALL_MY_MESSAGES,
+  JOIN_OR_LEAVE_CHANNEL,
 } from '../../../constants/actions';
 import {
   getMessageInitiatedstatusCall,
   createFirstMessageCall,
+  sendMessageCall,
   getMessageHistoryCall,
   getAllMyMessagesCall,
+  joinOrLeaveChannelCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {
@@ -68,13 +72,50 @@ export function* createFirstMessage(action: any) {
   }
 }
 
+export function* sendMessage(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      sendMessageCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      console.log('message sent');
+    } else {
+      console.log('err sending message');
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
+export function* joinOrLeaveChannel(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      joinOrLeaveChannelCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      console.log('connected to channel');
+    } else {
+      console.log('err connecting to channel');
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export function* getMessageHistory(action: any) {
+  if (action.showLoad) {
+    yield put(LoadingRequest());
+  }
   try {
     const response: APIResponseProps = yield call(
       getMessageHistoryCall,
       action?.reqData,
     );
-    //yield put(LoadingSuccess());
+    yield put(LoadingSuccess());
     if (response?.success) {
       yield put(getMessagesHistorySuccess(response.data));
     } else {
@@ -108,6 +149,8 @@ export default function* messageSaga() {
     getMessageInitiatedstatus,
   );
   yield takeLatest(CREATE_FIRST_MESSAGE.REQUEST, createFirstMessage);
+  yield takeLatest(SEND_MESSAGE.REQUEST, sendMessage);
+  yield takeLatest(JOIN_OR_LEAVE_CHANNEL.REQUEST, joinOrLeaveChannel);
   yield takeLatest(GET_MESSAGES_HISTORY.REQUEST, getMessageHistory);
   yield takeLatest(GET_ALL_MY_MESSAGES.REQUEST, getAllMyMessage);
 }

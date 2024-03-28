@@ -4,6 +4,7 @@ import {
   GET_MESSAGE_INITIATED_STATUS,
   GET_MESSAGES_HISTORY,
   GET_ALL_MY_MESSAGES,
+  RECEIVE_MESSAGE,
 } from '../../../constants/actions';
 
 export interface MessageProps {
@@ -18,7 +19,7 @@ type ActionProps = {
 };
 
 export const InitialState: MessageProps = {
-  historyMessages: null,
+  historyMessages: {messages: []},
   allMyMessages: null,
   messageLoading: false,
 };
@@ -37,7 +38,9 @@ export default function loading(state = InitialState, action: ActionProps) {
       return {
         ...state,
         messageLoading: true,
-        historyMessages: null,
+        historyMessages: action?.showLoad
+          ? InitialState.historyMessages
+          : state.historyMessages,
       };
     }
     case GET_MESSAGES_HISTORY.SUCCESS: {
@@ -51,7 +54,18 @@ export default function loading(state = InitialState, action: ActionProps) {
       return {
         ...state,
         messageLoading: false,
-        historyMessages: null,
+        historyMessages: InitialState.historyMessages,
+      };
+    }
+    case RECEIVE_MESSAGE.REQUEST: {
+      const newMessage = payload;
+      console.log('new message', action);
+      return {
+        ...state,
+        historyMessages: {
+          ...state.historyMessages,
+          messages: [...state.historyMessages.messages, newMessage],
+        },
       };
     }
     case GET_ALL_MY_MESSAGES.REQUEST: {
