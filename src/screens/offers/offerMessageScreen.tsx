@@ -39,6 +39,7 @@ import {
 import {FlatList, AppState} from 'react-native';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 import {Pusher, PusherEvent} from '@pusher/pusher-websocket-react-native';
+import {setNotifAsRead} from '../../redux/modules';
 
 export const OffersMessageScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -139,13 +140,6 @@ export const OffersMessageScreen: FC<{}> = props => {
       }),
     );
 
-    dispatch(
-      clearTradeNotif({
-        userId: userData?._id,
-        tradeData: tradeId,
-      }),
-    );
-
     return () => {
       dispatch(
         joinOrLeaveChannel({
@@ -156,6 +150,18 @@ export const OffersMessageScreen: FC<{}> = props => {
       );
     };
   }, []);
+
+  useEffect(() => {
+    if (tradeData?.trade) {
+      dispatch(
+        clearTradeNotif({
+          userId: userData?._id,
+          tradeData: tradeData.trade,
+        }),
+      );
+      dispatch(setNotifAsRead({objectId: tradeId}));
+    }
+  }, [tradeData.trade]);
 
   const sendMessage = () => {
     if (messageText === '') {
