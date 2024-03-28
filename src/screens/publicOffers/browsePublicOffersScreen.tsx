@@ -45,7 +45,6 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
       getPublicOffers(
         reqData,
         res => {
-          console.log('RESPONSE', res);
           setPublicOffers([...publicOffers, ...res.publicOffers]);
           setEndReached(res.endReached);
           setLoadingItems([]); // Clear loading items once data is loaded

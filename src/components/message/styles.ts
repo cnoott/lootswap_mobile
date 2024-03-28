@@ -1,14 +1,15 @@
 import styled from 'styled-components/native';
 import {color, layout, space} from 'styled-system';
 import {scale, moderateScale, verticalScale} from 'react-native-size-matters';
+import {StyleSheet} from 'react-native';
 
 export const MessageBoxContainer = styled.View.attrs(props => ({
-  maxWidth: '80%',
+  maxWidth: '100%',
   minWidth: '15%',
   minHeight: scale(42),
   maxHeight: scale(420),
   borderRadius: scale(10),
-  borderBottomLeftRadius: scale(props?.self ? 12 : 0),
+  borderBottomLeftRadius: scale(props?.self ? 0 : 10),
   borderTopLeftRadius: scale(props?.self ? 12 : 12),
   borderBottomRightRadius: scale(props?.self ? 0 : 10),
   borderTopRightRadius: scale(12),
@@ -21,6 +22,7 @@ export const MessageBoxContainer = styled.View.attrs(props => ({
   mx: scale(10),
   p: scale(10),
   pl: scale(15),
+  pr: scale(15),
   flexShrink: 1,
 }))`
   ${layout}
@@ -51,3 +53,29 @@ export const TimeText = styled.Text.attrs(props => ({
   ${space}
   ${layout}
 `;
+
+export const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  profilePicPlaceholder: {
+    width: 40,
+    height: 40,
+    borderRadius: 10,
+    backgroundColor: 'lightgrey',
+    marginRight: 10,
+  },
+  textPlaceholder: {
+    width: 35,
+    height: scale(8),
+    borderRadius: 5,
+    backgroundColor: 'lightgrey',
+    marginBottom: 5,
+  },
+  timePlaceholder: {
+    height: scale(8),
+    backgroundColor: 'lightgrey',
+    borderRadius: 5,
+  },
+});

@@ -58,6 +58,8 @@ import {Dropdown} from 'react-native-element-dropdown';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 import CellBadge from '../../components/offers/cellBadge';
 import {loggingService} from '../../services/loggingService';
+import LoadingPublicOfferCell from '../../components/publicOffer/LoadingPublicOfferCell.tsx';
+import LoadingMessageCell from '../../components/message/LoadingMessageCell.tsx';
 
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
@@ -65,6 +67,8 @@ export const OffersScreen: FC<{}> = () => {
   const [index, setIndex] = useState(0);
   const [publicOfferFilter, setPublicOfferFilter] = useState({value: 'All'});
   const [publicOffers, setPublicOffers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadingItems, setLoadingItems] = useState([]);
   const [routes] = React.useState([
     {key: 'first', title: 'Public Offers'},
     {key: 'second', title: 'Trade offers'},
@@ -78,29 +82,36 @@ export const OffersScreen: FC<{}> = () => {
   const {historyTrades} = tradesData;
   const messagesStoreData: MessageProps = useSelector(state => state.message);
   const {allMyMessages} = messagesStoreData;
+  const tradeLoading = useSelector(state => state.offers.tradeLoading);
+  const messageLoading = useSelector(state => state.message.messageLoading);
 
   useEffect(() => {
     const reqData = {
       type: publicOfferFilter.value,
       userId: userData?._id,
     };
-    dispatch(
-      setNotifsAsReadRequest({
-        userId: userData?._id,
-        notifType: 'inbox',
-      }),
-    );
-    dispatch(
-      getPublicOffers(
-        reqData,
-        res => {
-          setPublicOffers(res.publicOffers);
-        },
-        err => {
-          console.log('Err => ', err);
-        },
-      ),
-    );
+      dispatch(
+        setNotifsAsReadRequest({
+          userId: userData?._id,
+          notifType: 'inbox',
+        }),
+      );
+      dispatch(
+        getPublicOffers(
+          reqData,
+          res => {
+            setPublicOffers([...publicOffers, ...res.publicOffers]);
+            setLoadingItems([]);
+            setLoading(false);
+            console.log(res);
+          },
+          err => {
+            console.log('Err => ', err);
+            setLoadingItems([]);
+            setLoading(false);
+          },
+        ),
+      );
 
     dispatch(
       getTradesHistory({
@@ -109,6 +120,14 @@ export const OffersScreen: FC<{}> = () => {
     );
     dispatch(getAllMyMessages(userData?._id));
   }, [publicOfferFilter]);
+
+  useEffect(() => {
+    if (loading) {
+      if (publicOffers.length === 0) {
+        setLoadingItems(new Array(6).fill({loading: true}));
+      }
+    }
+  }, [loading, publicOffers.length]);
 
   const onTradeOffersRefresh = () => {
     ReactNativeHapticFeedback.trigger('impactMedium');
@@ -154,6 +173,7 @@ export const OffersScreen: FC<{}> = () => {
 
   const goToCreatePublicOfferScreen = () => {
     navigation?.navigate('CreatePublicOfferScreen');
+    loggingService().logEvent('start_create_public_offer');
   };
 
   const renderBottomButtonView = () => {
@@ -217,8 +237,12 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const renderPublicOfferItem = ({item}: any) => {
+    if (item.loading) {
+      return <LoadingPublicOfferCell />;
+    }
     return (
       <PublicOfferItem
+        key={item._id}
         publicOffer={item}
         handleDelete={handleDeletePublicOffer}
       />
@@ -293,7 +317,7 @@ export const OffersScreen: FC<{}> = () => {
         />
       </PublicOffersFilterContainer>
       <OffersListView
-        data={publicOffers}
+        data={[...publicOffers, ...loadingItems]}
         renderItem={renderPublicOfferItem}
         keyExtractor={item => item?._id}
         refreshControl={
@@ -305,30 +329,49 @@ export const OffersScreen: FC<{}> = () => {
 
   const SecondRoute = () => (
     <TabContainer>
-      <OffersListView
-        data={historyTrades}
-        renderItem={renderOfferItem}
-        keyExtractor={item => item._id}
-        extraData={selectedTrade}
-        ListEmptyComponent={() => <NoOffersView navigation={navigation} />}
-        refreshControl={
-          <RefreshControl refreshing={false} onRefresh={onTradeOffersRefresh} />
-        }
-      />
+      {tradeLoading ? (
+        <>
+          {Array.from({length: 6}, (_, idx) => (
+            <LoadingPublicOfferCell key={idx} />
+          ))}
+        </>
+      ) : (
+        <OffersListView
+          data={historyTrades}
+          renderItem={renderOfferItem}
+          keyExtractor={item => item._id.toString()}
+          extraData={selectedTrade}
+          ListEmptyComponent={<NoOffersView navigation={navigation} />}
+          refreshControl={
+            <RefreshControl
+              refreshing={false}
+              onRefresh={onTradeOffersRefresh}
+            />
+          }
+        />
+      )}
     </TabContainer>
   );
 
   const ThirdRoute = () => (
     <TabContainer>
-      <MessagesListView
-        data={allMyMessages?.messageDocs || []}
-        renderItem={renderMessageItem}
-        keyExtractor={(item: any) => item?._id}
-        ListEmptyComponent={() => <NoMessagesView />}
-        refreshControl={
-          <RefreshControl refreshing={false} onRefresh={onMessagesRefresh} />
-        }
-      />
+      {messageLoading ? (
+        <>
+          {Array.from({length: 8}, (_, idx) => (
+            <LoadingMessageCell key={idx} />
+          ))}
+        </>
+      ) : (
+        <MessagesListView
+          data={allMyMessages?.messageDocs || []}
+          renderItem={renderMessageItem}
+          keyExtractor={(item: any) => item?._id}
+          ListEmptyComponent={() => <NoMessagesView />}
+          refreshControl={
+            <RefreshControl refreshing={false} onRefresh={onMessagesRefresh} />
+          }
+        />
+      )}
     </TabContainer>
   );
 
