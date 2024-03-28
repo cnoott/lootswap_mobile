@@ -90,28 +90,28 @@ export const OffersScreen: FC<{}> = () => {
       type: publicOfferFilter.value,
       userId: userData?._id,
     };
-      dispatch(
-        setNotifsAsReadRequest({
-          userId: userData?._id,
-          notifType: 'inbox',
-        }),
-      );
-      dispatch(
-        getPublicOffers(
-          reqData,
-          res => {
-            setPublicOffers([...publicOffers, ...res.publicOffers]);
-            setLoadingItems([]);
-            setLoading(false);
-            console.log(res);
-          },
-          err => {
-            console.log('Err => ', err);
-            setLoadingItems([]);
-            setLoading(false);
-          },
-        ),
-      );
+    dispatch(
+      setNotifsAsReadRequest({
+        userId: userData?._id,
+        notifType: 'inbox',
+      }),
+    );
+    dispatch(
+      getPublicOffers(
+        reqData,
+        res => {
+          setPublicOffers([...publicOffers, ...res.publicOffers]);
+          setLoadingItems([]);
+          setLoading(false);
+          console.log(res);
+        },
+        err => {
+          console.log('Err => ', err);
+          setLoadingItems([]);
+          setLoading(false);
+        },
+      ),
+    );
 
     dispatch(
       getTradesHistory({
