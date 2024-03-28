@@ -114,6 +114,13 @@ export const createFirstMessageCall = (reqData: any) => {
   );
 };
 
+export const sendMessageCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`message/${reqData?.userId}/${reqData?.messageId}`, reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const getMessageHistoryCall = (reqData: any) => {
   return handleResponse(
     api.get(`message/${reqData?.userId}/${reqData?.messageId}`),
@@ -139,9 +146,27 @@ export const getHomeScreenProductsCall = (reqData: any) => {
   );
 };
 
+export const getHotProductsCall = (reqData: any) => {
+  return handleResponse(
+    api.get(
+      `hot-products/?skip=${reqData.page * reqData.itemsPerPage}&limit=${
+        reqData.itemsPerPage
+      }`,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const sendTradeOfferCall = (reqData: any) => {
   return handleResponse(
     api.post(`start-trade/${reqData?.sender}`, reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const sendTradeMessageCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`trade/message/${reqData?.userId}/${reqData?.tradeId}`, reqData),
     API_RESPONSE.CODE200,
   );
 };
@@ -599,12 +624,20 @@ export const createPaypalOrderCall = (reqData: any) => {
     API_RESPONSE.CODE200,
   );
 };
+
 export const capturePaypalOrderCall = (reqData: any) => {
   return handleResponse(
     api.post(
       `/capture-order/${reqData?.paypalId}/${reqData?.productId}/${reqData?.userId}`,
       reqData,
     ),
+    API_RESPONSE.CODE200,
+  );
+};
+
+export const joinOrLeaveChannelCall = (reqData: any) => {
+  return handleResponse(
+    api.post(`/join-or-leave-channel/${reqData?.userId}`, reqData),
     API_RESPONSE.CODE200,
   );
 };

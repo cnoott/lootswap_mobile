@@ -15,6 +15,8 @@ import {
   GET_PUBLIC_OFFERS,
   ACCEPT_PUBLIC_OFFER,
   DELETE_PUBLIC_OFFER,
+  SEND_TRADE_MESSAGE,
+  RECEIVE_TRADE_MESSAGE,
 } from '../../../constants/actions';
 
 export const getTradesHistory = (reqData: any) => {
@@ -38,10 +40,25 @@ export const getTradesHistoryFailure = (error: any) => {
   };
 };
 
-export const getTrade = (reqData: any) => {
+export const getTrade = (reqData: any, showLoad: Boolean = true) => {
   return {
     type: GET_TRADE.REQUEST,
     reqData: reqData,
+    showLoad: showLoad,
+  };
+};
+
+export const sendTradeMessage = (reqData: any) => {
+  return {
+    type: SEND_TRADE_MESSAGE.REQUEST,
+    reqData: reqData,
+  };
+};
+
+export const receiveTradeMessage = (newMessage: any) => {
+  return {
+    type: RECEIVE_TRADE_MESSAGE.REQUEST,
+    payload: newMessage,
   };
 };
 
