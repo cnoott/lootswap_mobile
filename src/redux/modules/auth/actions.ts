@@ -25,6 +25,7 @@ import {
   SAVE_SEARCH,
   GET_LIKED_PRODUCTS,
   SET_NOTIFS_AS_READ,
+  SET_NOTIF_AS_READ,
   SIGNIN_WITH_GOOGLE,
   SIGNIN_WITH_APPLE,
   SAVE_INSTALL_PARAMS,
@@ -542,6 +543,13 @@ export const setNotifsAsReadRequest = (reqData: any) => {
   return {
     type: SET_NOTIFS_AS_READ.REQUEST,
     reqData: reqData,
+  };
+};
+
+export const setNotifAsRead = (payload: any) => {
+  return {
+    type: SET_NOTIF_AS_READ.REQUEST,
+    payload: payload,
   };
 };
 
