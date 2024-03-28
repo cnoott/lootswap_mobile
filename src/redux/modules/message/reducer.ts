@@ -10,6 +10,7 @@ import {
 export interface MessageProps {
   historyMessages: any;
   allMyMessages: any;
+  messageLoading: boolean;
 }
 
 type ActionProps = {
@@ -20,6 +21,7 @@ type ActionProps = {
 export const InitialState: MessageProps = {
   historyMessages: {messages: []},
   allMyMessages: null,
+  messageLoading: false,
 };
 
 export default function loading(state = InitialState, action: ActionProps) {
@@ -35,6 +37,7 @@ export default function loading(state = InitialState, action: ActionProps) {
     case GET_MESSAGES_HISTORY.REQUEST: {
       return {
         ...state,
+        messageLoading: true,
         historyMessages: action?.showLoad
           ? InitialState.historyMessages
           : state.historyMessages,
@@ -43,12 +46,14 @@ export default function loading(state = InitialState, action: ActionProps) {
     case GET_MESSAGES_HISTORY.SUCCESS: {
       return {
         ...state,
+        messageLoading: false,
         historyMessages: payload,
       };
     }
     case GET_MESSAGES_HISTORY.FAILURE: {
       return {
         ...state,
+        messageLoading: false,
         historyMessages: InitialState.historyMessages,
       };
     }
@@ -66,17 +71,20 @@ export default function loading(state = InitialState, action: ActionProps) {
     case GET_ALL_MY_MESSAGES.REQUEST: {
       return {
         ...state,
+        messageLoading: true,
       };
     }
     case GET_ALL_MY_MESSAGES.SUCCESS: {
       return {
         ...state,
         allMyMessages: payload,
+        messageLoading: false,
       };
     }
     case GET_ALL_MY_MESSAGES.FAILURE: {
       return {
         ...state,
+        messageLoading: false,
         historyMessages: null,
       };
     }

@@ -43,7 +43,7 @@ export const PublicOfferItem: FC<PublicOfferProps> = props => {
   };
 
   const renderDeleteButton = () => {
-    if (isLogedIn && userData?._id === publicOffer.userId._id) {
+    if (isLogedIn && userData?._id === publicOffer?.userId?._id) {
       return (
         <PublicOfferDeleteContainer onPress={() => handleConfirmDelete()}>
           <SvgXml xml={TRASH_ICON_SMALL} style={{marginTop: 5}} />
@@ -74,7 +74,7 @@ export const PublicOfferItem: FC<PublicOfferProps> = props => {
             imageRadius={10}
           />
           <OwnerDetailsView>
-            <NameLabel>{user.name}</NameLabel>
+            <NameLabel>{user?.name}</NameLabel>
           </OwnerDetailsView>
         </EmptyRowView>
         {renderDeleteButton()}
