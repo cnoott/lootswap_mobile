@@ -1,6 +1,8 @@
 import React, {FC} from 'react';
 import {SelectedLootText, SelectLootText, FlatList} from './styles';
 import StartTradeItemCell from '../../../components/startTrade/startTradeItemCell';
+import EmptyListView from '../../../components/commonComponents/EmptyListView';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {Alert} from 'custom_top_alert';
 
 interface StartTradeStepTwo {
@@ -10,6 +12,7 @@ interface StartTradeStepTwo {
 
 export const StartTradeStepTwo: FC<StartTradeStepTwo> = props => {
   const {myItems, setMyItems} = props;
+  const navigation: NavigationProp<any, any> = useNavigation();
 
   const onItemPress = (itemId: string) => {
     const offerItems = [...myItems];
@@ -48,6 +51,22 @@ export const StartTradeStepTwo: FC<StartTradeStepTwo> = props => {
           />
         )}
         contentInset={{bottom: 85}}
+        ListEmptyComponent={
+          <EmptyListView
+            title={'You have no items uploaded'}
+            subtitle={'In order to send a trade offer you need to upload items'}
+            buttonText={'Upload Item'}
+            handleButtonPress={() =>{
+              navigation.reset({
+                index: 0,
+                routes: [{name: 'Home'}],
+              });
+              navigation.navigate('Add loot', {
+                screen: 'LootScreen',
+              });
+            }}
+          />
+        }
       />
     </>
   );

@@ -23,7 +23,7 @@ import LSButton from '../../components/commonComponents/LSButton';
 import {SvgXml} from 'react-native-svg';
 import {STOCKX_SEARCH_DROP_DOWN_ARROW} from 'localsvgimages';
 import TradeOfferCell from './offerItems/TradeOfferCell';
-import NoOffersView from './offerItems/NoOffersView';
+import EmptyListView from '../../components/commonComponents/EmptyListView';
 import {getTradeStatusColor, daysPast} from '../../utility/utility';
 import NoMessagesView from './offerItems/NoMessagesView';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -341,7 +341,14 @@ export const OffersScreen: FC<{}> = () => {
           renderItem={renderOfferItem}
           keyExtractor={item => item._id.toString()}
           extraData={selectedTrade}
-          ListEmptyComponent={<NoOffersView navigation={navigation} />}
+          ListEmptyComponent={
+            <EmptyListView
+              title={'No Offers'}
+              subtitle={'Active offers will show up here'}
+              buttonText={'Start Trading'}
+              handleButtonPress={() => navigation.navigate('Home')}
+            />
+          }
           refreshControl={
             <RefreshControl
               refreshing={false}
