@@ -277,8 +277,10 @@ export const UserChatScreen: FC<any> = ({route}) => {
       </KeyboardAvoidingView>
       <MessageOptionsModal
         isModalVisible={modalVisible}
+        productDetails={historyMessages?.product}
         onSendOfferPress={handleSendOfferPress}
         onCloseModal={() => setModalVisible(false)}
+        productDetails={historyMessages?.product}
       />
     </Container>
   );
