@@ -254,6 +254,15 @@ export const UserChatScreen: FC<any> = ({route}) => {
       requestedUserDetails,
     );
   };
+
+  const handleViewItemPress = () => {
+    setModalVisible(false);
+    navigation.navigate('ProductDetailsChatScreen', {
+      productData: historyMessages?.product,
+      likedParam: false,
+    });
+  };
+
   return (
     <Container>
       <InUserChatHeader
@@ -279,6 +288,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
         isModalVisible={modalVisible}
         productDetails={historyMessages?.product}
         onSendOfferPress={handleSendOfferPress}
+        onViewItemPress={handleViewItemPress}
         onCloseModal={() => setModalVisible(false)}
         productDetails={historyMessages?.product}
       />
