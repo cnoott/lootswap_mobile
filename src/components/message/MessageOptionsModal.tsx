@@ -22,6 +22,8 @@ interface MessageOptionsModalProps {
   productDetails: any;
 }
 
+//TODO: conditionally render different buttons for receiver/sender
+
 export const MessageOptionsModal: FC<MessageOptionsModalProps> = props => {
   const {
     isModalVisible,
