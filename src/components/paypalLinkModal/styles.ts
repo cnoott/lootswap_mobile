@@ -35,8 +35,8 @@ export const SubText = styled.Text.attrs(props => ({
   color: props?.theme?.colors.textGrey,
   mt: verticalScale(8),
 }))`
-  font-size: 14px;
-  font-family: Urbanist;
+  font-size: 16px;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
