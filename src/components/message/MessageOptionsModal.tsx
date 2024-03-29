@@ -18,6 +18,7 @@ interface MessageOptionsModalProps {
   onCloseModal: Function;
   onSendOfferPress: Function;
   onBuyNowPress: Function;
+  onViewItemPress: Function;
   productDetails: any;
 }
 
@@ -27,6 +28,7 @@ export const MessageOptionsModal: FC<MessageOptionsModalProps> = props => {
     onCloseModal = () => {},
     onSendOfferPress = () => {},
     onBuyNowPress = () => {},
+    onViewItemPress = () => {},
     productDetails = {},
   } = props;
 
@@ -53,17 +55,28 @@ export const MessageOptionsModal: FC<MessageOptionsModalProps> = props => {
           radius={20}
           onPress={onSendOfferPress}
         />
-        <TopMargin />
         {productDetails?.type !== 'trade-only' && (
-          <LSButton
-            title={'Buy Now'}
-            size={Size.Fit_To_Width}
-            type={Type.Secondary}
-            radius={20}
-            fitToWidth={'90%'}
-            onPress={onBuyNowPress}
-          />
+          <>
+            <TopMargin />
+            <LSButton
+              title={'Buy Now'}
+              size={Size.Fit_To_Width}
+              type={Type.Secondary}
+              radius={20}
+              fitToWidth={'90%'}
+              onPress={onBuyNowPress}
+            />
+          </>
         )}
+        <TopMargin />
+        <LSButton
+          title={'View Item Details'}
+          size={Size.Fit_To_Width}
+          type={Type.Grey}
+          radius={20}
+          fitToWidth={'90%'}
+          onPress={onViewItemPress}
+        />
       </>
     );
   };

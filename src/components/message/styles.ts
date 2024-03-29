@@ -104,7 +104,7 @@ export const ModalContainerView = styled.View.attrs(() => ({
 `;
 
 export const TopMargin = styled.View.attrs(props => ({
-  mt: verticalScale(props?.margin || 20),
+  mt: verticalScale(10),
 }))`
   ${space}
 `;
