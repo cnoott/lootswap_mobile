@@ -291,6 +291,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     );
   };
 
+
+  // XXX This code (sort of) repeats itself in the MessageOptionsModal
   const renderInteractButtons = () => {
     if (isLogedIn && userData?._id === productData?.userId) {
       return <></>;
@@ -299,7 +301,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       return (
         <ButtonContainer>
           <LSButton
-            title={'Item No Longer Avaliable'}
+            title={'Item No Longer Available'}
             size={Size.Full}
             type={Type.View}
             onPress={() => {}}
