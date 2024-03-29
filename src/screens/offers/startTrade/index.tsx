@@ -16,6 +16,7 @@ import {
   getMyDetailsNoLoadRequest,
   startTradeCheckout,
   undoTradeCheckout,
+  getTradesHistory,
 } from '../../../redux/modules';
 import {Alert} from 'custom_top_alert';
 import RobberyModal from '../../../components/offers/RobberyModal';
@@ -154,6 +155,11 @@ export const StartTradeScreen: FC<any> = ({route}) => {
         id: trade?._id,
       });
       loggingService().logEvent('complete_start_trade_offer');
+      dispatch(
+        getTradesHistory({
+          userId: userData?._id,
+        }),
+      );
     }
   };
 
