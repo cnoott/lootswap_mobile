@@ -65,6 +65,7 @@ import {
   getUsersDetailsRequest,
   getProductDetails,
   getMessageInitiatedStatus,
+  getAllMyMessages,
   createFirstMessage,
   getTradesHistory,
   UpdateAddProductData,
@@ -209,6 +210,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           loggingService().logEvent('start_message', {
             id: res.messageId,
           });
+
+          dispatch(getAllMyMessages(userData?._id));
         },
         (error: any) => {
           console.log('error ===', error);
