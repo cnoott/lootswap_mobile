@@ -58,8 +58,9 @@ import {Dropdown} from 'react-native-element-dropdown';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 import CellBadge from '../../components/offers/cellBadge';
 import {loggingService} from '../../services/loggingService';
-import LoadingPublicOfferCell from '../../components/publicOffer/LoadingPublicOfferCell.tsx';
-import LoadingMessageCell from '../../components/message/LoadingMessageCell.tsx';
+import LoadingPublicOfferCell from '../../components/publicOffer/LoadingPublicOfferCell';
+import LoadingMessageCell from '../../components/message/LoadingMessageCell';
+import OfferForSellOnlyCell from './offerItems/OfferForSellOnlyCell';
 
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
@@ -192,8 +193,11 @@ export const OffersScreen: FC<{}> = () => {
     }
   };
 
-  const RenderUserDetails = ({item}) => {
-    const statusColorObj = getTradeStatusColor(item.status);
+  const RenderUserDetails = ({item, isTrade}) => {
+    let statusColorObj;
+    if (isTrade) {
+      statusColorObj = getTradeStatusColor(item.status);
+    }
     const isReceiver = userData?._id === item.receiver._id;
     const showNotifBadge =
       (isReceiver && (item?.receiverNewMessage || item?.senderHasEdited)) ||
@@ -216,13 +220,15 @@ export const OffersScreen: FC<{}> = () => {
             <NameLabel>
               {isReceiver ? <>{item.sender.name}</> : <>{item.receiver.name}</>}
             </NameLabel>
-            <StatusContainerView
-              bgColor={statusColorObj?.backColor}
-              borderColor={statusColorObj?.labelColor}>
-              <StatusLabel color={statusColorObj?.labelColor}>
-                {item?.status.charAt(0).toUpperCase() + item?.status.slice(1)}
-              </StatusLabel>
-            </StatusContainerView>
+            {isTrade && (
+              <StatusContainerView
+                bgColor={statusColorObj?.backColor}
+                borderColor={statusColorObj?.labelColor}>
+                <StatusLabel color={statusColorObj?.labelColor}>
+                  {item?.status.charAt(0).toUpperCase() + item?.status.slice(1)}
+                </StatusLabel>
+              </StatusContainerView>
+            )}
           </OwnerDetailsView>
         </EmptyRowView>
         <TimeLabel> {daysPast(item.createdAt)} </TimeLabel>
@@ -254,7 +260,7 @@ export const OffersScreen: FC<{}> = () => {
       <OfferCellContainer
         key={item._id}
         onPress={() => tradeOfferCellOnPress(item)}>
-        <RenderUserDetails item={item} />
+        <RenderUserDetails item={item} isTrade={true}/>
         <TradeOfferCell
           offerItem={item}
           isInTrade={false}
@@ -269,6 +275,19 @@ export const OffersScreen: FC<{}> = () => {
     const showNotifBadge =
       (isReceiver && item?.receiverNewMessage) ||
       (!isReceiver && item?.senderNewMessage);
+
+    return (
+      <OfferCellContainer
+        key={item._id}
+        onPress={() => goToMessageScreen(item)}>
+        <RenderUserDetails item={item} isTrade={false}/>
+        {showNotifBadge && <CellBadge top={5} left={5} />}
+        <OwnerDetailsView>
+          <OfferForSellOnlyCell itemData={item.product} />
+        </OwnerDetailsView>
+      </OfferCellContainer>
+    );
+
     return (
       <MessageCellContainer
         key={item?._id}

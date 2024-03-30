@@ -189,7 +189,7 @@ export const SummaryText = styled.Text.attrs(props => ({
 `;
 
 export const OfferCellOnlyContainer = styled.View.attrs(() => ({
-  px: scale(15),
+  py: scale(8),
   mb: verticalScale(10),
 }))`
   flex-direction: row;
