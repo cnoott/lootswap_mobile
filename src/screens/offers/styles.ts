@@ -353,6 +353,17 @@ export const ImageContainerDouble: any = styled.View.attrs((props: any) => ({
   ${layout} ${color} ${space} ${border};
 `;
 
+export const ItemNameText = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  mb: scale(2),
+}))`
+  font-size: ${moderateScale(15)}px;
+  font-family: Urbanist-ExtraBold;
+  ${color}
+  ${space}
+    ${layout}
+`;
+
 export const OfferItemContainer = styled.View.attrs(props => ({
   height: scale(props?.size ? props.size : productImageWidth),
   width: scale(props?.size ? props.size : productImageWidth),
