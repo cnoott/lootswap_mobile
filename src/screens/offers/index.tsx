@@ -74,9 +74,10 @@ export const OffersScreen: FC<{}> = () => {
   const [combinedInbox, setCombinedInbox] = useState([]);
 
   const [routes] = React.useState([
-    {key: 'first', title: 'Public Offers'},
-    {key: 'second', title: 'Trade offers'},
+    {key: 'first', title: 'Inbox'},
+    {key: 'second', title: 'Public Offers'},
   ]);
+
   const [selectedTrade, setSelectedTrade] = useState(null);
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
@@ -205,7 +206,7 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const renderBottomButtonView = () => {
-    if (index === 0) {
+    if (index === 1) {
       return (
         <ButtonContainer>
           <LSButton
@@ -315,7 +316,7 @@ export const OffersScreen: FC<{}> = () => {
     }
   };
 
-  const FirstRoute = () => (
+  const SecondRoute = () => (
     <TabContainer>
       <PublicOffersFilterContainer>
         <Dropdown
@@ -348,7 +349,7 @@ export const OffersScreen: FC<{}> = () => {
     </TabContainer>
   );
 
-  const SecondRoute = () => (
+  const FirstRoute = () => (
     <TabContainer>
       {tradeLoading ? (
         <>

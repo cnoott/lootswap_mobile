@@ -45,7 +45,7 @@ export const CustomTabBar = styled(TabBar).attrs(props => ({
     backgroundColor: props?.theme?.colors?.primary,
     width: scale(40),
     height: scale(3),
-    left: (Dimensions.get('window').width / 2 - scale(99)) / 2,
+    left: (Dimensions.get('window').width / 2 - scale(45)) / 2,
   },
   indicatorContainerStyle: {
     flex: 1,
