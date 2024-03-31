@@ -168,6 +168,8 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       return;
     }
 
+    loggingService().logEvent(`begin_start_trade_offer_step_${currIndex + 1}`);
+
     if (currIndex + 1 === 3) {
       dispatch(getMyDetailsNoLoadRequest(userData?._id));
       initializePaymentSheet();
