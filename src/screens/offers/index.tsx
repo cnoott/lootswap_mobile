@@ -70,6 +70,10 @@ export const OffersScreen: FC<{}> = () => {
   const [publicOffers, setPublicOffers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingItems, setLoadingItems] = useState([]);
+
+  const [combinedInbox, setCombinedInbox] = useState([]);
+
+
   const [routes] = React.useState([
     {key: 'first', title: 'Public Offers'},
     {key: 'second', title: 'Trade offers'},
@@ -129,6 +133,31 @@ export const OffersScreen: FC<{}> = () => {
       }
     }
   }, [loading, publicOffers.length]);
+
+  useEffect(() => {
+    if (!tradeLoading && !messageLoading && allMyMessages?.messageDocs) {
+      const trades = historyTrades.map(trade => ({...trade, isTrade: true}));
+      const messages = allMyMessages.messageDocs.map(message => ({...message, isTrade: false}));
+
+      let combinedData = [...trades, ...messages];
+      combinedData.sort(sortInboxByDate);
+      setCombinedInbox(combinedData);
+    }
+  }, [historyTrades, allMyMessages, tradeLoading, messageLoading]);
+
+  const sortInboxByDate = (objA: any, objB: any) => {
+    if (
+      new Date(objA.updatedAt).getTime() > new Date(objB.updatedAt).getTime()
+    ) {
+      return -1;
+    }
+    if (
+      new Date(objA.updatedAt).getTime() < new Date(objB.updatedAt).getTime()
+    ){
+      return 1;
+    }
+    return 0;
+  };
 
   const onTradeOffersRefresh = () => {
     ReactNativeHapticFeedback.trigger('impactMedium');
@@ -256,20 +285,39 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const renderOfferItem = ({item}: any) => {
+    if (item.isTrade) {
     return (
-      <OfferCellContainer
-        key={item._id}
-        onPress={() => tradeOfferCellOnPress(item)}>
-        <RenderUserDetails item={item} isTrade={true}/>
-        <TradeOfferCell
-          offerItem={item}
-          isInTrade={false}
-          onPress={() => tradeOfferCellOnPress(item)}
-        />
-      </OfferCellContainer>
-    );
+        <OfferCellContainer
+          key={item._id}
+          onPress={() => tradeOfferCellOnPress(item)}>
+          <RenderUserDetails item={item} isTrade={true}/>
+          <TradeOfferCell
+            offerItem={item}
+            isInTrade={false}
+            onPress={() => tradeOfferCellOnPress(item)}
+          />
+        </OfferCellContainer>
+      );
+    } else {
+      const isReceiver = userData?._id === item.receiver._id;
+      const showNotifBadge =
+        (isReceiver && item?.receiverNewMessage) ||
+        (!isReceiver && item?.senderNewMessage);
+      return (
+        <OfferCellContainer
+          key={item._id}
+          onPress={() => goToMessageScreen(item)}>
+          <RenderUserDetails item={item} isTrade={false}/>
+          {showNotifBadge && <CellBadge top={5} left={5} />}
+          <OwnerDetailsView>
+            <OfferForSellOnlyCell itemData={item.product} />
+          </OwnerDetailsView>
+        </OfferCellContainer>
+      );
+    }
   };
 
+  // depricated
   const renderMessageItem = ({item}: any) => {
     const isReceiver = userData?._id === item.receiver._id;
     const showNotifBadge =
@@ -286,30 +334,6 @@ export const OffersScreen: FC<{}> = () => {
           <OfferForSellOnlyCell itemData={item.product} />
         </OwnerDetailsView>
       </OfferCellContainer>
-    );
-
-    return (
-      <MessageCellContainer
-        key={item?._id}
-        onPress={() => goToMessageScreen(item)}>
-        <LSProfileImageComponent
-          profileUrl={
-            isReceiver
-              ? item?.sender?.profile_picture
-              : item.receiver?.profile_picture
-          }
-          imageHeight={40}
-          imageWidth={40}
-          imageRadius={10}
-        />
-        {showNotifBadge && <CellBadge top={5} left={5} />}
-        <OwnerDetailsView>
-          <NameLabel>
-            {isReceiver ? <>{item?.sender?.name}</> : <>{item.receiver.name}</>}
-          </NameLabel>
-          <ProductNameLabel>{item?.product?.name}</ProductNameLabel>
-        </OwnerDetailsView>
-      </MessageCellContainer>
     );
   };
 
@@ -356,7 +380,7 @@ export const OffersScreen: FC<{}> = () => {
         </>
       ) : (
         <OffersListView
-          data={historyTrades}
+          data={combinedInbox}
           renderItem={renderOfferItem}
           keyExtractor={item => item._id.toString()}
           extraData={selectedTrade}
