@@ -13,12 +13,13 @@ import {
 
 interface TradeCheckoutItemProp {
   itemData?: any;
+  isFromMessageScreen?: Boolean;
 }
 
 // TODO: check if checkout screen got effected by style changes
 
 export const OfferForSellOnlyCell: FC<TradeCheckoutItemProp> = props => {
-  const {itemData} = props;
+  const {itemData, isFromMessageScreen = false} = props;
   const renderDescription = () => {
     return (
       <OfferCellOnlyRightView>
@@ -30,7 +31,7 @@ export const OfferForSellOnlyCell: FC<TradeCheckoutItemProp> = props => {
     );
   };
   return (
-    <OfferCellOnlyContainer>
+    <OfferCellOnlyContainer isFromMessageScreen={isFromMessageScreen}>
       <ImageContainer size={75}>
         <Image size={75} source={{uri: itemData?.primary_photo}} />
       </ImageContainer>

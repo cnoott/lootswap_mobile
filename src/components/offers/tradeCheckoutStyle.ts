@@ -188,9 +188,11 @@ export const SummaryText = styled.Text.attrs(props => ({
     ${layout}
 `;
 
-export const OfferCellOnlyContainer = styled.View.attrs(() => ({
-  py: scale(8),
+export const OfferCellOnlyContainer = styled.View.attrs(props => ({
+  py: props?.isFromMessageScreen ? scale(15) : scale(8),
+  ml: props?.isFromMessageScreen ? '9%' : 0,
   mb: verticalScale(10),
+  backgroundColor: props.theme.colors.bg,
 }))`
   flex-direction: row;
   ${space}

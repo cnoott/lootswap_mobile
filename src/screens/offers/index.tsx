@@ -73,11 +73,9 @@ export const OffersScreen: FC<{}> = () => {
 
   const [combinedInbox, setCombinedInbox] = useState([]);
 
-
   const [routes] = React.useState([
     {key: 'first', title: 'Public Offers'},
     {key: 'second', title: 'Trade offers'},
-    {key: 'third', title: 'Messages'},
   ]);
   const [selectedTrade, setSelectedTrade] = useState(null);
   const dispatch = useDispatch();
@@ -317,26 +315,6 @@ export const OffersScreen: FC<{}> = () => {
     }
   };
 
-  // depricated
-  const renderMessageItem = ({item}: any) => {
-    const isReceiver = userData?._id === item.receiver._id;
-    const showNotifBadge =
-      (isReceiver && item?.receiverNewMessage) ||
-      (!isReceiver && item?.senderNewMessage);
-
-    return (
-      <OfferCellContainer
-        key={item._id}
-        onPress={() => goToMessageScreen(item)}>
-        <RenderUserDetails item={item} isTrade={false}/>
-        {showNotifBadge && <CellBadge top={5} left={5} />}
-        <OwnerDetailsView>
-          <OfferForSellOnlyCell itemData={item.product} />
-        </OwnerDetailsView>
-      </OfferCellContainer>
-    );
-  };
-
   const FirstRoute = () => (
     <TabContainer>
       <PublicOffersFilterContainer>
@@ -403,27 +381,6 @@ export const OffersScreen: FC<{}> = () => {
     </TabContainer>
   );
 
-  const ThirdRoute = () => (
-    <TabContainer>
-      {messageLoading ? (
-        <>
-          {Array.from({length: 8}, (_, idx) => (
-            <LoadingMessageCell key={idx} />
-          ))}
-        </>
-      ) : (
-        <MessagesListView
-          data={allMyMessages?.messageDocs || []}
-          renderItem={renderMessageItem}
-          keyExtractor={(item: any) => item?._id}
-          ListEmptyComponent={() => <NoMessagesView />}
-          refreshControl={
-            <RefreshControl refreshing={false} onRefresh={onMessagesRefresh} />
-          }
-        />
-      )}
-    </TabContainer>
-  );
 
   const countNotifs = (title: string) => {
     switch (title) {
@@ -466,7 +423,6 @@ export const OffersScreen: FC<{}> = () => {
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
-    third: ThirdRoute,
   });
   return (
     <Container>
