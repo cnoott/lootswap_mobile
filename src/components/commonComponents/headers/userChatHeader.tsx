@@ -40,7 +40,7 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
     const [accOpen, setAccOpen] = useState(true);
 
     const renderOfferCellView = () => {
-      return <OfferForSellOnlyCell itemData={productData} />;
+      return <OfferForSellOnlyCell itemData={productData} isFromMessageScreen={true}/>;
     };
 
     const renderProductViewContainer = () => {
