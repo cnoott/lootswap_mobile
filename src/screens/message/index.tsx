@@ -34,6 +34,8 @@ import {
   setNotifAsRead,
   preselectChosenItem,
   getUsersDetailsRequest,
+  getAllMyMessages,
+  getTradesHistory,
 } from '../../redux/modules';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AppState, FlatList} from 'react-native';
@@ -135,7 +137,6 @@ export const UserChatScreen: FC<any> = ({route}) => {
         channel: messageId,
       }),
     );
-    
 
     return () => {
       dispatch(
@@ -157,6 +158,18 @@ export const UserChatScreen: FC<any> = ({route}) => {
         }),
       );
       dispatch(setNotifAsRead({objectId: messageId}));
+
+      if (historyMessages?.isTransformedToTrade) {
+        dispatch(getAllMyMessages(userData?._id));
+        dispatch(
+          getTradesHistory({
+            userId: userData?._id,
+          }),
+        );
+        navigation.replace('OffersMessageScreen', {
+          item: {_id: historyMessages?.tradeId}
+        });
+      }
 
       // Fetches the product owners details
       // for send offer/buy now
