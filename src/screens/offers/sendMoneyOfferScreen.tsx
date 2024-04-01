@@ -21,7 +21,8 @@ import StartTradeItemCell from '../../components/startTrade/startTradeItemCell';
 import {startMoneyOfferTrade} from '../../redux/modules';
 import {Alert} from 'custom_top_alert';
 
-export const SendMoneyOfferScreen: FC<any> = () => {
+export const SendMoneyOfferScreen: FC<any> = ({route}) => {
+  const isFromMessageScreen = route?.params?.isFromMessageScreen ?? false;
   const [notValidMsg, setNotValidMsg] = useState('');
   const [moneyOffer, setMoneyOffer] = useState(null);
 
@@ -73,7 +74,15 @@ export const SendMoneyOfferScreen: FC<any> = () => {
       startMoneyOfferTrade(
         reqData,
         res => {
-          navigation?.replace('OffersMessageScreen', {item: res.trade});
+          if (isFromMessageScreen) {
+            navigation.reset({
+              index: 0,
+              routes: [{name: 'Inbox'}],
+            });
+            navigation?.navigate('OffersMessageScreen', {item: res.trade});
+          } else {
+            navigation?.replace('OffersMessageScreen', {item: res.trade});
+          }
         },
         error => {
           Alert.showError('Error sending offer');

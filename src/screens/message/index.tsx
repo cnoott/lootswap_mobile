@@ -39,7 +39,7 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AppState, FlatList} from 'react-native';
 import {Pusher, PusherEvent} from '@pusher/pusher-websocket-react-native';
 import MessageOptionsModal from '../../components/message/MessageOptionsModal';
-import { handleSendOfferNavigation } from '../../utility/utility';
+import {handleSendOfferNavigation} from '../../utility/utility';
 
 export const UserChatScreen: FC<any> = ({route}) => {
   const {messageId} = route?.params;
@@ -252,6 +252,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
       historyMessages?.product?.type,
       userData,
       requestedUserDetails,
+      true,
     );
   };
 

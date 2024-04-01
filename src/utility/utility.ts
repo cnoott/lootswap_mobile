@@ -1305,22 +1305,30 @@ export const handleSendOfferNavigation = (
   productType: string,
   userData: any,
   requestedUserDetails: any,
+  isFromMessageScreen: Boolean = false,
 ) => {
   switch (productType) {
     case Trade_Options.TradeAndSell:
-      navigation.navigate('ChooseOfferTypeScreen');
+      navigation.navigate('ChooseOfferTypeScreen', {
+        isFromMessageScreen: isFromMessageScreen,
+      });
       break;
     case Trade_Options.TradeOnly:
       navigation.navigate('StartTradeScreen', {
         requestedUserDetails: requestedUserDetails,
         userData: userData,
+        isFromMessageScreen: isFromMessageScreen,
       });
       break;
     case Trade_Options.SellOnly:
-      navigation.navigate('SendMoneyOfferScreen');
+      navigation.navigate('SendMoneyOfferScreen', {
+        isFromMessageScreen: isFromMessageScreen,
+      });
       break;
     default:
-      navigation.navigate('ChooseOfferTypeScreen');
+      navigation.navigate('ChooseOfferTypeScreen', {
+        isFromMessageScreen: isFromMessageScreen,
+      });
       break;
   }
 };

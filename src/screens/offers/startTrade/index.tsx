@@ -33,7 +33,7 @@ type PaymentDetails = {
 const NUMBER_OF_STEPS = 5;
 
 export const StartTradeScreen: FC<any> = ({route}) => {
-  const {requestedUserDetails, userData} = route?.params;
+  const {requestedUserDetails, userData, isFromMessageScreen = false} = route?.params;
   const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation();
   const swiperRef = useRef<any>(null);
@@ -143,6 +143,24 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     );
   };
 
+  const handleCompleteCheckoutNavigation = () => {
+    console.log('isfromessage', isFromMessageScreen);
+    if (isFromMessageScreen) {
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Inbox'}],
+      });
+      navigation.navigate('Inbox', {
+        screen: 'OffersMessageScreen',
+        params: {item: trade},
+      });
+
+      console.log('isfromessage');
+    } else {
+      navigation?.replace('OffersMessageScreen', {item: trade});
+    }
+  };
+
   const openPaymentSheet = async () => {
     const {error} = await presentPaymentSheet();
 
@@ -150,7 +168,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       Alert.showError(error?.message);
       console.log('error payment sheet', error);
     } else {
-      navigation?.replace('OffersMessageScreen', {item: trade});
+      handleCompleteCheckoutNavigation();
       loggingService().logEvent('start_trade', {
         id: trade?._id,
       });
