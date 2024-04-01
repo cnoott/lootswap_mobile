@@ -158,8 +158,9 @@ export const OffersScreen: FC<{}> = () => {
     return 0;
   };
 
-  const onTradeOffersRefresh = () => {
+  const onInboxRefresh = () => {
     ReactNativeHapticFeedback.trigger('impactMedium');
+    dispatch(getAllMyMessages(userData?._id));
     dispatch(
       getTradesHistory({
         userId: userData?._id,
@@ -167,10 +168,6 @@ export const OffersScreen: FC<{}> = () => {
     );
   };
 
-  const onMessagesRefresh = () => {
-    ReactNativeHapticFeedback.trigger('impactMedium');
-    dispatch(getAllMyMessages(userData?._id));
-  };
 
   const goToMessageScreen = (msgData: any) => {
     navigation.navigate('UserChatScreen', {
@@ -343,7 +340,7 @@ export const OffersScreen: FC<{}> = () => {
         renderItem={renderPublicOfferItem}
         keyExtractor={item => item?._id}
         refreshControl={
-          <RefreshControl refreshing={false} onRefresh={onTradeOffersRefresh} />
+          <RefreshControl refreshing={false} onRefresh={onInboxRefresh} />
         }
       />
     </TabContainer>
@@ -372,10 +369,7 @@ export const OffersScreen: FC<{}> = () => {
             />
           }
           refreshControl={
-            <RefreshControl
-              refreshing={false}
-              onRefresh={onTradeOffersRefresh}
-            />
+            <RefreshControl refreshing={false} onRefresh={onInboxRefresh} />
           }
         />
       )}
