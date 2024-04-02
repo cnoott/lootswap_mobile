@@ -8,7 +8,9 @@ import {
   OfferCellOnlyContainer,
   ItemCategoryText,
   ItemSubLabel,
+  ItemSubValue,
   OfferCellOnlyRightView,
+  ItemRow,
 } from '../../../components/offers/tradeCheckoutStyle';
 
 interface TradeCheckoutItemProp {
@@ -23,17 +25,19 @@ export const OfferForSellOnlyCell: FC<TradeCheckoutItemProp> = props => {
   const renderDescription = () => {
     return (
       <OfferCellOnlyRightView>
-        <ItemNameText>{itemData?.name}</ItemNameText>
+        <ItemRow>
+          <ItemNameText>{itemData?.name}</ItemNameText>
+          <ItemSubValue>${itemData?.price}</ItemSubValue>
+        </ItemRow>
         <ItemSubLabel>Size: {itemData?.size}</ItemSubLabel>
         <ItemSubLabel>Condition: {itemData?.condition}</ItemSubLabel>
-        <ItemNameText>${itemData?.price}</ItemNameText>
       </OfferCellOnlyRightView>
     );
   };
   return (
     <OfferCellOnlyContainer isFromMessageScreen={isFromMessageScreen}>
       <ImageContainer size={75}>
-        <Image size={75} source={{uri: itemData?.primary_photo}} />
+        <Image size={isFromMessageScreen ? 65 : 75} source={{uri: itemData?.primary_photo}} />
       </ImageContainer>
       {renderDescription()}
     </OfferCellOnlyContainer>
