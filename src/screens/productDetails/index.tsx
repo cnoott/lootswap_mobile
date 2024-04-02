@@ -142,7 +142,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     setTimesLiked(timesLiked + 1);
     setLiked(true);
     dispatch(likeProduct(reqData));
-    //dispatch(getMyDetailsNoLoadRequest(userData?._id)); //causes rerender which is undesireable
   };
 
   const onUnlikePress = () => {
@@ -153,7 +152,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     setTimesLiked(timesLiked - 1);
     setLiked(false);
     dispatch(unlikeProduct(reqData));
-    //dispatch(getMyDetailsNoLoadRequest(userData?._id)); //this causes rerender which is undesireable
   };
 
   const handleGoToTrade = () => {
