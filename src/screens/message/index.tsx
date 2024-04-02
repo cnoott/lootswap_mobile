@@ -41,7 +41,6 @@ import {
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AppState, FlatList} from 'react-native';
 import {Pusher, PusherEvent} from '@pusher/pusher-websocket-react-native';
-import MessageOptionsModal from '../../components/message/MessageOptionsModal';
 import {handleSendOfferNavigation} from '../../utility/utility';
 import {Size, Type} from 'custom_enums';
 import LSButton from '../../components/commonComponents/LSButton';
@@ -61,8 +60,6 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const {historyMessages} = messageData;
   const isReceiver = historyMessages?.receiver?._id === userData?._id;
   const appState = useRef(AppState.currentState);
-
-  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const initPusher = async () => {
@@ -255,12 +252,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
     );
   };
 
-  const handleOpenModal = () => {
-    setModalVisible(true);
-  };
-
   const handleSendOfferPress = () => {
-    setModalVisible(false);
     dispatch(preselectChosenItem(historyMessages?.product?._id));
 
     handleSendOfferNavigation(
@@ -270,14 +262,6 @@ export const UserChatScreen: FC<any> = ({route}) => {
       requestedUserDetails,
       true,
     );
-  };
-
-  const handleViewItemPress = () => {
-    setModalVisible(false);
-    navigation.navigate('ProductDetailsChatScreen', {
-      productData: historyMessages?.product,
-      likedParam: false,
-    });
   };
 
   const renderButtons = () => {
@@ -337,7 +321,6 @@ export const UserChatScreen: FC<any> = ({route}) => {
             ? historyMessages?.sender?.name
             : historyMessages?.receiver?.name
         }
-        onRightDotsPress={handleOpenModal}
         productData={historyMessages?.product}
         otherUserData={
           isReceiver ? historyMessages?.sender : historyMessages?.receiver
@@ -351,14 +334,6 @@ export const UserChatScreen: FC<any> = ({route}) => {
           {renderRightInputView()}
         </InputContainer>
       </KeyboardAvoidingView>
-      <MessageOptionsModal
-        isModalVisible={modalVisible}
-        productDetails={historyMessages?.product}
-        onSendOfferPress={handleSendOfferPress}
-        onViewItemPress={handleViewItemPress}
-        onCloseModal={() => setModalVisible(false)}
-        productDetails={historyMessages?.product}
-      />
     </Container>
   );
 };
