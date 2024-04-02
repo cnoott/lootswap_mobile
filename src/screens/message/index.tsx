@@ -17,6 +17,7 @@ import {
   Touchable,
   InputRightButtonView,
   InputView,
+  InteractButtonsContainer,
 } from './styles';
 import {PaperAirplaneIcon} from 'react-native-heroicons/solid';
 import {moderateScale} from 'react-native-size-matters';
@@ -42,6 +43,8 @@ import {AppState, FlatList} from 'react-native';
 import {Pusher, PusherEvent} from '@pusher/pusher-websocket-react-native';
 import MessageOptionsModal from '../../components/message/MessageOptionsModal';
 import {handleSendOfferNavigation} from '../../utility/utility';
+import {Size, Type} from 'custom_enums';
+import LSButton from '../../components/commonComponents/LSButton';
 
 export const UserChatScreen: FC<any> = ({route}) => {
   const {messageId} = route?.params;
@@ -277,6 +280,55 @@ export const UserChatScreen: FC<any> = ({route}) => {
     });
   };
 
+  const renderButtons = () => {
+    if (historyMessages?.product?.userId === userData?._id) {
+      return <></>;
+    }
+
+    if (!historyMessages?.product?.isVisible) {
+      return (
+        <LSButton
+          title={'Item No Longer Available'}
+          size={Size.Full}
+          type={Type.View}
+          radius={20}
+          onPress={() => {}}
+        />
+      );
+    }
+    if (historyMessages?.product?.type === 'trade-only') {
+      return (
+        <LSButton
+          title={'Send Offer'}
+          size={Size.Full}
+          type={Type.Primary}
+          radius={10}
+          onPress={handleSendOfferPress}
+        />
+      );
+    }
+    return (
+      <InteractButtonsContainer>
+        <LSButton
+          title={'Send Offer'}
+          size={Size.Custom}
+          type={Type.Primary}
+          radius={10}
+          onPress={handleSendOfferPress}
+          customWidth={'47%'}
+        />
+        <LSButton
+          title={'Buy Now'}
+          size={Size.Custom}
+          type={Type.Secondary}
+          radius={10}
+          onPress={handleSendOfferPress}
+          customWidth={'47%'}
+        />
+      </InteractButtonsContainer>
+    );
+  };
+
   return (
     <Container>
       <InUserChatHeader
@@ -293,7 +345,8 @@ export const UserChatScreen: FC<any> = ({route}) => {
       />
       <KeyboardAvoidingView>
         <SubContainer>{renderMessagesListView()}</SubContainer>
-        <InputContainer bottomSpace={insets.bottom - 10}>
+        {renderButtons()}
+        <InputContainer bottomSpace={6}>
           {renderLeftInputView()}
           {renderRightInputView()}
         </InputContainer>
