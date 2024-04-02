@@ -241,6 +241,8 @@ export const BellTouchable = styled.TouchableOpacity.attrs({})`
   ${space}
 `;
 
+export const ItemCellTouchable = styled.TouchableOpacity.attrs({})``;
+
 export const ButtonContainer = styled.TouchableOpacity.attrs(props => ({
   width: props.width,
   height: props.height,

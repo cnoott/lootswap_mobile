@@ -7,11 +7,11 @@ import {
   EmptyColumnView,
   ArrowContainerProductChat,
   ArrowIconContainer,
+  ItemCellTouchable,
 } from './styles';
 import {
   ACCORDIAN_DOWN_ELLIPSE,
   ACCORDIAN_UP_ELLIPSE,
-  LEFT_BLACK_ARROW,
 } from 'localsvgimages';
 import React, {FC, useState} from 'react';
 import {SvgXml} from 'react-native-svg';
@@ -39,8 +39,18 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
     const [accOpen, setAccOpen] = useState(true);
 
+    const handleProductPress = () => {
+      navigation?.navigate('ProductDetailsChatScreen', {
+        productData: productData,
+      });
+    };
+
     const renderOfferCellView = () => {
-      return <OfferForSellOnlyCell itemData={productData} isFromMessageScreen={true}/>;
+      return (
+        <ItemCellTouchable onPress={handleProductPress}>
+          <OfferForSellOnlyCell itemData={productData} isFromMessageScreen={true}/>
+        </ItemCellTouchable>
+      );
     };
 
     const renderProductViewContainer = () => {
