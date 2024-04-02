@@ -232,12 +232,12 @@ export const TradeAcceptanceDesView = styled.View.attrs(() => ({
 `;
 
 export const TradeAcceptanceLabel = styled.Text.attrs(props => ({
-  color: props.theme.colors.greyLabel,
+  color: props.theme.colors.black,
   my: scale(1),
-  width: '95%',
+  width: '100%',
 }))`
-  font-size: ${moderateScale(14)}px;
-  font-family: Urbanist-Medium;
+  font-size: ${moderateScale(15)}px;
+  font-family: Urbanist-ExtraBold;
   ${color}
   ${space}
   ${layout}
