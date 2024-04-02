@@ -214,7 +214,8 @@ export const TradeCheckoutComponent: FC<
           />
           <TradeAcceptanceDesView>
             <TradeAcceptanceLabel>
-              You will not be charged until the trade is accepted.
+              Your card will show a pending authorization but you'll only be charged if the trade is accepted.
+
             </TradeAcceptanceLabel>
           </TradeAcceptanceDesView>
         </TradeAcceptanceContainer>
