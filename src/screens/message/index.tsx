@@ -333,6 +333,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
         otherUserData={
           isReceiver ? historyMessages?.sender : historyMessages?.receiver
         }
+        profileInMiddle={true}
       />
       <KeyboardAvoidingView>
         <SubContainer>{renderMessagesListView()}</SubContainer>

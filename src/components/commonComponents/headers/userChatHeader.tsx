@@ -32,10 +32,11 @@ interface HeaderProps {
   onRightDotsPress: Function;
   productData?: any;
   otherUserData?: any;
+  profileInMiddle?: boolean;
 }
 
 export const InUserChatHeader: FC<HeaderProps> = React.memo(
-  ({title, onRightDotsPress, productData, otherUserData}) => {
+  ({title, onRightDotsPress, productData, otherUserData, profileInMiddle = false}) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
     const [accOpen, setAccOpen] = useState(false);
 
@@ -78,6 +79,7 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
               otherUserName={title}
               otherUserData={otherUserData}
               otherUserPfp={otherUserData?.profile_picture}
+              profileInMiddle={profileInMiddle}
             />
           </EmptyRowView>
         </ProfileHeaderContainer>
