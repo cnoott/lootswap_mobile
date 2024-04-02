@@ -37,7 +37,7 @@ interface HeaderProps {
 export const InUserChatHeader: FC<HeaderProps> = React.memo(
   ({title, onRightDotsPress, productData, otherUserData}) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
-    const [accOpen, setAccOpen] = useState(true);
+    const [accOpen, setAccOpen] = useState(false);
 
     const handleProductPress = () => {
       navigation?.navigate('ProductDetailsChatScreen', {
@@ -48,7 +48,7 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
     const renderOfferCellView = () => {
       return (
         <ItemCellTouchable onPress={handleProductPress}>
-          <OfferForSellOnlyCell itemData={productData} isFromMessageScreen={true}/>
+          <OfferForSellOnlyCell itemData={productData} isFromMessageScreen={true} />
         </ItemCellTouchable>
       );
     };
