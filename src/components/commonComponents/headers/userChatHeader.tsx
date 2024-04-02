@@ -80,9 +80,6 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
               otherUserPfp={otherUserData?.profile_picture}
             />
           </EmptyRowView>
-          <ProfileRightTouchable onPress={onRightDotsPress}>
-            <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} />
-          </ProfileRightTouchable>
         </ProfileHeaderContainer>
         {renderProductViewContainer()}
       </>
