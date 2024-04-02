@@ -44,6 +44,7 @@ import {Pusher, PusherEvent} from '@pusher/pusher-websocket-react-native';
 import {handleSendOfferNavigation} from '../../utility/utility';
 import {Size, Type} from 'custom_enums';
 import LSButton from '../../components/commonComponents/LSButton';
+import {loggingService} from '../../services/loggingService';
 
 export const UserChatScreen: FC<any> = ({route}) => {
   const {messageId} = route?.params;
@@ -254,7 +255,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
 
   const handleSendOfferPress = () => {
     dispatch(preselectChosenItem(historyMessages?.product?._id));
-
+    loggingService().logEvent('begin_start_trade_offer_message');
     handleSendOfferNavigation(
       navigation,
       historyMessages?.product?.type,
@@ -265,6 +266,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
   };
 
   const handleBuyNowPress = () => {
+    loggingService().logEvent('begin_checkout_message');
     navigation.navigate('CheckoutScreen', {
       productData: historyMessages?.product,
     });
