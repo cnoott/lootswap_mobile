@@ -264,6 +264,12 @@ export const UserChatScreen: FC<any> = ({route}) => {
     );
   };
 
+  const handleBuyNowPress = () => {
+    navigation.navigate('CheckoutScreen', {
+      productData: historyMessages?.product,
+    });
+  };
+
   const renderButtons = () => {
     if (historyMessages?.product?.userId === userData?._id) {
       return <></>;
@@ -306,7 +312,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
           size={Size.Custom}
           type={Type.Secondary}
           radius={10}
-          onPress={handleSendOfferPress}
+          onPress={handleBuyNowPress}
           customWidth={'47%'}
         />
       </InteractButtonsContainer>
