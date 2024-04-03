@@ -48,6 +48,7 @@ import {
   DescriptionContainerView,
   ButtonContainer,
   MessageButtonWrapper,
+  ShareButtonTouchable,
 } from './styles';
 import {LikeTouchable} from '../../components/productCard/styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -58,7 +59,9 @@ import {
   LIKE_HEART_ICON_RED,
   PAY_PAL_LABEL,
   LOOT_SWAP_LOGO_LABEL,
+  SHARE_ICON,
 } from 'localsvgimages';
+import {Share} from 'react-native';
 import StarRatings from '../../components/starRatings';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
 import {
@@ -281,6 +284,14 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       userData,
       requestedUserDetails,
     );
+  };
+
+  const handleSharePress = () => {
+    /*
+    const result = await Share.share({
+      message: ``
+    });
+    */
   };
 
   const renderTags = () => {
@@ -529,6 +540,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                 />
                 <ProductDetails>{timesLiked}</ProductDetails>
               </LikeTouchable>
+              {/*
+              <ShareButtonTouchable>
+                <SvgXml xml={SHARE_ICON} />
+              </ShareButtonTouchable>
+              */}
             </DetailsRightView>
           </DetailsContainer>
           <HorizontalBar />
