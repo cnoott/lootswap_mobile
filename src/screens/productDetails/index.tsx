@@ -127,9 +127,14 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     if (productData?.userId) {
       dispatch(getUsersDetailsRequest(productData?.userId));
       dispatch(getProductDetails(productData?._id));
-      setTimesLiked(parseInt(selectedProductDetails?.timesLiked));
     }
   }, [productData?.userId, isLogedIn, likedParam, productData?._id]);
+
+  useEffect(() => {
+    if (selectedProductDetails?.timesLiked) {
+      setTimesLiked(parseInt(selectedProductDetails?.timesLiked));
+    }
+  }, [selectedProductDetails?.timesLiked]);
 
   const onLikePress = () => {
     if (!isLogedIn) {
