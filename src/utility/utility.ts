@@ -761,7 +761,6 @@ export const configureAndGetLootData = (lootData: any) => {
   newLootData.stepFour.tradeOptions = getTradeDataForConfigure(lootData?.type);
   newLootData.stepFour.tradeDescription = lootData?.interestedIn;
 
-  // TODO fix edit for wantedStockxItems
   newLootData.stepFour.wantedStockxItems = lootData?.wantedStockxItems.map(item => ({...item.stockxId, size: {value: item.size, label: item.size}}));
 
   // Configure STEP 5
