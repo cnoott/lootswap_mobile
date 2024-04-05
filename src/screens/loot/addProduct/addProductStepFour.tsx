@@ -296,40 +296,44 @@ export const AddProductStepFour: FC<ProductStep> = props => {
               </DisclaimerText>
             </PaypalDisclaimerView>
           )}
-          <TradeOptionsText>
-            Are there any particular items you wish to trade this item for? (Optional)
-          </TradeOptionsText>
         </HorizontalSpace>
-        <LSInput
-          onChangeText={setSearchInput}
-          horizontalSpace={'2'}
-          value={searchInput}
-          leftIcon={SEARCH_INPUT_ICON}
-          placeholder={
-            addProductData?.stepFour?.wantedStockxItems?.length ? 'Search again' : 'Item Name'
-          }
-          returnKeyType={'search'}
-          onSubmitEditing={() => fetchStockxData()}
-          autoCorrect={false}
-          spellCheck={false}
-          onFocus={handleDrawerAnimation}
-          width={'80%'}
-        />
-        <Animated.View style={{height, overflow: 'hidden'}}>
-          <StockxSearchResults
-            selectedUrlKey={' '}
-            searchResults={searchResults.slice(0, 4)}
-            loading={loading}
-            onSelectResult={handleSelectItem}
-            productName={'none'}
-            showTitle={false}
-            isFromStepFour={true}
-          />
-        </Animated.View>
-        <FlatList
-          data={addProductData?.stepFour?.wantedStockxItems}
-          renderItem={renderStockxProduct}
-        />
+
+        {!stepFour?.tradeOptions?.isSellOnly && (
+          <HorizontalSpace>
+            <TradeOptionsText>
+              What are you looking to trade this item for? (Optional)
+            </TradeOptionsText>
+            <LSInput
+              onChangeText={setSearchInput}
+              horizontalSpace={'0'}
+              value={searchInput}
+              leftIcon={SEARCH_INPUT_ICON}
+              placeholder={
+                addProductData?.stepFour?.wantedStockxItems?.length ? 'Search again' : 'Search Item Name'
+              }
+              returnKeyType={'search'}
+              onSubmitEditing={() => fetchStockxData()}
+              autoCorrect={false}
+              spellCheck={false}
+              onFocus={handleDrawerAnimation}
+            />
+            <Animated.View style={{height, overflow: 'hidden'}}>
+              <StockxSearchResults
+                selectedUrlKey={' '}
+                searchResults={searchResults.slice(0, 4)}
+                loading={loading}
+                onSelectResult={handleSelectItem}
+                productName={'none'}
+                showTitle={false}
+                isFromStepFour={true}
+              />
+            </Animated.View>
+            <FlatList
+              data={addProductData?.stepFour?.wantedStockxItems}
+              renderItem={renderStockxProduct}
+            />
+          </HorizontalSpace>
+        )}
       </ScrollView>
     </Container>
   );
