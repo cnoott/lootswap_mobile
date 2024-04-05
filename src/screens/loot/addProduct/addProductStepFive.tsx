@@ -117,7 +117,11 @@ export const AddProductStepFive: FC<ProductStep> = props => {
         </ShippingDes>
         <TouchableRow
           onPress={() =>
-            onButtonPress({isFreeShipping: true, isShippingPrice: false})
+            onButtonPress({
+              isFreeShipping: true,
+              isShippingPrice: false,
+              shippingCost: 0,
+          })
           }>
           <SvgXml
             xml={
