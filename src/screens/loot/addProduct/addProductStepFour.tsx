@@ -117,7 +117,7 @@ export const AddProductStepFour: FC<ProductStep> = props => {
         }
       ),
     );
-  }, []);
+  }, [searchInput, loading, userData?._id, dispatch]);
 
   const onChangeTrade = (index = 1) => {
     const newData = {
@@ -298,7 +298,6 @@ export const AddProductStepFour: FC<ProductStep> = props => {
           )}
           <TradeOptionsText>
             Are there any particular items you wish to trade this item for? (Optional)
-            {JSON.stringify(addProductData?.stepFour?.wantedStockxItems.map(_ => _.size))}
           </TradeOptionsText>
         </HorizontalSpace>
         <LSInput
