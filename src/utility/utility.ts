@@ -799,11 +799,23 @@ export const validateCreateProductData = (
       }
       break;
     case 4:
-      const {tradeOptions} = prodData?.stepFour;
+      const {tradeOptions, wantedStockxItems} = prodData?.stepFour;
+
+      const sum = wantedStockxItems.reduce((accumulator, item) => {
+        if (item?.size) {
+          return (accumulator += 1);
+        } else {
+          return accumulator;
+        }
+      }, 0);
+
+      const filledOutStockxSizes = sum === wantedStockxItems.length;
+
       if (
-        tradeOptions?.isTradeAndSell ||
+        (tradeOptions?.isTradeAndSell ||
         tradeOptions?.isTradeOnly ||
-        tradeOptions?.isSellOnly
+        tradeOptions?.isSellOnly) &&
+        filledOutStockxSizes
       ) {
         canGoNext = true;
       }
