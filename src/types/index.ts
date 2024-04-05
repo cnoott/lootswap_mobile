@@ -54,9 +54,16 @@ export type PRODUCT_STEP_TWO_TYPE = {
   productDescription?: string;
 };
 
+export type WANTED_STOCKX_ITEM = {
+  urlKey: String;
+  _id: String;
+  size: String;
+};
+
 export type PRODUCT_STEP_FOUR_TYPE = {
   tradeOptions?: TRADE_TYPE;
   tradeDescription?: string;
+  wantedStockxItems?: Array<WANTED_STOCKX_ITEM>;
 };
 
 export type PRODUCT_STEP_FIVE_TYPE = {
