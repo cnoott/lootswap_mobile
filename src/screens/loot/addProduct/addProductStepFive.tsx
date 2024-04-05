@@ -49,12 +49,10 @@ export const AddProductStepFive: FC<ProductStep> = props => {
     state => state?.home?.addProductData,
   );
   const {stepFive, stepTwo, stepOne} = addProductData;
-  const [price, setPrice] = useState(stepFive?.productPrice || 0.0);
+  const [price, setPrice] = useState(stepFive?.productPrice ?? 0);
   const [dotPosition, setDotPosition] = useState('50');
   const [dotText, setDotText] = useState('$200');
-  const [shippingCost, setShippingCost] = useState(
-    stepFive?.shippingCost || 0.0,
-  );
+  const [shippingCost, setShippingCost] = useState(stepFive?.shippingCost ?? 0);
 
   const handleSetPrice = (priceInput: any) => {
     setPrice(priceInput);
@@ -189,6 +187,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
           <LSInput
             onChangeText={handleSetPrice}
             placeholder={'0.00'}
+            value={String(price)}
             horizontalSpace={20}
             topSpace={1}
             rightIcon={USD_TEXT}
@@ -212,6 +211,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
                 leftIcon={DOLLOR_TEXT}
                 keyboardType={'numeric'}
                 onBlurCall={onBlurCall}
+                value={String(shippingCost)}
               />
             </StepFiveContainer>
           )}
