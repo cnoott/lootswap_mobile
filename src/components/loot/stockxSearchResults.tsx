@@ -32,6 +32,7 @@ interface StockxResultProps {
   selectedUrlKey: any;
   productName?: string;
   showTitle?: Boolean;
+  isFromStepFour?: Boolean;
 }
 
 export const StockxSearchResults: FC<StockxResultProps> = props => {
@@ -42,6 +43,7 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
     selectedUrlKey,
     productName = '',
     showTitle = true,
+    isFromStepFour = false,
   } = props;
 
   const [opacity] = useState(new Animated.Value(1)); // Initial value for opacity: 1
@@ -171,7 +173,7 @@ export const StockxSearchResults: FC<StockxResultProps> = props => {
     <ScrollView
       showsVerticalScrollIndicator={true}
       contentContainerStyle={{flexGrow: 1}}>
-      <Container>
+      <Container isFromStepFour={isFromStepFour}>
         {showTitle && (
           <TitleContainer>
             <ContainerTitle>Select Product</ContainerTitle>
