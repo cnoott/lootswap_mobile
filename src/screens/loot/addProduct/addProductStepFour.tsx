@@ -48,7 +48,7 @@ export const AddProductStepFour: FC<ProductStep> = props => {
   const {userData, skippedPaypalOnboarding} = auth;
 
   const animation = useRef(new Animated.Value(0)).current;
-  const drawerWidth = Dimensions.get('window').width * 0.30;
+  const drawerWidth = Dimensions.get('window').width * 0.43;
   const height = animation.interpolate({
     inputRange: [0, 1],
     outputRange: [0, drawerWidth],
@@ -302,7 +302,7 @@ export const AddProductStepFour: FC<ProductStep> = props => {
         </HorizontalSpace>
         <LSInput
           onChangeText={setSearchInput}
-          horizontalSpace={'0'}
+          horizontalSpace={'2'}
           value={searchInput}
           leftIcon={SEARCH_INPUT_ICON}
           placeholder={
@@ -313,11 +313,12 @@ export const AddProductStepFour: FC<ProductStep> = props => {
           autoCorrect={false}
           spellCheck={false}
           onFocus={handleDrawerAnimation}
+          width={'80%'}
         />
         <Animated.View style={{height, overflow: 'hidden'}}>
           <StockxSearchResults
             selectedUrlKey={' '}
-            searchResults={searchResults.slice(0, 3)}
+            searchResults={searchResults.slice(0, 4)}
             loading={loading}
             onSelectResult={handleSelectItem}
             productName={'none'}
