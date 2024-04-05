@@ -132,7 +132,7 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
       type: tradeData?.value,
       photos: images || [],
       wantedStockxItems:
-        stepFour.wantedStockxItems.map(item => ({stockxId: item.id, size: item.size.value}))
+        stepFour.wantedStockxItems.map(item => ({stockxId: item.id ?? item._id, size: item.size.value}))
     };
     if (isUpdateCall) {
       reqData.productIdToUpdate = productId;

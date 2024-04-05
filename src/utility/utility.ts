@@ -760,6 +760,10 @@ export const configureAndGetLootData = (lootData: any) => {
   // Configure STEP 4
   newLootData.stepFour.tradeOptions = getTradeDataForConfigure(lootData?.type);
   newLootData.stepFour.tradeDescription = lootData?.interestedIn;
+
+  // TODO fix edit for wantedStockxItems
+  newLootData.stepFour.wantedStockxItems = lootData?.wantedStockxItems.map(item => ({...item.stockxId, size: {value: item.size, label: item.size}}));
+
   // Configure STEP 5
   newLootData.stepFive.productPrice = parseFloat(lootData?.price);
   newLootData.stepFive.shippingCost = parseFloat(lootData?.sellerShippingCost);
