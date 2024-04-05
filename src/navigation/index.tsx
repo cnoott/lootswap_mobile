@@ -177,6 +177,10 @@ const AppNavigation = () => {
       <Stack.Screen name="EditTradeScreen" component={EditTradeScreen} />
       <Stack.Screen name="TrackOrderScreen" component={TrackOrderScreen} />
       <Stack.Screen
+        name="ProductDetailsScreen"
+        component={ProductDetailsScreen}
+      />
+      <Stack.Screen
         name="ProductDetailsChatScreen"
         component={ProductDetailsScreen}
       />
