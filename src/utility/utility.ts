@@ -583,6 +583,7 @@ export const getAddProductRawData = () => {
         isTradeAndSell: false,
       },
       tradeDescription: '',
+      wantedStockxItems: [],
     },
     stepFive: {
       productPrice: 0.0,
