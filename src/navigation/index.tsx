@@ -17,6 +17,7 @@ import {
   getMyDetailsNoLoadRequest,
   getTradesHistory,
   getAllMyMessages,
+  shouldShowGiveawayRequest,
 } from '../redux/modules';
 import {AuthProps} from '../redux/modules/auth/reducer';
 import {Alert} from 'custom_top_alert';
@@ -116,7 +117,12 @@ const AppNavigation = () => {
         },
       ),
     );
-  }, [dispatch]);
+
+  }, []);
+
+  useEffect(() => {
+    dispatch(shouldShowGiveawayRequest());
+  }, [])
 
   return (
     <Stack.Navigator
