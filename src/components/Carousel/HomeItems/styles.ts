@@ -265,7 +265,7 @@ export const GiveawayContainer = styled(LinearGradient).attrs(() => ({
   flex: 1,
   height: '100%',
   width: '100%',
-  colors: ['#FFF', '#07924F'],
+  colors: ['#FFF', '#0D86D3'],
   locations: [0, 0.9822],
   start: {x: 0, y: 0},
   end: {x: 0, y: 1},
@@ -281,7 +281,6 @@ export const GiveawayContainer = styled(LinearGradient).attrs(() => ({
 export const GiveawayDetailsText = styled.Text.attrs(() => ({
   color: '#C8F9E1',
   mt: scale(5),
-  mb: scale(20),
 }))`
   font-size: ${scale(13)}px;
   font-family: Inter;
@@ -310,7 +309,5 @@ export const ReferText = styled.Text.attrs(props => ({
 `;
 
 export const EnterNowButtonContainer = styled.View.attrs(() => ({}))`
-  position: absolute;
-  bottom: 15;
-  right: 16;
+  padding-top: 25px;
 `;
