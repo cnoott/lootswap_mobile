@@ -61,7 +61,7 @@ export const StartTradeStepTwo: FC<StartTradeStepTwo> = props => {
                 index: 0,
                 routes: [{name: 'Home'}],
               });
-              navigation.navigate('Add loot', {
+              navigation.navigate('List item', {
                 screen: 'LootScreen',
               });
             }}
