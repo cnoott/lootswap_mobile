@@ -377,3 +377,7 @@ export const CAPTURE_PAYPAL_ORDER = {
 export const JOIN_OR_LEAVE_CHANNEL = {
   ...createActionConst(actions.JOIN_OR_LEAVE_CHANNEL),
 };
+
+export const SHOULD_SHOW_GIVEAWAY = {
+  ...createActionConst(actions.SHOULD_SHOW_GIVEAWAY),
+};
