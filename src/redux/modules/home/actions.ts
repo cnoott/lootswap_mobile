@@ -14,6 +14,7 @@ import {
   GET_HOT_PRODUCTS,
   GET_RECOMMENDED_SEARCH,
   REFRESH_STOCKX_DATA,
+  SHOULD_SHOW_GIVEAWAY,
 } from '../../../constants/actions';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 
@@ -242,5 +243,18 @@ export const refreshStockxData = (
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
+  };
+};
+
+export const shouldShowGiveawayRequest = () => {
+  return {
+    type: SHOULD_SHOW_GIVEAWAY.REQUEST,
+  };
+};
+
+export const shouldShowGiveawaySuccess = (payload: any) => {
+  return {
+    type: SHOULD_SHOW_GIVEAWAY.SUCCESS,
+    payload: payload,
   };
 };
