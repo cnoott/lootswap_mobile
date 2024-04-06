@@ -32,7 +32,7 @@ export const PayPalLinkModal = props => {
   const handleSkipPayPal = () => {
     dispatch(skipPaypalOnboarding());
     loggingService().logEvent('skip_link_paypal');
-    navigation.navigate('Add loot', {
+    navigation.navigate('List item', {
       screen: 'LootScreen',
     });
   };

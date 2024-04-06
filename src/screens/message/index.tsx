@@ -17,6 +17,7 @@ import {
   Touchable,
   InputRightButtonView,
   InputView,
+  InteractButtonsContainer,
 } from './styles';
 import {PaperAirplaneIcon} from 'react-native-heroicons/solid';
 import {moderateScale} from 'react-native-size-matters';
@@ -28,10 +29,22 @@ import {
   sendMessage,
   receiveMessage,
   joinOrLeaveChannel,
+  clearMessageNotif,
 } from '../../redux/modules/message/actions';
+import {
+  setNotifAsRead,
+  preselectChosenItem,
+  getUsersDetailsRequest,
+  getAllMyMessages,
+  getTradesHistory,
+} from '../../redux/modules';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AppState, FlatList} from 'react-native';
 import {Pusher, PusherEvent} from '@pusher/pusher-websocket-react-native';
+import {handleSendOfferNavigation} from '../../utility/utility';
+import {Size, Type} from 'custom_enums';
+import LSButton from '../../components/commonComponents/LSButton';
+import {loggingService} from '../../services/loggingService';
 
 export const UserChatScreen: FC<any> = ({route}) => {
   const {messageId} = route?.params;
@@ -40,7 +53,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const messageData: MessageProps = useSelector(state => state.message);
-  const {userData} = auth;
+  const {userData, requestedUserDetails} = auth;
 
   const insets = useSafeAreaInsets();
   const messageListref = useRef<FlatList>(null);
@@ -137,6 +150,37 @@ export const UserChatScreen: FC<any> = ({route}) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (historyMessages?._id) {
+      dispatch(
+        clearMessageNotif({
+          userId: userData?._id,
+          msgData: historyMessages,
+        }),
+      );
+      dispatch(setNotifAsRead({objectId: messageId}));
+
+      if (historyMessages?.isTransformedToTrade) {
+        dispatch(getAllMyMessages(userData?._id));
+        dispatch(
+          getTradesHistory({
+            userId: userData?._id,
+          }),
+        );
+        navigation.replace('OffersMessageScreen', {
+          item: {_id: historyMessages?.tradeId}
+        });
+      }
+
+      // Fetches the product owners details
+      // for send offer/buy now
+      const otherUserId = isReceiver
+        ? historyMessages.sender._id
+        : historyMessages.receiver._id;
+      dispatch(getUsersDetailsRequest(otherUserId));
+    }
+  }, [historyMessages]);
+
   const handleSendMessage = () => {
     if (messageText === '') {
       return;
@@ -208,6 +252,75 @@ export const UserChatScreen: FC<any> = ({route}) => {
       />
     );
   };
+
+  const handleSendOfferPress = () => {
+    dispatch(preselectChosenItem(historyMessages?.product?._id));
+    loggingService().logEvent('begin_start_trade_offer_message');
+    handleSendOfferNavigation(
+      navigation,
+      historyMessages?.product?.type,
+      userData,
+      requestedUserDetails,
+      true,
+    );
+  };
+
+  const handleBuyNowPress = () => {
+    loggingService().logEvent('begin_checkout_message');
+    navigation.navigate('CheckoutScreen', {
+      productData: historyMessages?.product,
+    });
+  };
+
+  const renderButtons = () => {
+    if (historyMessages?.product?.userId === userData?._id) {
+      return <></>;
+    }
+
+    if (!historyMessages?.product?.isVisible) {
+      return (
+        <LSButton
+          title={'Item No Longer Available'}
+          size={Size.Full}
+          type={Type.View}
+          radius={20}
+          onPress={() => {}}
+        />
+      );
+    }
+    if (historyMessages?.product?.type === 'trade-only') {
+      return (
+        <LSButton
+          title={'Send Offer'}
+          size={Size.Full}
+          type={Type.Primary}
+          radius={10}
+          onPress={handleSendOfferPress}
+        />
+      );
+    }
+    return (
+      <InteractButtonsContainer>
+        <LSButton
+          title={'Send Offer'}
+          size={Size.Custom}
+          type={Type.Primary}
+          radius={10}
+          onPress={handleSendOfferPress}
+          customWidth={'47%'}
+        />
+        <LSButton
+          title={'Buy Now'}
+          size={Size.Custom}
+          type={Type.Secondary}
+          radius={10}
+          onPress={handleBuyNowPress}
+          customWidth={'47%'}
+        />
+      </InteractButtonsContainer>
+    );
+  };
+
   return (
     <Container>
       <InUserChatHeader
@@ -216,22 +329,16 @@ export const UserChatScreen: FC<any> = ({route}) => {
             ? historyMessages?.sender?.name
             : historyMessages?.receiver?.name
         }
-        onItemPress={() => {
-          navigation.navigate('ProductDetailsChatScreen', {
-            productData: {
-              ...historyMessages?.product,
-              objectID: historyMessages?.product?._id,
-            },
-          });
-        }}
         productData={historyMessages?.product}
         otherUserData={
           isReceiver ? historyMessages?.sender : historyMessages?.receiver
         }
+        profileInMiddle={true}
       />
       <KeyboardAvoidingView>
         <SubContainer>{renderMessagesListView()}</SubContainer>
-        <InputContainer bottomSpace={insets.bottom - 10}>
+        {renderButtons()}
+        <InputContainer bottomSpace={6}>
           {renderLeftInputView()}
           {renderRightInputView()}
         </InputContainer>

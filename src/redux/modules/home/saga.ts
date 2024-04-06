@@ -15,6 +15,7 @@ import {
   SEARCH_PRODUCTS,
   GET_RECOMMENDED_SEARCH,
   REFRESH_STOCKX_DATA,
+  SHOULD_SHOW_GIVEAWAY,
 } from '../../../constants/actions';
 import {
   getProductDetailsSuccess,
@@ -24,6 +25,7 @@ import {
   fetchMarketDataFailure,
   createNewProductFailure,
   resetAddProductData,
+  shouldShowGiveawaySuccess,
 } from './actions';
 import {
   getRequestedProductDetailsCall,
@@ -41,6 +43,7 @@ import {
   searchProductsCall,
   getRecommendedSearchCall,
   getHomeScreenPublicOffersCall,
+  shouldShowGiveawayCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {Alert} from 'custom_top_alert';
@@ -331,6 +334,20 @@ export function* getRecommendedSearch(action: any) {
   }
 }
 
+export function* shouldShowGiveaway() {
+  try {
+    const response: APIResponseProps = yield call(shouldShowGiveawayCall);
+    if (response.success) {
+      console.log('succ32', response.data);
+      yield put(shouldShowGiveawaySuccess(response.data));
+    } else {
+      console.log('should show givaway err');
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(GET_PRODUCT_DETAILS.REQUEST, getSelectedProductDetails);
   yield takeLatest(GET_HOMESCREEN_PRODUCTS.REQUEST, getHomeScreenProducts);
@@ -353,4 +370,5 @@ export default function* authSaga() {
   yield takeLatest(SEARCH_STOCKX.REQUEST, searchStockx);
   yield takeLatest(SEARCH_PRODUCTS.REQUEST, searchProducts);
   yield takeLatest(GET_RECOMMENDED_SEARCH.REQUEST, getRecommendedSearch);
+  yield takeLatest(SHOULD_SHOW_GIVEAWAY.REQUEST, shouldShowGiveaway);
 }

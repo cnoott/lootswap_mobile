@@ -69,7 +69,7 @@ export const LinkPaypalScreen: FC<{}> = props => {
               index: 0,
               routes: [{name: 'Home'}],
             });
-            navigation.navigate('Add loot', {
+            navigation.navigate('List item', {
               screen: 'LootScreen',
             });
           } else {

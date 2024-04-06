@@ -48,6 +48,7 @@ import {
   DescriptionContainerView,
   ButtonContainer,
   MessageButtonWrapper,
+  ShareButtonTouchable,
 } from './styles';
 import {LikeTouchable} from '../../components/productCard/styles';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -58,13 +59,16 @@ import {
   LIKE_HEART_ICON_RED,
   PAY_PAL_LABEL,
   LOOT_SWAP_LOGO_LABEL,
+  SHARE_ICON,
 } from 'localsvgimages';
+import {Share} from 'react-native';
 import StarRatings from '../../components/starRatings';
 import {LSProfileImageComponent} from '../../components/commonComponents/profileImage';
 import {
   getUsersDetailsRequest,
   getProductDetails,
   getMessageInitiatedStatus,
+  getAllMyMessages,
   createFirstMessage,
   getTradesHistory,
   UpdateAddProductData,
@@ -79,6 +83,7 @@ import {
   configureAndGetLootData,
   isAlreadyTrading,
   convertUsSizeToEu,
+  handleSendOfferNavigation,
 } from '../../utility/utility';
 import {Alert} from 'custom_top_alert';
 import {Trade_Options, Deal_Type} from 'custom_enums';
@@ -125,9 +130,14 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     if (productData?.userId) {
       dispatch(getUsersDetailsRequest(productData?.userId));
       dispatch(getProductDetails(productData?._id));
-      setTimesLiked(parseInt(selectedProductDetails?.timesLiked));
     }
   }, [productData?.userId, isLogedIn, likedParam, productData?._id]);
+
+  useEffect(() => {
+    if (selectedProductDetails?.timesLiked) {
+      setTimesLiked(parseInt(selectedProductDetails?.timesLiked));
+    }
+  }, [selectedProductDetails?.timesLiked]);
 
   const onLikePress = () => {
     if (!isLogedIn) {
@@ -140,7 +150,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     setTimesLiked(timesLiked + 1);
     setLiked(true);
     dispatch(likeProduct(reqData));
-    //dispatch(getMyDetailsNoLoadRequest(userData?._id)); //causes rerender which is undesireable
   };
 
   const onUnlikePress = () => {
@@ -151,7 +160,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     setTimesLiked(timesLiked - 1);
     setLiked(false);
     dispatch(unlikeProduct(reqData));
-    //dispatch(getMyDetailsNoLoadRequest(userData?._id)); //this causes rerender which is undesireable
   };
 
   const handleGoToTrade = () => {
@@ -208,6 +216,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           loggingService().logEvent('start_message', {
             id: res.messageId,
           });
+
+          dispatch(getAllMyMessages(userData?._id));
         },
         (error: any) => {
           console.log('error ===', error);
@@ -268,23 +278,20 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     }
     dispatch(preselectChosenItem(productData?._id));
 
-    switch (productData.type) {
-      case Trade_Options.TradeAndSell:
-        navigation.navigate('ChooseOfferTypeScreen');
-        break;
-      case Trade_Options.TradeOnly:
-        navigation.navigate('StartTradeScreen', {
-          requestedUserDetails: requestedUserDetails,
-          userData: userData,
-        });
-        break;
-      case Trade_Options.SellOnly:
-        navigation.navigate('SendMoneyOfferScreen');
-        break;
-      default:
-        navigation.navigate('ChooseOfferTypeScreen');
-        break;
-    }
+    handleSendOfferNavigation(
+      navigation,
+      productData.type,
+      userData,
+      requestedUserDetails,
+    );
+  };
+
+  const handleSharePress = () => {
+    /*
+    const result = await Share.share({
+      message: ``
+    });
+    */
   };
 
   const renderTags = () => {
@@ -301,6 +308,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     );
   };
 
+
+  // XXX This code (sort of) repeats itself in the MessageOptionsModal
   const renderInteractButtons = () => {
     if (isLogedIn && userData?._id === productData?.userId) {
       return <></>;
@@ -309,7 +318,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       return (
         <ButtonContainer>
           <LSButton
-            title={'Item No Longer Avaliable'}
+            title={'Item No Longer Available'}
             size={Size.Full}
             type={Type.View}
             onPress={() => {}}
@@ -531,6 +540,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                 />
                 <ProductDetails>{timesLiked}</ProductDetails>
               </LikeTouchable>
+              {/*
+              <ShareButtonTouchable>
+                <SvgXml xml={SHARE_ICON} />
+              </ShareButtonTouchable>
+              */}
             </DetailsRightView>
           </DetailsContainer>
           <HorizontalBar />

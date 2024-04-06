@@ -27,7 +27,8 @@ import {useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {loggingService} from '../../services/loggingService';
 
-export const ChooseOfferTypeScreen: FC<any> = () => {
+export const ChooseOfferTypeScreen: FC<any> = ({route}) => {
+  const isFromMessageScreen = route?.params?.isFromMessageScreen ?? false;
   const auth: AuthProps = useSelector(state => state.auth);
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const {requestedUserDetails, userData} = auth;
@@ -40,12 +41,15 @@ export const ChooseOfferTypeScreen: FC<any> = () => {
       userData: userData,
       initialIsMoneyOffer: false,
       selectedProduct: selectedProductDetails,
+      isFromMessageScreen: isFromMessageScreen,
     });
     loggingService().logEvent('begin_start_trade_offer');
   };
 
   const handleMoneyOfferNext = () => {
-    navigation.navigate('SendMoneyOfferScreen');
+    navigation.navigate('SendMoneyOfferScreen', {
+      isFromMessageScreen: isFromMessageScreen,
+    });
   };
 
   const tradeOfferButton = () => (

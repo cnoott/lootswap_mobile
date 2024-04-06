@@ -188,17 +188,27 @@ export const SummaryText = styled.Text.attrs(props => ({
     ${layout}
 `;
 
-export const OfferCellOnlyContainer = styled.View.attrs(() => ({
-  px: scale(15),
-  mb: verticalScale(10),
+export const OfferCellOnlyContainer = styled.View.attrs(props => ({
+  py: props?.isFromMessageScreen ? scale(0) : scale(8),
+  ml: props?.isFromMessageScreen ? '9%' : 0,
+  mb: verticalScale(5),
+  backgroundColor: props.theme.colors.bg,
+  height: props?.isFromMessageScreen ? verticalScale(55) : verticalScale(67),
 }))`
   flex-direction: row;
   ${space}
 `;
 
+export const ItemRow = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 15px;
+`;
+
 export const OfferCellOnlyRightView = styled.View`
   flex: 1;
-  margin-left: ${scale(10)}px;
+  margin-left: ${scale(5)}px;
   justify-content: space-evenly;
 `;
 
@@ -222,12 +232,12 @@ export const TradeAcceptanceDesView = styled.View.attrs(() => ({
 `;
 
 export const TradeAcceptanceLabel = styled.Text.attrs(props => ({
-  color: props.theme.colors.greyLabel,
+  color: props.theme.colors.black,
   my: scale(1),
-  width: '95%',
+  width: '100%',
 }))`
-  font-size: ${moderateScale(14)}px;
-  font-family: Urbanist-Medium;
+  font-size: ${moderateScale(15)}px;
+  font-family: Urbanist-ExtraBold;
   ${color}
   ${space}
   ${layout}

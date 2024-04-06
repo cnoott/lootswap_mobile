@@ -5,6 +5,7 @@ import {
   ADD_PRODUCT,
   CREATE_NEW_PRODUCT,
   FETCH_MARKET_DATA,
+  SHOULD_SHOW_GIVEAWAY,
 } from '../../../constants/actions';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 import {
@@ -16,6 +17,7 @@ import {
 export interface HomeProps {
   selectedProductDetails: any;
   addProductData: ADD_PRODUCT_TYPE;
+  shouldShowGiveaway: Boolean;
 }
 
 type ActionProps = {
@@ -27,6 +29,7 @@ type ActionProps = {
 export const InitialState: HomeProps = {
   selectedProductDetails: null,
   addProductData: getAddProductRawData(),
+  shouldShowGiveaway: false,
 };
 
 export default function loading(state = InitialState, action: ActionProps) {
@@ -109,6 +112,13 @@ export default function loading(state = InitialState, action: ActionProps) {
     case CREATE_NEW_PRODUCT.FAILURE: {
       return {
         ...state,
+      };
+    }
+    case SHOULD_SHOW_GIVEAWAY.SUCCESS: {
+      console.log('clalinghere', payload);
+      return {
+        ...state,
+        shouldShowGiveaway: payload.showGiveaway,
       };
     }
     default:

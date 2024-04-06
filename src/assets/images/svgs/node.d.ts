@@ -97,4 +97,5 @@ declare module 'localsvgimages' {
   export const GOOGLE_ICON: any;
   export const APPLE_ICON: any;
   export const WARNING_ICON: any;
+  export const SHARE_ICON: any;
 }

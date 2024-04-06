@@ -16,7 +16,7 @@ export const Container = styled.View.attrs(props => ({
   shadowOpacity: 0.2,
   shadowRadius: 4,
   elevation: 20,
-  mb: scale(80),
+  mb: props?.isFromStepFour ? scale(0): scale(80),
 }))`
   ${space}
   ${layout}

@@ -23,7 +23,7 @@ import LSButton from '../../components/commonComponents/LSButton';
 import {SvgXml} from 'react-native-svg';
 import {STOCKX_SEARCH_DROP_DOWN_ARROW} from 'localsvgimages';
 import TradeOfferCell from './offerItems/TradeOfferCell';
-import NoOffersView from './offerItems/NoOffersView';
+import EmptyListView from '../../components/commonComponents/EmptyListView';
 import {getTradeStatusColor, daysPast} from '../../utility/utility';
 import NoMessagesView from './offerItems/NoMessagesView';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -58,8 +58,9 @@ import {Dropdown} from 'react-native-element-dropdown';
 import PublicOfferItem from '../../components/publicOffer/PublicOfferItem';
 import CellBadge from '../../components/offers/cellBadge';
 import {loggingService} from '../../services/loggingService';
-import LoadingPublicOfferCell from '../../components/publicOffer/LoadingPublicOfferCell.tsx';
-import LoadingMessageCell from '../../components/message/LoadingMessageCell.tsx';
+import LoadingPublicOfferCell from '../../components/publicOffer/LoadingPublicOfferCell';
+import LoadingMessageCell from '../../components/message/LoadingMessageCell';
+import OfferForSellOnlyCell from './offerItems/OfferForSellOnlyCell';
 
 export const OffersScreen: FC<{}> = () => {
   const layout = useWindowDimensions();
@@ -69,11 +70,14 @@ export const OffersScreen: FC<{}> = () => {
   const [publicOffers, setPublicOffers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingItems, setLoadingItems] = useState([]);
+
+  const [combinedInbox, setCombinedInbox] = useState([]);
+
   const [routes] = React.useState([
-    {key: 'first', title: 'Public Offers'},
-    {key: 'second', title: 'Trade offers'},
-    {key: 'third', title: 'Messages'},
+    {key: 'first', title: 'Inbox'},
+    {key: 'second', title: 'Public Offers'},
   ]);
+
   const [selectedTrade, setSelectedTrade] = useState(null);
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
@@ -90,28 +94,28 @@ export const OffersScreen: FC<{}> = () => {
       type: publicOfferFilter.value,
       userId: userData?._id,
     };
-      dispatch(
-        setNotifsAsReadRequest({
-          userId: userData?._id,
-          notifType: 'inbox',
-        }),
-      );
-      dispatch(
-        getPublicOffers(
-          reqData,
-          res => {
-            setPublicOffers([...publicOffers, ...res.publicOffers]);
-            setLoadingItems([]);
-            setLoading(false);
-            console.log(res);
-          },
-          err => {
-            console.log('Err => ', err);
-            setLoadingItems([]);
-            setLoading(false);
-          },
-        ),
-      );
+    dispatch(
+      setNotifsAsReadRequest({
+        userId: userData?._id,
+        notifType: 'inbox',
+      }),
+    );
+    dispatch(
+      getPublicOffers(
+        reqData,
+        res => {
+          setPublicOffers([...publicOffers, ...res.publicOffers]);
+          setLoadingItems([]);
+          setLoading(false);
+          console.log(res);
+        },
+        err => {
+          console.log('Err => ', err);
+          setLoadingItems([]);
+          setLoading(false);
+        },
+      ),
+    );
 
     dispatch(
       getTradesHistory({
@@ -129,8 +133,34 @@ export const OffersScreen: FC<{}> = () => {
     }
   }, [loading, publicOffers.length]);
 
-  const onTradeOffersRefresh = () => {
+  useEffect(() => {
+    if (!tradeLoading && !messageLoading && allMyMessages?.messageDocs) {
+      const trades = historyTrades.map(trade => ({...trade, isTrade: true}));
+      const messages = allMyMessages.messageDocs.map(message => ({...message, isTrade: false}));
+
+      let combinedData = [...trades, ...messages];
+      combinedData.sort(sortInboxByDate);
+      setCombinedInbox(combinedData);
+    }
+  }, [historyTrades, allMyMessages, tradeLoading, messageLoading]);
+
+  const sortInboxByDate = (objA: any, objB: any) => {
+    if (
+      new Date(objA.updatedAt).getTime() > new Date(objB.updatedAt).getTime()
+    ) {
+      return -1;
+    }
+    if (
+      new Date(objA.updatedAt).getTime() < new Date(objB.updatedAt).getTime()
+    ){
+      return 1;
+    }
+    return 0;
+  };
+
+  const onInboxRefresh = () => {
     ReactNativeHapticFeedback.trigger('impactMedium');
+    dispatch(getAllMyMessages(userData?._id));
     dispatch(
       getTradesHistory({
         userId: userData?._id,
@@ -138,10 +168,6 @@ export const OffersScreen: FC<{}> = () => {
     );
   };
 
-  const onMessagesRefresh = () => {
-    ReactNativeHapticFeedback.trigger('impactMedium');
-    dispatch(getAllMyMessages(userData?._id));
-  };
 
   const goToMessageScreen = (msgData: any) => {
     navigation.navigate('UserChatScreen', {
@@ -177,7 +203,7 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const renderBottomButtonView = () => {
-    if (index === 0) {
+    if (index === 1) {
       return (
         <ButtonContainer>
           <LSButton
@@ -192,8 +218,11 @@ export const OffersScreen: FC<{}> = () => {
     }
   };
 
-  const RenderUserDetails = ({item}) => {
-    const statusColorObj = getTradeStatusColor(item.status);
+  const RenderUserDetails = ({item, isTrade}) => {
+    let statusColorObj;
+    if (isTrade) {
+      statusColorObj = getTradeStatusColor(item.status);
+    }
     const isReceiver = userData?._id === item.receiver._id;
     const showNotifBadge =
       (isReceiver && (item?.receiverNewMessage || item?.senderHasEdited)) ||
@@ -216,13 +245,15 @@ export const OffersScreen: FC<{}> = () => {
             <NameLabel>
               {isReceiver ? <>{item.sender.name}</> : <>{item.receiver.name}</>}
             </NameLabel>
-            <StatusContainerView
-              bgColor={statusColorObj?.backColor}
-              borderColor={statusColorObj?.labelColor}>
-              <StatusLabel color={statusColorObj?.labelColor}>
-                {item?.status.charAt(0).toUpperCase() + item?.status.slice(1)}
-              </StatusLabel>
-            </StatusContainerView>
+            {isTrade && (
+              <StatusContainerView
+                bgColor={statusColorObj?.backColor}
+                borderColor={statusColorObj?.labelColor}>
+                <StatusLabel color={statusColorObj?.labelColor}>
+                  {item?.status.charAt(0).toUpperCase() + item?.status.slice(1)}
+                </StatusLabel>
+              </StatusContainerView>
+            )}
           </OwnerDetailsView>
         </EmptyRowView>
         <TimeLabel> {daysPast(item.createdAt)} </TimeLabel>
@@ -232,6 +263,7 @@ export const OffersScreen: FC<{}> = () => {
 
   const tradeOfferCellOnPress = item => {
     setSelectedTrade(item._id);
+
     navigation.navigate('OffersMessageScreen', {item});
   };
 
@@ -249,51 +281,39 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const renderOfferItem = ({item}: any) => {
+    if (item.isTrade) {
     return (
-      <OfferCellContainer
-        key={item._id}
-        onPress={() => tradeOfferCellOnPress(item)}>
-        <RenderUserDetails item={item} />
-        <TradeOfferCell
-          offerItem={item}
-          isInTrade={false}
-          onPress={() => tradeOfferCellOnPress(item)}
-        />
-      </OfferCellContainer>
-    );
+        <OfferCellContainer
+          key={item._id}
+          onPress={() => tradeOfferCellOnPress(item)}>
+          <RenderUserDetails item={item} isTrade={true}/>
+          <TradeOfferCell
+            offerItem={item}
+            isInTrade={false}
+            onPress={() => tradeOfferCellOnPress(item)}
+          />
+        </OfferCellContainer>
+      );
+    } else {
+      const isReceiver = userData?._id === item.receiver._id;
+      const showNotifBadge =
+        (isReceiver && item?.receiverNewMessage) ||
+        (!isReceiver && item?.senderNewMessage);
+      return (
+        <OfferCellContainer
+          key={item._id}
+          onPress={() => goToMessageScreen(item)}>
+          <RenderUserDetails item={item} isTrade={false}/>
+          {showNotifBadge && <CellBadge top={5} left={5} />}
+          <OwnerDetailsView>
+            <OfferForSellOnlyCell itemData={item.product} />
+          </OwnerDetailsView>
+        </OfferCellContainer>
+      );
+    }
   };
 
-  const renderMessageItem = ({item}: any) => {
-    const isReceiver = userData?._id === item.receiver._id;
-    const showNotifBadge =
-      (isReceiver && item?.receiverNewMessage) ||
-      (!isReceiver && item?.senderNewMessage);
-    return (
-      <MessageCellContainer
-        key={item?._id}
-        onPress={() => goToMessageScreen(item)}>
-        <LSProfileImageComponent
-          profileUrl={
-            isReceiver
-              ? item?.sender?.profile_picture
-              : item.receiver?.profile_picture
-          }
-          imageHeight={40}
-          imageWidth={40}
-          imageRadius={10}
-        />
-        {showNotifBadge && <CellBadge top={5} left={5} />}
-        <OwnerDetailsView>
-          <NameLabel>
-            {isReceiver ? <>{item?.sender?.name}</> : <>{item.receiver.name}</>}
-          </NameLabel>
-          <ProductNameLabel>{item?.product?.name}</ProductNameLabel>
-        </OwnerDetailsView>
-      </MessageCellContainer>
-    );
-  };
-
-  const FirstRoute = () => (
+  const SecondRoute = () => (
     <TabContainer>
       <PublicOffersFilterContainer>
         <Dropdown
@@ -320,13 +340,13 @@ export const OffersScreen: FC<{}> = () => {
         renderItem={renderPublicOfferItem}
         keyExtractor={item => item?._id}
         refreshControl={
-          <RefreshControl refreshing={false} onRefresh={onTradeOffersRefresh} />
+          <RefreshControl refreshing={false} onRefresh={onInboxRefresh} />
         }
       />
     </TabContainer>
   );
 
-  const SecondRoute = () => (
+  const FirstRoute = () => (
     <TabContainer>
       {tradeLoading ? (
         <>
@@ -336,43 +356,26 @@ export const OffersScreen: FC<{}> = () => {
         </>
       ) : (
         <OffersListView
-          data={historyTrades}
+          data={combinedInbox}
           renderItem={renderOfferItem}
           keyExtractor={item => item._id.toString()}
           extraData={selectedTrade}
-          ListEmptyComponent={<NoOffersView navigation={navigation} />}
-          refreshControl={
-            <RefreshControl
-              refreshing={false}
-              onRefresh={onTradeOffersRefresh}
+          ListEmptyComponent={
+            <EmptyListView
+              title={'No Offers'}
+              subtitle={'Active offers will show up here'}
+              buttonText={'Start Trading'}
+              handleButtonPress={() => navigation.navigate('Home')}
             />
+          }
+          refreshControl={
+            <RefreshControl refreshing={false} onRefresh={onInboxRefresh} />
           }
         />
       )}
     </TabContainer>
   );
 
-  const ThirdRoute = () => (
-    <TabContainer>
-      {messageLoading ? (
-        <>
-          {Array.from({length: 8}, (_, idx) => (
-            <LoadingMessageCell key={idx} />
-          ))}
-        </>
-      ) : (
-        <MessagesListView
-          data={allMyMessages?.messageDocs || []}
-          renderItem={renderMessageItem}
-          keyExtractor={(item: any) => item?._id}
-          ListEmptyComponent={() => <NoMessagesView />}
-          refreshControl={
-            <RefreshControl refreshing={false} onRefresh={onMessagesRefresh} />
-          }
-        />
-      )}
-    </TabContainer>
-  );
 
   const countNotifs = (title: string) => {
     switch (title) {
@@ -415,7 +418,6 @@ export const OffersScreen: FC<{}> = () => {
   const renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
-    third: ThirdRoute,
   });
   return (
     <Container>

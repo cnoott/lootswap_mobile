@@ -46,7 +46,14 @@ export const DetailsLeftView = styled.View.attrs(() => ({
 export const DetailsRightView = styled.View`
   flex-direction: column;
   align-items: center;
-  margin-top: ${verticalScale(10)}px;
+  ${space}
+  ${layout}
+`;
+
+export const ShareButtonTouchable = styled.TouchableOpacity.attrs(() => ({
+  marginTop: verticalScale(48),
+  marginRight: scale(4),
+}))`
   ${space}
   ${layout}
 `;
