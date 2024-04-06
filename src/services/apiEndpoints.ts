@@ -642,6 +642,10 @@ export const joinOrLeaveChannelCall = (reqData: any) => {
   );
 };
 
+export const shouldShowGiveawayCall = () => {
+  return handleResponse(api.get('/should-show-giveaway'), API_RESPONSE.CODE200);
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
