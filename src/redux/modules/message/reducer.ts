@@ -5,6 +5,7 @@ import {
   GET_MESSAGES_HISTORY,
   GET_ALL_MY_MESSAGES,
   RECEIVE_MESSAGE,
+  CLEAR_MESSAGE_NOTIF,
 } from '../../../constants/actions';
 
 export interface MessageProps {
@@ -86,6 +87,31 @@ export default function loading(state = InitialState, action: ActionProps) {
         ...state,
         messageLoading: false,
         historyMessages: null,
+      };
+    }
+    case CLEAR_MESSAGE_NOTIF.REQUEST: {
+      const {userId, msgData} = payload;
+      const msgId = msgData._id;
+      const isReceiver = userId === msgData.receiver._id;
+
+      const updatedMessages = state.allMyMessages.messageDocs.map(
+        (message: any) => {
+          if (message._id === msgId && isReceiver) {
+            return {...message, receiverNewMessage: false};
+          } else if (message._id === msgId && !isReceiver) {
+            return {...message, senderNewMessage: false};
+          } else {
+            return message;
+          }
+        },
+      );
+
+      return {
+        ...state,
+        allMyMessages: {
+          ...state.allMyMessages,
+          messageDocs: updatedMessages,
+        },
       };
     }
     default:

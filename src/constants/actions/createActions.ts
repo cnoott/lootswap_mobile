@@ -68,6 +68,10 @@ export const GET_MESSAGES_HISTORY = {
   ...createActionConst(actions.GET_MESSAGES_HISTORY),
 };
 
+export const CLEAR_MESSAGE_NOTIF = {
+  ...createActionConst(actions.CLEAR_MESSAGE_NOTIF),
+};
+
 export const SAVE_SENT_MESSAGE = {
   ...createActionConst(actions.SAVE_SENT_MESSAGE),
 };
@@ -102,6 +106,10 @@ export const UNDO_TRADE_CHECKOUT = {
 
 export const GET_TRADES_HISTORY = {
   ...createActionConst(actions.GET_TRADES_HISTORY),
+};
+
+export const CLEAR_TRADE_NOTIF = {
+  ...createActionConst(actions.CLEAR_TRADE_NOTIF),
 };
 
 export const GET_TRADE = {
@@ -330,6 +338,10 @@ export const SET_NOTIFS_AS_READ = {
   ...createActionConst(actions.SET_NOTIFS_AS_READ),
 };
 
+export const SET_NOTIF_AS_READ = {
+  ...createActionConst(actions.SET_NOTIF_AS_READ),
+};
+
 export const SET_ORDER_NOTIF_AS_READ = {
   ...createActionConst(actions.SET_ORDER_NOTIF_AS_READ),
 };
@@ -364,4 +376,8 @@ export const CAPTURE_PAYPAL_ORDER = {
 
 export const JOIN_OR_LEAVE_CHANNEL = {
   ...createActionConst(actions.JOIN_OR_LEAVE_CHANNEL),
+};
+
+export const SHOULD_SHOW_GIVEAWAY = {
+  ...createActionConst(actions.SHOULD_SHOW_GIVEAWAY),
 };

@@ -45,7 +45,7 @@ export const CustomTabBar = styled(TabBar).attrs(props => ({
     backgroundColor: props?.theme?.colors?.primary,
     width: scale(40),
     height: scale(3),
-    left: (Dimensions.get('window').width / 2 - scale(99)) / 2,
+    left: (Dimensions.get('window').width / 2 - scale(45)) / 2,
   },
   indicatorContainerStyle: {
     flex: 1,
@@ -351,6 +351,17 @@ export const ImageContainerDouble: any = styled.View.attrs((props: any) => ({
   right: -12px;
   bottom: -5px;
   ${layout} ${color} ${space} ${border};
+`;
+
+export const ItemNameText = styled.Text.attrs(props => ({
+  color: props.theme.colors.text,
+  mb: scale(2),
+}))`
+  font-size: ${moderateScale(15)}px;
+  font-family: Urbanist-ExtraBold;
+  ${color}
+  ${space}
+    ${layout}
 `;
 
 export const OfferItemContainer = styled.View.attrs(props => ({

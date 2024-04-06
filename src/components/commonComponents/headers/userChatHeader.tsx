@@ -7,11 +7,11 @@ import {
   EmptyColumnView,
   ArrowContainerProductChat,
   ArrowIconContainer,
+  ItemCellTouchable,
 } from './styles';
 import {
   ACCORDIAN_DOWN_ELLIPSE,
   ACCORDIAN_UP_ELLIPSE,
-  LEFT_BLACK_ARROW,
 } from 'localsvgimages';
 import React, {FC, useState} from 'react';
 import {SvgXml} from 'react-native-svg';
@@ -29,18 +29,29 @@ import {ProfileHeaderComponent} from './profileHeaderComponent';
 
 interface HeaderProps {
   title?: string;
-  onItemPress: Function;
+  onRightDotsPress: Function;
   productData?: any;
   otherUserData?: any;
+  profileInMiddle?: boolean;
 }
 
 export const InUserChatHeader: FC<HeaderProps> = React.memo(
-  ({title, onItemPress, productData, otherUserData}) => {
+  ({title, onRightDotsPress, productData, otherUserData, profileInMiddle = false}) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
-    const [accOpen, setAccOpen] = useState(true);
+    const [accOpen, setAccOpen] = useState(false);
+
+    const handleProductPress = () => {
+      navigation?.navigate('ProductDetailsChatScreen', {
+        productData: productData,
+      });
+    };
 
     const renderOfferCellView = () => {
-      return <OfferForSellOnlyCell itemData={productData} />;
+      return (
+        <ItemCellTouchable onPress={handleProductPress}>
+          <OfferForSellOnlyCell itemData={productData} isFromMessageScreen={true} />
+        </ItemCellTouchable>
+      );
     };
 
     const renderProductViewContainer = () => {
@@ -68,14 +79,9 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
               otherUserName={title}
               otherUserData={otherUserData}
               otherUserPfp={otherUserData?.profile_picture}
+              profileInMiddle={profileInMiddle}
             />
           </EmptyRowView>
-          <LSButton
-            title={'View Item'}
-            size={Size.Extra_Small}
-            type={Type.Secondary}
-            onPress={() => onItemPress()}
-          />
         </ProfileHeaderContainer>
         {renderProductViewContainer()}
       </>

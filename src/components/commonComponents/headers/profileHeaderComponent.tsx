@@ -2,9 +2,10 @@ import React, {FC} from 'react';
 import {
   TouchableOpacity,
   OfferChatHeaderText,
+  ProfileHeaderMessageContainer,
 } from './styles';
 import {LSProfileImageComponent} from '../profileImage';
-import {LEFT_BLACK_ARROW} from 'localsvgimages';
+import {LEFT_BLACK_ARROW, PROFILE_TRIPPLE_DOT_ICON} from 'localsvgimages';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {SvgXml} from 'react-native-svg';
 
@@ -12,17 +13,17 @@ interface ProfileHeaderComponentProps {
   otherUserName: string;
   otherUserData: any;
   otherUserPfp: string;
-
+  profileInMiddle: boolean;
 }
 
 export const ProfileHeaderComponent: FC<
   ProfileHeaderComponentProps
 > = props => {
-  const {otherUserName, otherUserData, otherUserPfp} = props;
+  const {otherUserName, otherUserData, otherUserPfp, profileInMiddle = false} = props;
   const navigation: NavigationProp<any, any> = useNavigation();
 
   return (
-    <>
+    <ProfileHeaderMessageContainer centerAligned={profileInMiddle}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <SvgXml xml={LEFT_BLACK_ARROW} />
       </TouchableOpacity>
@@ -40,7 +41,10 @@ export const ProfileHeaderComponent: FC<
         />
         <OfferChatHeaderText>{otherUserName}</OfferChatHeaderText>
       </TouchableOpacity>
-    </>
+
+      <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} style={{ opacity: 0 }}/>
+
+    </ProfileHeaderMessageContainer>
   );
 };
 

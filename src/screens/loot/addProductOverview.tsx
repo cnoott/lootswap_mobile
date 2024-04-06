@@ -127,10 +127,12 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
       who_pays: stepFive?.isFreeShipping
         ? Who_Pays_Options?.SellerPays
         : Who_Pays_Options?.BuyerPays,
-      sellerShippingCost: stepFive?.shippingCost,
+      sellerShippingCost: stepFive?.isFreeShipping ? 0 : stepFive?.shippingCost,
       category: stepOne?.category?.value,
       type: tradeData?.value,
       photos: images || [],
+      wantedStockxItems:
+        stepFour.wantedStockxItems.map(item => ({stockxId: item.id ?? item._id, size: item.size.value}))
     };
     if (isUpdateCall) {
       reqData.productIdToUpdate = productId;

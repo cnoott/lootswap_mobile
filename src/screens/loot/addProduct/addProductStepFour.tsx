@@ -2,7 +2,7 @@
 LootSwap - ADD_PRODUCT STEP 4
 ***/
 
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState, useEffect, useCallback, useRef} from 'react';
 import LSInput from '../../../components/commonComponents/LSInput';
 import {
   Container,
@@ -19,14 +19,20 @@ import {
   DisclaimerTextUnderlined,
 } from './styles';
 import {useSelector} from 'react-redux';
-import {ADD_PRODUCT_TYPE} from 'custom_types';
+import {ADD_PRODUCT_TYPE, WANTED_STOCKX_ITEM} from 'custom_types';
 import {AuthProps} from '../../../redux/modules/auth/reducer';
 import {SvgXml} from 'react-native-svg';
-import {WARNING_ICON} from 'localsvgimages';
+import {SEARCH_INPUT_ICON, WARNING_ICON} from 'localsvgimages';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {StockxSearchResults} from '../../../components/loot/stockxSearchResults';
+import {searchStockx} from '../../../redux/modules';
+import useDebounce from '../../../utility/customHooks/useDebouncer';
+import {useDispatch} from 'react-redux';
+import {FlatList, ScrollView, Animated, Dimensions} from 'react-native';
+import ChosenStockxProduct from '../../../components/loot/chosenStockxProduct';
 
 interface ProductStep {
-  updateProductData: Function;
+  updateProductData: Function; 
 }
 
 export const AddProductStepFour: FC<ProductStep> = props => {
@@ -35,16 +41,83 @@ export const AddProductStepFour: FC<ProductStep> = props => {
   );
   const navigation: NavigationProp<any, any> = useNavigation();
   const {stepFour} = addProductData;
-  const [tradeDes, setTradeDes] = useState(stepFour?.tradeDescription || '');
+  const [tradeDes, setTradeDes] = useState(stepFour?.tradeDescription || '');  
   const {updateProductData} = props;
+  const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData, skippedPaypalOnboarding} = auth;
+
+  const animation = useRef(new Animated.Value(0)).current;
+  const drawerWidth = Dimensions.get('window').width * 0.43;
+  const height = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, drawerWidth],
+  });
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const [searchInput, setSearchInput] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [selectedStockxProducts, setSelectedStockxProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleDrawerAnimation = () => {
+    Animated.timing(animation, {
+      toValue: 1,
+      duration: 400,
+      useNativeDriver: false,
+    }).start();
+    setIsDrawerOpen(!isDrawerOpen);
+  };
+
+  const collapseDrawer = () => {
+    if (loading) {
+      return;
+    }
+    //if (isOpen) return;
+    Animated.timing(animation, {
+      toValue: 0,
+      duration: 400,
+      useNativeDriver: false,
+    }).start();
+    setIsDrawerOpen(!isDrawerOpen);
+  };
 
   useEffect(() => {
     if (!userData?.paypal_onboarded && skippedPaypalOnboarding) {
       onChangeTrade(2);
     }
   }, []);
+
+  const debouncedSearchTerm = useDebounce(searchInput, 313); //set delay
+  useEffect(() => {
+    if (!loading && debouncedSearchTerm && debouncedSearchTerm.length > 5) {
+      fetchStockxData();
+    }
+  }, [debouncedSearchTerm]);
+
+  const fetchStockxData = useCallback(() => {
+    if (loading) return;
+    setLoading(true);
+    handleDrawerAnimation();
+
+    const reqData = {
+      userId: userData?._id,
+      query: searchInput,
+    };
+    dispatch(
+      searchStockx(
+        reqData,
+        (res: any) => {
+          setSearchResults(res);
+          setLoading(false);
+        },
+        (err: any) => {
+          console.log('Err', err);
+          setLoading(false);
+        }
+      ),
+    );
+  }, [searchInput, loading, userData?._id, dispatch]);
 
   const onChangeTrade = (index = 1) => {
     const newData = {
@@ -146,39 +219,122 @@ export const AddProductStepFour: FC<ProductStep> = props => {
     });
   };
 
+  const handleSetSize = ({_index, label, value}: any, urlKey: any) => {
+    const updatedStockxProducts =
+      addProductData?.stepFour?.wantedStockxItems?.map(item => {
+        if (urlKey === item.urlKey) {
+          return {...item, size: {label, value}};
+        } else {
+          return item;
+        }
+      });
+
+    updateProductData({
+      ...addProductData,
+      stepFour: {
+        ...addProductData?.stepFour,
+        wantedStockxItems: updatedStockxProducts,
+      },
+    });
+  };
+
+  const deleteStockxItem = (itemId: string) => {
+    const updatedStockxProducts =
+      addProductData?.stepFour?.wantedStockxItems?.filter(
+        item => item?._id !== itemId,
+      );
+
+    updateProductData({
+      ...addProductData,
+      stepFour: {
+        ...addProductData?.stepFour,
+        wantedStockxItems: updatedStockxProducts,
+      },
+    });
+  };
+
+  const renderStockxProduct = ({item}: any) => {
+    return (
+      <ChosenStockxProduct
+        stockxProduct={item}
+        onDeletePress={() => deleteStockxItem(item._id)}
+        categoryData={addProductData?.stepOne?.category}
+        onSetSizeData={sizeData => handleSetSize(sizeData, item.urlKey)}
+        productName={item.name}
+        chosenSize={item.size}
+        isFromPublicOffers={false}
+      />
+    );
+  };
+
+  const handleSelectItem = (item: any) => {
+    const wantedStockxItems = addProductData?.stepFour?.wantedStockxItems;
+    updateProductData({
+      ...addProductData,
+      stepFour: {
+        ...addProductData.stepFour,
+        wantedStockxItems: [item, ...wantedStockxItems]
+      },
+    });
+    setSearchInput('');
+    collapseDrawer();
+  };
+
   return (
     <Container>
-      <HorizontalSpace>
-        {renderTradeView()}
-        {skippedPaypalOnboarding && !userData?.paypal_onboarded && (
-          <PaypalDisclaimerView onPress={onDisclaimerPress}>
-            <SvgXml xml={WARNING_ICON} />
-            <DisclaimerText>
-              In order to sell your item, you need to link your PayPal.{' '}
-              <DisclaimerTextUnderlined>
-                Tap here to link
-              </DisclaimerTextUnderlined>
-            </DisclaimerText>
-          </PaypalDisclaimerView>
-        )}
-        {!addProductData?.stepOne?.stockxUrlKey && (
-          <TradeOptionsText>
-            Are there any particular items you wish to trade this item for?
-          </TradeOptionsText>
-        )}
-      </HorizontalSpace>
+      <ScrollView>
+        <HorizontalSpace>
+          {renderTradeView()}
+          {skippedPaypalOnboarding && !userData?.paypal_onboarded && (
+            <PaypalDisclaimerView onPress={onDisclaimerPress}>
+              <SvgXml xml={WARNING_ICON} />
+              <DisclaimerText>
+                In order to sell your item, you need to link your PayPal.{' '}
+                <DisclaimerTextUnderlined>
+                  Tap here to link
+                </DisclaimerTextUnderlined>
+              </DisclaimerText>
+            </PaypalDisclaimerView>
+          )}
+        </HorizontalSpace>
 
-      {!addProductData?.stepOne?.stockxUrlKey && (
-        <LSInput
-          onChangeText={setTradeDes}
-          value={tradeDes}
-          placeholder={'Description'}
-          multiline={true}
-          height={200}
-          horizontalSpace={20}
-          onBlurCall={onBlurCall}
-        />
-      )}
+        {!stepFour?.tradeOptions?.isSellOnly && (
+          <HorizontalSpace>
+            <TradeOptionsText>
+              What are you looking to trade this item for? (Optional)
+            </TradeOptionsText>
+            <LSInput
+              onChangeText={setSearchInput}
+              horizontalSpace={'0'}
+              value={searchInput}
+              leftIcon={SEARCH_INPUT_ICON}
+              placeholder={
+                addProductData?.stepFour?.wantedStockxItems?.length ? 'Search again' : 'Search Item Name'
+              }
+              returnKeyType={'search'}
+              onSubmitEditing={() => fetchStockxData()}
+              autoCorrect={false}
+              spellCheck={false}
+              onFocus={handleDrawerAnimation}
+            />
+            <Animated.View style={{height, overflow: 'hidden'}}>
+              <StockxSearchResults
+                selectedUrlKey={' '}
+                searchResults={searchResults.slice(0, 4)}
+                loading={loading}
+                onSelectResult={handleSelectItem}
+                productName={'none'}
+                showTitle={false}
+                isFromStepFour={true}
+              />
+            </Animated.View>
+            <FlatList
+              data={addProductData?.stepFour?.wantedStockxItems}
+              renderItem={renderStockxProduct}
+            />
+          </HorizontalSpace>
+        )}
+      </ScrollView>
     </Container>
   );
 };

@@ -583,6 +583,7 @@ export const getAddProductRawData = () => {
         isTradeAndSell: false,
       },
       tradeDescription: '',
+      wantedStockxItems: [],
     },
     stepFive: {
       productPrice: 0.0,
@@ -759,6 +760,9 @@ export const configureAndGetLootData = (lootData: any) => {
   // Configure STEP 4
   newLootData.stepFour.tradeOptions = getTradeDataForConfigure(lootData?.type);
   newLootData.stepFour.tradeDescription = lootData?.interestedIn;
+
+  newLootData.stepFour.wantedStockxItems = lootData?.wantedStockxItems.map(item => ({...item.stockxId, size: {value: item.size, label: item.size}}));
+
   // Configure STEP 5
   newLootData.stepFive.productPrice = parseFloat(lootData?.price);
   newLootData.stepFive.shippingCost = parseFloat(lootData?.sellerShippingCost);
@@ -798,11 +802,23 @@ export const validateCreateProductData = (
       }
       break;
     case 4:
-      const {tradeOptions} = prodData?.stepFour;
+      const {tradeOptions, wantedStockxItems} = prodData?.stepFour;
+
+      const sum = wantedStockxItems.reduce((accumulator, item) => {
+        if (item?.size) {
+          return (accumulator += 1);
+        } else {
+          return accumulator;
+        }
+      }, 0);
+
+      const filledOutStockxSizes = sum === wantedStockxItems.length;
+
       if (
-        tradeOptions?.isTradeAndSell ||
+        (tradeOptions?.isTradeAndSell ||
         tradeOptions?.isTradeOnly ||
-        tradeOptions?.isSellOnly
+        tradeOptions?.isSellOnly) &&
+        filledOutStockxSizes
       ) {
         canGoNext = true;
       }
@@ -1298,4 +1314,37 @@ export const calculateMarketValue = (products: Array<any>) => {
   }
 
   return '$' + allPrices.reduce((partialSum, price) => partialSum + price, 0);
+};
+
+export const handleSendOfferNavigation = (
+  navigation: any,
+  productType: string,
+  userData: any,
+  requestedUserDetails: any,
+  isFromMessageScreen: Boolean = false,
+) => {
+  switch (productType) {
+    case Trade_Options.TradeAndSell:
+      navigation.navigate('ChooseOfferTypeScreen', {
+        isFromMessageScreen: isFromMessageScreen,
+      });
+      break;
+    case Trade_Options.TradeOnly:
+      navigation.navigate('StartTradeScreen', {
+        requestedUserDetails: requestedUserDetails,
+        userData: userData,
+        isFromMessageScreen: isFromMessageScreen,
+      });
+      break;
+    case Trade_Options.SellOnly:
+      navigation.navigate('SendMoneyOfferScreen', {
+        isFromMessageScreen: isFromMessageScreen,
+      });
+      break;
+    default:
+      navigation.navigate('ChooseOfferTypeScreen', {
+        isFromMessageScreen: isFromMessageScreen,
+      });
+      break;
+  }
 };

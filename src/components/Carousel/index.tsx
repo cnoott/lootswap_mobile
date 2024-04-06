@@ -7,6 +7,8 @@ import {LSHomeStepTwoCarouselItem} from './HomeItems/StepTwoHomeItem';
 import {LSHomeStepThreeCarouselItem} from './HomeItems/StepThreeHomeItem';
 import {LSHomeStepFourCarouselItem} from './HomeItems/StepFourHomeItem';
 import {LSGiveawayHomeItem} from './HomeItems/GiveawayHomeItem';
+import {useSelector} from 'react-redux';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 import {
   Container,
   Image,
@@ -49,6 +51,9 @@ function CarouselComponent(props: CarouselProps) {
 
   const [imageLoading, setImageLoading] = useState(true);
   const [opacity] = useState(new Animated.Value(1));
+
+  const homeStates: AuthProps = useSelector(state => state.home);
+  const {shouldShowGiveaway} = homeStates;
 
   useEffect(() => {
     const blink = Animated.sequence([
@@ -107,7 +112,11 @@ function CarouselComponent(props: CarouselProps) {
   const getHomeCarouselStep = (index: number) => {
     switch (index) {
       case 1:
-        return <LSHomeStepOneCarouselItem />;
+        return shouldShowGiveaway ? (
+          <LSGiveawayHomeItem />
+        ) : (
+          <LSHomeStepOneCarouselItem />
+        );
       case 2:
         return <LSHomeStepTwoCarouselItem />;
       case 3:

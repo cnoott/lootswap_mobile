@@ -3,6 +3,7 @@
 import {
   GET_TRADES_HISTORY,
   GET_TRADE,
+  CLEAR_TRADE_NOTIF,
   GET_TRADE_STOCKX,
   RECEIVE_TRADE_MESSAGE,
 } from '../../../constants/actions';
@@ -83,6 +84,26 @@ export default function loading(state = InitialState, action: ActionProps) {
       return {
         ...state,
         trade: InitialState.trade,
+      };
+    }
+    case CLEAR_TRADE_NOTIF.REQUEST: {
+      const {userId, tradeData} = payload;
+      const tradeId = tradeData._id;
+      const isReceiver = userId === tradeData.receiver._id;
+
+      const updatedHistoryTrades = state.historyTrades.map((trade: any) => {
+        if (trade._id === tradeId && isReceiver) {
+          return {...trade, receiverNewMessage: false};
+        } else if (trade._id === tradeId && !isReceiver) {
+          return {...trade, senderNewMessage: false};
+        } else {
+          return trade;
+        }
+      });
+
+      return {
+        ...state,
+        historyTrades: updatedHistoryTrades,
       };
     }
     case RECEIVE_TRADE_MESSAGE.REQUEST: {

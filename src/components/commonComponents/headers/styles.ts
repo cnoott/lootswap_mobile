@@ -54,6 +54,18 @@ export const ProfileHeaderContainer = styled.View.attrs(() => ({
     ${layout}
 `;
 
+export const ProfileHeaderMessageContainer = styled.View.attrs((props) => ({
+  justifyContent: props?.centerAligned ? 'space-between' : 'flex-start',
+  width: props?.centerAligned ? '105%' : '40%',
+}))`
+  flex-direction: row;
+  align-items: center;
+  ${color}
+  ${space}
+    ${layout}
+`;
+
+
 export const BackArrowContainer = styled.View.attrs(() => ({
   height: scale(Platform.OS === 'ios' ? 84 : 64),
   pt: moderateScale(Platform.OS === 'ios' ? 34 : 0),
@@ -240,6 +252,8 @@ export const BellTouchable = styled.TouchableOpacity.attrs({})`
   ${layout}
   ${space}
 `;
+
+export const ItemCellTouchable = styled.TouchableOpacity.attrs({})``;
 
 export const ButtonContainer = styled.TouchableOpacity.attrs(props => ({
   width: props.width,

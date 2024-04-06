@@ -98,3 +98,15 @@ export const MessageBoxContainer = styled.View.attrs(props => ({
   ${color}
   ${space}
 `;
+
+export const InteractButtonsContainer = styled.View.attrs(() => ({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  alignItems: 'center',
+  mb: scale(9),
+}))`
+  ${layout}
+  ${color}
+  ${space}
+`;

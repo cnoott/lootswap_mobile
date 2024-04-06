@@ -47,7 +47,10 @@ export const useNotifications = () => {
       remoteMessage => {
         console.log('NEW MESSAGE!!!', remoteMessage);
         dispatch(
-          newNotifTrueSuccess({notifType: remoteMessage?.data?.notifType}),
+          newNotifTrueSuccess({
+            notifType: remoteMessage?.data?.notifType,
+            objectId: remoteMessage?.data?.objectId,
+          }),
         );
         PushNotificationIOS.addNotificationRequest({
           id: remoteMessage?.data?.objectId,
