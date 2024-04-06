@@ -7,7 +7,10 @@ import {
   ReferText,
   EnterNowButtonContainer,
 } from './styles';
-import {HOME_CAROUSEL_GIVEAWAY} from '../../../constants/imageConstants';
+import {
+  HOME_CAROUSEL_GIVEAWAY,
+  HOME_CAROUSEL_GIVEAWAY_TEXT,
+} from '../../../constants/imageConstants';
 import {scale} from 'react-native-size-matters';
 import LSButton from '../../commonComponents/LSButton';
 import {Size, Type} from 'custom_enums';
@@ -21,16 +24,22 @@ export const LSGiveawayHomeItem: FC<HeaderProps> = React.memo(() => {
   return (
     <GiveawayContainer>
       <Image
-        source={HOME_CAROUSEL_GIVEAWAY}
-        width={scale(207)}
-        height={scale(126)}
+        source={HOME_CAROUSEL_GIVEAWAY_TEXT}
+        width={scale(210)}
+        height={scale(50)}
       />
-      <GiveawayPrimaryText>Jordan 4 Retro SB Pine Green</GiveawayPrimaryText>
+      <Image
+        source={HOME_CAROUSEL_GIVEAWAY}
+        width={scale(280)}
+        height={scale(115)}
+      />
+      {/*
       <GiveawayDetailsText>
         {`Rules: Follow us and upload 1 item
         Each extra item uploaded → 1 more entry 🎟️`}
       </GiveawayDetailsText>
       <ReferText> Refer a friend 👤 → 5 entries 🎟️</ReferText>
+      */}
       <EnterNowButtonContainer>
         <LSButton
           title={'ENTER NOW'}
