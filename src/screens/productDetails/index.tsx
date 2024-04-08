@@ -90,6 +90,7 @@ import {Trade_Options, Deal_Type} from 'custom_enums';
 import defaultExport from '@react-native-firebase/messaging';
 import DealBadge from '../../components/dealBadges';
 import {loggingService} from '../../services/loggingService';
+import ProductShareModal from '../../components/product/ProductShareModal';
 
 const height = Dimensions.get('window').height;
 
@@ -106,6 +107,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const {productData = {}, likedParam} = route?.params;
   const [liked, setLiked] = useState(likedParam);
   const [timesLiked, setTimesLiked] = useState(productData?.timesLiked);
+
+  const [shareModalVisible, setShareModalVisible] = useState(false);
+  const toggleShareModal = () => setShareModalVisible(!shareModalVisible);
 
   useEffect(() => {
     if (likedParam) {
@@ -540,11 +544,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                 />
                 <ProductDetails>{timesLiked}</ProductDetails>
               </LikeTouchable>
-              {/*
-              <ShareButtonTouchable>
+              <ShareButtonTouchable onPress={toggleShareModal}>
                 <SvgXml xml={SHARE_ICON} />
               </ShareButtonTouchable>
-              */}
             </DetailsRightView>
           </DetailsContainer>
           <HorizontalBar />
@@ -571,6 +573,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       </ScrollContainer>
 
       {renderInteractButtons()}
+      <ProductShareModal
+        isVisible={shareModalVisible}
+        onCloseModal={() => setShareModalVisible(false)}
+        productDetails={selectedProductDetails}
+      />
     </Container>
   );
 };
