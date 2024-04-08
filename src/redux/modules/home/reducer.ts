@@ -18,6 +18,8 @@ export interface HomeProps {
   selectedProductDetails: any;
   addProductData: ADD_PRODUCT_TYPE;
   shouldShowGiveaway: Boolean;
+  giveawayImage: string;
+  giveawayColor: string;
 }
 
 type ActionProps = {
@@ -30,6 +32,8 @@ export const InitialState: HomeProps = {
   selectedProductDetails: null,
   addProductData: getAddProductRawData(),
   shouldShowGiveaway: false,
+  giveawayImage: '',
+  giveawayColor: '#0D86D3',
 };
 
 export default function loading(state = InitialState, action: ActionProps) {
@@ -119,6 +123,8 @@ export default function loading(state = InitialState, action: ActionProps) {
       return {
         ...state,
         shouldShowGiveaway: payload.showGiveaway,
+        giveawayColor: payload.giveawayColor,
+        giveawayImage: payload.giveawayImage,
       };
     }
     default:
