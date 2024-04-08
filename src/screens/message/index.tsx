@@ -152,6 +152,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
 
   useEffect(() => {
     if (historyMessages?._id) {
+      messageListref.current?.scrollToEnd({animated: false})
       dispatch(
         clearMessageNotif({
           userId: userData?._id,
@@ -221,6 +222,8 @@ export const UserChatScreen: FC<any> = ({route}) => {
           placeholder={'Message..'}
           homeSearch={true}
           multiline
+          autoFocus={false}
+
         />
       </InputView>
     );
@@ -232,13 +235,10 @@ export const UserChatScreen: FC<any> = ({route}) => {
     return (
       <FlatList
         ref={it => messageListref.current = it}
-        data={historyMessages.messages}
-        initialScrollIndex={
-          historyMessages.messages ? historyMessages.messages.length - 1 : 0
-        }
-        keyExtractor={(item, index) => item?.message + index}
+        data={historyMessages?.messages}
+        keyExtractor={(item, index) => item.message + index}
         renderItem={({item}) =>
-          renderMessage(item, item?.userId === userData?._id)
+          renderMessage(item, item?.userName === userData?.name)
         }
         getItemLayout={(data, index) => ({
           length: 100,
