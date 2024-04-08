@@ -135,7 +135,7 @@ export const getProfileOptions = (userData: any) => {
   const optionsList: Array<PROFILE_OPTIONS_TYPE> = [
     {
       icon: PROFILE_REFERRAL,
-      title: 'Referral program',
+      title: 'Referral program - JOIN GIVEAWAY',
       index: 1,
     },
     {
