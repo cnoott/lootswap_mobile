@@ -153,6 +153,7 @@ export const OffersMessageScreen: FC<{}> = props => {
 
   useEffect(() => {
     if (tradeData?.trade) {
+      messageListref.current?.scrollToEnd({animated: true})
       dispatch(
         clearTradeNotif({
           userId: userData?._id,
@@ -306,8 +307,8 @@ export const OffersMessageScreen: FC<{}> = props => {
       <ChatContainer>
         <FlatList
           ref={it => messageListref.current = it}
-          initialScrollIndex={offerItem ? offerItem.messages.length - 1 : 0}
           data={offerItem ? offerItem.messages : []}
+          keyExtractor={(item, index) => item.message + index}
           //extraData={messagesList}
           renderItem={({item}) =>
             renderMessage(item?.userName === userData?.name, item)
