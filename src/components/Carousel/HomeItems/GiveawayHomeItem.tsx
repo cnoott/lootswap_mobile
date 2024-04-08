@@ -15,21 +15,26 @@ import {scale} from 'react-native-size-matters';
 import LSButton from '../../commonComponents/LSButton';
 import {Size, Type} from 'custom_enums';
 import {Linking} from 'react-native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 interface HeaderProps {
   onItemPress?: Function;
 }
 
 export const LSGiveawayHomeItem: FC<HeaderProps> = React.memo(() => {
+  const navigation: NavigationProp<any, any> = useNavigation();
+  const homeStates = useSelector(state => state.home);
+  const {shouldShowGiveaway, giveawayImage, giveawayColor} = homeStates;
   return (
-    <GiveawayContainer>
+    <GiveawayContainer giveawayColor={giveawayColor}>
       <Image
         source={HOME_CAROUSEL_GIVEAWAY_TEXT}
         width={scale(210)}
         height={scale(50)}
       />
       <Image
-        source={HOME_CAROUSEL_GIVEAWAY}
+        source={{uri: giveawayImage}}
         width={scale(280)}
         height={scale(115)}
       />
@@ -50,11 +55,7 @@ export const LSGiveawayHomeItem: FC<HeaderProps> = React.memo(() => {
           buttonCustomColor={'white'}
           customTextColor={'black'}
           radius={38}
-          onPress={() =>
-            Linking.openURL(
-              'https://www.instagram.com/p/C0ewpMWOdSe/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==',
-            )
-          }
+          onPress={() => navigation.navigate('ReferralScreen')}
           sizeFont={12}
         />
       </EnterNowButtonContainer>
