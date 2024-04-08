@@ -35,7 +35,7 @@ import {saveReferralLinkRequest} from '../../redux/modules/';
 import branch from 'react-native-branch';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {Alert} from 'custom_top_alert';
-import {Share} from 'react-native';
+import {Share, ScrollView} from 'react-native';
 import {loggingService} from '../../services/loggingService';
 import {scale} from 'react-native-size-matters';
 
@@ -122,58 +122,60 @@ export const ReferralScreen: FC<{}> = () => {
 
   return (
     <Container>
-      <TopContainer>
-        <InStackHeader title={'Referral Link for Giveaway'} back />
-        <ImageContainer>
-          <Image
-            source={{uri: giveawayImage}}
-            width={scale(250)}
-            height={scale(115)}
+      <InStackHeader title={'Referral Link for Giveaway'} back />
+      <ScrollView>
+        <TopContainer>
+          <ImageContainer>
+            <Image
+              source={{uri: giveawayImage}}
+              width={scale(250)}
+              height={scale(115)}
+            />
+          </ImageContainer>
+          <TopTextContainer>
+            <TopTextHeader>How to enter the giveaway 👟:</TopTextHeader>
+          </TopTextContainer>
+          <BulletPointView>
+            <Bullet />
+            <BulletText>
+              <BulletBoldText>Share your custom referral link: </BulletBoldText>
+              Each new account created using your link earns you one entry!
+            </BulletText>
+          </BulletPointView>
+          <BulletPointView>
+            <Bullet />
+            <BulletText>
+              <BulletBoldText>Share any product listing: </BulletBoldText>
+              Tap the share icon <SvgXml
+              xml={SHARE_ICON}
+                margin={0}
+              width={15} height={15}/> on a product listing page to post it on social media. This earns you one entry for every unique product.
+              Plus, if someone signs up after clicking your shared product, you score an extra entry!
+            </BulletText>
+          </BulletPointView>
+          <LinkSectionContainer>
+            <LinkHeader>Your Custom Referral Link</LinkHeader>
+            <LinkContainer>
+              <LinkText>{userData?.referralLink}</LinkText>
+              <Touchable onPress={() => copyToClipboard()}>
+                <SvgXml xml={COPY_ICON} />
+              </Touchable>
+            </LinkContainer>
+          </LinkSectionContainer>
+          <LinkSectionContainer>
+            <LinkHeader>Your entries: {10}</LinkHeader>
+          </LinkSectionContainer>
+        </TopContainer>
+        <ShareButtonContainer>
+          <LSButton
+            title={'Share Link'}
+            size={Size.Full}
+            type={Type.Primary}
+            radius={20}
+            onPress={() => onShare()}
           />
-        </ImageContainer>
-        <TopTextContainer>
-          <TopTextHeader>How to enter the giveaway 👟:</TopTextHeader>
-        </TopTextContainer>
-        <BulletPointView>
-          <Bullet />
-          <BulletText>
-            <BulletBoldText>Share your custom referral link: </BulletBoldText>
-            Each new account created using your link earns you one entry!
-          </BulletText>
-        </BulletPointView>
-        <BulletPointView>
-          <Bullet />
-          <BulletText>
-            <BulletBoldText>Share any product listing: </BulletBoldText>
-            Tap the share icon <SvgXml
-            xml={SHARE_ICON}
-              margin={0}
-            width={15} height={15}/> on a product listing page to post it on social media. This earns you one entry.
-            Plus, if someone signs up after clicking your shared product, you score an extra entry!
-          </BulletText>
-        </BulletPointView>
-        <LinkSectionContainer>
-          <LinkHeader>Your Custom Referral Link</LinkHeader>
-          <LinkContainer>
-            <LinkText>{userData?.referralLink}</LinkText>
-            <Touchable onPress={() => copyToClipboard()}>
-              <SvgXml xml={COPY_ICON} />
-            </Touchable>
-          </LinkContainer>
-        </LinkSectionContainer>
-        <LinkSectionContainer>
-          <LinkHeader>Your entries: {10}</LinkHeader>
-        </LinkSectionContainer>
-      </TopContainer>
-      <ShareButtonContainer>
-        <LSButton
-          title={'Share Link'}
-          size={Size.Full}
-          type={Type.Primary}
-          radius={20}
-          onPress={() => onShare()}
-        />
-      </ShareButtonContainer>
+        </ShareButtonContainer>
+      </ScrollView>
     </Container>
   );
 };
