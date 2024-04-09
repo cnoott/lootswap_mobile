@@ -49,6 +49,12 @@
 	<string>2.5.1</string>
 	<key>CodePushDeploymentKey</key>
 	<string>7pHzXBTYADWR_M9n1BXQnMnioDkpF7dlnOwXu</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>bitmoji-sdk</string>
+		<string>snapchat</string>
+		<string>itms-apps</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
