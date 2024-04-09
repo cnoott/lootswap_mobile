@@ -55,3 +55,8 @@ export const PHOTO_GUIDE_SHIRT_TAG = require('../assets/images/photoGuide/shirt_
 export const PHOTO_GUIDE_HAT_FRONT = require('../assets/images/photoGuide/hat_front.png');
 export const PHOTO_GUIDE_HAT_BACK = require('../assets/images/photoGuide/hat_back.png');
 export const PHOTO_GUIDE_HAT_TAG = require('../assets/images/photoGuide/hat_tag.png');
+
+export const IG_STORIES_SHARE = require('../assets/images/product/ig_stories_share.png');
+export const IG_SHARE = require('../assets/images/product/ig_share.png');
+export const IMESSAGE = require('../assets/images/product/imessage.png');
+export const COPY_LINK_ICON = require('../assets/images/product/copy_link.png');
