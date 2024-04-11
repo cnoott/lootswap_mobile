@@ -43,6 +43,8 @@
 	<string>2.5.1</string>
 	<key>CodePushDeploymentKey</key>
 	<string>MLSTmi_7H9-wh-ijIcugIAywADZr5_QT5QA8r</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>snapchat</string>
@@ -73,9 +75,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app requires access to the photo library.</string>
 	<key>SCSDKClientId</key>
-	<string>561eec20-d054-42a5-890b-1dac90871551
-561eec20-d054-42a5-890b-1dac90871551
-561eec20-d054-42a5-890b-1dac90871551</string>
+	<string>561eec20-d054-42a5-890b-1dac90871551</string>
 	<key>SCSDKRedirectUrl</key>
 	<string>https://lootswap.com</string>
 	<key>UIAppFonts</key>
@@ -120,6 +120,8 @@
 	<key>URL Types / URL Identifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>URL Types / URL Schemes</key>
-	<string>lootswap</string>
+	<array>
+		<string>lootswap</string>
+	</array>
 </dict>
 </plist>
