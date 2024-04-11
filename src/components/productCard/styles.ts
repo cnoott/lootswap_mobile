@@ -75,7 +75,6 @@ export const CellBottomView = styled.View.attrs(() => ({
 
 export const BottomHeaderView = styled.View.attrs(props => ({
   justifyContent: 'space-between',
-  flex: 1,
   my: scale(props?.isMiddle ? 2 : 0),
 }))`
   flex-direction: row ${space} ${layout} ${color};
