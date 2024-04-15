@@ -11,6 +11,7 @@ export const ItemContainer = styled.TouchableOpacity.attrs(props => ({
   activeOpacity: 0.8,
   borderRadius: scale(productRadius),
   overflow: 'hidden',
+  backgroundColor: 'white',
 }))`
   ${space}
   ${layout}
