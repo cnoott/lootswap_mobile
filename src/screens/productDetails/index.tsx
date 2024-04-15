@@ -490,7 +490,14 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   };
   return (
     <Container>
-      <InStackHeader back={true} title={''} />
+      <InStackHeader
+        back={true}
+        title={''}
+        right={true}
+        onlyTitleCenterAlign={true}
+        rightIcon={SHARE_ICON}
+        onRightIconPress={toggleShareModal}
+      />
       <ScrollContainer>
         <CarouselComponent
           height={height / 2 + 40}
@@ -544,9 +551,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                 />
                 <ProductDetails>{timesLiked}</ProductDetails>
               </LikeTouchable>
-              <ShareButtonTouchable onPress={toggleShareModal}>
-                <SvgXml xml={SHARE_ICON} />
-              </ShareButtonTouchable>
             </DetailsRightView>
           </DetailsContainer>
           <HorizontalBar />
