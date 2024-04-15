@@ -1,4 +1,4 @@
-import React, {FC, useRef} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import {LSModal} from '../commonComponents/LSModal';
 import {
   ModalStyles,
@@ -39,31 +39,41 @@ export const ProductShareModal: FC<ProductShareModalProps> =
 
   const viewShotRef = useRef();
 
-  const handleSnapchatShare = async () => {
-    viewShotRef.current.capture().then(async uri => {
-      console.log("URI", uri)
-      const photoContent = {
-        content: {
-          uri: `file://${uri.trim()}`,
-        },
-        sticker: {
-          uri: `file://${uri.trim()}`,
-          width: 550,
-          height: 900,
-          posX: 0.5,
-          posY: 0.6,
-          rotationDegreesInClockwise: 0,
-          isAnimated: false,
-        },
-        caption: 'Get on lootswap',
-        attachmentUrl: 'https://download.lootswap.com',
-      };
+  const [uri, setUri] = useState('');
 
-      CreativeKit.sharePhoto(photoContent).then(() => {
+  const handleCaptureProductImage = () => {
+    viewShotRef.current.capture().then(async uriData => {
+      setUri(uriData);
+    });
+  };
+
+  const handleSnapchatShare = async () => {
+    // TODO: handle image loading first
+    const photoContent = {
+      sticker: {
+        uri: `file://${uri.trim()}`,
+        posX: 0.5,
+        posY: 0.34,
+        rotationDegreesInClockwise: 0,
+        isAnimated: false,
+      },
+      caption: 'Get this item on lootswap! (Download on AppStore)',
+      attachmentUrl: 'https://download.lootswap.com',
+    };
+
+
+    if (uri) {
+      CreativeKit.shareToCameraPreview(photoContent).then(() => {
         console.log('done')
       })
       .catch(err => console.log(err));
-    });
+    } else {
+      setTimeout(() => {
+        CreativeKit.shareToCameraPreview(photoContent).then(() => {
+          console.log('done')
+        }).catch(err => console.log(err));
+      }, 1000);
+    }
   };
 
   return (
@@ -73,14 +83,25 @@ export const ProductShareModal: FC<ProductShareModalProps> =
       onBackdropPress={onCloseModal}>
       <LSModal.BottomContainer>
         <ModalHeaderText>Share Listing</ModalHeaderText>
-        <View style={{position: 'absolute', bottom: -999999}}>
-        <ViewShot ref={viewShotRef} options={{format: 'jpg', quality: 0.9}}>
-          <LSProductCard
-            item={productDetails}
-            isHorizontalView={true}
-            key={productDetails?._id}
-          />
-        </ViewShot>
+        <View
+          style={{
+          position: 'absolute',
+          bottom: -999999,
+          backgroundColor: 'white',
+          borderRadius: 20,
+          }}>
+          <ViewShot
+            ref={viewShotRef}
+            options={{format: 'png', quality: 0.9, width: 140, height: 225}}
+            captureMode={'none'}
+          >
+            <LSProductCard
+              item={productDetails}
+              isHorizontalView={true}
+              key={productDetails?._id}
+              onImageLoad={handleCaptureProductImage}
+            />
+          </ViewShot>
         </View>
         <ModalSubText>Share To</ModalSubText>
         <ScrollView horizontal>
