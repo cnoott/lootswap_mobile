@@ -8357,6 +8357,11 @@ react-native-splash-screen@^3.3.0:
   resolved "https://registry.npmjs.org/react-native-splash-screen/-/react-native-splash-screen-3.3.0.tgz"
   integrity sha512-rGjt6HkoSXxMqH4SQUJ1gnPQlPJV8+J47+4yhgTIan4bVvAwJhEeJH7wWt9hXSdH4+VfwTS0GTaflj1Tw83IhA==
 
+react-native-story-share@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/react-native-story-share/-/react-native-story-share-0.7.0.tgz#ef91d7e1642899a376c4350ece945fa42611ecbd"
+  integrity sha512-XKDBNQwzd6OsPlwZAXCzoeG/bQfXwWzxvqpiXss9oT6zqkzMogjVTwVtweSV6KthpG6D5EGV5Ps/4B653YxGcw==
+
 react-native-svg@^13.6.0:
   version "13.6.0"
   resolved "https://registry.npmjs.org/react-native-svg/-/react-native-svg-13.6.0.tgz"
