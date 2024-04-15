@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>2.5.1</string>
 	<key>CFBundleSignature</key>
-	<string>????</string>
+	<string>?????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -50,6 +50,7 @@
 		<string>snapchat</string>
 		<string>bitmoji-sdk</string>
 		<string>itms-apps</string>
+		<string>instagram-stories</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -77,7 +78,7 @@
 	<key>SCSDKClientId</key>
 	<string>561eec20-d054-42a5-890b-1dac90871551</string>
 	<key>SCSDKRedirectUrl</key>
-	<string>https://lootswap.com</string>
+	<string>https://download.lootswap.com</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Inter-Black.otf</string>
