@@ -80,6 +80,10 @@
 	<string>This app does not require access to the microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app requires access to the photo library to upload product images for your listing. For example, when uploading a product listing, you are required to submit images.</string>
+	<key>SCSDKClientId</key>
+	<string>b4c3cb3b-99b0-42d6-86e2-732e34c3e018</string>
+	<key>SCSDKRedirectUrl</key>
+	<string>lootswap://snapchat</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Mont-Heavy.ttf</string>
@@ -117,6 +121,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>URL Types / Document Role</key>
+	<string>Editor</string>
+	<key>URL Types / URL Identifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>URL Types / URL Schemes</key>
+	<string>lootswap</string>
 	<key>branch_app_domain</key>
 	<string>lootswap.app.link</string>
 	<key>branch_key</key>
