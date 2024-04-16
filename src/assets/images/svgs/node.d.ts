@@ -99,4 +99,5 @@ declare module 'localsvgimages' {
   export const WARNING_ICON: any;
   export const SHARE_ICON: any;
   export const SNAPCHAT_ICON: any;
+  export const APPSTORE_ICON: any;
 }
