@@ -54,6 +54,8 @@
 		<string>bitmoji-sdk</string>
 		<string>snapchat</string>
 		<string>itms-apps</string>
+		<string>instagram-stories</string>
+		<string>mailto</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
