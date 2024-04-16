@@ -78,7 +78,7 @@
 	<key>SCSDKClientId</key>
 	<string>561eec20-d054-42a5-890b-1dac90871551</string>
 	<key>SCSDKRedirectUrl</key>
-	<string>https://download.lootswap.com</string>
+	<string>lootswap://snapchat</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Inter-Black.otf</string>
