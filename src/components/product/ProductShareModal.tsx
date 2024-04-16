@@ -21,8 +21,11 @@ import {scale} from 'react-native-size-matters';
 import {CreativeKit} from '@snapchat/snap-kit-react-native';
 import ViewShot from 'react-native-view-shot';
 import LSProductCard from '../productCard';
+import {View} from 'react-native';
+import ProductShareCard from './ProductShareCard';
+import {META_APP_ID} from '@env';
+import Share from 'react-native-share';
 
-import {Share, View} from 'react-native';
 
 interface ProductShareModalProps {
   isVisible: Boolean;
@@ -31,7 +34,7 @@ interface ProductShareModalProps {
 }
 
 export const ProductShareModal: FC<ProductShareModalProps> =
- ({
+  ({
   isVisible,
   onCloseModal,
   productDetails,
@@ -48,19 +51,19 @@ export const ProductShareModal: FC<ProductShareModalProps> =
   };
 
   const handleSnapchatShare = async () => {
-    // TODO: handle image loading first
     const photoContent = {
       sticker: {
         uri: `file://${uri.trim()}`,
+        width: 200,
+        height: 200,
         posX: 0.5,
         posY: 0.34,
         rotationDegreesInClockwise: 0,
         isAnimated: false,
       },
-      caption: 'Get this item on lootswap! (Download on AppStore)',
       attachmentUrl: 'https://download.lootswap.com',
+      url: 'https://google.com'
     };
-
 
     if (uri) {
       CreativeKit.shareToCameraPreview(photoContent).then(() => {
@@ -76,6 +79,20 @@ export const ProductShareModal: FC<ProductShareModalProps> =
     }
   };
 
+  const handleInstagramShare = async () => {
+    const shareOptions = {
+      appId: META_APP_ID,
+      social: Share.Social.INSTAGRAM_STORIES,
+      stickerImage: `file://${uri.trim()}`,
+      attributionURL: 'https://download.lootswap.com',
+      url: 'https://download.lootswap.com',
+      message: 'lootswap!',
+      title: 'LOOTSWAP',
+    };
+
+    Share.shareSingle(shareOptions);
+  };
+
   return (
     <LSModal
       isVisible={isVisible}
@@ -83,33 +100,18 @@ export const ProductShareModal: FC<ProductShareModalProps> =
       onBackdropPress={onCloseModal}>
       <LSModal.BottomContainer>
         <ModalHeaderText>Share Listing</ModalHeaderText>
-        <View
-          style={{
-          position: 'absolute',
-          bottom: -999999,
-          backgroundColor: 'white',
-          borderRadius: 20,
-          }}>
-          <ViewShot
-            ref={viewShotRef}
-            options={{format: 'png', quality: 0.9, width: 140, height: 225}}
-            captureMode={'none'}
-          >
-            <LSProductCard
-              item={productDetails}
-              isHorizontalView={true}
-              key={productDetails?._id}
-              onImageLoad={handleCaptureProductImage}
-            />
-          </ViewShot>
-        </View>
+        <ProductShareCard
+          productDetails={productDetails}
+          viewShotRef={viewShotRef}
+          handleCaptureProductImage={handleCaptureProductImage}
+        />
         <ModalSubText>Share To</ModalSubText>
         <ScrollView horizontal>
           <IconTouchable onPress={handleSnapchatShare}>
             <SvgXml xml={SNAPCHAT_ICON} width={scale(60)} height={scale(60)} />
             <IconText>Snapchat</IconText>
           </IconTouchable>
-          <IconTouchable>
+          <IconTouchable onPress={handleInstagramShare}>
             <Image source={IG_STORIES_SHARE}/>
             <IconText>Stories</IconText>
           </IconTouchable>
