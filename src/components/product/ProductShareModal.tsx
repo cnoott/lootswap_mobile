@@ -18,7 +18,7 @@ import {
 import {SNAPCHAT_ICON, IMESSAGE_ICON} from 'localsvgimages';
 import {SvgXml} from 'react-native-svg';
 import {scale} from 'react-native-size-matters';
-import {CreativeKit} from '@snapchat/snap-kit-react-native';
+import {CreativeKit, PhotoContentParams} from '@snapchat/snap-kit-react-native';
 import ViewShot from 'react-native-view-shot';
 import LSProductCard from '../productCard';
 import {View} from 'react-native';
@@ -51,28 +51,21 @@ export const ProductShareModal: FC<ProductShareModalProps> =
   };
 
   const handleSnapchatShare = async () => {
-    const photoContent = {
-      sticker: {
+    const photoContent: PhotoContentParams = {
+      content: {
         uri: `file://${uri.trim()}`,
-        width: 200,
-        height: 200,
-        posX: 0.5,
-        posY: 0.34,
-        rotationDegreesInClockwise: 0,
-        isAnimated: false,
       },
       attachmentUrl: 'https://download.lootswap.com',
-      url: 'https://google.com'
     };
 
     if (uri) {
-      CreativeKit.shareToCameraPreview(photoContent).then(() => {
+      CreativeKit.sharePhoto(photoContent).then(() => {
         console.log('done')
       })
       .catch(err => console.log(err));
     } else {
       setTimeout(() => {
-        CreativeKit.shareToCameraPreview(photoContent).then(() => {
+        CreativeKit.sharePhoto(photoContent).then(() => {
           console.log('done')
         }).catch(err => console.log(err));
       }, 1000);
