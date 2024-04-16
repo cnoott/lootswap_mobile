@@ -513,6 +513,8 @@ PODS:
     - RCTTypeSafety
     - React-Core
     - ReactCommon/turbomodule/core
+  - react-native-sms (1.11.0):
+    - React
   - react-native-spinkit (1.4.1):
     - React
   - react-native-splash-screen (3.3.0):
@@ -790,6 +792,7 @@ DEPENDENCIES:
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-print (from `../node_modules/react-native-print`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-sms (from `../node_modules/react-native-sms`)
   - react-native-spinkit (from `../node_modules/react-native-spinkit`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-view-shot (from `../node_modules/react-native-view-shot`)
@@ -956,6 +959,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-print"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-sms:
+    :path: "../node_modules/react-native-sms"
   react-native-spinkit:
     :path: "../node_modules/react-native-spinkit"
   react-native-splash-screen:
@@ -1106,6 +1111,7 @@ SPEC CHECKSUMS:
   react-native-pager-view: 54bed894cecebe28cede54c01038d9d1e122de43
   react-native-print: f704aef52d931bfce6d1d84351dbb5232d7ecb89
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
+  react-native-sms: 31fbb9d6ebb565ad32e409eaf9dc70329936a129
   react-native-spinkit: da294fd828216ad211fe36a5c14c1e09f09e62db
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-view-shot: 6b7ed61d77d88580fed10954d45fad0eb2d47688
