@@ -1,4 +1,4 @@
-import React, {FC, useRef, useState} from 'react';
+import React, {FC, useRef, useState, useEffect} from 'react';
 import {LSModal} from '../commonComponents/LSModal';
 import {
   ModalStyles,
@@ -19,25 +19,26 @@ import {SNAPCHAT_ICON, IMESSAGE_ICON} from 'localsvgimages';
 import {SvgXml} from 'react-native-svg';
 import {scale} from 'react-native-size-matters';
 import {CreativeKit, PhotoContentParams} from '@snapchat/snap-kit-react-native';
-import ViewShot from 'react-native-view-shot';
-import LSProductCard from '../productCard';
-import {View} from 'react-native';
 import ProductShareCard from './ProductShareCard';
 import {META_APP_ID} from '@env';
 import Share from 'react-native-share';
-
+import branch from 'react-native-branch';
+import SendSMS from 'react-native-sms';
 
 interface ProductShareModalProps {
   isVisible: Boolean;
   onCloseModal: Function;
   productDetails: any;
+  userData: any;
 }
 
+// TODO: count entries
 export const ProductShareModal: FC<ProductShareModalProps> =
-  ({
+ ({
   isVisible,
   onCloseModal,
   productDetails,
+  userData,
 }) => {
 
   const viewShotRef = useRef();
@@ -86,6 +87,45 @@ export const ProductShareModal: FC<ProductShareModalProps> =
     Share.shareSingle(shareOptions);
   };
 
+  const handleIMessageShare = async () => {
+    let buo = await branch.createBranchUniversalObject(
+      `product_share_${productDetails._id}`, {
+        title: `${productDetails.name} on lootswap`,
+        contentDescription: `Check out these ${productDetails.brand} on the lootswap app`,
+        contentImageUrl: productDetails?.primary_photo,
+        // Explicitly specify Open Graph tags
+        contentMetadata: {
+          "$og_title": `${productDetails.name} on lootswap`,
+          "$og_description": `Check out these ${productDetails.brand} on the lootswap app`,
+          "$og_image_url": productDetails?.primary_photo,
+        }
+      });
+
+    const linkProperties = {
+      feature: 'share',
+      channel: 'sms',
+      // Open Graph parameters
+      "$desktop_url": 'https://download.lootswap.com',
+      "$ios_url": 'lootswap://DATA',
+      "$android_url": 'https://download.lootswap.com',
+};
+
+    const controlParams = {
+      $desktop_url: 'https://download.lootswap.com',
+      $ios_url: 'lootswap://DATA',
+      $android_url: 'https://download.lootswap.com',
+      $fallback_url: 'https://download.lootswap.com',
+    };
+
+    const {url} = await buo.generateShortUrl(linkProperties, controlParams);
+    console.log('image', productDetails?.primary_photo);
+    await SendSMS.send({
+      body: `${productDetails?.name} on lootswap: ${url}`,
+    }, (completed, cancelled, err) => {
+      console.log(completed, cancelled, err);
+    });
+  };
+
   return (
     <LSModal
       isVisible={isVisible}
@@ -108,12 +148,15 @@ export const ProductShareModal: FC<ProductShareModalProps> =
             <Image source={IG_STORIES_SHARE}/>
             <IconText>Stories</IconText>
           </IconTouchable>
+
+          {/*
           <IconTouchable>
             <Image source={IG_SHARE}/>
             <IconText>Instagram</IconText>
           </IconTouchable>
+          */}
 
-          <IconTouchable>
+          <IconTouchable onPress={handleIMessageShare}>
             <Image source={IMESSAGE}/>
             <IconText>iMessage</IconText>
           </IconTouchable>
