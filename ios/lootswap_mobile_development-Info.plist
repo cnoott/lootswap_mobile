@@ -125,5 +125,9 @@
 	<array>
 		<string>lootswap</string>
 	</array>
+	<key>branch_app_domain</key>
+	<string>lootswap.app.link</string>
+	<key>branch_key</key>
+	<string>key_test_hBiffYORGiEceLLUflNGwfneBAmaowmP</string>
 </dict>
 </plist>
