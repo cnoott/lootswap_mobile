@@ -25,6 +25,7 @@ import {
   SAVE_SEARCH,
   GET_LIKED_PRODUCTS,
   SET_NOTIFS_AS_READ,
+  ADD_SHARED_PRODUCT,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -66,6 +67,8 @@ import {
   getUserDetailsWStockxSuccess,
   setNotifsAsReadSuccess,
   setNotifsAsReadFailure,
+  addSharedProductSuccess,
+  addSharedProductFailure,
 } from './actions';
 import {
   signIn,
@@ -92,6 +95,7 @@ import {
   getUserDetailsWStockxCall,
   setNotifsAsReadCall,
   signInWithAppleCall,
+  addSharedProductCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {resetRoute} from '../../../navigation/navigationHelper';
@@ -554,6 +558,22 @@ export function* setNotifsAsRead(action: any) {
       yield put(setNotifsAsReadSuccess(response.data));
     } else {
       yield put(setNotifsAsReadFailure());
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function* addSharedProduct(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      addSharedProductCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      addSharedProductSuccess(response.data);
+    } else {
+      addSharedProductFailure();
     }
   } catch (e) {
     console.log(e);

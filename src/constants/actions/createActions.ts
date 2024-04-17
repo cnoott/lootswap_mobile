@@ -381,3 +381,7 @@ export const JOIN_OR_LEAVE_CHANNEL = {
 export const SHOULD_SHOW_GIVEAWAY = {
   ...createActionConst(actions.SHOULD_SHOW_GIVEAWAY),
 };
+
+export const ADD_SHARED_PRODUCT = {
+  ...createActionConst(actions.ADD_SHARED_PRODUCT),
+};
