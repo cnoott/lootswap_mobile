@@ -1276,6 +1276,12 @@ const hasTradeOnly = (products: Array<any>) => {
   );
 };
 
+const hasPreowned = (products: Array<any>) => {
+  return products.find(
+    product => product.condition === 'Pre-owned' && !product.stockxId,
+  );
+};
+
 const getAllPrices = (products: Array<any>) => {
   let allPrices = [];
   products.forEach(product => {
@@ -1303,6 +1309,10 @@ const getAllPrices = (products: Array<any>) => {
 
 export const calculateMarketValue = (products: Array<any>) => {
   if (hasTradeOnly(products)) {
+    return 'Unknown';
+  }
+
+  if (hasPreowned(products)) {
     return 'Unknown';
   }
 
