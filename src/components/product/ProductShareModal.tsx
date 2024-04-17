@@ -20,7 +20,7 @@ import {SvgXml} from 'react-native-svg';
 import {scale} from 'react-native-size-matters';
 import {CreativeKit, PhotoContentParams} from '@snapchat/snap-kit-react-native';
 import ProductShareCard from './ProductShareCard';
-import {META_APP_ID} from '@env';
+import {META_APP_ID, SHARE_PRODUCT_DOMAIN} from '@env';
 import Share from 'react-native-share';
 import branch from 'react-native-branch';
 import SendSMS from 'react-native-sms';
@@ -54,6 +54,7 @@ export const ProductShareModal: FC<ProductShareModalProps> =
   const handleSnapchatShare = async () => {
     const photoContent: PhotoContentParams = {
       content: {
+        // white bg image base64
         uri: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAJ4AqAMBIgACEQEDEQH/xAAVAAEBAAAAAAAAAAAAAAAAAAAAB//EABQQAQAAAAAAAAAAAAAAAAAAAAD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8At4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/Z'
       },
       sticker: {
@@ -111,11 +112,7 @@ export const ProductShareModal: FC<ProductShareModalProps> =
     const linkProperties = {
       feature: 'share',
       channel: 'sms',
-      // Open Graph parameters
-      "$desktop_url": 'https://download.lootswap.com',
-      "$ios_url": 'lootswap://DATA',
-      "$android_url": 'https://download.lootswap.com',
-};
+    };
 
     const controlParams = {
       $desktop_url: 'https://download.lootswap.com',
@@ -125,12 +122,24 @@ export const ProductShareModal: FC<ProductShareModalProps> =
     };
 
     const {url} = await buo.generateShortUrl(linkProperties, controlParams);
-    console.log('image', productDetails?.primary_photo);
+
+    const encodedUrl = encodeURIComponent(url);
+    const encodedProductName = encodeURIComponent(
+      productDetails?.name.slice(0, 200)
+    );
+    const encodedProductPhoto = encodeURIComponent(
+      productDetails.primary_photo
+    );
+
+    const shareUrl = `${SHARE_PRODUCT_DOMAIN}/product-share?url=${encodedUrl}&productName=${encodedProductName}&productPhoto=${encodedProductPhoto}`;
+    console.log('shareurl', shareUrl);
+
     await SendSMS.send({
-      body: `${productDetails?.name} on lootswap: ${url}`,
+      body: `${productDetails?.name} on lootswap: ${shareUrl}`,
     }, (completed, cancelled, err) => {
       console.log(completed, cancelled, err);
     });
+
   };
 
   return (
