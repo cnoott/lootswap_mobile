@@ -581,7 +581,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
         isVisible={shareModalVisible}
         onCloseModal={() => setShareModalVisible(false)}
         productDetails={productData}
-        userData={userData}
       />
     </Container>
   );

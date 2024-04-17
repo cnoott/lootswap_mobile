@@ -648,7 +648,7 @@ export const shouldShowGiveawayCall = () => {
 
 export const addSharedProductCall = (reqData: any) => {
   return handleResponse(
-    api.post('/add-shared-product', reqData),
+    api.post(`/add-shared-product/${reqData?.userId}`, reqData),
     API_RESPONSE.CODE200,
   );
 };
