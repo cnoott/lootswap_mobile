@@ -605,4 +605,5 @@ export default function* authSaga() {
   yield takeLatest(SAVE_SEARCH.REQUEST, saveSearch);
   yield takeLatest(GET_LIKED_PRODUCTS.REQUEST, getLikedProducts);
   yield takeLatest(SET_NOTIFS_AS_READ.REQUEST, setNotifsAsRead);
+  yield takeLatest(ADD_SHARED_PRODUCT.REQUEST, addSharedProduct);
 }
