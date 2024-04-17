@@ -88,8 +88,8 @@ export const ProductShareModal: FC<ProductShareModalProps> =
       stickerImage: `file://${uri.trim()}`,
       attributionURL: 'https://download.lootswap.com',
       url: 'https://download.lootswap.com',
-      message: 'lootswap!',
-      title: 'LOOTSWAP',
+      message: 'Get lootswap on the AppStore',
+      title: 'Get lootswap on the AppStore',
     };
 
     Share.shareSingle(shareOptions);
@@ -101,13 +101,8 @@ export const ProductShareModal: FC<ProductShareModalProps> =
         title: `${productDetails.name} on lootswap`,
         contentDescription: `Check out these ${productDetails.brand} on the lootswap app`,
         contentImageUrl: productDetails?.primary_photo,
-        // Explicitly specify Open Graph tags
-        contentMetadata: {
-          "$og_title": `${productDetails.name} on lootswap`,
-          "$og_description": `Check out these ${productDetails.brand} on the lootswap app`,
-          "$og_image_url": productDetails?.primary_photo,
-        }
-      });
+      },
+    );
 
     const linkProperties = {
       feature: 'share',
@@ -134,12 +129,14 @@ export const ProductShareModal: FC<ProductShareModalProps> =
     const shareUrl = `${SHARE_PRODUCT_DOMAIN}/product-share?url=${encodedUrl}&productName=${encodedProductName}&productPhoto=${encodedProductPhoto}`;
     console.log('shareurl', shareUrl);
 
-    await SendSMS.send({
-      body: `${productDetails?.name} on lootswap: ${shareUrl}`,
-    }, (completed, cancelled, err) => {
-      console.log(completed, cancelled, err);
-    });
-
+    await SendSMS.send(
+      {
+        body: `${productDetails?.name} on lootswap: ${shareUrl}`,
+      },
+      (completed, cancelled, err) => {
+        console.log(completed, cancelled, err);
+      },
+    );
   };
 
   return (
