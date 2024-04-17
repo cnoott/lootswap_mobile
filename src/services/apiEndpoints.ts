@@ -646,6 +646,13 @@ export const shouldShowGiveawayCall = () => {
   return handleResponse(api.get('/should-show-giveaway'), API_RESPONSE.CODE200);
 };
 
+export const addSharedProductCall = (reqData: any) => {
+  return handleResponse(
+    api.post('/add-shared-product', reqData),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
