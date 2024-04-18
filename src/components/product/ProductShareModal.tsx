@@ -86,7 +86,7 @@ export const ProductShareModal: FC<ProductShareModalProps> =
 
     const controlParams = {
       $desktop_url: 'https://download.lootswap.com',
-      $ios_url: 'lootswap://DATA',
+      $ios_url: `lootswap://product/${productDetails._id}`,
       $android_url: 'https://download.lootswap.com',
       $fallback_url: 'https://download.lootswap.com',
     };
@@ -213,7 +213,8 @@ export const ProductShareModal: FC<ProductShareModalProps> =
     onCloseModal();
     const shareUrl = await generateShareUrl();
     Clipboard.setString(shareUrl);
-    Alert.showSuccess('Copied!'); };
+    Alert.showSuccess('Copied!');
+  };
 
   return (
     <LSModal
