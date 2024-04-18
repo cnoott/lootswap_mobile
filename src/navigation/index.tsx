@@ -3,12 +3,11 @@
  ***/
 
 import React, {FC, useRef, useEffect, useState} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import DropdownAlert from 'react-native-dropdownalert';
 import AuthScreen from '../screens/auth/signIn';
 import CreateAccountScreen from '../screens/auth/signUp';
 import EmailSignupScreen from '../screens/auth/signUp/emailSignupScreen';
-import BottomTabs from './bottomTab';
 import {useSelector, useDispatch} from 'react-redux';
 import LSLoader from '../components/commonComponents/LSLoader';
 import {LoadingProps} from '../redux/modules/loading/reducer';
@@ -18,7 +17,10 @@ import {
   getTradesHistory,
   getAllMyMessages,
   shouldShowGiveawayRequest,
+  saveInstallParams,
+  getProductDetails,
 } from '../redux/modules';
+import {getRequestedProductDetailsCall} from '../services/apiEndpoints';
 import {AuthProps} from '../redux/modules/auth/reducer';
 import {Alert} from 'custom_top_alert';
 import {isReadyRef, navigationRef} from './navigationHelper';
@@ -46,6 +48,9 @@ import {useNotifications} from '../utility/customHooks/useNotifications';
 import useFCMNotifications from '../utility/customHooks/useFCMNotifications';
 import useBranch from '../utility/customHooks/useBranch';
 import {loggingService} from '../services/loggingService';
+import branch from 'react-native-branch';
+
+import BottomTabs from './bottomTab';
 
 const Stack = createStackNavigator();
 
@@ -57,7 +62,7 @@ const AppNavigation = () => {
 
   useNotifications();
   useFCMNotifications();
-  useBranch();
+  //const linking = useBranch();
 
   useEffect(() => {
     if (isLogedIn) {
@@ -206,20 +211,33 @@ const AppNavigation = () => {
 const StackNavigator: FC<{}> = () => {
   const loading: LoadingProps = useSelector(state => state.loading);
   const navRef = useRef();
+
   const onNavigationReady = () => {
     SplashScreen.hide();
     navRef.current = navigationRef.current.getCurrentRoute().name;
     isReadyRef.current = true;
   };
 
+  // TODO: use branch params to handle referring users
+  // ( i might not have to handle it since saveInstall params
+  // can take a undefined value)
+  //
+  // Also be careful that it doesnt navigate to the product screen
+  // every single time the app opens
   const linking = { // wtf
     prefixes: ['lootswap://'],
+
     config: {
       screens: {
         AppScreens: {
           screens: {
             BottomTabs: {
               screens: {
+                Home: {
+                  screens: {
+                    ProductDetailsScreen: 'product/:productId',
+                  },
+                },
                 Profile: {
                   screens: {
                     ProfileScreen: 'profile',
@@ -231,6 +249,57 @@ const StackNavigator: FC<{}> = () => {
         },
       },
     },
+
+    async getInitialURL() {
+      const branchLink = await branch.getLatestReferringParams(true);
+      if (branchLink && branchLink['+clicked_branch_link']) {
+        console.log('saving branchlink', branchLink);
+        const productId = branchLink?.$ios_url?.split('/').pop();
+        /*
+        dispatch(
+          saveInstallParams({
+            referringUserId: branchLink?.userId,
+            marketingChannel: branchLink?.marketingChannel,
+          }),
+          );*/
+        return branchLink['$ios_url'] || Linking.getInitialURL();
+      }
+      
+      console.log('getting initial url');
+      // Fallback to default linking if no Branch link
+      return Linking.getInitialURL();
+    },
+
+    subscribe(listener: any) {
+      const unsubscribeBranch = branch.subscribe(({ error, params }) => {
+        console.log('branch params')
+        if (error) {
+          console.error('Error from Branch: ', error);
+          return;
+        }
+        if (params['+clicked_branch_link']) {
+          console.log('saving params', params);
+          const productId = params?.$ios_url?.split('/').pop();
+          /*
+          dispatch(
+            saveInstallParams({
+              referringUserId: params?.userId,
+              marketingChannel: params?.marketingChannel,
+            }),
+          );
+          */
+          if (params['$ios_url']) {
+            console.log('going to listener', params['$ios_url']);
+
+            listener(params['$ios_url']);
+          }
+        }
+      });
+
+      return () => {
+        unsubscribeBranch();
+      };
+    },
   };
 
   return (
@@ -240,12 +309,6 @@ const StackNavigator: FC<{}> = () => {
       onStateChange={async () => {
         const previousRouteName = navRef.current;
         const currentRouteName = navigationRef.current.getCurrentRoute().name;
-        if (previousRouteName !== currentRouteName) {
-          loggingService().logScreenView({
-            screen_name: currentRouteName,
-            screen_class: currentRouteName,
-          });
-        }
         navRef.current = currentRouteName;
       }}
       linking={linking}>
