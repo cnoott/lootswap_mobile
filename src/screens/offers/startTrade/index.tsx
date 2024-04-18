@@ -51,7 +51,6 @@ export const StartTradeScreen: FC<any> = ({route}) => {
 
   const [loading, setLoading] = useState(false);
 
-  const [trade, setTrade] = useState({});
 
   useEffect(() => {
     console.log('STARTING');
@@ -106,7 +105,6 @@ export const StartTradeScreen: FC<any> = ({route}) => {
         reqData,
         async res => {
           loggingService().logEvent('complete_start_trade_offer');
-          setTrade(res.trade);
           handleCompleteCheckoutNavigation(res.trade);
           dispatch(getAllMyMessages(userData?._id));
           dispatch(
