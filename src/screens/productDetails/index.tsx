@@ -109,7 +109,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const [timesLiked, setTimesLiked] = useState(productData?.timesLiked);
 
   const [shareModalVisible, setShareModalVisible] = useState(false);
-  const toggleShareModal = () => setShareModalVisible(!shareModalVisible);
 
   useEffect(() => {
     if (likedParam) {
@@ -234,6 +233,14 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     navigation.navigate('SignInScreen');
   };
 
+  const toggleShareModal = () => {
+    if (!isLogedIn) {
+      goToLogin();
+      return;
+    }
+    setShareModalVisible(!shareModalVisible);
+  };
+
   const onBuyNowPress = () => {
     if (!isLogedIn) {
       goToLogin();
@@ -288,14 +295,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       userData,
       requestedUserDetails,
     );
-  };
-
-  const handleSharePress = () => {
-    /*
-    const result = await Share.share({
-      message: ``
-    });
-    */
   };
 
   const renderTags = () => {
