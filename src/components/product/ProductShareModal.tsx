@@ -29,6 +29,7 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 import {addSharedProductRequest} from '../../redux/modules';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {Alert} from 'custom_top_alert';
+import {loggingService} from '../../services/loggingService';
 
 interface ProductShareModalProps {
   isVisible: Boolean;
@@ -36,8 +37,6 @@ interface ProductShareModalProps {
   productDetails: any;
 }
 
-// TODO: count entries
-// LOGGING!
 export const ProductShareModal: FC<ProductShareModalProps> =
  ({
   isVisible,
@@ -140,6 +139,7 @@ export const ProductShareModal: FC<ProductShareModalProps> =
     if (uri) {
       CreativeKit.sharePhoto(photoContent).then(() => {
         console.log('done')
+        loggingService().logEvent('share_snapchat');
       })
       .then(() => {
         dispatch(
@@ -154,6 +154,7 @@ export const ProductShareModal: FC<ProductShareModalProps> =
       setTimeout(() => {
         CreativeKit.sharePhoto(photoContent).then(() => {
           console.log('done')
+          loggingService().logEvent('share_snapchat');
         })
         .then(() => {
             dispatch(
@@ -180,6 +181,7 @@ export const ProductShareModal: FC<ProductShareModalProps> =
     };
 
     Share.shareSingle(shareOptions);
+    loggingService().logEvent('share_instagram');
     dispatch(
       addSharedProductRequest({
         productId: productDetails._id,
@@ -197,6 +199,7 @@ export const ProductShareModal: FC<ProductShareModalProps> =
       },
       (completed, cancelled, err) => {
         if (completed) {
+          loggingService().logEvent('share_sms');
           dispatch(
             addSharedProductRequest({
               productId: productDetails._id,
@@ -214,6 +217,7 @@ export const ProductShareModal: FC<ProductShareModalProps> =
     const shareUrl = await generateShareUrl();
     Clipboard.setString(shareUrl);
     Alert.showSuccess('Copied!');
+    loggingService().logEvent('share_copy_link');
   };
 
   return (
