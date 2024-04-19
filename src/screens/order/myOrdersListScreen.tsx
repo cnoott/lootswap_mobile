@@ -101,9 +101,8 @@ export const MyOrdersListScreen: FC<any> = ({route}) => {
       acceptTrade(
         reqData,
         res => {
-          navigation?.navigate('TradeCheckoutScreen', {
-            tradeData: tradeData,
-            orderData: res,
+          navigation?.navigate('AcceptTradeCheckoutScreen', {
+            trade: tradeData,
           });
         },
         error => {
@@ -157,15 +156,13 @@ export const MyOrdersListScreen: FC<any> = ({route}) => {
           });
           break;
         case 'unpaid':
-          navigation?.navigate('TradeCheckoutScreen', {
-            tradeData: tradeOrder.tradeId,
-            orderData: tradeOrder,
+          navigation?.navigate('AcceptTradeCheckoutScreen', {
+            trade: tradeOrder.tradeId,
           });
           break;
         case 'failed':
-          navigation?.navigate('TradeCheckoutScreen', {
-            tradeData: tradeOrder.tradeId,
-            orderData: tradeOrder,
+          navigation?.navigate('AcceptTradeCheckoutScreen', {
+            trade: tradeOrder.tradeId,
           });
           break;
       }
