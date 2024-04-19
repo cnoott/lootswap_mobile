@@ -139,7 +139,6 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     }
   };
 
-
   const handleNext = () => {
     if (!nextValidation()) {
       return;
