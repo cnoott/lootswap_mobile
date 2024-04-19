@@ -44,6 +44,13 @@ export const Spacer = styled.View.attrs(props => ({
   ${layout}
 `;
 
+export const CheckboxContainer = styled.View.attrs(props => ({
+  ml: scale(8),
+}))`
+  ${space}
+  ${layout}
+`;
+
 export const SelectionsContainer = styled.View.attrs(props => ({
   flexDirection: 'row',
   flexWrap: 'wrap',

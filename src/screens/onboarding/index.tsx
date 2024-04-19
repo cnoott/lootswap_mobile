@@ -11,6 +11,7 @@ import {
   ListContainer,
   ButtonContainer,
   Spacer,
+  CheckboxContainer,
 } from './styles';
 import LSDropDown from '../../components/commonComponents/LSDropDown';
 import {shoesSizeList} from '../../utility/utility';
@@ -25,6 +26,10 @@ import {
 } from '../search/filtersScreenStyles';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
+import {loggingService} from '../../services/loggingService';
+import {useSelector, useDispatch} from 'react-redux';
+import {AuthProps} from '../../redux/modules/auth/reducer';
+import {updateUser} from '../../redux/modules';
 
 const brands = [
   'Sp5der',
@@ -58,6 +63,10 @@ export const OnboardingScreen: FC<{}> = () => {
   const [currIndex, setCurrIndex] = useState(0);
   const swiperRef = useRef<any>(null);
   const navigation: NavigationProp<any, any> = useNavigation();
+  const dispatch = useDispatch();
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData} = auth;
+
 
   const [data, setData] = useState({
     shoeSize: '',
@@ -91,10 +100,22 @@ export const OnboardingScreen: FC<{}> = () => {
     });
   };
 
-  // TODO: loggin
+  const handleSaveData = () => {
+    loggingService().logEvent('complete_onboarding');
+    dispatch(
+      updateUser({
+        userId: userData?._id,
+        userData: {onboardingData: data},
+        noLoad: true,
+      }),
+    );
+
+  };
+
   const handleNext = () => {
     if (currIndex === 1) {
-      console.log('DONE!');
+      resetRoute()
+      handleSaveData();
       return;
     }
 
@@ -102,8 +123,10 @@ export const OnboardingScreen: FC<{}> = () => {
   };
 
   const handleSkip = () => {
+    loggingService().logEvent('skip_onboarding');
     resetRoute()
   };
+
 
   const renderButtons = () => {
     return (
@@ -193,38 +216,35 @@ export const OnboardingScreen: FC<{}> = () => {
         <Spacer space={20}/>
         <LabelText>Product Condition You're Interested In</LabelText>
         <Spacer space={10}/>
-
-        <AnimatedCheckBox
-          isChecked={data['conditionInterest'].includes('Both')}
-          selected={data['conditionInterest'].includes('Both')}
-          disableBuiltInState={true}
-          text="Both New & Pre-owned"
-          onPress={() =>
-            handleChange('conditionInterest')('Both')
-          }
-          marginLeft={8}
-        />
-        <AnimatedCheckBox
-          isChecked={data['conditionInterest'].includes('New')}
-          selected={data['conditionInterest'].includes('New')}
-          disableBuiltInState={true}
-          text="New"
-          onPress={() =>
-            handleChange('conditionInterest')('New')
-          }
-          marginLeft={8}
-        />
-        <AnimatedCheckBox
-          isChecked={data['conditionInterest'].includes('Pre-owned')}
-          selected={data['conditionInterest'].includes('Pre-owned')}
-          disableBuiltInState={true}
-          text="Both New & Pre-owned"
-          onPress={() =>
-            handleChange('conditionInterest')('Pre-owned')
-          }
-          marginLeft={8}
-        />
-
+        <CheckboxContainer>
+          <AnimatedCheckBox
+            isChecked={data['conditionInterest'].includes('Both')}
+            selected={data['conditionInterest'].includes('Both')}
+            disableBuiltInState={true}
+            text="Both New & Pre-owned"
+            onPress={() =>
+              handleChange('conditionInterest')('Both')
+            }
+          />
+          <AnimatedCheckBox
+            isChecked={data['conditionInterest'].includes('New')}
+            selected={data['conditionInterest'].includes('New')}
+            disableBuiltInState={true}
+            text="New"
+            onPress={() =>
+              handleChange('conditionInterest')('New')
+            }
+          />
+          <AnimatedCheckBox
+            isChecked={data['conditionInterest'].includes('Pre-owned')}
+            selected={data['conditionInterest'].includes('Pre-owned')}
+            disableBuiltInState={true}
+            text="Both New & Pre-owned"
+            onPress={() =>
+              handleChange('conditionInterest')('Pre-owned')
+            }
+          />
+        </CheckboxContainer>
       </InnerContainer>
     );
   };
