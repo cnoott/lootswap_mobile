@@ -19,3 +19,8 @@ export const resetRoute = (screenName = 'AppScreens', data = {}) => {
     }),
   );
 };
+
+export const navigateToOnboarding = () => {
+  navigationRef.current?.navigate('AppScreens');
+  navigationRef.current?.navigate('OnboardingScreen');
+};

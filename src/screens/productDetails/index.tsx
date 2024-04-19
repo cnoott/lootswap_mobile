@@ -90,6 +90,7 @@ import {Trade_Options, Deal_Type} from 'custom_enums';
 import defaultExport from '@react-native-firebase/messaging';
 import DealBadge from '../../components/dealBadges';
 import {loggingService} from '../../services/loggingService';
+import ProductShareModal from '../../components/product/ProductShareModal';
 
 const height = Dimensions.get('window').height;
 
@@ -106,6 +107,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const {productData = {}, likedParam} = route?.params;
   const [liked, setLiked] = useState(likedParam);
   const [timesLiked, setTimesLiked] = useState(productData?.timesLiked);
+
+  const [shareModalVisible, setShareModalVisible] = useState(false);
 
   useEffect(() => {
     if (likedParam) {
@@ -230,6 +233,14 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     navigation.navigate('SignInScreen');
   };
 
+  const toggleShareModal = () => {
+    if (!isLogedIn) {
+      goToLogin();
+      return;
+    }
+    setShareModalVisible(!shareModalVisible);
+  };
+
   const onBuyNowPress = () => {
     if (!isLogedIn) {
       goToLogin();
@@ -284,14 +295,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       userData,
       requestedUserDetails,
     );
-  };
-
-  const handleSharePress = () => {
-    /*
-    const result = await Share.share({
-      message: ``
-    });
-    */
   };
 
   const renderTags = () => {
@@ -486,7 +489,14 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   };
   return (
     <Container>
-      <InStackHeader back={true} title={''} />
+      <InStackHeader
+        back={true}
+        title={''}
+        right={true}
+        onlyTitleCenterAlign={true}
+        rightIcon={SHARE_ICON}
+        onRightIconPress={toggleShareModal}
+      />
       <ScrollContainer>
         <CarouselComponent
           height={height / 2 + 40}
@@ -540,11 +550,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                 />
                 <ProductDetails>{timesLiked}</ProductDetails>
               </LikeTouchable>
-              {/*
-              <ShareButtonTouchable>
-                <SvgXml xml={SHARE_ICON} />
-              </ShareButtonTouchable>
-              */}
             </DetailsRightView>
           </DetailsContainer>
           <HorizontalBar />
@@ -571,6 +576,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       </ScrollContainer>
 
       {renderInteractButtons()}
+      <ProductShareModal
+        isVisible={shareModalVisible}
+        onCloseModal={() => setShareModalVisible(false)}
+        productDetails={productData}
+      />
     </Container>
   );
 };

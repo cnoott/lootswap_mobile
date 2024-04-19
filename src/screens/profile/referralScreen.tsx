@@ -17,8 +17,14 @@ import {
   Touchable,
   Container,
   ShareButtonContainer,
+  Image,
+  ImageContainer,
+  BulletPointView,
+  Bullet,
+  BulletText,
+  BulletBoldText,
 } from './referralScreenStyles';
-import {COPY_ICON} from 'localsvgimages';
+import {COPY_ICON, SHARE_ICON} from 'localsvgimages';
 import {SvgXml} from 'react-native-svg';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import LSButton from '../../components/commonComponents/LSButton';
@@ -29,12 +35,15 @@ import {saveReferralLinkRequest} from '../../redux/modules/';
 import branch from 'react-native-branch';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {Alert} from 'custom_top_alert';
-import {Share} from 'react-native';
+import {Share, ScrollView} from 'react-native';
 import {loggingService} from '../../services/loggingService';
+import {scale} from 'react-native-size-matters';
 
 export const ReferralScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const dispatch = useDispatch();
+  const homeStates = useSelector(state => state.home);
+  const {shouldShowGiveaway, giveawayImage, giveawayColor} = homeStates;
   const {userData} = auth;
 
   const copyToClipboard = () => {
@@ -75,8 +84,7 @@ export const ReferralScreen: FC<{}> = () => {
         `referral_${userData?._id}`,
         {
           title: 'lootswap referral link',
-          contentDescription:
-            'Share and get paid $5 for every new member you refer!',
+          contentDescription: 'Share and get an entry in the giveaway!',
           contentMetadata: {
             customMetadata: {
               userId: userData?._id,
@@ -113,43 +121,60 @@ export const ReferralScreen: FC<{}> = () => {
 
   return (
     <Container>
-      <TopContainer>
-        <InStackHeader title={'Referral Link'} back />
-
-        <TopTextContainer>
-          <TopTextHeader>
-            Get paid <GreenText>$5</GreenText> for every new member you refer
-            after they complete their first trade! 💸 🔀
-          </TopTextHeader>
-          <TopTextSub>
-            *compensation will be on your lootswap wallet.
-          </TopTextSub>
-
-          <MiddleText>
-            Share with your Friends, Family, Followers, and whoever may be
-            interested in lootswap!
-          </MiddleText>
-        </TopTextContainer>
-
-        <LinkSectionContainer>
-          <LinkHeader>Your Custom Referral Link</LinkHeader>
-          <LinkContainer>
-            <LinkText>{userData?.referralLink}</LinkText>
-            <Touchable onPress={() => copyToClipboard()}>
-              <SvgXml xml={COPY_ICON} />
-            </Touchable>
-          </LinkContainer>
-        </LinkSectionContainer>
-      </TopContainer>
-      <ShareButtonContainer>
-        <LSButton
-          title={'Share Link'}
-          size={Size.Full}
-          type={Type.Primary}
-          radius={20}
-          onPress={() => onShare()}
-        />
-      </ShareButtonContainer>
+      <InStackHeader title={'Referral Link for Giveaway'} back />
+      <ScrollView>
+        <TopContainer>
+          <ImageContainer>
+            <Image
+              source={{uri: giveawayImage}}
+              width={scale(250)}
+              height={scale(115)}
+            />
+          </ImageContainer>
+          <TopTextContainer>
+            <TopTextHeader>How to enter the giveaway 👟:</TopTextHeader>
+          </TopTextContainer>
+          <BulletPointView>
+            <Bullet />
+            <BulletText>
+              <BulletBoldText>Share your custom referral link: </BulletBoldText>
+              Each new account created using your link earns you one entry!
+            </BulletText>
+          </BulletPointView>
+          <BulletPointView>
+            <Bullet />
+            <BulletText>
+              <BulletBoldText>Share any product listing: </BulletBoldText>
+              Tap the share icon <SvgXml
+              xml={SHARE_ICON}
+                margin={0}
+              width={15} height={15}/> on a product listing page to post it on social media. This earns you one entry for every unique product.
+              Plus, if someone signs up after clicking your shared product, you score an extra entry!
+            </BulletText>
+          </BulletPointView>
+          <LinkSectionContainer>
+            <LinkHeader>Your Custom Referral Link</LinkHeader>
+            <LinkContainer>
+              <LinkText>{userData?.referralLink}</LinkText>
+              <Touchable onPress={() => copyToClipboard()}>
+                <SvgXml xml={COPY_ICON} />
+              </Touchable>
+            </LinkContainer>
+          </LinkSectionContainer>
+          <LinkSectionContainer>
+            <LinkHeader>Your entries: {10}</LinkHeader>
+          </LinkSectionContainer>
+        </TopContainer>
+        <ShareButtonContainer>
+          <LSButton
+            title={'Share Link'}
+            size={Size.Full}
+            type={Type.Primary}
+            radius={20}
+            onPress={() => onShare()}
+          />
+        </ShareButtonContainer>
+      </ScrollView>
     </Container>
   );
 };

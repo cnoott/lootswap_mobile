@@ -17,18 +17,22 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.4.7</string>
+	<string>2.5.2</string>
 	<key>CFBundleSignature</key>
-	<string>????</string>
+	<string>?????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>CFBundleURLName</key>
+			<key>CFBundleURLIconFile</key>
 			<string></string>
+			<key>CFBundleURLName</key>
+			<string>lootswap</string>
 			<key>CFBundleURLSchemes</key>
-			<array/>
+			<array>
+				<string>lootswap</string>
+			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
@@ -40,9 +44,19 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.4.7</string>
+	<string>2.5.2</string>
 	<key>CodePushDeploymentKey</key>
 	<string>MLSTmi_7H9-wh-ijIcugIAywADZr5_QT5QA8r</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>snapchat</string>
+		<string>bitmoji-sdk</string>
+		<string>itms-apps</string>
+		<string>instagram-stories</string>
+		<string>mailto</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -66,6 +80,10 @@
 	<string>This app does not require access to the microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app requires access to the photo library.</string>
+	<key>SCSDKClientId</key>
+	<string>561eec20-d054-42a5-890b-1dac90871551</string>
+	<key>SCSDKRedirectUrl</key>
+	<string>lootswap://snapchat</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Inter-Black.otf</string>
@@ -103,5 +121,17 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>URL Types / Document Role</key>
+	<string>Editor</string>
+	<key>URL Types / URL Identifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>URL Types / URL Schemes</key>
+	<array>
+		<string>lootswap</string>
+	</array>
+	<key>branch_app_domain</key>
+	<string>lootswap.app.link</string>
+	<key>branch_key</key>
+	<string>key_test_hBiffYORGiEceLLUflNGwfneBAmaowmP</string>
 </dict>
 </plist>

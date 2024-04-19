@@ -27,6 +27,7 @@ import {
   LIKE_PRODUCT,
   SAVE_INSTALL_PARAMS,
   SKIP_PAYPAL_ONBOARDING,
+  ADD_SHARED_PRODUCT,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
 
@@ -461,6 +462,16 @@ export default function auth(state = InitialState, action: ActionProps) {
       return {
         ...state,
         skippedPaypalOnboarding: true,
+      };
+    }
+    case ADD_SHARED_PRODUCT.SUCCESS: {
+      const updatedSharedProductIds = payload.updatedSharedProductIds;
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          sharedProductIds: updatedSharedProductIds,
+        },
       };
     }
     default:

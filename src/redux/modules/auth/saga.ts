@@ -25,6 +25,7 @@ import {
   SAVE_SEARCH,
   GET_LIKED_PRODUCTS,
   SET_NOTIFS_AS_READ,
+  ADD_SHARED_PRODUCT,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -66,6 +67,8 @@ import {
   getUserDetailsWStockxSuccess,
   setNotifsAsReadSuccess,
   setNotifsAsReadFailure,
+  addSharedProductSuccess,
+  addSharedProductFailure,
 } from './actions';
 import {
   signIn,
@@ -92,9 +95,10 @@ import {
   getUserDetailsWStockxCall,
   setNotifsAsReadCall,
   signInWithAppleCall,
+  addSharedProductCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
-import {resetRoute} from '../../../navigation/navigationHelper';
+import {resetRoute, navigateToOnboarding} from '../../../navigation/navigationHelper';
 import {Alert} from 'custom_top_alert';
 import {loggingService} from '../../../services/loggingService';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
@@ -134,7 +138,8 @@ export function* signUpAPI(action: any) {
     const response: APIResponseProps = yield call(signUp, action?.reqData);
     yield put(LoadingSuccess());
     if (response?.success) {
-      resetRoute();
+      //resetRoute();
+      navigateToOnboarding();
       yield put(signUpSuccess(response.data));
       loggingService().setUserId(response?.data?.user?._id);
       loggingService().logEvent('sign_up', {method: 'email'});
@@ -157,7 +162,8 @@ export function* signInWithGoogleAPI(action: any) {
     yield put(LoadingSuccess());
 
     if (response?.success) {
-      resetRoute();
+      //resetRoute();
+      navigateToOnboarding();
       yield put(signUpSuccess(response.data));
       loggingService().setUserId(response?.data?.user?._id);
       loggingService().logEvent('sign_up', {method: 'google'});
@@ -180,7 +186,8 @@ export function* signInWithAppleAPI(action: any) {
     yield put(LoadingSuccess());
 
     if (response?.success) {
-      resetRoute();
+      //resetRoute();
+      navigateToOnboarding();
       yield put(signUpSuccess(response.data));
       loggingService().setUserId(response?.data?.user?._id);
       loggingService().logEvent('sign_up', {method: 'apple'});
@@ -560,6 +567,22 @@ export function* setNotifsAsRead(action: any) {
   }
 }
 
+export function* addSharedProduct(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      addSharedProductCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      addSharedProductSuccess(response.data);
+    } else {
+      addSharedProductFailure();
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
@@ -585,4 +608,5 @@ export default function* authSaga() {
   yield takeLatest(SAVE_SEARCH.REQUEST, saveSearch);
   yield takeLatest(GET_LIKED_PRODUCTS.REQUEST, getLikedProducts);
   yield takeLatest(SET_NOTIFS_AS_READ.REQUEST, setNotifsAsRead);
+  yield takeLatest(ADD_SHARED_PRODUCT.REQUEST, addSharedProduct);
 }

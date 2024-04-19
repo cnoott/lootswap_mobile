@@ -148,6 +148,7 @@ const HomeStackNavigation = () => (
       component={TradeCheckoutSuccessScreen}
     />
     <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
+    <Stack.Screen name="ReferralScreen" component={ReferralScreen} />
   </Stack.Navigator>
 );
 

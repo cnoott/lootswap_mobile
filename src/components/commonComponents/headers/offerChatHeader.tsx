@@ -179,6 +179,9 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
         }
         return;
       }
+
+      
+
       offerItem.orderId.tradeId = offerItem;
       let orderData = offerItem.orderId;
       orderData.tradeId = offerItem;
@@ -186,15 +189,16 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       orderData.sender = offerItem.sender;
 
       if (paidByBothUsers) {
+        console.log('TRACK ORDER');
         navigation.navigate('TrackOrderScreen', {
           isTradeOrder: true,
           item: orderData,
         });
       } else {
+        console.log('track checkout');
         //Checkout trade order
-        navigation?.navigate('TradeCheckoutScreen', {
-          tradeData: offerItem,
-          orderData: orderData,
+        navigation?.navigate('AcceptTradeCheckoutScreen', {
+          trade: offerItem,
         });
       }
     };

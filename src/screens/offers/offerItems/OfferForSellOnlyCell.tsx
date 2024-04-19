@@ -25,12 +25,12 @@ export const OfferForSellOnlyCell: FC<TradeCheckoutItemProp> = props => {
   const renderDescription = () => {
     return (
       <OfferCellOnlyRightView>
+        <ItemNameText>{itemData?.name}</ItemNameText>
+        <ItemSubLabel>Size: {itemData?.size}</ItemSubLabel>
         <ItemRow>
-          <ItemNameText>{itemData?.name}</ItemNameText>
+          <ItemSubLabel>Condition: {itemData?.condition}</ItemSubLabel>
           <ItemSubValue>${itemData?.price}</ItemSubValue>
         </ItemRow>
-        <ItemSubLabel>Size: {itemData?.size}</ItemSubLabel>
-        <ItemSubLabel>Condition: {itemData?.condition}</ItemSubLabel>
       </OfferCellOnlyRightView>
     );
   };

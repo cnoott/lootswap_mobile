@@ -6,27 +6,16 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
 import {StartTradeStepTwo} from './startTrade/startTradeStepTwo';
 import {StartTradeStepOne} from './startTrade/startTradeStepOne';
-import {StartTradeCheckoutScreen} from './startTrade/startTradeCheckoutScreen';
 import {ReviewTrade} from './startTrade/reviewTrade';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {editTradeCheckout, getTrade} from '../../redux/modules';
-import {useStripe} from '@stripe/stripe-react-native';
 import {Alert} from 'custom_top_alert';
-import {LoadingRequest} from '../../redux/modules/loading/actions';
 import {LoadingProps} from '../../redux/modules/loading/reducer';
 import {calculateMarketValue} from '../../utility/utility';
 import RobberyModal from '../../components/offers/RobberyModal';
 import {TradeProps} from '../../redux/modules/offers/reducer';
-
-type PaymentDetails = {
-  platformFee: number;
-  toUserRate: number;
-  toWarehouseRate: number;
-  total: number;
-  userPayout: number;
-};
 
 export const EditTradeScreen: FC<any> = ({route}) => {
   const {isReceiver} = route?.params;
@@ -38,19 +27,9 @@ export const EditTradeScreen: FC<any> = ({route}) => {
   const dispatch = useDispatch();
   const {userData} = auth;
   const navigation: NavigationProp<any, any> = useNavigation();
-  const {initPaymentSheet, presentPaymentSheet} = useStripe();
   const loadingStockxData: LoadingProps = useSelector(state => state.loading);
-  const [loading, setLoading] = useState(false);
 
   const [robberyModalVisible, setRobberyModalVisible] = useState(false);
-
-  const [paymentDetails, setPaymentDetails] = useState<PaymentDetails>({
-    platformFee: 0,
-    toUserRate: 0,
-    toWarehouseRate: 0,
-    total: 0,
-    userPayout: 0,
-  });
 
   const [senderItems, setSenderItems] = useState(() => {
     let selectedItems;
@@ -162,12 +141,7 @@ export const EditTradeScreen: FC<any> = ({route}) => {
         };
       case 2:
         return {
-          title: 'Review Order',
-          profilePicture: '',
-        };
-      case 3:
-        return {
-          title: 'Checkout & Submit Offer',
+          title: 'Review New Offer',
           profilePicture: '',
         };
     }
@@ -211,22 +185,11 @@ export const EditTradeScreen: FC<any> = ({route}) => {
               }
             />
           );
-        case 4:
-          return (
-            <StartTradeCheckoutScreen
-              receiverItems={receiverItems.filter(item => item?.isSelected)}
-              senderItems={senderItems.filter(item => item?.isSelected)}
-              paymentDetails={paymentDetails}
-              loading={loading}
-              openPaymentSheet={openPaymentSheet}
-              isReceiver={isReceiver}
-            />
-          );
       }
     });
   };
 
-  const initializePaymentSheet = () => {
+  const completeEditTrade = () => {
     const reqData = {
       receiverItems: receiverItems.filter(item => item?.isSelected),
       senderItems: senderItems.filter(item => item?.isSelected),
@@ -239,49 +202,21 @@ export const EditTradeScreen: FC<any> = ({route}) => {
       editTradeCheckout(
         reqData,
         async res => {
-          setPaymentDetails(res.rateData);
-          const {paymentIntent, ephemeralKey, customer} = res.stripeData;
-          const {error} = await initPaymentSheet({
-            merchantDisplayName: 'lootswap, Inc.',
-            customerId: customer,
-            customerEphemeralKeySecret: ephemeralKey,
-            paymentIntentClientSecret: paymentIntent,
-            applePay: {
-              merchantCountryCode: 'US',
-            },
-          });
-          if (!error) {
-            setLoading(true);
-            swiperRef?.current?.scrollTo(currIndex + 1);
-          }
+          dispatch(
+            getTrade({
+              userId: userData?._id,
+              tradeId: trade._id,
+            }),
+          );
+          navigation.goBack();
         },
         error => {
           console.log('ERRRO');
+          Alert.showError(error);
         },
       ),
     );
   };
-
-  const openPaymentSheet = async () => {
-    const {error} = await presentPaymentSheet();
-    console.log('TRADE DATA', trade);
-    if (error) {
-      Alert.showError(error?.message);
-    } else {
-      setTimeout(async () => {
-        navigation.goBack();
-        dispatch(
-          getTrade({
-            userId: userData?._id,
-            tradeId: trade._id,
-          }),
-        );
-      }, 1000);
-      //settimeout then refetch trade
-    }
-  };
-
-  //TODO; nextValidation()
 
   const handleNext = () => {
     if (currIndex === 2) {
@@ -313,14 +248,15 @@ export const EditTradeScreen: FC<any> = ({route}) => {
       var myMarketValue = parseInt(myMarketValueString.slice(1), 10);
       otherUserMarketValue += otherMoneyOffer;
       myMarketValue += myMoneyOffer;
-
+      /*
       if (myMarketValue < otherUserMarketValue * 0.7) {
         setRobberyModalVisible(true);
         return;
       }
+      */
     }
     if (currIndex + 1 === 3) {
-      initializePaymentSheet();
+      completeEditTrade();
       return;
     }
     swiperRef?.current?.scrollTo(currIndex + 1);
@@ -338,7 +274,7 @@ export const EditTradeScreen: FC<any> = ({route}) => {
     currIndex !== 3 && (
       <ButtonContainer>
         <LSButton
-          title={currIndex === 3 ? 'Checkout & Edit' : 'Next'}
+          title={currIndex === 2 ? 'Submit' : 'Next'}
           size={Size.Large}
           type={Type.Primary}
           radius={20}
@@ -349,10 +285,6 @@ export const EditTradeScreen: FC<any> = ({route}) => {
 
   return (
     <Container>
-      <RobberyModal
-        isModalVisible={robberyModalVisible}
-        setModalVisible={setRobberyModalVisible}
-      />
       <LSStartTradeHeader
         title={headerTitleOptions()?.title}
         profilePicture={headerTitleOptions()?.profilePicture}

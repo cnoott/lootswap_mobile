@@ -11,6 +11,7 @@ export const ItemContainer = styled.TouchableOpacity.attrs(props => ({
   activeOpacity: 0.8,
   borderRadius: scale(productRadius),
   overflow: 'hidden',
+  backgroundColor: 'white',
 }))`
   ${space}
   ${layout}
@@ -75,7 +76,6 @@ export const CellBottomView = styled.View.attrs(() => ({
 
 export const BottomHeaderView = styled.View.attrs(props => ({
   justifyContent: 'space-between',
-  flex: 1,
   my: scale(props?.isMiddle ? 2 : 0),
 }))`
   flex-direction: row ${space} ${layout} ${color};

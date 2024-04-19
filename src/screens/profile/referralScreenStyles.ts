@@ -20,17 +20,18 @@ export const TopContainer = styled.View.attrs(props => ({
 `;
 
 export const TopTextContainer = styled.View.attrs((props: any) => ({
-  mt: verticalScale(15),
-  p: scale(18),
+  mt: verticalScale(10),
 }))`
+  align-items: center;
   ${space} ${border} ${color};
 `;
 
 export const TopTextHeader = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
 }))`
-  font-size: ${moderateScale(18)}px;
+  font-size: ${moderateScale(20)}px;
   font-family: Urbanist-Bold;
+  align-items: center;
   ${color}
   ${space}
   ${layout}
@@ -126,4 +127,48 @@ export const ShareButtonContainer = styled.View.attrs(props => ({
 }))`
   ${space}
   ${layout}
+`;
+
+export const ImageContainer = styled.View.attrs(() => ({
+}))`
+  align-items: center;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const Image = styled.Image.attrs((props: any) => ({
+  height: scale(props?.height),
+  width: scale(props?.width),
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const BulletPointView = styled.View`
+  flex-direction: row;
+  margin-vertical: ${verticalScale(5)}px;
+  width: 80%;
+  margin-left: 8%
+`;
+
+export const Bullet = styled.View`
+  width: ${scale(4)}px;
+  height: ${scale(4)}px;
+  border-radius: ${scale(2)}px;
+  background-color: #6267FE;
+  margin-right: ${scale(10)}px;
+  margin-top: ${scale(8)}px;
+`;
+
+export const BulletBoldText = styled.Text`
+  font-size: ${moderateScale(15)}px;
+  font-family: Urbanist-ExtraBold;
+  color: #6A74DF;
+`;
+export const BulletText = styled.Text`
+  font-size: ${moderateScale(15)}px;
+  font-family: Urbanist;
+  color: black;
 `;

@@ -135,7 +135,7 @@ export const getProfileOptions = (userData: any) => {
   const optionsList: Array<PROFILE_OPTIONS_TYPE> = [
     {
       icon: PROFILE_REFERRAL,
-      title: 'Referral program',
+      title: 'Referral program - JOIN GIVEAWAY',
       index: 1,
     },
     {
@@ -1227,6 +1227,9 @@ export const isAlreadyTrading = (
     if (
       trade.receiverItems.some(receiverItem => receiverItem._id === productId)
     ) {
+      if (trade.status === 'canceled' || trade.status === 'declined') {
+        return false;
+      }
       return trade;
     }
   }
@@ -1276,6 +1279,12 @@ const hasTradeOnly = (products: Array<any>) => {
   );
 };
 
+const hasPreowned = (products: Array<any>) => {
+  return products.find(
+    product => product.condition === 'Pre-owned' && !product.stockxId,
+  );
+};
+
 const getAllPrices = (products: Array<any>) => {
   let allPrices = [];
   products.forEach(product => {
@@ -1303,6 +1312,10 @@ const getAllPrices = (products: Array<any>) => {
 
 export const calculateMarketValue = (products: Array<any>) => {
   if (hasTradeOnly(products)) {
+    return 'Unknown';
+  }
+
+  if (hasPreowned(products)) {
     return 'Unknown';
   }
 

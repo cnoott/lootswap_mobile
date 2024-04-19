@@ -32,10 +32,16 @@ interface LSProductCardProps {
   item: any;
   liked?: boolean;
   isHorizontalView?: boolean;
+  onImageLoad?: Function;
 }
 
 const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
-  const {item, onPress = () => {}, isHorizontalView = false} = props;
+  const {
+    item,
+    onPress = () => {},
+    isHorizontalView = false,
+    onImageLoad = () => {},
+  } = props;
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const theme = useTheme();
   const auth: AuthProps = useSelector(state => state.auth);
@@ -152,6 +158,7 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
             source={{uri: item.primary_photo}}
             onLoad={() => {
               setImageLoading(false);
+              onImageLoad();
             }}
           />
         </ImageContainer>

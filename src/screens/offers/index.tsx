@@ -282,11 +282,11 @@ export const OffersScreen: FC<{}> = () => {
 
   const renderOfferItem = ({item}: any) => {
     if (item.isTrade) {
-    return (
+      return (
         <OfferCellContainer
           key={item._id}
           onPress={() => tradeOfferCellOnPress(item)}>
-          <RenderUserDetails item={item} isTrade={true}/>
+          <RenderUserDetails item={item} isTrade={true} />
           <TradeOfferCell
             offerItem={item}
             isInTrade={false}

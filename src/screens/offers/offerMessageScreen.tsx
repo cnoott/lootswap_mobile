@@ -40,6 +40,8 @@ import {FlatList, AppState} from 'react-native';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 import {Pusher, PusherEvent} from '@pusher/pusher-websocket-react-native';
 import {setNotifAsRead} from '../../redux/modules';
+import LSButton from '../../components/commonComponents/LSButton';
+import {Size, Type} from 'custom_enums';
 
 export const OffersMessageScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -153,6 +155,7 @@ export const OffersMessageScreen: FC<{}> = props => {
 
   useEffect(() => {
     if (tradeData?.trade) {
+      messageListref.current?.scrollToEnd({animated: true})
       dispatch(
         clearTradeNotif({
           userId: userData?._id,
@@ -306,8 +309,8 @@ export const OffersMessageScreen: FC<{}> = props => {
       <ChatContainer>
         <FlatList
           ref={it => messageListref.current = it}
-          initialScrollIndex={offerItem ? offerItem.messages.length - 1 : 0}
           data={offerItem ? offerItem.messages : []}
+          keyExtractor={(item, index) => item.message + index}
           //extraData={messagesList}
           renderItem={({item}) =>
             renderMessage(item?.userName === userData?.name, item)
@@ -323,6 +326,20 @@ export const OffersMessageScreen: FC<{}> = props => {
           }
         />
       </ChatContainer>
+    );
+  };
+  const renderCounterOfferButton = () => {
+    if (!isReceiver) {
+      return <></>
+    }
+    return (
+      <LSButton
+        title={'Send Counter Offer'}
+        size={Size.Full}
+        type={Type.Primary}
+        radius={10}
+        onPress={onEditTradePress}
+      />
     );
   };
   return (
@@ -350,6 +367,7 @@ export const OffersMessageScreen: FC<{}> = props => {
       />
       <KeyboardAvoidingView>
         {renderChatView()}
+        {renderCounterOfferButton()}
         <InputContainer bottomSpace={insets.bottom}>
           {renderLeftInputView()}
           {renderRightInputView()}
