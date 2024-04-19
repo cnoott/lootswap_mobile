@@ -46,6 +46,7 @@ import {useNotifications} from '../utility/customHooks/useNotifications';
 import useFCMNotifications from '../utility/customHooks/useFCMNotifications';
 import useBranch from '../utility/customHooks/useBranch';
 import {loggingService} from '../services/loggingService';
+import OnboardingScreen from '../screens/onboarding';
 
 const Stack = createStackNavigator();
 
@@ -144,6 +145,12 @@ const AppNavigation = () => {
       <Stack.Screen
         name="EmailSignupScreen"
         component={EmailSignupScreen}
+        options={{presentation: 'modal'}}
+      />
+
+      <Stack.Screen
+        name="OnboardingScreen"
+        component={OnboardingScreen}
         options={{presentation: 'modal'}}
       />
 
