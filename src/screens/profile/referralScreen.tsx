@@ -161,9 +161,7 @@ export const ReferralScreen: FC<{}> = () => {
               </Touchable>
             </LinkContainer>
           </LinkSectionContainer>
-          <LinkSectionContainer>
-            <LinkHeader>Your entries: {10}</LinkHeader>
-          </LinkSectionContainer>
+        
         </TopContainer>
         <ShareButtonContainer>
           <LSButton
