@@ -1,0 +1,264 @@
+import React, {FC, useRef, useState} from 'react';
+import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
+import {
+  Container,
+  ProgressBar,
+  SwiperComponent,
+  CloseTouchable,
+  LabelText,
+  InnerContainer,
+  SelectionsContainer,
+  ListContainer,
+  ButtonContainer,
+  Spacer,
+} from './styles';
+import LSDropDown from '../../components/commonComponents/LSDropDown';
+import {shoesSizeList} from '../../utility/utility';
+import {SvgXml} from 'react-native-svg';
+import {TRADE_MODAL_CLOSE_BUTTON} from 'localsvgimages';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {resetRoute} from '../../navigation/navigationHelper';
+import {
+  FilterButton,
+  FilterButtonText,
+  AnimatedCheckBox,
+} from '../search/filtersScreenStyles';
+import LSButton from '../../components/commonComponents/LSButton';
+import {Size, Type} from '../../enums';
+
+const brands = [
+  'Sp5der',
+  'Travis Scott',
+  'Gucci',
+  'Prada',
+  'Nike',
+  'Adidas',
+  'Jordan',
+  'Fear of God',
+  'Supreme',
+  'Balenciaga',
+];
+
+const tops = [
+  'S',
+  'M',
+  'L',
+  'XXL',
+];
+
+const bottoms = [
+  'S',
+  'M',
+  'L',
+  'XXL',
+];
+
+
+export const OnboardingScreen: FC<{}> = () => {
+  const [currIndex, setCurrIndex] = useState(0);
+  const swiperRef = useRef<any>(null);
+  const navigation: NavigationProp<any, any> = useNavigation();
+
+  const [data, setData] = useState({
+    shoeSize: '',
+    topsSizes: [],
+    bottomsSizes: [],
+    favoriteBrands: [],
+    conditionInterest: [],
+  });
+
+  const handleShoeSizeChange = ({value}) => {
+    setData({...data, shoeSize: value});
+  };
+
+  const handleChange = name => value => {
+    setData(prevData => {
+      const newArray = prevData[name];
+      // Check if the value is already included in the array
+      if (newArray.includes(value)) {
+        // Filter out the value from the array
+        return {
+          ...prevData,
+          [name]: newArray.filter(item => item !== value)
+        };
+      } else {
+        // Add the value to the array
+        return {
+          ...prevData,
+          [name]: [...newArray, value]
+        };
+      }
+    });
+  };
+
+  // TODO: loggin
+  const handleNext = () => {
+    if (currIndex === 1) {
+      console.log('DONE!');
+      return;
+    }
+
+    swiperRef?.current?.scrollTo(currIndex + 1);
+  };
+
+  const handleSkip = () => {
+    resetRoute()
+  };
+
+  const renderButtons = () => {
+    return (
+      <ButtonContainer>
+        <LSButton
+          title={'Skip'}
+          size={Size.Fit_To_Width}
+          type={Type.Grey}
+          radius={20}
+          onPress={() => handleSkip()}
+          marginBottom={20}
+        />
+        <LSButton
+          title={'Next'}
+          size={Size.Fit_To_Width}
+          type={Type.Primary}
+          radius={20}
+          onPress={() => handleNext()}
+        />
+      </ButtonContainer>
+    );
+  };
+
+  const filterIsSelected = (option, type) => {
+    return data[type].includes(selectedData);
+  };
+
+  const renderFilter = ({item}, type) => {
+    return (
+      <FilterButton
+        onPress={() => handleChange(type)(item)}
+        isSelected={data[type].includes(item)}
+        key={item}
+        horizontalPadding={9}>
+        <FilterButtonText isSelected={data[type].includes(item)}>
+          {item}
+        </FilterButtonText>
+      </FilterButton>
+    );
+  };
+
+  const RenderListFilter = ({ data, title, type }) => {
+    return (
+      <ListContainer>
+        <LabelText>{title}</LabelText>
+        <SelectionsContainer>
+          {data.map((item, index) => (
+            renderFilter({ item }, type)
+          ))}
+        </SelectionsContainer>
+      </ListContainer>
+    );
+  };
+  const RenderStepOne = () => {
+    return (
+      <InnerContainer>
+        <LabelText>Select Your Shoe Size</LabelText>
+        <LSDropDown
+          isSearch={true}
+          itemsList={shoesSizeList}
+          dropdownLabel={'Size'}
+          onSelectItem={handleShoeSizeChange}
+          selectedValue={{label: data.shoeSize, value: data.shoeSize}}
+        />
+        <RenderListFilter
+          data={tops}
+          title={'Select Your Tops Size'}
+          type={'topsSizes'}
+        />
+        <RenderListFilter
+          data={bottoms}
+          title={'Select Your Bottoms Size'}
+          type={'bottomsSizes'}
+        />
+      </InnerContainer>
+    );
+  };
+
+  const RenderStepTwo = () => {
+    return (
+      <InnerContainer>
+        <RenderListFilter
+          data={brands}
+          title={'Select Your Favorite Brands'}
+          type={'favoriteBrands'}
+        />
+        <Spacer space={20}/>
+        <LabelText>Product Condition You're Interested In</LabelText>
+        <Spacer space={10}/>
+
+        <AnimatedCheckBox
+          isChecked={data['conditionInterest'].includes('Both')}
+          selected={data['conditionInterest'].includes('Both')}
+          disableBuiltInState={true}
+          text="Both New & Pre-owned"
+          onPress={() =>
+            handleChange('conditionInterest')('Both')
+          }
+          marginLeft={8}
+        />
+        <AnimatedCheckBox
+          isChecked={data['conditionInterest'].includes('New')}
+          selected={data['conditionInterest'].includes('New')}
+          disableBuiltInState={true}
+          text="New"
+          onPress={() =>
+            handleChange('conditionInterest')('New')
+          }
+          marginLeft={8}
+        />
+        <AnimatedCheckBox
+          isChecked={data['conditionInterest'].includes('Pre-owned')}
+          selected={data['conditionInterest'].includes('Pre-owned')}
+          disableBuiltInState={true}
+          text="Both New & Pre-owned"
+          onPress={() =>
+            handleChange('conditionInterest')('Pre-owned')
+          }
+          marginLeft={8}
+        />
+
+      </InnerContainer>
+    );
+  };
+
+  const renderSteps = () => {
+    return [1, 2].map(page => {
+      switch (page) {
+        case 1:
+          return <RenderStepOne key="step1"/>;
+        case 2:
+          return <RenderStepTwo key="step2"/>;
+        default:
+          break;
+      }
+    });
+  };
+
+
+
+
+  return (
+    <Container>
+      <CloseTouchable onPress={() => navigation.goBack()}>
+        <SvgXml xml={TRADE_MODAL_CLOSE_BUTTON} />
+      </CloseTouchable>
+      <InStackHeader back={false} title={`Finish Your Profile`} />
+      <ProgressBar progress={(currIndex + 1) / 2} />
+
+      <SwiperComponent ref={swiperRef} onIndexChanged={setCurrIndex} removeClippedSubviews={false}  loop={false}>
+        {renderSteps()}
+      </SwiperComponent>
+      {renderButtons()}
+    </Container>
+  );
+};
+
+export default OnboardingScreen;
