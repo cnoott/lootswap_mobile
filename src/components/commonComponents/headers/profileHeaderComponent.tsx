@@ -25,7 +25,7 @@ export const ProfileHeaderComponent: FC<
   return (
     <ProfileHeaderMessageContainer centerAligned={profileInMiddle}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <SvgXml xml={LEFT_BLACK_ARROW} />
+        <SvgXml xml={LEFT_BLACK_ARROW} style={{marginRight: 17}}/>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() =>
