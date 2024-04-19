@@ -208,6 +208,7 @@ export const EditTradeScreen: FC<any> = ({route}) => {
               tradeId: trade._id,
             }),
           );
+          navigation.goBack();
         },
         error => {
           console.log('ERRRO');
@@ -247,11 +248,12 @@ export const EditTradeScreen: FC<any> = ({route}) => {
       var myMarketValue = parseInt(myMarketValueString.slice(1), 10);
       otherUserMarketValue += otherMoneyOffer;
       myMarketValue += myMoneyOffer;
-
+      /*
       if (myMarketValue < otherUserMarketValue * 0.7) {
         setRobberyModalVisible(true);
         return;
       }
+      */
     }
     if (currIndex + 1 === 3) {
       completeEditTrade();
@@ -283,10 +285,6 @@ export const EditTradeScreen: FC<any> = ({route}) => {
 
   return (
     <Container>
-      <RobberyModal
-        isModalVisible={robberyModalVisible}
-        setModalVisible={setRobberyModalVisible}
-      />
       <LSStartTradeHeader
         title={headerTitleOptions()?.title}
         profilePicture={headerTitleOptions()?.profilePicture}
