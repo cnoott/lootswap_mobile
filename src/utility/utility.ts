@@ -1227,6 +1227,9 @@ export const isAlreadyTrading = (
     if (
       trade.receiverItems.some(receiverItem => receiverItem._id === productId)
     ) {
+      if (trade.status === 'canceled' || trade.status === 'declined') {
+        return false;
+      }
       return trade;
     }
   }
