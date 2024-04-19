@@ -416,9 +416,9 @@ export const HomeScreen: FC<{}> = () => {
           isHome={true}
           renderSearchBar={renderSearchBar}
         />
-        {renderPublicOffers()}
         {renderHotProductsSection()}
         {renderAllProductsSection()}
+        {renderPublicOffers()}
       </ScrollView>
     </Container>
   );
