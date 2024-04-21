@@ -59,11 +59,11 @@ export const ProductShareCard: FC<ProductShareCardProps> = ({
           )}
           </View>
           <CellBottomView>
-            <BottomHeaderView>
+            <BottomHeaderView isFromShare={true}>
               <HeaderTextMain>{productDetails.name}</HeaderTextMain>
             </BottomHeaderView>
 
-            <BottomHeaderView>
+            <BottomHeaderView isFromShare={true}>
               <HeaderDes>{productDetails.brand}</HeaderDes>
             {productDetails.type !== 'trade-only' && (
               <HeaderTextMain>${productDetails.price}</HeaderTextMain>
