@@ -273,7 +273,9 @@ export const UserChatScreen: FC<any> = ({route}) => {
   };
 
   const renderButtons = () => {
-    if (historyMessages?.product?.userId === userData?._id) {
+    if (
+      historyMessages?.product?.userId === userData?._id ||
+      historyMessages?.isSupportMessage) {
       return <></>;
     }
 
@@ -334,6 +336,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
           isReceiver ? historyMessages?.sender : historyMessages?.receiver
         }
         profileInMiddle={true}
+        isSupportMessage={historyMessages?.isSupportMessage}
       />
       <KeyboardAvoidingView>
         <SubContainer>{renderMessagesListView()}</SubContainer>

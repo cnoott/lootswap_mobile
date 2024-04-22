@@ -33,10 +33,11 @@ interface HeaderProps {
   productData?: any;
   otherUserData?: any;
   profileInMiddle?: boolean;
+  isSupportMessage?: Boolean;
 }
 
 export const InUserChatHeader: FC<HeaderProps> = React.memo(
-  ({title, onRightDotsPress, productData, otherUserData, profileInMiddle = false}) => {
+  ({title, onRightDotsPress, productData, otherUserData, profileInMiddle = false, isSupportMessage = false}) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
     const [accOpen, setAccOpen] = useState(false);
 
@@ -83,7 +84,7 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
             />
           </EmptyRowView>
         </ProfileHeaderContainer>
-        {renderProductViewContainer()}
+        {!isSupportMessage && renderProductViewContainer()}
       </>
     );
   },

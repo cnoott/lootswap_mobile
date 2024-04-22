@@ -245,6 +245,11 @@ export const OffersScreen: FC<{}> = () => {
             <NameLabel>
               {isReceiver ? <>{item.sender.name}</> : <>{item.receiver.name}</>}
             </NameLabel>
+            {item?.isSupportMessage && (
+              <ProductNameLabel>
+                {item.messages[item.messages.length - 1].message.slice(0,33) + '...'}
+              </ProductNameLabel>
+            )}
             {isTrade && (
               <StatusContainerView
                 bgColor={statusColorObj?.backColor}
@@ -301,13 +306,16 @@ export const OffersScreen: FC<{}> = () => {
         (!isReceiver && item?.senderNewMessage);
       return (
         <OfferCellContainer
+          isMessageItem={true}
           key={item._id}
           onPress={() => goToMessageScreen(item)}>
           <RenderUserDetails item={item} isTrade={false}/>
           {showNotifBadge && <CellBadge top={5} left={5} />}
-          <OwnerDetailsView>
-            <OfferForSellOnlyCell itemData={item.product} />
-          </OwnerDetailsView>
+          {!item?.isSupportMessage && (
+            <OwnerDetailsView>
+              <OfferForSellOnlyCell itemData={item.product} />
+            </OwnerDetailsView>
+          )}
         </OfferCellContainer>
       );
     }
