@@ -3,12 +3,15 @@
  ***/
 
 import {selectFilter, filterProductsRequest} from '../redux/modules';
+import {loggingService} from '../services/loggingService';
 
 export const onSetFilter = (
   dispatch: any,
   filterType: string,
   filter: string,
 ) => {
+  loggingService().logEvent(`select_${filterType}_filter`);
+  console.log('filtertpye',filterType);
   dispatch(selectFilter(filterType, filter));
 };
 
@@ -21,6 +24,7 @@ export const handleSubmitFilters = (
   //Check if filters are empty
   const filtersWithQuery = {...filters, querySearch: query};
   dispatch(filterProductsRequest(filtersWithQuery));
+  loggingService().logEvent('submit_filter');
   if (navigation) {
     navigation?.goBack();
   }

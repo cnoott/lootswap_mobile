@@ -96,6 +96,7 @@ export const SearchScreen: FC<any> = props => {
 
   const handleNavigateToFilters = () => {
     swiperRef?.current?.scrollTo(2);
+    loggingService().logEvent('start_filter');
     navigation?.navigate('FiltersScreen', {
       query: query,
     });
