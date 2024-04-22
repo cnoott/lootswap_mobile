@@ -257,6 +257,15 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       goToLogin();
       return;
     }
+
+    if (
+      isLogedIn &&
+      historyTrades &&
+      isAlreadyTrading(historyTrades, selectedProductDetails?._id)
+    ) {
+      handleGoToTrade();
+      return;
+    }
     dispatch(
       getMessageInitiatedStatus(
         JSON.stringify({
