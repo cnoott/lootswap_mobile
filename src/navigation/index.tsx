@@ -94,7 +94,7 @@ const AppNavigation = () => {
         (latestVersionRes: String) => {
           if (latestVersionRes !== DeviceInfo.getVersion()) {
             AlertModal.alert(
-              'Update Avaliable',
+              'Update Available',
               'In order to continue using lootswap, you must update to the latest version',
               [
                 {
