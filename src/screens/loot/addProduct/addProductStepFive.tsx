@@ -199,7 +199,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
             keyboardType={'numeric'}
             onBlurCall={onBlurCall}
           />
-          {(stepFive?.median !== 0  && stepTwo?.condition.value !== 'Pre-owned') && renderMarketRange()
+          {(stepFive?.median !== 0  && stepTwo?.condition?.value !== 'Pre-owned') && renderMarketRange()
           }
           {renderShippingView()}
           {!stepFive?.isFreeShipping && (
