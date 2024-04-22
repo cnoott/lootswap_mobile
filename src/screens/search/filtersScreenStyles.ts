@@ -53,6 +53,7 @@ ${layout}
 
 export const FilterButton = styled.TouchableOpacity.attrs(props => ({
   mx: scale(5),
+  my: scale(2),
   px: scale(props?.horizontalPadding || 20),
   py: scale(8),
   borderColor: props?.isSelected
@@ -60,7 +61,7 @@ export const FilterButton = styled.TouchableOpacity.attrs(props => ({
     : props.theme.colors.divider,
   borderWidth: scale(2),
   borderRadius: scale(10),
-  bg: props?.isSelected ? props.theme.colors.primary : 'transparent',
+  bg: props?.isSelected ? props.theme.colors.primary : 'transparent', 
 }))`
   align-items: center;
   justify-content: center;
