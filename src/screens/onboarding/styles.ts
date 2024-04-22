@@ -11,6 +11,7 @@ export const Container = styled.View.attrs(props => ({
   flex: 1,
   backgroundColor: props.theme.colors.secondary,
 }))`
+  position: relative;
   ${space}
   ${layout}
 `;
@@ -25,14 +26,28 @@ export const InnerContainer = styled.View.attrs(props => ({
 
 export const ListContainer = styled.View.attrs(props => ({
   mt: scale(15),
+  paddingBottom: props?.bottomPadding ? verticalScale(40) : 0,
+}))`
+  ${space}
+  ${layout}
+`;
+
+export const ScrollView = styled.ScrollView.attrs(() => ({
+  contentContainerStyle: {
+    paddingBottom: 200,
+  },
 }))`
   ${space}
   ${layout}
 `;
 
 export const ButtonContainer = styled.View.attrs(props => ({
-  mb: scale(50),
+  mb: moderateScale(32),
 }))`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   ${space}
   ${layout}
 `;
@@ -54,8 +69,9 @@ export const CheckboxContainer = styled.View.attrs(props => ({
 export const SelectionsContainer = styled.View.attrs(props => ({
   flexDirection: 'row',
   flexWrap: 'wrap',
-  allignItems: 'flex-start',
+  alignItems: 'flex-start',
   marginTop: scale(6),
+  paddingVertical: scale(4),
 }))`
   ${space}
   ${layout}
