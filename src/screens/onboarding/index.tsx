@@ -12,9 +12,14 @@ import {
   ButtonContainer,
   Spacer,
   CheckboxContainer,
+  ScrollView,
 } from './styles';
 import LSDropDown from '../../components/commonComponents/LSDropDown';
-import {shoesSizeList} from '../../utility/utility';
+import {
+  shoesSizeList,
+  lowerClothingSize,
+  upperClothingSize,
+} from '../../utility/utility';
 import {SvgXml} from 'react-native-svg';
 import {TRADE_MODAL_CLOSE_BUTTON} from 'localsvgimages';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -42,6 +47,14 @@ const brands = [
   'Fear of God',
   'Supreme',
   'Balenciaga',
+  'Chrome Hearts',
+  'Denim Tears',
+  'New Balance',
+  'Vans',
+  'Off-White',
+  'Puma',
+  'Bape',
+  'ASICS',
 ];
 
 const tops = [
@@ -183,24 +196,26 @@ export const OnboardingScreen: FC<{}> = () => {
   const RenderStepOne = () => {
     return (
       <InnerContainer>
-        <LabelText>Select Your Shoe Size</LabelText>
-        <LSDropDown
-          isSearch={true}
-          itemsList={shoesSizeList}
-          dropdownLabel={'Size'}
-          onSelectItem={handleShoeSizeChange}
-          selectedValue={{label: data.shoeSize, value: data.shoeSize}}
-        />
-        <RenderListFilter
-          data={tops}
-          title={'Select Your Tops Size'}
-          type={'topsSizes'}
-        />
-        <RenderListFilter
-          data={bottoms}
-          title={'Select Your Bottoms Size'}
-          type={'bottomsSizes'}
-        />
+        <ScrollView>
+          <LabelText>Select Your Shoe Size</LabelText>
+          <LSDropDown
+            isSearch={true}
+            itemsList={shoesSizeList}
+            dropdownLabel={'Size'}
+            onSelectItem={handleShoeSizeChange}
+            selectedValue={{label: data.shoeSize, value: data.shoeSize}}
+          />
+          <RenderListFilter
+            data={upperClothingSize.map(size => size.value)}
+            title={'Select Your Tops Size'}
+            type={'topsSizes'}
+          />
+          <RenderListFilter
+            data={lowerClothingSize.map(size => size.value)}
+            title={'Select Your Bottoms Size'}
+            type={'bottomsSizes'}
+          />
+        </ScrollView>
       </InnerContainer>
     );
   };
@@ -208,43 +223,45 @@ export const OnboardingScreen: FC<{}> = () => {
   const RenderStepTwo = () => {
     return (
       <InnerContainer>
-        <RenderListFilter
-          data={brands}
-          title={'Select Your Favorite Brands'}
-          type={'favoriteBrands'}
-        />
-        <Spacer space={20}/>
-        <LabelText>Product Condition You're Interested In</LabelText>
-        <Spacer space={10}/>
-        <CheckboxContainer>
-          <AnimatedCheckBox
-            isChecked={data['conditionInterest'].includes('Both')}
-            selected={data['conditionInterest'].includes('Both')}
-            disableBuiltInState={true}
-            text="Both New & Pre-owned"
-            onPress={() =>
-              handleChange('conditionInterest')('Both')
-            }
+        <ScrollView>
+          <RenderListFilter
+            data={brands}
+            title={'Select Your Favorite Brands'}
+            type={'favoriteBrands'}
           />
-          <AnimatedCheckBox
-            isChecked={data['conditionInterest'].includes('New')}
-            selected={data['conditionInterest'].includes('New')}
-            disableBuiltInState={true}
-            text="New"
-            onPress={() =>
-              handleChange('conditionInterest')('New')
-            }
-          />
-          <AnimatedCheckBox
-            isChecked={data['conditionInterest'].includes('Pre-owned')}
-            selected={data['conditionInterest'].includes('Pre-owned')}
-            disableBuiltInState={true}
-            text="Both New & Pre-owned"
-            onPress={() =>
-              handleChange('conditionInterest')('Pre-owned')
-            }
-          />
-        </CheckboxContainer>
+          <Spacer space={20}/>
+          <LabelText>Product Condition You're Interested In</LabelText>
+          <Spacer space={10}/>
+          <CheckboxContainer>
+            <AnimatedCheckBox
+              isChecked={data['conditionInterest'].includes('Both')}
+              selected={data['conditionInterest'].includes('Both')}
+              disableBuiltInState={true}
+              text="Both New & Pre-owned"
+              onPress={() =>
+                handleChange('conditionInterest')('Both')
+              }
+            />
+            <AnimatedCheckBox
+              isChecked={data['conditionInterest'].includes('New')}
+              selected={data['conditionInterest'].includes('New')}
+              disableBuiltInState={true}
+              text="New"
+              onPress={() =>
+                handleChange('conditionInterest')('New')
+              }
+            />
+            <AnimatedCheckBox
+              isChecked={data['conditionInterest'].includes('Pre-owned')}
+              selected={data['conditionInterest'].includes('Pre-owned')}
+              disableBuiltInState={true}
+              text="Pre-owned"
+              onPress={() =>
+                handleChange('conditionInterest')('Pre-owned')
+              }
+            />
+          </CheckboxContainer>
+        </ScrollView>
       </InnerContainer>
     );
   };
@@ -267,10 +284,10 @@ export const OnboardingScreen: FC<{}> = () => {
 
   return (
     <Container>
-      <CloseTouchable onPress={() => navigation.goBack()}>
+      <InStackHeader back={false} title={`Finish Your Profile`} />
+      <CloseTouchable onPress={handleSkip}>
         <SvgXml xml={TRADE_MODAL_CLOSE_BUTTON} />
       </CloseTouchable>
-      <InStackHeader back={false} title={`Finish Your Profile`} />
       <ProgressBar progress={(currIndex + 1) / 2} />
 
       <SwiperComponent ref={swiperRef} onIndexChanged={setCurrIndex} removeClippedSubviews={false}  loop={false}>
