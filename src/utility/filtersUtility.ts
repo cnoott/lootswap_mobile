@@ -11,7 +11,7 @@ export const onSetFilter = (
   filter: string,
 ) => {
   loggingService().logEvent(`select_${filterType}_filter`);
-  console.log('filtertpye',filterType);
+  console.log('filtertpye', filterType);
   dispatch(selectFilter(filterType, filter));
 };
 

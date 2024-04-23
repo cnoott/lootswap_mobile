@@ -32,7 +32,11 @@ type PaymentDetails = {
 const NUMBER_OF_STEPS = 5;
 
 export const StartTradeScreen: FC<any> = ({route}) => {
-  const {requestedUserDetails, userData, isFromMessageScreen = false} = route?.params;
+  const {
+    requestedUserDetails,
+    userData,
+    isFromMessageScreen = false,
+  } = route?.params;
   const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation();
   const swiperRef = useRef<any>(null);
@@ -50,7 +54,6 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   const [requestedMoneyOffer, setRequestedMoneyOffer] = useState(0);
 
   const [loading, setLoading] = useState(false);
-
 
   useEffect(() => {
     console.log('STARTING');
@@ -118,7 +121,6 @@ export const StartTradeScreen: FC<any> = ({route}) => {
         },
       ),
     );
-
   };
 
   const handleCompleteCheckoutNavigation = (tradeData: any) => {

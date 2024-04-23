@@ -320,7 +320,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     );
   };
 
-
   // XXX This code (sort of) repeats itself in the MessageOptionsModal
   const renderInteractButtons = () => {
     if (isLogedIn && userData?._id === productData?.userId) {

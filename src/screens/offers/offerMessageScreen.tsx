@@ -84,11 +84,14 @@ export const OffersMessageScreen: FC<{}> = props => {
       const pusher = await Pusher.getInstance();
       pusher.unsubscribe(tradeId);
     };
-  },[]);
+  }, []);
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
-      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
         console.log('back from bg');
         const showLoad = false;
         // TODO: show load
@@ -155,7 +158,7 @@ export const OffersMessageScreen: FC<{}> = props => {
 
   useEffect(() => {
     if (tradeData?.trade) {
-      messageListref.current?.scrollToEnd({animated: true})
+      messageListref.current?.scrollToEnd({animated: true});
       dispatch(
         clearTradeNotif({
           userId: userData?._id,
@@ -308,7 +311,7 @@ export const OffersMessageScreen: FC<{}> = props => {
     return (
       <ChatContainer>
         <FlatList
-          ref={it => messageListref.current = it}
+          ref={it => (messageListref.current = it)}
           data={offerItem ? offerItem.messages : []}
           keyExtractor={(item, index) => item.message + index}
           //extraData={messagesList}
@@ -330,7 +333,7 @@ export const OffersMessageScreen: FC<{}> = props => {
   };
   const renderCounterOfferButton = () => {
     if (!isReceiver) {
-      return <></>
+      return <></>;
     }
     return (
       <LSButton

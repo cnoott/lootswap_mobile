@@ -93,13 +93,13 @@ export const SearchScreen: FC<any> = props => {
       setLoadingItems([]);
       console.log('not loading');
     }
-  }, [loading])
+  }, [loading]);
 
   useEffect(() => {
     if (query) {
       onSubmitSearch(query);
     }
-  }, [query])
+  }, [query]);
 
   const handleNavigateToFilters = () => {
     swiperRef?.current?.scrollTo(2);
@@ -195,9 +195,11 @@ export const SearchScreen: FC<any> = props => {
 
   const renderItem = ({item, index}: any) => {
     if (item.loading) {
-      return <LoadingProductCard key={`loading-${index}`} />
+      return <LoadingProductCard key={`loading-${index}`} />;
     }
-    return <LSProductCard item={item} isHorizontalView={false} key={item._id}/>;
+    return (
+      <LSProductCard item={item} isHorizontalView={false} key={item._id} />
+    );
   };
 
   const handlePressRecentSearch = (recentSearch: string) => {

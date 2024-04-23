@@ -98,7 +98,9 @@ export const HomeScreen: FC<{}> = () => {
 
   useEffect(() => {
     if (publicOffersLoading && !publicOffersEndReached) {
-      setLoadingPublicOffersItems(new Array(4).fill({publicOffersLoading: true}));
+      setLoadingPublicOffersItems(
+        new Array(4).fill({publicOffersLoading: true}),
+      );
       console.log('now loading');
     } else {
       setLoadingPublicOffersItems([]);
@@ -109,7 +111,6 @@ export const HomeScreen: FC<{}> = () => {
   useEffect(() => {
     fetchHomeScreenPublicOffers();
   }, [publicOffersPage]);
-
 
   const fetchHotProducts = useCallback(() => {
     setHotProductsLoading(true);
@@ -155,7 +156,6 @@ export const HomeScreen: FC<{}> = () => {
         },
       ),
     );
-
   }, [page]);
 
   const fetchHomeScreenPublicOffers = useCallback(() => {
@@ -205,7 +205,6 @@ export const HomeScreen: FC<{}> = () => {
     }
   }, [publicOffersPage]);
 
-
   const handleRefresh = async () => {
     setRefreshing(true);
     ReactNativeHapticFeedback.trigger('impactMedium');
@@ -215,8 +214,8 @@ export const HomeScreen: FC<{}> = () => {
     if (publicOffersPage !== 0) {
       setPublicOffersPage(0);
     }
-    setPublicOffers([])
-    setProducts([])
+    setPublicOffers([]);
+    setProducts([]);
     setPublicOffersEndReached(false);
     setEndReached(false);
     fetchHomeScreenPublicOffers();
@@ -246,7 +245,7 @@ export const HomeScreen: FC<{}> = () => {
   const onPublicOfferEndReached = () => {
     console.log('next', publicOffersLoading, publicOffersEndReached);
     if (!publicOffersLoading && !publicOffersEndReached) {
-    console.log('setting next');
+      console.log('setting next');
       setPublicOffersPage(prevPage => prevPage + 1);
     }
   };
@@ -377,9 +376,11 @@ export const HomeScreen: FC<{}> = () => {
               size={Size.ViewSmall}
               type={Type.View}
               radius={20}
-              onPress={() => navigation?.navigate('AllListingsScreen', {
-                hotItems: true,
-              })}
+              onPress={() =>
+                navigation?.navigate('AllListingsScreen', {
+                  hotItems: true,
+                })
+              }
             />
           </SectionTopContainer>
         </SectionContainer>

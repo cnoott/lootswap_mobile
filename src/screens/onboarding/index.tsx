@@ -57,20 +57,9 @@ const brands = [
   'ASICS',
 ];
 
-const tops = [
-  'S',
-  'M',
-  'L',
-  'XXL',
-];
+const tops = ['S', 'M', 'L', 'XXL'];
 
-const bottoms = [
-  'S',
-  'M',
-  'L',
-  'XXL',
-];
-
+const bottoms = ['S', 'M', 'L', 'XXL'];
 
 export const OnboardingScreen: FC<{}> = () => {
   const [currIndex, setCurrIndex] = useState(0);
@@ -79,7 +68,6 @@ export const OnboardingScreen: FC<{}> = () => {
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
-
 
   const [data, setData] = useState({
     shoeSize: '',
@@ -101,13 +89,13 @@ export const OnboardingScreen: FC<{}> = () => {
         // Filter out the value from the array
         return {
           ...prevData,
-          [name]: newArray.filter(item => item !== value)
+          [name]: newArray.filter(item => item !== value),
         };
       } else {
         // Add the value to the array
         return {
           ...prevData,
-          [name]: [...newArray, value]
+          [name]: [...newArray, value],
         };
       }
     });
@@ -122,12 +110,11 @@ export const OnboardingScreen: FC<{}> = () => {
         noLoad: true,
       }),
     );
-
   };
 
   const handleNext = () => {
     if (currIndex === 1) {
-      resetRoute()
+      resetRoute();
       handleSaveData();
       return;
     }
@@ -137,9 +124,8 @@ export const OnboardingScreen: FC<{}> = () => {
 
   const handleSkip = () => {
     loggingService().logEvent('skip_onboarding');
-    resetRoute()
+    resetRoute();
   };
-
 
   const renderButtons = () => {
     return (
@@ -181,14 +167,12 @@ export const OnboardingScreen: FC<{}> = () => {
     );
   };
 
-  const RenderListFilter = ({ data, title, type }) => {
+  const RenderListFilter = ({data, title, type}) => {
     return (
       <ListContainer>
         <LabelText>{title}</LabelText>
         <SelectionsContainer>
-          {data.map((item, index) => (
-            renderFilter({ item }, type)
-          ))}
+          {data.map((item, index) => renderFilter({item}, type))}
         </SelectionsContainer>
       </ListContainer>
     );
@@ -229,36 +213,30 @@ export const OnboardingScreen: FC<{}> = () => {
             title={'Select Your Favorite Brands'}
             type={'favoriteBrands'}
           />
-          <Spacer space={20}/>
+          <Spacer space={20} />
           <LabelText>Product Condition You're Interested In</LabelText>
-          <Spacer space={10}/>
+          <Spacer space={10} />
           <CheckboxContainer>
             <AnimatedCheckBox
               isChecked={data['conditionInterest'].includes('Both')}
               selected={data['conditionInterest'].includes('Both')}
               disableBuiltInState={true}
               text="Both New & Pre-owned"
-              onPress={() =>
-                handleChange('conditionInterest')('Both')
-              }
+              onPress={() => handleChange('conditionInterest')('Both')}
             />
             <AnimatedCheckBox
               isChecked={data['conditionInterest'].includes('New')}
               selected={data['conditionInterest'].includes('New')}
               disableBuiltInState={true}
               text="New"
-              onPress={() =>
-                handleChange('conditionInterest')('New')
-              }
+              onPress={() => handleChange('conditionInterest')('New')}
             />
             <AnimatedCheckBox
               isChecked={data['conditionInterest'].includes('Pre-owned')}
               selected={data['conditionInterest'].includes('Pre-owned')}
               disableBuiltInState={true}
               text="Pre-owned"
-              onPress={() =>
-                handleChange('conditionInterest')('Pre-owned')
-              }
+              onPress={() => handleChange('conditionInterest')('Pre-owned')}
             />
           </CheckboxContainer>
         </ScrollView>
@@ -270,17 +248,14 @@ export const OnboardingScreen: FC<{}> = () => {
     return [1, 2].map(page => {
       switch (page) {
         case 1:
-          return <RenderStepOne key="step1"/>;
+          return <RenderStepOne key="step1" />;
         case 2:
-          return <RenderStepTwo key="step2"/>;
+          return <RenderStepTwo key="step2" />;
         default:
           break;
       }
     });
   };
-
-
-
 
   return (
     <Container>
@@ -290,7 +265,11 @@ export const OnboardingScreen: FC<{}> = () => {
       </CloseTouchable>
       <ProgressBar progress={(currIndex + 1) / 2} />
 
-      <SwiperComponent ref={swiperRef} onIndexChanged={setCurrIndex} removeClippedSubviews={false}  loop={false}>
+      <SwiperComponent
+        ref={swiperRef}
+        onIndexChanged={setCurrIndex}
+        removeClippedSubviews={false}
+        loop={false}>
         {renderSteps()}
       </SwiperComponent>
       {renderButtons()}

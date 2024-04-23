@@ -98,7 +98,10 @@ import {
   addSharedProductCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
-import {resetRoute, navigateToOnboarding} from '../../../navigation/navigationHelper';
+import {
+  resetRoute,
+  navigateToOnboarding,
+} from '../../../navigation/navigationHelper';
 import {Alert} from 'custom_top_alert';
 import {loggingService} from '../../../services/loggingService';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';

@@ -56,7 +56,7 @@ export const StartTradeStepTwo: FC<StartTradeStepTwo> = props => {
             title={'You have no items uploaded'}
             subtitle={'In order to send a trade offer you need to upload items'}
             buttonText={'Upload Item'}
-            handleButtonPress={() =>{
+            handleButtonPress={() => {
               navigation.reset({
                 index: 0,
                 routes: [{name: 'Home'}],

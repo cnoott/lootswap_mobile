@@ -37,7 +37,10 @@ export const OfferForSellOnlyCell: FC<TradeCheckoutItemProp> = props => {
   return (
     <OfferCellOnlyContainer isFromMessageScreen={isFromMessageScreen}>
       <ImageContainer size={75}>
-        <Image size={isFromMessageScreen ? 65 : 75} source={{uri: itemData?.primary_photo}} />
+        <Image
+          size={isFromMessageScreen ? 65 : 75}
+          source={{uri: itemData?.primary_photo}}
+        />
       </ImageContainer>
       {renderDescription()}
     </OfferCellOnlyContainer>

@@ -9,10 +9,7 @@ import {
   ArrowIconContainer,
   ItemCellTouchable,
 } from './styles';
-import {
-  ACCORDIAN_DOWN_ELLIPSE,
-  ACCORDIAN_UP_ELLIPSE,
-} from 'localsvgimages';
+import {ACCORDIAN_DOWN_ELLIPSE, ACCORDIAN_UP_ELLIPSE} from 'localsvgimages';
 import React, {FC, useState} from 'react';
 import {SvgXml} from 'react-native-svg';
 import {PROFILE_TRIPPLE_DOT_ICON} from 'localsvgimages';
@@ -37,7 +34,14 @@ interface HeaderProps {
 }
 
 export const InUserChatHeader: FC<HeaderProps> = React.memo(
-  ({title, onRightDotsPress, productData, otherUserData, profileInMiddle = false, isSupportMessage = false}) => {
+  ({
+    title,
+    onRightDotsPress,
+    productData,
+    otherUserData,
+    profileInMiddle = false,
+    isSupportMessage = false,
+  }) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
     const [accOpen, setAccOpen] = useState(false);
 
@@ -50,7 +54,10 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
     const renderOfferCellView = () => {
       return (
         <ItemCellTouchable onPress={handleProductPress}>
-          <OfferForSellOnlyCell itemData={productData} isFromMessageScreen={true} />
+          <OfferForSellOnlyCell
+            itemData={productData}
+            isFromMessageScreen={true}
+          />
         </ItemCellTouchable>
       );
     };
