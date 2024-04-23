@@ -98,7 +98,10 @@ import {
   addSharedProductCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
-import {resetRoute, navigateToOnboarding} from '../../../navigation/navigationHelper';
+import {
+  resetRoute,
+  navigateToOnboarding,
+} from '../../../navigation/navigationHelper';
 import {Alert} from 'custom_top_alert';
 import {loggingService} from '../../../services/loggingService';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
@@ -138,7 +141,6 @@ export function* signUpAPI(action: any) {
     const response: APIResponseProps = yield call(signUp, action?.reqData);
     yield put(LoadingSuccess());
     if (response?.success) {
-      //resetRoute();
       navigateToOnboarding();
       yield put(signUpSuccess(response.data));
       loggingService().setUserId(response?.data?.user?._id);
@@ -162,8 +164,12 @@ export function* signInWithGoogleAPI(action: any) {
     yield put(LoadingSuccess());
 
     if (response?.success) {
-      //resetRoute();
-      navigateToOnboarding();
+      console.log('response.data', response.data);
+      if (response.data.newUser) {
+        navigateToOnboarding();
+      } else {
+        resetRoute();
+      }
       yield put(signUpSuccess(response.data));
       loggingService().setUserId(response?.data?.user?._id);
       loggingService().logEvent('sign_up', {method: 'google'});
@@ -186,8 +192,11 @@ export function* signInWithAppleAPI(action: any) {
     yield put(LoadingSuccess());
 
     if (response?.success) {
-      //resetRoute();
-      navigateToOnboarding();
+      if (response.data.newUser) {
+        navigateToOnboarding();
+      } else {
+        resetRoute();
+      }
       yield put(signUpSuccess(response.data));
       loggingService().setUserId(response?.data?.user?._id);
       loggingService().logEvent('sign_up', {method: 'apple'});

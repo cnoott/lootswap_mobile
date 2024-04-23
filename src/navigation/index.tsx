@@ -69,7 +69,10 @@ const AppNavigation = () => {
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
-      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
         console.log('back from bg home');
         if (isLogedIn) {
           dispatch(getMyDetailsNoLoadRequest(userData?._id));
@@ -94,7 +97,7 @@ const AppNavigation = () => {
         (latestVersionRes: String) => {
           if (latestVersionRes !== DeviceInfo.getVersion()) {
             AlertModal.alert(
-              'Update Avaliable',
+              'Update Available',
               'In order to continue using lootswap, you must update to the latest version',
               [
                 {
@@ -118,12 +121,11 @@ const AppNavigation = () => {
         },
       ),
     );
-
   }, []);
 
   useEffect(() => {
     dispatch(shouldShowGiveawayRequest());
-  }, [])
+  }, []);
 
   return (
     <Stack.Navigator
@@ -219,7 +221,8 @@ const StackNavigator: FC<{}> = () => {
     isReadyRef.current = true;
   };
 
-  const linking = { // wtf
+  const linking = {
+    // wtf
     prefixes: ['lootswap://'],
     config: {
       screens: {

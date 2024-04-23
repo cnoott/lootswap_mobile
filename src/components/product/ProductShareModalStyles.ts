@@ -1,6 +1,11 @@
 import styled from 'styled-components/native';
 import {color, layout, space} from 'styled-system';
-import {scale, moderateScale, verticalScale, border} from 'react-native-size-matters';
+import {
+  scale,
+  moderateScale,
+  verticalScale,
+  border,
+} from 'react-native-size-matters';
 import {StyleSheet} from 'react-native';
 
 export const ModalStyles = {
@@ -29,26 +34,23 @@ export const ModalSubText: any = styled.Text.attrs(props => ({
   ${layout}
 `;
 
-export const ScrollView: any = styled.ScrollView.attrs(() => ({
-}))`
+export const ScrollView: any = styled.ScrollView.attrs(() => ({}))`
   padding-vertical: ${scale(8)}px;
   padding-bottom: ${scale(20)}px;
-  marginBottom: ${scale(35)}px;
+  marginbottom: ${scale(35)}px;
 `;
 
 export const Image = styled.Image.attrs((props: any) => ({
   width: scale(56),
   height: scale(56),
-  borderRadius: scale(10)
+  borderRadius: scale(10),
 }))`
   ${color}
   ${space}
   ${layout}
 `;
 
-export const IconTouchable = styled.TouchableOpacity.attrs(() => ({
-}))`
-
+export const IconTouchable = styled.TouchableOpacity.attrs(() => ({}))`
   padding-left: ${scale(15)}px;
 `;
 
@@ -134,7 +136,6 @@ export const FreeShipingContainer = styled.View.attrs(() => ({
   ${color}
   ${border}
 `;
-
 
 export const HeaderDes = styled.Text.attrs(props => ({
   color: props.theme.colors.text,

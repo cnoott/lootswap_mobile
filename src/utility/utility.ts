@@ -294,6 +294,10 @@ export const brandsList = [
   {label: 'Kappa', value: 'Kappa'},
   {label: 'Unknown', value: 'Unknown'},
   {label: 'Fear of God', value: 'Fear of God'},
+  {label: 'Chrome Hearts', value: 'Chrome Hearts'},
+  {label: 'Denim Tears', value: 'Denim Tears'},
+  {label: 'New Balance', value: 'New Balance '},
+  {label: 'ASICS', value: 'ASICS'},
 ];
 
 export const categoryList = [
@@ -460,6 +464,7 @@ export const lowerClothingSize = [
   {label: 'M', value: 'M'},
   {label: 'L', value: 'L'},
   {label: 'XL', value: 'XL'},
+  {label: 'XXL', value: 'XXL'},
   {label: '26', value: '26'},
   {label: '27', value: '27'},
   {label: '28', value: '28'},
@@ -761,7 +766,9 @@ export const configureAndGetLootData = (lootData: any) => {
   newLootData.stepFour.tradeOptions = getTradeDataForConfigure(lootData?.type);
   newLootData.stepFour.tradeDescription = lootData?.interestedIn;
 
-  newLootData.stepFour.wantedStockxItems = lootData?.wantedStockxItems.map(item => ({...item.stockxId, size: {value: item.size, label: item.size}}));
+  newLootData.stepFour.wantedStockxItems = lootData?.wantedStockxItems.map(
+    item => ({...item.stockxId, size: {value: item.size, label: item.size}}),
+  );
 
   // Configure STEP 5
   newLootData.stepFive.productPrice = parseFloat(lootData?.price);
@@ -816,8 +823,8 @@ export const validateCreateProductData = (
 
       if (
         (tradeOptions?.isTradeAndSell ||
-        tradeOptions?.isTradeOnly ||
-        tradeOptions?.isSellOnly) &&
+          tradeOptions?.isTradeOnly ||
+          tradeOptions?.isSellOnly) &&
         filledOutStockxSizes
       ) {
         canGoNext = true;

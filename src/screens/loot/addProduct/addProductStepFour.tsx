@@ -32,7 +32,7 @@ import {FlatList, ScrollView, Animated, Dimensions} from 'react-native';
 import ChosenStockxProduct from '../../../components/loot/chosenStockxProduct';
 
 interface ProductStep {
-  updateProductData: Function; 
+  updateProductData: Function;
 }
 
 export const AddProductStepFour: FC<ProductStep> = props => {
@@ -41,7 +41,7 @@ export const AddProductStepFour: FC<ProductStep> = props => {
   );
   const navigation: NavigationProp<any, any> = useNavigation();
   const {stepFour} = addProductData;
-  const [tradeDes, setTradeDes] = useState(stepFour?.tradeDescription || '');  
+  const [tradeDes, setTradeDes] = useState(stepFour?.tradeDescription || '');
   const {updateProductData} = props;
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
@@ -114,7 +114,7 @@ export const AddProductStepFour: FC<ProductStep> = props => {
         (err: any) => {
           console.log('Err', err);
           setLoading(false);
-        }
+        },
       ),
     );
   }, [searchInput, loading, userData?._id, dispatch]);
@@ -273,7 +273,7 @@ export const AddProductStepFour: FC<ProductStep> = props => {
       ...addProductData,
       stepFour: {
         ...addProductData.stepFour,
-        wantedStockxItems: [item, ...wantedStockxItems]
+        wantedStockxItems: [item, ...wantedStockxItems],
       },
     });
     setSearchInput('');
@@ -309,7 +309,9 @@ export const AddProductStepFour: FC<ProductStep> = props => {
               value={searchInput}
               leftIcon={SEARCH_INPUT_ICON}
               placeholder={
-                addProductData?.stepFour?.wantedStockxItems?.length ? 'Search again' : 'Search Item Name'
+                addProductData?.stepFour?.wantedStockxItems?.length
+                  ? 'Search again'
+                  : 'Search Item Name'
               }
               returnKeyType={'search'}
               onSubmitEditing={() => fetchStockxData()}

@@ -145,11 +145,11 @@ export const ReferralScreen: FC<{}> = () => {
             <Bullet />
             <BulletText>
               <BulletBoldText>Share any product listing: </BulletBoldText>
-              Tap the share icon <SvgXml
-              xml={SHARE_ICON}
-                margin={0}
-              width={15} height={15}/> on a product listing page to post it on social media. This earns you one entry for every unique product.
-              Plus, if someone signs up after clicking your shared product, you score an extra entry!
+              Tap the share icon{' '}
+              <SvgXml xml={SHARE_ICON} margin={0} width={15} height={15} /> on a
+              product listing page to post it on social media. This earns you
+              one entry for every unique product. Plus, if someone signs up
+              after clicking your shared product, you score an extra entry!
             </BulletText>
           </BulletPointView>
           <LinkSectionContainer>
@@ -160,9 +160,6 @@ export const ReferralScreen: FC<{}> = () => {
                 <SvgXml xml={COPY_ICON} />
               </Touchable>
             </LinkContainer>
-          </LinkSectionContainer>
-          <LinkSectionContainer>
-            <LinkHeader>Your entries: {10}</LinkHeader>
           </LinkSectionContainer>
         </TopContainer>
         <ShareButtonContainer>

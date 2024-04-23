@@ -116,6 +116,7 @@ export const OfferCellContainer = styled.TouchableOpacity.attrs(props => ({
   alignSelf: 'stretch',
   mb: scale(10),
   p: scale(10),
+  pb: props?.isMessageItem ? verticalScale(20) : 0,
   shadowColor: '#171717',
   shadowOpacity: 0.2,
   shadowRadius: 1,
@@ -239,6 +240,7 @@ export const TimeLabel: any = styled.Text.attrs(props => ({
 export const ProductNameLabel: any = styled.Text.attrs(props => ({
   color: props.theme.colors.greySecondary,
   mr: 10,
+  width: '100%',
 }))`
   font-size: ${moderateScale(14)}px;
   font-family: Urbanist;
@@ -370,7 +372,6 @@ export const OfferItemContainer = styled.View.attrs(props => ({
   borderRadius: scale(10),
   mr: scale(5),
 }))`
- 
   ${layout} ${color} ${space};
 `;
 

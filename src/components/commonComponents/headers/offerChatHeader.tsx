@@ -180,8 +180,6 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
         return;
       }
 
-      
-
       offerItem.orderId.tradeId = offerItem;
       let orderData = offerItem.orderId;
       orderData.tradeId = offerItem;

@@ -136,7 +136,10 @@ export const OffersScreen: FC<{}> = () => {
   useEffect(() => {
     if (!tradeLoading && !messageLoading && allMyMessages?.messageDocs) {
       const trades = historyTrades.map(trade => ({...trade, isTrade: true}));
-      const messages = allMyMessages.messageDocs.map(message => ({...message, isTrade: false}));
+      const messages = allMyMessages.messageDocs.map(message => ({
+        ...message,
+        isTrade: false,
+      }));
 
       let combinedData = [...trades, ...messages];
       combinedData.sort(sortInboxByDate);
@@ -152,7 +155,7 @@ export const OffersScreen: FC<{}> = () => {
     }
     if (
       new Date(objA.updatedAt).getTime() < new Date(objB.updatedAt).getTime()
-    ){
+    ) {
       return 1;
     }
     return 0;
@@ -167,7 +170,6 @@ export const OffersScreen: FC<{}> = () => {
       }),
     );
   };
-
 
   const goToMessageScreen = (msgData: any) => {
     navigation.navigate('UserChatScreen', {
@@ -245,6 +247,12 @@ export const OffersScreen: FC<{}> = () => {
             <NameLabel>
               {isReceiver ? <>{item.sender.name}</> : <>{item.receiver.name}</>}
             </NameLabel>
+            {item?.isSupportMessage && (
+              <ProductNameLabel>
+                {item.messages[item.messages.length - 1].message.slice(0, 33) +
+                  '...'}
+              </ProductNameLabel>
+            )}
             {isTrade && (
               <StatusContainerView
                 bgColor={statusColorObj?.backColor}
@@ -301,13 +309,16 @@ export const OffersScreen: FC<{}> = () => {
         (!isReceiver && item?.senderNewMessage);
       return (
         <OfferCellContainer
+          isMessageItem={true}
           key={item._id}
           onPress={() => goToMessageScreen(item)}>
-          <RenderUserDetails item={item} isTrade={false}/>
+          <RenderUserDetails item={item} isTrade={false} />
           {showNotifBadge && <CellBadge top={5} left={5} />}
-          <OwnerDetailsView>
-            <OfferForSellOnlyCell itemData={item.product} />
-          </OwnerDetailsView>
+          {!item?.isSupportMessage && (
+            <OwnerDetailsView>
+              <OfferForSellOnlyCell itemData={item.product} />
+            </OwnerDetailsView>
+          )}
         </OfferCellContainer>
       );
     }
@@ -375,7 +386,6 @@ export const OffersScreen: FC<{}> = () => {
       )}
     </TabContainer>
   );
-
 
   const countNotifs = (title: string) => {
     switch (title) {

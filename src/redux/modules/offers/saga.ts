@@ -389,8 +389,6 @@ export function* sendTradeMessage(action: any) {
   }
 }
 
-
-
 export default function* offersSaga() {
   yield takeLatest(GET_TRADES_HISTORY.REQUEST, getTradesHistory);
   yield takeLatest(GET_TRADE.REQUEST, getTrade);

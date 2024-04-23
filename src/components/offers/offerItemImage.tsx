@@ -17,7 +17,6 @@ interface OfferItemImageProps {
 
 export const OfferItemImage: FC<OfferItemImageProps> = React.memo(
   ({source, size, isStockxItem = false, isPressable = false, productData}) => {
-
     const navigation: NavigationProp<any, any> = useNavigation();
     const handleNavigation = () => {
       if (productData) {

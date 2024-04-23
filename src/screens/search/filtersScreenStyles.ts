@@ -53,6 +53,7 @@ ${layout}
 
 export const FilterButton = styled.TouchableOpacity.attrs(props => ({
   mx: scale(5),
+  my: scale(2),
   px: scale(props?.horizontalPadding || 20),
   py: scale(8),
   borderColor: props?.isSelected

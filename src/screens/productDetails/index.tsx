@@ -257,6 +257,15 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       goToLogin();
       return;
     }
+
+    if (
+      isLogedIn &&
+      historyTrades &&
+      isAlreadyTrading(historyTrades, selectedProductDetails?._id)
+    ) {
+      handleGoToTrade();
+      return;
+    }
     dispatch(
       getMessageInitiatedStatus(
         JSON.stringify({
@@ -310,7 +319,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       </TagsContainer>
     );
   };
-
 
   // XXX This code (sort of) repeats itself in the MessageOptionsModal
   const renderInteractButtons = () => {
