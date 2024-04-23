@@ -321,19 +321,19 @@ export const FiltersScreen: FC<any> = ({route}) => {
           shoesSizeList,
           'Shoe Sizes',
           Filter_Type.Sizes,
-          filters.sizes.filter(size => shoesSizeStrings.includes(size))
+          filters.sizes.filter(size => shoesSizeStrings.includes(size)),
         )}
         {renderSizeFilter(
           upperClothingSize,
           'Clothing Tops Size',
           Filter_Type.Sizes,
-          filters.sizes.filter(size => upperClothingStrings.includes(size))
+          filters.sizes.filter(size => upperClothingStrings.includes(size)),
         )}
         {renderSizeFilter(
           lowerClothingSize,
           'Pants Sizes',
           Filter_Type.Sizes,
-          filters.sizes.filter(size => lowerClothingStrings.includes(size))
+          filters.sizes.filter(size => lowerClothingStrings.includes(size)),
         )}
         {renderListFilter(
           avaliableSizes?.hatSizes,

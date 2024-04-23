@@ -372,7 +372,6 @@ export const OfferItemContainer = styled.View.attrs(props => ({
   borderRadius: scale(10),
   mr: scale(5),
 }))`
- 
   ${layout} ${color} ${space};
 `;
 

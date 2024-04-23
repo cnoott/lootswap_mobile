@@ -129,8 +129,7 @@ export const ShareButtonContainer = styled.View.attrs(props => ({
   ${layout}
 `;
 
-export const ImageContainer = styled.View.attrs(() => ({
-}))`
+export const ImageContainer = styled.View.attrs(() => ({}))`
   align-items: center;
   ${color}
   ${space}
@@ -150,14 +149,14 @@ export const BulletPointView = styled.View`
   flex-direction: row;
   margin-vertical: ${verticalScale(5)}px;
   width: 80%;
-  margin-left: 8%
+  margin-left: 8%;
 `;
 
 export const Bullet = styled.View`
   width: ${scale(4)}px;
   height: ${scale(4)}px;
   border-radius: ${scale(2)}px;
-  background-color: #6267FE;
+  background-color: #6267fe;
   margin-right: ${scale(10)}px;
   margin-top: ${scale(8)}px;
 `;
@@ -165,7 +164,7 @@ export const Bullet = styled.View`
 export const BulletBoldText = styled.Text`
   font-size: ${moderateScale(15)}px;
   font-family: Urbanist-ExtraBold;
-  color: #6A74DF;
+  color: #6a74df;
 `;
 export const BulletText = styled.Text`
   font-size: ${moderateScale(15)}px;

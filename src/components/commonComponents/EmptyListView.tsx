@@ -1,6 +1,10 @@
 import React, {FC} from 'react';
 import {SvgXml} from 'react-native-svg';
-import {EmptyListContainer, NoOffersLabel, NoOffersMessage} from './EmptyListViewStyles';
+import {
+  EmptyListContainer,
+  NoOffersLabel,
+  NoOffersMessage,
+} from './EmptyListViewStyles';
 import {EMPTY_TRADE_OFFERS_ICON} from 'localsvgimages';
 import {Size, Type} from 'custom_enums';
 import LSButton from './LSButton';

@@ -4,7 +4,7 @@ import ViewShot from 'react-native-view-shot';
 import LSProductCard from '../productCard';
 import {HEADERLOGO} from '../../constants/imageConstants';
 import {APPSTORE_ICON} from 'localsvgimages';
-import {SvgXml} from  'react-native-svg';
+import {SvgXml} from 'react-native-svg';
 import {
   ItemContainer,
   ShareCardImage,
@@ -16,9 +16,7 @@ import {
   LogoImageContainer,
   LogoImage,
 } from './ProductShareModalStyles';
-import {
-  ShippingText,
-} from '../productCard/styles';
+import {ShippingText} from '../productCard/styles';
 
 interface ProductShareCardProps {
   productDetails: any;
@@ -50,13 +48,12 @@ export const ProductShareCard: FC<ProductShareCardProps> = ({
             <ShareCardImage
               source={{uri: productDetails.primary_photo}}
               onLoad={handleCaptureProductImage}
-
             />
-          {productDetails.who_pays === 'seller-pays' && (
-            <FreeShipingContainer>
-              <ShippingText>Free Shipping</ShippingText>
-            </FreeShipingContainer>
-          )}
+            {productDetails.who_pays === 'seller-pays' && (
+              <FreeShipingContainer>
+                <ShippingText>Free Shipping</ShippingText>
+              </FreeShipingContainer>
+            )}
           </View>
           <CellBottomView>
             <BottomHeaderView isFromShare={true}>
@@ -65,9 +62,9 @@ export const ProductShareCard: FC<ProductShareCardProps> = ({
 
             <BottomHeaderView isFromShare={true}>
               <HeaderDes>{productDetails.brand}</HeaderDes>
-            {productDetails.type !== 'trade-only' && (
-              <HeaderTextMain>${productDetails.price}</HeaderTextMain>
-            )}
+              {productDetails.type !== 'trade-only' && (
+                <HeaderTextMain>${productDetails.price}</HeaderTextMain>
+              )}
             </BottomHeaderView>
             <HeaderTextMain>Size {productDetails.size}</HeaderTextMain>
           </CellBottomView>

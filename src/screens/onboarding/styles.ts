@@ -77,7 +77,6 @@ export const SelectionsContainer = styled.View.attrs(props => ({
   ${layout}
 `;
 
-
 export const ProgressBar = styled(Progress.Bar).attrs(props => ({
   width: width,
   borderWidth: 0,

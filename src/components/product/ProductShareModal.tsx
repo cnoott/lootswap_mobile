@@ -37,13 +37,11 @@ interface ProductShareModalProps {
   productDetails: any;
 }
 
-export const ProductShareModal: FC<ProductShareModalProps> =
- ({
+export const ProductShareModal: FC<ProductShareModalProps> = ({
   isVisible,
   onCloseModal,
   productDetails,
 }) => {
-
   const viewShotRef = useRef();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
@@ -56,7 +54,7 @@ export const ProductShareModal: FC<ProductShareModalProps> =
       return false;
     }
     const alreadyGenerated = userData?.sharedProductIds.find(
-      product => product.productId === productDetails._id
+      product => product.productId === productDetails._id,
     );
     if (alreadyGenerated) {
       return alreadyGenerated.url;
@@ -71,7 +69,8 @@ export const ProductShareModal: FC<ProductShareModalProps> =
       return alreadyGeneratedUrl;
     }
     let buo = await branch.createBranchUniversalObject(
-      `product_share_${productDetails._id}`, {
+      `product_share_${productDetails._id}`,
+      {
         title: `${productDetails.name} on lootswap`,
         contentDescription: `Check out these ${productDetails.brand} on the lootswap app`,
         contentImageUrl: productDetails?.primary_photo,
@@ -94,10 +93,10 @@ export const ProductShareModal: FC<ProductShareModalProps> =
 
     const encodedUrl = encodeURIComponent(url);
     const encodedProductName = encodeURIComponent(
-      productDetails?.name.slice(0, 200)
+      productDetails?.name.slice(0, 200),
     );
     const encodedProductPhoto = encodeURIComponent(
-      productDetails.primary_photo
+      productDetails.primary_photo,
     );
 
     const shareUrl = `${SHARE_PRODUCT_DOMAIN}/product-share?url=${encodedUrl}&productName=${encodedProductName}&productPhoto=${encodedProductPhoto}`;
@@ -124,7 +123,7 @@ export const ProductShareModal: FC<ProductShareModalProps> =
     const photoContent: PhotoContentParams = {
       content: {
         // white bg image base64
-        uri: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAJ4AqAMBIgACEQEDEQH/xAAVAAEBAAAAAAAAAAAAAAAAAAAAB//EABQQAQAAAAAAAAAAAAAAAAAAAAD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8At4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/Z'
+        uri: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAJ4AqAMBIgACEQEDEQH/xAAVAAEBAAAAAAAAAAAAAAAAAAAAB//EABQQAQAAAAAAAAAAAAAAAAAAAAD/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8At4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/Z',
       },
       sticker: {
         uri: `file://${uri.trim()}`,
@@ -137,34 +136,36 @@ export const ProductShareModal: FC<ProductShareModalProps> =
     };
 
     if (uri) {
-      CreativeKit.sharePhoto(photoContent).then(() => {
-        console.log('done')
-        loggingService().logEvent('share_snapchat');
-      })
-      .then(() => {
-        dispatch(
-          addSharedProductRequest({
-            productId: productDetails._id,
-            userId: userData?._id,
-          }),
-        );
-      })
-      .catch(err => console.log(err));
-    } else {
-      setTimeout(() => {
-        CreativeKit.sharePhoto(photoContent).then(() => {
-          console.log('done')
+      CreativeKit.sharePhoto(photoContent)
+        .then(() => {
+          console.log('done');
           loggingService().logEvent('share_snapchat');
         })
         .then(() => {
+          dispatch(
+            addSharedProductRequest({
+              productId: productDetails._id,
+              userId: userData?._id,
+            }),
+          );
+        })
+        .catch(err => console.log(err));
+    } else {
+      setTimeout(() => {
+        CreativeKit.sharePhoto(photoContent)
+          .then(() => {
+            console.log('done');
+            loggingService().logEvent('share_snapchat');
+          })
+          .then(() => {
             dispatch(
               addSharedProductRequest({
                 productId: productDetails._id,
                 userId: userData?._id,
               }),
             );
-        })
-        .catch(err => console.log(err));
+          })
+          .catch(err => console.log(err));
       }, 1000);
     }
   };
@@ -251,11 +252,11 @@ export const ProductShareModal: FC<ProductShareModalProps> =
           */}
 
           <IconTouchable onPress={handleIMessageShare}>
-            <Image source={IMESSAGE}/>
+            <Image source={IMESSAGE} />
             <IconText>iMessage</IconText>
           </IconTouchable>
           <IconTouchable onPress={handleCopyLink}>
-            <Image source={COPY_LINK_ICON}/>
+            <Image source={COPY_LINK_ICON} />
             <IconText>Copy Link</IconText>
           </IconTouchable>
         </ScrollView>

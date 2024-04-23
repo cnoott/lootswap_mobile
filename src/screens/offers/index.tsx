@@ -136,7 +136,10 @@ export const OffersScreen: FC<{}> = () => {
   useEffect(() => {
     if (!tradeLoading && !messageLoading && allMyMessages?.messageDocs) {
       const trades = historyTrades.map(trade => ({...trade, isTrade: true}));
-      const messages = allMyMessages.messageDocs.map(message => ({...message, isTrade: false}));
+      const messages = allMyMessages.messageDocs.map(message => ({
+        ...message,
+        isTrade: false,
+      }));
 
       let combinedData = [...trades, ...messages];
       combinedData.sort(sortInboxByDate);
@@ -152,7 +155,7 @@ export const OffersScreen: FC<{}> = () => {
     }
     if (
       new Date(objA.updatedAt).getTime() < new Date(objB.updatedAt).getTime()
-    ){
+    ) {
       return 1;
     }
     return 0;
@@ -167,7 +170,6 @@ export const OffersScreen: FC<{}> = () => {
       }),
     );
   };
-
 
   const goToMessageScreen = (msgData: any) => {
     navigation.navigate('UserChatScreen', {
@@ -247,7 +249,8 @@ export const OffersScreen: FC<{}> = () => {
             </NameLabel>
             {item?.isSupportMessage && (
               <ProductNameLabel>
-                {item.messages[item.messages.length - 1].message.slice(0,33) + '...'}
+                {item.messages[item.messages.length - 1].message.slice(0, 33) +
+                  '...'}
               </ProductNameLabel>
             )}
             {isTrade && (
@@ -309,7 +312,7 @@ export const OffersScreen: FC<{}> = () => {
           isMessageItem={true}
           key={item._id}
           onPress={() => goToMessageScreen(item)}>
-          <RenderUserDetails item={item} isTrade={false}/>
+          <RenderUserDetails item={item} isTrade={false} />
           {showNotifBadge && <CellBadge top={5} left={5} />}
           {!item?.isSupportMessage && (
             <OwnerDetailsView>
@@ -383,7 +386,6 @@ export const OffersScreen: FC<{}> = () => {
       )}
     </TabContainer>
   );
-
 
   const countNotifs = (title: string) => {
     switch (title) {
