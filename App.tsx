@@ -20,6 +20,7 @@ import codePush from 'react-native-code-push';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {Pusher} from '@pusher/pusher-websocket-react-native';
 import {PUSHER_API_KEY} from '@env';
+import {initialize} from 'react-native-clarity';
 
 let codePushOptions = {
   updateDialog: false,
@@ -35,11 +36,13 @@ const App = () => {
         : 'GoogleService-Info-Prod',
     });
 
+    initialize('m1oij7c1ms');
+
     const initPusher = async () => {
       const pusher = Pusher.getInstance();
       await pusher.init({
         apiKey: PUSHER_API_KEY,
-        cluster: 'us2'
+        cluster: 'us2',
       });
 
       await pusher.connect();
