@@ -1,4 +1,5 @@
 import analytics from '@react-native-firebase/analytics';
+import RNUxcam from 'react-native-ux-cam';
 
 declare type Status = 'logged_in' | 'not_logged_in';
 
@@ -21,6 +22,7 @@ export const loggingService = () => {
     params['timestamp'] = currentEpochTime;
     console.log(eventName, params);
     analytics().logEvent(eventName, params);
+    RNUxcam.logEvent(eventName, params);
   };
 
   const logScreenView = (params: {[key: string]: any} = {}) => {
