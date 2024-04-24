@@ -119,7 +119,6 @@ export default function loading(state = InitialState, action: ActionProps) {
       };
     }
     case SHOULD_SHOW_GIVEAWAY.SUCCESS: {
-      console.log('clalinghere', payload);
       return {
         ...state,
         shouldShowGiveaway: payload.showGiveaway,
