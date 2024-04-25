@@ -28,15 +28,9 @@ export const LSGiveawayHomeItem: FC<HeaderProps> = React.memo(() => {
   const homeStates = useSelector(state => state.home);
   const {shouldShowGiveaway, giveawayImage, giveawayColor} = homeStates;
   const auth: AuthProps = useSelector(state => state.auth);
-  const {isLogedIn} = auth;
 
   const handleEnterPress = () => {
-    if (isLogedIn) {
-      navigation.navigate('ReferralScreen');
-      return;
-    }
-
-    navigation?.navigate('SignInScreen');
+    navigation.navigate('ReferralScreen');
   };
 
   return (
