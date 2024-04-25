@@ -136,7 +136,7 @@ export const OffersScreen: FC<{}> = () => {
   useEffect(() => {
     if (!tradeLoading && !messageLoading && allMyMessages?.messageDocs) {
       const trades = historyTrades.map(trade => ({...trade, isTrade: true}));
-      const messages = allMyMessages.messageDocs.map(message => ({
+      const messages = allMyMessages?.messageDocs.map(message => ({
         ...message,
         isTrade: false,
       }));
