@@ -7,10 +7,11 @@ const getCurrentEpochTime = (): number =>
   Math.floor(new Date().getTime() / 1000);
 
 export const loggingService = () => {
-  const setUserId = (id: string) => {
-    analytics().setUserId(id);
-    console.log('set user id:', id);
+  const setUserName = (name: string) => {
+    RNUxcam.setUserIdentity(name);
+    console.log('set user name:', name);
   };
+
 
   const setUserStatus = (status: Status) => {
     analytics().setUserProperties({user_status: status});
@@ -33,7 +34,7 @@ export const loggingService = () => {
   };
 
   return {
-    setUserId,
+    setUserName,
     setUserStatus,
     logEvent,
     logScreenView,
