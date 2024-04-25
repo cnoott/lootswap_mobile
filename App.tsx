@@ -36,7 +36,6 @@ const App = () => {
         : 'GoogleService-Info-Prod',
     });
 
-
     RNUxcam.optIntoSchematicRecordings(); // Add this line to enable iOS screen recordings
     const configuration = {
       userAppKey: UXCAM_API_KEY,
@@ -44,7 +43,7 @@ const App = () => {
       enableAdvancedGestureRecognition: true,
       enableImprovedScreenCapture: true,
       //occlusions?: UXCamOcclusion[],
-    }
+    };
     RNUxcam.startWithConfiguration(configuration);
 
     const initPusher = async () => {
