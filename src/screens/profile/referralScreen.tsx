@@ -38,13 +38,15 @@ import {Alert} from 'custom_top_alert';
 import {Share, ScrollView} from 'react-native';
 import {loggingService} from '../../services/loggingService';
 import {scale} from 'react-native-size-matters';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 export const ReferralScreen: FC<{}> = () => {
   const auth: AuthProps = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const homeStates = useSelector(state => state.home);
   const {shouldShowGiveaway, giveawayImage, giveawayColor} = homeStates;
-  const {userData} = auth;
+  const {userData, isLogedIn} = auth;
+  const navigation: NavigationProp<any, any> = useNavigation();
 
   const copyToClipboard = () => {
     Clipboard.setString(userData?.referralLink);
@@ -57,6 +59,10 @@ export const ReferralScreen: FC<{}> = () => {
   };
 
   const onShare = async () => {
+    if (!isLogedIn) {
+      navigation.navigate('CreateAccountScreen');
+      return;
+    }
     if (!userData?.referralLink) {
       return;
     }
@@ -116,8 +122,10 @@ export const ReferralScreen: FC<{}> = () => {
   }, [userData?._id, userData?.referralLink, dispatch]);
 
   useEffect(() => {
-    generateReferralLink();
-  }, [generateReferralLink]);
+    if (isLogedIn) {
+      generateReferralLink();
+    }
+  }, [generateReferralLink, isLogedIn]);
 
   return (
     <Container>
@@ -134,6 +142,15 @@ export const ReferralScreen: FC<{}> = () => {
           <TopTextContainer>
             <TopTextHeader>How to enter the giveaway 👟:</TopTextHeader>
           </TopTextContainer>
+          {!isLogedIn && (
+            <BulletPointView>
+              <Bullet />
+              <BulletText>
+                <BulletBoldText>First, create an account: </BulletBoldText>
+                To begin entering in the giveaway, use the button below to create an account!
+              </BulletText>
+            </BulletPointView>
+          )}
           <BulletPointView>
             <Bullet />
             <BulletText>
@@ -152,19 +169,29 @@ export const ReferralScreen: FC<{}> = () => {
               after clicking your shared product, you score an extra entry!
             </BulletText>
           </BulletPointView>
-          <LinkSectionContainer>
-            <LinkHeader>Your Custom Referral Link</LinkHeader>
-            <LinkContainer>
-              <LinkText>{userData?.referralLink}</LinkText>
-              <Touchable onPress={() => copyToClipboard()}>
-                <SvgXml xml={COPY_ICON} />
-              </Touchable>
-            </LinkContainer>
-          </LinkSectionContainer>
+          <BulletPointView>
+            <BulletText>*Apple is not a sponsor of this giveaway</BulletText>
+          </BulletPointView>
+          {isLogedIn && (
+            <LinkSectionContainer>
+              <LinkHeader>Your Custom Referral Link</LinkHeader>
+              <LinkContainer>
+                <LinkText>{userData?.referralLink}</LinkText>
+                <Touchable onPress={() => copyToClipboard()}>
+                  <SvgXml xml={COPY_ICON} />
+                </Touchable>
+              </LinkContainer>
+            </LinkSectionContainer>
+          )}
         </TopContainer>
+        {!isLogedIn && (
+          <LinkSectionContainer>
+            <LinkHeader>To begin giveaway entry, create an account first</LinkHeader>
+          </LinkSectionContainer>
+        )}
         <ShareButtonContainer>
           <LSButton
-            title={'Share Link'}
+            title={isLogedIn ? 'Share Link' : 'Create Account'}
             size={Size.Full}
             type={Type.Primary}
             radius={20}
