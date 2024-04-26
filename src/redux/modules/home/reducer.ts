@@ -97,7 +97,10 @@ export default function loading(state = InitialState, action: ActionProps) {
         ...state,
         selectedProductDetails: {
           ...payload,
-          product_photos: [payload?.primary_photo, ...payload?.secondary_photos],
+          product_photos: [
+            payload?.primary_photo,
+            ...payload?.secondary_photos,
+          ],
         },
       };
     }

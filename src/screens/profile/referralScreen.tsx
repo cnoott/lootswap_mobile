@@ -147,7 +147,8 @@ export const ReferralScreen: FC<{}> = () => {
               <Bullet />
               <BulletText>
                 <BulletBoldText>First, create an account: </BulletBoldText>
-                To begin entering in the giveaway, use the button below to create an account!
+                To begin entering in the giveaway, use the button below to
+                create an account!
               </BulletText>
             </BulletPointView>
           )}
@@ -186,7 +187,9 @@ export const ReferralScreen: FC<{}> = () => {
         </TopContainer>
         {!isLogedIn && (
           <LinkSectionContainer>
-            <LinkHeader>To begin giveaway entry, create an account first</LinkHeader>
+            <LinkHeader>
+              To begin giveaway entry, create an account first
+            </LinkHeader>
           </LinkSectionContainer>
         )}
         <ShareButtonContainer>
