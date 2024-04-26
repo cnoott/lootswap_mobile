@@ -12,7 +12,6 @@ export const loggingService = () => {
     console.log('set user name:', name);
   };
 
-
   const setUserStatus = (status: Status) => {
     analytics().setUserProperties({user_status: status});
     console.log('set user status:', status);
