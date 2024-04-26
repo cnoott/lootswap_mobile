@@ -18,7 +18,7 @@ const useBranch = () => {
       }
       if (params['+clicked_branch_link'] && params['$ios_url']) {
         console.log('params', params['$ios_url']);
-        const productId = params['$ios_url'].split('/').pop()
+        const productId = params['$ios_url'].split('/').pop();
         console.log('PORUCTID', productId);
         if (productId) {
           dispatch(
@@ -33,7 +33,6 @@ const useBranch = () => {
               });
             }),
           );
-
         }
       }
       // params will never be null if error is null

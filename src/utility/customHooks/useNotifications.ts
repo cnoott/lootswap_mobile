@@ -31,6 +31,12 @@ export const useNotifications = () => {
   );
 
   useEffect(() => {
+    const unreadCount = userData?.notifications?.filter(notif => !notif.isRead).length;
+    PushNotificationIOS.setApplicationIconBadgeNumber(unreadCount);
+
+  }, [userData.notifications]);
+
+  useEffect(() => {
     PushNotificationIOS.addEventListener(
       'localNotification',
       onRemoteNotification,
