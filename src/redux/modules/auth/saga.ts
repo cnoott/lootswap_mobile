@@ -277,6 +277,9 @@ export function* getMyDetails(action: any) {
     yield put(LoadingSuccess());
     if (response?.success) {
       yield put(getMyDetailsSuccess(response.data));
+      if (action.callback) {
+        action.callback(response.data);
+      }
     } else {
       yield put(getMyDetailsFailure(response.error));
     }
