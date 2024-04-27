@@ -38,7 +38,7 @@ export const LSHomeStepTwoCarouselItem: FC<any> = React.memo(() => {
         width={scale(309)}
         height={scale(125)}
       />
-      <VerticalSpace space={scale(80)} />
+      <VerticalSpace space={scale(40)} />
       <RightPersonTwoContainer>
         <SvgXml xml={HOME_RIGHT_PERSON_TWO} />
       </RightPersonTwoContainer>

@@ -34,9 +34,8 @@ export const LSHomeStepFourCarouselItem: FC<HeaderProps> = React.memo(() => {
           <HeaderPrimaryText>Discord community</HeaderPrimaryText>
         </StepThreeHeaderText>
       </DiscordContainer>
-      <VerticalSpace space={10} />
-      <Image source={DISCORD_SCREENSHOT} width={280} height={110} />
-      <ExecutivePerksText>{'*Get Exclusive Perks'}</ExecutivePerksText>
+      <Image source={DISCORD_SCREENSHOT} width={240} height={90} />
+      <VerticalSpace space={8} />
       <LSButton
         title={'Join Now'}
         size={Size.Small}
