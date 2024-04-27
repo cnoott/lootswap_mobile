@@ -4,14 +4,38 @@ import {useDispatch, useSelector} from 'react-redux';
 import {handleNavigation} from '../notification';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthProps} from '../../redux/modules/auth/reducer';
-import {newNotifTrueSuccess} from '../../redux/modules';
+import {newNotifTrueSuccess, getMyDetailsRequest} from '../../redux/modules';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import BackgroundFetch from 'react-native-background-fetch';
 
 export const useNotifications = () => {
   const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation();
   const auth: AuthProps = useSelector(state => state.auth);
-  const {userData} = auth;
+  const {userData, isLogedIn} = auth;
+
+  const initBackgroundFetch = async () => {
+    const onEvent = async (taskId) => {
+      console.log('background fetch task: ', taskId);
+      dispatch(
+        getMyDetailsRequest(userData?._id, async (fetchedUserData: any) => {
+          const unreadCount = fetchedUserData?.notifications?.filter(
+            notif => !notif.isRead
+          ).length;
+          if (unreadCount) {
+            await PushNotificationIOS.setApplicationIconBadgeNumber(unreadCount);
+          }
+          BackgroundFetch.finish(taskId);
+        }),
+      );
+    };
+
+    const onTimeout = async (taskId) => {
+      BackgroundFetch.finish(taskId);
+    };
+    let status = await BackgroundFetch.configure({minimumFetchInterval: 20}, onEvent, onTimeout);
+    console.log('Background fetch status', status);
+  };
 
   const onRemoteNotification = useCallback(
     (notification: any) => {
@@ -31,10 +55,21 @@ export const useNotifications = () => {
   );
 
   useEffect(() => {
-    const unreadCount = userData?.notifications?.filter(notif => !notif.isRead).length;
-    PushNotificationIOS.setApplicationIconBadgeNumber(unreadCount);
+    if (isLogedIn) {
+      initBackgroundFetch();
+    }
+  }, []);
 
-  }, [userData.notifications]);
+  useEffect(() => {
+    if (isLogedIn) {
+      const unreadCount = userData?.notifications?.filter(notif => !notif.isRead).length;
+      if (unreadCount) {
+        PushNotificationIOS.setApplicationIconBadgeNumber(unreadCount);
+      }
+    }
+
+  }, [userData?.notifications]);
+
 
   useEffect(() => {
     PushNotificationIOS.addEventListener(

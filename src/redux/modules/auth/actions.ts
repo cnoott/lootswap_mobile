@@ -214,10 +214,14 @@ export const getUsersDetailsFailure = (error: any) => {
   };
 };
 
-export const getMyDetailsRequest = (userId: string) => {
+export const getMyDetailsRequest = (
+  userId: string,
+  callback?: (userData: any) => void,
+) => {
   return {
     type: GET_MY_DETAILS.REQUEST,
     userId,
+    callback,
   };
 };
 
