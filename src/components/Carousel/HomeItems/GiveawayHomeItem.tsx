@@ -37,13 +37,14 @@ export const LSGiveawayHomeItem: FC<HeaderProps> = React.memo(() => {
     <GiveawayContainer giveawayColor={giveawayColor}>
       <Image
         source={HOME_CAROUSEL_GIVEAWAY_TEXT}
-        width={scale(210)}
-        height={scale(50)}
+        width={scale(190)}
+        height={scale(45)}
+        marginTop={scale(15)}
       />
       <Image
         source={{uri: giveawayImage}}
-        width={scale(280)}
-        height={scale(115)}
+        width={scale(260)}
+        height={scale(105)}
       />
       {/*
       <GiveawayDetailsText>
@@ -64,6 +65,7 @@ export const LSGiveawayHomeItem: FC<HeaderProps> = React.memo(() => {
           radius={38}
           onPress={handleEnterPress}
           sizeFont={12}
+          marginBottom={scale(10)}
         />
       </EnterNowButtonContainer>
     </GiveawayContainer>
