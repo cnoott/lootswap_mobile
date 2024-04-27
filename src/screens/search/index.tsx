@@ -327,7 +327,7 @@ export const SearchScreen: FC<any> = props => {
           keyExtractor={(item, index) =>
             item._id ? item._id.toString() : `loading-${index}`
           }
-          ListHeaderComponent={renderStockxResults()}
+          //ListHeaderComponent={renderStockxResults()} // disabled until we have more items
           numColumns={2}
           onEndReached={() => handleSearchEndReached()}
         />
