@@ -29,7 +29,9 @@ export const OfferForSellOnlyCell: FC<TradeCheckoutItemProp> = props => {
         <ItemSubLabel>Size: {itemData?.size}</ItemSubLabel>
         <ItemRow>
           <ItemSubLabel>Condition: {itemData?.condition}</ItemSubLabel>
-          <ItemSubValue>${itemData?.price}</ItemSubValue>
+          {itemData?.type !== 'trade-only' && (
+            <ItemSubValue>${itemData?.price}</ItemSubValue>
+          )}
         </ItemRow>
       </OfferCellOnlyRightView>
     );
