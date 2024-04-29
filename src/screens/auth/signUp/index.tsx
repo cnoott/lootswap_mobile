@@ -40,7 +40,7 @@ export const CreateAccountScreen: FC<{}> = () => {
           size={Size.Full}
           type={Type.Primary}
           radius={30}
-          onPress={() => navigation.navigate('EmailSignupScreen')}
+          onPress={() => navigation.replace('EmailSignupScreen')}
         />
         <View style={{marginBottom: 15}} />
         <GoogleButton />
