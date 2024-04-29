@@ -126,7 +126,7 @@ export const OnboardingScreen: FC<{}> = () => {
   const handleSkip = () => {
     loggingService().logEvent('skip_onboarding');
     goBack();
-    goBack();
+    goBack(); // I call it twice so it can collapse the signup navigation modal as well
   };
 
   const renderButtons = () => {
