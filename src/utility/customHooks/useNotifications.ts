@@ -99,6 +99,7 @@ export const useNotifications = () => {
           body: remoteMessage?.notification?.body,
           category: 'localNotification',
           userInfo: {remoteMessage},
+          sound: 'default',
         });
       },
     );
