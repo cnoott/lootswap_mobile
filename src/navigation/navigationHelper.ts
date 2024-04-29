@@ -20,7 +20,16 @@ export const resetRoute = (screenName = 'AppScreens', data = {}) => {
   );
 };
 
+export const goBack = () => {
+  try {
+    navigationRef.current?.goBack();
+  } catch (e) {
+    console.log('Error navigating back', e);
+    resetRoute();
+  }
+};
+
 export const navigateToOnboarding = () => {
-  navigationRef.current?.navigate('AppScreens');
+  //navigationRef.current?.navigate('AppScreens');
   navigationRef.current?.navigate('OnboardingScreen');
 };
