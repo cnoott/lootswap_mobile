@@ -563,7 +563,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           <HorizontalBar />
           {renderProtectionView()}
           {requestedUserDetails && <>{renderUserDetailsView()}</>}
-          {isLogedIn && requestedUserDetails?._id !== userData?._id && (
+          {requestedUserDetails?._id !== userData?._id && (
             <MessageButtonWrapper>
               <LSButton
                 title={'Message'}
