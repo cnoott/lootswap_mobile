@@ -134,7 +134,14 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       dispatch(getUsersDetailsRequest(productData?.userId));
       dispatch(getProductDetails(productData?._id));
     }
-  }, [productData?.userId, isLogedIn, likedParam, productData?._id]);
+  }, [
+    productData?.userId,
+    isLogedIn,
+    likedParam,
+    productData?._id,
+    userData,
+    dispatch,
+  ]);
 
   useEffect(() => {
     if (selectedProductDetails?.timesLiked) {
