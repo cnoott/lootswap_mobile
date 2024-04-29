@@ -306,7 +306,7 @@ export const HomeScreen: FC<{}> = () => {
             onPress={() =>
               isLogedIn
                 ? navigation?.navigate('BrowsePublicOffersScreen')
-                : navigation?.navigate('SignInScreen')
+                : navigation?.navigate('CreateAccountScreen')
             }
           />
         </SectionTopContainer>

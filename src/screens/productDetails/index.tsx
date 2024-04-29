@@ -144,6 +144,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
 
   const onLikePress = () => {
     if (!isLogedIn) {
+      goToLogin();
       return;
     }
     const reqData = {
@@ -230,7 +231,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   };
 
   const goToLogin = () => {
-    navigation.navigate('SignInScreen');
+    navigation.navigate('CreateAccountScreen');
   };
 
   const toggleShareModal = () => {
