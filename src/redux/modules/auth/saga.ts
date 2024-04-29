@@ -100,6 +100,7 @@ import {
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {
   resetRoute,
+  goBack,
   navigateToOnboarding,
 } from '../../../navigation/navigationHelper';
 import {Alert} from 'custom_top_alert';
@@ -123,7 +124,7 @@ export function* signInAPI(action: any) {
     const response: APIResponseProps = yield call(signIn, action?.reqData);
     yield put(LoadingSuccess());
     if (response?.success) {
-      resetRoute();
+      goBack();
       yield put(signInSuccess(response.data));
       loggingService().setUserName(response?.data?.user?.name);
       loggingService().setUserStatus('logged_in');
@@ -168,7 +169,7 @@ export function* signInWithGoogleAPI(action: any) {
       if (response.data.newUser) {
         navigateToOnboarding();
       } else {
-        resetRoute();
+        goBack();
       }
       yield put(signUpSuccess(response.data));
       loggingService().setUserName(response?.data?.user?.name);
@@ -195,7 +196,7 @@ export function* signInWithAppleAPI(action: any) {
       if (response.data.newUser) {
         navigateToOnboarding();
       } else {
-        resetRoute();
+        goBack();
       }
       yield put(signUpSuccess(response.data));
       loggingService().setUserName(response?.data?.user?.name);
