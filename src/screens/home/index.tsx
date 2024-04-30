@@ -389,7 +389,7 @@ export const HomeScreen: FC<{}> = () => {
           data={[...hotProducts, ...hotLoadingItems]} // TODO: loading items
           renderItem={renderItem}
           keyExtractor={(item, index) =>
-            item._id ? item._id.toString() : `loading-${index}`
+            item._id ? item._id.toString() + index : `loading-${index}`
           }
           onEndReached={() => hotOnEndReached()}
           horizontal={true}
