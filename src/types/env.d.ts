@@ -9,6 +9,7 @@ declare module '@env' {
   export const PUSHER_API_KEY: string;
   export const META_APP_ID: string;
   export const SHARE_PRODUCT_DOMAIN: string;
+  export const UXCAM_API_KEY: string;
 }
 
 declare module 'custom_types' {

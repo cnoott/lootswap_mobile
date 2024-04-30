@@ -131,28 +131,28 @@ export const BottomLeftContainer = styled.View.attrs(() => ({
 
 export const RightPersonOneContainer = styled.View.attrs(() => ({}))`
   position: absolute;
-  bottom: 0;
+  bottom: -35px;
   right: 0;
   ${layout} ${color} ${space} ${border};
 `;
 
 export const RightPersonTwoContainer = styled.View.attrs(() => ({}))`
   position: absolute;
-  bottom: 0;
+  bottom: -35;
   right: 45;
   ${layout} ${color} ${space} ${border};
 `;
 
 export const LeftPersonOneContainer = styled.View.attrs(() => ({}))`
   position: absolute;
-  bottom: 0;
+  bottom: -35;
   left: 0;
   ${layout} ${color} ${space} ${border};
 `;
 
 export const LeftPersonTwoContainer = styled.View.attrs(() => ({}))`
   position: absolute;
-  bottom: 0;
+  bottom: -35;
   left: 38px;
   ${layout} ${color} ${space} ${border};
 `;
@@ -309,5 +309,4 @@ export const ReferText = styled.Text.attrs(props => ({
 `;
 
 export const EnterNowButtonContainer = styled.View.attrs(() => ({}))`
-  padding-top: 25px;
 `;

@@ -136,7 +136,7 @@ export const OffersScreen: FC<{}> = () => {
   useEffect(() => {
     if (!tradeLoading && !messageLoading && allMyMessages?.messageDocs) {
       const trades = historyTrades.map(trade => ({...trade, isTrade: true}));
-      const messages = allMyMessages.messageDocs.map(message => ({
+      const messages = allMyMessages?.messageDocs.map(message => ({
         ...message,
         isTrade: false,
       }));
@@ -148,18 +148,24 @@ export const OffersScreen: FC<{}> = () => {
   }, [historyTrades, allMyMessages, tradeLoading, messageLoading]);
 
   const sortInboxByDate = (objA: any, objB: any) => {
-    if (
-      new Date(objA.updatedAt).getTime() > new Date(objB.updatedAt).getTime()
-    ) {
+    // Check for support messages and prioritize them
+    if (objA.isSupportMessage && !objB.isSupportMessage) {
       return -1;
     }
-    if (
-      new Date(objA.updatedAt).getTime() < new Date(objB.updatedAt).getTime()
-    ) {
+    if (!objA.isSupportMessage && objB.isSupportMessage) {
+      return 1;
+    }
+
+    const dateA = new Date(objA.updatedAt).getTime();
+    const dateB = new Date(objB.updatedAt).getTime();
+    if (dateA > dateB) {
+      return -1;
+    }
+    if (dateA < dateB) {
       return 1;
     }
     return 0;
-  };
+};
 
   const onInboxRefresh = () => {
     ReactNativeHapticFeedback.trigger('impactMedium');

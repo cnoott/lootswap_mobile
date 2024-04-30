@@ -21,7 +21,7 @@ type ActionProps = {
 
 export const InitialState: MessageProps = {
   historyMessages: {messages: []},
-  allMyMessages: null,
+  allMyMessages: {messageDocs: []},
   messageLoading: false,
 };
 
@@ -94,7 +94,7 @@ export default function loading(state = InitialState, action: ActionProps) {
       const msgId = msgData._id;
       const isReceiver = userId === msgData.receiver._id;
 
-      const updatedMessages = state.allMyMessages.messageDocs.map(
+      const updatedMessages = state.allMyMessages?.messageDocs.map(
         (message: any) => {
           if (message._id === msgId && isReceiver) {
             return {...message, receiverNewMessage: false};

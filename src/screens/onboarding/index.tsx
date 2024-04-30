@@ -23,7 +23,7 @@ import {
 import {SvgXml} from 'react-native-svg';
 import {TRADE_MODAL_CLOSE_BUTTON} from 'localsvgimages';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {resetRoute} from '../../navigation/navigationHelper';
+import {goBack} from '../../navigation/navigationHelper';
 import {
   FilterButton,
   FilterButtonText,
@@ -114,7 +114,8 @@ export const OnboardingScreen: FC<{}> = () => {
 
   const handleNext = () => {
     if (currIndex === 1) {
-      resetRoute();
+      goBack();
+      goBack();
       handleSaveData();
       return;
     }
@@ -124,7 +125,8 @@ export const OnboardingScreen: FC<{}> = () => {
 
   const handleSkip = () => {
     loggingService().logEvent('skip_onboarding');
-    resetRoute();
+    goBack();
+    goBack(); // I call it twice so it can collapse the signup navigation modal as well
   };
 
   const renderButtons = () => {

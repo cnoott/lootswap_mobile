@@ -134,7 +134,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       dispatch(getUsersDetailsRequest(productData?.userId));
       dispatch(getProductDetails(productData?._id));
     }
-  }, [productData?.userId, isLogedIn, likedParam, productData?._id]);
+  }, [productData?.userId, isLogedIn, likedParam, productData?._id, dispatch]);
 
   useEffect(() => {
     if (selectedProductDetails?.timesLiked) {
@@ -144,6 +144,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
 
   const onLikePress = () => {
     if (!isLogedIn) {
+      goToLogin();
       return;
     }
     const reqData = {
@@ -230,7 +231,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   };
 
   const goToLogin = () => {
-    navigation.navigate('SignInScreen');
+    navigation.navigate('CreateAccountScreen');
   };
 
   const toggleShareModal = () => {
@@ -563,7 +564,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           <HorizontalBar />
           {renderProtectionView()}
           {requestedUserDetails && <>{renderUserDetailsView()}</>}
-          {isLogedIn && requestedUserDetails?._id !== userData?._id && (
+          {requestedUserDetails?._id !== userData?._id && (
             <MessageButtonWrapper>
               <LSButton
                 title={'Message'}

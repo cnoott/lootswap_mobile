@@ -40,7 +40,7 @@ export const InUserChatHeader: FC<HeaderProps> = React.memo(
     productData,
     otherUserData,
     profileInMiddle = false,
-    isSupportMessage = false,
+    isSupportMessage = true,
   }) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
     const [accOpen, setAccOpen] = useState(false);

@@ -100,6 +100,7 @@ import {
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {
   resetRoute,
+  goBack,
   navigateToOnboarding,
 } from '../../../navigation/navigationHelper';
 import {Alert} from 'custom_top_alert';
@@ -123,9 +124,9 @@ export function* signInAPI(action: any) {
     const response: APIResponseProps = yield call(signIn, action?.reqData);
     yield put(LoadingSuccess());
     if (response?.success) {
-      resetRoute();
+      goBack();
       yield put(signInSuccess(response.data));
-      loggingService().setUserId(response?.data?.user?._id);
+      loggingService().setUserName(response?.data?.user?.name);
       loggingService().setUserStatus('logged_in');
     } else {
       yield put(signInFailure(response.error));
@@ -143,7 +144,7 @@ export function* signUpAPI(action: any) {
     if (response?.success) {
       navigateToOnboarding();
       yield put(signUpSuccess(response.data));
-      loggingService().setUserId(response?.data?.user?._id);
+      loggingService().setUserName(response?.data?.user?.name);
       loggingService().logEvent('sign_up', {method: 'email'});
       loggingService().setUserStatus('logged_in');
     } else {
@@ -168,10 +169,10 @@ export function* signInWithGoogleAPI(action: any) {
       if (response.data.newUser) {
         navigateToOnboarding();
       } else {
-        resetRoute();
+        goBack();
       }
       yield put(signUpSuccess(response.data));
-      loggingService().setUserId(response?.data?.user?._id);
+      loggingService().setUserName(response?.data?.user?.name);
       loggingService().logEvent('sign_up', {method: 'google'});
       loggingService().setUserStatus('logged_in');
     } else {
@@ -195,10 +196,10 @@ export function* signInWithAppleAPI(action: any) {
       if (response.data.newUser) {
         navigateToOnboarding();
       } else {
-        resetRoute();
+        goBack();
       }
       yield put(signUpSuccess(response.data));
-      loggingService().setUserId(response?.data?.user?._id);
+      loggingService().setUserName(response?.data?.user?.name);
       loggingService().logEvent('sign_up', {method: 'apple'});
       loggingService().setUserStatus('logged_in');
     } else {
@@ -277,6 +278,9 @@ export function* getMyDetails(action: any) {
     yield put(LoadingSuccess());
     if (response?.success) {
       yield put(getMyDetailsSuccess(response.data));
+      if (action.callback) {
+        action.callback(response.data);
+      }
     } else {
       yield put(getMyDetailsFailure(response.error));
     }

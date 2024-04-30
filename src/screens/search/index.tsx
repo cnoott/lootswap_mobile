@@ -65,6 +65,7 @@ export const SearchScreen: FC<any> = props => {
   const dispatch = useDispatch();
   const [query, setQuery] = useState('');
   const [queryInput, setQueryInput] = useState('');
+  const [triggerSearch, setTriggerSerach] = useState(false); // we use this to trigger a serach if the query stays the same
   const [recommendedResults, setRecommendedResults] = useState([]);
 
   const [page, setPage] = useState(0);
@@ -78,11 +79,11 @@ export const SearchScreen: FC<any> = props => {
 
   const debouncedSearchTerm = useDebounce(queryInput, 200);
   useEffect(() => {
-    if (!searchProducts.length && debouncedSearchTerm.length > 3) {
+    if (debouncedSearchTerm.length > 3) {
       handleGetRecommendedSerach();
     }
     dispatch(getAvaliableSizesRequest());
-  }, [debouncedSearchTerm, searchProducts.length]);
+  }, [debouncedSearchTerm]);
 
   //TODO: end reached
   useEffect(() => {
@@ -96,10 +97,11 @@ export const SearchScreen: FC<any> = props => {
   }, [loading]);
 
   useEffect(() => {
+    console.log('query here');
     if (query) {
       onSubmitSearch(query);
     }
-  }, [query]);
+  }, [query, triggerSearch]);
 
   const handleNavigateToFilters = () => {
     swiperRef?.current?.scrollTo(2);
@@ -151,6 +153,7 @@ export const SearchScreen: FC<any> = props => {
   };
 
   const onSubmitQuery = () => {
+    setTriggerSerach(!triggerSearch);
     setQuery(queryInput);
   };
 
@@ -185,6 +188,7 @@ export const SearchScreen: FC<any> = props => {
       navigation?.navigate('HomeScreen');
     } else {
       swiperRef?.current?.scrollTo(currPage - 1);
+      setRecommendedResults([]);
     }
   };
 
@@ -205,6 +209,7 @@ export const SearchScreen: FC<any> = props => {
   const handlePressRecentSearch = (recentSearch: string) => {
     setQueryInput(recentSearch);
     setQuery(recentSearch);
+    setTriggerSerach(!triggerSearch);
   };
 
   const handleClearFilters = () => {
@@ -282,7 +287,7 @@ export const SearchScreen: FC<any> = props => {
           <DefaultFlatList
             data={recommendedResults}
             renderItem={renderRecentSearch}
-            keyExtractor={item => item}
+            keyExtractor={(item, index) => `${item}${index}`}
           />
         </RecentSearchesTextContainer>
       </RecentSearchesContainer>
@@ -322,7 +327,7 @@ export const SearchScreen: FC<any> = props => {
           keyExtractor={(item, index) =>
             item._id ? item._id.toString() : `loading-${index}`
           }
-          ListHeaderComponent={renderStockxResults()}
+          //ListHeaderComponent={renderStockxResults()} // disabled until we have more items
           numColumns={2}
           onEndReached={() => handleSearchEndReached()}
         />
