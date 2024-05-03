@@ -48,7 +48,17 @@
 				<string>com.googleusercontent.apps.82288270183-bnffad6i28k86q8ib136nboc2ulcrno2</string>
 			</array>
 		</dict>
+    <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>fb1306228819798690</string> <!-- Replace APP-ID with your actual Facebook App ID -->
+        </array>
+    </dict>
 	</array>
+  <key>FacebookAppID</key>
+  <string>1306228819798690</string>
+  <key>FacebookDisplayName</key>
+  <string>lootswap</string>
 	<key>CFBundleVersion</key>
 	<string>2.5.8</string>
 	<key>CodePushDeploymentKey</key>

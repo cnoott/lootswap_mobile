@@ -31,6 +31,11 @@ const useFCMNotifications = () => {
     const permissionStatus = await messaging().hasPermission();
     const isPermissionGranted = checkForPermissionGranted(permissionStatus);
     if (isPermissionGranted && isLogedIn && userData?._id) {
+      console.log('token is!', userData?.notifTokenId);
+      if (userData?.notifTokenId?.stale) {
+        console.log('token is stale!', userData?.notifTokenId);
+        configureNotifPermission();
+      }
       if (fcmToken.token && fcmToken.expiry) {
         dispatch(setFCMTokenRequest({...fcmToken, userId: userData._id}));
       } else {
@@ -42,6 +47,7 @@ const useFCMNotifications = () => {
   useEffect(() => {
     updateUserIdInToken();
   }, [userData?._id]);
+
 
   const configureNotifPermission = async () => {
     const permissionStatus = await messaging().hasPermission();
@@ -60,7 +66,8 @@ const useFCMNotifications = () => {
     await messaging().registerDeviceForRemoteMessages();
     const token = await messaging().getToken();
     const expiry = new Date();
-    expiry.setMonth(expiry.getMonth() + 1);
+    expiry.setDate(expiry.getDate() + 21);
+
 
     if (token) {
       const userId = isLogedIn ? userData?._id : null;
