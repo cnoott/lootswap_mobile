@@ -7,6 +7,10 @@
 #import <RNBranch/RNBranch.h>
 #import <React/RCTLinkingManager.h>
 
+#import <AuthenticationServices/AuthenticationServices.h>
+#import <SafariServices/SafariServices.h>
+#import <FBSDKCoreKit/FBSDKCoreKit-Swift.h>
+#import <FBAEMKit/FBAEMKit-Swift.h>
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
@@ -58,6 +62,9 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   RCTAppSetupPrepareApp(application);
   [FIRApp configure];
   //self.initialProps = [RNFBMessagingModule addCustomPropsToUserProps:nil withLaunchOptions:launchOptions];
+  
+  [[FBSDKApplicationDelegate sharedInstance] application:application
+                      didFinishLaunchingWithOptions:launchOptions];
 
 
   for (NSString* family in [UIFont familyNames])
@@ -108,10 +115,23 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   completionHandler(UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionBadge);
 }
 
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    [RNBranch application:app openURL:url options:options];
-    return YES;
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
+  [FBAEMReporter configureWithNetworker:nil appID:@"{1306228819798690}" reporter:nil];
+  [FBAEMReporter enable];
+  [FBAEMReporter handle:url];
+    if ([[FBSDKApplicationDelegate sharedInstance] application:application openURL:url options:options]) {
+        return YES;
+    }
+
+    if ([RNBranch application:application openURL:url options:options]) {
+        return YES;
+    }
+
+    return [RCTLinkingManager application:application openURL:url options:options];
 }
+
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
    [RNBranch continueUserActivity:userActivity];
