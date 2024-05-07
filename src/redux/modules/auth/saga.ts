@@ -125,6 +125,7 @@ export function* signInAPI(action: any) {
     yield put(LoadingSuccess());
     if (response?.success) {
       goBack();
+      goBack();
       yield put(signInSuccess(response.data));
       loggingService().setUserName(response?.data?.user?.name);
       loggingService().setUserStatus('logged_in');
