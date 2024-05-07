@@ -7,7 +7,11 @@ const getCurrentEpochTime = (): number =>
   Math.floor(new Date().getTime() / 1000);
 
 export const loggingService = () => {
-  const setUserName = (name: string) => {
+  const setUserName = (name: string, email: string) => {
+    if (email.includes('semir') || email.includes('liam')) {
+      RNUxcam.optOutOverall();
+      return;
+    }
     RNUxcam.setUserIdentity(name);
     console.log('set user name:', name);
   };

@@ -127,7 +127,10 @@ export function* signInAPI(action: any) {
       goBack();
       goBack();
       yield put(signInSuccess(response.data));
-      loggingService().setUserName(response?.data?.user?.name);
+      loggingService().setUserName(
+        response?.data?.user?.name,
+        response?.data?.user?.email,
+      );
       loggingService().setUserStatus('logged_in');
     } else {
       yield put(signInFailure(response.error));
@@ -145,7 +148,10 @@ export function* signUpAPI(action: any) {
     if (response?.success) {
       navigateToOnboarding();
       yield put(signUpSuccess(response.data));
-      loggingService().setUserName(response?.data?.user?.name);
+      loggingService().setUserName(
+        response?.data?.user?.name,
+        response?.data?.user?.email,
+      );
       loggingService().logEvent('sign_up', {method: 'email'});
       loggingService().setUserStatus('logged_in');
     } else {
@@ -173,7 +179,11 @@ export function* signInWithGoogleAPI(action: any) {
         goBack();
       }
       yield put(signUpSuccess(response.data));
-      loggingService().setUserName(response?.data?.user?.name);
+      loggingService().setUserName(
+        response?.data?.user?.name,
+        response?.data?.user?.email,
+      );
+
       loggingService().logEvent('sign_up', {method: 'google'});
       loggingService().setUserStatus('logged_in');
     } else {
@@ -200,7 +210,10 @@ export function* signInWithAppleAPI(action: any) {
         goBack();
       }
       yield put(signUpSuccess(response.data));
-      loggingService().setUserName(response?.data?.user?.name);
+      loggingService().setUserName(
+        response?.data?.user?.name,
+        response?.data?.user?.email,
+      );
       loggingService().logEvent('sign_up', {method: 'apple'});
       loggingService().setUserStatus('logged_in');
     } else {
