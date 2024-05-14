@@ -20,6 +20,7 @@ import {
   ProductDetails,
   PriceLabel,
   PriceDropLabel,
+  PercentOffLabel,
   PriceContainer,
   TagsContainer,
   TagView,
@@ -446,6 +447,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       </DescriptionContainerView>
     );
   };
+
+  const calcPercentOff = () => {
+    const priceDrop = parseFloat(selectedProductDetails?.priceDrops[selectedProductDetails?.priceDrops.length - 1]);
+    return (((parseFloat(productData?.price) - priceDrop) * 100) / parseFloat(productData.price)).toFixed(0);
+  };
   const renderUserDetailsView = () => {
     return (
       <>
@@ -534,13 +540,19 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               </ProductDetails>
               {productData?.type !== Trade_Options?.TradeOnly && (
                 <PriceContainer>
+                  {selectedProductDetails?.priceDrops?.length > 0 && (
+                  <PriceDropLabel>
+                    ${selectedProductDetails?.priceDrops[selectedProductDetails?.priceDrops.length - 1]}
+                  </PriceDropLabel>
+                  )}
                   <PriceLabel cross={selectedProductDetails?.priceDrops.length}>
                     ${productData?.price}
                   </PriceLabel>
+
                   {selectedProductDetails?.priceDrops?.length > 0 && (
-                    <PriceDropLabel>
-                      ${selectedProductDetails?.priceDrops[selectedProductDetails?.priceDrops.length - 1]}
-                    </PriceDropLabel>
+                    <PercentOffLabel>
+                      {calcPercentOff()}% off
+                    </PercentOffLabel>
                   )}
 
                   {/*selectedProductDetails?.stockxId && (
