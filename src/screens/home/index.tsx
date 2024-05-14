@@ -70,10 +70,16 @@ export const HomeScreen: FC<{}> = () => {
 
   useEffect(() => {
     fetchHomeScreenProducts();
+    if (!isLogedIn && page === 3) {
+      navigation?.navigate('CreateAccountScreen')
+    }
   }, [page]);
 
   useEffect(() => {
     fetchHotProducts();
+    if (!isLogedIn && hotPage === 3) {
+      navigation?.navigate('CreateAccountScreen')
+    }
   }, [hotPage]);
 
   useEffect(() => {
@@ -389,7 +395,7 @@ export const HomeScreen: FC<{}> = () => {
           data={[...hotProducts, ...hotLoadingItems]} // TODO: loading items
           renderItem={renderItem}
           keyExtractor={(item, index) =>
-            item._id ? item._id.toString() + index : `loading-${index}`
+            item._id ? item._id.toString() + index + 'hot' : `loading-${index}`
           }
           onEndReached={() => hotOnEndReached()}
           horizontal={true}
