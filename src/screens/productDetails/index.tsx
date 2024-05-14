@@ -19,6 +19,7 @@ import {
   ProductLabel,
   ProductDetails,
   PriceLabel,
+  PriceDropLabel,
   PriceContainer,
   TagsContainer,
   TagView,
@@ -533,7 +534,15 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               </ProductDetails>
               {productData?.type !== Trade_Options?.TradeOnly && (
                 <PriceContainer>
-                  <PriceLabel>${productData?.price}</PriceLabel>
+                  <PriceLabel cross={selectedProductDetails?.priceDrops.length}>
+                    ${productData?.price}
+                  </PriceLabel>
+                  {selectedProductDetails?.priceDrops?.length > 0 && (
+                    <PriceDropLabel>
+                      ${selectedProductDetails?.priceDrops[selectedProductDetails?.priceDrops.length - 1]}
+                    </PriceDropLabel>
+                  )}
+
                   {/*selectedProductDetails?.stockxId && (
                   <DealBadge
                     fromProductPage={true}

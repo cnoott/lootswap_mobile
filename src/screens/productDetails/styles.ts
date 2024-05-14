@@ -124,7 +124,19 @@ export const BoldText = styled.Text`
 `;
 
 export const PriceLabel = styled.Text.attrs(props => ({
-  color: props.theme.colors.text,
+  color: props?.cross ? props.theme.colors.textGrey : props.theme.colors.text,
+}))`
+  font-size: ${moderateScale(24)}px;
+  font-family: Urbanist-ExtraBold;
+  margin-right: 5px;
+  text-decoration: ${props => props?.cross ? 'line-through' : 'none'};
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const PriceDropLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.danger,
 }))`
   font-size: ${moderateScale(24)}px;
   font-family: Urbanist-ExtraBold;
