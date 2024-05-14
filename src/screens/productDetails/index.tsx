@@ -449,9 +449,13 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   };
 
   const calcPercentOff = () => {
-    const priceDrop = parseFloat(selectedProductDetails?.priceDrops[selectedProductDetails?.priceDrops.length - 1]);
-    return (((parseFloat(productData?.price) - priceDrop) * 100) / parseFloat(productData.price)).toFixed(0);
+    const originalPrice = parseFloat(selectedProductDetails.priceHistory[selectedProductDetails.priceHistory.length - 1]);
+    const priceDrop = parseFloat(selectedProductDetails.price);
+
+    const percentOff = ((originalPrice - priceDrop) * 100) / originalPrice;
+    return percentOff.toFixed(0); // Return the discount percentage rounded to the nearest whole number
   };
+
   const renderUserDetailsView = () => {
     return (
       <>
@@ -540,16 +544,16 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               </ProductDetails>
               {productData?.type !== Trade_Options?.TradeOnly && (
                 <PriceContainer>
-                  {selectedProductDetails?.priceDrops?.length > 0 && (
+                  {selectedProductDetails?.priceHistory?.length > 0 && (
                   <PriceDropLabel>
-                    ${selectedProductDetails?.priceDrops[selectedProductDetails?.priceDrops.length - 1]}
+                    ${selectedProductDetails?.price}
                   </PriceDropLabel>
                   )}
-                  <PriceLabel cross={selectedProductDetails?.priceDrops.length}>
-                    ${productData?.price}
+                  <PriceLabel cross={selectedProductDetails?.priceHistory.length}>
+                    ${selectedProductDetails?.priceHistory[selectedProductDetails?.priceHistory.length - 1]}
                   </PriceLabel>
 
-                  {selectedProductDetails?.priceDrops?.length > 0 && (
+                  {selectedProductDetails?.priceHistory?.length > 0 && (
                     <PercentOffLabel>
                       {calcPercentOff()}% off
                     </PercentOffLabel>
