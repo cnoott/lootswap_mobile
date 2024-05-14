@@ -189,17 +189,21 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
             <HeaderDes>{item.name}</HeaderDes>
           </EmptyRowView>
           {item.type !== 'trade-only' && (
-            <HeaderTextMain cross={item?.priceDrops?.length > 0}>${item?.price}</HeaderTextMain>
+            <>
+              <HeaderTextMain priceDrop={item?.priceHistory?.length > 0}>
+                ${item?.priceHistory.length > 0
+                  ? item?.priceHistory[item.priceHistory.length - 1]
+                  : item?.price}
+              </HeaderTextMain>
+            </>
           )}
         </BottomHeaderView>
         <BottomHeaderView>
           <EmptyRowView>
             <HeaderTextMain>Size {item.size}</HeaderTextMain>
           </EmptyRowView>
-          {item?.priceDrops?.length > 0 && (
-            <PriceDropText>
-              ${item?.priceDrops[item?.priceDrops?.length - 1]}
-            </PriceDropText>
+          {item?.priceHistory?.length > 0 && (
+            <PriceDropText>${item?.price}</PriceDropText>
           )}
         </BottomHeaderView>
       </CellBottomView>
