@@ -20,6 +20,7 @@ import LoadingProductCard from '../../components/productCard/loadingProductCard'
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
+import {AuthProps} from '../../redux/modules/auth/reducer';
 
 const ITEMS_PER_PAGE = 8;
 
@@ -36,6 +37,9 @@ export const AllListingsScreen: FC<any> = ({route}) => {
   const filters: SearchProps = useSelector(state => state.search);
   const {filtersSet} = filters;
 
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {isLogedIn} = auth;
+
   useEffect(() => {
     handleSubmitFilters(
       dispatch,
@@ -44,6 +48,11 @@ export const AllListingsScreen: FC<any> = ({route}) => {
       '',
     );
     console.log('calling submit filters', JSON.stringify(filters).length);
+
+    if (!isLogedIn && page === 3) {
+      navigation?.navigate('CreateAccountScreen')
+    }
+
   }, [dispatch, page]);
 
   useEffect(() => {
