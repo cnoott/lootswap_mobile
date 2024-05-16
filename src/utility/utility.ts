@@ -1053,6 +1053,32 @@ export const paypalOrderShippingStatus = (userId: string, paypalOrder: any) => {
   }
 };
 
+export const shippingStepOptions = (
+  isReceiver: Boolean,
+  isTradeOrder: Boolean,
+  order: any,
+) => {
+  if (isTradeOrder) {
+    if (isReceiver && order?.receiverStep <= 3) {
+      return order?.receiverStep;
+    }
+    if (isReceiver && order?.receiverStep >= 4) {
+      return order?.senderStep;
+    }
+
+    if (!isReceiver && order?.senderStep <= 3) {
+      return order?.senderStep;
+    }
+    if (!isReceiver && order?.senderStep >= 4) {
+      return order?.receiverStep;
+    }
+    return isReceiver ? order?.senderStep : order?.receiverStep;
+  } else {
+    return order?.shippingStep;
+  }
+};
+
+
 export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
   const {receiverStep, senderStep, receiver} = tradeOrder;
   const isReceiver = userId === receiver?._id;
@@ -1101,7 +1127,7 @@ export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
     };
   }
 
-  const step = isReceiver ? receiverStep : senderStep;
+  const step = shippingStepOptions(isReceiver, true, tradeOrder);
   switch (step) {
     case -3:
     case -2:
