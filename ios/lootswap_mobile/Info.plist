@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.5.8</string>
+	<string>2.5.9</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -48,21 +48,21 @@
 				<string>com.googleusercontent.apps.82288270183-bnffad6i28k86q8ib136nboc2ulcrno2</string>
 			</array>
 		</dict>
-    <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-            <string>fb1306228819798690</string> <!-- Replace APP-ID with your actual Facebook App ID -->
-        </array>
-    </dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1306228819798690</string>
+			</array>
+		</dict>
 	</array>
-  <key>FacebookAppID</key>
-  <string>1306228819798690</string>
-  <key>FacebookDisplayName</key>
-  <string>lootswap</string>
 	<key>CFBundleVersion</key>
-	<string>2.5.8</string>
+	<string>2.5.9</string>
 	<key>CodePushDeploymentKey</key>
 	<string>7pHzXBTYADWR_M9n1BXQnMnioDkpF7dlnOwXu</string>
+	<key>FacebookAppID</key>
+	<string>1306228819798690</string>
+	<key>FacebookDisplayName</key>
+	<string>lootswap</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>bitmoji-sdk</string>
