@@ -29,7 +29,7 @@ function DeliveryAddressComponent(props: DeliveryAddressProps) {
         </DeliveryAddressLabel>
         <DeliveryAddressText>
           {userDidNotFillAddr && (
-            <>Please fill out your address to continue checking out</>
+            <>Please fill out your address to continue.</>
           )}
           {userDetails?.shipping_address?.street1}
           {', '}

@@ -1379,7 +1379,6 @@ export const handleSendOfferNavigation = (
     case Trade_Options.TradeOnly:
       navigation.navigate('StartTradeScreen', {
         requestedUserDetails: requestedUserDetails,
-        userData: userData,
         isFromMessageScreen: isFromMessageScreen,
       });
       break;

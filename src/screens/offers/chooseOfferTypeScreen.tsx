@@ -31,14 +31,13 @@ export const ChooseOfferTypeScreen: FC<any> = ({route}) => {
   const isFromMessageScreen = route?.params?.isFromMessageScreen ?? false;
   const auth: AuthProps = useSelector(state => state.auth);
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
-  const {requestedUserDetails, userData} = auth;
+  const {requestedUserDetails} = auth;
   const homeStates: AuthProps = useSelector(state => state.home);
   const {selectedProductDetails} = homeStates;
 
   const handleTradeNext = () => {
     navigation.navigate('StartTradeScreen', {
       requestedUserDetails: requestedUserDetails,
-      userData: userData,
       initialIsMoneyOffer: false,
       selectedProduct: selectedProductDetails,
       isFromMessageScreen: isFromMessageScreen,

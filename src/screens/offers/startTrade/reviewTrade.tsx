@@ -11,10 +11,14 @@ import {
   MarketValueText,
 } from './styles';
 import StartTradeItemCell from '../../../components/startTrade/startTradeItemCell';
+import DeliveryAddressComponent from '../../../components/orders/deliveryAddressComponent';
 import LSButton from '../../../components/commonComponents/LSButton';
 import {Size, Type} from '../../../enums';
 import MoneyOfferModal from './MoneyOfferModal';
 import {calculateMarketValue} from '../../../utility/utility';
+import {AuthProps} from '../../redux/modules/auth/reducer';
+import {useSelector} from 'react-redux';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 interface ReviewTradeProps {
   otherUserItems: any;
@@ -36,6 +40,9 @@ export const ReviewTrade: FC<ReviewTradeProps> = props => {
     myMoneyOffer,
     setMyMoneyOffer,
   } = props;
+  const navigation: NavigationProp<any, any> = useNavigation();
+  const auth: AuthProps = useSelector(state => state?.auth);
+  const {userData} = auth;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isMyMoneyOffer, setIsMyMoneyOffer] = useState(true);
   const onCloseModal = () => setIsModalVisible(false);
@@ -156,6 +163,12 @@ export const ReviewTrade: FC<ReviewTradeProps> = props => {
         onCloseModal={onCloseModal}
       />
       <ScrollSubContainer contentInset={{bottom: 80}}>
+        <DeliveryAddressComponent
+          userDetails={userData}
+          onPress={() => navigation.navigate('AddressScreenCheckout', {
+            isFromBuyCheckout: true
+          })}
+        />
         {showMyLoot()}
         {renderMoneyOffer(true)}
         {showOtherUserLoot()}
