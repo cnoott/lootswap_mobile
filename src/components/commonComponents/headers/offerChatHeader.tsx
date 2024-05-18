@@ -48,6 +48,8 @@ interface HeaderProps {
   userData: any;
   profileUrl?: string;
   tradeStatus: string;
+  drawerOpen: Boolean;
+  setDrawerOpen: Function;
 }
 
 export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
@@ -60,9 +62,10 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     offerItem,
     userData,
     tradeStatus,
+    drawerOpen,
+    setDrawerOpen,
   }) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
-    const [accOpen, setAccOpen] = useState(false);
     const [isShipInsModalVisible, setShipInsModalVisible] = useState(false);
     const isAccepted = tradeStatus === Trade_Status?.Accepted;
     const isCanceled = tradeStatus === Trade_Status?.Canceled;
@@ -271,12 +274,12 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       return (
         <EmptyColumnView>
           {getOfferStatusView()}
-          <Collapsible collapsed={accOpen} renderChildrenCollapsed={true}>
+          <Collapsible collapsed={!drawerOpen} renderChildrenCollapsed={true}>
             {renderOfferCellView()}
           </Collapsible>
-          <ArrowContainer onPress={() => setAccOpen(!accOpen)}>
+          <ArrowContainer onPress={() => setDrawerOpen(!drawerOpen)}>
             <SvgXml
-              xml={accOpen ? ACCORDIAN_DOWN_ELLIPSE : ACCORDIAN_UP_ELLIPSE}
+              xml={drawerOpen ? ACCORDIAN_DOWN_ELLIPSE : ACCORDIAN_UP_ELLIPSE}
             />
           </ArrowContainer>
         </EmptyColumnView>
