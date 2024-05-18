@@ -118,17 +118,18 @@ export const Image = styled.Image.attrs((props: any) => ({
   ${layout}
 `;
 
-export const StepOneContainer = styled.View.attrs(() => ({
-  flex: 1,
-}))`
+
+export const StepOneContainer = styled.View`
+  flex: 1;
   justify-content: center;
   align-items: center;
+  position: relative;
   ${color}
 `;
 
 export const StepOneImage = styled.Image.attrs((props: any) => ({
-  marginTop: '22%',
-  height: '100%',
+  marginTop: '35%',
+  height: '110%',
   width: '100%',
   borderRadius: scale(2),
   resizeMode: 'cover',
@@ -138,6 +139,11 @@ export const StepOneImage = styled.Image.attrs((props: any) => ({
   ${layout}
 `;
 
+export const CenteredButton = styled.TouchableOpacity`
+  position: absolute;
+  top: 54%;
+  left: 28%;
+`;
 export const BottomLeftContainer = styled.View.attrs(() => ({
   height: scale(38),
   width: scale(150),

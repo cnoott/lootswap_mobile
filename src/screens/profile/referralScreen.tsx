@@ -129,18 +129,11 @@ export const ReferralScreen: FC<{}> = () => {
 
   return (
     <Container>
-      <InStackHeader title={'Referral Link for Giveaway'} back />
+      <InStackHeader title={'Referral Link'} back />
       <ScrollView>
         <TopContainer>
-          <ImageContainer>
-            <Image
-              source={{uri: giveawayImage}}
-              width={scale(250)}
-              height={scale(115)}
-            />
-          </ImageContainer>
           <TopTextContainer>
-            <TopTextHeader>How to enter the giveaway 👟:</TopTextHeader>
+            <TopTextHeader>Refer a friend and get $5!</TopTextHeader>
           </TopTextContainer>
           {!isLogedIn && (
             <BulletPointView>
@@ -156,22 +149,17 @@ export const ReferralScreen: FC<{}> = () => {
             <Bullet />
             <BulletText>
               <BulletBoldText>Share your custom referral link: </BulletBoldText>
-              Each new account created using your link earns you one entry!
+              Each new account created using your link earns you $5. Earn up to $50.
             </BulletText>
           </BulletPointView>
           <BulletPointView>
             <Bullet />
             <BulletText>
-              <BulletBoldText>Share any product listing: </BulletBoldText>
-              Tap the share icon{' '}
-              <SvgXml xml={SHARE_ICON} margin={0} width={15} height={15} /> on a
-              product listing page to post it on social media. This earns you
-              one entry for every unique product. Plus, if someone signs up
-              after clicking your shared product, you score an extra entry!
+              <BulletBoldText>
+                You can access your funds in the "Wallet" screen:
+              </BulletBoldText>
+              Tap "Profile" on the bottom menu then tap "Wallet".
             </BulletText>
-          </BulletPointView>
-          <BulletPointView>
-            <BulletText>*Apple is not a sponsor of this giveaway</BulletText>
           </BulletPointView>
           {isLogedIn && (
             <LinkSectionContainer>
