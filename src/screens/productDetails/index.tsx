@@ -549,9 +549,18 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                     ${selectedProductDetails?.price}
                   </PriceDropLabel>
                   )}
-                  <PriceLabel cross={selectedProductDetails?.priceHistory.length}>
-                    ${selectedProductDetails?.priceHistory[selectedProductDetails?.priceHistory.length - 1]}
-                  </PriceLabel>
+
+                  {selectedProductDetails?.priceHistory?.length > 0 && (
+                    <PriceLabel cross={true}>
+                      ${selectedProductDetails?.priceHistory[selectedProductDetails?.priceHistory.length - 1]}
+                    </PriceLabel>
+                  )}
+
+                  {selectedProductDetails?.priceHistory?.length === 0 && (
+                    <PriceLabel cross={false}>
+                      ${selectedProductDetails?.price}
+                    </PriceLabel>
+                  )}
 
                   {selectedProductDetails?.priceHistory?.length > 0 && (
                     <PercentOffLabel>
