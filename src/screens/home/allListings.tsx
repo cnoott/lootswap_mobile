@@ -50,9 +50,8 @@ export const AllListingsScreen: FC<any> = ({route}) => {
     console.log('calling submit filters', JSON.stringify(filters).length);
 
     if (!isLogedIn && page === 3) {
-      navigation?.navigate('CreateAccountScreen')
+      navigation?.navigate('CreateAccountScreen');
     }
-
   }, [dispatch, page]);
 
   useEffect(() => {

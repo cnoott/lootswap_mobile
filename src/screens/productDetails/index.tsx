@@ -449,7 +449,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   };
 
   const calcPercentOff = () => {
-    const originalPrice = parseFloat(selectedProductDetails.priceHistory[selectedProductDetails.priceHistory.length - 1]);
+    const originalPrice = parseFloat(
+      selectedProductDetails.priceHistory[
+        selectedProductDetails.priceHistory.length - 1
+      ],
+    );
     const priceDrop = parseFloat(selectedProductDetails.price);
 
     const percentOff = ((originalPrice - priceDrop) * 100) / originalPrice;
@@ -545,14 +549,19 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               {productData?.type !== Trade_Options?.TradeOnly && (
                 <PriceContainer>
                   {selectedProductDetails?.priceHistory?.length > 0 && (
-                  <PriceDropLabel>
-                    ${selectedProductDetails?.price}
-                  </PriceDropLabel>
+                    <PriceDropLabel>
+                      ${selectedProductDetails?.price}
+                    </PriceDropLabel>
                   )}
 
                   {selectedProductDetails?.priceHistory?.length > 0 && (
                     <PriceLabel cross={true}>
-                      ${selectedProductDetails?.priceHistory[selectedProductDetails?.priceHistory.length - 1]}
+                      $
+                      {
+                        selectedProductDetails?.priceHistory[
+                          selectedProductDetails?.priceHistory.length - 1
+                        ]
+                      }
                     </PriceLabel>
                   )}
 
@@ -563,9 +572,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                   )}
 
                   {selectedProductDetails?.priceHistory?.length > 0 && (
-                    <PercentOffLabel>
-                      {calcPercentOff()}% off
-                    </PercentOffLabel>
+                    <PercentOffLabel>{calcPercentOff()}% off</PercentOffLabel>
                   )}
 
                   {/*selectedProductDetails?.stockxId && (

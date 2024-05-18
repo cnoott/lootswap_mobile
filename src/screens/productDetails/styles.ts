@@ -129,7 +129,7 @@ export const PriceLabel = styled.Text.attrs(props => ({
   font-size: ${moderateScale(24)}px;
   font-family: Urbanist-ExtraBold;
   margin-right: 5px;
-  text-decoration: ${props => props?.cross ? 'line-through' : 'none'};
+  text-decoration: ${props => (props?.cross ? 'line-through' : 'none')};
   ${color}
   ${space}
   ${layout}
@@ -140,7 +140,7 @@ export const PercentOffLabel = styled.Text.attrs(props => ({
   font-size: ${moderateScale(18)}px;
   font-family: Urbanist-ExtraBold;
   margin-right: 5px;
-  text-decoration: ${props => props?.cross ? 'line-through' : 'none'};
+  text-decoration: ${props => (props?.cross ? 'line-through' : 'none')};
   ${color}
   ${space}
   ${layout}

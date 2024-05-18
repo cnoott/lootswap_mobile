@@ -309,6 +309,7 @@ export const categoryList = [
   {label: 'Pants', value: 'pants'},
   {label: 'Shorts', value: 'shorts'},
   {label: 'Hats', value: 'hats'},
+  {label: 'Bags', value: 'bags'},
   {label: 'Other', value: 'other'},
 ];
 
@@ -486,6 +487,8 @@ export const lowerClothingSize = [
   {label: '44', value: '44'},
 ];
 
+export const bagSize = lowerClothingSize.slice(0, 5);
+
 export const hatsSize = [
   {label: 'ONE SIZE', value: 'ONE SIZE'},
   {label: '6 3/4', value: '6 3/4'},
@@ -535,6 +538,8 @@ export const getSizeList = (category: string = '') => {
       return lowerClothingSize;
     case 'hats':
       return lowerClothingSize;
+    case 'bags':
+      return bagSize;
     case 'other':
       return otherSize;
     default:
@@ -1078,7 +1083,6 @@ export const shippingStepOptions = (
   }
 };
 
-
 export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
   const {receiverStep, senderStep, receiver} = tradeOrder;
   const isReceiver = userId === receiver?._id;
@@ -1313,9 +1317,14 @@ const hasTradeOnly = (products: Array<any>) => {
 };
 
 const hasPreowned = (products: Array<any>) => {
-  const preOwnedConditions = ['Pre-owned', 'Lightly used', 'Moderately used', 'Heavily used'];
-  return products.find(
-    product => preOwnedConditions.includes(product?.condition),
+  const preOwnedConditions = [
+    'Pre-owned',
+    'Lightly used',
+    'Moderately used',
+    'Heavily used',
+  ];
+  return products.find(product =>
+    preOwnedConditions.includes(product?.condition),
   );
 };
 

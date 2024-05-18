@@ -165,9 +165,11 @@ export const ReviewTrade: FC<ReviewTradeProps> = props => {
       <ScrollSubContainer contentInset={{bottom: 80}}>
         <DeliveryAddressComponent
           userDetails={userData}
-          onPress={() => navigation.navigate('AddressScreenCheckout', {
-            isFromBuyCheckout: true
-          })}
+          onPress={() =>
+            navigation.navigate('AddressScreenCheckout', {
+              isFromBuyCheckout: true,
+            })
+          }
         />
         {showMyLoot()}
         {renderMoneyOffer(true)}

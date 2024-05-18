@@ -28,9 +28,7 @@ function DeliveryAddressComponent(props: DeliveryAddressProps) {
           {userDidNotFillAddr && <SvgXml xml={WARNING_ICON} width={20} />}
         </DeliveryAddressLabel>
         <DeliveryAddressText>
-          {userDidNotFillAddr && (
-            <>Please fill out your address to continue.</>
-          )}
+          {userDidNotFillAddr && <>Please fill out your address to continue.</>}
           {userDetails?.shipping_address?.street1}
           {', '}
           {userDetails?.shipping_address?.street2}

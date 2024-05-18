@@ -126,7 +126,6 @@ export const StepOneContainer = styled.View.attrs(() => ({
   ${color}
 `;
 
-
 export const StepOneImage = styled.Image.attrs((props: any) => ({
   marginTop: '22%',
   height: '100%',
@@ -138,7 +137,6 @@ export const StepOneImage = styled.Image.attrs((props: any) => ({
   ${space}
   ${layout}
 `;
-
 
 export const BottomLeftContainer = styled.View.attrs(() => ({
   height: scale(38),
@@ -330,5 +328,4 @@ export const ReferText = styled.Text.attrs(props => ({
   ${border}
 `;
 
-export const EnterNowButtonContainer = styled.View.attrs(() => ({}))`
-`;
+export const EnterNowButtonContainer = styled.View.attrs(() => ({}))``;
