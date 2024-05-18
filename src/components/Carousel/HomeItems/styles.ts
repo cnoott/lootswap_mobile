@@ -118,6 +118,28 @@ export const Image = styled.Image.attrs((props: any) => ({
   ${layout}
 `;
 
+export const StepOneContainer = styled.View.attrs(() => ({
+  flex: 1,
+}))`
+  justify-content: center;
+  align-items: center;
+  ${color}
+`;
+
+
+export const StepOneImage = styled.Image.attrs((props: any) => ({
+  marginTop: '22%',
+  height: '100%',
+  width: '100%',
+  borderRadius: scale(2),
+  resizeMode: 'cover',
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+
 export const BottomLeftContainer = styled.View.attrs(() => ({
   height: scale(38),
   width: scale(150),
