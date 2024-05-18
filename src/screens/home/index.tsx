@@ -71,14 +71,14 @@ export const HomeScreen: FC<{}> = () => {
   useEffect(() => {
     fetchHomeScreenProducts();
     if (!isLogedIn && page === 3) {
-      navigation?.navigate('CreateAccountScreen')
+      navigation?.navigate('CreateAccountScreen');
     }
   }, [page]);
 
   useEffect(() => {
     fetchHotProducts();
     if (!isLogedIn && hotPage === 3) {
-      navigation?.navigate('CreateAccountScreen')
+      navigation?.navigate('CreateAccountScreen');
     }
   }, [hotPage]);
 

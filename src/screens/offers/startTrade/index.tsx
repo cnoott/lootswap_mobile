@@ -33,10 +33,7 @@ type PaymentDetails = {
 const NUMBER_OF_STEPS = 5;
 
 export const StartTradeScreen: FC<any> = ({route}) => {
-  const {
-    requestedUserDetails,
-    isFromMessageScreen = false,
-  } = route?.params;
+  const {requestedUserDetails, isFromMessageScreen = false} = route?.params;
   const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation();
   const swiperRef = useRef<any>(null);

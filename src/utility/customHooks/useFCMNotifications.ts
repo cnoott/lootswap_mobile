@@ -48,7 +48,6 @@ const useFCMNotifications = () => {
     updateUserIdInToken();
   }, [userData?._id]);
 
-
   const configureNotifPermission = async () => {
     const permissionStatus = await messaging().hasPermission();
     const isPermissionGranted = checkForPermissionGranted(permissionStatus);
@@ -67,7 +66,6 @@ const useFCMNotifications = () => {
     const token = await messaging().getToken();
     const expiry = new Date();
     expiry.setDate(expiry.getDate() + 21);
-
 
     if (token) {
       const userId = isLogedIn ? userData?._id : null;
