@@ -24,6 +24,7 @@ import {useScrollToTop} from '@react-navigation/native';
 import {
   getHomeScreenProducts,
   getHotProducts,
+  getForYouProducts,
   getHomeScreenPublicOffers,
   getPublicOffers,
 } from '../../redux/modules';
@@ -47,6 +48,7 @@ export const HomeScreen: FC<{}> = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [loadingItems, setLoadingItems] = useState([]);
   const [hotLoadingItems, setHotLoadingItems] = useState([]);
+  const [forYouLoadingItems, setForYouLoadingItems] = useState([]);
   const [loadingPublicOffersItems, setLoadingPublicOffersItems] = useState([]);
 
   const scrollRef = React.useRef(null);
@@ -57,16 +59,28 @@ export const HomeScreen: FC<{}> = () => {
 
   const [products, setProducts] = useState([]);
   const [hotProducts, setHotProducts] = useState([]);
+  const [forYouProducts, setForYouProducts] = useState([]);
+
   const [publicOffers, setPublicOffers] = useState([]);
+
   const [endReached, setEndReached] = useState(false);
   const [hotEndReached, setHotEndReached] = useState(false);
+  const [forYouEndReached, setForYouEndReached] = useState(false);
   const [publicOffersEndReached, setPublicOffersEndReached] = useState(false);
   const [page, setPage] = useState(0);
   const [hotPage, setHotPage] = useState(0);
+  const [forYouPage, setForYouPage] = useState(0);
   const [publicOffersPage, setPublicOffersPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [hotProductsLoading, setHotProductsLoading] = useState(false);
+  const [forYouLoading, setForYouLoading] = useState(false);
   const [publicOffersLoading, setPublicOffersLoading] = useState(false);
+
+  useEffect(() => {
+    if (isLogedIn) {
+      fetchForYouProducts();
+    }
+  }, [forYouPage]);
 
   useEffect(() => {
     fetchHomeScreenProducts();
@@ -93,6 +107,16 @@ export const HomeScreen: FC<{}> = () => {
   }, [loading]);
 
   useEffect(() => {
+    if (forYouLoading && !forYouEndReached) {
+      setForYouLoadingItems(new Array(8).fill({loading: true}));
+      console.log('now loading');
+    } else {
+      setForYouLoadingItems([]);
+      console.log('not loading');
+    }
+  }, [forYouLoading]);
+
+  useEffect(() => {
     if (hotProductsLoading && !hotEndReached) {
       setHotLoadingItems(new Array(8).fill({loading: true}));
       console.log('now loading');
@@ -117,6 +141,30 @@ export const HomeScreen: FC<{}> = () => {
   useEffect(() => {
     fetchHomeScreenPublicOffers();
   }, [publicOffersPage]);
+
+  const fetchForYouProducts = useCallback(() => {
+    setForYouLoading(true);
+    const reqData = {
+      itemsPerPage: ITEMS_PER_PAGE,
+      page: forYouPage,
+      userId: userData?._id,
+    };
+
+    dispatch(
+      getForYouProducts(
+        reqData,
+        (res: any) => {
+          setForYouProducts([...forYouProducts, ...res.forYou]);
+          setForYouEndReached(res.endReached);
+          setForYouLoading(false);
+        },
+        (err: any) => {
+          console.log(err);
+          setForYouLoading(false);
+        },
+      ),
+    );
+  }, [forYouPage, isLogedIn]);
 
   const fetchHotProducts = useCallback(() => {
     setHotProductsLoading(true);
@@ -248,6 +296,12 @@ export const HomeScreen: FC<{}> = () => {
     }
   };
 
+  const forYouOnEndReached = () => {
+    if (!forYouLoading && !forYouEndReached) {
+      setForYouPage(prevPage => prevPage + 1);
+    }
+  };
+
   const onPublicOfferEndReached = () => {
     console.log('next', publicOffersLoading, publicOffersEndReached);
     if (!publicOffersLoading && !publicOffersEndReached) {
@@ -371,6 +425,42 @@ export const HomeScreen: FC<{}> = () => {
     );
   };
 
+  const renderForYouSection = () => {
+    // TODO for you all listings
+    return (
+      <>
+        <SectionContainer>
+          <SectionTopContainer>
+            <SectionTitleText>For You</SectionTitleText>
+            <LSButton
+              title={'View All'}
+              size={Size.ViewSmall}
+              type={Type.View}
+              radius={20}
+              onPress={() =>
+                navigation?.navigate('AllListingsScreen', {
+                  hotItems: true,
+                })
+              }
+            />
+          </SectionTopContainer>
+        </SectionContainer>
+
+        <FlatList
+          data={[...forYouProducts, ...forYouLoadingItems]}
+          renderItem={renderItem}
+          keyExtractor={(item, index) =>
+            item._id ? item._id.toString() + index + 'foru' : `loading-${index}`
+          }
+          onEndReached={() => forYouOnEndReached()}
+          horizontal={true}
+          onEndReachedThreshold={0.5}
+        />
+      </>
+
+    );
+  };
+
   const renderHotProductsSection = () => {
     return (
       <>
@@ -423,6 +513,7 @@ export const HomeScreen: FC<{}> = () => {
           isHome={true}
           renderSearchBar={renderSearchBar}
         />
+        {isLogedIn && renderForYouSection()}
         {renderHotProductsSection()}
         {renderAllProductsSection()}
         {renderPublicOffers()}
