@@ -15,6 +15,7 @@ import {
   GET_RECOMMENDED_SEARCH,
   REFRESH_STOCKX_DATA,
   SHOULD_SHOW_GIVEAWAY,
+  GET_FOR_YOU_PRODUCTS,
 } from '../../../constants/actions';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 
@@ -200,6 +201,19 @@ export const getHotProducts = (
 ) => {
   return {
     type: GET_HOT_PRODUCTS.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const getForYouProducts = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: GET_FOR_YOU_PRODUCTS.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
