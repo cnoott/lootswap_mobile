@@ -3,6 +3,8 @@
 import {
   SELECT_FILTER,
   SEARCH_PRODUCTS,
+  SET_PRODUCTS,
+  CLEAR_PRODUCTS,
   FILTER_PRODUCTS,
   GET_AVALIABLE_SIZES,
   CLEAR_FILTERS,
@@ -52,6 +54,8 @@ type ActionProps = {
 
 export default function loading(state = InitialState, action: ActionProps) {
   const {type, filterType, filter, payload} = action;
+
+  console.log('TYPE' ,type);
 
   switch (type) {
     case SEARCH_PRODUCTS.REQUEST:
@@ -227,6 +231,7 @@ export default function loading(state = InitialState, action: ActionProps) {
         loading: false,
       };
 
+
     case CLEAR_FILTERS.REQUEST:
       return {
         ...state,
@@ -240,6 +245,24 @@ export default function loading(state = InitialState, action: ActionProps) {
         filtersSet: false,
         searchProducts: [],
         sizes: [],
+        endReached: false,
+      };
+
+    case SET_PRODUCTS.SUCCESS:
+      const {newProducts, newLoading, newEndReached} = payload;
+      console.log('IN REDUCER', newProducts.length);
+      return {
+        ...state,
+        searchProducts: [...state.searchProducts, ...newProducts],
+        loading: false,
+        endReached: newEndReached,
+      };
+
+    case CLEAR_PRODUCTS.SUCCESS:
+    console.log('calling clear products, in reducer');
+      return {
+        ...state,
+        searchProducts: [],
         endReached: false,
       };
     default:

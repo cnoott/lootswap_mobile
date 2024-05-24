@@ -80,7 +80,7 @@ export const HomeScreen: FC<{}> = () => {
     if (isLogedIn) {
       fetchForYouProducts();
     }
-  }, [forYouPage]);
+  }, [forYouPage, isLogedIn]);
 
   useEffect(() => {
     fetchHomeScreenProducts();
@@ -440,6 +440,7 @@ export const HomeScreen: FC<{}> = () => {
               onPress={() =>
                 navigation?.navigate('AllListingsScreen', {
                   hotItems: true,
+                  type: 'For You',
                 })
               }
             />
@@ -475,6 +476,7 @@ export const HomeScreen: FC<{}> = () => {
               onPress={() =>
                 navigation?.navigate('AllListingsScreen', {
                   hotItems: true,
+                  type: 'All Listings',
                 })
               }
             />
@@ -514,7 +516,7 @@ export const HomeScreen: FC<{}> = () => {
           renderSearchBar={renderSearchBar}
         />
         {isLogedIn && renderForYouSection()}
-        {renderHotProductsSection()}
+        {!isLogedIn && renderHotProductsSection()}
         {renderAllProductsSection()}
         {renderPublicOffers()}
       </ScrollView>

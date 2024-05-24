@@ -286,6 +286,14 @@ export const SEARCH_PRODUCTS = {
   ...createActionConst(actions.SEARCH_PRODUCTS),
 };
 
+export const SET_PRODUCTS = {
+  ...createActionConst(actions.SET_PRODUCTS),
+};
+
+export const CLEAR_PRODUCTS = {
+  ...createActionConst(actions.CLEAR_PRODUCTS),
+};
+
 export const SAVE_SEARCH = {
   ...createActionConst(actions.SAVE_SEARCH),
 };
