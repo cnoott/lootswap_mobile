@@ -16,6 +16,7 @@ import {
   REFRESH_STOCKX_DATA,
   SHOULD_SHOW_GIVEAWAY,
   GET_FOR_YOU_PRODUCTS,
+  GET_ONBOARDING_PRODUCTS,
 } from '../../../constants/actions';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 
@@ -214,6 +215,19 @@ export const getForYouProducts = (
 ) => {
   return {
     type: GET_FOR_YOU_PRODUCTS.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const getOnboardingProducts = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: GET_ONBOARDING_PRODUCTS.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,

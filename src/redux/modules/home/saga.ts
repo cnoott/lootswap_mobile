@@ -4,6 +4,7 @@ import {
   GET_HOMESCREEN_PRODUCTS,
   GET_HOT_PRODUCTS,
   GET_FOR_YOU_PRODUCTS,
+  GET_ONBOARDING_PRODUCTS,
   GET_HOMESCREEN_PUBLIC_OFFERS,
   GET_PRODUCT_LISTED_ITEMS,
   SEND_TRADE_OFFER,
@@ -41,6 +42,7 @@ import {
   searchStockxCall,
   getHomeScreenProductsCall,
   getHotProductsCall,
+  getOnboardingProductsCall,
   searchProductsCall,
   getRecommendedSearchCall,
   getHomeScreenPublicOffersCall,
@@ -112,11 +114,27 @@ export function* getForYouProducts(action: any) {
   }
 }
 
-
 export function* getHotProducts(action: any) {
   try {
     const response: APIResponseProps = yield call(
       getHotProductsCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack(e);
+    console.log(e);
+  }
+}
+
+export function* getOnboardingProducts(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      getOnboardingProductsCall,
       action?.reqData,
     );
     if (response?.success) {
@@ -372,6 +390,7 @@ export default function* authSaga() {
   yield takeLatest(GET_PRODUCT_DETAILS.REQUEST, getSelectedProductDetails);
   yield takeLatest(GET_HOMESCREEN_PRODUCTS.REQUEST, getHomeScreenProducts);
   yield takeLatest(GET_HOT_PRODUCTS.REQUEST, getHotProducts);
+  yield takeLatest(GET_ONBOARDING_PRODUCTS.REQUEST, getOnboardingProducts);
   yield takeLatest(GET_FOR_YOU_PRODUCTS.REQUEST, getForYouProducts);
   yield takeLatest(
     GET_HOMESCREEN_PUBLIC_OFFERS.REQUEST,

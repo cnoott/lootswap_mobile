@@ -10,12 +10,14 @@ import {
   PROFILE_REFERRAL,
   PROFILE_SUPPORT,
   PROFILE_NOTIFICATION,
+  EDIT_PROFILE_EMAIL_ICON,
   ORDER_TRACK_PURCHASED,
   ORDER_TRACK_SHIPPED_SELECTED,
   ORDER_TRACK_IN_TRANSIT_UNSELECTED,
   ORDER_TRACK_IN_TRANSIT_SELECTED,
   ORDER_TRACK_DELIVERED_UNSELECTED,
   ORDER_TRACK_DELIVERED_SELECTED,
+  FILTER_ICON,
 } from 'localsvgimages';
 import {PROFILE_OPTIONS_TYPE, GET_PRODUCT_DETAILS} from 'custom_types';
 import {
@@ -144,41 +146,46 @@ export const getProfileOptions = (userData: any) => {
       index: 2,
     },
     {
+      icon: FILTER_ICON,
+      title: 'Sizes & Preferences',
+      index: 3,
+    },
+    {
       icon: PROFILE_ADDRESS,
       title: 'Address',
-      index: 3,
+      index: 4,
     },
     {
       icon: PROFILE_MY_LOOT,
       title: 'My loot',
-      index: 4,
+      index: 5,
     },
     {
       icon: PROFILE_ORDERS,
       title: 'Orders',
-      index: 5,
+      index: 6,
     },
     {
       icon: PROFILE_WALLET,
       title: 'Wallet',
-      index: 6,
+      index: 7,
     },
     {
       icon: PROFILE_NOTIFICATION,
       title: 'Notification settings',
-      index: 7,
+      index: 8,
     },
     {
       icon: PROFILE_WALLET,
       title: userData?.paypal_onboarded
         ? 'Link PayPal (already linked)'
         : 'Link PayPal',
-      index: 8,
+      index: 9,
     },
     {
       icon: PROFILE_SUPPORT,
       title: 'Support/FAQ',
-      index: 9,
+      index: 10,
     },
   ];
   return optionsList;

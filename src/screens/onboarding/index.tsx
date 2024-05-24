@@ -61,7 +61,8 @@ const tops = ['S', 'M', 'L', 'XXL'];
 
 const bottoms = ['S', 'M', 'L', 'XXL'];
 
-export const OnboardingScreen: FC<{}> = () => {
+export const OnboardingScreen: FC<{}> = ({route}) => {
+  const {fromProfile = false} = route?.params ?? false;
   const [currIndex, setCurrIndex] = useState(0);
   const swiperRef = useRef<any>(null);
   const navigation: NavigationProp<any, any> = useNavigation();
@@ -114,6 +115,11 @@ export const OnboardingScreen: FC<{}> = () => {
 
   const handleNext = () => {
     if (currIndex === 1) {
+      if (fromProfile) {
+        handleSaveData();
+        goBack();
+        return;
+      }
       goBack();
       goBack();
       handleSaveData();
@@ -132,14 +138,16 @@ export const OnboardingScreen: FC<{}> = () => {
   const renderButtons = () => {
     return (
       <ButtonContainer>
-        <LSButton
-          title={'Skip'}
-          size={Size.Fit_To_Width}
-          type={Type.Grey}
-          radius={20}
-          onPress={() => handleSkip()}
-          marginBottom={20}
-        />
+        {!fromProfile && (
+          <LSButton
+            title={'Skip'}
+            size={Size.Fit_To_Width}
+            type={Type.Grey}
+            radius={20}
+            onPress={() => handleSkip()}
+            marginBottom={20}
+          />
+        )}
         <LSButton
           title={'Next'}
           size={Size.Fit_To_Width}
