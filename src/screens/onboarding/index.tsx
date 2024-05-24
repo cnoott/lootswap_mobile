@@ -1,4 +1,4 @@
-import React, {FC, useRef, useState} from 'react';
+import React, {FC, useRef, useState, useEffect} from 'react';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {
   Container,
@@ -65,22 +65,29 @@ export const OnboardingScreen: FC<{}> = ({route}) => {
   const {fromProfile = false} = route?.params ?? false;
   const [currIndex, setCurrIndex] = useState(0);
   const swiperRef = useRef<any>(null);
-  const navigation: NavigationProp<any, any> = useNavigation();
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData} = auth;
 
   const [data, setData] = useState({
-    shoeSize: '',
+    shoeSizes: [],
     topsSizes: [],
     bottomsSizes: [],
     favoriteBrands: [],
     conditionInterest: [],
   });
 
-  const handleShoeSizeChange = ({value}) => {
-    setData({...data, shoeSize: value});
-  };
+  useEffect(() => {
+    if (fromProfile) {
+      setData({
+        shoeSizes: userData?.onboardingData?.shoeSizes,
+        topsSizes: userData?.onboardingData?.topsSizes,
+        bottomsSizes: userData?.onboardingData?.bottomsSizes,
+        favoriteBrands: userData?.onboardingData?.favoriteBrands,
+        conditionInterest: userData?.onboardingData?.conditionInterest,
+      });
+    }
+  }, [userData]);
 
   const handleChange = name => value => {
     setData(prevData => {
@@ -191,14 +198,19 @@ export const OnboardingScreen: FC<{}> = ({route}) => {
     return (
       <InnerContainer>
         <ScrollView>
-          <LabelText>Select Your Shoe Size</LabelText>
+          <LabelText>Select Your Shoe Sizes</LabelText>
           <LSDropDown
             isSearch={true}
             itemsList={shoesSizeList}
             dropdownLabel={'Size'}
-            onSelectItem={handleShoeSizeChange}
-            selectedValue={{label: data.shoeSize, value: data.shoeSize}}
+            onSelectItem={size => handleChange('shoeSizes')(size.value)}
+            //selectedValue={{label: data.shoeSize, value: data.shoeSize}}
           />
+          {data.shoeSizes.length > 0 && (
+          <SelectionsContainer>
+            {data.shoeSizes.map((item, index) => renderFilter({item}, 'shoeSizes'))}
+          </SelectionsContainer>
+          )}
           <RenderListFilter
             data={upperClothingSize.map(size => size.value)}
             title={'Select Your Tops Size'}
