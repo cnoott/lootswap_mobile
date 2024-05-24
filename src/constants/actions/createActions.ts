@@ -278,6 +278,10 @@ export const GET_FOR_YOU_PRODUCTS = {
   ...createActionConst(actions.GET_FOR_YOU_PRODUCTS),
 };
 
+export const GET_ONBOARDING_PRODUCTS = {
+  ...createActionConst(actions.GET_ONBOARDING_PRODUCTS),
+};
+
 export const GET_HOMESCREEN_PUBLIC_OFFERS = {
   ...createActionConst(actions.GET_HOMESCREEN_PUBLIC_OFFERS),
 };

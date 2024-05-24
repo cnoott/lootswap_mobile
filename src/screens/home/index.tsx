@@ -37,6 +37,7 @@ import PublicOfferCell from '../../components/publicOffer/PublicOfferCell';
 import {ScrollView} from 'react-native';
 import LoadingProductCard from '../../components/productCard/loadingProductCard';
 import LoadingPublicOfferCell from '../../components/publicOffer/LoadingPublicOfferCell';
+import OnboardingProducts from '../../components/home/OnboardingProducts';
 
 const ITEMS_PER_PAGE = 8;
 const PUBLIC_OFFERS_PER_PAGE = 5;
@@ -519,6 +520,7 @@ export const HomeScreen: FC<{}> = () => {
         {!isLogedIn && renderHotProductsSection()}
         {renderAllProductsSection()}
         {renderPublicOffers()}
+        {isLogedIn && <OnboardingProducts />}
       </ScrollView>
     </Container>
   );

@@ -74,6 +74,11 @@ export const ProfileScreen: FC<{}> = () => {
         navigation.navigate('EditProfileScreen');
         break;
       case 3:
+        navigation.navigate('OnboardingScreen', {
+          fromProfile: true,
+        });
+        break;
+      case 3:
         navigation.navigate('AddressScreen');
         break;
       case 4:
