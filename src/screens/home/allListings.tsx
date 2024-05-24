@@ -2,7 +2,7 @@
 LootSwap - ALL LISTINGS SCREEN
 ***/
 
-import React, {FC, useState, useEffect} from 'react';
+import React, {FC, useState, useEffect, useCallback} from 'react';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {Container, FlatList} from './styles';
 import {ClearFiltersButtonContainer} from '../search/styles';
@@ -11,6 +11,9 @@ import {
   getAvaliableSizesRequest,
   getHomeScreenProducts,
   clearFiltersRequest,
+  getForYouProducts,
+  setProducts,
+  clearProducts,
 } from '../../redux/modules';
 import {handleSubmitFilters} from '../../utility/filtersUtility';
 import {useDispatch, useSelector} from 'react-redux';
@@ -27,7 +30,7 @@ const ITEMS_PER_PAGE = 8;
 export const AllListingsScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation();
   const dispatch = useDispatch();
-  const {hotItems = false} = route?.params ?? false;
+  const {hotItems = false, type = 'All Listings'} = route?.params ?? false;
 
   const [page, setPage] = useState(0);
 
@@ -38,21 +41,54 @@ export const AllListingsScreen: FC<any> = ({route}) => {
   const {filtersSet} = filters;
 
   const auth: AuthProps = useSelector(state => state.auth);
-  const {isLogedIn} = auth;
+  const {isLogedIn, userData} = auth;
+
+  const fetchForYouProducts = useCallback(() => {
+    const reqData = {
+      itemsPerPage: ITEMS_PER_PAGE,
+      page: page,
+      userId: userData?._id,
+    };
+
+    dispatch(
+      getForYouProducts(
+        reqData,
+        (res: any) => {
+          console.log('fetched', res.forYou.length);
+          // set proudcst
+          // set loading
+          // set end reacehd
+          dispatch(setProducts(res.forYou, false, res.endReached));
+        },
+        (err: any) => {
+          console.log(err);
+        },
+      ),
+    );
+  }, []);
+
 
   useEffect(() => {
-    handleSubmitFilters(
-      dispatch,
-      null,
-      {...filters, page, itemsPerPage: ITEMS_PER_PAGE, hotItems},
-      '',
-    );
-    console.log('calling submit filters', JSON.stringify(filters).length);
+    if (filtersSet || type === 'All Listings') {
+      handleSubmitFilters(
+        dispatch,
+        null,
+        {...filters, page, itemsPerPage: ITEMS_PER_PAGE, hotItems},
+        '',
+      );
+      console.log('calling submit filters', JSON.stringify(filters).length);
 
-    if (!isLogedIn && page === 3) {
-      navigation?.navigate('CreateAccountScreen');
+      if (!isLogedIn && page === 3) {
+        navigation?.navigate('CreateAccountScreen');
+      }
     }
   }, [dispatch, page]);
+
+  useEffect(() => {
+    if (!filtersSet && type === 'For You') {
+      fetchForYouProducts();
+    }
+  }, [filtersSet]);
 
   useEffect(() => {
     dispatch(clearFiltersRequest());
@@ -78,6 +114,10 @@ export const AllListingsScreen: FC<any> = ({route}) => {
 
   const handleClearFilters = () => {
     dispatch(clearFiltersRequest());
+    if (type === 'For You') {
+      fetchForYouProducts();
+      return;
+    }
     setPage(0);
     handleSubmitFilters(
       dispatch,
@@ -106,7 +146,7 @@ export const AllListingsScreen: FC<any> = ({route}) => {
   return (
     <Container>
       <InStackHeader
-        title={'All Listings'}
+        title={type}
         rightIcon={HOME_FILTER_ICON}
         onlyTitleCenterAlign={true}
         right={true}
