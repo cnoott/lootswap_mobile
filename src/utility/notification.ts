@@ -128,16 +128,20 @@ export const handleNavigation = (
       break;
     case 'product-promo':
       dispatch(
-        getProductDetails(formattedMessage?.data?.objectId, product => {
-          navigation.reset({
-            index: 0,
-            routes: [{name: 'Home'}],
-          });
-          navigation.navigate('ProductDetailsScreen', {
-            productData: product,
-            likedParam: false,
-          });
-        }),
+        getProductDetails(
+          formattedMessage?.data?.objectId,
+          undefined,
+          product => {
+            navigation.reset({
+              index: 0,
+              routes: [{name: 'Home'}],
+            });
+            navigation.navigate('ProductDetailsScreen', {
+              productData: product,
+              likedParam: false,
+            });
+          },
+        ),
       );
       break;
     case 'wallet':

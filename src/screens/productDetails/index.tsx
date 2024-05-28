@@ -105,7 +105,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const tradesData: TradeProps = useSelector(state => state.offers);
   const {historyTrades} = tradesData;
   const theme = useTheme();
-  const {requestedUserDetails, userData, isLogedIn} = auth;
+  const {requestedUserDetails, userData = null, isLogedIn} = auth;
   const {productData = {}, likedParam} = route?.params;
   const [liked, setLiked] = useState(likedParam);
   const [timesLiked, setTimesLiked] = useState(productData?.timesLiked);
@@ -134,7 +134,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     }
     if (productData?.userId) {
       dispatch(getUsersDetailsRequest(productData?.userId));
-      dispatch(getProductDetails(productData?._id));
+      dispatch(getProductDetails(productData?._id, userData?._id));
     }
   }, [productData?.userId, isLogedIn, likedParam, productData?._id, dispatch]);
 

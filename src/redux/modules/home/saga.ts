@@ -64,7 +64,7 @@ export function* getSelectedProductDetails(action: any) {
   try {
     const response: APIResponseProps = yield call(
       getRequestedProductDetailsCall,
-      action?.productId,
+      action,
     );
     yield put(LoadingSuccess());
     if (response?.success) {

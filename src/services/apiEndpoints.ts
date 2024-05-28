@@ -96,8 +96,13 @@ export const getUserDetailsWStockxCall = (userId: string) => {
   );
 };
 
-export const getRequestedProductDetailsCall = (productId: string) => {
-  return handleResponse(api.get(`product/${productId}`), API_RESPONSE.CODE200);
+export const getRequestedProductDetailsCall = (reqData:any) => {
+  console.log('UZERz', reqData);
+  const { productId, userId } = reqData;
+  return handleResponse(
+    api.get(`product/${productId}?userId=${userId}`),
+    API_RESPONSE.CODE200,
+  );
 };
 
 export const getMessageInitiatedstatusCall = (reqData: any) => {
