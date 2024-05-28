@@ -13,6 +13,7 @@ import {
   clearFiltersRequest,
   getForYouProducts,
   setProducts,
+  setProductsRequest,
   clearProducts,
 } from '../../redux/modules';
 import {handleSubmitFilters} from '../../utility/filtersUtility';
@@ -49,7 +50,7 @@ export const AllListingsScreen: FC<any> = ({route}) => {
       page: page,
       userId: userData?._id,
     };
-
+    dispatch(setProductsRequest());
     dispatch(
       getForYouProducts(
         reqData,
