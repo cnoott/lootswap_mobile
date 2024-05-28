@@ -248,6 +248,12 @@ export default function loading(state = InitialState, action: ActionProps) {
         endReached: false,
       };
 
+    case SET_PRODUCTS.REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
     case SET_PRODUCTS.SUCCESS:
       const {newProducts, newLoading, newEndReached} = payload;
       console.log('IN REDUCER', newProducts.length);

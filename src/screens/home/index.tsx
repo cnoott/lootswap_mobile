@@ -81,7 +81,7 @@ export const HomeScreen: FC<{}> = () => {
     if (isLogedIn) {
       fetchForYouProducts();
     }
-  }, [forYouPage, isLogedIn]);
+  }, [forYouPage, isLogedIn, userData?.onboardingData]);
 
   useEffect(() => {
     fetchHomeScreenProducts();
@@ -150,6 +150,7 @@ export const HomeScreen: FC<{}> = () => {
       page: forYouPage,
       userId: userData?._id,
     };
+    console.log('user onboarding', userData?.onboardingData);
 
     dispatch(
       getForYouProducts(
@@ -165,7 +166,7 @@ export const HomeScreen: FC<{}> = () => {
         },
       ),
     );
-  }, [forYouPage, isLogedIn]);
+  }, [forYouPage, isLogedIn, userData?.onboardingData]);
 
   const fetchHotProducts = useCallback(() => {
     setHotProductsLoading(true);
