@@ -519,9 +519,9 @@ export const HomeScreen: FC<{}> = () => {
         />
         {isLogedIn && renderForYouSection()}
         {!isLogedIn && renderHotProductsSection()}
+        {isLogedIn && <OnboardingProducts />}
         {renderAllProductsSection()}
         {renderPublicOffers()}
-        {isLogedIn && <OnboardingProducts />}
       </ScrollView>
     </Container>
   );
