@@ -35,10 +35,12 @@ export const resetAddProductData = () => {
 
 export const getProductDetails = (
   productId: string,
+  userId?: string,
   callback?: (product: any) => void,
 ) => {
   return {
     type: GET_PRODUCT_DETAILS.REQUEST,
+    userId,
     productId,
     callback,
   };
