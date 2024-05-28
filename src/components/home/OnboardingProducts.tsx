@@ -124,7 +124,7 @@ export const OnboardingProducts: FC<{}> = () => {
 
   return (
     <>
-    {yourSizes()}
+      {yourSizeProducts.products.length > 0 && yourSizes()}
     </>
   );
 };
