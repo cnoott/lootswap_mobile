@@ -519,7 +519,9 @@ export const HomeScreen: FC<{}> = () => {
         />
         {isLogedIn && renderForYouSection()}
         {!isLogedIn && renderHotProductsSection()}
-        {isLogedIn && <OnboardingProducts />}
+        {isLogedIn && userData?.onboardingData?.shoeSizes?.length > 0 && (
+          <OnboardingProducts />
+        )}
         {renderAllProductsSection()}
         {renderPublicOffers()}
       </ScrollView>
