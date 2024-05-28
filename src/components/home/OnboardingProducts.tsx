@@ -26,13 +26,9 @@ export const OnboardingProducts: FC<{}> = () => {
     loading: false,
     loadingItems: [],
     page: 0,
+    endReached: false,
   });
-  const [favBrandProducts, setFavBrandProducts] = useState({
-    products: [],
-    loading: false,
-    loadingItems: [],
-    page: 0,
-  });
+
 
   useEffect(() => {
     const reqData = {
@@ -46,9 +42,11 @@ export const OnboardingProducts: FC<{}> = () => {
         reqData,
         (res: any) => {
           setYourSizeProducts({
-            products: res.yourSizeProducts,
+            ...yourSizeProducts,
+            products: [...yourSizeProducts.products, ...res.yourSizeProducts],
             loading: false,
             loadingItems: [],
+            endReached: res.endReached,
           });
         },
         (err: any) => {
@@ -58,7 +56,7 @@ export const OnboardingProducts: FC<{}> = () => {
       ),
     );
 
-  }, [favBrandProducts.page]);
+  }, [yourSizeProducts.page]);
 
   const renderItem = ({item, index}: any) => {
     if (item.loading) {
@@ -75,6 +73,14 @@ export const OnboardingProducts: FC<{}> = () => {
     );
   };
 
+  const onEndReached = () => {
+      console.log('next page');
+    if (!yourSizeProducts.loading && !yourSizeProducts.endReached) {
+      setYourSizeProducts(prev => {
+        return {...yourSizeProducts, page: prev.page + 1};
+      });
+    }
+  };
   // TODO on end reached
 
 
@@ -84,7 +90,7 @@ export const OnboardingProducts: FC<{}> = () => {
     <>
       <SectionContainer>
         <SectionTopContainer>
-          <SectionTitleText>Your Sizes</SectionTitleText>
+          <SectionTitleText>In Your Size</SectionTitleText>
           <LSButton
             title={'View All'}
             size={Size.ViewSmall}
@@ -94,6 +100,7 @@ export const OnboardingProducts: FC<{}> = () => {
               //TODO: Onboarding all listings screen
               navigation?.navigate('AllListingsScreen', {
                 hotItems: true,
+                type: 'In Your Size',
               })
             }
           />
@@ -106,7 +113,7 @@ export const OnboardingProducts: FC<{}> = () => {
         keyExtractor={(item, index) =>
           item._id ? item._id.toString() + index + 'hot' : `loading-${index}`
         }
-        onEndReached={() => {}}
+        onEndReached={() => onEndReached()}
         horizontal={true}
         onEndReachedThreshold={0.5}
       />

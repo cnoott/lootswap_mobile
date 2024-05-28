@@ -10,6 +10,7 @@ import {HOME_FILTER_ICON} from 'localsvgimages';
 import {
   getAvaliableSizesRequest,
   getHomeScreenProducts,
+  getOnboardingProducts,
   clearFiltersRequest,
   getForYouProducts,
   setProducts,
@@ -44,6 +45,26 @@ export const AllListingsScreen: FC<any> = ({route}) => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {isLogedIn, userData} = auth;
 
+  const fetchOnboardingProducts = useCallback(() => {
+    const reqData = {
+      itemsPerPage: ITEMS_PER_PAGE,
+      page: page,
+      userId: userData?._id,
+    };
+    dispatch(setProductsRequest());
+    dispatch(
+      getOnboardingProducts(
+        reqData,
+        (res: any) => {
+          dispatch(setProducts(res.yourSizeProducts, false, res.endReached));
+        },
+        (err: any) => {
+          console.log(err);
+        },
+      ),
+    );
+  }, [page]);
+
   const fetchForYouProducts = useCallback(() => {
     const reqData = {
       itemsPerPage: ITEMS_PER_PAGE,
@@ -66,10 +87,11 @@ export const AllListingsScreen: FC<any> = ({route}) => {
         },
       ),
     );
-  }, []);
+  }, [page]);
 
 
   useEffect(() => {
+    console.log('TYPEZ', type);
     if (filtersSet || type === 'All Listings') {
       handleSubmitFilters(
         dispatch,
@@ -86,10 +108,13 @@ export const AllListingsScreen: FC<any> = ({route}) => {
   }, [dispatch, page]);
 
   useEffect(() => {
+    console.log('type', type);
     if (!filtersSet && type === 'For You') {
       fetchForYouProducts();
+    } else if (!filtersSet && type === 'In Your Size') {
+      fetchOnboardingProducts();
     }
-  }, [filtersSet]);
+  }, [filtersSet, page]);
 
   useEffect(() => {
     dispatch(clearFiltersRequest());
@@ -117,6 +142,9 @@ export const AllListingsScreen: FC<any> = ({route}) => {
     dispatch(clearFiltersRequest());
     if (type === 'For You') {
       fetchForYouProducts();
+      return;
+    } else if (type === 'In Your Size') {
+      fetchOnboardingProducts();
       return;
     }
     setPage(0);
