@@ -17,6 +17,7 @@ import {
   SHOULD_SHOW_GIVEAWAY,
   GET_FOR_YOU_PRODUCTS,
   GET_ONBOARDING_PRODUCTS,
+  GET_RECENTLY_VIEWED,
 } from '../../../constants/actions';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 
@@ -204,6 +205,19 @@ export const getHotProducts = (
 ) => {
   return {
     type: GET_HOT_PRODUCTS.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const getRecentlyViewed = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: GET_RECENTLY_VIEWED.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
