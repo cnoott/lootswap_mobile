@@ -192,7 +192,7 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
             <>
               <HeaderTextMain priceDrop={item?.priceHistory?.length > 0}>
                 $
-                {item?.priceHistory.length > 0
+                {item?.priceHistory?.length > 0
                   ? item?.priceHistory[item.priceHistory.length - 1]
                   : item?.price}
               </HeaderTextMain>
