@@ -182,6 +182,9 @@ export const handleNavigation = (
     case 'profile_notif':
       navigation.navigate('EditProfileScreen');
       break;
+    case 'onboarding':
+      navigation?.navigate('OnboardingScreen');
+      break;
     default:
       navigation.reset({
         index: 0,
