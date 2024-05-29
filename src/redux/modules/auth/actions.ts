@@ -31,6 +31,7 @@ import {
   SAVE_INSTALL_PARAMS,
   SKIP_PAYPAL_ONBOARDING,
   ADD_SHARED_PRODUCT,
+  INC_ITEMS_VIEWED,
 } from '../../../constants/actions';
 
 export const signInRequest = (reqData: any) => {
@@ -601,5 +602,11 @@ export const addSharedProductSuccess = (payload: any) => {
 export const addSharedProductFailure = () => {
   return {
     type: ADD_SHARED_PRODUCT.FAILURE,
+  };
+};
+
+export const incTimesViewed = () => {
+  return {
+    type: INC_ITEMS_VIEWED.REQUEST,
   };
 };
