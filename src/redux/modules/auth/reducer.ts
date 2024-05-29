@@ -28,6 +28,7 @@ import {
   SAVE_INSTALL_PARAMS,
   SKIP_PAYPAL_ONBOARDING,
   ADD_SHARED_PRODUCT,
+  INC_ITEMS_VIEWED,
 } from '../../../constants/actions';
 import {getCombinedRatings} from '../../../utility/utility';
 
@@ -46,6 +47,7 @@ export interface AuthProps {
   marketingChannel?: string;
   referringUserId?: string;
   skippedPaypalOnboarding?: boolean;
+  itemsViewed: number;
 }
 
 type ActionProps = {
@@ -71,6 +73,7 @@ export const InitialState: AuthProps = {
   marketingChannel: undefined,
   referringUserId: undefined,
   skippedPaypalOnboarding: false,
+  itemsViewed: 0,
 };
 
 export default function auth(state = InitialState, action: ActionProps) {
@@ -472,6 +475,12 @@ export default function auth(state = InitialState, action: ActionProps) {
           ...state.userData,
           sharedProductIds: updatedSharedProductIds,
         },
+      };
+    }
+    case INC_ITEMS_VIEWED.REQUEST: {
+      return {
+        ...state,
+        itemsViewed: state.itemsViewed + 1,
       };
     }
     default:

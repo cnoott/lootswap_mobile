@@ -401,3 +401,6 @@ export const SHOULD_SHOW_GIVEAWAY = {
 export const ADD_SHARED_PRODUCT = {
   ...createActionConst(actions.ADD_SHARED_PRODUCT),
 };
+export const INC_ITEMS_VIEWED = {
+  ...createActionConst(actions.INC_ITEMS_VIEWED),
+};

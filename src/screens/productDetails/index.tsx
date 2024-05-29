@@ -79,6 +79,7 @@ import {
   deleteProduct,
   preselectChosenItem,
   getMyDetailsNoLoadRequest,
+  incTimesViewed,
 } from '../../redux/modules';
 import {
   getProductTags,
@@ -125,6 +126,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       setLiked(true);
     }
     if (isLogedIn) {
+      dispatch(incTimesViewed());
       dispatch(getMyDetailsNoLoadRequest(userData?._id));
       dispatch(
         getTradesHistory({
