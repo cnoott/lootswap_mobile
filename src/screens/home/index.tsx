@@ -38,6 +38,9 @@ import {ScrollView} from 'react-native';
 import LoadingProductCard from '../../components/productCard/loadingProductCard';
 import LoadingPublicOfferCell from '../../components/publicOffer/LoadingPublicOfferCell';
 import OnboardingProducts from '../../components/home/OnboardingProducts';
+import RecentlyViewed from '../../components/home/RecentlyViewed';
+import { isLandscape } from 'react-native-device-info';
+
 
 const ITEMS_PER_PAGE = 8;
 const PUBLIC_OFFERS_PER_PAGE = 5;
@@ -56,7 +59,7 @@ export const HomeScreen: FC<{}> = () => {
   useScrollToTop(scrollRef);
 
   const auth: AuthProps = useSelector(state => state.auth);
-  const {userData, isLogedIn} = auth;
+  const {userData, isLogedIn, itemsViewed} = auth;
 
   const [products, setProducts] = useState([]);
   const [hotProducts, setHotProducts] = useState([]);
@@ -517,6 +520,7 @@ export const HomeScreen: FC<{}> = () => {
           isHome={true}
           renderSearchBar={renderSearchBar}
         />
+        {isLogedIn && itemsViewed > 1 && <RecentlyViewed />}
         {isLogedIn && renderForYouSection()}
         {!isLogedIn && renderHotProductsSection()}
         {isLogedIn && userData?.onboardingData?.shoeSizes?.length > 0 && (
