@@ -45,7 +45,6 @@ export const OnboardingProducts: FC<{}> = () => {
             ...yourSizeProducts,
             products: [...yourSizeProducts.products, ...res.yourSizeProducts],
             loading: false,
-            loadingItems: [],
             endReached: res.endReached,
           });
         },
@@ -56,7 +55,21 @@ export const OnboardingProducts: FC<{}> = () => {
       ),
     );
 
-  }, [yourSizeProducts.page]);
+  }, [yourSizeProducts.page, userData?.onboardingData?.yourSizes]);
+
+  useEffect(() => {
+    if (yourSizeProducts.loading && !yourSizeProducts.endReached) {
+      setYourSizeProducts({
+        ...yourSizeProducts,
+        loadingItems: new Array(4).fill({publicOffersLoading: true}),
+    });
+    } else {
+      setYourSizeProducts({
+        ...yourSizeProducts,
+        loadingItems: [],
+    });
+    }
+  }, [yourSizeProducts.loading]);
 
   const renderItem = ({item, index}: any) => {
     if (item.loading) {

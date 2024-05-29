@@ -41,17 +41,25 @@ export const RecentlyViewed: FC<{}> = () => {
         (res: any) => {
           setProducts(res.recentlyViewed);
           setLoading(false);
-          setLoadingItems([]);
           setEndReached(res.endReached);
         },
         (err: any) => {
           console.log(err);
           setLoading(false);
-          setLoadingItems([]);
         },
       ),
     );
   }, [page]);
+
+  useEffect(() => {
+    if (loading && !endReached) {
+      setLoadingItems(
+        new Array(4).fill({loading: true}),
+      );
+    } else {
+      setLoadingItems([]);
+    }
+  }, [loading]);
 
   const renderItem = ({item, index}: any) => {
     if (item.loading) {
@@ -113,7 +121,6 @@ export const RecentlyViewed: FC<{}> = () => {
       />
     </>
   );
-
 };
 
 export default RecentlyViewed;
