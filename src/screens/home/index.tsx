@@ -523,7 +523,7 @@ export const HomeScreen: FC<{}> = () => {
           <OnboardingProducts />
         )}
         {renderAllProductsSection()}
-        {renderPublicOffers()}
+        {/*renderPublicOffers()*/}
       </ScrollView>
     </Container>
   );
