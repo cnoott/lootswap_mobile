@@ -162,6 +162,17 @@ export const getHotProductsCall = (reqData: any) => {
   );
 };
 
+export const getRecentlyViewedCall = (reqData: any) => {
+  return handleResponse(
+    api.get(
+      `recently-viewed/${reqData?.userId}/?skip=${reqData.page * reqData.itemsPerPage}&limit=${
+        reqData.itemsPerPage
+      }`,
+    ),
+    API_RESPONSE.CODE200,
+  );
+};
+
 export const getForYouProductsCall = (reqData: any) => {
   return handleResponse(
     api.get(

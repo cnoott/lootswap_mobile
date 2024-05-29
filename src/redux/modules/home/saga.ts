@@ -18,6 +18,7 @@ import {
   GET_RECOMMENDED_SEARCH,
   REFRESH_STOCKX_DATA,
   SHOULD_SHOW_GIVEAWAY,
+  GET_RECENTLY_VIEWED,
 } from '../../../constants/actions';
 import {
   getProductDetailsSuccess,
@@ -42,6 +43,7 @@ import {
   searchStockxCall,
   getHomeScreenProductsCall,
   getHotProductsCall,
+  getRecentlyViewedCall,
   getOnboardingProductsCall,
   searchProductsCall,
   getRecommendedSearchCall,
@@ -118,6 +120,23 @@ export function* getHotProducts(action: any) {
   try {
     const response: APIResponseProps = yield call(
       getHotProductsCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack(e);
+    console.log(e);
+  }
+}
+
+export function* getRecentlyViewed(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      getRecentlyViewedCall,
       action?.reqData,
     );
     if (response?.success) {
@@ -390,6 +409,7 @@ export default function* authSaga() {
   yield takeLatest(GET_PRODUCT_DETAILS.REQUEST, getSelectedProductDetails);
   yield takeLatest(GET_HOMESCREEN_PRODUCTS.REQUEST, getHomeScreenProducts);
   yield takeLatest(GET_HOT_PRODUCTS.REQUEST, getHotProducts);
+  yield takeLatest(GET_RECENTLY_VIEWED.REQUEST, getRecentlyViewed);
   yield takeLatest(GET_ONBOARDING_PRODUCTS.REQUEST, getOnboardingProducts);
   yield takeLatest(GET_FOR_YOU_PRODUCTS.REQUEST, getForYouProducts);
   yield takeLatest(
