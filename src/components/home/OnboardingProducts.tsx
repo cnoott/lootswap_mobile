@@ -111,7 +111,7 @@ export const OnboardingProducts: FC<{}> = () => {
         data={[...yourSizeProducts.products, ...yourSizeProducts.loadingItems]}
         renderItem={renderItem}
         keyExtractor={(item, index) =>
-          item._id ? item._id.toString() + index + 'hot' : `loading-${index}`
+          item._id ? item._id.toString() + index + 'onboarding' : `loading-onboarding-${index}`
         }
         onEndReached={() => onEndReached()}
         horizontal={true}
