@@ -12,6 +12,7 @@ import {
   CellBottomView,
   BottomHeaderView,
   HeaderTextMain,
+  PriceDropText,
   EmptyRowView,
   HeaderDes,
   TagsContainer,
@@ -188,12 +189,24 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
             <HeaderDes>{item.name}</HeaderDes>
           </EmptyRowView>
           {item.type !== 'trade-only' && (
-            <HeaderTextMain>${item.price}</HeaderTextMain>
+            <>
+              <HeaderTextMain priceDrop={item?.priceHistory?.length > 0}>
+                $
+                {item?.priceHistory?.length > 0
+                  ? item?.priceHistory[item.priceHistory.length - 1]
+                  : item?.price}
+              </HeaderTextMain>
+            </>
           )}
         </BottomHeaderView>
-        <EmptyRowView>
-          <HeaderTextMain>Size {item.size}</HeaderTextMain>
-        </EmptyRowView>
+        <BottomHeaderView>
+          <EmptyRowView>
+            <HeaderTextMain>Size {item.size}</HeaderTextMain>
+          </EmptyRowView>
+          {item?.priceHistory?.length > 0 && (
+            <PriceDropText>${item?.price}</PriceDropText>
+          )}
+        </BottomHeaderView>
       </CellBottomView>
       {renderTradeTags()}
     </ItemContainer>

@@ -29,7 +29,11 @@ import {
 } from '../../redux/modules/';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {printLabel, salePrintLabel} from '../../utility/utility';
+import {
+  printLabel,
+  salePrintLabel,
+  shippingStepOptions,
+} from '../../utility/utility';
 import {Linking} from 'react-native';
 import ShippingInstructionModalComponent from '../../components/orders/shippingInstructionModalComponent';
 import {LSModal} from '../../components/commonComponents/LSModal';
@@ -70,14 +74,6 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       );
     }
   }, [dispatch, isTradeOrder, item?._id, userData?._id]);
-
-  const shippingStepOptions = () => {
-    if (isTradeOrder) {
-      return isReceiver ? item?.senderStep : item?.receiverStep;
-    } else {
-      return item?.shippingStep;
-    }
-  };
 
   const trackingHistoryOptions = () => {
     if (isTradeOrder) {
@@ -278,7 +274,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
         {renderOrderHeaderDetails()}
         {isTradeOrder ? renderMultipleOrderCell() : renderSingleOrderCell()}
         <OrderTrackSteps
-          currStep={shippingStepOptions()}
+          currStep={shippingStepOptions(isReceiver, isTradeOrder, item)}
           isTradeOrder={isTradeOrder}
         />
         <FullDivider />

@@ -22,7 +22,7 @@ const useBranch = () => {
         console.log('PORUCTID', productId);
         if (productId) {
           dispatch(
-            getProductDetails(productId, product => {
+            getProductDetails(productId, undefined, product => {
               navigation.reset({
                 index: 0,
                 routes: [{name: 'Home'}],

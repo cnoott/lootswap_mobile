@@ -20,6 +20,7 @@ import {
 import {Alert} from 'custom_top_alert';
 import RobberyModal from '../../../components/offers/RobberyModal';
 import {loggingService} from '../../../services/loggingService';
+import {AuthProps} from '../../../redux/modules/auth/reducer';
 
 type PaymentDetails = {
   platformFee: number;
@@ -32,14 +33,12 @@ type PaymentDetails = {
 const NUMBER_OF_STEPS = 5;
 
 export const StartTradeScreen: FC<any> = ({route}) => {
-  const {
-    requestedUserDetails,
-    userData,
-    isFromMessageScreen = false,
-  } = route?.params;
+  const {requestedUserDetails, isFromMessageScreen = false} = route?.params;
   const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation();
   const swiperRef = useRef<any>(null);
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData} = auth;
 
   const [currIndex, setCurrIndex] = useState(0);
 
@@ -186,6 +185,12 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       Alert.showError('Please select at least one item');
       return false;
     } else if (currIndex === 2) {
+      const userNoAddress =
+        Object.keys(userData?.shipping_address || {}).length < 5;
+      if (userNoAddress) {
+        Alert.showError('Please fill out your shipping address at the top');
+        return false;
+      }
       var otherUserMarketString = calculateMarketValue(otherUserSelected);
       var myMarketString = calculateMarketValue(mySelected);
       if (otherUserMarketString === 'Unknown' || myMarketString === 'Unknown') {

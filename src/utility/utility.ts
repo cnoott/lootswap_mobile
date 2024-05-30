@@ -10,12 +10,14 @@ import {
   PROFILE_REFERRAL,
   PROFILE_SUPPORT,
   PROFILE_NOTIFICATION,
+  EDIT_PROFILE_EMAIL_ICON,
   ORDER_TRACK_PURCHASED,
   ORDER_TRACK_SHIPPED_SELECTED,
   ORDER_TRACK_IN_TRANSIT_UNSELECTED,
   ORDER_TRACK_IN_TRANSIT_SELECTED,
   ORDER_TRACK_DELIVERED_UNSELECTED,
   ORDER_TRACK_DELIVERED_SELECTED,
+  FILTER_ICON,
 } from 'localsvgimages';
 import {PROFILE_OPTIONS_TYPE, GET_PRODUCT_DETAILS} from 'custom_types';
 import {
@@ -135,7 +137,7 @@ export const getProfileOptions = (userData: any) => {
   const optionsList: Array<PROFILE_OPTIONS_TYPE> = [
     {
       icon: PROFILE_REFERRAL,
-      title: 'Referral program - JOIN GIVEAWAY',
+      title: 'Referral program - $5 Per Friend!',
       index: 1,
     },
     {
@@ -144,41 +146,46 @@ export const getProfileOptions = (userData: any) => {
       index: 2,
     },
     {
+      icon: FILTER_ICON,
+      title: 'Sizes & Preferences',
+      index: 3,
+    },
+    {
       icon: PROFILE_ADDRESS,
       title: 'Address',
-      index: 3,
+      index: 4,
     },
     {
       icon: PROFILE_MY_LOOT,
       title: 'My loot',
-      index: 4,
+      index: 5,
     },
     {
       icon: PROFILE_ORDERS,
       title: 'Orders',
-      index: 5,
+      index: 6,
     },
     {
       icon: PROFILE_WALLET,
       title: 'Wallet',
-      index: 6,
+      index: 7,
     },
     {
       icon: PROFILE_NOTIFICATION,
       title: 'Notification settings',
-      index: 7,
+      index: 8,
     },
     {
       icon: PROFILE_WALLET,
       title: userData?.paypal_onboarded
         ? 'Link PayPal (already linked)'
         : 'Link PayPal',
-      index: 8,
+      index: 9,
     },
     {
       icon: PROFILE_SUPPORT,
       title: 'Support/FAQ',
-      index: 9,
+      index: 10,
     },
   ];
   return optionsList;
@@ -309,6 +316,7 @@ export const categoryList = [
   {label: 'Pants', value: 'pants'},
   {label: 'Shorts', value: 'shorts'},
   {label: 'Hats', value: 'hats'},
+  {label: 'Bags', value: 'bags'},
   {label: 'Other', value: 'other'},
 ];
 
@@ -486,6 +494,8 @@ export const lowerClothingSize = [
   {label: '44', value: '44'},
 ];
 
+export const bagSize = lowerClothingSize.slice(0, 5);
+
 export const hatsSize = [
   {label: 'ONE SIZE', value: 'ONE SIZE'},
   {label: '6 3/4', value: '6 3/4'},
@@ -535,6 +545,8 @@ export const getSizeList = (category: string = '') => {
       return lowerClothingSize;
     case 'hats':
       return lowerClothingSize;
+    case 'bags':
+      return bagSize;
     case 'other':
       return otherSize;
     default:
@@ -1053,6 +1065,31 @@ export const paypalOrderShippingStatus = (userId: string, paypalOrder: any) => {
   }
 };
 
+export const shippingStepOptions = (
+  isReceiver: Boolean,
+  isTradeOrder: Boolean,
+  order: any,
+) => {
+  if (isTradeOrder) {
+    if (isReceiver && order?.receiverStep <= 3) {
+      return order?.receiverStep;
+    }
+    if (isReceiver && order?.receiverStep >= 4) {
+      return order?.senderStep;
+    }
+
+    if (!isReceiver && order?.senderStep <= 3) {
+      return order?.senderStep;
+    }
+    if (!isReceiver && order?.senderStep >= 4) {
+      return order?.receiverStep;
+    }
+    return isReceiver ? order?.senderStep : order?.receiverStep;
+  } else {
+    return order?.shippingStep;
+  }
+};
+
 export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
   const {receiverStep, senderStep, receiver} = tradeOrder;
   const isReceiver = userId === receiver?._id;
@@ -1101,7 +1138,7 @@ export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
     };
   }
 
-  const step = isReceiver ? receiverStep : senderStep;
+  const step = shippingStepOptions(isReceiver, true, tradeOrder);
   switch (step) {
     case -3:
     case -2:
@@ -1119,7 +1156,7 @@ export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
       };
     case 1:
       return {
-        text: 'Waiting for user to ship',
+        text: 'Waiting for you to ship',
         backColor: 'rgba(250, 204, 21, 0.1)',
         labelColor: '#e1b505',
       };
@@ -1287,9 +1324,14 @@ const hasTradeOnly = (products: Array<any>) => {
 };
 
 const hasPreowned = (products: Array<any>) => {
-  const preOwnedConditions = ['Pre-owned', 'Lightly used', 'Moderately used', 'Heavily used'];
-  return products.find(
-    product => preOwnedConditions.includes(product?.condition),
+  const preOwnedConditions = [
+    'Pre-owned',
+    'Lightly used',
+    'Moderately used',
+    'Heavily used',
+  ];
+  return products.find(product =>
+    preOwnedConditions.includes(product?.condition),
   );
 };
 
@@ -1353,7 +1395,6 @@ export const handleSendOfferNavigation = (
     case Trade_Options.TradeOnly:
       navigation.navigate('StartTradeScreen', {
         requestedUserDetails: requestedUserDetails,
-        userData: userData,
         isFromMessageScreen: isFromMessageScreen,
       });
       break;

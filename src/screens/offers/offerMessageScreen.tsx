@@ -63,6 +63,7 @@ export const OffersMessageScreen: FC<{}> = props => {
     useState(false);
   const [isDecline, setDecline] = useState(false);
   const [isEditTradeModalVisible, setEditTradeModalVisible] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(true);
 
   useEffect(() => {
     const initPusher = async () => {
@@ -231,6 +232,7 @@ export const OffersMessageScreen: FC<{}> = props => {
           homeSearch={true}
           inputRadius={20}
           multiline={true}
+          onPressIn={() => setDrawerOpen(false)}
         />
       </InputView>
     );
@@ -367,6 +369,8 @@ export const OffersMessageScreen: FC<{}> = props => {
         offerItem={offerItem}
         userData={userData}
         tradeStatus={offerItem?.status}
+        drawerOpen={drawerOpen}
+        setDrawerOpen={setDrawerOpen}
       />
       <KeyboardAvoidingView>
         {renderChatView()}

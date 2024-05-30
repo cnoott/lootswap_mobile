@@ -165,7 +165,7 @@ export const OffersScreen: FC<{}> = () => {
       return 1;
     }
     return 0;
-};
+  };
 
   const onInboxRefresh = () => {
     ReactNativeHapticFeedback.trigger('impactMedium');

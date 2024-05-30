@@ -274,12 +274,32 @@ export const GET_HOT_PRODUCTS = {
   ...createActionConst(actions.GET_HOT_PRODUCTS),
 };
 
+export const GET_RECENTLY_VIEWED = {
+  ...createActionConst(actions.GET_RECENTLY_VIEWED),
+};
+
+export const GET_FOR_YOU_PRODUCTS = {
+  ...createActionConst(actions.GET_FOR_YOU_PRODUCTS),
+};
+
+export const GET_ONBOARDING_PRODUCTS = {
+  ...createActionConst(actions.GET_ONBOARDING_PRODUCTS),
+};
+
 export const GET_HOMESCREEN_PUBLIC_OFFERS = {
   ...createActionConst(actions.GET_HOMESCREEN_PUBLIC_OFFERS),
 };
 
 export const SEARCH_PRODUCTS = {
   ...createActionConst(actions.SEARCH_PRODUCTS),
+};
+
+export const SET_PRODUCTS = {
+  ...createActionConst(actions.SET_PRODUCTS),
+};
+
+export const CLEAR_PRODUCTS = {
+  ...createActionConst(actions.CLEAR_PRODUCTS),
 };
 
 export const SAVE_SEARCH = {
@@ -384,4 +404,8 @@ export const SHOULD_SHOW_GIVEAWAY = {
 
 export const ADD_SHARED_PRODUCT = {
   ...createActionConst(actions.ADD_SHARED_PRODUCT),
+};
+
+export const INC_ITEMS_VIEWED = {
+  ...createActionConst(actions.INC_ITEMS_VIEWED),
 };
