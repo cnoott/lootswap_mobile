@@ -596,23 +596,21 @@ export const CellIndexContainer = styled.View.attrs(() => ({
   ${layout} ${color} ${space} ${border};
 `;
 
-export const MainPhotoLabelContainer = styled.View.attrs(props => ({
+export const PlaceholderContainer = styled.View.attrs(props => ({
   height: scale(18),
   borderRadius: scale(4),
   bg: props.theme.colors.white,
-  bottom: 4,
-  right: 6,
   px: scale(6),
 }))`
   align-items: center;
   justify-content: center;
   position: absolute;
-  bottom: 4px;
-  right: 6px;
+  top: 4px;
+  left: 6px;
   ${layout} ${color} ${space} ${border};
 `;
 
-export const MainPhotoLabel = styled.Text.attrs(props => ({
+export const PlaceholderLabel = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
 }))`
   font-size: ${moderateScale(11)}px;

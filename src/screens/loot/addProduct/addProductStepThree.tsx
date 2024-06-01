@@ -30,8 +30,8 @@ import {
   ModalHeaderText,
   CameraRollList,
   AddPhotosButtonContainer,
-  MainPhotoLabelContainer,
-  MainPhotoLabel,
+  PlaceholderContainer,
+  PlaceholderLabel,
   TakePhotoButtonContainer,
   TakePhotoButtonText,
   CameraIconContainer,
@@ -42,6 +42,15 @@ import {
   TRASH_WHITE_ICON,
   PROFILE_TRIPPLE_DOT_ICON,
   CAMERA_ICON,
+  OUTER_SIDE_ICON,
+  INNER_SIDE_ICON,
+  FRONT_ICON,
+  BACK_ICON,
+  INSOLES_ICON,
+  SIZE_TAG_ICON,
+  SOLES_ICON,
+  BOX_LABEL_ICON,
+  ADDITIONAL_ICON
 } from 'localsvgimages';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 import {Alert} from 'custom_top_alert';
@@ -51,6 +60,7 @@ import LSLoader from '../../../components/commonComponents/LSLoader';
 import {useGallery} from '../../../utility/customHooks/useGallery';
 import ImageGuideComponent from '../../../components/loot/imageGuideComponent';
 import EditPhotoModal from '../../../components/loot/editPhotoModal';
+import {initialImageData} from '../../../utility/utility';
 
 const width = Dimensions.get('window').width;
 const productImageWidth = width / 3 - 30;
@@ -58,12 +68,6 @@ const productImageWidth = width / 3 - 30;
 interface ProductStep {
   updateProductData: Function;
 }
-
-const imageLastItem = {
-  key: 'last',
-  disabledDrag: true,
-  disabledReSorted: true,
-};
 
 export const AddProductStepThree: FC<ProductStep> = props => {
   const addProductData: ADD_PRODUCT_TYPE = useSelector(
@@ -85,8 +89,8 @@ export const AddProductStepThree: FC<ProductStep> = props => {
 
   const preFilledData =
     addProductData?.stepThree?.length > 0
-      ? [...addProductData?.stepThree, imageLastItem]
-      : [imageLastItem];
+      ? [...addProductData?.stepThree]
+      : initialImageData();
 
   const {
     photos,
@@ -105,7 +109,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   const closeModal = () => setImagePickerVisible(false);
 
   const [productImagesArr, setProductImagesArr] = useState<any>(preFilledData); // Always adding 1 element to show add images component at last
-  const [selectedImages, setSelectedImages] = useState<any>(preFilledData); // Selected images in camera roll modal
+  const [selectedImage, setSelectedImage] = useState<any>(null); // Selected images in camera roll modal
   const [enableScroll, setEnableScroll] = useState(true);
   const {updateProductData} = props;
   const updateImagesData = (newImages: Array<string>) => {
@@ -116,15 +120,10 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   };
 
   const onSelectImage = (node: any) => {
-    const foundIndex = selectedImages.findIndex(
-      image => image.uri === node.item.uri,
-    );
-    if (foundIndex !== -1) {
-      const newImgArr = [...selectedImages];
-      newImgArr.splice(foundIndex, 1);
-      setSelectedImages(newImgArr);
+    if (selectedImage && selectedImage?.sourceURL === node.item.uri) {
+      setSelectedImage(null);
     } else {
-      if (selectedImages.length > 13) {
+      if (productImagesArr.length > 13) {
         Alert.showError('You cannot upload more than 13 images');
         return;
       }
@@ -134,19 +133,20 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         isServerImage: false,
         sourceURL: node.item.uri,
         key: `${Math.random() * 100}`,
+        placeholderLabel: productImagesArr[selectedImageIndex].placeholderLabel,
+        placeholder: productImagesArr[selectedImageIndex].placeholder
       };
-      let newImgArr = [...selectedImages];
-      newImgArr.splice(newImgArr.length - 1, 0, fileData); // Add new image before the last element
-      setSelectedImages(newImgArr);
+      setSelectedImage(fileData);
     }
   };
 
   const openCamera = async () => {
-    if (photos?.length >= 13) {
+    if (productImagesArr?.length >= 13) {
       closeModal();
-      Alert.showError('You you cannot add more than 13 photos');
+      Alert.showError('You cannot add more than 13 photos');
       return;
     }
+
     const image = await ImagePicker.openCamera({
       width: 600,
       height: 700,
@@ -156,22 +156,39 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       uri: image.path,
       type: 'image/jpeg',
       isServerImage: false,
-      sourceURL: image.path, //test w update too
+      sourceURL: image.path, // test w update too
       key: `${Math.random() * 100}`,
+      placeholderLabel: productImagesArr[selectedImageIndex].placeholderLabel,
+      placeholder: productImagesArr[selectedImageIndex].placeholder
     };
-    let newImgArr = [...selectedImages];
-    newImgArr.splice(newImgArr.length - 1, 0, fileData); // Add new image before the last element
 
+    // Update the specific index in the productImagesArr array
+    setProductImagesArr(prev => {
+      const newProductImagesArr = [...prev];
+      newProductImagesArr[selectedImageIndex] = fileData;
+      return newProductImagesArr;
+    });
+
+    // Update images data excluding the last element
+    updateImagesData(newProductImagesArr.slice(0, -1));
     setImagePickerVisible(false);
-    setProductImagesArr(newImgArr);
-    updateImagesData(newImgArr.slice(0, -1));
   };
+
 
   const onFinishSelecting = () => {
     setImagePickerVisible(false);
-    setProductImagesArr(selectedImages);
-    updateImagesData(selectedImages.slice(0, -1));
+    const indexToEdit = selectedImageIndex;
+    // Update the specific index in the productImagesArr array
+    let newProductImagesArr;
+    setProductImagesArr(prev => {
+      newProductImagesArr = [...prev];
+      newProductImagesArr[indexToEdit] = selectedImage;
+      return newProductImagesArr;
+    });
+
+    updateImagesData(newProductImagesArr);
   };
+
 
   const renderCameraRollImage = (item: any) => {
     return (
@@ -181,7 +198,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         <ImageUpload
           source={{uri: item.item.uri, priority: FastImage.priority.low}}
         />
-        {renderNumberView(item.item.uri)}
+        {renderLabelView(item)}
       </CameraRollImageContainer>
     );
   };
@@ -220,24 +237,25 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     </>
   );
 
-  const onAddImage = async () => {
-    setSelectedImages(productImagesArr);
+  const onAddImage = async (order: number) => {
+    setSelectedImageIndex(order);
+    setSelectedImage(null);
     await setImagePickerVisible(true);
   };
 
   const onRemoveImage = (imageIndex: number) => {
     const newImgArr = [...productImagesArr];
     newImgArr.splice(imageIndex, 1);
-    setSelectedImages(newImgArr);
+    //setSelectedImage(null);
     setProductImagesArr(newImgArr); // Local Update
     updateImagesData(newImgArr.slice(0, -1)); // Reducer Update
   };
 
   const onEditImage = (imageIndex: number) => {
-    console.log('EDITING', selectedImages[imageIndex]);
+    console.log('EDITING', imageIndex);
 
     ImagePicker.openCropper({
-      path: selectedImages[imageIndex].uri,
+      path: productImagesArr[imageIndex].uri,
       freeStyleCropEnabled: true,
       includeBase64: false,
       compressImageQuality: 1,
@@ -246,8 +264,8 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       width: 2000,
       height: 2500,
     }).then(image => {
-      selectedImages[imageIndex].uri = image.path;
-      selectedImages[imageIndex].sourceURL = image.path;
+      productImagesArr[imageIndex].uri = image.path;
+      productImagesArr[imageIndex].sourceURL = image.path;
       setEditModalVisible(false);
     });
   };
@@ -277,46 +295,60 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       </DeleteContainer>
     );
   };
-  const renderNumberView = (uri: string) => {
-    const foundIndex = selectedImages.findIndex(image => image.uri === uri);
-    if (foundIndex === -1) {
-      return;
+  const renderLabelView = (item) => {
+    if (selectedImage?.uri !== item.item.uri) {
+      return <></>
     }
     return (
       <CellIndexContainer>
-        <IndexLabel>{foundIndex + 1}</IndexLabel>
+        <IndexLabel>
+          {selectedImage.placeholderLabel}
+        </IndexLabel>
       </CellIndexContainer>
     );
   };
-  const renderMainPhotoView = () => {
-    return (
-      <MainPhotoLabelContainer>
-        <MainPhotoLabel>Main Photo</MainPhotoLabel>
-      </MainPhotoLabelContainer>
-    );
-  };
   const renderProductImageContainer = (item: any, order: number) => {
-    const isFooter = order + 1 === productImagesArr?.length;
-    if (isFooter) {
-      return renderAddImageContainer();
+    if (item.sourceURL) {
+      return (
+        <ImageContainerUpload key={item?.key}>
+          <ImageUpload
+            source={{uri: item?.sourceURL, priority: FastImage.priority.low}}
+          />
+          {renderThreeDots(order)}
+        </ImageContainerUpload>
+      );
     }
     return (
-      <ImageContainerUpload key={item?.key}>
-        <ImageUpload
-          source={{uri: item?.sourceURL, priority: FastImage.priority.low}}
-        />
-        {renderThreeDots(order)}
-        {order === 0 && renderMainPhotoView()}
-      </ImageContainerUpload>
+      <>{
+        renderPlaceholder(
+          item.placeholder,
+          item.placeholderLabel,
+          order,
+        )
+      }
+        </>
+      );
+  };
+  const renderPlaceholder = (icon: string, label: string, order: number) => {
+    return (
+      <Touchable onPress={() => onAddImage(order)}>
+        <ImageContainerNew>
+          <SvgXml xml={icon} />
+          <PlaceholderContainer>
+            <PlaceholderLabel>{label}</PlaceholderLabel>
+          </PlaceholderContainer>
+        </ImageContainerNew>
+      </Touchable>
     );
   };
   return (
     <>
-      <PhotoGuideText onPress={openImageGuide}>Photo Guide</PhotoGuideText>
+      <PhotoGuideText onPress={openImageGuide}>Photo Guide {}</PhotoGuideText>
       <ImagesContainer enableScroll={enableScroll}>
         <AddProductsList
           data={productImagesArr}
           renderItem={renderProductImageContainer}
+          /*
           onDragging={() => setEnableScroll(false)}
           onDragRelease={data => {
             setProductImagesArr(data);
@@ -324,8 +356,9 @@ export const AddProductStepThree: FC<ProductStep> = props => {
             setEnableScroll(true);
           }}
           dragStartAnimation={true}
+           */
           itemHeight={scale(productImageWidth)}
-          style={{paddingBottom: '250%'}}
+          style={{paddingBottom: '100%'}}
         />
       </ImagesContainer>
       <ImageGuideComponent
