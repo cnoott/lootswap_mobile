@@ -18,6 +18,15 @@ import {
   ORDER_TRACK_DELIVERED_UNSELECTED,
   ORDER_TRACK_DELIVERED_SELECTED,
   FILTER_ICON,
+  OUTER_SIDE_ICON,
+  INNER_SIDE_ICON,
+  FRONT_ICON,
+  BACK_ICON,
+  INSOLES_ICON,
+  SIZE_TAG_ICON,
+  SOLES_ICON,
+  BOX_LABEL_ICON,
+  ADDITIONAL_ICON
 } from 'localsvgimages';
 import {PROFILE_OPTIONS_TYPE, GET_PRODUCT_DETAILS} from 'custom_types';
 import {
@@ -701,19 +710,50 @@ const getStepOneDataFromLists = (arrayData: any, catValue: string) => {
   return filteredCategory[0] || arrayData[0];
 };
 
+const secondaryPhotosPlaceholders = [
+  {icon: INNER_SIDE_ICON, label: 'Inner Side'},
+  {icon: FRONT_ICON, label: 'Front'},
+  {icon: BACK_ICON, label: 'Back'},
+  {icon: INSOLES_ICON, label: 'Insoles'},
+  {icon: SIZE_TAG_ICON, label: 'Size'},
+  {icon: SOLES_ICON, label: 'Soles'},
+  {icon: BOX_LABEL_ICON, label: 'Box Label'},
+  {icon: ADDITIONAL_ICON, label: 'Additional'},
+];
+// TODO initial template data for clohtes
+export const initialImageData = () => {
+  const allPlaceholders = [
+    {icon: OUTER_SIDE_ICON, label: 'Outer Side'},
+    ...secondaryPhotosPlaceholders,
+  ];
+  return allPlaceholders.map((placeholder, i) => ({
+    sourceURL: '',
+    isServerImage: true,
+    key: i,
+    placeholder: placeholder.icon,
+    placeholderLabel: placeholder.label,
+  }));
+};
+
 const getStepThreeDataFromLists = (lootData: any) => {
-  const allPhotos = lootData?.secondary_photos?.map((photo: string) => {
-    return {
-      sourceURL: photo,
-      isServerImage: true,
-      key: `${Math.random() * 100}`,
-    };
-  });
+  const allPhotos = lootData?.secondary_photos?.map(
+    (photo: string, i: number) => {
+      return {
+        sourceURL: photo,
+        isServerImage: true,
+        key: `${Math.random() * 100}`,
+        placeholder: secondaryPhotosPlaceholders[i].icon,
+        placeholderLabel: secondaryPhotosPlaceholders[i].label,
+      };
+    },
+  );
   return [
     {
       sourceURL: lootData?.primary_photo,
       isServerImage: true,
       key: `${Math.random() * 100}`,
+      placeholder: OUTER_SIDE_ICON,
+      placeholderLabel: 'Outer Side',
     },
     ...allPhotos,
   ];
