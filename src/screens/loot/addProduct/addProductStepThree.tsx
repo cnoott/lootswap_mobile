@@ -264,9 +264,16 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       width: 2000,
       height: 2500,
     }).then(image => {
-      productImagesArr[imageIndex].uri = image.path;
-      productImagesArr[imageIndex].sourceURL = image.path;
+      const indexToEdit = selectedImageIndex;
+      // Update the specific index in the productImagesArr array
+      let newProductImagesArr;
+      setProductImagesArr(prev => {
+        newProductImagesArr = [...prev];
+        newProductImagesArr[indexToEdit] = selectedImage;
+        return newProductImagesArr;
+      });
       setEditModalVisible(false);
+      updateImagesData(newProductImagesArr);
     });
   };
 
