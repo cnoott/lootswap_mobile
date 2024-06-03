@@ -29,6 +29,21 @@ const ListLootSuccessScreen: FC<{}> = props => {
         </DesLabel>
       </SubContainer>
       <LSButton
+        title={'List Another Item'}
+        size={Size.Fit_To_Width}
+        type={Type.Secondary}
+        radius={20}
+        marginBottom={10}
+        fitToWidth={'90%'}
+        onPress={() => {
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'List item'}],
+          });
+        }}
+      />
+
+      <LSButton
         title={'Done'}
         size={Size.Fit_To_Width}
         type={Type.Primary}
