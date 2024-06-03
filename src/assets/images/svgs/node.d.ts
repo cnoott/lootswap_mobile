@@ -109,4 +109,8 @@ declare module 'localsvgimages' {
   export const SOLES_ICON: any;
   export const BOX_LABEL_ICON: any;
   export const ADDITIONAL_ICON: any;
+  export const FRONT_CLOTHES_ICON: any;
+  export const LOGO_CLOTHES_ICON: any;
+  export const BACK_CLOTHES_ICON: any;
+  export const BRAND_CLOTHES_ICON: any;
 }
