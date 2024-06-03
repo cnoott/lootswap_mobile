@@ -26,7 +26,11 @@ import {
   SIZE_TAG_ICON,
   SOLES_ICON,
   BOX_LABEL_ICON,
-  ADDITIONAL_ICON
+  ADDITIONAL_ICON,
+  FRONT_CLOTHES_ICON,
+  LOGO_CLOTHES_ICON,
+  BACK_CLOTHES_ICON,
+  BRAND_CLOTHES_ICON,
 } from 'localsvgimages';
 import {PROFILE_OPTIONS_TYPE, GET_PRODUCT_DETAILS} from 'custom_types';
 import {
@@ -720,12 +724,28 @@ const secondaryPhotosPlaceholders = [
   {icon: BOX_LABEL_ICON, label: 'Box Label'},
   {icon: ADDITIONAL_ICON, label: 'Additional'},
 ];
-// TODO initial template data for clohtes
-export const initialImageData = () => {
-  const allPlaceholders = [
-    {icon: OUTER_SIDE_ICON, label: 'Outer Side'},
-    ...secondaryPhotosPlaceholders,
-  ];
+
+const secondaryClothingPlaceholders = [
+  {icon: LOGO_CLOTHES_ICON, label: 'Logo close-up'},
+  {icon: BACK_CLOTHES_ICON, label: 'Back'},
+  {icon: BRAND_CLOTHES_ICON, label: 'Brand tag'},
+  {icon: ADDITIONAL_ICON, label: 'Additional'},
+];
+
+export const initialImageData = (category: string) => {
+  let allPlaceholders;
+  console.log('CAT', category);
+  if (category === 'Shoes') {
+    allPlaceholders = [
+      {icon: OUTER_SIDE_ICON, label: 'Outer Side'},
+      ...secondaryPhotosPlaceholders,
+    ];
+  } else {
+    allPlaceholders = [
+      {icon: FRONT_CLOTHES_ICON, label: 'Front side'},
+      ...secondaryClothingPlaceholders,
+    ];
+  }
   return allPlaceholders.map((placeholder, i) => ({
     sourceURL: '',
     isServerImage: true,
