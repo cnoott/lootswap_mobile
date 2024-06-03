@@ -138,10 +138,12 @@ export const CameraRollList = styled.FlatList.attrs(() => ({
   ${layout}
 `;
 
-export const AddProductsList = styled(DraggableGrid).attrs(() => ({
+export const AddProductsList = styled.FlatList.attrs(() => ({
   numColumns: 3,
-  height: '100%',
-  width: '100%',
+  contentContainerStyle: {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
 }))`
   ${color}
   ${space}
@@ -154,6 +156,7 @@ export const ImageContainer = styled.View.attrs(props => ({
   borderRadius: scale(16),
   bg: props.theme.colors.grey,
   m: scale(5),
+  mb: scale(6),
 }))`
   align-items: center;
   justify-content: center;
@@ -166,6 +169,7 @@ export const ImageContainerUpload = styled.View.attrs(props => ({
   borderRadius: scale(16),
   bg: props.theme.colors.grey,
   m: scale(1),
+  mb: scale(5),
 }))`
   align-items: center;
   align-self: center;
@@ -193,11 +197,11 @@ export const ImageContainerNew = styled.View.attrs((props: any) => ({
   width: scale(productImageWidth),
   borderRadius: scale(16),
   bg: props.theme.colors.grey,
-  m: scale(5),
+  m: scale(4),
 }))`
   align-items: center;
   justify-content: center;
-  ${layout} ${color} ${space};
+  ${layout} ${color} ${space} ${border};
 `;
 
 export const TakePhotoButtonContainer = styled.TouchableOpacity.attrs(
@@ -255,7 +259,8 @@ export const FullTouchable = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-export const Touchable = styled.TouchableOpacity``;
+export const Touchable = styled.TouchableOpacity`
+`;
 
 export const TouchableRow = styled.TouchableOpacity`
   margin-top: ${verticalScale(10)}px
