@@ -2,7 +2,7 @@
 LootSwap - ADD_PRODUCT STEP 3
 ***/
 
-import React, {FC, useState, useCallback} from 'react';
+import React, {FC, useState, useCallback, useEffect} from 'react';
 import ImagePicker, {openPicker} from 'react-native-image-crop-picker'; //TODO REMOVE
 import {LSModal} from '../../../components/commonComponents/LSModal';
 import LSButton from '../../../components/commonComponents/LSButton';
@@ -38,20 +38,7 @@ import {
   PhotoGuideText,
 } from './styles';
 import {useSelector} from 'react-redux';
-import {
-  TRASH_WHITE_ICON,
-  PROFILE_TRIPPLE_DOT_ICON,
-  CAMERA_ICON,
-  OUTER_SIDE_ICON,
-  INNER_SIDE_ICON,
-  FRONT_ICON,
-  BACK_ICON,
-  INSOLES_ICON,
-  SIZE_TAG_ICON,
-  SOLES_ICON,
-  BOX_LABEL_ICON,
-  ADDITIONAL_ICON
-} from 'localsvgimages';
+import {PROFILE_TRIPPLE_DOT_ICON, CAMERA_ICON} from 'localsvgimages';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 import {Alert} from 'custom_top_alert';
 import {scale} from 'react-native-size-matters';
@@ -79,7 +66,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
   const [cameraRoll, setCameraRoll] = useState([]);
 
-  const [isImageGuideVisible, setIsImageGuideVisible] = useState(true);
+  const [isImageGuideVisible, setIsImageGuideVisible] = useState(false);
   const openImageGuide = useCallback(() => {
     setIsImageGuideVisible(true);
   }, []);
@@ -90,7 +77,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   const preFilledData =
     addProductData?.stepThree?.length > 0
       ? [...addProductData?.stepThree]
-      : initialImageData();
+      : [];
 
   const {
     photos,
@@ -118,6 +105,29 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       stepThree: newImages,
     });
   };
+
+  useEffect(() => {
+    if (addProductData?.stepTwo?.condition?.label === 'New without box') {
+      const newProductImagesArr = productImagesArr.filter(
+        img => img.placeholderLabel !== 'Box Label'
+      );
+      setProductImagesArr(newProductImagesArr);
+    } else {
+      const preFilledData =
+        addProductData?.stepThree?.length > 0
+          ? [...addProductData?.stepThree]
+          : initialImageData();
+      setProductImagesArr(preFilledData);
+    }
+  }, [addProductData?.stepTwo?.condition?.label]);
+
+  useEffect(() => {
+    let newProductImagesArr = initialImageData(
+      addProductData?.stepOne?.category?.label,
+    );
+    setProductImagesArr(newProductImagesArr);
+  }, [addProductData?.stepOne?.category?.label]);
+
 
   const onSelectImage = (node: any) => {
     if (selectedImage && selectedImage?.sourceURL === node.item.uri) {
@@ -165,28 +175,29 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     // Update the specific index in the productImagesArr array
     setProductImagesArr(prev => {
       const newProductImagesArr = [...prev];
+      updateImagesData(newProductImagesArr);
       newProductImagesArr[selectedImageIndex] = fileData;
       return newProductImagesArr;
     });
 
     // Update images data excluding the last element
-    updateImagesData(newProductImagesArr.slice(0, -1));
     setImagePickerVisible(false);
   };
 
 
   const onFinishSelecting = () => {
+    if (!selectedImage) {
+      return;
+    }
     setImagePickerVisible(false);
     const indexToEdit = selectedImageIndex;
     // Update the specific index in the productImagesArr array
-    let newProductImagesArr;
     setProductImagesArr(prev => {
-      newProductImagesArr = [...prev];
+      let newProductImagesArr = [...prev];
       newProductImagesArr[indexToEdit] = selectedImage;
+      updateImagesData(newProductImagesArr);
       return newProductImagesArr;
     });
-
-    updateImagesData(newProductImagesArr);
   };
 
 
@@ -244,11 +255,15 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   };
 
   const onRemoveImage = (imageIndex: number) => {
-    const newImgArr = [...productImagesArr];
-    newImgArr.splice(imageIndex, 1);
-    //setSelectedImage(null);
-    setProductImagesArr(newImgArr); // Local Update
-    updateImagesData(newImgArr.slice(0, -1)); // Reducer Update
+    setProductImagesArr(prev => {
+      let newProductImagesArr = [...prev];
+      updateImagesData(newProductImagesArr);
+      newProductImagesArr[imageIndex].sourceURL = '';
+      newProductImagesArr[imageIndex].uri = '';
+      return newProductImagesArr;
+    });
+    setEditModalVisible(false);
+    setProductImagesArr(newProductImagesArr); // Local Update
   };
 
   const onEditImage = (imageIndex: number) => {
@@ -266,14 +281,13 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     }).then(image => {
       const indexToEdit = selectedImageIndex;
       // Update the specific index in the productImagesArr array
-      let newProductImagesArr;
       setProductImagesArr(prev => {
-        newProductImagesArr = [...prev];
+        let newProductImagesArr = [...prev];
+        updateImagesData(newProductImagesArr);
         newProductImagesArr[indexToEdit] = selectedImage;
         return newProductImagesArr;
       });
       setEditModalVisible(false);
-      updateImagesData(newProductImagesArr);
     });
   };
 
@@ -314,28 +328,28 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       </CellIndexContainer>
     );
   };
-  const renderProductImageContainer = (item: any, order: number) => {
+  const renderProductImageContainer = ({ item, index }) => {
     if (item.sourceURL) {
       return (
         <ImageContainerUpload key={item?.key}>
           <ImageUpload
-            source={{uri: item?.sourceURL, priority: FastImage.priority.low}}
+            source={{ uri: item?.sourceURL, priority: FastImage.priority.low }}
           />
-          {renderThreeDots(order)}
+          {renderThreeDots(index)}
         </ImageContainerUpload>
       );
     }
     return (
-      <>{
-        renderPlaceholder(
-          item.placeholder,
-          item.placeholderLabel,
-          order,
-        )
-      }
-        </>
-      );
+      <>
+        {renderPlaceholder(
+        item.placeholder,
+        item.placeholderLabel,
+        index,
+        )}
+      </>
+    );
   };
+
   const renderPlaceholder = (icon: string, label: string, order: number) => {
     return (
       <Touchable onPress={() => onAddImage(order)}>
@@ -354,7 +368,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       <ImagesContainer enableScroll={enableScroll}>
         <AddProductsList
           data={productImagesArr}
-          renderItem={renderProductImageContainer}
+          renderItem={({item, index}) => renderProductImageContainer({item, index})}
           /*
           onDragging={() => setEnableScroll(false)}
           onDragRelease={data => {
@@ -364,8 +378,6 @@ export const AddProductStepThree: FC<ProductStep> = props => {
           }}
           dragStartAnimation={true}
            */
-          itemHeight={scale(productImageWidth)}
-          style={{paddingBottom: '100%'}}
         />
       </ImagesContainer>
       <ImageGuideComponent
