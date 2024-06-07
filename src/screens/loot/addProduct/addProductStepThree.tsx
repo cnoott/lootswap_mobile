@@ -90,12 +90,12 @@ export const AddProductStepThree: FC<ProductStep> = props => {
     isReloading,
     hasNextPage,
   } = useGallery({
-    pageSize: 18,
+    pageSize: 24,
   });
 
   const closeModal = () => setImagePickerVisible(false);
 
-  const [productImagesArr, setProductImagesArr] = useState<any>(preFilledData); // Always adding 1 element to show add images component at last
+  const [productImagesArr, setProductImagesArr] = useState<any>([]);
   const [selectedImage, setSelectedImage] = useState<any>(null); // Selected images in camera roll modal
   const [enableScroll, setEnableScroll] = useState(true);
   const {updateProductData} = props;
@@ -116,7 +116,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       const preFilledData =
         addProductData?.stepThree?.length > 0
           ? [...addProductData?.stepThree]
-          : initialImageData();
+          : initialImageData(addProductData?.stepOne?.category?.label);
       setProductImagesArr(preFilledData);
     }
   }, [addProductData?.stepTwo?.condition?.label]);
@@ -234,6 +234,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
           keyExtractor={item => item.key}
           extraData={cameraRoll}
           onEndReached={loadNextPagePictures}
+          onEndReachedThreshold={1}
         />
         <AddPhotosButtonContainer>
           <LSButton
@@ -397,7 +398,6 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         onBackdropPress={() => closeModal()}>
         <LSModal.BottomContainer>
           {imagePicker()}
-          <LSLoader isVisible={isLoading || isLoadingNextPage || isReloading} />
           <LSModal.CloseButton onCloseButtonPress={() => closeModal()} />
         </LSModal.BottomContainer>
       </LSModal>
