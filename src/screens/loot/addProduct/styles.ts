@@ -211,7 +211,7 @@ export const TakePhotoButtonContainer = styled.TouchableOpacity.attrs(
     borderRadius: scale(60),
     bg: 'rgba(98, 103, 254, 0.1)',
     mb: scale(10),
-    ml: scale(11),
+    ml: '31%',
   }),
 )`
   flex-direction: row;
@@ -223,7 +223,7 @@ export const TakePhotoButtonContainer = styled.TouchableOpacity.attrs(
 export const TakePhotoButtonText = styled.Text.attrs(props => ({
   color: 'rgba(98, 103, 254, 1)',
 }))`
-  font-size: ${moderateScale(14)}px;
+  font-size: ${moderateScale(15)}px;
   font-family: Urbanist;
   font-weight: 700;
   ${color}

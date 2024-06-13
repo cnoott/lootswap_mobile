@@ -143,31 +143,11 @@ export const FiltersScreen: FC<any> = ({route}) => {
       <EmptyView>
         <ListTitleText>Condition</ListTitleText>
         <AnimatedCheckBox
-          isChecked={filterIsSelected(filters, 'New with box')}
+          isChecked={filterIsSelected(filters, 'New')}
           disableBuiltInState={true}
-          selected={filterIsSelected(filters, 'New with box')}
-          text="New with box"
-          onPress={() =>
-            onSetFilter(dispatch, Filter_Type.Condition, 'New with box')
-          }
-        />
-        <AnimatedCheckBox
-          isChecked={filterIsSelected(filters, 'New without box')}
-          selected={filterIsSelected(filters, 'New without box')}
-          disableBuiltInState={true}
-          text="New without box"
-          onPress={() =>
-            onSetFilter(dispatch, Filter_Type.Condition, 'New without box')
-          }
-        />
-        <AnimatedCheckBox
-          isChecked={filterIsSelected(filters, 'New with defect')}
-          selected={filterIsSelected(filters, 'New with defect')}
-          disableBuiltInState={true}
-          text="New with defect"
-          onPress={() =>
-            onSetFilter(dispatch, Filter_Type.Condition, 'New with defect')
-          }
+          selected={filterIsSelected(filters, 'New')}
+          text="New"
+          onPress={() => onSetFilter(dispatch, Filter_Type.Condition, 'New')}
         />
         <AnimatedCheckBox
           isChecked={filterIsSelected(filters, 'Pre-owned')}
