@@ -120,7 +120,6 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
       userId: userData?._id,
       description: stepTwo?.productDescription,
       condition: stepTwo?.condition?.value,
-      preOwnedCondition: stepTwo?.preOwnedCondition?.value,
       size: stepOne?.size?.value,
       brand: stepTwo?.brand?.value,
       interestedIn: '',
@@ -254,11 +253,6 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
         {renderSectionHeader('Product Type', false, 2)}
         {renderSubProductInfo('Brand', `${stepTwo?.brand?.label}`)}
         {renderSubProductInfo('Condition', `${stepTwo?.condition?.label}`)}
-        {stepTwo?.condition?.label === 'Pre-owned' &&
-          renderSubProductInfo(
-            'Pre-Owned Condition',
-            `${stepTwo?.preOwnedCondition?.label}`,
-          )}
       </>
     );
   };

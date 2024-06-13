@@ -50,7 +50,6 @@ export type PRODUCT_STEP_ONE_TYPE = {
 export type PRODUCT_STEP_TWO_TYPE = {
   brand?: DROPDOWN_TYPE;
   condition?: DROPDOWN_TYPE;
-  preOwnedCondition?: DROPDOWN_TYPE;
   productDescription?: string;
 };
 
