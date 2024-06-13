@@ -1406,9 +1406,6 @@ const hasTradeOnly = (products: Array<any>) => {
 const hasPreowned = (products: Array<any>) => {
   const preOwnedConditions = [
     'Pre-owned',
-    'Lightly used',
-    'Moderately used',
-    'Heavily used',
   ];
   return products.find(product =>
     preOwnedConditions.includes(product?.condition),
