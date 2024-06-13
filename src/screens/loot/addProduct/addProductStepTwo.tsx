@@ -56,7 +56,11 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
   };
 
   const onSetBoxCondition = (item: any) => {
-    updateData({boxCondition: item});
+    updateData({
+      boxCondition: item,
+      productDescription: productDes + `\nBox Condition: ${item.value}`,
+    });
+    setProductDes(productDes + `\nBox Condition: ${item.value}`);
   };
 
   const onSetConditionData = (item: any) => {
