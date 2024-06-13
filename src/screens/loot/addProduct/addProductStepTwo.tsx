@@ -11,6 +11,7 @@ import {
   brandsList,
   conditionList,
   conditionListClothing,
+  boxConditionList,
   getPreOwnedConditions,
 } from '../../../utility/utility';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
@@ -34,10 +35,6 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
     addProductData?.stepTwo?.condition || null,
   );
 
-  const [preOwnedConditionData, setPreOwnedConditionData] = useState(
-    addProductData?.stepTwo?.preOwnedCondition || null,
-  );
-
   const [productDes, setProductDes] = useState(
     addProductData?.stepTwo?.productDescription || '',
   );
@@ -58,10 +55,14 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
     updateData({brand: item});
   };
 
+  const onSetBoxCondition = (item: any) => {
+    updateData({boxCondition: item});
+  };
+
   const onSetConditionData = (item: any) => {
     if (
       addProductData?.stepOne?.stockxUrlKey &&
-      (item.label === 'New with box' || item.label === 'New with tags')
+      (item.label === 'New' || item.label === 'New with tags')
     ) {
       const {productName, size} = addProductData.stepOne;
       const prodDesc = `${item.label},\n${productName},\nSize: ${size.value}`;
@@ -78,10 +79,7 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
     updateData({condition: item});
   };
 
-  const onSetPreOwnedCondition = (item: any) => {
-    setPreOwnedConditionData(item);
-    updateData({preOwnedCondition: item});
-  };
+
   //PRE OWNED CONDITION
   const onSetProductDes = (item: any) => {
     setProductDes(item);
@@ -126,14 +124,16 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
         onSetConditionData,
         conditionData,
       )}
-      {addProductData?.stepTwo?.condition?.value === 'Pre-owned' &&
+      {addProductData?.stepOne?.category?.value === 'shoes' &&
         renderDropdown(
-          'Rate Pre-owned Condition',
+          'Box Condition',
           false,
-          getPreOwnedConditions(),
-          onSetPreOwnedCondition,
-          preOwnedConditionData,
-        )}
+          boxConditionList,
+          onSetBoxCondition,
+          addProductData?.stepTwo?.boxCondition,
+        )
+      }
+
       <LSInput
         horizontalSpace={'0'}
         onChangeText={onSetProductDes}

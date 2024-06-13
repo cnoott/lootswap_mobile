@@ -544,6 +544,11 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               <ProductDetails>
                 Condition: <BoldText>{productData?.condition}</BoldText>
               </ProductDetails>
+              {productData?.category === 'Shoes' && (
+                <ProductDetails>
+                  Box Condition: <BoldText>{productData?.boxCondition}</BoldText>
+                </ProductDetails>
+              )}
               <ProductDetails>
                 Size:{' '}
                 <BoldText>{convertUsSizeToEu(productData?.size)}</BoldText>

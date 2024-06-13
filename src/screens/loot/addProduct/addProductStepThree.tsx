@@ -107,26 +107,15 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   };
 
   useEffect(() => {
-    if (addProductData?.stepTwo?.condition?.label === 'New without box') {
-      const newProductImagesArr = productImagesArr.filter(
-        img => img.placeholderLabel !== 'Box Label'
-      );
-      setProductImagesArr(newProductImagesArr);
-    } else {
-      const preFilledData =
-        addProductData?.stepThree?.length > 0
-          ? [...addProductData?.stepThree]
-          : initialImageData(addProductData?.stepOne?.category?.label);
-      setProductImagesArr(preFilledData);
-    }
-  }, [addProductData?.stepTwo?.condition?.label]);
-
-  useEffect(() => {
     let newProductImagesArr = initialImageData(
       addProductData?.stepOne?.category?.label,
+      addProductData?.stepTwo,
     );
     setProductImagesArr(newProductImagesArr);
-  }, [addProductData?.stepOne?.category?.label]);
+  }, [
+    addProductData?.stepOne?.category?.label,
+    addProductData?.stepTwo,
+  ]);
 
 
   const onSelectImage = (node: any) => {
@@ -161,6 +150,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       width: 600,
       height: 700,
     });
+    setImagePickerVisible(false);
 
     const fileData = {
       uri: image.path,
@@ -180,8 +170,6 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       return newProductImagesArr;
     });
 
-    // Update images data excluding the last element
-    setImagePickerVisible(false);
   };
 
 
@@ -261,10 +249,10 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       updateImagesData(newProductImagesArr);
       newProductImagesArr[imageIndex].sourceURL = '';
       newProductImagesArr[imageIndex].uri = '';
+      setProductImagesArr(newProductImagesArr);
       return newProductImagesArr;
     });
     setEditModalVisible(false);
-    setProductImagesArr(newProductImagesArr); // Local Update
   };
 
   const onEditImage = (imageIndex: number) => {

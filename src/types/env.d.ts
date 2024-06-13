@@ -63,6 +63,7 @@ declare module 'custom_types' {
   export type PRODUCT_STEP_TWO_TYPE = {
     brand?: DROPDOWN_TYPE;
     condition?: DROPDOWN_TYPE;
+    boxCondition?: DROPDOWN_TYPE;
     productDescription?: string;
   };
   export type PRODUCT_STEP_THREE_TYPE = {

@@ -333,13 +333,6 @@ export const categoryList = [
   {label: 'Other', value: 'other'},
 ];
 
-export const oldconditionList = [
-  {label: 'New with box', value: 'New with box'},
-  {label: 'New without box', value: 'New without box'},
-  {label: 'New with defect', value: 'New with defect'},
-  {label: 'Pre-owned', value: 'Pre-owned'},
-];
-
 export const conditionList = [
   {label: 'New', value: 'New'},
   {label: 'Pre-owned', value: 'Pre-owned'},
@@ -743,19 +736,24 @@ const secondaryClothingPlaceholders = [
   {icon: ADDITIONAL_ICON, label: 'Additional'},
 ];
 
-export const initialImageData = (category: string, condition: string) => {
+export const initialImageData = (category: string, stepTwoData: any) => {
   let allPlaceholders;
   if (category === 'Shoes') {
     allPlaceholders = [
       {icon: OUTER_SIDE_ICON, label: 'Outer Side'},
       ...secondaryPhotosPlaceholders,
     ];
-    if (condition === 'New') {
+    if (stepTwoData?.condition?.label === 'New') {
       allPlaceholders = allPlaceholders.filter(
         img => img.label !== 'Inner Side',
       );
       allPlaceholders = allPlaceholders.filter(img => img.label !== 'Front');
       allPlaceholders = allPlaceholders.filter(img => img.label !== 'Back');
+    }
+    if (stepTwoData?.boxCondition?.value === 'No Original Box') {
+      allPlaceholders = allPlaceholders.filter(
+        img => img.label !== 'Box Label',
+      );
     }
   } else {
     allPlaceholders = [
@@ -879,15 +877,19 @@ export const validateCreateProductData = (
       }
       break;
     case 2:
-      const {brand, condition, productDescription} =
+      const {brand, condition, boxCondition, productDescription} =
         prodData?.stepTwo;
+
       if (brand.value && condition && productDescription) {
         canGoNext = true;
+      }
+      if (category === 'Shoes' && !boxCondition) {
+        canGoNext = false;
       }
       break;
     case 3:
       const {stepOne, stepTwo, stepThree} = prodData;
-      const filledImages = stepThree.filter(img => img.sourceURL);
+      const filledImages = stepThree?.filter(img => img.sourceURL);
       let requiredLength;
       if (stepOne.category.value === 'Shoes') {
         requiredLength = stepTwo?.condition?.label === 'New' ? 4 : 7;
@@ -1419,15 +1421,7 @@ const getAllPrices = (products: Array<any>) => {
     if (product.stockxId) {
       let foundSize = findMarketDataFromSize(product.stockxId, product.size);
       if (foundSize) {
-        if (product.condition === 'Pre-owned') {
-          const preOwnedValue = getPreownedMarketValue(
-            foundSize,
-            product?.preOwnedCondition,
-          );
-          allPrices.push(preOwnedValue[1]);
-        } else {
-          allPrices.push(foundSize.lastSale);
-        }
+        allPrices.push(foundSize.lastSale);
       } else {
         allPrices.push(null);
       }

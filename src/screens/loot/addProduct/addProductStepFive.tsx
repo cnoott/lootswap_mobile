@@ -38,7 +38,6 @@ import {
 import {useSelector} from 'react-redux';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 import {ScrollView} from 'react-native';
-import {getPreownedMarketValue} from '../../../utility/utility';
 
 interface ProductStep {
   updateProductData: Function;
@@ -63,17 +62,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
       return;
     }
 
-    let dotPositionCalc;
-    if (stepTwo?.condition?.value === 'Pre-owned') {
-      dotPositionCalc =
-        ((priceInput - stepFive.startRange) /
-          (stepFive.endRange - priceInput)) *
-        100;
-    } else {
-      // Updated calculation based on 10% range
-      dotPositionCalc =
-        ((converted - 0.9 * lastSalePrice) / (0.2 * lastSalePrice)) * 100;
-    }
+    let dotPositionCalc = ((converted - 0.9 * lastSalePrice) / (0.2 * lastSalePrice)) * 100;
 
     const positionWithBounds = Math.max(0, Math.min(100, dotPositionCalc));
     setDotPosition(positionWithBounds);
@@ -199,9 +188,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
             keyboardType={'numeric'}
             onBlurCall={onBlurCall}
           />
-          {stepFive?.median !== 0 &&
-            stepTwo?.condition?.value !== 'Pre-owned' &&
-            renderMarketRange()}
+          {stepFive?.median !== 0 && renderMarketRange()}
           {renderShippingView()}
           {!stepFive?.isFreeShipping && (
             <StepFiveContainer>
