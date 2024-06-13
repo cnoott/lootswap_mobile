@@ -333,11 +333,23 @@ export const categoryList = [
   {label: 'Other', value: 'other'},
 ];
 
-export const conditionList = [
+export const oldconditionList = [
   {label: 'New with box', value: 'New with box'},
   {label: 'New without box', value: 'New without box'},
   {label: 'New with defect', value: 'New with defect'},
   {label: 'Pre-owned', value: 'Pre-owned'},
+];
+
+export const conditionList = [
+  {label: 'New', value: 'New'},
+  {label: 'Pre-owned', value: 'Pre-owned'},
+];
+
+export const boxConditionList = [
+  {label: 'Good Box (Lid & Box Intact)', value: 'Good Box'},
+  {label: 'Missing Lid', value: 'Missing Lid'},
+  {label: 'Damaged Box (Crushed/Torn/Signs of Wear)', value: 'Damaged Box'},
+  {label: 'No Original Box', value: 'No Original Box'},
 ];
 
 export const conditionListClothing = [
@@ -600,7 +612,6 @@ export const getAddProductRawData = () => {
     stepTwo: {
       brand: null,
       condition: null,
-      preOwnedCondition: null,
       productDescription: '',
     },
     stepThree: {
@@ -719,7 +730,7 @@ const secondaryPhotosPlaceholders = [
   {icon: FRONT_ICON, label: 'Front'},
   {icon: BACK_ICON, label: 'Back'},
   {icon: INSOLES_ICON, label: 'Insoles'},
-  {icon: SIZE_TAG_ICON, label: 'Size'},
+  {icon: SIZE_TAG_ICON, label: 'Size Tag'},
   {icon: SOLES_ICON, label: 'Soles'},
   {icon: BOX_LABEL_ICON, label: 'Box Label'},
   {icon: ADDITIONAL_ICON, label: 'Additional'},
@@ -732,14 +743,20 @@ const secondaryClothingPlaceholders = [
   {icon: ADDITIONAL_ICON, label: 'Additional'},
 ];
 
-export const initialImageData = (category: string) => {
+export const initialImageData = (category: string, condition: string) => {
   let allPlaceholders;
-  console.log('CAT', category);
   if (category === 'Shoes') {
     allPlaceholders = [
       {icon: OUTER_SIDE_ICON, label: 'Outer Side'},
       ...secondaryPhotosPlaceholders,
     ];
+    if (condition === 'New') {
+      allPlaceholders = allPlaceholders.filter(
+        img => img.label !== 'Inner Side',
+      );
+      allPlaceholders = allPlaceholders.filter(img => img.label !== 'Front');
+      allPlaceholders = allPlaceholders.filter(img => img.label !== 'Back');
+    }
   } else {
     allPlaceholders = [
       {icon: FRONT_CLOTHES_ICON, label: 'Front side'},
@@ -826,10 +843,7 @@ export const configureAndGetLootData = (lootData: any) => {
     conditionList,
     lootData?.condition,
   );
-  newLootData.stepTwo.preOwnedCondition = getStepOneDataFromLists(
-    preOwnedConditions,
-    lootData?.preOwnedCondition,
-  );
+
   newLootData.stepTwo.productDescription = lootData?.description;
 
   // Configure STEP 3
@@ -865,18 +879,22 @@ export const validateCreateProductData = (
       }
       break;
     case 2:
-      const {brand, condition, preOwnedCondition, productDescription} =
+      const {brand, condition, productDescription} =
         prodData?.stepTwo;
       if (brand.value && condition && productDescription) {
-        if (condition.value === 'Pre-owned' && !preOwnedCondition) {
-          return false;
-        }
         canGoNext = true;
       }
       break;
     case 3:
-      const {stepThree} = prodData;
-      if (stepThree?.length >= 2) {
+      const {stepOne, stepTwo, stepThree} = prodData;
+      const filledImages = stepThree.filter(img => img.sourceURL);
+      let requiredLength;
+      if (stepOne.category.value === 'Shoes') {
+        requiredLength = stepTwo?.condition?.label === 'New' ? 4 : 7;
+      } else {
+        requiredLength = 4;
+      }
+      if (filledImages?.length >= requiredLength) {
         canGoNext = true;
       }
       break;
