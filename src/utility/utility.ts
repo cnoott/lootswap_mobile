@@ -1151,28 +1151,21 @@ export const shippingStepOptions = (
   order: any,
 ) => {
   if (isTradeOrder) {
-    if (isReceiver && order?.receiverStep <= 3) {
-      return order?.receiverStep;
-    }
-    if (isReceiver && order?.receiverStep >= 4) {
-      return order?.senderStep;
-    }
-
-    if (!isReceiver && order?.senderStep <= 3) {
-      return order?.senderStep;
-    }
-    if (!isReceiver && order?.senderStep >= 4) {
-      return order?.receiverStep;
-    }
+    // always show other users step
     return isReceiver ? order?.senderStep : order?.receiverStep;
   } else {
     return order?.shippingStep;
   }
 };
 
-export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
+export const tradeOrderShippingStatus = (
+  userId: string,
+  tradeOrder: any,
+  showOwnTracking: boolean = false,
+) => {
   const {receiverStep, senderStep, receiver} = tradeOrder;
-  const isReceiver = userId === receiver?._id;
+  let isReceiver = userId === receiver?._id;
+  isReceiver = showOwnTracking ? !isReceiver : isReceiver;
   if (isReceiver && tradeOrder?.receiverPaymentStatus === 'failed') {
     return {
       text: 'Payment failed, please try again',

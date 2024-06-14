@@ -33,10 +33,14 @@ import {
   printLabel,
   salePrintLabel,
   shippingStepOptions,
+  tradeOrderShippingStatus,
 } from '../../utility/utility';
 import {Linking} from 'react-native';
 import ShippingInstructionModalComponent from '../../components/orders/shippingInstructionModalComponent';
 import {LSModal} from '../../components/commonComponents/LSModal';
+import { OrderStatusDetailsText } from '../../components/orderTrack/styles';
+import {StatusContainerView, StatusLabel, NameLabel} from '../../components/orders/styles';
+
 
 export const TrackOrderScreen: FC<any> = ({route}) => {
   const {isTradeOrder = false, item} = route?.params || {};
@@ -219,7 +223,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
     return (
       <>
         <RowContainer>
-          <OrderDataLabel>Tracking Number</OrderDataLabel>
+          <OrderDataLabel>Your Tracking Number</OrderDataLabel>
           <TrackingNumberLabel onPress={() => openTrackingLink()}>
             {renderTrackingNumber()}
           </TrackingNumberLabel>
@@ -261,6 +265,11 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       </RowContainer>
     );
   };
+  const {labelColor, backColor, text} = tradeOrderShippingStatus(
+    userData?._id,
+    item,
+    true,
+  );
   return (
     <Container>
       {renderShippingInstructionModal()}
@@ -273,10 +282,24 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       <SubContainer>
         {renderOrderHeaderDetails()}
         {isTradeOrder ? renderMultipleOrderCell() : renderSingleOrderCell()}
+
+        <OrderDataLabel>
+          Item(s) {isReceiver ? item.sender?.name : item?.receiver?.name} shipped
+        </OrderDataLabel>
         <OrderTrackSteps
           currStep={shippingStepOptions(isReceiver, isTradeOrder, item)}
           isTradeOrder={isTradeOrder}
         />
+        <FullDivider />
+        {isTradeOrder && (
+          <>
+          <OrderDataLabel>
+            Your Item Status: {' '}
+            <StatusLabel color={labelColor}>{text}</StatusLabel>
+
+          </OrderDataLabel>
+          </>
+        )}
         <FullDivider />
         <OrderStatusDetails trackingHistory={trackingHistoryOptions()} />
       </SubContainer>
