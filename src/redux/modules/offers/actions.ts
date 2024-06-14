@@ -18,6 +18,7 @@ import {
   DELETE_PUBLIC_OFFER,
   SEND_TRADE_MESSAGE,
   RECEIVE_TRADE_MESSAGE,
+  ARCHIVE_TRADE,
 } from '../../../constants/actions';
 
 export const getTradesHistory = (reqData: any) => {
@@ -294,6 +295,19 @@ export const deletePublicOffer = (
 ) => {
   return {
     type: DELETE_PUBLIC_OFFER.REQUEST,
+    reqData: reqData,
+    successCallBack: successCallBack,
+    errorCallBack: errorCallBack,
+  };
+};
+
+export const archiveTrade = (
+  reqData: any,
+  successCallBack: Function,
+  errorCallBack: Function,
+) => {
+  return {
+    type: ARCHIVE_TRADE.REQUEST,
     reqData: reqData,
     successCallBack: successCallBack,
     errorCallBack: errorCallBack,
