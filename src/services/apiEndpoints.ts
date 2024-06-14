@@ -691,6 +691,13 @@ export const addSharedProductCall = (reqData: any) => {
   );
 };
 
+export const archiveTradeCall = (reqData: any) => {
+  return handleResponse(
+    api.put(`/archive-trade/${reqData?.userId}/?tradeId=${reqData.tradeId}`),
+    API_RESPONSE.CODE200,
+  );
+};
+
 const handleResponse = (call: any, code: any, detailErrorMsg?: any) => {
   return call
     .then((res: any) => {
