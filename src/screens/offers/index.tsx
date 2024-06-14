@@ -13,6 +13,7 @@ import {
   getPublicOffers,
   deletePublicOffer,
   setNotifsAsReadRequest,
+  archiveTrade,
 } from '../../redux/modules';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
@@ -24,7 +25,11 @@ import {SvgXml} from 'react-native-svg';
 import {STOCKX_SEARCH_DROP_DOWN_ARROW} from 'localsvgimages';
 import TradeOfferCell from './offerItems/TradeOfferCell';
 import EmptyListView from '../../components/commonComponents/EmptyListView';
-import {getTradeStatusColor, daysPast} from '../../utility/utility';
+import {
+  getTradeStatusColor,
+  daysPast,
+  shouldShowArchive,
+} from '../../utility/utility';
 import NoMessagesView from './offerItems/NoMessagesView';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {Size, Type} from '../../enums';
@@ -51,6 +56,8 @@ import {
   ItemTextStyle,
   Badge,
   BadgeText,
+  PublicOfferDeleteContainer,
+  DeleteText,
 } from './styles';
 import {ButtonContainer} from '../publicOffers/styles';
 import {SelectedTextStyle} from '../search/stockxScreenStyles';
@@ -167,6 +174,27 @@ export const OffersScreen: FC<{}> = () => {
     return 0;
   };
 
+  const handleArchiveTrade = (tradeId: string) => {
+
+    let newCombinedInbox = [...combinedInbox];
+    newCombinedInbox = newCombinedInbox.filter(trade => trade?._id !== tradeId);
+    setCombinedInbox(newCombinedInbox);
+    const reqData = {
+      userId: userData?._id,
+      tradeId: tradeId,
+    };
+    dispatch(
+      archiveTrade(
+        reqData,
+        (res: any) => {
+        },
+        (err: any) => {
+          console.log(err);
+        },
+      ),
+    );
+  };
+
   const onInboxRefresh = () => {
     ReactNativeHapticFeedback.trigger('impactMedium');
     dispatch(getAllMyMessages(userData?._id));
@@ -228,6 +256,7 @@ export const OffersScreen: FC<{}> = () => {
 
   const RenderUserDetails = ({item, isTrade}) => {
     let statusColorObj;
+    let showArchive = isTrade && shouldShowArchive(item);
     if (isTrade) {
       statusColorObj = getTradeStatusColor(item.status);
     }
@@ -270,7 +299,15 @@ export const OffersScreen: FC<{}> = () => {
             )}
           </OwnerDetailsView>
         </EmptyRowView>
-        <TimeLabel> {daysPast(item.createdAt)} </TimeLabel>
+        {showArchive === true ? (
+          <PublicOfferDeleteContainer
+            onPress={() => handleArchiveTrade(item?._id)}
+          >
+            <DeleteText>Archive</DeleteText>
+          </PublicOfferDeleteContainer>
+        ) : (
+          <TimeLabel> {daysPast(item.createdAt)} </TimeLabel>
+        )}
       </RowView>
     );
   };
