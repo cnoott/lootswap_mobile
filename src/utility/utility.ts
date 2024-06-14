@@ -1472,3 +1472,18 @@ export const handleSendOfferNavigation = (
       break;
   }
 };
+
+export const shouldShowArchive = (trade: any) => {
+  if (trade.status === 'accepted') {
+    return true;
+  }
+  if (trade.status === 'canceled' || trade.status === 'declined') {
+    return true;
+  }
+  if (trade.status === 'pending') {
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    return new Date(trade.updatedAt) < oneWeekAgo;
+  }
+  return false;
+};
