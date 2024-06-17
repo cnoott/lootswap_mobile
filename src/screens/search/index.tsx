@@ -47,6 +47,7 @@ import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {useScrollToTop} from '@react-navigation/native';
 import {loggingService} from '../../services/loggingService';
+import EmptyListView from '../../components/commonComponents/EmptyListView';
 
 const ITEMS_PER_PAGE = 16;
 
@@ -330,6 +331,15 @@ export const SearchScreen: FC<any> = props => {
           //ListHeaderComponent={renderStockxResults()} // disabled until we have more items
           numColumns={2}
           onEndReached={() => handleSearchEndReached()}
+          ListEmptyComponent={
+            <EmptyListView
+              title={'No Items Found For That Search'}
+              subtitle={'Check back another time!'}
+              //buttonText={'Start Trading'}
+              //handleButtonPress={() => navigation.navigate('Home')}
+            />
+
+          }
         />
         {filtersSet && (
           <ClearFiltersButtonContainer>

@@ -24,13 +24,15 @@ export const EmptyListView: FC<EmptyListViewProps> = props => {
       <SvgXml xml={EMPTY_TRADE_OFFERS_ICON} />
       <NoOffersLabel>{title}</NoOffersLabel>
       <NoOffersMessage>{subtitle}</NoOffersMessage>
-      <LSButton
-        title={buttonText}
-        size={Size.Small}
-        type={Type.Primary}
-        radius={20}
-        onPress={handleButtonPress}
-      />
+      {buttonText && (
+        <LSButton
+          title={buttonText}
+          size={Size.Small}
+          type={Type.Primary}
+          radius={20}
+          onPress={handleButtonPress}
+        />
+      )}
     </EmptyListContainer>
   );
 };
