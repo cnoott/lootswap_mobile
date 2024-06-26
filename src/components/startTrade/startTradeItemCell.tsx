@@ -36,16 +36,9 @@ const StartTradeItemCell: FC<StartTradeItemCellProps> = React.memo(props => {
       if (!foundSize.lastSale) {
         return 'Not available';
       }
-      if (foundSize && product.condition !== 'Pre-owned') {
-        return `$${foundSize.lastSale}`;
-      } else if (foundSize && product.condition === 'Pre-owned') {
-        const range = getPreownedMarketValue(
-          foundSize,
-          product?.preOwnedCondition,
-        );
-        return `$${range[0]} - $${range[1]} `;
-      }
     }
+
+    return 'Not available';
   };
 
   const renderImageView = () => (
@@ -73,9 +66,7 @@ const StartTradeItemCell: FC<StartTradeItemCellProps> = React.memo(props => {
       <DesBottomContainer>
         <ConditionSizeText>Condition:</ConditionSizeText>
         <ConditionSizeResultText>
-          {item.condition === 'Pre-owned'
-            ? item.preOwnedCondition
-            : item.condition}
+          {item.condition}
         </ConditionSizeResultText>
       </DesBottomContainer>
       <DesBottomContainer>

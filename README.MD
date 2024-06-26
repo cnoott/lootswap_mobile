@@ -60,6 +60,14 @@ If you want to change any environment variable like changing `APP_URL` or need t
 When you will run project then this files content will automatically replaced in `.env` file.
 
 
+# Troubleshooting Dev Environemnt Setup:
+- If you change env variables and it doesnt update when you run dev, try the following
+  1. `yarn cache clean`
+  2. `yarn start --reset-cache`
+  3. Clean build on Xcode
+  4. Close Simulator
+  5. Run on Xcode
+
 # Version Naming Standard
 We use the versioning standard of 'a.b.c.' where
 a is for major updates

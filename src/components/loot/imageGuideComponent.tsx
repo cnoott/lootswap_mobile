@@ -145,8 +145,7 @@ export const ImageGuideComponent: FC<ImageGuideComponentProps> = props => {
     <ImageGuidePhotosContainer>
       <ImageGuidePhotoContainer onPress={() => handlePressImage(0)}>
         <ImageGuide source={PHOTO_GUIDE_OUTER} />
-        <ImageGuideLabel>Outer Side w/</ImageGuideLabel>
-        <ImageGuideLabel>username on paper</ImageGuideLabel>
+        <ImageGuideLabel>Outer Side</ImageGuideLabel>
       </ImageGuidePhotoContainer>
       <ImageGuidePhotoContainer onPress={() => handlePressImage(1)}>
         <ImageGuide source={PHOTO_GUIDE_INNER} />

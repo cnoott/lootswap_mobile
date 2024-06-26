@@ -16,13 +16,15 @@ export const LSHomeStepOneCarouselItem: FC<HeaderProps> = React.memo(() => {
       <StepOneImage source={REFER_FRIEND} />
       <CenteredButton>
       <LSButton
-        title={'Refer Now'}
-        size={Size.Fit_To_Width}
+        title={'Start selling'}
+        size={Size.Custom}
+        customHeight={35}
+        customWidth={110}
         type={Type.Primary}
         radius={10}
-        onPress={() => navigation.navigate('ReferralScreen')}
+        onPress={() => navigation.navigate('List item')}
         fitToWidth={'66%'}
-        sizeFont={18}
+        sizeFont={17}
       />
       </CenteredButton>
     </StepOneContainer>

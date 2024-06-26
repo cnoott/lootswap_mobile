@@ -169,6 +169,7 @@ export const handleNavigation = (
         ),
       );
       break;
+    case 'inbox':
     case 'public-offer':
       navigation.reset({
         index: 0,
@@ -183,7 +184,17 @@ export const handleNavigation = (
       navigation.navigate('EditProfileScreen');
       break;
     case 'onboarding':
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Profile'}],
+      });
       navigation?.navigate('OnboardingScreen');
+      break;
+    case 'inbox':
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Inbox'}],
+      });
       break;
     default:
       navigation.reset({

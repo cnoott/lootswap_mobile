@@ -26,12 +26,12 @@ export const LSHomeStepTwoCarouselItem: FC<any> = React.memo(() => {
   return (
     <Container>
       <StepThreeHeaderText>
-        Introducing
-        <HeaderPrimaryText> Public Offers</HeaderPrimaryText>
+        All Traded Items Are
       </StepThreeHeaderText>
+      <HeaderPrimaryText> Authenticated</HeaderPrimaryText>
       <StepTwoSubText>
-        Avoid sending offers to each user and have your offer displayed to the
-        community.
+        Any items you trade get sent to our authentication center
+        so you dont get scammed.
       </StepTwoSubText>
       <Image
         source={HOME_CAROUSEL_MIDDLE}

@@ -6,6 +6,7 @@ import {LSHomeStepOneCarouselItem} from './HomeItems/StepOneHomeItem';
 import {LSHomeStepTwoCarouselItem} from './HomeItems/StepTwoHomeItem';
 import {LSHomeStepThreeCarouselItem} from './HomeItems/StepThreeHomeItem';
 import {LSHomeStepFourCarouselItem} from './HomeItems/StepFourHomeItem';
+import {LSHomeOldStepOneCarouselItem} from './HomeItems/StepFourHomeItem';
 import {LSGiveawayHomeItem} from './HomeItems/GiveawayHomeItem';
 import {useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
@@ -118,9 +119,9 @@ function CarouselComponent(props: CarouselProps) {
           <LSHomeStepOneCarouselItem />
         );
       case 2:
-        return <LSHomeStepFourCarouselItem />;
-      case 3:
         return <LSHomeStepTwoCarouselItem />;
+      case 3:
+        return <LSHomeStepFourCarouselItem />;
       default:
         return <LSHomeStepFourCarouselItem />;
     }
@@ -157,8 +158,8 @@ function CarouselComponent(props: CarouselProps) {
         width={width}
         height={height - 80}
         parallaxScrollingOffset={50}
-        autoPlay={false}
-        autoPlayInterval={10000}
+        autoPlay={true}
+        autoPlayInterval={3300}
         keyExtractor={item => item}
         data={imagesArr}
         onSnapToItem={newIndex => setActiveIndex(newIndex)}

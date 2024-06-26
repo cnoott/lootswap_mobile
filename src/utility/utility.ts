@@ -18,6 +18,19 @@ import {
   ORDER_TRACK_DELIVERED_UNSELECTED,
   ORDER_TRACK_DELIVERED_SELECTED,
   FILTER_ICON,
+  OUTER_SIDE_ICON,
+  INNER_SIDE_ICON,
+  FRONT_ICON,
+  BACK_ICON,
+  INSOLES_ICON,
+  SIZE_TAG_ICON,
+  SOLES_ICON,
+  BOX_LABEL_ICON,
+  ADDITIONAL_ICON,
+  FRONT_CLOTHES_ICON,
+  LOGO_CLOTHES_ICON,
+  BACK_CLOTHES_ICON,
+  BRAND_CLOTHES_ICON,
 } from 'localsvgimages';
 import {PROFILE_OPTIONS_TYPE, GET_PRODUCT_DETAILS} from 'custom_types';
 import {
@@ -321,10 +334,15 @@ export const categoryList = [
 ];
 
 export const conditionList = [
-  {label: 'New with box', value: 'New with box'},
-  {label: 'New without box', value: 'New without box'},
-  {label: 'New with defect', value: 'New with defect'},
+  {label: 'New', value: 'New'},
   {label: 'Pre-owned', value: 'Pre-owned'},
+];
+
+export const boxConditionList = [
+  {label: 'Good Box (Lid & Box Intact)', value: 'Good Box'},
+  {label: 'Missing Lid', value: 'Missing Lid'},
+  {label: 'Damaged Box (Crushed/Torn/Signs of Wear)', value: 'Damaged Box'},
+  {label: 'No Original Box', value: 'No Original Box'},
 ];
 
 export const conditionListClothing = [
@@ -587,7 +605,6 @@ export const getAddProductRawData = () => {
     stepTwo: {
       brand: null,
       condition: null,
-      preOwnedCondition: null,
       productDescription: '',
     },
     stepThree: {
@@ -701,19 +718,77 @@ const getStepOneDataFromLists = (arrayData: any, catValue: string) => {
   return filteredCategory[0] || arrayData[0];
 };
 
+const secondaryPhotosPlaceholders = [
+  {icon: INNER_SIDE_ICON, label: 'Inner Side'},
+  {icon: FRONT_ICON, label: 'Front'},
+  {icon: BACK_ICON, label: 'Back'},
+  {icon: INSOLES_ICON, label: 'Insoles'},
+  {icon: SIZE_TAG_ICON, label: 'Size Tag'},
+  {icon: SOLES_ICON, label: 'Soles'},
+  {icon: BOX_LABEL_ICON, label: 'Box Label'},
+  {icon: ADDITIONAL_ICON, label: 'Additional'},
+];
+
+const secondaryClothingPlaceholders = [
+  {icon: LOGO_CLOTHES_ICON, label: 'Logo close-up'},
+  {icon: BACK_CLOTHES_ICON, label: 'Back'},
+  {icon: BRAND_CLOTHES_ICON, label: 'Brand tag'},
+  {icon: ADDITIONAL_ICON, label: 'Additional'},
+];
+
+export const initialImageData = (category: string, stepTwoData: any) => {
+  let allPlaceholders;
+  if (category === 'Shoes') {
+    allPlaceholders = [
+      {icon: OUTER_SIDE_ICON, label: 'Outer Side'},
+      ...secondaryPhotosPlaceholders,
+    ];
+    if (stepTwoData?.condition?.label === 'New') {
+      allPlaceholders = allPlaceholders.filter(
+        img => img.label !== 'Inner Side',
+      );
+      allPlaceholders = allPlaceholders.filter(img => img.label !== 'Front');
+      allPlaceholders = allPlaceholders.filter(img => img.label !== 'Back');
+    }
+    if (stepTwoData?.boxCondition?.value === 'No Original Box') {
+      allPlaceholders = allPlaceholders.filter(
+        img => img.label !== 'Box Label',
+      );
+    }
+  } else {
+    allPlaceholders = [
+      {icon: FRONT_CLOTHES_ICON, label: 'Front side'},
+      ...secondaryClothingPlaceholders,
+    ];
+  }
+  return allPlaceholders.map((placeholder, i) => ({
+    sourceURL: '',
+    isServerImage: true,
+    key: i,
+    placeholder: placeholder.icon,
+    placeholderLabel: placeholder.label,
+  }));
+};
+
 const getStepThreeDataFromLists = (lootData: any) => {
-  const allPhotos = lootData?.secondary_photos?.map((photo: string) => {
-    return {
-      sourceURL: photo,
-      isServerImage: true,
-      key: `${Math.random() * 100}`,
-    };
-  });
+  const allPhotos = lootData?.secondary_photos?.map(
+    (photo: string, i: number) => {
+      return {
+        sourceURL: photo,
+        isServerImage: true,
+        key: `${Math.random() * 100}`,
+        placeholder: secondaryPhotosPlaceholders[i].icon,
+        placeholderLabel: secondaryPhotosPlaceholders[i].label,
+      };
+    },
+  );
   return [
     {
       sourceURL: lootData?.primary_photo,
       isServerImage: true,
       key: `${Math.random() * 100}`,
+      placeholder: OUTER_SIDE_ICON,
+      placeholderLabel: 'Outer Side',
     },
     ...allPhotos,
   ];
@@ -766,10 +841,7 @@ export const configureAndGetLootData = (lootData: any) => {
     conditionList,
     lootData?.condition,
   );
-  newLootData.stepTwo.preOwnedCondition = getStepOneDataFromLists(
-    preOwnedConditions,
-    lootData?.preOwnedCondition,
-  );
+
   newLootData.stepTwo.productDescription = lootData?.description;
 
   // Configure STEP 3
@@ -805,18 +877,26 @@ export const validateCreateProductData = (
       }
       break;
     case 2:
-      const {brand, condition, preOwnedCondition, productDescription} =
+      const {brand, condition, boxCondition, productDescription} =
         prodData?.stepTwo;
+
       if (brand.value && condition && productDescription) {
-        if (condition.value === 'Pre-owned' && !preOwnedCondition) {
-          return false;
-        }
         canGoNext = true;
+      }
+      if (category === 'Shoes' && !boxCondition) {
+        canGoNext = false;
       }
       break;
     case 3:
-      const {stepThree} = prodData;
-      if (stepThree?.length >= 2) {
+      const {stepOne, stepTwo, stepThree} = prodData;
+      const filledImages = stepThree?.filter(img => img.sourceURL);
+      let requiredLength;
+      if (stepOne.category.value === 'Shoes') {
+        requiredLength = stepTwo?.condition?.label === 'New' ? 4 : 7;
+      } else {
+        requiredLength = 4;
+      }
+      if (filledImages?.length >= requiredLength) {
         canGoNext = true;
       }
       break;
@@ -1071,28 +1151,21 @@ export const shippingStepOptions = (
   order: any,
 ) => {
   if (isTradeOrder) {
-    if (isReceiver && order?.receiverStep <= 3) {
-      return order?.receiverStep;
-    }
-    if (isReceiver && order?.receiverStep >= 4) {
-      return order?.senderStep;
-    }
-
-    if (!isReceiver && order?.senderStep <= 3) {
-      return order?.senderStep;
-    }
-    if (!isReceiver && order?.senderStep >= 4) {
-      return order?.receiverStep;
-    }
+    // always show other users step
     return isReceiver ? order?.senderStep : order?.receiverStep;
   } else {
     return order?.shippingStep;
   }
 };
 
-export const tradeOrderShippingStatus = (userId: string, tradeOrder: any) => {
+export const tradeOrderShippingStatus = (
+  userId: string,
+  tradeOrder: any,
+  showOwnTracking: boolean = false,
+) => {
   const {receiverStep, senderStep, receiver} = tradeOrder;
-  const isReceiver = userId === receiver?._id;
+  let isReceiver = userId === receiver?._id;
+  isReceiver = showOwnTracking ? !isReceiver : isReceiver;
   if (isReceiver && tradeOrder?.receiverPaymentStatus === 'failed') {
     return {
       text: 'Payment failed, please try again',
@@ -1326,9 +1399,6 @@ const hasTradeOnly = (products: Array<any>) => {
 const hasPreowned = (products: Array<any>) => {
   const preOwnedConditions = [
     'Pre-owned',
-    'Lightly used',
-    'Moderately used',
-    'Heavily used',
   ];
   return products.find(product =>
     preOwnedConditions.includes(product?.condition),
@@ -1341,15 +1411,7 @@ const getAllPrices = (products: Array<any>) => {
     if (product.stockxId) {
       let foundSize = findMarketDataFromSize(product.stockxId, product.size);
       if (foundSize) {
-        if (product.condition === 'Pre-owned') {
-          const preOwnedValue = getPreownedMarketValue(
-            foundSize,
-            product?.preOwnedCondition,
-          );
-          allPrices.push(preOwnedValue[1]);
-        } else {
-          allPrices.push(foundSize.lastSale);
-        }
+        allPrices.push(foundSize.lastSale);
       } else {
         allPrices.push(null);
       }
@@ -1409,4 +1471,19 @@ export const handleSendOfferNavigation = (
       });
       break;
   }
+};
+
+export const shouldShowArchive = (trade: any) => {
+  if (trade.status === 'accepted') {
+    return true;
+  }
+  if (trade.status === 'canceled' || trade.status === 'declined') {
+    return true;
+  }
+  if (trade.status === 'pending') {
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    return new Date(trade.updatedAt) < oneWeekAgo;
+  }
+  return false;
 };

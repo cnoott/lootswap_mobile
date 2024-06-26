@@ -31,17 +31,21 @@ export const HeaderText = styled.Text.attrs(props => ({
 
 export const HeaderPrimaryText = styled.Text.attrs(props => ({
   color: props.theme.colors.primary,
+  ml: scale(5),
+  pt: scale(5),
 }))`
-  font-weight: bold;
+  font-weight: 900;
+  font-size: ${scale(18)}px;
   font-family: Mont;
   ${color}
+  ${space}
 `;
 
 export const StepTwoSubText = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
 }))`
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   font-family: Urbanist;
   width: 85%;
   text-align: center;
@@ -142,7 +146,7 @@ export const StepOneImage = styled.Image.attrs((props: any) => ({
 export const CenteredButton = styled.TouchableOpacity`
   position: absolute;
   top: 54%;
-  left: 28%;
+  left: 35%;
 `;
 export const BottomLeftContainer = styled.View.attrs(() => ({
   height: scale(38),
@@ -242,6 +246,7 @@ export const SecondRightImage = styled.View.attrs(() => ({}))`
 export const StepThreeHeaderText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
   ml: scale(5),
+  mt: scale(9),
 }))`
   font-weight: 900;
   font-size: ${scale(18)}px;

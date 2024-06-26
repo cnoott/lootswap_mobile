@@ -29,7 +29,7 @@ export const ProductTypeText = styled.Text.attrs(props => ({
   color: props.theme.colors.primary,
 }))`
   font-size: ${moderateScale(18)}px;
-  font-family: Inter-Bold;
+  font-family: Urbanist-Bold;
   ${color}
   ${space}
   ${layout}
@@ -39,7 +39,7 @@ export const StepText = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
 }))`
   font-size: ${moderateScale(16)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   ${color}
   ${space}
   ${layout}
@@ -49,7 +49,7 @@ export const CurrentStepText = styled.Text.attrs(props => ({
   color: props.theme.colors.primary,
 }))`
   font-size: ${moderateScale(16)}px;
-  font-family: Inter;
+  font-family: Urbanist;
   ${color}
   ${space}
   ${layout}

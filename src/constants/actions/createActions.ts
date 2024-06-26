@@ -409,3 +409,7 @@ export const ADD_SHARED_PRODUCT = {
 export const INC_ITEMS_VIEWED = {
   ...createActionConst(actions.INC_ITEMS_VIEWED),
 };
+
+export const ARCHIVE_TRADE = {
+  ...createActionConst(actions.ARCHIVE_TRADE),
+};
