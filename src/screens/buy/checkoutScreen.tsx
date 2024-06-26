@@ -52,6 +52,11 @@ export const CheckoutScreen: FC<{}> = props => {
     Object.keys(userData?.shipping_address || {}).length < 5;
 
   const [paypalOrderId, setPaypalOrderId] = useState('');
+  const [costBreakdown, setCostBreakdown] = useState({
+    buyerFee: 0,
+    shippingCost: 0,
+    total: 0,
+  });
 
   useEffect(() => {
     if (userNoAddress) {
@@ -103,6 +108,8 @@ export const CheckoutScreen: FC<{}> = props => {
           console.log(res);
           PayPalModule.setupPayPal(res.clientId, __DEV__ ? 'sandbox' : 'live');
           setPaypalOrderId(res.id);
+          console.log(res.breakdown);
+          setCostBreakdown(res.breakdown);
         },
         err => {
           Alert.showError('Error checking out, please try again');
@@ -169,16 +176,7 @@ export const CheckoutScreen: FC<{}> = props => {
   };
 
   const renderTotal = () => {
-    if (isMoneyOffer) {
-      return parseFloat(
-        parseFloat(tradeData?.senderMoneyOffer) +
-          parseFloat(renderShippingCost()),
-      ).toFixed(2);
-    } else {
-      return parseFloat(
-        parseFloat(renderShippingCost()) + parseFloat(productData?.price),
-      ).toFixed(2);
-    }
+    return costBreakdown.total.toFixed(2);
   };
 
   const renderHeading = (label: string) => {
@@ -203,8 +201,8 @@ export const CheckoutScreen: FC<{}> = props => {
             ? tradeData?.senderMoneyOffer.toFixed(2)
             : productData?.price.toFixed(2),
         )}
-        {renderSummaryDetail('Shipping', renderShippingCost().toFixed(2))}
-        {/*renderSummaryDetail('Taxes and fees', paymentDetails?.)*/}
+        {renderSummaryDetail('Shipping', costBreakdown.shippingCost.toFixed(2))}
+        {renderSummaryDetail('Taxes and Fees', costBreakdown.buyerFee.toFixed(2))}
       </EmptyView>
     );
   };
