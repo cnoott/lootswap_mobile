@@ -11,15 +11,24 @@ import {
   Logo,
   LoadingIndicatorContainer,
   UpdateText,
+  BarContainer,
+  Bar,
 } from './styles';
 
-const SplashScreen: FC<{}> = () => {
+interface SplashScreenProps {
+  progress: Number;
+}
+
+const SplashScreen: FC<SplashScreenProps> = props => {
+  const {progress} = props;
   return (
     <SplashScreenContainer>
       <Logo source={LOGO_WHITE} />
       <LoadingIndicatorContainer>
         <UpdateText>Updating lootswap, Please Wait</UpdateText>
-        <ActivityIndicator size="large" color="#fff" />
+        <BarContainer>
+          <Bar progress={progress} />
+        </BarContainer>
       </LoadingIndicatorContainer>
     </SplashScreenContainer>
   );
