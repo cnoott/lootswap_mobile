@@ -24,7 +24,6 @@ import {Alert} from 'custom_top_alert';
 import {isReadyRef, navigationRef} from './navigationHelper';
 import UserChatScreen from '../screens/message';
 import {createStackNavigator} from '@react-navigation/stack';
-import SplashScreen from 'react-native-splash-screen';
 import CheckoutScreen from '../screens/buy/checkoutScreen';
 import PublicProfileScreen from '../screens/profile/publicProfileScreen';
 import EditMoneyOfferTradeScreen from '../screens/offers/editMoneyOfferTradeScreen';
@@ -47,6 +46,8 @@ import useFCMNotifications from '../utility/customHooks/useFCMNotifications';
 import useBranch from '../utility/customHooks/useBranch';
 import {loggingService} from '../services/loggingService';
 import OnboardingScreen from '../screens/onboarding';
+import SplashScreen from '../components/SplashScreen';
+import CodePush from 'react-native-code-push';
 
 const Stack = createStackNavigator();
 
@@ -216,9 +217,59 @@ const StackNavigator: FC<{}> = () => {
   const loading: LoadingProps = useSelector(state => state.loading);
   const navRef = useRef();
   const onNavigationReady = () => {
-    SplashScreen.hide();
     navRef.current = navigationRef.current.getCurrentRoute().name;
     isReadyRef.current = true;
+  };
+
+  const [isSplashVisible, setIsSplashVisible] = useState(true);
+
+  useEffect(() => {
+    const checkForUpdate = async () => {
+      const update = await CodePush.checkForUpdate();
+      if (update && update.isMandatory) {
+        CodePush.sync(
+          {
+            installMode: CodePush.InstallMode.IMMEDIATE,
+            updateDialog: {
+              appendReleaseDescription: true,
+              descriptionPrefix: '\n\nChange log:\n',
+              mandatoryUpdateMessage: 'An important update is available. Please update to continue using the app.',
+              mandatoryContinueButtonLabel: 'Update now',
+            },
+          },
+          status => handleStatusChange(status)
+        );
+      } else {
+        setIsSplashVisible(false);
+      }
+    };
+
+    checkForUpdate();
+  }, []);
+
+  const handleStatusChange = (status) => {
+    switch (status) {
+      case CodePush.SyncStatus.CHECKING_FOR_UPDATE:
+        console.log('Checking for updates.');
+        break;
+      case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
+        console.log('Downloading package.');
+        break;
+      case CodePush.SyncStatus.INSTALLING_UPDATE:
+        console.log('Installing update.');
+        break;
+      case CodePush.SyncStatus.UP_TO_DATE:
+        console.log('Up to date.');
+        setIsSplashVisible(false);
+        break;
+      case CodePush.SyncStatus.UPDATE_INSTALLED:
+        console.log('Update installed.');
+        setIsSplashVisible(false);
+        break;
+      default:
+        setIsSplashVisible(false);
+        break;
+    }
   };
 
   const linking = {
@@ -260,11 +311,15 @@ const StackNavigator: FC<{}> = () => {
       }}
       linking={linking}>
       <Stack.Navigator
-        initialRouteName={'AppScreens'}
+        initialRouteName={isSplashVisible ? 'SplashScreen' : 'AppScreens'}
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="AppScreens" component={AppNavigation} />
+        {isSplashVisible ? (
+          <Stack.Screen name="SplashScreen" component={SplashScreen} />
+        ) : (
+          <Stack.Screen name="AppScreens" component={AppNavigation} />
+        )}
       </Stack.Navigator>
       {<LSLoader isVisible={loading?.isLoading} />}
       {

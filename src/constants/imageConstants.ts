@@ -61,3 +61,4 @@ export const IG_STORIES_SHARE = require('../assets/images/product/ig_stories_sha
 export const IG_SHARE = require('../assets/images/product/ig_share.png');
 export const IMESSAGE = require('../assets/images/product/imessage.png');
 export const COPY_LINK_ICON = require('../assets/images/product/copy_link.png');
+export const LOGO_WHITE = require('../assets/images/logo_white.png');
