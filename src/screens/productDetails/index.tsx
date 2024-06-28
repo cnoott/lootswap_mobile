@@ -80,6 +80,7 @@ import {
   preselectChosenItem,
   getMyDetailsNoLoadRequest,
   incTimesViewed,
+  createNewProduct,
 } from '../../redux/modules';
 import {
   getProductTags,
@@ -175,6 +176,23 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     if (trade) {
       navigation?.navigate('OffersMessageScreen', {item: trade});
     }
+  };
+
+  const handlePriceDrop = () => {
+    // Edit Product Price
+    dispatch(
+      createNewProduct(
+        {
+          ...selectedProductDetails,
+          price: selectedProductDetails?.marketPrice,
+          productIdToUpdate: selectedProductDetails?._id,
+        },
+        true,
+        () => {
+          dispatch(getProductDetails(productData?._id, userData?._id));
+      }),
+    );
+
   };
 
   const handleYouSureDeleteProduct = () => {
@@ -387,6 +405,16 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     if (isLogedIn && userData?._id === requestedUserDetails?._id) {
       return (
         <TopSpace>
+          {selectedProductDetails?.marketPrice &&
+            selectedProductDetails?.price !== selectedProductDetails?.marketPrice && (
+            <LSButton
+              title={`Drop Item Price to $${selectedProductDetails?.marketPrice}`}
+              size={Size.Full}
+              type={Type.Primary}
+              onPress={() => handlePriceDrop()}
+            />
+          )}
+          <TopSpace />
           <LSButton
             title={'Edit Item'}
             size={Size.Full}
@@ -609,6 +637,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               </LikeTouchable>
             </DetailsRightView>
           </DetailsContainer>
+
+          {renderEditButtons()}
           <HorizontalBar />
           {renderProtectionView()}
           {requestedUserDetails && <>{renderUserDetailsView()}</>}
@@ -627,7 +657,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           )}
           {renderDescriptionView()}
           {!!productData?.interestedIn && renderLookingForView()}
-          {renderEditButtons()}
           <BottomSpace />
         </SubContainer>
       </ScrollContainer>
