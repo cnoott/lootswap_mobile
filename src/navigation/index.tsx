@@ -221,7 +221,8 @@ const StackNavigator: FC<{}> = () => {
     isReadyRef.current = true;
   };
 
-  const [isSplashVisible, setIsSplashVisible] = useState(true);
+  const [isSplashVisible, setIsSplashVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const checkForUpdate = async () => {
@@ -237,7 +238,9 @@ const StackNavigator: FC<{}> = () => {
               mandatoryContinueButtonLabel: 'Update now',
             },
           },
-          status => handleStatusChange(status)
+          status => handleStatusChange(status),
+          ({receivedBytes, totalBytes}) =>
+            setProgress((receivedBytes / totalBytes) * 100),
         );
       } else {
         setIsSplashVisible(false);
@@ -253,6 +256,7 @@ const StackNavigator: FC<{}> = () => {
         console.log('Checking for updates.');
         break;
       case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
+        setIsSplashVisible(true);
         console.log('Downloading package.');
         break;
       case CodePush.SyncStatus.INSTALLING_UPDATE:
@@ -316,7 +320,9 @@ const StackNavigator: FC<{}> = () => {
           headerShown: false,
         }}>
         {isSplashVisible ? (
-          <Stack.Screen name="SplashScreen" component={SplashScreen} />
+          <Stack.Screen name="SplashScreen">
+            {props => <SplashScreen {...props} progress={progress} />}
+          </Stack.Screen>
         ) : (
           <Stack.Screen name="AppScreens" component={AppNavigation} />
         )}
