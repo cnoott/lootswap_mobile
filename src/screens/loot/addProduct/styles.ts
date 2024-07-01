@@ -337,7 +337,8 @@ export const AddImageSubText = styled.Text.attrs(props => ({
 
 export const TradeOptionsText = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
-  my: scale(10),
+  mt: scale(12),
+  mb: scale(5),
 }))`
   font-size: ${moderateScale(18)}px;
   font-family: Urbanist-Bold;
@@ -497,6 +498,7 @@ export const EmptyView = styled.View``;
 
 export const ShippingDes = styled.Text.attrs(props => ({
   color: props.theme.colors.lightGrey,
+  mb: scale(8),
 }))`
   font-size: ${moderateScale(14)}px;
   font-family: Urbanist;
@@ -669,4 +671,12 @@ export const KeyboardAvoidingView = styled.KeyboardAvoidingView.attrs(() => ({
 }))`
   ${space}
   ${layout}
+`;
+
+export const SmartPricingContainer = styled.View.attrs(props => ({
+  flex: 1,
+}))`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;

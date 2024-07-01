@@ -84,6 +84,7 @@ declare module 'custom_types' {
   };
   export type PRODUCT_STEP_FIVE_TYPE = {
     productPrice?: Number;
+    floorPrice?: Number;
     shippingCost?: Number;
     isShippingPrice?: boolean;
     isFreeShipping?: boolean;

@@ -4,6 +4,7 @@ LootSwap - ADD_PRODUCT STEP 5
 
 import React, {FC, useState} from 'react';
 import LSInput from '../../../components/commonComponents/LSInput';
+import {Switch} from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import {
   Container,
@@ -28,6 +29,7 @@ import {
   RedBar,
   OrangeGradientBar,
   KeyboardAvoidingView,
+  SmartPricingContainer,
 } from './styles';
 import {
   DOLLOR_TEXT,
@@ -38,6 +40,8 @@ import {
 import {useSelector} from 'react-redux';
 import {ADD_PRODUCT_TYPE} from 'custom_types';
 import {ScrollView} from 'react-native';
+import {useTheme} from 'styled-components';
+import {Alert} from 'custom_top_alert';
 
 interface ProductStep {
   updateProductData: Function;
@@ -48,11 +52,21 @@ export const AddProductStepFive: FC<ProductStep> = props => {
     state => state?.home?.addProductData,
   );
   const {stepFive, stepTwo, stepOne} = addProductData;
-  const [price, setPrice] = useState(stepFive?.productPrice ?? 0);
+  const [price, setPrice] = useState(stepFive?.productPrice ?? '');
+  const [floorPrice, setFloorPrice] = useState(stepFive?.floorPrice ?? '');
   const [dotPosition, setDotPosition] = useState('50');
   const [dotText, setDotText] = useState('$200');
   const [shippingCost, setShippingCost] = useState(stepFive?.shippingCost ?? 0);
+  const [showFloorPrice, setShowFloorPrice] = useState(false);
+  const theme = useTheme();
 
+  const toggleFloorPrice = () => {
+    if (showFloorPrice) {
+      setFloorPrice('');
+    }
+
+    setShowFloorPrice(!showFloorPrice);
+  };
   const handleSetPrice = (priceInput: any) => {
     setPrice(priceInput);
     const converted = priceInput;
@@ -75,13 +89,20 @@ export const AddProductStepFive: FC<ProductStep> = props => {
       setDotText('$' + priceInput);
     }
   };
+  const handleSetFloorPrice = (priceInput: number) => {
+    setFloorPrice(priceInput);
+  };
   const {updateProductData} = props;
   const onBlurCall = () => {
+    if (floorPrice >= price) {
+      Alert.showError('Your Floor Price Cannot Be Greater Than Your Product Price');
+    }
     updateProductData({
       ...addProductData,
       stepFive: {
         ...addProductData?.stepFive,
         productPrice: price,
+        floorPrice: floorPrice,
         shippingCost: shippingCost,
       },
     });
@@ -146,6 +167,9 @@ export const AddProductStepFive: FC<ProductStep> = props => {
   };
 
   const renderMarketRange = () => {
+    if (!stepFive?.startRange || !stepFive?.endRange) {
+      return <></>;
+    }
     return (
       <HorizontalSpace>
         <Divider />
@@ -188,7 +212,50 @@ export const AddProductStepFive: FC<ProductStep> = props => {
             keyboardType={'numeric'}
             onBlurCall={onBlurCall}
           />
-          {stepFive?.median !== 0 && renderMarketRange()}
+        {stepFive?.median !== 0 && renderMarketRange()}
+        <Divider />
+          <HorizontalSpace>
+            <TradeOptionsText>Smart Pricing</TradeOptionsText>
+            <ShippingDes>
+              We'll automatically drop your listing by 10% at the
+              best time every week until it reaches your floor
+              price.
+            </ShippingDes>
+            <SmartPricingContainer>
+              <TradeOptionsText>Turn on Smart Pricing</TradeOptionsText>
+              <Switch
+                trackColor={{
+                  false: theme.colors.grey,
+                  true: theme.colors.toggle_dark,
+                }}
+                thumbColor={
+                  showFloorPrice ? theme.colors.white : theme.colors.white
+                }
+                ios_backgroundColor={theme.colors.grey}
+                onValueChange={toggleFloorPrice}
+                value={showFloorPrice}
+              />
+          </SmartPricingContainer>
+          </HorizontalSpace>
+          {showFloorPrice && (
+            <>
+              <HorizontalSpace>
+                <TradeOptionsText>Floor Price</TradeOptionsText>
+              </HorizontalSpace>
+              <LSInput
+                onChangeText={handleSetFloorPrice}
+                placeholder={'0.00'}
+                value={String(floorPrice)}
+                horizontalSpace={20}
+                topSpace={1}
+                rightIcon={USD_TEXT}
+                leftIcon={DOLLOR_TEXT}
+                keyboardType={'numeric'}
+                onBlurCall={onBlurCall}
+              />
+            </>
+          )}
+
           {renderShippingView()}
           {!stepFive?.isFreeShipping && (
             <StepFiveContainer>
