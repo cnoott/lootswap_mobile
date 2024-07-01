@@ -923,13 +923,16 @@ export const validateCreateProductData = (
       }
       break;
     case 5:
-      const {productPrice, shippingCost, isShippingPrice, isFreeShipping} =
+      const {productPrice, floorPrice, shippingCost, isShippingPrice, isFreeShipping} =
         prodData?.stepFive;
       if (productPrice) {
         if (isFreeShipping) {
           canGoNext = true;
         } else if (isShippingPrice && shippingCost) {
           canGoNext = true;
+        }
+        if (floorPrice && parseFloat(floorPrice) >= parseFloat(productPrice)) {
+          canGoNext = false;
         }
       }
       break;

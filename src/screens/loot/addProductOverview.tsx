@@ -125,6 +125,7 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
       brand: stepTwo?.brand?.value,
       interestedIn: '',
       price: stepFive?.productPrice,
+      floorPrice: stepFive?.floorPrice,
       who_pays: stepFive?.isFreeShipping
         ? Who_Pays_Options?.SellerPays
         : Who_Pays_Options?.BuyerPays,
