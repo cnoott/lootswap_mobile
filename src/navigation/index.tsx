@@ -212,68 +212,16 @@ const AppNavigation = () => {
     </Stack.Navigator>
   );
 };
-
-const StackNavigator: FC<{}> = () => {
+interface StackNavigatorProps {
+  isSplashVisible: boolean;
+  progress: number;
+}
+const StackNavigator: FC<StackNavigatorProps> = ({isSplashVisible, progress}) => {
   const loading: LoadingProps = useSelector(state => state.loading);
   const navRef = useRef();
   const onNavigationReady = () => {
     navRef.current = navigationRef.current.getCurrentRoute().name;
     isReadyRef.current = true;
-  };
-
-  const [isSplashVisible, setIsSplashVisible] = useState(false);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const checkForUpdate = async () => {
-      const update = await CodePush.checkForUpdate();
-      if (update && update.isMandatory) {
-        CodePush.sync(
-          {
-            installMode: CodePush.InstallMode.IMMEDIATE,
-            updateDialog: {
-              appendReleaseDescription: true,
-              descriptionPrefix: '\n\nChange log:\n',
-              mandatoryUpdateMessage: 'An important update is available. Please update to continue using the app.',
-              mandatoryContinueButtonLabel: 'Update now',
-            },
-          },
-          status => handleStatusChange(status),
-          ({receivedBytes, totalBytes}) =>
-            setProgress((receivedBytes / totalBytes) * 100),
-        );
-      } else {
-        setIsSplashVisible(false);
-      }
-    };
-
-    checkForUpdate();
-  }, []);
-
-  const handleStatusChange = (status) => {
-    switch (status) {
-      case CodePush.SyncStatus.CHECKING_FOR_UPDATE:
-        console.log('Checking for updates.');
-        break;
-      case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
-        setIsSplashVisible(true);
-        console.log('Downloading package.');
-        break;
-      case CodePush.SyncStatus.INSTALLING_UPDATE:
-        console.log('Installing update.');
-        break;
-      case CodePush.SyncStatus.UP_TO_DATE:
-        console.log('Up to date.');
-        setIsSplashVisible(false);
-        break;
-      case CodePush.SyncStatus.UPDATE_INSTALLED:
-        console.log('Update installed.');
-        setIsSplashVisible(false);
-        break;
-      default:
-        setIsSplashVisible(false);
-        break;
-    }
   };
 
   const linking = {
