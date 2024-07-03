@@ -26,6 +26,7 @@ import {
   setFirstTimeOpenFalseRequest,
   setOrderNotifAsReadRequest,
   setPaypalNotifAsReadRequest,
+  updateUser,
 } from '../../redux/modules/';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -40,6 +41,7 @@ import ShippingInstructionModalComponent from '../../components/orders/shippingI
 import {LSModal} from '../../components/commonComponents/LSModal';
 import { OrderStatusDetailsText } from '../../components/orderTrack/styles';
 import {StatusContainerView, StatusLabel, NameLabel} from '../../components/orders/styles';
+import Rate from 'react-native-rate';
 
 
 export const TrackOrderScreen: FC<any> = ({route}) => {
@@ -77,7 +79,39 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
         }),
       );
     }
-  }, [dispatch, isTradeOrder, item?._id, userData?._id]);
+
+    // Rate User
+    const tradeRateReceiver =
+      isTradeOrder && isReceiver && item?.senderStep === 5 && !userData?.hasGivenAppStoreRating;
+    const tradeRateSender =
+      isTradeOrder && !isReceiver && item?.receiverStep === 5 && !userData?.hasGivenAppStoreRating;
+    const ratePurchase = !isTradeOrder && item?.shippingStep === 3;
+
+    const rateOptions = {
+      AppleAppId: '6445904189',
+      preferInApp: true,
+      inAppDelay: 3.0,
+      openAppStoreIfInAppFails: true,
+    };
+
+    if (tradeRateReceiver || tradeRateSender || ratePurchase) {
+      Rate.rate(rateOptions, (success, errorMessage) => {
+        if (success) {
+          dispatch(
+            updateUser({
+              userId: userData?._id,
+              userData: {hasGivenAppStoreRating: true},
+              noLoad: true,
+            }),
+          );
+        }
+        if (errorMessage) {
+          console.log('ERR giving review', errorMessage);
+        }
+      });
+    }
+
+  }, [dispatch, isTradeOrder, item?._id]);
 
   const trackingHistoryOptions = () => {
     if (isTradeOrder) {
