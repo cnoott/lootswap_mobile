@@ -536,7 +536,7 @@ export function* versionCheck(action: any) {
   try {
     const response: APIResponseProps = yield call(versionCheckCall);
     if (response?.success) {
-      action?.successCallBack(response?.data?.version_num);
+      action?.successCallBack(response?.data?.version_group);
     } else {
       action?.errorCallBack();
     }
