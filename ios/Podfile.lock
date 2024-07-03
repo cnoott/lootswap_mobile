@@ -662,6 +662,8 @@ PODS:
     - TOCropViewController
   - RNInAppBrowser (3.7.0):
     - React-Core
+  - RNRate (1.2.12):
+    - React-Core
   - RNReactNativeHapticFeedback (2.0.2):
     - React-Core
   - RNReanimated (2.17.0):
@@ -859,6 +861,7 @@ DEPENDENCIES:
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
+  - RNRate (from `../node_modules/react-native-rate`)
   - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -1068,6 +1071,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-crop-picker"
   RNInAppBrowser:
     :path: "../node_modules/react-native-inappbrowser-reborn"
+  RNRate:
+    :path: "../node_modules/react-native-rate"
   RNReactNativeHapticFeedback:
     :path: "../node_modules/react-native-haptic-feedback"
   RNReanimated:
@@ -1200,6 +1205,7 @@ SPEC CHECKSUMS:
   RNGoogleSignin: fc408799f1990a12497a32f64280c0fe353ffcc1
   RNImageCropPicker: 648356d68fbf9911a1016b3e3723885d28373eda
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
+  RNRate: ef3bcff84f39bb1d1e41c5593d3eea4aab2bd73a
   RNReactNativeHapticFeedback: 6d24decfa94e037c2ecc312407d2a057b7933f10
   RNReanimated: bec7736122a268883bdede07f1bf9cf4b40158db
   RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
