@@ -325,3 +325,56 @@ export const ModalItemContainer = styled.TouchableOpacity.attrs(props => ({
   ${layout}
   ${border}
 `;
+
+export const SplashScreenContainer = styled.View.attrs(props => ({
+  bg: props.theme.colors.primary,
+}))`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  ${color}
+  ${space}
+  ${layout}
+  ${border}
+`;
+
+export const Logo = styled.Image.attrs({
+  resizeMode: 'contain',
+})`
+  width: 250px;
+  height: 250px;
+`;
+
+export const LoadingIndicatorContainer = styled.View`
+  position: absolute;
+  bottom: 65px;
+  width: 100%;
+  align-items: center;
+`;
+
+export const UpdateText = styled.Text.attrs(props => ({
+  color: props.theme.colors.white,
+  mt: scale(2),
+  mb: scale(10),
+}))`
+  font-size: ${scale(17)}px;
+  ${color}
+  ${space}
+`;
+
+export const BarContainer = styled.View.attrs(() => ({
+}))`
+  width: 70%;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 20px;
+`;
+
+export const Bar = styled.View<{progress: number}>`
+  width: ${({progress}) => `${progress}%`};
+  height: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+`;

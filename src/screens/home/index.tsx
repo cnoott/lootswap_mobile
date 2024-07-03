@@ -103,30 +103,24 @@ export const HomeScreen: FC<{}> = () => {
   useEffect(() => {
     if (loading && !endReached) {
       setLoadingItems(new Array(8).fill({loading: true}));
-      console.log('now loading');
     } else {
       setLoadingItems([]);
-      console.log('not loading');
     }
   }, [loading]);
 
   useEffect(() => {
     if (forYouLoading && !forYouEndReached) {
       setForYouLoadingItems(new Array(8).fill({loading: true}));
-      console.log('now loading');
     } else {
       setForYouLoadingItems([]);
-      console.log('not loading');
     }
   }, [forYouLoading]);
 
   useEffect(() => {
     if (hotProductsLoading && !hotEndReached) {
       setHotLoadingItems(new Array(8).fill({loading: true}));
-      console.log('now loading');
     } else {
       setHotLoadingItems([]);
-      console.log('not loading');
     }
   }, [hotProductsLoading]);
 
@@ -135,10 +129,8 @@ export const HomeScreen: FC<{}> = () => {
       setLoadingPublicOffersItems(
         new Array(4).fill({publicOffersLoading: true}),
       );
-      console.log('now loading');
     } else {
       setLoadingPublicOffersItems([]);
-      console.log('not loading public offers');
     }
   }, [publicOffersLoading]);
 
@@ -153,7 +145,6 @@ export const HomeScreen: FC<{}> = () => {
       page: forYouPage,
       userId: userData?._id,
     };
-    console.log('user onboarding', userData?.onboardingData);
 
     dispatch(
       getForYouProducts(
@@ -177,12 +168,10 @@ export const HomeScreen: FC<{}> = () => {
       itemsPerPage: ITEMS_PER_PAGE,
       page: hotPage,
     };
-    console.log('CALLING!!!');
     dispatch(
       getHotProducts(
         reqData,
         (res: any) => {
-          console.log('REZ', res.hotProducts);
           setHotProducts([...hotProducts, ...res.hotProducts]);
           setHotEndReached(res.endReached);
           setHotProductsLoading(false);
@@ -308,7 +297,6 @@ export const HomeScreen: FC<{}> = () => {
   };
 
   const onPublicOfferEndReached = () => {
-    console.log('next', publicOffersLoading, publicOffersEndReached);
     if (!publicOffersLoading && !publicOffersEndReached) {
       console.log('setting next');
       setPublicOffersPage(prevPage => prevPage + 1);

@@ -24,7 +24,6 @@ import {Alert} from 'custom_top_alert';
 import {isReadyRef, navigationRef} from './navigationHelper';
 import UserChatScreen from '../screens/message';
 import {createStackNavigator} from '@react-navigation/stack';
-import SplashScreen from 'react-native-splash-screen';
 import CheckoutScreen from '../screens/buy/checkoutScreen';
 import PublicProfileScreen from '../screens/profile/publicProfileScreen';
 import EditMoneyOfferTradeScreen from '../screens/offers/editMoneyOfferTradeScreen';
@@ -47,6 +46,8 @@ import useFCMNotifications from '../utility/customHooks/useFCMNotifications';
 import useBranch from '../utility/customHooks/useBranch';
 import {loggingService} from '../services/loggingService';
 import OnboardingScreen from '../screens/onboarding';
+import SplashScreen from '../components/SplashScreen';
+import CodePush from 'react-native-code-push';
 
 const Stack = createStackNavigator();
 
@@ -95,7 +96,9 @@ const AppNavigation = () => {
     dispatch(
       versionCheck(
         (latestVersionRes: String) => {
-          if (latestVersionRes !== DeviceInfo.getVersion()) {
+          if (
+            latestVersionRes && !latestVersionRes.includes(DeviceInfo.getVersion())
+          ) {
             AlertModal.alert(
               'Update Available',
               'In order to continue using lootswap, you must update to the latest version',
@@ -211,12 +214,14 @@ const AppNavigation = () => {
     </Stack.Navigator>
   );
 };
-
-const StackNavigator: FC<{}> = () => {
+interface StackNavigatorProps {
+  isSplashVisible: boolean;
+  progress: number;
+}
+const StackNavigator: FC<StackNavigatorProps> = ({isSplashVisible, progress}) => {
   const loading: LoadingProps = useSelector(state => state.loading);
   const navRef = useRef();
   const onNavigationReady = () => {
-    SplashScreen.hide();
     navRef.current = navigationRef.current.getCurrentRoute().name;
     isReadyRef.current = true;
   };
@@ -260,11 +265,17 @@ const StackNavigator: FC<{}> = () => {
       }}
       linking={linking}>
       <Stack.Navigator
-        initialRouteName={'AppScreens'}
+        initialRouteName={isSplashVisible ? 'SplashScreen' : 'AppScreens'}
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="AppScreens" component={AppNavigation} />
+        {isSplashVisible ? (
+          <Stack.Screen name="SplashScreen">
+            {props => <SplashScreen {...props} progress={progress} />}
+          </Stack.Screen>
+        ) : (
+          <Stack.Screen name="AppScreens" component={AppNavigation} />
+        )}
       </Stack.Navigator>
       {<LSLoader isVisible={loading?.isLoading} />}
       {
