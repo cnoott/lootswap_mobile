@@ -15,17 +15,17 @@ export const LSHomeStepOneCarouselItem: FC<HeaderProps> = React.memo(() => {
     <StepOneContainer>
       <StepOneImage source={REFER_FRIEND} />
       <CenteredButton>
-      <LSButton
-        title={'Start selling'}
-        size={Size.Custom}
-        customHeight={35}
-        customWidth={110}
-        type={Type.Primary}
-        radius={10}
-        onPress={() => navigation.navigate('List item')}
-        fitToWidth={'66%'}
-        sizeFont={17}
-      />
+        <LSButton
+          title={'Start selling'}
+          size={Size.Custom}
+          customHeight={35}
+          customWidth={110}
+          type={Type.Primary}
+          radius={10}
+          onPress={() => navigation.navigate('List item')}
+          fitToWidth={'66%'}
+          sizeFont={17}
+        />
       </CenteredButton>
     </StepOneContainer>
   );

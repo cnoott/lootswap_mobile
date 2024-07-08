@@ -58,7 +58,8 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
 
   const getUploadedImages = (imagesArr: any) => {
     const promises = imagesArr
-      .filter(img => img.sourceURL).map(async (myValue: any) => {
+      .filter(img => img.sourceURL)
+      .map(async (myValue: any) => {
         console.log('myvalue', myValue);
         if (myValue?.isServerImage) {
           return myValue;
@@ -100,7 +101,7 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
             });
         });
         return {sourceURL: urlUpdated, isServerImage: true};
-    });
+      });
     return Promise.all(promises);
   };
 
@@ -237,7 +238,10 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
           `${stepThree?.length} of 13 Images`,
           3,
         )}
-        <FlatList data={stepThree.filter(img => img?.sourceURL)} renderItem={renderImageView} />
+        <FlatList
+          data={stepThree.filter(img => img?.sourceURL)}
+          renderItem={renderImageView}
+        />
       </>
     );
   };
@@ -255,7 +259,10 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
         {renderSectionHeader('Product Type', false, 2)}
         {renderSubProductInfo('Brand', `${stepTwo?.brand?.label}`)}
         {renderSubProductInfo('Condition', `${stepTwo?.condition?.label}`)}
-        {renderSubProductInfo('Box Condition', `${stepTwo?.boxCondition?.label}`)}
+        {renderSubProductInfo(
+          'Box Condition',
+          `${stepTwo?.boxCondition?.label}`,
+        )}
       </>
     );
   };

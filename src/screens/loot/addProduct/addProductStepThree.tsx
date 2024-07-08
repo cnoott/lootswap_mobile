@@ -75,9 +75,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
   }, []);
 
   const preFilledData =
-    addProductData?.stepThree?.length > 0
-      ? [...addProductData?.stepThree]
-      : [];
+    addProductData?.stepThree?.length > 0 ? [...addProductData?.stepThree] : [];
 
   const {
     photos,
@@ -112,11 +110,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       addProductData?.stepTwo,
     );
     setProductImagesArr(newProductImagesArr);
-  }, [
-    addProductData?.stepOne?.category?.label,
-    addProductData?.stepTwo,
-  ]);
-
+  }, [addProductData?.stepOne?.category?.label, addProductData?.stepTwo]);
 
   const onSelectImage = (node: any) => {
     if (selectedImage && selectedImage?.sourceURL === node.item.uri) {
@@ -133,7 +127,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
         sourceURL: node.item.uri,
         key: `${Math.random() * 100}`,
         placeholderLabel: productImagesArr[selectedImageIndex].placeholderLabel,
-        placeholder: productImagesArr[selectedImageIndex].placeholder
+        placeholder: productImagesArr[selectedImageIndex].placeholder,
       };
       setSelectedImage(fileData);
     }
@@ -159,7 +153,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       sourceURL: image.path, // test w update too
       key: `${Math.random() * 100}`,
       placeholderLabel: productImagesArr[selectedImageIndex].placeholderLabel,
-      placeholder: productImagesArr[selectedImageIndex].placeholder
+      placeholder: productImagesArr[selectedImageIndex].placeholder,
     };
 
     // Update the specific index in the productImagesArr array
@@ -169,9 +163,7 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       newProductImagesArr[selectedImageIndex] = fileData;
       return newProductImagesArr;
     });
-
   };
-
 
   const onFinishSelecting = () => {
     if (!selectedImage) {
@@ -187,7 +179,6 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       return newProductImagesArr;
     });
   };
-
 
   const renderCameraRollImage = (item: any) => {
     return (
@@ -308,37 +299,29 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       </DeleteContainer>
     );
   };
-  const renderLabelView = (item) => {
+  const renderLabelView = item => {
     if (selectedImage?.uri !== item.item.uri) {
-      return <></>
+      return <></>;
     }
     return (
       <CellIndexContainer>
-        <IndexLabel>
-          {selectedImage.placeholderLabel}
-        </IndexLabel>
+        <IndexLabel>{selectedImage.placeholderLabel}</IndexLabel>
       </CellIndexContainer>
     );
   };
-  const renderProductImageContainer = ({ item, index }) => {
+  const renderProductImageContainer = ({item, index}) => {
     if (item.sourceURL) {
       return (
         <ImageContainerUpload key={item?.key}>
           <ImageUpload
-            source={{ uri: item?.sourceURL, priority: FastImage.priority.low }}
+            source={{uri: item?.sourceURL, priority: FastImage.priority.low}}
           />
           {renderThreeDots(index)}
         </ImageContainerUpload>
       );
     }
     return (
-      <>
-        {renderPlaceholder(
-        item.placeholder,
-        item.placeholderLabel,
-        index,
-        )}
-      </>
+      <>{renderPlaceholder(item.placeholder, item.placeholderLabel, index)}</>
     );
   };
 
@@ -360,7 +343,9 @@ export const AddProductStepThree: FC<ProductStep> = props => {
       <ImagesContainer enableScroll={enableScroll}>
         <AddProductsList
           data={productImagesArr}
-          renderItem={({item, index}) => renderProductImageContainer({item, index})}
+          renderItem={({item, index}) =>
+            renderProductImageContainer({item, index})
+          }
           /*
           onDragging={() => setEnableScroll(false)}
           onDragRelease={data => {

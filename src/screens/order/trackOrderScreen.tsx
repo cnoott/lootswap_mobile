@@ -39,10 +39,13 @@ import {
 import {Linking} from 'react-native';
 import ShippingInstructionModalComponent from '../../components/orders/shippingInstructionModalComponent';
 import {LSModal} from '../../components/commonComponents/LSModal';
-import { OrderStatusDetailsText } from '../../components/orderTrack/styles';
-import {StatusContainerView, StatusLabel, NameLabel} from '../../components/orders/styles';
+import {OrderStatusDetailsText} from '../../components/orderTrack/styles';
+import {
+  StatusContainerView,
+  StatusLabel,
+  NameLabel,
+} from '../../components/orders/styles';
 import Rate from 'react-native-rate';
-
 
 export const TrackOrderScreen: FC<any> = ({route}) => {
   const {isTradeOrder = false, item} = route?.params || {};
@@ -82,9 +85,15 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
 
     // Rate User
     const tradeRateReceiver =
-      isTradeOrder && isReceiver && item?.senderStep === 5 && !userData?.hasGivenAppStoreRating;
+      isTradeOrder &&
+      isReceiver &&
+      item?.senderStep === 5 &&
+      !userData?.hasGivenAppStoreRating;
     const tradeRateSender =
-      isTradeOrder && !isReceiver && item?.receiverStep === 5 && !userData?.hasGivenAppStoreRating;
+      isTradeOrder &&
+      !isReceiver &&
+      item?.receiverStep === 5 &&
+      !userData?.hasGivenAppStoreRating;
     const ratePurchase = !isTradeOrder && item?.shippingStep === 3;
 
     const rateOptions = {
@@ -110,7 +119,6 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
         }
       });
     }
-
   }, [dispatch, isTradeOrder, item?._id]);
 
   const trackingHistoryOptions = () => {
@@ -318,7 +326,8 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
         {isTradeOrder ? renderMultipleOrderCell() : renderSingleOrderCell()}
 
         <OrderDataLabel>
-          Item(s) {isReceiver ? item.sender?.name : item?.receiver?.name} shipped
+          Item(s) {isReceiver ? item.sender?.name : item?.receiver?.name}{' '}
+          shipped
         </OrderDataLabel>
         <OrderTrackSteps
           currStep={shippingStepOptions(isReceiver, isTradeOrder, item)}
@@ -327,11 +336,10 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
         <FullDivider />
         {isTradeOrder && (
           <>
-          <OrderDataLabel>
-            Your Item Status: {' '}
-            <StatusLabel color={labelColor}>{text}</StatusLabel>
-
-          </OrderDataLabel>
+            <OrderDataLabel>
+              Your Item Status:{' '}
+              <StatusLabel color={labelColor}>{text}</StatusLabel>
+            </OrderDataLabel>
           </>
         )}
         <FullDivider />

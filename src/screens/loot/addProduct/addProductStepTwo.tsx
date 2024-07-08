@@ -83,7 +83,6 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
     updateData({condition: item});
   };
 
-
   //PRE OWNED CONDITION
   const onSetProductDes = (item: any) => {
     setProductDes(item);
@@ -135,8 +134,7 @@ export const AddProductStepTwo: FC<ProductStep> = props => {
           boxConditionList,
           onSetBoxCondition,
           addProductData?.stepTwo?.boxCondition,
-        )
-      }
+        )}
 
       <LSInput
         horizontalSpace={'0'}

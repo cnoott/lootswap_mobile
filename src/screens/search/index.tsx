@@ -338,7 +338,6 @@ export const SearchScreen: FC<any> = props => {
               //buttonText={'Start Trading'}
               //handleButtonPress={() => navigation.navigate('Home')}
             />
-
           }
         />
         {filtersSet && (

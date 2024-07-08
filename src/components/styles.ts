@@ -362,8 +362,7 @@ export const UpdateText = styled.Text.attrs(props => ({
   ${space}
 `;
 
-export const BarContainer = styled.View.attrs(() => ({
-}))`
+export const BarContainer = styled.View.attrs(() => ({}))`
   width: 70%;
   height: 10px;
   background-color: rgba(255, 255, 255, 0.3);

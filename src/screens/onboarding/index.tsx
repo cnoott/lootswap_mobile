@@ -207,9 +207,11 @@ export const OnboardingScreen: FC<{}> = ({route}) => {
             //selectedValue={{label: data.shoeSize, value: data.shoeSize}}
           />
           {data.shoeSizes.length > 0 && (
-          <SelectionsContainer>
-            {data.shoeSizes.map((item, index) => renderFilter({item}, 'shoeSizes'))}
-          </SelectionsContainer>
+            <SelectionsContainer>
+              {data.shoeSizes.map((item, index) =>
+                renderFilter({item}, 'shoeSizes'),
+              )}
+            </SelectionsContainer>
           )}
           <RenderListFilter
             data={upperClothingSize.map(size => size.value)}

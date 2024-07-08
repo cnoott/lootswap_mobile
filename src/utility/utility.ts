@@ -923,8 +923,13 @@ export const validateCreateProductData = (
       }
       break;
     case 5:
-      const {productPrice, floorPrice, shippingCost, isShippingPrice, isFreeShipping} =
-        prodData?.stepFive;
+      const {
+        productPrice,
+        floorPrice,
+        shippingCost,
+        isShippingPrice,
+        isFreeShipping,
+      } = prodData?.stepFive;
       if (productPrice) {
         if (isFreeShipping) {
           canGoNext = true;
@@ -1400,9 +1405,7 @@ const hasTradeOnly = (products: Array<any>) => {
 };
 
 const hasPreowned = (products: Array<any>) => {
-  const preOwnedConditions = [
-    'Pre-owned',
-  ];
+  const preOwnedConditions = ['Pre-owned'];
   return products.find(product =>
     preOwnedConditions.includes(product?.condition),
   );

@@ -83,10 +83,16 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
 
     const dispatch = useDispatch();
     useEffect(() => {
-      const receiverRate = !isMoneyOffer && isReceiver && offerItem?.orderId.senderStep === 5;
-      const senderRate = !isMoneyOffer && !isReceiver && offerItem?.receiverStep === 5;
-      const purchaseRate = isMoneyOffer && offerItem?.paypalOrderId?.shippingStep === 3;
-      if ((receiverRate || senderRate || purchaseRate) && !userData?.hasGivenAppStoreRating) {
+      const receiverRate =
+        !isMoneyOffer && isReceiver && offerItem?.orderId.senderStep === 5;
+      const senderRate =
+        !isMoneyOffer && !isReceiver && offerItem?.receiverStep === 5;
+      const purchaseRate =
+        isMoneyOffer && offerItem?.paypalOrderId?.shippingStep === 3;
+      if (
+        (receiverRate || senderRate || purchaseRate) &&
+        !userData?.hasGivenAppStoreRating
+      ) {
         const rateOptions = {
           AppleAppId: '6445904189',
           preferInApp: true,
@@ -107,7 +113,6 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
             console.log('ERR giving review', errorMessage);
           }
         });
-
       }
     }, []);
 
