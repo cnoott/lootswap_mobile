@@ -8,9 +8,11 @@ import {getHomeScreenProducts} from '../../redux/modules';
 import {ScrollView} from 'react-native';
 import ProductFeedView from '../../components/feed/ProductFeedView';
 import {FlatList} from './styles';
+import {Dimensions} from 'react-native';
 
 const ITEMS_PER_PAGE = 4;
 
+const height = Dimensions.get('window').height * 0.9;
 export const FeedScreen: FC<{}> = () => {
   const dispatch = useDispatch();
 
@@ -47,6 +49,10 @@ export const FeedScreen: FC<{}> = () => {
     <FlatList
       data={products}
       renderItem={renderItem}
+      keyExtractor={(item, index) => index.toString()}
+      snapToInterval={height}
+      decelerationRate="fast"
+      pagingEnabled
     />
   );
 };

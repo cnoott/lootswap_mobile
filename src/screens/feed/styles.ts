@@ -11,3 +11,5 @@ export const FlatList = styled.FlatList.attrs(() => ({
   ${space}
   ${layout}
 `;
+
+
