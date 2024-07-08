@@ -158,7 +158,7 @@ function CarouselComponent(props: CarouselProps) {
         width={width}
         height={height - 80}
         parallaxScrollingOffset={50}
-        autoPlay={true}
+        autoPlay={autoPlay}
         autoPlayInterval={3300}
         keyExtractor={item => item}
         data={imagesArr}
