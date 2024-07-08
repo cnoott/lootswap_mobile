@@ -82,7 +82,7 @@ export const OffersScreen: FC<{}> = () => {
 
   const [routes] = React.useState([
     {key: 'first', title: 'Inbox'},
-    {key: 'second', title: 'Public Offers'},
+    // {key: 'second', title: 'Public Offers'},
   ]);
 
   const [selectedTrade, setSelectedTrade] = useState(null);
@@ -175,7 +175,6 @@ export const OffersScreen: FC<{}> = () => {
   };
 
   const handleArchiveTrade = (tradeId: string) => {
-
     let newCombinedInbox = [...combinedInbox];
     newCombinedInbox = newCombinedInbox.filter(trade => trade?._id !== tradeId);
     setCombinedInbox(newCombinedInbox);
@@ -186,8 +185,7 @@ export const OffersScreen: FC<{}> = () => {
     dispatch(
       archiveTrade(
         reqData,
-        (res: any) => {
-        },
+        (res: any) => {},
         (err: any) => {
           console.log(err);
         },
@@ -301,8 +299,7 @@ export const OffersScreen: FC<{}> = () => {
         </EmptyRowView>
         {showArchive === true ? (
           <PublicOfferDeleteContainer
-            onPress={() => handleArchiveTrade(item?._id)}
-          >
+            onPress={() => handleArchiveTrade(item?._id)}>
             <DeleteText>Archive</DeleteText>
           </PublicOfferDeleteContainer>
         ) : (

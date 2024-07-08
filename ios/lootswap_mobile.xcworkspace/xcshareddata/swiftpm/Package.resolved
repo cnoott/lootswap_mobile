@@ -1,14 +1,15 @@
 {
+  "originHash" : "661eb1a5f5b528942adbc641706238a99ef1dd649d4baefc4481a3e16483478b",
   "pins" : [
     {
       "identity" : "paypal-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/paypal/paypal-ios/",
       "state" : {
-        "revision" : "29307dec8c267d85aac89b19c433ee357c50b038",
-        "version" : "1.1.0"
+        "revision" : "d67d580d0a5414d9ff02dab6223e6fe28bfa0e66",
+        "version" : "1.3.2"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

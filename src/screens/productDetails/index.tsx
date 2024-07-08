@@ -190,9 +190,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
         true,
         () => {
           dispatch(getProductDetails(productData?._id, userData?._id));
-      }),
+        },
+      ),
     );
-
   };
 
   const handleYouSureDeleteProduct = () => {
@@ -406,14 +406,15 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       return (
         <TopSpace>
           {selectedProductDetails?.marketPrice &&
-            selectedProductDetails?.price !== selectedProductDetails?.marketPrice && (
-            <LSButton
-              title={`Drop Item Price to $${selectedProductDetails?.marketPrice}`}
-              size={Size.Full}
-              type={Type.Primary}
-              onPress={() => handlePriceDrop()}
-            />
-          )}
+            selectedProductDetails?.price !==
+              selectedProductDetails?.marketPrice && (
+              <LSButton
+                title={`Drop Item Price to $${selectedProductDetails?.marketPrice}`}
+                size={Size.Full}
+                type={Type.Primary}
+                onPress={() => handlePriceDrop()}
+              />
+            )}
           <TopSpace />
           <LSButton
             title={'Edit Item'}
@@ -574,7 +575,8 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               </ProductDetails>
               {productData?.category === 'Shoes' && (
                 <ProductDetails>
-                  Box Condition: <BoldText>{productData?.boxCondition}</BoldText>
+                  Box Condition:{' '}
+                  <BoldText>{productData?.boxCondition}</BoldText>
                 </ProductDetails>
               )}
               <ProductDetails>

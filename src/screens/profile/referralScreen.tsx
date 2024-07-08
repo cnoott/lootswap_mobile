@@ -149,7 +149,8 @@ export const ReferralScreen: FC<{}> = () => {
             <Bullet />
             <BulletText>
               <BulletBoldText>Share your custom referral link: </BulletBoldText>
-              Each new account created using your link earns you $5. Earn up to $50.
+              Each new account created using your link earns you $5. Earn up to
+              $50.
             </BulletText>
           </BulletPointView>
           <BulletPointView>

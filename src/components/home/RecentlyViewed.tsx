@@ -4,7 +4,7 @@ import {
   SectionTopContainer,
   SectionTitleText,
   FlatList,
-} from '../../screens/home/styles'
+} from '../../screens/home/styles';
 import LSButton from '../commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -17,7 +17,7 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 const ITEMS_PER_PAGE = 8;
 
 export const RecentlyViewed: FC<{}> = () => {
-  const navigation: NavigationProp<any, any> = useNavigation(); 
+  const navigation: NavigationProp<any, any> = useNavigation();
 
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
@@ -53,9 +53,7 @@ export const RecentlyViewed: FC<{}> = () => {
 
   useEffect(() => {
     if (loading && !endReached) {
-      setLoadingItems(
-        new Array(4).fill({loading: true}),
-      );
+      setLoadingItems(new Array(4).fill({loading: true}));
     } else {
       setLoadingItems([]);
     }
@@ -82,10 +80,9 @@ export const RecentlyViewed: FC<{}> = () => {
     }
   };
 
-
   if (!loading && products.length === 0) {
-    return(<></>);
-  };
+    return <></>;
+  }
 
   // XXX Repeating code in homescreen
   return (
@@ -113,7 +110,9 @@ export const RecentlyViewed: FC<{}> = () => {
         data={[...products, ...loadingItems]}
         renderItem={renderItem}
         keyExtractor={(item, index) =>
-          item._id ? item._id.toString() + index + 'recent' : `loading-recent-${index}`
+          item._id
+            ? item._id.toString() + index + 'recent'
+            : `loading-recent-${index}`
         }
         onEndReached={() => onEndReached()}
         horizontal={true}

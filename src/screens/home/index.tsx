@@ -39,8 +39,7 @@ import LoadingProductCard from '../../components/productCard/loadingProductCard'
 import LoadingPublicOfferCell from '../../components/publicOffer/LoadingPublicOfferCell';
 import OnboardingProducts from '../../components/home/OnboardingProducts';
 import RecentlyViewed from '../../components/home/RecentlyViewed';
-import { isLandscape } from 'react-native-device-info';
-
+import {isLandscape} from 'react-native-device-info';
 
 const ITEMS_PER_PAGE = 8;
 const PUBLIC_OFFERS_PER_PAGE = 5;
@@ -451,7 +450,6 @@ export const HomeScreen: FC<{}> = () => {
           onEndReachedThreshold={0.5}
         />
       </>
-
     );
   };
 

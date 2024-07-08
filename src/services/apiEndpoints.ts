@@ -96,9 +96,9 @@ export const getUserDetailsWStockxCall = (userId: string) => {
   );
 };
 
-export const getRequestedProductDetailsCall = (reqData:any) => {
+export const getRequestedProductDetailsCall = (reqData: any) => {
   console.log('UZERz', reqData);
-  const { productId, userId } = reqData;
+  const {productId, userId} = reqData;
   return handleResponse(
     api.get(`product/${productId}?userId=${userId}`),
     API_RESPONSE.CODE200,
@@ -165,9 +165,9 @@ export const getHotProductsCall = (reqData: any) => {
 export const getRecentlyViewedCall = (reqData: any) => {
   return handleResponse(
     api.get(
-      `recently-viewed/${reqData?.userId}/?skip=${reqData.page * reqData.itemsPerPage}&limit=${
-        reqData.itemsPerPage
-      }`,
+      `recently-viewed/${reqData?.userId}/?skip=${
+        reqData.page * reqData.itemsPerPage
+      }&limit=${reqData.itemsPerPage}`,
     ),
     API_RESPONSE.CODE200,
   );
@@ -176,9 +176,9 @@ export const getRecentlyViewedCall = (reqData: any) => {
 export const getForYouProductsCall = (reqData: any) => {
   return handleResponse(
     api.get(
-      `for-you-products/${reqData.userId}/?skip=${reqData.page * reqData.itemsPerPage}&limit=${
-        reqData.itemsPerPage
-      }`,
+      `for-you-products/${reqData.userId}/?skip=${
+        reqData.page * reqData.itemsPerPage
+      }&limit=${reqData.itemsPerPage}`,
     ),
     API_RESPONSE.CODE200,
   );
@@ -187,9 +187,9 @@ export const getForYouProductsCall = (reqData: any) => {
 export const getOnboardingProductsCall = (reqData: any) => {
   return handleResponse(
     api.get(
-      `onboarding-products/${reqData?.userId}/?skip=${reqData.page * reqData.itemsPerPage}&limit=${
-        reqData.itemsPerPage
-      }`,
+      `onboarding-products/${reqData?.userId}/?skip=${
+        reqData.page * reqData.itemsPerPage
+      }&limit=${reqData.itemsPerPage}`,
     ),
     API_RESPONSE.CODE200,
   );

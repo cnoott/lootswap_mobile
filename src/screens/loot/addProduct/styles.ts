@@ -259,8 +259,7 @@ export const FullTouchable = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-export const Touchable = styled.TouchableOpacity`
-`;
+export const Touchable = styled.TouchableOpacity``;
 
 export const TouchableRow = styled.TouchableOpacity`
   margin-top: ${verticalScale(10)}px
