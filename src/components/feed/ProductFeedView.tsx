@@ -29,6 +29,8 @@ interface ProductFeedViewProps {
 const ProductFeedView: FC<ProductFeedViewProps> = React.memo(props => {
   const {product} = props;
 
+  const [activeIndex, setActiveIndex] = useState(0);
+
   return (
     <Container height={height * 0.9}>
       <CarouselContainer>
@@ -36,12 +38,13 @@ const ProductFeedView: FC<ProductFeedViewProps> = React.memo(props => {
           panGestureHandlerProps={{
             activeOffsetX: [-10, 10],
           }}
-          loop={false}
+          loop={true}
           width={width}
           height={height / 1.53}
           parallaxScrollingOffset={50} // What does this do again?
           autoPlay={false}
           keyExtractor={item => item._id}
+          onSnapToItem={newIndex => setActiveIndex(newIndex)}
           data={[product.primary_photo, ...product.secondary_photos]}
           renderItem={({index, item}) => (
             <>
@@ -54,7 +57,7 @@ const ProductFeedView: FC<ProductFeedViewProps> = React.memo(props => {
         <DotsContainer>
           <DotsComponent
             length={product.secondary_photos.length + 1}
-            active={0}
+            active={activeIndex}
           />
         </DotsContainer>
       </CarouselContainer>
