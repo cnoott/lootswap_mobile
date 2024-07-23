@@ -7,6 +7,9 @@ declare module '@env' {
   export const WEB_APP_URL: string;
   export const GOOGLE_MAPS_KEY: string;
   export const PUSHER_API_KEY: string;
+  export const META_APP_ID: string;
+  export const SHARE_PRODUCT_DOMAIN: string;
+  export const UXCAM_API_KEY: string;
 }
 
 declare module 'custom_types' {
@@ -60,7 +63,7 @@ declare module 'custom_types' {
   export type PRODUCT_STEP_TWO_TYPE = {
     brand?: DROPDOWN_TYPE;
     condition?: DROPDOWN_TYPE;
-    preOwnedCondition?: DROPDOWN_TYPE;
+    boxCondition?: DROPDOWN_TYPE;
     productDescription?: string;
   };
   export type PRODUCT_STEP_THREE_TYPE = {
@@ -81,6 +84,7 @@ declare module 'custom_types' {
   };
   export type PRODUCT_STEP_FIVE_TYPE = {
     productPrice?: Number;
+    floorPrice?: Number;
     shippingCost?: Number;
     isShippingPrice?: boolean;
     isFreeShipping?: boolean;

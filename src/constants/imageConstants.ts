@@ -24,6 +24,7 @@ export const CASH_BALENCE = require('../assets/images/home/cash_balence.png');
 export const DISCORD_LOGO = require('../assets/images/home/discordLogo.png');
 export const DISCORD_SCREENSHOT = require('../assets/images/home/discord_screenshot.png');
 export const MONEY_WITH_WINGS = require('../assets/images/home/money_with_wings.png');
+export const REFER_FRIEND = require('../assets/images/home/refer_friend.png');
 
 // Bottom Tab Icons
 export const HOME_BOTTOM_TAB = require('../assets/images/bottomTab/home.png');
@@ -55,3 +56,9 @@ export const PHOTO_GUIDE_SHIRT_TAG = require('../assets/images/photoGuide/shirt_
 export const PHOTO_GUIDE_HAT_FRONT = require('../assets/images/photoGuide/hat_front.png');
 export const PHOTO_GUIDE_HAT_BACK = require('../assets/images/photoGuide/hat_back.png');
 export const PHOTO_GUIDE_HAT_TAG = require('../assets/images/photoGuide/hat_tag.png');
+
+export const IG_STORIES_SHARE = require('../assets/images/product/ig_stories_share.png');
+export const IG_SHARE = require('../assets/images/product/ig_share.png');
+export const IMESSAGE = require('../assets/images/product/imessage.png');
+export const COPY_LINK_ICON = require('../assets/images/product/copy_link.png');
+export const LOGO_WHITE = require('../assets/images/logo_white.png');

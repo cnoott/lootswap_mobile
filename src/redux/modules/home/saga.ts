@@ -3,6 +3,8 @@ import {
   GET_PRODUCT_DETAILS,
   GET_HOMESCREEN_PRODUCTS,
   GET_HOT_PRODUCTS,
+  GET_FOR_YOU_PRODUCTS,
+  GET_ONBOARDING_PRODUCTS,
   GET_HOMESCREEN_PUBLIC_OFFERS,
   GET_PRODUCT_LISTED_ITEMS,
   SEND_TRADE_OFFER,
@@ -16,6 +18,7 @@ import {
   GET_RECOMMENDED_SEARCH,
   REFRESH_STOCKX_DATA,
   SHOULD_SHOW_GIVEAWAY,
+  GET_RECENTLY_VIEWED,
 } from '../../../constants/actions';
 import {
   getProductDetailsSuccess,
@@ -40,10 +43,13 @@ import {
   searchStockxCall,
   getHomeScreenProductsCall,
   getHotProductsCall,
+  getRecentlyViewedCall,
+  getOnboardingProductsCall,
   searchProductsCall,
   getRecommendedSearchCall,
   getHomeScreenPublicOffersCall,
   shouldShowGiveawayCall,
+  getForYouProductsCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {Alert} from 'custom_top_alert';
@@ -60,7 +66,7 @@ export function* getSelectedProductDetails(action: any) {
   try {
     const response: APIResponseProps = yield call(
       getRequestedProductDetailsCall,
-      action?.productId,
+      action,
     );
     yield put(LoadingSuccess());
     if (response?.success) {
@@ -93,10 +99,61 @@ export function* getHomeScreenProducts(action: any) {
   }
 }
 
+export function* getForYouProducts(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      getForYouProductsCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack(e);
+    console.log(e);
+  }
+}
+
 export function* getHotProducts(action: any) {
   try {
     const response: APIResponseProps = yield call(
       getHotProductsCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack(e);
+    console.log(e);
+  }
+}
+
+export function* getRecentlyViewed(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      getRecentlyViewedCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack(e);
+    console.log(e);
+  }
+}
+
+export function* getOnboardingProducts(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      getOnboardingProductsCall,
       action?.reqData,
     );
     if (response?.success) {
@@ -352,6 +409,9 @@ export default function* authSaga() {
   yield takeLatest(GET_PRODUCT_DETAILS.REQUEST, getSelectedProductDetails);
   yield takeLatest(GET_HOMESCREEN_PRODUCTS.REQUEST, getHomeScreenProducts);
   yield takeLatest(GET_HOT_PRODUCTS.REQUEST, getHotProducts);
+  yield takeLatest(GET_RECENTLY_VIEWED.REQUEST, getRecentlyViewed);
+  yield takeLatest(GET_ONBOARDING_PRODUCTS.REQUEST, getOnboardingProducts);
+  yield takeLatest(GET_FOR_YOU_PRODUCTS.REQUEST, getForYouProducts);
   yield takeLatest(
     GET_HOMESCREEN_PUBLIC_OFFERS.REQUEST,
     getHomeScreenPublicOffers,

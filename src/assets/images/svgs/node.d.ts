@@ -98,4 +98,19 @@ declare module 'localsvgimages' {
   export const APPLE_ICON: any;
   export const WARNING_ICON: any;
   export const SHARE_ICON: any;
+  export const SNAPCHAT_ICON: any;
+  export const APPSTORE_ICON: any;
+  export const OUTER_SIDE_ICON: any;
+  export const INNER_SIDE_ICON: any;
+  export const FRONT_ICON: any;
+  export const BACK_ICON: any;
+  export const INSOLES_ICON: any;
+  export const SIZE_TAG_ICON: any;
+  export const SOLES_ICON: any;
+  export const BOX_LABEL_ICON: any;
+  export const ADDITIONAL_ICON: any;
+  export const FRONT_CLOTHES_ICON: any;
+  export const LOGO_CLOTHES_ICON: any;
+  export const BACK_CLOTHES_ICON: any;
+  export const BRAND_CLOTHES_ICON: any;
 }

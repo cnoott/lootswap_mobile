@@ -128,16 +128,20 @@ export const handleNavigation = (
       break;
     case 'product-promo':
       dispatch(
-        getProductDetails(formattedMessage?.data?.objectId, product => {
-          navigation.reset({
-            index: 0,
-            routes: [{name: 'Home'}],
-          });
-          navigation.navigate('ProductDetailsScreen', {
-            productData: product,
-            likedParam: false,
-          });
-        }),
+        getProductDetails(
+          formattedMessage?.data?.objectId,
+          undefined,
+          product => {
+            navigation.reset({
+              index: 0,
+              routes: [{name: 'Home'}],
+            });
+            navigation.navigate('ProductDetailsScreen', {
+              productData: product,
+              likedParam: false,
+            });
+          },
+        ),
       );
       break;
     case 'wallet':
@@ -165,6 +169,7 @@ export const handleNavigation = (
         ),
       );
       break;
+    case 'inbox':
     case 'public-offer':
       navigation.reset({
         index: 0,
@@ -177,6 +182,19 @@ export const handleNavigation = (
       break;
     case 'profile_notif':
       navigation.navigate('EditProfileScreen');
+      break;
+    case 'onboarding':
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Profile'}],
+      });
+      navigation?.navigate('OnboardingScreen');
+      break;
+    case 'inbox':
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Inbox'}],
+      });
       break;
     default:
       navigation.reset({

@@ -3,6 +3,8 @@ import {
   FILTER_PRODUCTS,
   CLEAR_FILTERS,
   SEARCH_PRODUCTS,
+  SET_PRODUCTS,
+  CLEAR_PRODUCTS,
   GET_AVALIABLE_SIZES,
   FETCH_RELATED_ITEM_DATA,
 } from '../../../constants/actions';
@@ -19,6 +21,30 @@ export const filterProductsRequest = (reqData: any) => {
   return {
     type: FILTER_PRODUCTS.REQUEST,
     reqData: reqData,
+  };
+};
+
+export const setProducts = (
+  newProducts: Array<any>,
+  newLoading: Boolean,
+  newEndReached: Boolean,
+) => {
+  console.log('set products called');
+  return {
+    type: SET_PRODUCTS.SUCCESS,
+    payload: {newProducts, newLoading, newEndReached},
+  };
+};
+
+export const setProductsRequest = () => {
+  return {
+    type: SET_PRODUCTS.REQUEST,
+  }
+};
+
+export const clearProducts = () => {
+  return {
+    type: CLEAR_PRODUCTS.SUCCESS,
   };
 };
 

@@ -26,13 +26,23 @@ import {
   setFirstTimeOpenFalseRequest,
   setOrderNotifAsReadRequest,
   setPaypalNotifAsReadRequest,
+  updateUser,
 } from '../../redux/modules/';
 import TradeCheckoutItemCell from '../offers/offerItems/TradeCheckoutItemCell';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {printLabel, salePrintLabel} from '../../utility/utility';
+import {
+  printLabel,
+  salePrintLabel,
+  shippingStepOptions,
+  tradeOrderShippingStatus,
+} from '../../utility/utility';
 import {Linking} from 'react-native';
 import ShippingInstructionModalComponent from '../../components/orders/shippingInstructionModalComponent';
 import {LSModal} from '../../components/commonComponents/LSModal';
+import { OrderStatusDetailsText } from '../../components/orderTrack/styles';
+import {StatusContainerView, StatusLabel, NameLabel} from '../../components/orders/styles';
+import Rate from 'react-native-rate';
+
 
 export const TrackOrderScreen: FC<any> = ({route}) => {
   const {isTradeOrder = false, item} = route?.params || {};
@@ -69,15 +79,39 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
         }),
       );
     }
-  }, [dispatch, isTradeOrder, item?._id, userData?._id]);
 
-  const shippingStepOptions = () => {
-    if (isTradeOrder) {
-      return isReceiver ? item?.senderStep : item?.receiverStep;
-    } else {
-      return item?.shippingStep;
+    // Rate User
+    const tradeRateReceiver =
+      isTradeOrder && isReceiver && item?.senderStep === 5 && !userData?.hasGivenAppStoreRating;
+    const tradeRateSender =
+      isTradeOrder && !isReceiver && item?.receiverStep === 5 && !userData?.hasGivenAppStoreRating;
+    const ratePurchase = !isTradeOrder && item?.shippingStep === 3;
+
+    const rateOptions = {
+      AppleAppId: '6445904189',
+      preferInApp: true,
+      inAppDelay: 3.0,
+      openAppStoreIfInAppFails: true,
+    };
+
+    if (tradeRateReceiver || tradeRateSender || ratePurchase) {
+      Rate.rate(rateOptions, (success, errorMessage) => {
+        if (success) {
+          dispatch(
+            updateUser({
+              userId: userData?._id,
+              userData: {hasGivenAppStoreRating: true},
+              noLoad: true,
+            }),
+          );
+        }
+        if (errorMessage) {
+          console.log('ERR giving review', errorMessage);
+        }
+      });
     }
-  };
+
+  }, [dispatch, isTradeOrder, item?._id]);
 
   const trackingHistoryOptions = () => {
     if (isTradeOrder) {
@@ -223,7 +257,7 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
     return (
       <>
         <RowContainer>
-          <OrderDataLabel>Tracking Number</OrderDataLabel>
+          <OrderDataLabel>Your Tracking Number</OrderDataLabel>
           <TrackingNumberLabel onPress={() => openTrackingLink()}>
             {renderTrackingNumber()}
           </TrackingNumberLabel>
@@ -265,6 +299,11 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       </RowContainer>
     );
   };
+  const {labelColor, backColor, text} = tradeOrderShippingStatus(
+    userData?._id,
+    item,
+    true,
+  );
   return (
     <Container>
       {renderShippingInstructionModal()}
@@ -277,10 +316,24 @@ export const TrackOrderScreen: FC<any> = ({route}) => {
       <SubContainer>
         {renderOrderHeaderDetails()}
         {isTradeOrder ? renderMultipleOrderCell() : renderSingleOrderCell()}
+
+        <OrderDataLabel>
+          Item(s) {isReceiver ? item.sender?.name : item?.receiver?.name} shipped
+        </OrderDataLabel>
         <OrderTrackSteps
-          currStep={shippingStepOptions()}
+          currStep={shippingStepOptions(isReceiver, isTradeOrder, item)}
           isTradeOrder={isTradeOrder}
         />
+        <FullDivider />
+        {isTradeOrder && (
+          <>
+          <OrderDataLabel>
+            Your Item Status: {' '}
+            <StatusLabel color={labelColor}>{text}</StatusLabel>
+
+          </OrderDataLabel>
+          </>
+        )}
         <FullDivider />
         <OrderStatusDetails trackingHistory={trackingHistoryOptions()} />
       </SubContainer>

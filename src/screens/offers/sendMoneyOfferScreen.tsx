@@ -18,7 +18,11 @@ import {
 } from './startTrade/styles';
 import {View} from 'react-native';
 import StartTradeItemCell from '../../components/startTrade/startTradeItemCell';
-import {startMoneyOfferTrade} from '../../redux/modules';
+import {
+  startMoneyOfferTrade,
+  getTradesHistory,
+  getAllMyMessages,
+} from '../../redux/modules';
 import {Alert} from 'custom_top_alert';
 
 export const SendMoneyOfferScreen: FC<any> = ({route}) => {
@@ -74,6 +78,12 @@ export const SendMoneyOfferScreen: FC<any> = ({route}) => {
       startMoneyOfferTrade(
         reqData,
         res => {
+          dispatch(getAllMyMessages(userData?._id));
+          dispatch(
+            getTradesHistory({
+              userId: userData?._id,
+            }),
+          );
           if (isFromMessageScreen) {
             navigation.reset({
               index: 0,

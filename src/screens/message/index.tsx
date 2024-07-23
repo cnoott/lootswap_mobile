@@ -82,11 +82,14 @@ export const UserChatScreen: FC<any> = ({route}) => {
       const pusher = await Pusher.getInstance();
       pusher.unsubscribe(messageId);
     };
-  },[]);
+  }, []);
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
-      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
         console.log('back from bg');
         const showLoad = false;
         dispatch(
@@ -152,6 +155,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
 
   useEffect(() => {
     if (historyMessages?._id) {
+      messageListref.current?.scrollToEnd({animated: false});
       dispatch(
         clearMessageNotif({
           userId: userData?._id,
@@ -168,7 +172,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
           }),
         );
         navigation.replace('OffersMessageScreen', {
-          item: {_id: historyMessages?.tradeId}
+          item: {_id: historyMessages?.tradeId},
         });
       }
 
@@ -221,6 +225,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
           placeholder={'Message..'}
           homeSearch={true}
           multiline
+          autoFocus={false}
         />
       </InputView>
     );
@@ -231,14 +236,11 @@ export const UserChatScreen: FC<any> = ({route}) => {
   const renderMessagesListView = () => {
     return (
       <FlatList
-        ref={it => messageListref.current = it}
-        data={historyMessages.messages}
-        initialScrollIndex={
-          historyMessages.messages ? historyMessages.messages.length - 1 : 0
-        }
-        keyExtractor={(item, index) => item?.message + index}
+        ref={it => (messageListref.current = it)}
+        data={historyMessages?.messages}
+        keyExtractor={(item, index) => item.message + index}
         renderItem={({item}) =>
-          renderMessage(item, item?.userId === userData?._id)
+          renderMessage(item, item?.userName === userData?.name)
         }
         getItemLayout={(data, index) => ({
           length: 100,
@@ -273,7 +275,10 @@ export const UserChatScreen: FC<any> = ({route}) => {
   };
 
   const renderButtons = () => {
-    if (historyMessages?.product?.userId === userData?._id) {
+    if (
+      historyMessages?.product?.userId === userData?._id ||
+      historyMessages?.isSupportMessage
+    ) {
       return <></>;
     }
 
@@ -334,6 +339,7 @@ export const UserChatScreen: FC<any> = ({route}) => {
           isReceiver ? historyMessages?.sender : historyMessages?.receiver
         }
         profileInMiddle={true}
+        isSupportMessage={historyMessages?.isSupportMessage}
       />
       <KeyboardAvoidingView>
         <SubContainer>{renderMessagesListView()}</SubContainer>

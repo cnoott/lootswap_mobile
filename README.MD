@@ -60,6 +60,14 @@ If you want to change any environment variable like changing `APP_URL` or need t
 When you will run project then this files content will automatically replaced in `.env` file.
 
 
+# Troubleshooting Dev Environemnt Setup:
+- If you change env variables and it doesnt update when you run dev, try the following
+  1. `yarn cache clean`
+  2. `yarn start --reset-cache`
+  3. Clean build on Xcode
+  4. Close Simulator
+  5. Run on Xcode
+
 # Version Naming Standard
 We use the versioning standard of 'a.b.c.' where
 a is for major updates
@@ -80,8 +88,12 @@ Some updates (such as native code changes or package installs) must be manually 
 
 ## Performing OTA Update via CodePush CLI
 ** Make Sure that you are on a production environment when pushing new version **
-1. Release new version to product making sure that MINIMUM_BASE_VERSION matches what is currently in the Info.plist
+1. Do a production build on Xcode.
+2. Release new version to product making sure that MINIMUM_BASE_VERSION matches what is currently in the Info.plist
 
-`appcenter codepush release-react -a liamaamadio/lootswap-ios -d Production --target-binary-version ">=MINIMUM_BASE_VERSION" --mandatory true`
+`appcenter codepush release-react -a liamaamadio/lootswap-ios -d Production --target-binary-version ">=MINIMUM_BASE_VERSION < MAX_VERSION" --mandatory true`
+
+3. After releasing a CodePush OTA update, you now can do an AppStore update so that new users dont have to. We group these versions together.
+For example, version 2.6.4 + CodePush OTA is equivalent to AppStore version 2.4.5
 
 We only change Info.plist version number when its a AppStore update

@@ -22,7 +22,7 @@ interface GalleryLogic {
   hasNextPage: boolean;
 }
 
-export const useGallery = ({pageSize = 15}: GalleryOptions): GalleryLogic => {
+export const useGallery = ({pageSize = 32}: GalleryOptions): GalleryLogic => {
   const isAboveIOS14 =
     Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 14;
   const isAndroid = Platform.OS === 'android';
@@ -52,7 +52,7 @@ export const useGallery = ({pageSize = 15}: GalleryOptions): GalleryLogic => {
     setNextCursor(undefined);
     nextCursor ? setIsLoadingNextPage(true) : setIsLoading(true);
     const {edges, page_info} = await CameraRoll.getPhotos({
-      first: 32,
+      first: 64,
       after: nextCursor,
       assetType: 'Photos',
       groupTypes: 'Album',
@@ -83,7 +83,7 @@ export const useGallery = ({pageSize = 15}: GalleryOptions): GalleryLogic => {
     try {
       nextCursor ? setIsLoadingNextPage(true) : setIsLoading(true);
       const {edges, page_info} = await CameraRoll.getPhotos({
-        first: 24,
+        first: 32,
         after: nextCursor,
         assetType: 'Photos',
         ...(selectedAlbum.title !== 'Recents' && {groupTypes: 'Album'}),

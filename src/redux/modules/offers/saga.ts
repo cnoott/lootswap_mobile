@@ -18,6 +18,7 @@ import {
   ACCEPT_PUBLIC_OFFER,
   DELETE_PUBLIC_OFFER,
   SEND_TRADE_MESSAGE,
+  ARCHIVE_TRADE,
 } from '../../../constants/actions';
 import {
   startTradeCheckoutCall,
@@ -38,6 +39,7 @@ import {
   acceptPublicOfferCall,
   deletePublicOfferCall,
   sendTradeMessageCall,
+  archiveTradeCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
 import {
@@ -372,6 +374,24 @@ export function* deletePublicOffer(action: any) {
   }
 }
 
+export function* archiveTrade(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      archiveTradeCall,
+      action?.reqData,
+    );
+    yield put(LoadingSuccess());
+    if (response?.success) {
+      action?.successCallBack(response.data);
+    } else {
+      action?.errorCallBack(response.error);
+    }
+  } catch (e) {
+    action?.errorCallBack();
+    console.log(e);
+  }
+}
+
 export function* sendTradeMessage(action: any) {
   try {
     const response: APIResponseProps = yield call(
@@ -388,8 +408,6 @@ export function* sendTradeMessage(action: any) {
     console.log(e);
   }
 }
-
-
 
 export default function* offersSaga() {
   yield takeLatest(GET_TRADES_HISTORY.REQUEST, getTradesHistory);
@@ -409,5 +427,6 @@ export default function* offersSaga() {
   yield takeLatest(ACCEPT_PUBLIC_OFFER.REQUEST, acceptPublicOffer);
   yield takeLatest(GET_PUBLIC_OFFERS.REQUEST, getPublicOffers);
   yield takeLatest(DELETE_PUBLIC_OFFER.REQUEST, deletePublicOffer);
+  yield takeLatest(ARCHIVE_TRADE.REQUEST, archiveTrade);
   yield takeLatest(SEND_TRADE_MESSAGE.REQUEST, sendTradeMessage);
 }

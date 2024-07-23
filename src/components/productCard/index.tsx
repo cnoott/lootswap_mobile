@@ -12,6 +12,7 @@ import {
   CellBottomView,
   BottomHeaderView,
   HeaderTextMain,
+  PriceDropText,
   EmptyRowView,
   HeaderDes,
   TagsContainer,
@@ -32,10 +33,16 @@ interface LSProductCardProps {
   item: any;
   liked?: boolean;
   isHorizontalView?: boolean;
+  onImageLoad?: Function;
 }
 
 const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
-  const {item, onPress = () => {}, isHorizontalView = false} = props;
+  const {
+    item,
+    onPress = () => {},
+    isHorizontalView = false,
+    onImageLoad = () => {},
+  } = props;
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const theme = useTheme();
   const auth: AuthProps = useSelector(state => state.auth);
@@ -152,6 +159,7 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
             source={{uri: item.primary_photo}}
             onLoad={() => {
               setImageLoading(false);
+              onImageLoad();
             }}
           />
         </ImageContainer>
@@ -181,12 +189,24 @@ const LSProductCard: FC<LSProductCardProps> = React.memo(props => {
             <HeaderDes>{item.name}</HeaderDes>
           </EmptyRowView>
           {item.type !== 'trade-only' && (
-            <HeaderTextMain>${item.price}</HeaderTextMain>
+            <>
+              <HeaderTextMain priceDrop={item?.priceHistory?.length > 0}>
+                $
+                {item?.priceHistory?.length > 0
+                  ? item?.priceHistory[item.priceHistory.length - 1]
+                  : item?.price}
+              </HeaderTextMain>
+            </>
           )}
         </BottomHeaderView>
-        <EmptyRowView>
-          <HeaderTextMain>Size {item.size}</HeaderTextMain>
-        </EmptyRowView>
+        <BottomHeaderView>
+          <EmptyRowView>
+            <HeaderTextMain>Size {item.size}</HeaderTextMain>
+          </EmptyRowView>
+          {item?.priceHistory?.length > 0 && (
+            <PriceDropText>${item?.price}</PriceDropText>
+          )}
+        </BottomHeaderView>
       </CellBottomView>
       {renderTradeTags()}
     </ItemContainer>

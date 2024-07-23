@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.4.7</string>
+	<string>2.6.5</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -31,6 +31,10 @@
 			<array/>
 		</dict>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>lootswap</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>lootswap</string>
@@ -44,11 +48,29 @@
 				<string>com.googleusercontent.apps.82288270183-bnffad6i28k86q8ib136nboc2ulcrno2</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1306228819798690</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.4.7</string>
+	<string>2.6.5</string>
 	<key>CodePushDeploymentKey</key>
 	<string>7pHzXBTYADWR_M9n1BXQnMnioDkpF7dlnOwXu</string>
+	<key>FacebookAppID</key>
+	<string>1306228819798690</string>
+	<key>FacebookDisplayName</key>
+	<string>lootswap</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>bitmoji-sdk</string>
+		<string>snapchat</string>
+		<string>itms-apps</string>
+		<string>instagram-stories</string>
+		<string>mailto</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -72,6 +94,10 @@
 	<string>This app does not require access to the microphone.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app requires access to the photo library to upload product images for your listing. For example, when uploading a product listing, you are required to submit images.</string>
+	<key>SCSDKClientId</key>
+	<string>b4c3cb3b-99b0-42d6-86e2-732e34c3e018</string>
+	<key>SCSDKRedirectUrl</key>
+	<string>lootswap://snapchat</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Mont-Heavy.ttf</string>
@@ -109,6 +135,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>URL Types / Document Role</key>
+	<string>Editor</string>
+	<key>URL Types / URL Identifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>URL Types / URL Schemes</key>
+	<string>lootswap</string>
 	<key>branch_app_domain</key>
 	<string>lootswap.app.link</string>
 	<key>branch_key</key>

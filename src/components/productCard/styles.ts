@@ -11,6 +11,7 @@ export const ItemContainer = styled.TouchableOpacity.attrs(props => ({
   activeOpacity: 0.8,
   borderRadius: scale(productRadius),
   overflow: 'hidden',
+  backgroundColor: 'white',
 }))`
   ${space}
   ${layout}
@@ -82,7 +83,22 @@ export const BottomHeaderView = styled.View.attrs(props => ({
 `;
 
 export const HeaderTextMain = styled.Text.attrs(props => ({
-  color: props.theme.colors.text,
+  color: props?.priceDrop
+    ? props.theme.colors.textGrey
+    : props.theme.colors.text,
+  my: scale(1),
+  numberOfLines: 1,
+}))`
+  fontsize: ${() => moderateScale(14)}px;
+  font-family: 'Urbanist-Bold';
+  text-decoration: ${props => (props?.priceDrop ? 'line-through' : 'none')};
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const PriceDropText = styled.Text.attrs(props => ({
+  color: props.theme.colors.danger,
   my: scale(1),
   numberOfLines: 1,
 }))`

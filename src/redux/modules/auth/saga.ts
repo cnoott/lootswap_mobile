@@ -25,6 +25,7 @@ import {
   SAVE_SEARCH,
   GET_LIKED_PRODUCTS,
   SET_NOTIFS_AS_READ,
+  ADD_SHARED_PRODUCT,
 } from '../../../constants/actions';
 import {
   signInSuccess,
@@ -66,6 +67,8 @@ import {
   getUserDetailsWStockxSuccess,
   setNotifsAsReadSuccess,
   setNotifsAsReadFailure,
+  addSharedProductSuccess,
+  addSharedProductFailure,
 } from './actions';
 import {
   signIn,
@@ -92,9 +95,14 @@ import {
   getUserDetailsWStockxCall,
   setNotifsAsReadCall,
   signInWithAppleCall,
+  addSharedProductCall,
 } from '../../../services/apiEndpoints';
 import {LoadingRequest, LoadingSuccess} from '../loading/actions';
-import {resetRoute} from '../../../navigation/navigationHelper';
+import {
+  resetRoute,
+  goBack,
+  navigateToOnboarding,
+} from '../../../navigation/navigationHelper';
 import {Alert} from 'custom_top_alert';
 import {loggingService} from '../../../services/loggingService';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
@@ -116,9 +124,13 @@ export function* signInAPI(action: any) {
     const response: APIResponseProps = yield call(signIn, action?.reqData);
     yield put(LoadingSuccess());
     if (response?.success) {
-      resetRoute();
+      goBack();
+      goBack();
       yield put(signInSuccess(response.data));
-      loggingService().setUserId(response?.data?.user?._id);
+      loggingService().setUserName(
+        response?.data?.user?.name,
+        response?.data?.user?.email,
+      );
       loggingService().setUserStatus('logged_in');
     } else {
       yield put(signInFailure(response.error));
@@ -134,9 +146,12 @@ export function* signUpAPI(action: any) {
     const response: APIResponseProps = yield call(signUp, action?.reqData);
     yield put(LoadingSuccess());
     if (response?.success) {
-      resetRoute();
+      navigateToOnboarding();
       yield put(signUpSuccess(response.data));
-      loggingService().setUserId(response?.data?.user?._id);
+      loggingService().setUserName(
+        response?.data?.user?.name,
+        response?.data?.user?.email,
+      );
       loggingService().logEvent('sign_up', {method: 'email'});
       loggingService().setUserStatus('logged_in');
     } else {
@@ -157,9 +172,18 @@ export function* signInWithGoogleAPI(action: any) {
     yield put(LoadingSuccess());
 
     if (response?.success) {
-      resetRoute();
+      console.log('response.data', response.data);
+      if (response.data.newUser) {
+        navigateToOnboarding();
+      } else {
+        goBack();
+      }
       yield put(signUpSuccess(response.data));
-      loggingService().setUserId(response?.data?.user?._id);
+      loggingService().setUserName(
+        response?.data?.user?.name,
+        response?.data?.user?.email,
+      );
+
       loggingService().logEvent('sign_up', {method: 'google'});
       loggingService().setUserStatus('logged_in');
     } else {
@@ -180,9 +204,16 @@ export function* signInWithAppleAPI(action: any) {
     yield put(LoadingSuccess());
 
     if (response?.success) {
-      resetRoute();
+      if (response.data.newUser) {
+        navigateToOnboarding();
+      } else {
+        goBack();
+      }
       yield put(signUpSuccess(response.data));
-      loggingService().setUserId(response?.data?.user?._id);
+      loggingService().setUserName(
+        response?.data?.user?.name,
+        response?.data?.user?.email,
+      );
       loggingService().logEvent('sign_up', {method: 'apple'});
       loggingService().setUserStatus('logged_in');
     } else {
@@ -261,6 +292,9 @@ export function* getMyDetails(action: any) {
     yield put(LoadingSuccess());
     if (response?.success) {
       yield put(getMyDetailsSuccess(response.data));
+      if (action.callback) {
+        action.callback(response.data);
+      }
     } else {
       yield put(getMyDetailsFailure(response.error));
     }
@@ -502,7 +536,7 @@ export function* versionCheck(action: any) {
   try {
     const response: APIResponseProps = yield call(versionCheckCall);
     if (response?.success) {
-      action?.successCallBack(response?.data?.version_num);
+      action?.successCallBack(response?.data?.version_group);
     } else {
       action?.errorCallBack();
     }
@@ -560,6 +594,22 @@ export function* setNotifsAsRead(action: any) {
   }
 }
 
+export function* addSharedProduct(action: any) {
+  try {
+    const response: APIResponseProps = yield call(
+      addSharedProductCall,
+      action?.reqData,
+    );
+    if (response?.success) {
+      addSharedProductSuccess(response.data);
+    } else {
+      addSharedProductFailure();
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(SIGN_IN_DATA.REQUEST, signInAPI);
   yield takeLatest(SIGN_UP_DATA.REQUEST, signUpAPI);
@@ -585,4 +635,5 @@ export default function* authSaga() {
   yield takeLatest(SAVE_SEARCH.REQUEST, saveSearch);
   yield takeLatest(GET_LIKED_PRODUCTS.REQUEST, getLikedProducts);
   yield takeLatest(SET_NOTIFS_AS_READ.REQUEST, setNotifsAsRead);
+  yield takeLatest(ADD_SHARED_PRODUCT.REQUEST, addSharedProduct);
 }

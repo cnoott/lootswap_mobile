@@ -62,7 +62,7 @@ export const BrowsePublicOffersScreen: FC<any> = () => {
   useEffect(() => {
     if (loading) {
       if (publicOffers.length === 0) {
-        setLoadingItems(new Array(6).fill({loading:true}));
+        setLoadingItems(new Array(6).fill({loading: true}));
       }
     }
   }, [loading, publicOffers.length]);

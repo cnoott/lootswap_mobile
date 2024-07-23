@@ -19,6 +19,8 @@ import {
   ProductLabel,
   ProductDetails,
   PriceLabel,
+  PriceDropLabel,
+  PercentOffLabel,
   PriceContainer,
   TagsContainer,
   TagView,
@@ -77,6 +79,8 @@ import {
   deleteProduct,
   preselectChosenItem,
   getMyDetailsNoLoadRequest,
+  incTimesViewed,
+  createNewProduct,
 } from '../../redux/modules';
 import {
   getProductTags,
@@ -90,6 +94,7 @@ import {Trade_Options, Deal_Type} from 'custom_enums';
 import defaultExport from '@react-native-firebase/messaging';
 import DealBadge from '../../components/dealBadges';
 import {loggingService} from '../../services/loggingService';
+import ProductShareModal from '../../components/product/ProductShareModal';
 
 const height = Dimensions.get('window').height;
 
@@ -102,10 +107,12 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const tradesData: TradeProps = useSelector(state => state.offers);
   const {historyTrades} = tradesData;
   const theme = useTheme();
-  const {requestedUserDetails, userData, isLogedIn} = auth;
+  const {requestedUserDetails, userData = null, isLogedIn} = auth;
   const {productData = {}, likedParam} = route?.params;
   const [liked, setLiked] = useState(likedParam);
   const [timesLiked, setTimesLiked] = useState(productData?.timesLiked);
+
+  const [shareModalVisible, setShareModalVisible] = useState(false);
 
   useEffect(() => {
     if (likedParam) {
@@ -120,6 +127,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       setLiked(true);
     }
     if (isLogedIn) {
+      dispatch(incTimesViewed());
       dispatch(getMyDetailsNoLoadRequest(userData?._id));
       dispatch(
         getTradesHistory({
@@ -129,9 +137,9 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     }
     if (productData?.userId) {
       dispatch(getUsersDetailsRequest(productData?.userId));
-      dispatch(getProductDetails(productData?._id));
+      dispatch(getProductDetails(productData?._id, userData?._id));
     }
-  }, [productData?.userId, isLogedIn, likedParam, productData?._id]);
+  }, [productData?.userId, isLogedIn, likedParam, productData?._id, dispatch]);
 
   useEffect(() => {
     if (selectedProductDetails?.timesLiked) {
@@ -141,6 +149,7 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
 
   const onLikePress = () => {
     if (!isLogedIn) {
+      goToLogin();
       return;
     }
     const reqData = {
@@ -167,6 +176,23 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     if (trade) {
       navigation?.navigate('OffersMessageScreen', {item: trade});
     }
+  };
+
+  const handlePriceDrop = () => {
+    // Edit Product Price
+    dispatch(
+      createNewProduct(
+        {
+          ...selectedProductDetails,
+          price: selectedProductDetails?.marketPrice,
+          productIdToUpdate: selectedProductDetails?._id,
+        },
+        true,
+        () => {
+          dispatch(getProductDetails(productData?._id, userData?._id));
+      }),
+    );
+
   };
 
   const handleYouSureDeleteProduct = () => {
@@ -227,7 +253,15 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   };
 
   const goToLogin = () => {
-    navigation.navigate('SignInScreen');
+    navigation.navigate('CreateAccountScreen');
+  };
+
+  const toggleShareModal = () => {
+    if (!isLogedIn) {
+      goToLogin();
+      return;
+    }
+    setShareModalVisible(!shareModalVisible);
   };
 
   const onBuyNowPress = () => {
@@ -244,6 +278,15 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   const onMessagePress = () => {
     if (!isLogedIn) {
       goToLogin();
+      return;
+    }
+
+    if (
+      isLogedIn &&
+      historyTrades &&
+      isAlreadyTrading(historyTrades, selectedProductDetails?._id)
+    ) {
+      handleGoToTrade();
       return;
     }
     dispatch(
@@ -286,14 +329,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     );
   };
 
-  const handleSharePress = () => {
-    /*
-    const result = await Share.share({
-      message: ``
-    });
-    */
-  };
-
   const renderTags = () => {
     return (
       <TagsContainer>
@@ -307,7 +342,6 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       </TagsContainer>
     );
   };
-
 
   // XXX This code (sort of) repeats itself in the MessageOptionsModal
   const renderInteractButtons = () => {
@@ -371,6 +405,16 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
     if (isLogedIn && userData?._id === requestedUserDetails?._id) {
       return (
         <TopSpace>
+          {selectedProductDetails?.marketPrice &&
+            selectedProductDetails?.price !== selectedProductDetails?.marketPrice && (
+            <LSButton
+              title={`Drop Item Price to $${selectedProductDetails?.marketPrice}`}
+              size={Size.Full}
+              type={Type.Primary}
+              onPress={() => handlePriceDrop()}
+            />
+          )}
+          <TopSpace />
           <LSButton
             title={'Edit Item'}
             size={Size.Full}
@@ -433,6 +477,19 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
       </DescriptionContainerView>
     );
   };
+
+  const calcPercentOff = () => {
+    const originalPrice = parseFloat(
+      selectedProductDetails.priceHistory[
+        selectedProductDetails.priceHistory.length - 1
+      ],
+    );
+    const priceDrop = parseFloat(selectedProductDetails.price);
+
+    const percentOff = ((originalPrice - priceDrop) * 100) / originalPrice;
+    return percentOff.toFixed(0); // Return the discount percentage rounded to the nearest whole number
+  };
+
   const renderUserDetailsView = () => {
     return (
       <>
@@ -486,7 +543,14 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
   };
   return (
     <Container>
-      <InStackHeader back={true} title={''} />
+      <InStackHeader
+        back={true}
+        title={''}
+        right={true}
+        onlyTitleCenterAlign={true}
+        rightIcon={SHARE_ICON}
+        onRightIconPress={toggleShareModal}
+      />
       <ScrollContainer>
         <CarouselComponent
           height={height / 2 + 40}
@@ -508,13 +572,44 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
               <ProductDetails>
                 Condition: <BoldText>{productData?.condition}</BoldText>
               </ProductDetails>
+              {productData?.category === 'Shoes' && (
+                <ProductDetails>
+                  Box Condition: <BoldText>{productData?.boxCondition}</BoldText>
+                </ProductDetails>
+              )}
               <ProductDetails>
                 Size:{' '}
                 <BoldText>{convertUsSizeToEu(productData?.size)}</BoldText>
               </ProductDetails>
               {productData?.type !== Trade_Options?.TradeOnly && (
                 <PriceContainer>
-                  <PriceLabel>${productData?.price}</PriceLabel>
+                  {selectedProductDetails?.priceHistory?.length > 0 && (
+                    <PriceDropLabel>
+                      ${selectedProductDetails?.price}
+                    </PriceDropLabel>
+                  )}
+
+                  {selectedProductDetails?.priceHistory?.length > 0 && (
+                    <PriceLabel cross={true}>
+                      $
+                      {
+                        selectedProductDetails?.priceHistory[
+                          selectedProductDetails?.priceHistory.length - 1
+                        ]
+                      }
+                    </PriceLabel>
+                  )}
+
+                  {selectedProductDetails?.priceHistory?.length === 0 && (
+                    <PriceLabel cross={false}>
+                      ${selectedProductDetails?.price}
+                    </PriceLabel>
+                  )}
+
+                  {selectedProductDetails?.priceHistory?.length > 0 && (
+                    <PercentOffLabel>{calcPercentOff()}% off</PercentOffLabel>
+                  )}
+
                   {/*selectedProductDetails?.stockxId && (
                   <DealBadge
                     fromProductPage={true}
@@ -540,17 +635,14 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
                 />
                 <ProductDetails>{timesLiked}</ProductDetails>
               </LikeTouchable>
-              {/*
-              <ShareButtonTouchable>
-                <SvgXml xml={SHARE_ICON} />
-              </ShareButtonTouchable>
-              */}
             </DetailsRightView>
           </DetailsContainer>
+
+          {renderEditButtons()}
           <HorizontalBar />
           {renderProtectionView()}
           {requestedUserDetails && <>{renderUserDetailsView()}</>}
-          {isLogedIn && requestedUserDetails?._id !== userData?._id && (
+          {requestedUserDetails?._id !== userData?._id && (
             <MessageButtonWrapper>
               <LSButton
                 title={'Message'}
@@ -565,12 +657,16 @@ export const ProductDetailsScreen: FC<any> = ({route}) => {
           )}
           {renderDescriptionView()}
           {!!productData?.interestedIn && renderLookingForView()}
-          {renderEditButtons()}
           <BottomSpace />
         </SubContainer>
       </ScrollContainer>
 
       {renderInteractButtons()}
+      <ProductShareModal
+        isVisible={shareModalVisible}
+        onCloseModal={() => setShareModalVisible(false)}
+        productDetails={productData}
+      />
     </Container>
   );
 };

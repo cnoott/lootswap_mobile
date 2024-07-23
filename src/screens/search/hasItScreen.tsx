@@ -33,6 +33,7 @@ export const HasItScreen: FC<any> = ({route}) => {
           data={foundProducts}
           renderItem={renderItem}
           keyExtractor={item => item._id}
+          horizontal={false}
         />
       </Container>
     </>

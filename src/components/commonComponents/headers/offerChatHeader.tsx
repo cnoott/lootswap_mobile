@@ -1,7 +1,7 @@
 /***
   LOOTSWAP - OFFERS MESSAGE HEADER COMPONENT
  ***/
-import React, {FC, useState} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import {SvgXml} from 'react-native-svg';
 import {Alert} from 'custom_top_alert';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -37,6 +37,9 @@ import Collapsible from 'react-native-collapsible';
 import {LSModal} from '../LSModal';
 import ShippingInstructionModalComponent from '../../orders/shippingInstructionModalComponent';
 import {ProfileHeaderComponent} from './profileHeaderComponent';
+import Rate from 'react-native-rate';
+import {updateUser} from '../../../redux/modules/';
+import {useDispatch} from 'react-redux';
 
 interface HeaderProps {
   profilePicture: string;
@@ -48,6 +51,8 @@ interface HeaderProps {
   userData: any;
   profileUrl?: string;
   tradeStatus: string;
+  drawerOpen: Boolean;
+  setDrawerOpen: Function;
 }
 
 export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
@@ -60,9 +65,10 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
     offerItem,
     userData,
     tradeStatus,
+    drawerOpen,
+    setDrawerOpen,
   }) => {
     const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
-    const [accOpen, setAccOpen] = useState(false);
     const [isShipInsModalVisible, setShipInsModalVisible] = useState(false);
     const isAccepted = tradeStatus === Trade_Status?.Accepted;
     const isCanceled = tradeStatus === Trade_Status?.Canceled;
@@ -74,6 +80,36 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
 
     const isMoneyOffer =
       offerItem?.senderMoneyOffer > 0 && offerItem?.senderItems.length === 0;
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+      const receiverRate = !isMoneyOffer && isReceiver && offerItem?.orderId.senderStep === 5;
+      const senderRate = !isMoneyOffer && !isReceiver && offerItem?.receiverStep === 5;
+      const purchaseRate = isMoneyOffer && offerItem?.paypalOrderId?.shippingStep === 3;
+      if ((receiverRate || senderRate || purchaseRate) && !userData?.hasGivenAppStoreRating) {
+        const rateOptions = {
+          AppleAppId: '6445904189',
+          preferInApp: true,
+          inAppDelay: 3.5,
+          openAppStoreIfInAppFails: true,
+        };
+        Rate.rate(rateOptions, (success, errorMessage) => {
+          if (success) {
+            dispatch(
+              updateUser({
+                userId: userData?._id,
+                userData: {hasGivenAppStoreRating: true},
+                noLoad: true,
+              }),
+            );
+          }
+          if (errorMessage) {
+            console.log('ERR giving review', errorMessage);
+          }
+        });
+
+      }
+    }, []);
 
     const renderOfferCellView = () => {
       return (
@@ -179,6 +215,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
         }
         return;
       }
+
       offerItem.orderId.tradeId = offerItem;
       let orderData = offerItem.orderId;
       orderData.tradeId = offerItem;
@@ -186,15 +223,16 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       orderData.sender = offerItem.sender;
 
       if (paidByBothUsers) {
+        console.log('TRACK ORDER');
         navigation.navigate('TrackOrderScreen', {
           isTradeOrder: true,
           item: orderData,
         });
       } else {
+        console.log('track checkout');
         //Checkout trade order
-        navigation?.navigate('TradeCheckoutScreen', {
-          tradeData: offerItem,
-          orderData: orderData,
+        navigation?.navigate('AcceptTradeCheckoutScreen', {
+          trade: offerItem,
         });
       }
     };
@@ -269,12 +307,12 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
       return (
         <EmptyColumnView>
           {getOfferStatusView()}
-          <Collapsible collapsed={accOpen} renderChildrenCollapsed={true}>
+          <Collapsible collapsed={!drawerOpen} renderChildrenCollapsed={true}>
             {renderOfferCellView()}
           </Collapsible>
-          <ArrowContainer onPress={() => setAccOpen(!accOpen)}>
+          <ArrowContainer onPress={() => setDrawerOpen(!drawerOpen)}>
             <SvgXml
-              xml={accOpen ? ACCORDIAN_DOWN_ELLIPSE : ACCORDIAN_UP_ELLIPSE}
+              xml={drawerOpen ? ACCORDIAN_DOWN_ELLIPSE : ACCORDIAN_UP_ELLIPSE}
             />
           </ArrowContainer>
         </EmptyColumnView>

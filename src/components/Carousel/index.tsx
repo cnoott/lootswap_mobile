@@ -6,6 +6,7 @@ import {LSHomeStepOneCarouselItem} from './HomeItems/StepOneHomeItem';
 import {LSHomeStepTwoCarouselItem} from './HomeItems/StepTwoHomeItem';
 import {LSHomeStepThreeCarouselItem} from './HomeItems/StepThreeHomeItem';
 import {LSHomeStepFourCarouselItem} from './HomeItems/StepFourHomeItem';
+import {LSHomeOldStepOneCarouselItem} from './HomeItems/StepFourHomeItem';
 import {LSGiveawayHomeItem} from './HomeItems/GiveawayHomeItem';
 import {useSelector} from 'react-redux';
 import {AuthProps} from '../../redux/modules/auth/reducer';
@@ -140,7 +141,7 @@ function CarouselComponent(props: CarouselProps) {
     );
   };
   return (
-    <Container height={height} isProduct={isProduct}>
+    <Container height={height - 55} isProduct={isProduct}>
       <SearchBarWrapper>{renderSearchBar()}</SearchBarWrapper>
       <ImageView
         images={imagesArr.map(image => ({uri: image}))}
@@ -155,10 +156,10 @@ function CarouselComponent(props: CarouselProps) {
         }}
         loop={loop}
         width={width}
-        height={isProduct ? height - 30 : height - 25}
+        height={height - 80}
         parallaxScrollingOffset={50}
-        autoPlay={false}
-        autoPlayInterval={10000}
+        autoPlay={autoPlay}
+        autoPlayInterval={3300}
         keyExtractor={item => item}
         data={imagesArr}
         onSnapToItem={newIndex => setActiveIndex(newIndex)}

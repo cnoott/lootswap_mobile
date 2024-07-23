@@ -19,13 +19,18 @@ interface ProfileHeaderComponentProps {
 export const ProfileHeaderComponent: FC<
   ProfileHeaderComponentProps
 > = props => {
-  const {otherUserName, otherUserData, otherUserPfp, profileInMiddle = false} = props;
+  const {
+    otherUserName,
+    otherUserData,
+    otherUserPfp,
+    profileInMiddle = false,
+  } = props;
   const navigation: NavigationProp<any, any> = useNavigation();
 
   return (
     <ProfileHeaderMessageContainer centerAligned={profileInMiddle}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <SvgXml xml={LEFT_BLACK_ARROW} />
+        <SvgXml xml={LEFT_BLACK_ARROW} style={{marginRight: 17}} />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() =>
@@ -42,8 +47,7 @@ export const ProfileHeaderComponent: FC<
         <OfferChatHeaderText>{otherUserName}</OfferChatHeaderText>
       </TouchableOpacity>
 
-      <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} style={{ opacity: 0 }}/>
-
+      <SvgXml xml={PROFILE_TRIPPLE_DOT_ICON} style={{opacity: 0}} />
     </ProfileHeaderMessageContainer>
   );
 };

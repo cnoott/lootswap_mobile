@@ -31,17 +31,21 @@ export const HeaderText = styled.Text.attrs(props => ({
 
 export const HeaderPrimaryText = styled.Text.attrs(props => ({
   color: props.theme.colors.primary,
+  ml: scale(5),
+  pt: scale(5),
 }))`
-  font-weight: bold;
+  font-weight: 900;
+  font-size: ${scale(18)}px;
   font-family: Mont;
   ${color}
+  ${space}
 `;
 
 export const StepTwoSubText = styled.Text.attrs(props => ({
   color: props.theme.colors.black,
 }))`
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   font-family: Urbanist;
   width: 85%;
   text-align: center;
@@ -118,6 +122,32 @@ export const Image = styled.Image.attrs((props: any) => ({
   ${layout}
 `;
 
+
+export const StepOneContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  ${color}
+`;
+
+export const StepOneImage = styled.Image.attrs((props: any) => ({
+  marginTop: '35%',
+  height: '110%',
+  width: '100%',
+  borderRadius: scale(2),
+  resizeMode: 'cover',
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const CenteredButton = styled.TouchableOpacity`
+  position: absolute;
+  top: 54%;
+  left: 35%;
+`;
 export const BottomLeftContainer = styled.View.attrs(() => ({
   height: scale(38),
   width: scale(150),
@@ -131,28 +161,28 @@ export const BottomLeftContainer = styled.View.attrs(() => ({
 
 export const RightPersonOneContainer = styled.View.attrs(() => ({}))`
   position: absolute;
-  bottom: 0;
+  bottom: -35px;
   right: 0;
   ${layout} ${color} ${space} ${border};
 `;
 
 export const RightPersonTwoContainer = styled.View.attrs(() => ({}))`
   position: absolute;
-  bottom: 0;
+  bottom: -35;
   right: 45;
   ${layout} ${color} ${space} ${border};
 `;
 
 export const LeftPersonOneContainer = styled.View.attrs(() => ({}))`
   position: absolute;
-  bottom: 0;
+  bottom: -35;
   left: 0;
   ${layout} ${color} ${space} ${border};
 `;
 
 export const LeftPersonTwoContainer = styled.View.attrs(() => ({}))`
   position: absolute;
-  bottom: 0;
+  bottom: -35;
   left: 38px;
   ${layout} ${color} ${space} ${border};
 `;
@@ -216,6 +246,7 @@ export const SecondRightImage = styled.View.attrs(() => ({}))`
 export const StepThreeHeaderText = styled.Text.attrs(props => ({
   color: props.theme.colors.text,
   ml: scale(5),
+  mt: scale(9),
 }))`
   font-weight: 900;
   font-size: ${scale(18)}px;
@@ -261,11 +292,11 @@ export const GiveawayPrimaryText = styled.Text.attrs(props => ({
   ${space}
 `;
 
-export const GiveawayContainer = styled(LinearGradient).attrs(() => ({
+export const GiveawayContainer = styled(LinearGradient).attrs(props => ({
   flex: 1,
   height: '100%',
   width: '100%',
-  colors: ['#FFF', '#0D86D3'],
+  colors: ['#FFF', props?.giveawayColor ? props.giveawayColor : '#6A74DF'],
   locations: [0, 0.9822],
   start: {x: 0, y: 0},
   end: {x: 0, y: 1},
@@ -308,6 +339,4 @@ export const ReferText = styled.Text.attrs(props => ({
   ${border}
 `;
 
-export const EnterNowButtonContainer = styled.View.attrs(() => ({}))`
-  padding-top: 25px;
-`;
+export const EnterNowButtonContainer = styled.View.attrs(() => ({}))``;

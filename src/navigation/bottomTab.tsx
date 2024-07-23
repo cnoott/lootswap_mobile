@@ -6,6 +6,7 @@ import React, {FC, useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/home';
+import FeedScreen from '../screens/feed';
 import LikedProductScreen from '../screens/home/likedProductScreen';
 import ProfileScreen from '../screens/profile';
 import EditProfileScreen from '../screens/profile/editProfile';
@@ -84,8 +85,12 @@ const HomeStackNavigation = () => (
     screenOptions={{
       headerShown: false,
     }}>
-    <Stack.Screen name="HomeScreen" component={HomeScreen} />
+    <Stack.Screen name="HomeScreen" component={FeedScreen} />
     <Stack.Screen name="Notifications" component={NotificationsScreen} />
+    <Stack.Screen
+      name="AcceptTradeCheckoutScreen"
+      component={AcceptTradeCheckoutScreen}
+    />
     <Stack.Screen name="AddressScreen" component={AddressScreen} />
     <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
     <Stack.Screen
@@ -148,15 +153,17 @@ const HomeStackNavigation = () => (
       component={TradeCheckoutSuccessScreen}
     />
     <Stack.Screen name="SubmitReviewScreen" component={SubmitReviewScreen} />
+    <Stack.Screen name="ReferralScreen" component={ReferralScreen} />
   </Stack.Navigator>
 );
 
 const SearchStackNavigation = () => (
   <Stack.Navigator
-    initialRouteName={'SearchScreen'}
+    initialRouteName={'HomeScreen'}
     screenOptions={{
       headerShown: false,
     }}>
+    <Stack.Screen name="HomeScreen" component={HomeScreen} />
     <Stack.Screen name="SearchScreen" component={SearchScreen} />
     <Stack.Screen name="FiltersScreen" component={FiltersScreen} />
     <Stack.Screen name="StockxScreen" component={StockxScreen} />

@@ -40,6 +40,8 @@ import {FlatList, AppState} from 'react-native';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 import {Pusher, PusherEvent} from '@pusher/pusher-websocket-react-native';
 import {setNotifAsRead} from '../../redux/modules';
+import LSButton from '../../components/commonComponents/LSButton';
+import {Size, Type} from 'custom_enums';
 
 export const OffersMessageScreen: FC<{}> = props => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -61,6 +63,7 @@ export const OffersMessageScreen: FC<{}> = props => {
     useState(false);
   const [isDecline, setDecline] = useState(false);
   const [isEditTradeModalVisible, setEditTradeModalVisible] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(true);
 
   useEffect(() => {
     const initPusher = async () => {
@@ -82,11 +85,14 @@ export const OffersMessageScreen: FC<{}> = props => {
       const pusher = await Pusher.getInstance();
       pusher.unsubscribe(tradeId);
     };
-  },[]);
+  }, []);
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
-      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
         console.log('back from bg');
         const showLoad = false;
         // TODO: show load
@@ -153,6 +159,7 @@ export const OffersMessageScreen: FC<{}> = props => {
 
   useEffect(() => {
     if (tradeData?.trade) {
+      messageListref.current?.scrollToEnd({animated: true});
       dispatch(
         clearTradeNotif({
           userId: userData?._id,
@@ -225,6 +232,7 @@ export const OffersMessageScreen: FC<{}> = props => {
           homeSearch={true}
           inputRadius={20}
           multiline={true}
+          onPressIn={() => setDrawerOpen(false)}
         />
       </InputView>
     );
@@ -305,9 +313,9 @@ export const OffersMessageScreen: FC<{}> = props => {
     return (
       <ChatContainer>
         <FlatList
-          ref={it => messageListref.current = it}
-          initialScrollIndex={offerItem ? offerItem.messages.length - 1 : 0}
+          ref={it => (messageListref.current = it)}
           data={offerItem ? offerItem.messages : []}
+          keyExtractor={(item, index) => item.message + index}
           //extraData={messagesList}
           renderItem={({item}) =>
             renderMessage(item?.userName === userData?.name, item)
@@ -323,6 +331,20 @@ export const OffersMessageScreen: FC<{}> = props => {
           }
         />
       </ChatContainer>
+    );
+  };
+  const renderCounterOfferButton = () => {
+    if (!isReceiver) {
+      return <></>;
+    }
+    return (
+      <LSButton
+        title={'Send Counter Offer'}
+        size={Size.Full}
+        type={Type.Primary}
+        radius={10}
+        onPress={onEditTradePress}
+      />
     );
   };
   return (
@@ -347,9 +369,12 @@ export const OffersMessageScreen: FC<{}> = props => {
         offerItem={offerItem}
         userData={userData}
         tradeStatus={offerItem?.status}
+        drawerOpen={drawerOpen}
+        setDrawerOpen={setDrawerOpen}
       />
       <KeyboardAvoidingView>
         {renderChatView()}
+        {renderCounterOfferButton()}
         <InputContainer bottomSpace={insets.bottom}>
           {renderLeftInputView()}
           {renderRightInputView()}

@@ -11,13 +11,14 @@ import {ADD_PRODUCT_TYPE} from 'custom_types';
 import {
   getAddProductRawData,
   findMarketDataFromSize,
-  getPreownedMarketValue,
 } from '../../../utility/utility';
 
 export interface HomeProps {
   selectedProductDetails: any;
   addProductData: ADD_PRODUCT_TYPE;
   shouldShowGiveaway: Boolean;
+  giveawayImage: string;
+  giveawayColor: string;
 }
 
 type ActionProps = {
@@ -30,6 +31,8 @@ export const InitialState: HomeProps = {
   selectedProductDetails: null,
   addProductData: getAddProductRawData(),
   shouldShowGiveaway: false,
+  giveawayImage: '',
+  giveawayColor: '#0D86D3',
 };
 
 export default function loading(state = InitialState, action: ActionProps) {
@@ -54,17 +57,8 @@ export default function loading(state = InitialState, action: ActionProps) {
         state.addProductData.stepOne.size.value,
       );
       let startRange, endRange;
-      if (state?.addProductData?.stepTwo?.condition?.value === 'Pre-owned') {
-        const range = getPreownedMarketValue(
-          sizeData,
-          state?.addProductData?.stepTwo?.preOwnedCondition?.value,
-        );
-        startRange = parseFloat(range[0]);
-        endRange = parseFloat(range[1]);
-      } else {
-        startRange = sizeData.lastSale - sizeData.lastSale * 0.1;
-        endRange = sizeData.lastSale + sizeData.lastSale * 0.1;
-      }
+      startRange = sizeData.lastSale - sizeData.lastSale * 0.1;
+      endRange = sizeData.lastSale + sizeData.lastSale * 0.1;
       return {
         ...state,
         addProductData: {
@@ -93,7 +87,10 @@ export default function loading(state = InitialState, action: ActionProps) {
         ...state,
         selectedProductDetails: {
           ...payload,
-          product_photos: [payload.primary_photo, ...payload.secondary_photos],
+          product_photos: [
+            payload?.primary_photo,
+            ...payload?.secondary_photos,
+          ],
         },
       };
     }
@@ -115,10 +112,11 @@ export default function loading(state = InitialState, action: ActionProps) {
       };
     }
     case SHOULD_SHOW_GIVEAWAY.SUCCESS: {
-      console.log('clalinghere', payload);
       return {
         ...state,
         shouldShowGiveaway: payload.showGiveaway,
+        giveawayColor: payload.giveawayColor,
+        giveawayImage: payload.giveawayImage,
       };
     }
     default:

@@ -57,48 +57,49 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
   const tradeData = getSelectedTradeData(stepFour?.tradeOptions);
 
   const getUploadedImages = (imagesArr: any) => {
-    const promises = imagesArr.map(async (myValue: any) => {
-      console.log('myvalue', myValue);
-      if (myValue?.isServerImage) {
-        return myValue;
-      }
-      let resizedImage = await ImageResizer.createResizedImage(
-        myValue.uri,
-        1280,
-        1280,
-        'JPEG',
-        78,
-        0,
-        undefined,
-        true,
-        {
-          mode: 'cover',
-          onlyScaleDown: true,
-        },
-      );
-      //compress image
-      const urlUpdated = await new Promise(async resolve => {
-        await getSignedRequest(resizedImage)
-          .then(signedReqData => {
-            uploadFile(
-              resizedImage,
-              signedReqData?.signedRequest,
-              signedReqData?.url,
-            )
-              .then(url => {
-                if (url) {
-                  resolve(url);
-                }
-              })
-              .catch(err => {
-                console.log('Error 111 ====', err);
-              });
-          })
-          .catch(err => {
-            console.log('Error 222 ====', err);
-          });
-      });
-      return {sourceURL: urlUpdated, isServerImage: true};
+    const promises = imagesArr
+      .filter(img => img.sourceURL).map(async (myValue: any) => {
+        console.log('myvalue', myValue);
+        if (myValue?.isServerImage) {
+          return myValue;
+        }
+        let resizedImage = await ImageResizer.createResizedImage(
+          myValue.uri,
+          1280,
+          1280,
+          'JPEG',
+          78,
+          0,
+          undefined,
+          true,
+          {
+            mode: 'cover',
+            onlyScaleDown: true,
+          },
+        );
+        //compress image
+        const urlUpdated = await new Promise(async resolve => {
+          await getSignedRequest(resizedImage)
+            .then(signedReqData => {
+              uploadFile(
+                resizedImage,
+                signedReqData?.signedRequest,
+                signedReqData?.url,
+              )
+                .then(url => {
+                  if (url) {
+                    resolve(url);
+                  }
+                })
+                .catch(err => {
+                  console.log('Error 111 ====', err);
+                });
+            })
+            .catch(err => {
+              console.log('Error 222 ====', err);
+            });
+        });
+        return {sourceURL: urlUpdated, isServerImage: true};
     });
     return Promise.all(promises);
   };
@@ -119,11 +120,12 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
       userId: userData?._id,
       description: stepTwo?.productDescription,
       condition: stepTwo?.condition?.value,
-      preOwnedCondition: stepTwo?.preOwnedCondition?.value,
+      boxCondition: stepTwo?.boxCondition?.value,
       size: stepOne?.size?.value,
       brand: stepTwo?.brand?.value,
       interestedIn: '',
       price: stepFive?.productPrice,
+      floorPrice: stepFive?.floorPrice,
       who_pays: stepFive?.isFreeShipping
         ? Who_Pays_Options?.SellerPays
         : Who_Pays_Options?.BuyerPays,
@@ -131,8 +133,10 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
       category: stepOne?.category?.value,
       type: tradeData?.value,
       photos: images || [],
-      wantedStockxItems:
-        stepFour.wantedStockxItems.map(item => ({stockxId: item.id ?? item._id, size: item.size.value}))
+      wantedStockxItems: stepFour.wantedStockxItems.map(item => ({
+        stockxId: item.id ?? item._id,
+        size: item.size.value,
+      })),
     };
     if (isUpdateCall) {
       reqData.productIdToUpdate = productId;
@@ -233,7 +237,7 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
           `${stepThree?.length} of 13 Images`,
           3,
         )}
-        <FlatList data={stepThree} renderItem={renderImageView} />
+        <FlatList data={stepThree.filter(img => img?.sourceURL)} renderItem={renderImageView} />
       </>
     );
   };
@@ -251,11 +255,7 @@ export const AddProductOverviewScreen: FC<any> = ({route}) => {
         {renderSectionHeader('Product Type', false, 2)}
         {renderSubProductInfo('Brand', `${stepTwo?.brand?.label}`)}
         {renderSubProductInfo('Condition', `${stepTwo?.condition?.label}`)}
-        {stepTwo?.condition?.label === 'Pre-owned' &&
-          renderSubProductInfo(
-            'Pre-Owned Condition',
-            `${stepTwo?.preOwnedCondition?.label}`,
-          )}
+        {renderSubProductInfo('Box Condition', `${stepTwo?.boxCondition?.label}`)}
       </>
     );
   };

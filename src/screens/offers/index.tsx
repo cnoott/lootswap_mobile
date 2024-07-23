@@ -13,6 +13,7 @@ import {
   getPublicOffers,
   deletePublicOffer,
   setNotifsAsReadRequest,
+  archiveTrade,
 } from '../../redux/modules';
 import {TradeProps} from '../../redux/modules/offers/reducer';
 import {MessageProps} from '../../redux/modules/message/reducer';
@@ -24,7 +25,11 @@ import {SvgXml} from 'react-native-svg';
 import {STOCKX_SEARCH_DROP_DOWN_ARROW} from 'localsvgimages';
 import TradeOfferCell from './offerItems/TradeOfferCell';
 import EmptyListView from '../../components/commonComponents/EmptyListView';
-import {getTradeStatusColor, daysPast} from '../../utility/utility';
+import {
+  getTradeStatusColor,
+  daysPast,
+  shouldShowArchive,
+} from '../../utility/utility';
 import NoMessagesView from './offerItems/NoMessagesView';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {Size, Type} from '../../enums';
@@ -51,6 +56,8 @@ import {
   ItemTextStyle,
   Badge,
   BadgeText,
+  PublicOfferDeleteContainer,
+  DeleteText,
 } from './styles';
 import {ButtonContainer} from '../publicOffers/styles';
 import {SelectedTextStyle} from '../search/stockxScreenStyles';
@@ -136,7 +143,10 @@ export const OffersScreen: FC<{}> = () => {
   useEffect(() => {
     if (!tradeLoading && !messageLoading && allMyMessages?.messageDocs) {
       const trades = historyTrades.map(trade => ({...trade, isTrade: true}));
-      const messages = allMyMessages.messageDocs.map(message => ({...message, isTrade: false}));
+      const messages = allMyMessages?.messageDocs.map(message => ({
+        ...message,
+        isTrade: false,
+      }));
 
       let combinedData = [...trades, ...messages];
       combinedData.sort(sortInboxByDate);
@@ -145,17 +155,44 @@ export const OffersScreen: FC<{}> = () => {
   }, [historyTrades, allMyMessages, tradeLoading, messageLoading]);
 
   const sortInboxByDate = (objA: any, objB: any) => {
-    if (
-      new Date(objA.updatedAt).getTime() > new Date(objB.updatedAt).getTime()
-    ) {
+    // Check for support messages and prioritize them
+    if (objA.isSupportMessage && !objB.isSupportMessage) {
       return -1;
     }
-    if (
-      new Date(objA.updatedAt).getTime() < new Date(objB.updatedAt).getTime()
-    ){
+    if (!objA.isSupportMessage && objB.isSupportMessage) {
+      return 1;
+    }
+
+    const dateA = new Date(objA.updatedAt).getTime();
+    const dateB = new Date(objB.updatedAt).getTime();
+    if (dateA > dateB) {
+      return -1;
+    }
+    if (dateA < dateB) {
       return 1;
     }
     return 0;
+  };
+
+  const handleArchiveTrade = (tradeId: string) => {
+
+    let newCombinedInbox = [...combinedInbox];
+    newCombinedInbox = newCombinedInbox.filter(trade => trade?._id !== tradeId);
+    setCombinedInbox(newCombinedInbox);
+    const reqData = {
+      userId: userData?._id,
+      tradeId: tradeId,
+    };
+    dispatch(
+      archiveTrade(
+        reqData,
+        (res: any) => {
+        },
+        (err: any) => {
+          console.log(err);
+        },
+      ),
+    );
   };
 
   const onInboxRefresh = () => {
@@ -167,7 +204,6 @@ export const OffersScreen: FC<{}> = () => {
       }),
     );
   };
-
 
   const goToMessageScreen = (msgData: any) => {
     navigation.navigate('UserChatScreen', {
@@ -220,6 +256,7 @@ export const OffersScreen: FC<{}> = () => {
 
   const RenderUserDetails = ({item, isTrade}) => {
     let statusColorObj;
+    let showArchive = isTrade && shouldShowArchive(item);
     if (isTrade) {
       statusColorObj = getTradeStatusColor(item.status);
     }
@@ -245,6 +282,12 @@ export const OffersScreen: FC<{}> = () => {
             <NameLabel>
               {isReceiver ? <>{item.sender.name}</> : <>{item.receiver.name}</>}
             </NameLabel>
+            {item?.isSupportMessage && (
+              <ProductNameLabel>
+                {item.messages[item.messages.length - 1].message.slice(0, 33) +
+                  '...'}
+              </ProductNameLabel>
+            )}
             {isTrade && (
               <StatusContainerView
                 bgColor={statusColorObj?.backColor}
@@ -256,7 +299,15 @@ export const OffersScreen: FC<{}> = () => {
             )}
           </OwnerDetailsView>
         </EmptyRowView>
-        <TimeLabel> {daysPast(item.createdAt)} </TimeLabel>
+        {showArchive === true ? (
+          <PublicOfferDeleteContainer
+            onPress={() => handleArchiveTrade(item?._id)}
+          >
+            <DeleteText>Archive</DeleteText>
+          </PublicOfferDeleteContainer>
+        ) : (
+          <TimeLabel> {daysPast(item.createdAt)} </TimeLabel>
+        )}
       </RowView>
     );
   };
@@ -282,11 +333,11 @@ export const OffersScreen: FC<{}> = () => {
 
   const renderOfferItem = ({item}: any) => {
     if (item.isTrade) {
-    return (
+      return (
         <OfferCellContainer
           key={item._id}
           onPress={() => tradeOfferCellOnPress(item)}>
-          <RenderUserDetails item={item} isTrade={true}/>
+          <RenderUserDetails item={item} isTrade={true} />
           <TradeOfferCell
             offerItem={item}
             isInTrade={false}
@@ -301,13 +352,16 @@ export const OffersScreen: FC<{}> = () => {
         (!isReceiver && item?.senderNewMessage);
       return (
         <OfferCellContainer
+          isMessageItem={true}
           key={item._id}
           onPress={() => goToMessageScreen(item)}>
-          <RenderUserDetails item={item} isTrade={false}/>
+          <RenderUserDetails item={item} isTrade={false} />
           {showNotifBadge && <CellBadge top={5} left={5} />}
-          <OwnerDetailsView>
-            <OfferForSellOnlyCell itemData={item.product} />
-          </OwnerDetailsView>
+          {!item?.isSupportMessage && (
+            <OwnerDetailsView>
+              <OfferForSellOnlyCell itemData={item.product} />
+            </OwnerDetailsView>
+          )}
         </OfferCellContainer>
       );
     }
@@ -375,7 +429,6 @@ export const OffersScreen: FC<{}> = () => {
       )}
     </TabContainer>
   );
-
 
   const countNotifs = (title: string) => {
     switch (title) {

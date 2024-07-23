@@ -39,7 +39,7 @@ import {getPublicProfileFilters} from '../../utility/utility';
 export const PublicProfileScreen: FC<{}> = ({route}) => {
   const {
     requestedUserDetails,
-    requestedUserDetails: {ratings},
+    requestedUserDetails: {ratings = []},
   } = route?.params;
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
   const [selectedFilterId, setSelectedFilter] = useState(1);

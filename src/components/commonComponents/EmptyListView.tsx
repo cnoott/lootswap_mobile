@@ -1,6 +1,10 @@
 import React, {FC} from 'react';
 import {SvgXml} from 'react-native-svg';
-import {EmptyListContainer, NoOffersLabel, NoOffersMessage} from './EmptyListViewStyles';
+import {
+  EmptyListContainer,
+  NoOffersLabel,
+  NoOffersMessage,
+} from './EmptyListViewStyles';
 import {EMPTY_TRADE_OFFERS_ICON} from 'localsvgimages';
 import {Size, Type} from 'custom_enums';
 import LSButton from './LSButton';
@@ -20,13 +24,15 @@ export const EmptyListView: FC<EmptyListViewProps> = props => {
       <SvgXml xml={EMPTY_TRADE_OFFERS_ICON} />
       <NoOffersLabel>{title}</NoOffersLabel>
       <NoOffersMessage>{subtitle}</NoOffersMessage>
-      <LSButton
-        title={buttonText}
-        size={Size.Small}
-        type={Type.Primary}
-        radius={20}
-        onPress={handleButtonPress}
-      />
+      {buttonText && (
+        <LSButton
+          title={buttonText}
+          size={Size.Small}
+          type={Type.Primary}
+          radius={20}
+          onPress={handleButtonPress}
+        />
+      )}
     </EmptyListContainer>
   );
 };

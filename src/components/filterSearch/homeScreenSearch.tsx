@@ -29,7 +29,7 @@ const LSHomeScreenSearch: FC<LSHomeScreenSearchProps> = React.memo(props => {
 
   const handleOnFocus = () => {
     if (isFromHome) {
-      navigation?.navigate('Search');
+      navigation?.navigate('SearchScreen');
     } else {
       goBackToSearch();
     }

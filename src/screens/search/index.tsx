@@ -47,6 +47,7 @@ import LSButton from '../../components/commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {useScrollToTop} from '@react-navigation/native';
 import {loggingService} from '../../services/loggingService';
+import EmptyListView from '../../components/commonComponents/EmptyListView';
 
 const ITEMS_PER_PAGE = 16;
 
@@ -64,6 +65,8 @@ export const SearchScreen: FC<any> = props => {
 
   const dispatch = useDispatch();
   const [query, setQuery] = useState('');
+  const [queryInput, setQueryInput] = useState('');
+  const [triggerSearch, setTriggerSerach] = useState(false); // we use this to trigger a serach if the query stays the same
   const [recommendedResults, setRecommendedResults] = useState([]);
 
   const [page, setPage] = useState(0);
@@ -75,13 +78,13 @@ export const SearchScreen: FC<any> = props => {
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData, isLogedIn} = auth;
 
-  const debouncedSearchTerm = useDebounce(query, 200);
+  const debouncedSearchTerm = useDebounce(queryInput, 200);
   useEffect(() => {
-    if (!searchProducts.length && debouncedSearchTerm.length > 3) {
+    if (debouncedSearchTerm.length > 3) {
       handleGetRecommendedSerach();
     }
     dispatch(getAvaliableSizesRequest());
-  }, [debouncedSearchTerm, searchProducts.length]);
+  }, [debouncedSearchTerm]);
 
   //TODO: end reached
   useEffect(() => {
@@ -92,10 +95,18 @@ export const SearchScreen: FC<any> = props => {
       setLoadingItems([]);
       console.log('not loading');
     }
-  }, [loading])
+  }, [loading]);
+
+  useEffect(() => {
+    console.log('query here');
+    if (query) {
+      onSubmitSearch(query);
+    }
+  }, [query, triggerSearch]);
 
   const handleNavigateToFilters = () => {
     swiperRef?.current?.scrollTo(2);
+    loggingService().logEvent('start_filter');
     navigation?.navigate('FiltersScreen', {
       query: query,
     });
@@ -128,7 +139,7 @@ export const SearchScreen: FC<any> = props => {
   };
 
   const handleGetRecommendedSerach = () => {
-    const reqData = {query: query};
+    const reqData = {query: queryInput};
     dispatch(
       getRecommendedSearch(
         reqData,
@@ -142,16 +153,12 @@ export const SearchScreen: FC<any> = props => {
     );
   };
 
-  const onSubmitSearch = (recentSearch: string = '') => {
-    let searchQuery;
-    if (recentSearch) {
-      searchQuery = recentSearch;
-    } else {
-      searchQuery = query;
-    }
-    if (!searchQuery) {
-      return;
-    }
+  const onSubmitQuery = () => {
+    setTriggerSerach(!triggerSearch);
+    setQuery(queryInput);
+  };
+
+  const onSubmitSearch = (searchQuery: string) => {
     setPage(0);
     if (isLogedIn) {
       handleSaveSearch(searchQuery);
@@ -182,6 +189,7 @@ export const SearchScreen: FC<any> = props => {
       navigation?.navigate('HomeScreen');
     } else {
       swiperRef?.current?.scrollTo(currPage - 1);
+      setRecommendedResults([]);
     }
   };
 
@@ -192,14 +200,17 @@ export const SearchScreen: FC<any> = props => {
 
   const renderItem = ({item, index}: any) => {
     if (item.loading) {
-      return <LoadingProductCard key={`loading-${index}`} />
+      return <LoadingProductCard key={`loading-${index}`} />;
     }
-    return <LSProductCard item={item} isHorizontalView={false} key={item._id}/>;
+    return (
+      <LSProductCard item={item} isHorizontalView={false} key={item._id} />
+    );
   };
 
   const handlePressRecentSearch = (recentSearch: string) => {
+    setQueryInput(recentSearch);
     setQuery(recentSearch);
-    onSubmitSearch(recentSearch);
+    setTriggerSerach(!triggerSearch);
   };
 
   const handleClearFilters = () => {
@@ -257,7 +268,7 @@ export const SearchScreen: FC<any> = props => {
             <DefaultFlatList
               data={userData?.recentSearches}
               renderItem={renderRecentSearch}
-              keyExtractor={item => item}
+              keyExtractor={(item, index) => `${item}+${index}`}
               ListFooterComponent={
                 <ClearRecentSearchesText onPress={() => handleClearSearches()}>
                   Clear All
@@ -277,7 +288,7 @@ export const SearchScreen: FC<any> = props => {
           <DefaultFlatList
             data={recommendedResults}
             renderItem={renderRecentSearch}
-            keyExtractor={item => item}
+            keyExtractor={(item, index) => `${item}${index}`}
           />
         </RecentSearchesTextContainer>
       </RecentSearchesContainer>
@@ -317,9 +328,18 @@ export const SearchScreen: FC<any> = props => {
           keyExtractor={(item, index) =>
             item._id ? item._id.toString() : `loading-${index}`
           }
-          ListHeaderComponent={renderStockxResults()}
+          //ListHeaderComponent={renderStockxResults()} // disabled until we have more items
           numColumns={2}
           onEndReached={() => handleSearchEndReached()}
+          ListEmptyComponent={
+            <EmptyListView
+              title={'No Items Found For That Search'}
+              subtitle={'Check back another time!'}
+              //buttonText={'Start Trading'}
+              //handleButtonPress={() => navigation.navigate('Home')}
+            />
+
+          }
         />
         {filtersSet && (
           <ClearFiltersButtonContainer>
@@ -354,9 +374,9 @@ export const SearchScreen: FC<any> = props => {
         </GoBackTouchable>
         <SearchInputContainer>
           <LSHomeScreenSearch
-            query={query}
-            setQuery={setQuery}
-            onSubmitSearch={onSubmitSearch}
+            query={queryInput}
+            setQuery={setQueryInput}
+            onSubmitSearch={onSubmitQuery}
             goBackToSearch={goBackToSearch}
             navigateToFilters={handleNavigateToFilters}
           />

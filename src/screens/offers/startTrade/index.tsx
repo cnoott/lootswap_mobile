@@ -7,10 +7,8 @@ import LSButton from '../../../components/commonComponents/LSButton';
 import {Size, Type} from '../../../enums';
 import {StartTradeStepOne} from './startTradeStepOne';
 import {StartTradeStepTwo} from './startTradeStepTwo';
-import {StartTradeCheckoutScreen} from './startTradeCheckoutScreen';
 import {ReviewTrade} from './reviewTrade';
 import {useDispatch, useSelector} from 'react-redux';
-import {useStripe} from '@stripe/stripe-react-native';
 import {calculateMarketValue} from '../../../utility/utility';
 import {
   getMyDetailsNoLoadRequest,
@@ -22,6 +20,7 @@ import {
 import {Alert} from 'custom_top_alert';
 import RobberyModal from '../../../components/offers/RobberyModal';
 import {loggingService} from '../../../services/loggingService';
+import {AuthProps} from '../../../redux/modules/auth/reducer';
 
 type PaymentDetails = {
   platformFee: number;
@@ -34,10 +33,12 @@ type PaymentDetails = {
 const NUMBER_OF_STEPS = 5;
 
 export const StartTradeScreen: FC<any> = ({route}) => {
-  const {requestedUserDetails, userData, isFromMessageScreen = false} = route?.params;
+  const {requestedUserDetails, isFromMessageScreen = false} = route?.params;
   const dispatch = useDispatch();
   const navigation: NavigationProp<any, any> = useNavigation();
   const swiperRef = useRef<any>(null);
+  const auth: AuthProps = useSelector(state => state.auth);
+  const {userData} = auth;
 
   const [currIndex, setCurrIndex] = useState(0);
 
@@ -52,17 +53,6 @@ export const StartTradeScreen: FC<any> = ({route}) => {
   const [requestedMoneyOffer, setRequestedMoneyOffer] = useState(0);
 
   const [loading, setLoading] = useState(false);
-
-  const {initPaymentSheet, presentPaymentSheet} = useStripe();
-
-  const [paymentDetails, setPaymentDetails] = useState<PaymentDetails>({
-    platformFee: 0,
-    toUserRate: 0,
-    toWarehouseRate: 0,
-    total: 0,
-    userPayout: 0,
-  });
-  const [trade, setTrade] = useState({});
 
   useEffect(() => {
     console.log('STARTING');
@@ -82,12 +72,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
         };
       case 2:
         return {
-          title: 'Review Order',
-          profilePicture: '',
-        };
-      case 3:
-        return {
-          title: 'Checkout & Submit Offer',
+          title: 'Review Offer',
           profilePicture: '',
         };
     }
@@ -105,7 +90,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     </>
   );
 
-  const initializePaymentSheet = () => {
+  const completeStartTrade = () => {
     const reqData = {
       userId: userData?._id,
       tradeData: {
@@ -121,30 +106,23 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       startTradeCheckout(
         reqData,
         async res => {
-          setPaymentDetails(res.rateData);
-          const {paymentIntent, ephemeralKey, customer} = res.stripeData;
-          const {error} = await initPaymentSheet({
-            merchantDisplayName: 'lootswap, Inc.',
-            customerId: customer,
-            customerEphemeralKeySecret: ephemeralKey,
-            paymentIntentClientSecret: paymentIntent,
-            applePay: {
-              merchantCountryCode: 'US',
-            },
-          });
-          if (!error) {
-            setLoading(true);
-          }
-          setTrade(res.trade);
+          loggingService().logEvent('complete_start_trade_offer');
+          handleCompleteCheckoutNavigation(res.trade);
+          dispatch(getAllMyMessages(userData?._id));
+          dispatch(
+            getTradesHistory({
+              userId: userData?._id,
+            }),
+          );
         },
         error => {
-          Alert.showError('Error in checking out');
+          Alert.showError('Error in starting trade: ', error);
         },
       ),
     );
   };
 
-  const handleCompleteCheckoutNavigation = () => {
+  const handleCompleteCheckoutNavigation = (tradeData: any) => {
     console.log('isfromessage', isFromMessageScreen);
     if (isFromMessageScreen) {
       navigation.reset({
@@ -153,33 +131,12 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       });
       navigation.navigate('Inbox', {
         screen: 'OffersMessageScreen',
-        params: {item: trade},
+        params: {item: tradeData},
       });
 
       console.log('isfromessage');
     } else {
-      navigation?.replace('OffersMessageScreen', {item: trade});
-    }
-  };
-
-  const openPaymentSheet = async () => {
-    const {error} = await presentPaymentSheet();
-
-    if (error) {
-      Alert.showError(error?.message);
-      console.log('error payment sheet', error);
-    } else {
-      handleCompleteCheckoutNavigation();
-      loggingService().logEvent('start_trade', {
-        id: trade?._id,
-      });
-      loggingService().logEvent('complete_start_trade_offer');
-      dispatch(getAllMyMessages(userData?._id));
-      dispatch(
-        getTradesHistory({
-          userId: userData?._id,
-        }),
-      );
+      navigation?.replace('OffersMessageScreen', {item: tradeData});
     }
   };
 
@@ -192,7 +149,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
 
     if (currIndex + 1 === 3) {
       dispatch(getMyDetailsNoLoadRequest(userData?._id));
-      initializePaymentSheet();
+      completeStartTrade();
     }
     swiperRef?.current?.scrollTo(currIndex + 1);
   };
@@ -228,6 +185,12 @@ export const StartTradeScreen: FC<any> = ({route}) => {
       Alert.showError('Please select at least one item');
       return false;
     } else if (currIndex === 2) {
+      const userNoAddress =
+        Object.keys(userData?.shipping_address || {}).length < 5;
+      if (userNoAddress) {
+        Alert.showError('Please fill out your shipping address at the top');
+        return false;
+      }
       var otherUserMarketString = calculateMarketValue(otherUserSelected);
       var myMarketString = calculateMarketValue(mySelected);
       if (otherUserMarketString === 'Unknown' || myMarketString === 'Unknown') {
@@ -252,7 +215,7 @@ export const StartTradeScreen: FC<any> = ({route}) => {
     currIndex !== 3 && (
       <ButtonContainer>
         <LSButton
-          title={currIndex === 2 ? 'Checkout & Submit' : 'Next'}
+          title={currIndex === 2 ? 'Submit' : 'Next'}
           size={Size.Large}
           type={Type.Primary}
           radius={20}
@@ -285,18 +248,6 @@ export const StartTradeScreen: FC<any> = ({route}) => {
               setRequestedMoneyOffer={setRequestedMoneyOffer}
               myMoneyOffer={myMoneyOffer}
               setMyMoneyOffer={setMyMoneyOffer}
-            />
-          );
-        case 4:
-          return (
-            <StartTradeCheckoutScreen
-              receiverItems={otherUserItems.filter(item => item?.isSelected)}
-              senderItems={myItems.filter(item => item?.isSelected)}
-              receiverMoneyOffer={requestedMoneyOffer}
-              senderMoneyOffer={myMoneyOffer}
-              paymentDetails={paymentDetails}
-              loading={loading}
-              openPaymentSheet={openPaymentSheet}
             />
           );
       }

@@ -19,7 +19,13 @@ import {
   MinPriceContainer,
   HorizontalMarginView,
 } from './filtersScreenStyles';
-import {categoryList, brandsList} from '../../utility/utility';
+import {
+  categoryList,
+  brandsList,
+  shoesSizeList,
+  upperClothingSize,
+  lowerClothingSize,
+} from '../../utility/utility';
 import {InStackHeader} from '../../components/commonComponents/headers/stackHeader';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -35,6 +41,10 @@ import {Size, Type, Filter_Type} from '../../enums';
 import LSSearchableDropdown from '../../components/commonComponents/LSSearchableDropdown';
 import LSInput from '../../components/commonComponents/LSInput';
 import {DOLLOR_TEXT} from 'localsvgimages';
+
+const shoesSizeStrings = shoesSizeList.map(size => size.value);
+const upperClothingStrings = upperClothingSize.map(size => size.value);
+const lowerClothingStrings = lowerClothingSize.map(size => size.value);
 
 export const FiltersScreen: FC<any> = ({route}) => {
   const navigation: NavigationProp<any, any> = useNavigation(); // Accessing navigation object
@@ -133,31 +143,11 @@ export const FiltersScreen: FC<any> = ({route}) => {
       <EmptyView>
         <ListTitleText>Condition</ListTitleText>
         <AnimatedCheckBox
-          isChecked={filterIsSelected(filters, 'New with box')}
+          isChecked={filterIsSelected(filters, 'New')}
           disableBuiltInState={true}
-          selected={filterIsSelected(filters, 'New with box')}
-          text="New with box"
-          onPress={() =>
-            onSetFilter(dispatch, Filter_Type.Condition, 'New with box')
-          }
-        />
-        <AnimatedCheckBox
-          isChecked={filterIsSelected(filters, 'New without box')}
-          selected={filterIsSelected(filters, 'New without box')}
-          disableBuiltInState={true}
-          text="New without box"
-          onPress={() =>
-            onSetFilter(dispatch, Filter_Type.Condition, 'New without box')
-          }
-        />
-        <AnimatedCheckBox
-          isChecked={filterIsSelected(filters, 'New with defect')}
-          selected={filterIsSelected(filters, 'New with defect')}
-          disableBuiltInState={true}
-          text="New with defect"
-          onPress={() =>
-            onSetFilter(dispatch, Filter_Type.Condition, 'New with defect')
-          }
+          selected={filterIsSelected(filters, 'New')}
+          text="New"
+          onPress={() => onSetFilter(dispatch, Filter_Type.Condition, 'New')}
         />
         <AnimatedCheckBox
           isChecked={filterIsSelected(filters, 'Pre-owned')}
@@ -225,6 +215,37 @@ export const FiltersScreen: FC<any> = ({route}) => {
     );
   };
 
+  const renderSelectedSizeButton = ({item, index}: any) => {
+    return (
+      <SelectedBrandButton
+        onPress={() => onSetFilter(dispatch, Filter_Type.Sizes, item)}
+        key={index}>
+        <FilterButtonText isSelected={true}>{item}</FilterButtonText>
+        <CloseIcon />
+      </SelectedBrandButton>
+    );
+  };
+
+  const renderSizeFilter = (sizes, title, filterType, selectedSizes) => {
+    return (
+      <EmptyView>
+        <ListTitleText>{title}</ListTitleText>
+        <LSSearchableDropdown
+          placeHolder="Search Size"
+          itemsList={sizes.map(size => ({
+            id: size.value,
+            name: size.label,
+          }))}
+          onItemPress={(value: any) =>
+            onSetFilter(dispatch, Filter_Type.Sizes, value.id)
+          }
+        />
+        {filters.brands.length > 0 && <BottomMarginView />}
+        <BrandList data={selectedSizes} renderItem={renderSelectedSizeButton} />
+      </EmptyView>
+    );
+  };
+
   const renderPriceFilter = () => {
     return (
       <EmptyView>
@@ -276,24 +297,27 @@ export const FiltersScreen: FC<any> = ({route}) => {
         {renderListFilter(categoryList, 'Category', Filter_Type.Category)}
         {renderBrandFilter()}
         {renderProductType()}
-        {renderListFilter(
-          avaliableSizes?.shoeSizes,
-          'Avaliable Shoe Sizes',
+        {renderSizeFilter(
+          shoesSizeList,
+          'Shoe Sizes',
           Filter_Type.Sizes,
+          filters.sizes.filter(size => shoesSizeStrings.includes(size)),
         )}
-        {renderListFilter(
-          avaliableSizes?.shirtSizes,
-          'Avaliable Clothing Sizes',
+        {renderSizeFilter(
+          upperClothingSize,
+          'Clothing Tops Size',
           Filter_Type.Sizes,
+          filters.sizes.filter(size => upperClothingStrings.includes(size)),
         )}
-        {renderListFilter(
-          avaliableSizes?.pantSizes,
-          'Avaliable Pant Sizes',
+        {renderSizeFilter(
+          lowerClothingSize,
+          'Pants Sizes',
           Filter_Type.Sizes,
+          filters.sizes.filter(size => lowerClothingStrings.includes(size)),
         )}
         {renderListFilter(
           avaliableSizes?.hatSizes,
-          'Avaliable Hat Sizes',
+          'Available Hat Sizes',
           Filter_Type.Sizes,
         )}
         {renderPriceFilter()}
