@@ -63,7 +63,8 @@ export const DotsComponent = styled(Dots).attrs(props => ({
 `;
 
 export const ProductInfoContainer = styled.View.attrs((props: any) => ({
-  px: scale(22),
+  px: scale(10),
+  my: scale(5),
 }))`
   ${space}
   ${layout}
@@ -139,3 +140,106 @@ export const ReadDescText = styled.Text.attrs(props => ({
   ${space}
   ${layout}
 `;
+export const TagsContainer = styled.View.attrs(() => ({
+  zIndex: 99999,
+}))`
+  flex-direction: row ${space};
+  align-items: center;
+  position: absolute;
+  top: ${scale(40)}px;
+  right: 10px;
+`;
+
+export const TagView = styled.View.attrs(props => ({
+  py: verticalScale(8),
+  px: scale(10),
+  borderRadius: scale(16),
+  alignItems: 'center',
+  justifyContent: 'center',
+  bg: props?.backColor,
+  mr: scale(5),
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+export const TagLabel = styled.Text.attrs(props => ({
+  color: props?.tagColor,
+}))`
+  font-size: ${moderateScale(12)}px;
+  font-family: Urbanist-SemiBold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const FadeImageContainer = styled.View.attrs(props => ({
+  position: 'relative',
+  overflow: 'hidden',
+}))`
+`;
+
+
+export const ProfileContainer = styled.View.attrs(() => ({
+  zIndex: 99999,
+}))`
+  flex-direction: row ${space};
+  position: absolute;
+  top: ${scale(75)}px;
+  left: 10px;
+  
+`;
+
+export const ProductOwnerLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.white,
+  ml: scale(6),
+}))`
+  font-size: ${moderateScale(18)}px;
+  font-family: Urbanist-ExtraBold;
+  text-shadow-color: rgba(0, 0, 0, 0.5);
+  text-shadow-offset: {width: -1px, height: 1px};
+  text-shadow-radius: 10px;
+  ${color}
+  ${space}
+  ${layout}
+`;
+
+export const NewSellerTagView = styled.View.attrs(() => ({
+  py: verticalScale(3),
+  px: scale(10),
+  borderRadius: scale(5),
+  alignItems: 'center',
+  justifyContent: 'center',
+  bg: 'rgba(0, 0, 0, 0.3)',
+}))`
+  ${color}
+  ${space}
+  ${layout}
+`;
+export const NewSellerLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.white,
+}))`
+  font-size: ${moderateScale(13)}px;
+  font-family: Urbanist-SemiBold;
+  ${color}
+  ${space}
+  ${layout}
+`;
+export const EmptyRowView = styled.View`
+  flex-direction: column;
+  align-items: center;
+`;
+export const StarLabel = styled.Text.attrs(props => ({
+  color: props.theme.colors.white,
+  my: scale(1),
+}))`
+  font-size: ${moderateScale(14)}px;
+  font-family: Urbanist-Medium;
+  text-shadow-color: rgba(0, 0, 0, 0.5);
+  text-shadow-offset: {width: -1px, height: 1px};
+  text-shadow-radius: 10px;
+  ${color}
+  ${space}
+  ${layout}
+`;
+

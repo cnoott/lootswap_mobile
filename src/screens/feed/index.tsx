@@ -10,7 +10,7 @@ import ProductFeedView from '../../components/feed/ProductFeedView';
 import {FlatList} from './styles';
 import {Dimensions} from 'react-native';
 
-const ITEMS_PER_PAGE = 4;
+const ITEMS_PER_PAGE = 12;
 
 const height = Dimensions.get('window').height * 0.9;
 export const FeedScreen: FC<{}> = () => {

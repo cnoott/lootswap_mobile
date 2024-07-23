@@ -79,6 +79,7 @@ class App extends React.Component {
     switch (status) {
       case CodePush.SyncStatus.CHECKING_FOR_UPDATE:
         console.log('Checking for updates.');
+        this.setState({isSplashVisible: false});
         break;
       case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
         this.setState({isSplashVisible: true});
