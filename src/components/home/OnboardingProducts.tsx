@@ -4,7 +4,7 @@ import {
   SectionTopContainer,
   SectionTitleText,
   FlatList,
-} from '../../screens/home/styles'
+} from '../../screens/home/styles';
 import LSButton from '../commonComponents/LSButton';
 import {Size, Type} from '../../enums';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -17,7 +17,7 @@ import {AuthProps} from '../../redux/modules/auth/reducer';
 const ITEMS_PER_PAGE = 8;
 
 export const OnboardingProducts: FC<{}> = () => {
-  const navigation: NavigationProp<any, any> = useNavigation(); 
+  const navigation: NavigationProp<any, any> = useNavigation();
   const dispatch = useDispatch();
   const auth: AuthProps = useSelector(state => state.auth);
   const {userData, isLogedIn} = auth;
@@ -28,7 +28,6 @@ export const OnboardingProducts: FC<{}> = () => {
     page: 0,
     endReached: false,
   });
-
 
   useEffect(() => {
     const reqData = {
@@ -54,7 +53,6 @@ export const OnboardingProducts: FC<{}> = () => {
         },
       ),
     );
-
   }, [yourSizeProducts.page, userData?.onboardingData?.yourSizes]);
 
   useEffect(() => {
@@ -62,12 +60,12 @@ export const OnboardingProducts: FC<{}> = () => {
       setYourSizeProducts({
         ...yourSizeProducts,
         loadingItems: new Array(4).fill({publicOffersLoading: true}),
-    });
+      });
     } else {
       setYourSizeProducts({
         ...yourSizeProducts,
         loadingItems: [],
-    });
+      });
     }
   }, [yourSizeProducts.loading]);
 
@@ -87,7 +85,7 @@ export const OnboardingProducts: FC<{}> = () => {
   };
 
   const onEndReached = () => {
-      console.log('next page');
+    console.log('next page');
     if (!yourSizeProducts.loading && !yourSizeProducts.endReached) {
       setYourSizeProducts(prev => {
         return {...yourSizeProducts, page: prev.page + 1};
@@ -96,50 +94,49 @@ export const OnboardingProducts: FC<{}> = () => {
   };
   // TODO on end reached
 
-
   // XXX Repeating code in homescreen
   const yourSizes = () => {
     return (
-    <>
-      <SectionContainer>
-        <SectionTopContainer>
-          <SectionTitleText>In Your Size</SectionTitleText>
-          <LSButton
-            title={'View All'}
-            size={Size.ViewSmall}
-            type={Type.View}
-            radius={20}
-            onPress={() =>
-              //TODO: Onboarding all listings screen
-              navigation?.navigate('AllListingsScreen', {
-                hotItems: true,
-                type: 'In Your Size',
-              })
-            }
-          />
-        </SectionTopContainer>
-      </SectionContainer>
+      <>
+        <SectionContainer>
+          <SectionTopContainer>
+            <SectionTitleText>In Your Size</SectionTitleText>
+            <LSButton
+              title={'View All'}
+              size={Size.ViewSmall}
+              type={Type.View}
+              radius={20}
+              onPress={() =>
+                //TODO: Onboarding all listings screen
+                navigation?.navigate('AllListingsScreen', {
+                  hotItems: true,
+                  type: 'In Your Size',
+                })
+              }
+            />
+          </SectionTopContainer>
+        </SectionContainer>
 
-      <FlatList
-        data={[...yourSizeProducts.products, ...yourSizeProducts.loadingItems]}
-        renderItem={renderItem}
-        keyExtractor={(item, index) =>
-          item._id ? item._id.toString() + index + 'onboarding' : `loading-onboarding-${index}`
-        }
-        onEndReached={() => onEndReached()}
-        horizontal={true}
-        onEndReachedThreshold={0.5}
-      />
-    </>
-
+        <FlatList
+          data={[
+            ...yourSizeProducts.products,
+            ...yourSizeProducts.loadingItems,
+          ]}
+          renderItem={renderItem}
+          keyExtractor={(item, index) =>
+            item._id
+              ? item._id.toString() + index + 'onboarding'
+              : `loading-onboarding-${index}`
+          }
+          onEndReached={() => onEndReached()}
+          horizontal={true}
+          onEndReachedThreshold={0.5}
+        />
+      </>
     );
   };
 
-  return (
-    <>
-      {yourSizeProducts.products.length > 0 && yourSizes()}
-    </>
-  );
+  return <>{yourSizeProducts.products.length > 0 && yourSizes()}</>;
 };
 
 export default OnboardingProducts;

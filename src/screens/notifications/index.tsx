@@ -88,7 +88,9 @@ export const NotificationsScreen: FC<{}> = () => {
       return updatedQueue;
     });
 
-    if (deleteTimeoutRef.current) return;
+    if (deleteTimeoutRef.current) {
+      return;
+    }
 
     deleteTimeoutRef.current = setTimeout(() => {
       processDeleteQueue(deleteQueueRef.current);

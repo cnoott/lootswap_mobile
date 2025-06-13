@@ -47,8 +47,8 @@
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
-    "react": "18.1.0",
-    "react-native": "0.70.6",
+    "react": "18.2.0",
+    "react-native": "0.72.5",
     "react-native-background-fetch": "^4.2.5",
     "react-native-bouncy-checkbox": "^3.0.6",
     "react-native-branch": "5.7.0",
@@ -109,6 +109,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
+    "@react-native-community/cli": "latest",
     "@react-native-community/eslint-config": "^2.0.0",
     "@tsconfig/react-native": "^2.0.2",
     "@types/jest": "^26.0.23",

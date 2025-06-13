@@ -33,9 +33,7 @@ import {useTheme} from 'styled-components';
 import LinearGradient from 'react-native-linear-gradient';
 import {LSProfileImageComponent} from '../commonComponents/profileImage';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  getUsersDetailsRequest,
-} from '../../redux/modules';
+import {getUsersDetailsRequest} from '../../redux/modules';
 import StarRatings from '../../components/starRatings';
 import {StarIcon as StarIconSolid} from 'react-native-heroicons/solid';
 
@@ -47,7 +45,10 @@ interface ProductFeedViewProps {
 }
 
 const ProductFeedView: FC<ProductFeedViewProps> = React.memo(props => {
-  const {product, product: {userId: requestedUserDetails}} = props;
+  const {
+    product,
+    product: {userId: requestedUserDetails},
+  } = props;
 
   const [activeIndex, setActiveIndex] = useState(0);
   const theme = useTheme();
@@ -59,7 +60,6 @@ const ProductFeedView: FC<ProductFeedViewProps> = React.memo(props => {
   useEffect(() => {
     if (product?.userId) {
       //dispatch(getProductDetails(productData?._id, userData?._id));
-
       // TODO: figure you if you still want to do this
       //dispatch(getProductDetails(product?._id, userData?._id));
     }
@@ -84,26 +84,21 @@ const ProductFeedView: FC<ProductFeedViewProps> = React.memo(props => {
           imageRadius={10}
         />
         <EmptyRowView>
-        <ProductOwnerLabel>
-          {requestedUserDetails?.name}
-        </ProductOwnerLabel>
-              {requestedUserDetails?.ratings.length > 0 ? null : (
-                <NewSellerTagView>
-                  <NewSellerLabel>New Seller</NewSellerLabel>
-                </NewSellerTagView>
-              )}
-          <>
-          {requestedUserDetails?.ratings.length > 0 && (
-            <>
-              <StarIconSolid
-                size={moderateScale(16)}
-                color={'yellow'}
-              />
-              <StarLabel>
-                {` (${requestedUserDetails?.ratings?.length} Reviews)`}
-              </StarLabel>
-            </>
+          <ProductOwnerLabel>{requestedUserDetails?.name}</ProductOwnerLabel>
+          {requestedUserDetails?.ratings.length > 0 ? null : (
+            <NewSellerTagView>
+              <NewSellerLabel>New Seller</NewSellerLabel>
+            </NewSellerTagView>
           )}
+          <>
+            {requestedUserDetails?.ratings.length > 0 && (
+              <>
+                <StarIconSolid size={moderateScale(16)} color={'yellow'} />
+                <StarLabel>
+                  {` (${requestedUserDetails?.ratings?.length} Reviews)`}
+                </StarLabel>
+              </>
+            )}
           </>
         </EmptyRowView>
       </ProfileContainer>
@@ -122,19 +117,19 @@ const ProductFeedView: FC<ProductFeedViewProps> = React.memo(props => {
           data={[product.primary_photo, ...product.secondary_photos]}
           renderItem={({index, item}) => (
             <>
-          <FadeImageContainer>
-            <Image source={{uri: item}} width={width} height={height} />
-            <LinearGradient
-              colors={['rgba(0,0,0,0.9)', 'rgba(0,0,0,0)']}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                height: '4%',
-              }}
-            />
-            </FadeImageContainer>
+              <FadeImageContainer>
+                <Image source={{uri: item}} width={width} height={height} />
+                <LinearGradient
+                  colors={['rgba(0,0,0,0.9)', 'rgba(0,0,0,0)']}
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '4%',
+                  }}
+                />
+              </FadeImageContainer>
 
               <ItemCenterContainer>
                 <Image width={'100%'} height={'100%'} source={{uri: item}} />
@@ -151,17 +146,23 @@ const ProductFeedView: FC<ProductFeedViewProps> = React.memo(props => {
       </CarouselContainer>
       <ProductInfoContainer>
         <RowView>
-          <BrandText>{product.brand}  <TimeText>2d ago</TimeText></BrandText>
+          <BrandText>
+            {product.brand} <TimeText>2d ago</TimeText>
+          </BrandText>
           <PriceText>${parseFloat(product.price).toFixed(2)}</PriceText>
         </RowView>
         <RowView>
           <NameText>{product.name}</NameText>
         </RowView>
         <RowView>
-          <LabelText>Condition: <NameText>{product.condition}</NameText></LabelText>
+          <LabelText>
+            Condition: <NameText>{product.condition}</NameText>
+          </LabelText>
         </RowView>
         <RowView>
-          <LabelText>Size: <NameText>{product.size}</NameText></LabelText>
+          <LabelText>
+            Size: <NameText>{product.size}</NameText>
+          </LabelText>
         </RowView>
         <RowView>
           <ReadDescText>Read Description</ReadDescText>
@@ -169,7 +170,6 @@ const ProductFeedView: FC<ProductFeedViewProps> = React.memo(props => {
       </ProductInfoContainer>
     </Container>
   );
-
 });
 
 export default ProductFeedView;

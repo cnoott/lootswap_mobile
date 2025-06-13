@@ -76,7 +76,8 @@ export const AddProductStepFive: FC<ProductStep> = props => {
       return;
     }
 
-    let dotPositionCalc = ((converted - 0.9 * lastSalePrice) / (0.2 * lastSalePrice)) * 100;
+    let dotPositionCalc =
+      ((converted - 0.9 * lastSalePrice) / (0.2 * lastSalePrice)) * 100;
 
     const positionWithBounds = Math.max(0, Math.min(100, dotPositionCalc));
     setDotPosition(positionWithBounds);
@@ -95,7 +96,9 @@ export const AddProductStepFive: FC<ProductStep> = props => {
   const {updateProductData} = props;
   const onBlurCall = () => {
     if (floorPrice >= price) {
-      Alert.showError('Your Floor Price Cannot Be Greater Than Your Product Price');
+      Alert.showError(
+        'Your Floor Price Cannot Be Greater Than Your Product Price',
+      );
     }
     updateProductData({
       ...addProductData,
@@ -212,14 +215,13 @@ export const AddProductStepFive: FC<ProductStep> = props => {
             keyboardType={'numeric'}
             onBlurCall={onBlurCall}
           />
-        {stepFive?.median !== 0 && renderMarketRange()}
-        <Divider />
+          {stepFive?.median !== 0 && renderMarketRange()}
+          <Divider />
           <HorizontalSpace>
             <TradeOptionsText>Smart Pricing</TradeOptionsText>
             <ShippingDes>
-              We'll automatically drop your listing by 10% at the
-              best time every week until it reaches your floor
-              price.
+              We'll automatically drop your listing by 10% at the best time
+              every week until it reaches your floor price.
             </ShippingDes>
             <SmartPricingContainer>
               <TradeOptionsText>Turn on Smart Pricing</TradeOptionsText>
@@ -235,7 +237,7 @@ export const AddProductStepFive: FC<ProductStep> = props => {
                 onValueChange={toggleFloorPrice}
                 value={showFloorPrice}
               />
-          </SmartPricingContainer>
+            </SmartPricingContainer>
           </HorizontalSpace>
           {showFloorPrice && (
             <>

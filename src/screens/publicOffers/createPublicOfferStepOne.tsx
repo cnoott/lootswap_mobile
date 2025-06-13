@@ -76,7 +76,9 @@ export const CreatePublicOfferStepOne: FC<StepOneProps> = props => {
   }, [debouncedSearchTerm]);
 
   const fetchStockxData = useCallback(() => {
-    if (stockxLoading) return;
+    if (stockxLoading) {
+      return;
+    }
     setStockxLoading(true);
     setSearchResults([]);
     handleDrawerAnimation();

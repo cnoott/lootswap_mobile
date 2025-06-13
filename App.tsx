@@ -28,7 +28,8 @@ class App extends React.Component {
     };
 
     this.codePushStatusDidChange = this.codePushStatusDidChange.bind(this);
-    this.codePushDownloadDidProgress = this.codePushDownloadDidProgress.bind(this);
+    this.codePushDownloadDidProgress =
+      this.codePushDownloadDidProgress.bind(this);
   }
 
   componentDidMount() {
@@ -70,7 +71,7 @@ class App extends React.Component {
         installMode: CodePush.InstallMode.IMMEDIATE,
       },
       this.codePushStatusDidChange,
-      this.codePushDownloadDidProgress
+      this.codePushDownloadDidProgress,
     );
   }
 
@@ -111,8 +112,14 @@ class App extends React.Component {
   }
 
   codePushDownloadDidProgress(progress) {
-    console.log('Download progress:', progress.receivedBytes, progress.totalBytes); // Debugging log
-    this.setState({ progress: (progress.receivedBytes / progress.totalBytes) * 100 });
+    console.log(
+      'Download progress:',
+      progress.receivedBytes,
+      progress.totalBytes,
+    ); // Debugging log
+    this.setState({
+      progress: (progress.receivedBytes / progress.totalBytes) * 100,
+    });
   }
 
   render() {
@@ -133,4 +140,3 @@ class App extends React.Component {
 }
 
 export default CodePush(codePushOptions)(App);
-

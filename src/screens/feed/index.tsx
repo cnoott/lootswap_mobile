@@ -36,9 +36,8 @@ export const FeedScreen: FC<{}> = () => {
     );
   }, []);
 
-
   useEffect(() => {
-    fetchHomeScreenProducts()
+    fetchHomeScreenProducts();
   }, []);
 
   const renderItem = ({item, index}: any) => {
@@ -56,7 +55,5 @@ export const FeedScreen: FC<{}> = () => {
     />
   );
 };
-
-
 
 export default FeedScreen;

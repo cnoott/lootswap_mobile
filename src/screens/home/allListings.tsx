@@ -89,7 +89,6 @@ export const AllListingsScreen: FC<any> = ({route}) => {
     );
   }, [page]);
 
-
   useEffect(() => {
     console.log('TYPEZ', type);
     if (filtersSet || type === 'All Listings') {

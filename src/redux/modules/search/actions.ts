@@ -39,7 +39,7 @@ export const setProducts = (
 export const setProductsRequest = () => {
   return {
     type: SET_PRODUCTS.REQUEST,
-  }
+  };
 };
 
 export const clearProducts = () => {

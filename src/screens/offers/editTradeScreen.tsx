@@ -136,7 +136,7 @@ export const EditTradeScreen: FC<any> = ({route}) => {
         };
       case 1:
         return {
-          title: `Your loot`,
+          title: 'Your loot',
           profilePicture: userData.profile_picture,
         };
       case 2:

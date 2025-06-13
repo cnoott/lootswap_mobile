@@ -83,10 +83,16 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
 
     const dispatch = useDispatch();
     useEffect(() => {
-      const receiverRate = !isMoneyOffer && isReceiver && offerItem?.orderId.senderStep === 5;
-      const senderRate = !isMoneyOffer && !isReceiver && offerItem?.receiverStep === 5;
-      const purchaseRate = isMoneyOffer && offerItem?.paypalOrderId?.shippingStep === 3;
-      if ((receiverRate || senderRate || purchaseRate) && !userData?.hasGivenAppStoreRating) {
+      const receiverRate =
+        !isMoneyOffer && isReceiver && offerItem?.orderId.senderStep === 5;
+      const senderRate =
+        !isMoneyOffer && !isReceiver && offerItem?.receiverStep === 5;
+      const purchaseRate =
+        isMoneyOffer && offerItem?.paypalOrderId?.shippingStep === 3;
+      if (
+        (receiverRate || senderRate || purchaseRate) &&
+        !userData?.hasGivenAppStoreRating
+      ) {
         const rateOptions = {
           AppleAppId: '6445904189',
           preferInApp: true,
@@ -107,7 +113,6 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
             console.log('ERR giving review', errorMessage);
           }
         });
-
       }
     }, []);
 
@@ -252,7 +257,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
           : `${otherUsername} has declined the trade!`;
       } else if (isAccepted) {
         headerText = isReceiver
-          ? `You have accepted the offer!`
+          ? 'You have accepted the offer!'
           : `${otherUsername} has accepted your offer!`;
       }
 
@@ -269,7 +274,7 @@ export const LSOfferChatHeader: FC<HeaderProps> = React.memo(
                 }
               />
               <OfferStatusText isAccepted={isAccepted}>{`${
-                isAccepted ? `Trade Accepted!` : 'Trade Declined'
+                isAccepted ? 'Trade Accepted!' : 'Trade Declined'
               }`}</OfferStatusText>
             </EmptyRowView>
           </OfferStatusLeftView>

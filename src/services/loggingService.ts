@@ -23,7 +23,7 @@ export const loggingService = () => {
 
   const logEvent = (eventName: string, params: {[key: string]: any} = {}) => {
     const currentEpochTime = getCurrentEpochTime();
-    params['timestamp'] = currentEpochTime;
+    params.timestamp = currentEpochTime;
     console.log(eventName, params);
     analytics().logEvent(eventName, params);
     RNUxcam.logEvent(eventName, params);
@@ -31,7 +31,7 @@ export const loggingService = () => {
 
   const logScreenView = (params: {[key: string]: any} = {}) => {
     const currentEpochTime = getCurrentEpochTime();
-    params['timestamp'] = currentEpochTime;
+    params.timestamp = currentEpochTime;
     console.log(params);
     analytics().logScreenView(params);
   };

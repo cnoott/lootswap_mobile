@@ -122,7 +122,6 @@ export const Image = styled.Image.attrs((props: any) => ({
   ${layout}
 `;
 
-
 export const StepOneContainer = styled.View`
   flex: 1;
   justify-content: center;

@@ -115,7 +115,7 @@ export const ChosenStockxProduct: FC<ChosenStockxProductProps> = props => {
           <TitleText>
             {formatData().image ? formatData().name : productName}
           </TitleText>
-          <TitleText></TitleText>
+          <TitleText />
         </TextContainer>
       </ItemContainer>
       <LSDropDown
