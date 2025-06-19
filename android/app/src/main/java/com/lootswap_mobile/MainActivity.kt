@@ -1,30 +1,24 @@
 package com.lootswap_mobile;
 
-import com.facebook.react.ReactActivity;
-import com.facebook.react.ReactActivityDelegate;
-import com.facebook.react.ReactRootView;
-import org.devio.rn.splashscreen.SplashScreen;
-
-public class MainActivity extends ReactActivity {
+import com.facebook.react.ReactActivity
+import com.facebook.react.ReactActivityDelegate
+import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
+import com.facebook.react.defaults.DefaultReactActivityDelegate
+ 
+class MainActivity : ReactActivity() {
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
    * rendering of the component.
    */
-  @Override
-  protected String getMainComponentName() {
-    return "lootswap_mobile";
-  }
+   override fun getMainComponentName(): String = "lootswap_mobile"
 
-  /**
-   * Returns the instance of the {@link ReactActivityDelegate}. There the RootView is created and
-   * you can specify the renderer you wish to use - the new renderer (Fabric) or the old renderer
-   * (Paper).
+ /**
+   * Returns the instance of the [ReactActivityDelegate]. We use [DefaultReactActivityDelegate]
+   * which allows you to enable New Architecture with a single boolean flags [fabricEnabled]
    */
-  @Override
-  protected ReactActivityDelegate createReactActivityDelegate() {
-    SplashScreen.show(this);
-    return new MainActivityDelegate(this, getMainComponentName());
+  override fun createReactActivityDelegate(): ReactActivityDelegate =
+      DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
   }
 
   public static class MainActivityDelegate extends ReactActivityDelegate {

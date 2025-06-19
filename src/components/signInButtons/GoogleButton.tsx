@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {signInWithGoogleRequest} from '../../redux/modules';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {AuthProps} from '../../redux/modules/auth/reducer';
+import messaging from '@react-native-firebase/messaging';
 
 function GoogleButton() {
   const auth: AuthProps = useSelector(state => state.auth);
@@ -13,18 +14,24 @@ function GoogleButton() {
   const dispatch = useDispatch();
 
   const googleSignUp = async () => {
-    const userInfo = await GoogleSignin.signIn();
-    console.log('token', fcmToken.token);
+    try {
+      const userInfo = await GoogleSignin.signIn();
 
-    dispatch(
-      signInWithGoogleRequest({
-        ...userInfo,
-        userData: userInfo.user,
-        fcmToken: fcmToken?.token,
-        referringUserId: referringUserId,
-        marketingChannel: marketingChannel,
-      }),
-    );
+      const fcmToken = await messaging().getToken();
+      console.log('token', fcmToken);
+
+      dispatch(
+        signInWithGoogleRequest({
+          ...userInfo,
+          userData: userInfo.user,
+          fcmToken, // ← already a string
+          referringUserId,
+          marketingChannel,
+        }),
+      );
+    } catch (error) {
+      console.error('Google Sign-Up Error:', error);
+    }
   };
 
   return (

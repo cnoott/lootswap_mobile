@@ -1,5 +1,6 @@
-import analytics from '@react-native-firebase/analytics';
-import RNUxcam from 'react-native-ux-cam';
+//import analytics from '@react-native-firebase/analytics';
+//todo: replace or remove this
+//import RNUxcam from 'react-native-ux-cam';
 
 declare type Status = 'logged_in' | 'not_logged_in';
 
@@ -8,16 +9,13 @@ const getCurrentEpochTime = (): number =>
 
 export const loggingService = () => {
   const setUserName = (name: string, email: string) => {
-    if (email.includes('semir') || email.includes('liam')) {
-      RNUxcam.optOutOverall();
-      return;
-    }
-    RNUxcam.setUserIdentity(name);
     console.log('set user name:', name);
+    // Optionally set a custom user ID in Firebase if needed:
+    //analytics().setUserId(name);
   };
 
   const setUserStatus = (status: Status) => {
-    analytics().setUserProperties({user_status: status});
+    //analytics().setUserProperties({user_status: status});
     console.log('set user status:', status);
   };
 
@@ -25,15 +23,15 @@ export const loggingService = () => {
     const currentEpochTime = getCurrentEpochTime();
     params.timestamp = currentEpochTime;
     console.log(eventName, params);
-    analytics().logEvent(eventName, params);
-    RNUxcam.logEvent(eventName, params);
+    //analytics().logEvent(eventName, params);
+    //RNUxcam.logEvent(eventName, params);
   };
 
   const logScreenView = (params: {[key: string]: any} = {}) => {
     const currentEpochTime = getCurrentEpochTime();
     params.timestamp = currentEpochTime;
     console.log(params);
-    analytics().logScreenView(params);
+    //analytics().logScreenView(params);
   };
 
   return {
