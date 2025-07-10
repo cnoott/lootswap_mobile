@@ -28,7 +28,7 @@ PODS:
   - Branch (1.45.2)
   - BVLinearGradient (2.8.3):
     - React-Core
-  - CodePush (8.3.1):
+  - CodePush (8.0.2):
     - Base64 (~> 1.1)
     - JWT (~> 3.0.0-beta.12)
     - React-Core
@@ -1445,9 +1445,9 @@ PODS:
   - react-native-branch (5.7.0):
     - Branch (= 1.45.2)
     - React-Core
-  - react-native-config (1.5.5):
-    - react-native-config/App (= 1.5.5)
-  - react-native-config/App (1.5.5):
+  - react-native-config (1.5.0):
+    - react-native-config/App (= 1.5.0)
+  - react-native-config/App (1.5.0):
     - React-Core
   - react-native-fbsdk-next (13.4.1):
     - React-Core
@@ -1466,34 +1466,19 @@ PODS:
     - React-Core
   - react-native-html-to-pdf (0.12.0):
     - React-Core
-  - react-native-image-resizer (3.0.11):
+  - react-native-image-resizer (3.0.7):
     - React-Core
-  - react-native-pager-view (6.8.1):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.01.01.00)
+  - react-native-pager-view (6.1.2):
+    - React-Core
+  - react-native-print (0.11.0):
+    - React-Core
+  - react-native-safe-area-context (4.4.1):
+    - RCT-Folly
     - RCTRequired
     - RCTTypeSafety
     - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - Yoga
-  - react-native-print (0.11.0):
-    - React-Core
-  - react-native-safe-area-context (4.14.1):
-    - React-Core
-  - react-native-sms (1.12.0):
+  - react-native-sms (1.11.0):
     - React
   - react-native-spinkit (1.4.1):
     - React
@@ -1763,17 +1748,17 @@ PODS:
     - React-logger (= 0.75.2)
     - React-perflogger (= 0.75.2)
     - React-utils (= 0.75.2)
-  - RNAppleAuthentication (2.4.1):
+  - RNAppleAuthentication (2.3.0):
     - React-Core
-  - RNBackgroundFetch (4.2.8):
+  - RNBackgroundFetch (4.2.5):
     - React-Core
-  - RNCAsyncStorage (1.24.0):
+  - RNCAsyncStorage (1.17.11):
     - React-Core
-  - RNCClipboard (1.16.2):
+  - RNCClipboard (1.11.2):
     - React-Core
   - RNCPushNotificationIOS (1.11.0):
     - React-Core
-  - RNDeviceInfo (10.14.0):
+  - RNDeviceInfo (10.5.1):
     - React-Core
   - RNFastImage (8.6.3):
     - React-Core
@@ -1795,29 +1780,10 @@ PODS:
     - FirebaseCoreExtension
     - React-Core
     - RNFBApp
-  - RNGestureHandler (2.26.0):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.01.01.00)
-    - RCTRequired
-    - RCTTypeSafety
+  - RNGestureHandler (2.9.0):
     - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - Yoga
-  - RNGoogleSignin (11.0.1):
-    - GoogleSignIn (~> 7.0.0)
+  - RNGoogleSignin (11.0.0):
+    - GoogleSignIn (~> 7.0)
     - React-Core
   - RNImageCropPicker (0.38.1):
     - React-Core
@@ -1972,31 +1938,12 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.37.0):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.01.01.00)
-    - RCTRequired
-    - RCTTypeSafety
+  - RNScreens (3.18.2):
     - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-NativeModulesApple
-    - React-RCTFabric
     - React-RCTImage
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - Yoga
-  - RNShare (10.2.1):
+  - RNShare (10.1.0):
     - React-Core
-  - RNSVG (13.14.1):
+  - RNSVG (13.6.0):
     - React-Core
   - RNVectorIcons (9.2.0):
     - React-Core
@@ -2023,7 +1970,7 @@ PODS:
     - StripePayments (= 23.3.4)
     - StripePaymentsUI (= 23.3.4)
     - StripeUICore (= 23.3.4)
-  - stripe-react-native (0.23.3):
+  - stripe-react-native (0.23.0):
     - React-Core
     - Stripe (~> 23.3.0)
     - StripeApplePay (~> 23.3.0)
@@ -2444,7 +2391,7 @@ SPEC CHECKSUMS:
   boost: 4cb898d0bf20404aab1850c656dcea009429d6c1
   Branch: c1a7fa1811ef9203c01bc6c2588a229eb3ee1a84
   BVLinearGradient: cb006ba232a1f3e4f341bb62c42d1098c284da70
-  CodePush: 8ba8ea6dbaf817d5e51dbbbd622e15150ba814dd
+  CodePush: 3e3003b55a7b1956021250cf43163efc63926132
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   FBAEMKit: e34530df538b8eb8aeb53c35867715ba6c63ef0c
   FBLazyVector: 38bb611218305c3bc61803e287b8a81c6f63b619
@@ -2506,14 +2453,14 @@ SPEC CHECKSUMS:
   React-Mapbuffer: 4a9b9131acbd8326b1f0e768d0ad63d981a4a92f
   React-microtasksnativemodule: 8b2d1ac72763e0f7aa2d1dcbe26ea84124948ec8
   react-native-branch: a767b64b21af2912c632d7593b6d231cff17c7aa
-  react-native-config: 644074ab88db883fcfaa584f03520ec29589d7df
+  react-native-config: ea73937aecb26d8eb4642ecdb2b2e83d0be59656
   react-native-fbsdk-next: 52f81e60eb3e8e0e06cf9728b4572d3509ca9d01
   react-native-html-to-pdf: 7a49e6c58ac5221bcc093027b195f4b214f27a9d
-  react-native-image-resizer: 24c5d06fae2176dc0caed4b6396e02befb44064a
-  react-native-pager-view: d66d57107a2f383689afd75dcd4525f343e63229
+  react-native-image-resizer: 73c63c5b349aa95b0761d0e19c7b7bcfe89c3bf6
+  react-native-pager-view: 49d43927514af5e800108d3c5f651eb58b595d24
   react-native-print: 692e8782bc89872ea01738c6759631388e77358c
-  react-native-safe-area-context: 758e894ca5a9bd1868d2a9cfbca7326a2b6bf9dc
-  react-native-sms: 6abc83829639e90badc1f7211d2159a641e873a0
+  react-native-safe-area-context: 41ffdebd233eddeef75576749f0cf153e83a0681
+  react-native-sms: 4669ce3cc4e17b06d2e91fb8a4584e02907e40e4
   react-native-spinkit: 96a74c3519fab0eded2ab8c285f774aa3f4b7944
   react-native-splash-screen: 95994222cc95c236bd3cdc59fe45ed5f27969594
   react-native-view-shot: d1a701eb0719c6dccbd20b4bb43b1069f304cb70
@@ -2544,27 +2491,27 @@ SPEC CHECKSUMS:
   React-utils: 2e17380f9c456ac8bf2e63586e18b79f27386edc
   ReactCodegen: ec0b6ef4308774578943faf102b865b603e3e0f7
   ReactCommon: c254c0204d81fb3cd63fefd0df97fb8b3d1f63ab
-  RNAppleAuthentication: c3dddf5918126c9aae85dc2e2ce9fb87835e9e04
-  RNBackgroundFetch: e44c9e85d7fb3122c37d8a806278f62c7682d7ea
-  RNCAsyncStorage: b6410dead2732b5c72a7fdb1ecb5651bbcf4674b
-  RNCClipboard: e1d17c9d093d8129ef50b39b63a17a0e8ccd0ade
+  RNAppleAuthentication: 445222cf501db405f0b3713593a6d0fecc87fd05
+  RNBackgroundFetch: 7cf669539504d57f07aa08fb8b71ad51c4d085f0
+  RNCAsyncStorage: 357676e1dc19095208c80d4271066c407cd02ed1
+  RNCClipboard: efe1b27ad1ea378c60c8c8aabfd130961bbeb474
   RNCPushNotificationIOS: 6c4ca3388c7434e4a662b92e4dfeeee858e6f440
-  RNDeviceInfo: 98bb51ba1519cd3f19f14e7236b5bb1c312c780f
+  RNDeviceInfo: d5f7a0fee6dea4843c3914f744f6110d780f1684
   RNFastImage: 462a183c4b0b6b26fdfd639e1ed6ba37536c3b87
   RNFBAnalytics: 06c4040774c364c90dafd3e41676eaad7053f5be
   RNFBApp: e905ce948d9290555d9ab1303449827eb5119b5c
   RNFBInstallations: c0dab415b127a754054d18df87f3de5e99e63e4d
   RNFBMessaging: 88d044afc7b581ab057c85334d05ad91f6dd852c
-  RNGestureHandler: 5609fe44a38da2d57cf02fb436acfe86bcc5a18c
-  RNGoogleSignin: b8f09e3ec56e09497e1e53b0ff66d5a45916c6b1
+  RNGestureHandler: 5fe9e4f847b51d8cc9006cec6c7dc6718dd82809
+  RNGoogleSignin: 9b083b6a575e7c2401aac339c93f8292d0542d29
   RNImageCropPicker: 12f56db8118044283edcd96f794c10f54ac0c3b3
   RNInAppBrowser: 6d3eb68d471b9834335c664704719b8be1bfdb20
   RNRate: 7641919330e0d6688ad885a985b4bd697ed7d14c
   RNReactNativeHapticFeedback: 00ba111b82aa266bb3ee1aa576831c2ea9a9dfad
   RNReanimated: a139c63433fc53da999a971a352163b41b7b9a67
-  RNScreens: 631b8768411a16e356f7934058d2139d0cc75157
-  RNShare: 694e19d7f74ac4c04de3a8af0649e9ccc03bd8b1
-  RNSVG: ae50dd253f44447b32d0f5a3657a97859f289891
+  RNScreens: 10cefd0dd5c6ccd8651c6ca8b276790ea10a7f20
+  RNShare: 833e490de982d0444f59c8cf0d0d1dcb2ec0c907
+  RNSVG: 1aa3ce1340e2ae326ba6a0091475542d4716fd1a
   RNVectorIcons: 5784330be9dddb5474e8b378d5f6947996c84e55
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
@@ -2573,7 +2520,7 @@ SPEC CHECKSUMS:
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Stripe: 7393b16fe555d4a68e6555044e7b57eff11ae547
-  stripe-react-native: 903432a881ad56dc4fac82b1ca80923c20169554
+  stripe-react-native: 4b80ca047140968cf33fea207862824d83f51c84
   StripeApplePay: 174b09c0211134417e340c68af199a3dd34f3cd6
   StripeCore: babb08ec2b961f7cde8663dad3b4cbb77e0ae63b
   StripeFinancialConnections: 484096f2dc5d3c20cc24a5ad4d261953ba806ef0

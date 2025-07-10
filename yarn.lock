@@ -10421,7 +10421,7 @@ __metadata:
     react-native-dropdownalert: ^4.5.1
     react-native-element-dropdown: ^2.5.1
     react-native-fast-image: ^8.6.3
-    react-native-fbsdk-next: ^13.0.0
+    react-native-fbsdk-next: ^13.4.1
     react-native-gesture-handler: ^2.8.0
     react-native-google-places-autocomplete: ^2.5.6
     react-native-haptic-feedback: ^2.3.3
@@ -12612,16 +12612,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-fbsdk-next@npm:^13.0.0":
-  version: 13.0.0
-  resolution: "react-native-fbsdk-next@npm:13.0.0"
+"react-native-fbsdk-next@npm:^13.4.1":
+  version: 13.4.1
+  resolution: "react-native-fbsdk-next@npm:13.4.1"
   peerDependencies:
     expo: ">=47.0.0"
     react-native: ">=0.63.3"
   peerDependenciesMeta:
     expo:
       optional: true
-  checksum: ba0cd96ad369b5607b27fad3cc49cdc58a3428a7c90343caac52af019fe43b8558b449edbb9a2dcf215d6280c985b7724e1a65ee5999f7532c97400124aebf3b
+  checksum: e8f0f470009485c48e17279b1dfe8e6f94303de52394ce579fb888518a694b79f741a060d957b097534003abb07827e03955203b55101c333ba07bf8f5d307b1
   languageName: node
   linkType: hard
 
