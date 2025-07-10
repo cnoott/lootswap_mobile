@@ -202,7 +202,10 @@ export const CheckoutScreen: FC<{}> = props => {
             : productData?.price.toFixed(2),
         )}
         {renderSummaryDetail('Shipping', costBreakdown.shippingCost.toFixed(2))}
-        {renderSummaryDetail('Taxes and Fees', costBreakdown.buyerFee.toFixed(2))}
+        {renderSummaryDetail(
+          'Taxes and Fees',
+          costBreakdown.buyerFee.toFixed(2),
+        )}
       </EmptyView>
     );
   };

@@ -96,7 +96,9 @@ export const AddProductStepFour: FC<ProductStep> = props => {
   }, [debouncedSearchTerm]);
 
   const fetchStockxData = useCallback(() => {
-    if (loading) return;
+    if (loading) {
+      return;
+    }
     setLoading(true);
     handleDrawerAnimation();
 

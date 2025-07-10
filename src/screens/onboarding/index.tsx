@@ -207,9 +207,11 @@ export const OnboardingScreen: FC<{}> = ({route}) => {
             //selectedValue={{label: data.shoeSize, value: data.shoeSize}}
           />
           {data.shoeSizes.length > 0 && (
-          <SelectionsContainer>
-            {data.shoeSizes.map((item, index) => renderFilter({item}, 'shoeSizes'))}
-          </SelectionsContainer>
+            <SelectionsContainer>
+              {data.shoeSizes.map((item, index) =>
+                renderFilter({item}, 'shoeSizes'),
+              )}
+            </SelectionsContainer>
           )}
           <RenderListFilter
             data={upperClothingSize.map(size => size.value)}
@@ -240,22 +242,22 @@ export const OnboardingScreen: FC<{}> = ({route}) => {
           <Spacer space={10} />
           <CheckboxContainer>
             <AnimatedCheckBox
-              isChecked={data['conditionInterest'].includes('Both')}
-              selected={data['conditionInterest'].includes('Both')}
+              isChecked={data.conditionInterest.includes('Both')}
+              selected={data.conditionInterest.includes('Both')}
               disableBuiltInState={true}
               text="Both New & Pre-owned"
               onPress={() => handleChange('conditionInterest')('Both')}
             />
             <AnimatedCheckBox
-              isChecked={data['conditionInterest'].includes('New')}
-              selected={data['conditionInterest'].includes('New')}
+              isChecked={data.conditionInterest.includes('New')}
+              selected={data.conditionInterest.includes('New')}
               disableBuiltInState={true}
               text="New"
               onPress={() => handleChange('conditionInterest')('New')}
             />
             <AnimatedCheckBox
-              isChecked={data['conditionInterest'].includes('Pre-owned')}
-              selected={data['conditionInterest'].includes('Pre-owned')}
+              isChecked={data.conditionInterest.includes('Pre-owned')}
+              selected={data.conditionInterest.includes('Pre-owned')}
               disableBuiltInState={true}
               text="Pre-owned"
               onPress={() => handleChange('conditionInterest')('Pre-owned')}
@@ -281,7 +283,7 @@ export const OnboardingScreen: FC<{}> = ({route}) => {
 
   return (
     <Container>
-      <InStackHeader back={false} title={`Finish Your Profile`} />
+      <InStackHeader back={false} title={'Finish Your Profile'} />
       <CloseTouchable onPress={handleSkip}>
         <SvgXml xml={TRADE_MODAL_CLOSE_BUTTON} />
       </CloseTouchable>

@@ -14,7 +14,6 @@ export const Container = styled.View.attrs((props: any) => ({
 export const CarouselContainer = styled.View.attrs((props: any) => ({
   flex: 1,
   mt: scale(40),
-  
 }))`
   ${space}
   ${layout}
@@ -42,8 +41,7 @@ export const Image = styled.Image.attrs(props => ({
   ${layout}
 `;
 
-export const DotsContainer = styled.View.attrs(props => ({
-}))`
+export const DotsContainer = styled.View.attrs(props => ({}))`
   ${space}
   ${layout}
 `;
@@ -176,9 +174,7 @@ export const TagLabel = styled.Text.attrs(props => ({
 export const FadeImageContainer = styled.View.attrs(props => ({
   position: 'relative',
   overflow: 'hidden',
-}))`
-`;
-
+}))``;
 
 export const ProfileContainer = styled.View.attrs(() => ({
   zIndex: 99999,
@@ -187,7 +183,6 @@ export const ProfileContainer = styled.View.attrs(() => ({
   position: absolute;
   top: ${scale(75)}px;
   left: 10px;
-  
 `;
 
 export const ProductOwnerLabel = styled.Text.attrs(props => ({
@@ -242,4 +237,3 @@ export const StarLabel = styled.Text.attrs(props => ({
   ${space}
   ${layout}
 `;
-

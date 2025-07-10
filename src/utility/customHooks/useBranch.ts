@@ -16,9 +16,9 @@ const useBranch = () => {
         console.error('Error from Branch: ' + error);
         return;
       }
-      if (params['+clicked_branch_link'] && params['$ios_url']) {
-        console.log('params', params['$ios_url']);
-        const productId = params['$ios_url'].split('/').pop();
+      if (params['+clicked_branch_link'] && params.$ios_url) {
+        console.log('params', params.$ios_url);
+        const productId = params.$ios_url.split('/').pop();
         console.log('PORUCTID', productId);
         if (productId) {
           dispatch(

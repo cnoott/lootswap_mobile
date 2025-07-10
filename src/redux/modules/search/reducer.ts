@@ -55,7 +55,7 @@ type ActionProps = {
 export default function loading(state = InitialState, action: ActionProps) {
   const {type, filterType, filter, payload} = action;
 
-  console.log('TYPE' ,type);
+  console.log('TYPE', type);
 
   switch (type) {
     case SEARCH_PRODUCTS.REQUEST:
@@ -231,7 +231,6 @@ export default function loading(state = InitialState, action: ActionProps) {
         loading: false,
       };
 
-
     case CLEAR_FILTERS.REQUEST:
       return {
         ...state,
@@ -265,7 +264,7 @@ export default function loading(state = InitialState, action: ActionProps) {
       };
 
     case CLEAR_PRODUCTS.SUCCESS:
-    console.log('calling clear products, in reducer');
+      console.log('calling clear products, in reducer');
       return {
         ...state,
         searchProducts: [],

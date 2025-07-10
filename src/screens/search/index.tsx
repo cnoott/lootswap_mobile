@@ -256,7 +256,7 @@ export const SearchScreen: FC<any> = props => {
       return (
         <EmptySearchContainer>
           <SvgXml xml={EMPTY_SEARCH_ICON} />
-          <EmptySearchText>{`Search for your\nnew loot`}</EmptySearchText>
+          <EmptySearchText>{'Search for your\nnew loot'}</EmptySearchText>
         </EmptySearchContainer>
       );
     }
@@ -338,7 +338,6 @@ export const SearchScreen: FC<any> = props => {
               //buttonText={'Start Trading'}
               //handleButtonPress={() => navigation.navigate('Home')}
             />
-
           }
         />
         {filtersSet && (

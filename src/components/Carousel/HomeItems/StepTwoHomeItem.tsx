@@ -25,13 +25,11 @@ import {scale} from 'react-native-size-matters';
 export const LSHomeStepTwoCarouselItem: FC<any> = React.memo(() => {
   return (
     <Container>
-      <StepThreeHeaderText>
-        All Traded Items Are
-      </StepThreeHeaderText>
+      <StepThreeHeaderText>All Traded Items Are</StepThreeHeaderText>
       <HeaderPrimaryText> Authenticated</HeaderPrimaryText>
       <StepTwoSubText>
-        Any items you trade get sent to our authentication center
-        so you dont get scammed.
+        Any items you trade get sent to our authentication center so you dont
+        get scammed.
       </StepTwoSubText>
       <Image
         source={HOME_CAROUSEL_MIDDLE}

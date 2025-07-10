@@ -17,3 +17,4 @@ export class Alert {
     this?.dropDown?.alertWithType('error', '', `${message}`);
   }
 }
+export default Alert;

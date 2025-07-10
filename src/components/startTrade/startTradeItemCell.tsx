@@ -65,9 +65,7 @@ const StartTradeItemCell: FC<StartTradeItemCellProps> = React.memo(props => {
 
       <DesBottomContainer>
         <ConditionSizeText>Condition:</ConditionSizeText>
-        <ConditionSizeResultText>
-          {item.condition}
-        </ConditionSizeResultText>
+        <ConditionSizeResultText>{item.condition}</ConditionSizeResultText>
       </DesBottomContainer>
       <DesBottomContainer>
         <ConditionSizeText>Size:</ConditionSizeText>

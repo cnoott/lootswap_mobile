@@ -97,7 +97,8 @@ const AppNavigation = () => {
       versionCheck(
         (latestVersionRes: String) => {
           if (
-            latestVersionRes && !latestVersionRes.includes(DeviceInfo.getVersion())
+            latestVersionRes &&
+            !latestVersionRes.includes(DeviceInfo.getVersion())
           ) {
             AlertModal.alert(
               'Update Available',
@@ -218,7 +219,10 @@ interface StackNavigatorProps {
   isSplashVisible: boolean;
   progress: number;
 }
-const StackNavigator: FC<StackNavigatorProps> = ({isSplashVisible, progress}) => {
+const StackNavigator: FC<StackNavigatorProps> = ({
+  isSplashVisible,
+  progress,
+}) => {
   const loading: LoadingProps = useSelector(state => state.loading);
   const navRef = useRef();
   const onNavigationReady = () => {

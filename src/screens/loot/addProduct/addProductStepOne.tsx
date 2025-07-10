@@ -176,7 +176,9 @@ export const AddProductStepOne: FC<ProductStep> = props => {
   }, [debouncedSearchTerm]);
 
   const fetchStockxData = useCallback(() => {
-    if (stockxLoading) return;
+    if (stockxLoading) {
+      return;
+    }
     setStockxLoading(true);
     handleDrawerAnimation();
     const reqData = {

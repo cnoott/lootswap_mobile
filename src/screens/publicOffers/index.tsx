@@ -56,7 +56,7 @@ export const CreatePublicOfferScreen: FC<any> = ({route}) => {
   };
 
   useEffect(() => {
-    loggingService().logEvent(`start_create_public_offer`);
+    loggingService().logEvent('start_create_public_offer');
   });
 
   useEffect(() => {
